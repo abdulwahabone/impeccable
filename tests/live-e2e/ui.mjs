@@ -10,10 +10,23 @@
  * the bar's text content changes.
  */
 
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 const BAR_ID = '#impeccable-live-bar';
 const GLOBAL_BAR_ID = '#impeccable-live-global-bar';
 const PICKER_ID = '#impeccable-live-picker';
-const PICK_TOGGLE_ID = '#impeccable-live-pick-toggle';
+const EDIT_BADGE_ID = '#impeccable-live-edit-badge';
+const PENDING_DOCK_ID = '#impeccable-live-pending-dock';
+const STEER_CHAT_ID = '#impeccable-live-page-chat';
+const STEER_INPUT_ID = '#impeccable-live-page-chat-input';
+const PICK_TOGGLE = '#impeccable-live-pick-toggle';
+// Alias kept so references introduced via origin/main (PICK_TOGGLE_ID)
+// continue to resolve to the same selector as the older PICK_TOGGLE name.
+const PICK_TOGGLE_ID = PICK_TOGGLE;
+const INSERT_TOGGLE = '#impeccable-live-insert-toggle';
+const INSERT_INPUT_ID = '#impeccable-live-insert-input';
+const INSERT_CREATE_ID = '#impeccable-live-insert-create';
 
 /**
  * Wait for the live handshake to complete:
@@ -38,19 +51,29 @@ export async function waitForHandshake(page, { timeout = 20_000 } = {}) {
 
 /**
  * Click an in-page element to select it. live-browser.js's picker only acts
- * when state === 'PICKING' AND pickActive is true; pickActive starts true on
- * connect. The handler reads the hovered element from `mousemove`, so we
- * dispatch a hover before the click.
+ * when state === 'PICKING' AND pickActive is true. Both interaction toggles
+ * default off on a fresh page — enable pick mode before hovering.
  */
-export async function pickElement(page, selector) {
-  const el = await page.waitForSelector(selector, { timeout: 5_000 });
-  for (let attempt = 0; attempt < 2; attempt++) {
+export async function pickElement(page, selector, opts = {}) {
+  const position = opts.position || null;
+  if (opts.resetPickMode) await resetPickMode(page);
+  else await enablePickMode(page);
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const el = await page.waitForSelector(selector, { timeout: 5_000 });
     await ensurePickerActive(page);
-    await el.hover();
-    // Tiny settle: live-browser updates `hoveredElement` on mousemove, and the
-    // click handler reads from it.
-    await page.waitForTimeout(50);
-    await clickPickTarget(page, el);
+    await hideAnnotationOverlay(page);
+    try {
+      await el.hover(position ? { position } : undefined);
+      // Tiny settle: live-browser updates `hoveredElement` on mousemove, and the
+      // click handler reads from it.
+      await page.waitForTimeout(50);
+      await clickPickTarget(page, el, position);
+    } catch (err) {
+      if (attempt === 2) throw err;
+      await page.waitForTimeout(250);
+      await resetPickMode(page);
+      continue;
+    }
     // Per-element bar mounts on click → wait for it. Dialog fixtures can
     // briefly hide the global live chrome while preActions open a portal, so
     // retry once after explicitly re-arming picker mode.
@@ -58,7 +81,8 @@ export async function pickElement(page, selector) {
       .waitForSelector(BAR_ID, { state: 'visible', timeout: 5_000 })
       .then(() => true, () => false);
     if (visible) break;
-    if (attempt === 1) {
+    await resetPickMode(page);
+    if (attempt === 2) {
       await page.waitForSelector(BAR_ID, { state: 'visible', timeout: 1 });
     }
   }
@@ -80,10 +104,19 @@ export async function pickElement(page, selector) {
   );
 }
 
-async function clickPickTarget(page, el) {
+async function hideAnnotationOverlay(page) {
+  await page.evaluate(() => {
+    const annot = document.querySelector('#impeccable-live-annot');
+    if (annot) annot.style.display = 'none';
+  }).catch(() => {});
+}
+
+async function clickPickTarget(page, el, position = null) {
   const box = await el.boundingBox();
   if (box) {
-    await page.mouse.click(box.x + box.width / 2, box.y + box.height / 2);
+    const x = position ? box.x + position.x : box.x + box.width / 2;
+    const y = position ? box.y + position.y : box.y + box.height / 2;
+    await page.mouse.click(x, y);
     return;
   }
   await el.evaluate((node) => node.click());
@@ -113,6 +146,25 @@ async function ensurePickerActive(page) {
   );
 }
 
+async function resetPickMode(page) {
+  await page.keyboard.press('Escape').catch(() => {});
+  await page.waitForTimeout(100);
+  await page.keyboard.press('Escape').catch(() => {});
+  await page.waitForTimeout(100);
+  await page.evaluate((sel) => {
+    const btn = document.querySelector(sel);
+    if (!btn) return;
+    const active = btn.dataset.active === 'true';
+    if (active) btn.click();
+    btn.click();
+  }, PICK_TOGGLE_ID).catch(() => {});
+  await page.waitForFunction(
+    (sel) => document.querySelector(sel)?.dataset.active === 'true',
+    PICK_TOGGLE_ID,
+    { timeout: 5_000 },
+  ).catch(() => {});
+}
+
 /**
  * Set the variant count by clicking the count button (cycles 2 → 3 → 4 → 2).
  * Default is 3. If the desired count is already showing, this is a no-op.
@@ -135,16 +187,34 @@ export async function setCount(page, count) {
 }
 
 /**
- * Click Go. Browser POSTs the generate event; the agent picks it up.
- *
- * On fixtures whose preActions triggered a layout shift (modal/tab opening)
- * the bar's open animation can still be running when we click, and
- * Playwright's stability gate occasionally times out on the first attempt.
- * Retry up to three times with a settle in between so a single race doesn't
- * fail the test.
+ * Click Go. Browser POSTs the generate event; the agent picks it up. Headed
+ * browser runs can occasionally accept the click without leaving configure
+ * mode after a long manual Apply, so verify the bar advanced and retry the
+ * visible click if it did not.
  */
 export async function clickGo(page) {
-  await clickBarButton(page, /Go\b/);
+  let lastErr;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    await clickBarButton(page, /Go\b/);
+    const advanced = await page.waitForFunction(
+      (barSel) => {
+        const bar = document.querySelector(barSel);
+        if (!bar) return false;
+        const text = bar.textContent || '';
+        if (/Generating\b/.test(text)) return true;
+        if (/\d+\s*\/\s*\d+/.test(text)) return true;
+        return ![...bar.querySelectorAll('button')].some((button) => /Go\b/.test(button.textContent || ''));
+      },
+      BAR_ID,
+      { timeout: 3_000 },
+    ).then(() => true, (err) => {
+      lastErr = err;
+      return false;
+    });
+    if (advanced) return;
+    await page.waitForTimeout(500);
+  }
+  throw lastErr || new Error('Go click did not leave configure mode');
 }
 
 /**
@@ -200,8 +270,17 @@ async function clickBarButton(page, label) {
   // Real-LLM fixtures can leave Vite/Tailwind HMR settling for longer than a
   // human-visible click target stays Playwright-stable. Dispatch the click on
   // the current button if normal user-like clicks lost the remount race.
-  const clicked = await page.evaluate(findAndClickBarButton, { barSel: BAR_ID, textMatch });
-  if (!clicked) throw lastErr;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const clicked = await page.evaluate(findAndClickBarButton, { barSel: BAR_ID, textMatch });
+      if (clicked) return;
+    } catch (err) {
+      lastErr = err;
+    }
+    await page.waitForSelector(BAR_ID, { timeout: 5_000 }).catch(() => {});
+    await page.waitForTimeout(500);
+  }
+  throw lastErr;
 }
 
 async function dispatchBarButton(page, label) {
@@ -282,6 +361,127 @@ export async function clickDiscard(page) {
   await page.locator(`${BAR_ID} button`, { hasText: '✕' }).click();
 }
 
+export async function clickEditCopy(page) {
+  await clickEditBadgeButton(page, 'Edit copy');
+  await page.waitForFunction(
+    () => document.querySelector('[data-impeccable-editable="true"]')?.isContentEditable === true,
+    { timeout: 5_000 },
+  );
+}
+
+export async function editTextLeaf(page, leafSelector, newText) {
+  const leaf = page.locator(leafSelector).first();
+  await leaf.waitFor({ state: 'visible', timeout: 5_000 });
+  const editable = await resolveEditableLeaf(page, leafSelector);
+  await editable.click({ timeout: 5_000 });
+  await editable.fill(newText, { timeout: 5_000 });
+}
+
+async function resolveEditableLeaf(page, leafSelector) {
+  const direct = page.locator(`${leafSelector}[contenteditable="true"]`).first();
+  if (await direct.count()) return direct;
+  const nested = page.locator(leafSelector).first().locator('[contenteditable="true"]').first();
+  if (await nested.count()) return nested;
+  return page.locator(leafSelector).first();
+}
+
+export async function clickSaveEdit(page) {
+  await clickEditBadgeButton(page, 'Save');
+  await page.waitForFunction(
+    () => !document.querySelector('[data-impeccable-editable="true"]'),
+    { timeout: 5_000 },
+  );
+}
+
+async function clickEditBadgeButton(page, label) {
+  const button = page.locator(`${EDIT_BADGE_ID} button`, { hasText: label });
+  try {
+    await button.click({ timeout: 5_000 });
+    return;
+  } catch (err) {
+    const clicked = await page.evaluate(({ badgeSel, text }) => {
+      const badge = document.querySelector(badgeSel);
+      const btn = [...(badge?.querySelectorAll('button') || [])].find((candidate) =>
+        (candidate.textContent || '').includes(text)
+      );
+      if (!btn) return false;
+      btn.click();
+      return true;
+    }, { badgeSel: EDIT_BADGE_ID, text: label });
+    if (!clicked) throw err;
+  }
+}
+
+export async function assertApplyDockVisible(page, expectedCount, { timeout = 5_000 } = {}) {
+  await page.waitForFunction(
+    ({ dockSel, expected }) => {
+      const dock = document.querySelector(dockSel);
+      if (!dock || dock.style.display === 'none') return false;
+      const pill = [...dock.querySelectorAll('button')].find((btn) =>
+        /Apply copy edit/.test(btn.textContent || '')
+      );
+      if (!pill || pill.style.display === 'none') return false;
+      if (expected == null) return true;
+      return parseInt(pill.dataset.count || '0', 10) === expected;
+    },
+    { dockSel: PENDING_DOCK_ID, expected: expectedCount },
+    { timeout },
+  );
+}
+
+export async function waitForApplyDockHidden(page, { timeout = 10_000 } = {}) {
+  await page.waitForFunction(
+    (dockSel) => {
+      const dock = document.querySelector(dockSel);
+      if (!dock || dock.style.display === 'none') return true;
+      const pill = [...dock.querySelectorAll('button')].find((btn) =>
+        /Apply copy edit/.test(btn.textContent || '')
+      );
+      return !pill || pill.style.display === 'none' || parseInt(pill.dataset.count || '0', 10) === 0;
+    },
+    PENDING_DOCK_ID,
+    { timeout },
+  );
+}
+
+export async function assertApplyDockLoading(page, { timeout = 5_000 } = {}) {
+  await page.waitForFunction(
+    (dockSel) => {
+      const dock = document.querySelector(dockSel);
+      if (!dock || dock.style.display === 'none') return false;
+      const pill = [...dock.querySelectorAll('button')].find((btn) =>
+        /Apply copy edit|Applying|Verifying|Fixing apply issue/.test(btn.textContent || '')
+      );
+      if (!pill) return false;
+      const spinner = dock.querySelector('[aria-hidden="true"]');
+      return pill.disabled === true
+        || pill.getAttribute('aria-busy') === 'true'
+        || /Applying|Verifying|Fixing apply issue/.test(pill.textContent || '')
+        || spinner?.style?.display === 'inline-block';
+    },
+    PENDING_DOCK_ID,
+    { timeout },
+  );
+}
+
+export async function clickApplyEdits(page) {
+  const dialog = page.waitForEvent('dialog', { timeout: 5_000 })
+    .then((d) => d.accept())
+    .catch(() => {});
+  await page.locator(`${PENDING_DOCK_ID} button`, { hasText: /Apply copy edit/ }).click({ timeout: 5_000 });
+  await dialog;
+}
+
+export function assertSourceApplied(tmp, file, originalText, newText) {
+  const body = readFileSync(join(tmp, file), 'utf-8');
+  if (!body.includes(newText)) {
+    throw new Error(`expected ${file} to include ${JSON.stringify(newText)}`);
+  }
+  if (originalText && !String(newText).includes(originalText) && body.includes(originalText)) {
+    throw new Error(`expected ${file} not to include ${JSON.stringify(originalText)}`);
+  }
+}
+
 /**
  * Wait for the bar to go away (after accept/discard the bar hides on confirm).
  */
@@ -294,4 +494,168 @@ export async function waitForBarHidden(page, { timeout = 10_000 } = {}) {
     BAR_ID,
     { timeout },
   );
+}
+
+/**
+ * Dismiss dev-tool overlays that intercept clicks on the live bar (Astro, etc.).
+ * @param {import('playwright').Page} page
+ */
+export async function preparePageForBarInteraction(page) {
+  await page.evaluate(() => {
+    for (const el of document.querySelectorAll('astro-dev-toolbar')) {
+      el.style.setProperty('display', 'none', 'important');
+      el.style.setProperty('pointer-events', 'none', 'important');
+    }
+  });
+}
+
+async function focusSteerInput(page) {
+  return page.evaluate(({ chatSel, inputSel }) => {
+    const chat = document.querySelector(chatSel);
+    const input = document.querySelector(inputSel);
+    if (!chat || !input) return false;
+    chat.dataset.expanded = 'true';
+    chat.style.width = 'min(280px, 38vw)';
+    chat.style.cursor = 'text';
+    input.disabled = false;
+    input.style.pointerEvents = 'auto';
+    input.style.opacity = '1';
+    input.style.width = 'auto';
+    input.style.padding = '0 6px';
+    try { window.focus(); } catch { /* embed may block */ }
+    try { input.focus({ preventScroll: true }); } catch { input.focus(); }
+    return document.activeElement === input;
+  }, { chatSel: STEER_CHAT_ID, inputSel: STEER_INPUT_ID });
+}
+
+/**
+ * Expand the Steer pill, type a message, and submit with Enter.
+ * Uses a normal click when possible; falls back to direct focus when overlays
+ * (e.g. Astro dev toolbar) intercept pointer events — same outcome as keyboard focus.
+ */
+export async function submitSteer(page, message) {
+  await preparePageForBarInteraction(page);
+  await page.locator(STEER_CHAT_ID).waitFor({ state: 'visible', timeout: 5_000 });
+
+  try {
+    await page.locator(STEER_CHAT_ID).click({ timeout: 2_500 });
+  } catch {
+    await focusSteerInput(page);
+  }
+  if (!(await focusSteerInput(page))) {
+    await page.locator(STEER_CHAT_ID).click({ force: true, timeout: 2_500 }).catch(() => {});
+    await focusSteerInput(page);
+  }
+
+  const input = page.locator(STEER_INPUT_ID);
+  await input.fill(message, { timeout: 5_000 });
+  await input.press('Enter');
+}
+
+/**
+ * Poll until a marked hero is visible. Uses Playwright's visible check so
+ * elements inside closed modals/tabs do not satisfy the assertion.
+ */
+export async function waitForSteerDomMarker(page, selector, { timeout = 20_000 } = {}) {
+  const loc = page.locator(selector).first();
+  await loc.waitFor({ state: 'visible', timeout });
+}
+
+/**
+ * Steer bar enters processing mode after submit (handing off / working).
+ */
+export async function waitForSteerLocked(page, { timeout = 5_000 } = {}) {
+  await page.waitForFunction(
+    (sel) => document.querySelector(sel)?.dataset.processing === 'true',
+    STEER_CHAT_ID,
+    { timeout },
+  );
+}
+
+/**
+ * Steer bar unlocks after the agent replies steer_done over SSE.
+ */
+export async function waitForSteerUnlocked(page, { timeout = 15_000 } = {}) {
+  await page.waitForFunction(
+    (sel) => {
+      const chat = document.querySelector(sel);
+      const input = document.querySelector('#impeccable-live-page-chat-input');
+      return chat?.dataset.processing !== 'true' && input && !input.disabled;
+    },
+    STEER_CHAT_ID,
+    { timeout },
+  );
+}
+
+async function ensureToggleActive(page, selector, shouldBeActive) {
+  const isActive = await page.locator(selector).evaluate((el) => el?.dataset.active === 'true');
+  if (isActive === shouldBeActive) return;
+  await page.locator(selector).click({ timeout: 5_000 });
+  await page.waitForFunction(
+    ({ sel, active }) => document.querySelector(sel)?.dataset.active === (active ? 'true' : 'false'),
+    { sel: selector, active: shouldBeActive },
+    { timeout: 5_000 },
+  );
+}
+
+/** Turn on Pick mode (and off Insert — they are mutually exclusive). */
+export async function enablePickMode(page) {
+  await ensureToggleActive(page, PICK_TOGGLE, true);
+}
+
+/** Turn on Insert mode (and off Pick — they are mutually exclusive). */
+export async function enableInsertMode(page) {
+  await ensureToggleActive(page, INSERT_TOGGLE, true);
+}
+
+/**
+ * Insert flow: hover an anchor at before/after edge, click to place the
+ * resizable placeholder, describe the new element, and click Create.
+ */
+export async function runInsertFlow(page, {
+  anchorSelector,
+  position = 'after',
+  prompt = 'Add a testimonial strip',
+} = {}) {
+  await enableInsertMode(page);
+  const anchor = await page.waitForSelector(anchorSelector, { timeout: 5_000 });
+  const box = await anchor.boundingBox();
+  if (!box) throw new Error(`anchor ${anchorSelector} has no layout box`);
+
+  const x = box.x + box.width / 2;
+  const y = position === 'before' ? box.y + 4 : box.y + box.height - 4;
+  await page.mouse.move(x, y);
+  await page.waitForFunction(() => {
+    const line = document.getElementById('impeccable-live-insert-line');
+    return line && line.style.display !== 'none';
+  }, { timeout: 5_000 });
+  await page.mouse.click(x, y);
+
+  await page.waitForSelector(INSERT_INPUT_ID, { state: 'visible', timeout: 5_000 });
+  await page.waitForSelector(BAR_ID, { state: 'visible', timeout: 5_000 });
+
+  await page.evaluate(({ sel, value }) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    el.value = value;
+    el.dispatchEvent(new Event('input', { bubbles: true }));
+  }, { sel: INSERT_INPUT_ID, value: prompt });
+
+  await page.waitForFunction(
+    (sel) => {
+      const btn = document.querySelector(sel);
+      return btn && !btn.disabled;
+    },
+    INSERT_CREATE_ID,
+    { timeout: 5_000 },
+  );
+  const clicked = await page.evaluate((sel) => {
+    const btn = document.querySelector(sel);
+    if (!btn || btn.disabled) return false;
+    btn.click();
+    return true;
+  }, INSERT_CREATE_ID);
+  if (!clicked) {
+    await page.locator(INSERT_CREATE_ID).click({ force: true, timeout: 5_000 });
+  }
 }

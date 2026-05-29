@@ -222,5 +222,4 @@ describe('live-e2e agent output translation', () => {
     const result = normalizeVariantOutput(original, { styleMode: 'scoped' });
     assert.equal(result, original);
   });
-
 });
