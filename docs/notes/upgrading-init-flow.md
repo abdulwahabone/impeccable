@@ -15,7 +15,7 @@
 | The one line a visitor remembers after 10 seconds | `## Product Purpose` | The distilled expression of the positioning — the hero/H1 north star, and a pass/fail test in `critique` ("does the top of the page actually say this?"). | false | "Design partner for brands ready to look as mature as their revenue." | "Team health in one screen, no spreadsheet export." |
 | Strategic tensions to hold ("X, but not Y") | `## Design Principles` or `## Brand Personality` | Stops the obvious move from overshooting (bold → loud, simple → bland). Gives every command, and `live` variants, a guardrail for taste calls. | false | Confident not loud · Editorial not template · Proof-led not claim-led | Dense not cluttered · Familiar not generic · Fast not flashy |
 
-## Document `DESIGN.md`
+## Document seed `DESIGN.md`
 
 ### Blank repo
 
