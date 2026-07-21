@@ -1,6 +1,6 @@
 {
  "schemaVersion": 7,
- "catalogVersion": "2026-07-21T20:24:56.000Z",
+ "catalogVersion": "2026-07-21T21:26:38.000Z",
  "comment": "Human-reviewed creative worlds for concept-seed.mjs, organized into seven inspiration wells: the distinct places designers actually mine for award-level work. Every entry must create an immediate mental image, inherit concrete material, spatial, or compositional laws, translate those laws into reusable interface grammar, and exploit the web medium. Literal software archetypes, style names without inherited laws, and tacked-on spectacle are rejected before review.",
  "qualityBar": {
   "principle": "Catalog visual worlds a designer could mine on sight: every concept must name a magnetic world, artifact, or graphic tradition whose look immediately yields a palette and material vocabulary, a type voice, at least three distinct interface component roles, and one signature state change, then stay structurally generative, product-legible, and responsibly executable across a whole product rather than one opening page. Prefer worlds people already recognize and love: built-in cultural resonance beats equal lawfulness in obscurity.",
@@ -685,6 +685,106 @@
      ],
      "webLeverage": "Layered CSS and SVG planes recomposing responsively while remaining one semantic figure",
      "strength": "world"
+    },
+    {
+     "id": "tdr-info-noise-sleeve",
+     "form": "a Designers Republic sleeve, where pseudo-corporate roundels, hazard sans, faux-kanji, and registration marks compose hostile-brand information noise that is itself immaculate branding",
+     "lineage": "The Designers Republic's Sheffield studio work for Warp and the WipEout era of anti-corporate corporate design",
+     "tags": [
+      "info-noise",
+      "pseudo-corporate",
+      "hazard-sans"
+     ],
+     "spark": "A magenta target grid locks over black; warning glyphs, barcode fragments, and a fake product code crowd the edge while one enormous condensed word shouts through the noise.",
+     "system": [
+      "Palette/material: magenta, safety orange, and white on absolute black, flat print surfaces with no gradients; density itself is the material",
+      "Type/composition: condensed hazard grotesk in stacked lockups, faux-kanji and registration marks as ornament, everything gridded tight to the edge",
+      "Topology/navigation: Move by product code, by roundel family, and by warning class.",
+      "Controls/state: Stamp, register, and certify; active states add another layer of official-looking marks.",
+      "Responsive/motion: Density reflows by dropping ornament layers in declared steps; the one shouting word never shrinks."
+     ],
+     "webLeverage": "Layered SVG mark systems with density tiers driven by container queries",
+     "strength": "world"
+    },
+    {
+     "id": "blue-note-session-sleeve",
+     "form": "a 1950s Blue Note session sleeve, where one cropped duotone photograph and oversized sans caps lock to a modular grid and two colors carry the whole record",
+     "lineage": "Reid Miles's Blue Note cover system, 1955 to 1967 hard-bop sleeve design",
+     "tags": [
+      "duotone-crop",
+      "modular-grid",
+      "two-color"
+     ],
+     "spark": "A trumpet player leans out of a cyan duotone crop; the title runs enormous across him in tight black caps, and one thin rule carries the personnel like a set list.",
+     "system": [
+      "Palette/material: one ink color plus black on warm white, photography always duotoned into the ink; no third color ever",
+      "Type/composition: oversized grotesk caps cropped and bled off the edge, personnel in small tracked caps on thin rules, scale jumps as the only hierarchy",
+      "Topology/navigation: Move by session, by personnel, and by catalog number.",
+      "Controls/state: Crop, tint, and bleed; selection re-crops the photograph rather than adding chrome.",
+      "Responsive/motion: The crop recomposes per aspect ratio while the type keeps its bleed; nothing fades, everything cuts."
+     ],
+     "webLeverage": "CSS blend-mode duotone over real photography with typographic crops recomposed by container queries",
+     "strength": "dual"
+    },
+    {
+     "id": "seven-scratch-titles",
+     "form": "a scratched-emulsion title sequence, where damaged type jitters frame to frame, splices tear mid-word, and legibility is fought for against the film itself",
+     "lineage": "Kyle Cooper's Se7en main titles and the 1990s composite title-design school",
+     "tags": [
+      "scratched-type",
+      "frame-jitter",
+      "optical-splice"
+     ],
+     "spark": "A name scrawled in nervous hand flickers twice, tears, and reassembles one frame later slightly wrong; the sprocket edge shows for a single frame and disappears.",
+     "system": [
+      "Palette/material: bone white and dirty silver on near-black, emulsion scratches and splice tape as the only ornament",
+      "Type/composition: damaged serif and hand-scrawl interleaved, credits ranked by exposure time rather than size, generous black between events",
+      "Topology/navigation: Move by sequence, by frame, and by splice.",
+      "Controls/state: Advance, hold, and tear; an active element jitters within a two-frame register, never smoothly",
+      "Responsive/motion: Jitter quantizes to frames and honors reduced motion by resolving to the held frame; tears mark real state changes only."
+     ],
+     "webLeverage": "Stepped keyframe animation with SVG displacement filters, resolving to static frames under reduced motion",
+     "strength": "dual"
+    },
+    {
+     "id": "fourad-dream-collage-sleeve",
+     "form": "a 4AD dream-collage sleeve, where macro photography, distressed serif fragments, and layered translucent texture compose a saturated tactile fog with no clean grid",
+     "lineage": "Vaughan Oliver and 23 Envelope's sleeve work for 4AD, 1980s and 1990s",
+     "tags": [
+      "macro-collage",
+      "serif-fragment",
+      "tactile-fog"
+     ],
+     "spark": "A blurred silk surface fills the frame in bruised violet; a serif word drifts half-dissolved across it, and something metallic glints out of focus where the tracklist should be.",
+     "system": [
+      "Palette/material: bruised violets, oxidized golds, and deep blacks in layered translucency; photographic texture is the ground, never a backdrop",
+      "Type/composition: distressed serif fragments floating inside the image, credits set small and orthogonal to the dream; no alignment to a visible grid",
+      "Topology/navigation: Move by layer, by fragment, and by depth of focus.",
+      "Controls/state: Surface, dissolve, and refocus; the active layer sharpens while the rest blurs deeper.",
+      "Responsive/motion: Layers drift at unequal speeds and refocus on attention; reduced motion presents the sharpened composition directly."
+     ],
+     "webLeverage": "Layered blend-mode composition with focus states driven by backdrop-filter blur",
+     "strength": "dual"
+    },
+    {
+     "id": "tseries-cassette-montage",
+     "form": "a Bollywood cassette card, where overprinted star portraits, multilingual display type, and saturated panel clash compose exuberant music packaging on cheap stock",
+     "lineage": "T-Series and 1980s-90s Indian film-music cassette design",
+     "tags": [
+      "overprint-montage",
+      "multilingual-billing",
+      "saturated-clash"
+     ],
+     "spark": "Three heroes gaze in three directions out of one magenta-and-gold card; the title arcs in two scripts across a sunburst, and a red NEW flash overlaps everything including the barcode.",
+     "system": [
+      "Palette/material: magenta, gold, cyan, and red overprinted at full saturation on thin gloss stock; misregistration reads as energy, not error",
+      "Type/composition: arced display billing in Devanagari and Latin together, star portraits montaged over sunbursts, every panel filled edge to edge",
+      "Topology/navigation: Move by film, by star, and by side A or B.",
+      "Controls/state: Flash, arc, and overlay; the newest item earns the loudest violator.",
+      "Responsive/motion: Panels restack without ever gaining whitespace; the billing arc reflows per width and both scripts stay equal."
+     ],
+     "webLeverage": "Overprint palettes via blend modes and display billing set on SVG text paths",
+     "strength": "dual"
     }
    ]
   },
@@ -2216,6 +2316,126 @@
      ],
      "webLeverage": "WebGL or CSS 3D depth stack with a complete flat semantic document behind it",
      "strength": "dual"
+    },
+    {
+     "id": "nier-bone-console",
+     "form": "an android's bone-and-rust field console, where one drained monochrome, serif labels, and plug-in-chip grids make the machine's own OS the interface",
+     "lineage": "NieR:Automata's diegetic interface design by PlatinumGames, 2017",
+     "tags": [
+      "drained-monochrome",
+      "serif-console",
+      "chip-grid"
+     ],
+     "spark": "A bone-white field hums with faint scanlines; a serif menu clicks into place like a ritual object, and pulling one chip from the grid visibly costs the system something.",
+     "system": [
+      "Palette/material: bone white and warm gray-brown in one drained monochrome, faint grain and scanline texture; color appears only as a single alert accent",
+      "Type/composition: quiet serif labels over precise hairline frames, inventory as socketed chip grids, monumental headings letterspaced like inscriptions",
+      "Topology/navigation: Move by system module, by chip socket, and by log entry.",
+      "Controls/state: Socket, unsocket, and diagnose; capacity is visible and every equipped state costs visible budget.",
+      "Responsive/motion: Panels slide with mechanical restraint and a soft glitch marks damage states; grids reflow by whole sockets."
+     ],
+     "webLeverage": "A capacity-budgeted socket grid as real interactive components with visible cost accounting",
+     "strength": "dual"
+    },
+    {
+     "id": "painted-ledger-dialogue",
+     "form": "a painted-ledger dialogue interface, where oil-portrait texture, named inner voices, and visible dice checks turn conversation into an argued case",
+     "lineage": "Disco Elysium's dialogue and skill-check interface by ZA/UM, 2019",
+     "tags": [
+      "oil-texture",
+      "named-voices",
+      "visible-dice"
+     ],
+     "spark": "A thick-brushed portrait watches from the margin as LOGIC interjects in its own color; the dice tumble in the ledger line and land on a failure the text immediately owns.",
+     "system": [
+      "Palette/material: oil-painted texture in muddy ambers and storm blues, paper-ledger ground for the text column; brushwork stays visible at every scale",
+      "Type/composition: one reading column like a court record, speaker names in small caps with per-voice color, checks and odds set inline with the prose",
+      "Topology/navigation: Move by exchange, by voice, and by check.",
+      "Controls/state: Roll, pass, fail, and reconsider; failed checks persist honestly in the record instead of vanishing.",
+      "Responsive/motion: The ledger scrolls as one continuous record; dice resolve in a single readable tumble, reduced motion states the odds and outcome plainly."
+     ],
+     "webLeverage": "Inline probability checks as real interactive elements with persistent outcome states in the document",
+     "strength": "dual"
+    },
+    {
+     "id": "frutiger-aero-glasswater",
+     "form": "a Frutiger Aero glasswater surface, where photographic sky, grass, and water droplets shine through wet glass panels and gel buttons in eco-tech optimism",
+     "lineage": "The mid-2000s Frutiger Aero consumer-technology aesthetic across Vista-era software and hardware marketing",
+     "tags": [
+      "wet-glass",
+      "photo-nature",
+      "gel-controls"
+     ],
+     "spark": "A blue sky bends through a curved glass pane beaded with water; a green field glows underneath, and a gel button swells with light as if it just surfaced from the pool.",
+     "system": [
+      "Palette/material: photographic sky blues and grass greens under translucent glass whites; water droplets and bokeh as legitimate surface material",
+      "Type/composition: rounded humanist sans in generous sizes, content on floating glass panes over full-bleed nature photography, soft swoosh dividers used sparingly",
+      "Topology/navigation: Move by pane, by scene, and by depth under glass.",
+      "Controls/state: Bloom, refract, and bead; active elements gain light rather than borders.",
+      "Responsive/motion: Light sweeps across glass on state change; panes float on slow parallax that reduced motion flattens without losing depth order."
+     ],
+     "webLeverage": "Backdrop-filter glass over real photography with light-sweep state transitions",
+     "strength": "world"
+    },
+    {
+     "id": "eboy-pixorama-metropolis",
+     "form": "an eBoy pixorama metropolis, where full-saturation RGB isometric blocks build a zoomable city and every object shares one hard pixel grid",
+     "lineage": "eBoy's commercial pixel-illustration cityscapes since 1998",
+     "tags": [
+      "isometric-pixel",
+      "rgb-saturation",
+      "zoom-density"
+     ],
+     "spark": "A candy-red crane swings over a cyan office block; three pixel citizens queue for a hotdog cart, and zooming in reveals a robot watering plants on the roof.",
+     "system": [
+      "Palette/material: full-saturation RGB primaries with zero anti-aliasing; the hard pixel is the only unit and dithering is deliberate",
+      "Type/composition: blocky pixel type sharing the object grid, isometric density arranged in readable city blocks, jokes hidden at deeper zoom levels",
+      "Topology/navigation: Move by block, by zoom level, and by hidden detail.",
+      "Controls/state: Zoom, hover, and discover; hover pops a label without breaking the grid.",
+      "Responsive/motion: Zoom steps in whole pixel multiples; small screens show fewer blocks at the same crisp scale, never scaled-down mush."
+     ],
+     "webLeverage": "Integer-scaled pixel rendering with a stepped zoom stage and discoverable hover labels",
+     "strength": "world"
+    },
+    {
+     "id": "nextstep-relief-workspace",
+     "form": "a NeXTSTEP relief workspace, where sculpted charcoal bevels, magnesium grays, and a cascading column browser carve hierarchy out of light instead of color",
+     "lineage": "NeXTSTEP's PostScript display environment and workstation interface, 1989 to 1995",
+     "tags": [
+      "sculpted-bevel",
+      "grayscale-relief",
+      "column-browser"
+     ],
+     "spark": "A charcoal panel catches light along its top edge; the file browser steps sideways through three carved columns, and one dock icon glows faintly like brushed metal under a lamp.",
+     "system": [
+      "Palette/material: magnesium grays from near-white to charcoal, relief carved by consistent top-left light; color appears only in content, never chrome",
+      "Type/composition: crisp humanist labels on beveled bars, miller columns stepping sideways, a docked shelf of sculpted tiles at one edge",
+      "Topology/navigation: Move by column, by shelf tile, and by drilled path.",
+      "Controls/state: Press, recess, and select; active elements recess into the surface instead of lighting up.",
+      "Responsive/motion: Columns collapse to a breadcrumb spine on narrow screens; presses are instant, depth never animates for decoration."
+     ],
+     "webLeverage": "A working miller-column browser with relief rendered by consistent light-direction shadows",
+     "strength": "world"
+    },
+    {
+     "id": "pc98-dither-dojin",
+     "form": "a PC-98 dithered screen, where sixteen muted colors, fine dither weave, and a visual-novel command box compose the Japanese hi-res home-computer culture",
+     "lineage": "NEC PC-9801 game and doujin-soft screen design, 1980s and 1990s Japan",
+     "tags": [
+      "sixteen-color-dither",
+      "command-box",
+      "muted-palette"
+     ],
+     "spark": "Dusk falls over a classroom in woven teal and mauve dither; the command box waits at the bottom with four verbs, and a cursor blink is the only motion in the room.",
+     "system": [
+      "Palette/material: a muted sixteen-color palette of teals, mauves, and ochres, gradients woven from fine dither; black frames every scene",
+      "Type/composition: crisp bitmap text in a framed bottom command box, scene art above, vertical text legitimate for titles and asides",
+      "Topology/navigation: Move by scene, by verb, and by log.",
+      "Controls/state: Choose, examine, and recall; chosen verbs gray honestly and the log preserves every line.",
+      "Responsive/motion: Scenes cut rather than fade; the command box is a fixed instrument that reflows verbs by whole cells."
+     ],
+     "webLeverage": "CSS dither patterning and a persistent verb-box component with a full readable log",
+     "strength": "world"
     }
    ]
   },
@@ -3030,6 +3250,26 @@
      ],
      "spark": "Somewhere over the ocean you flip the stiff card and a serene flat woman inflates her vest in three numbered panels, a red slash forbidding the cigarette she was never going to light.",
      "webLeverage": "svg pictogram panels advance with css steps() timing so every instruction cuts frame to frame like the printed card",
+     "strength": "composition"
+    },
+    {
+     "id": "variety-telop-caption-field",
+     "form": "a variety-show telop field, where hand-placed multicolor outlined captions size themselves to the emotion of speech and turn the frame into a live comic",
+     "lineage": "Japanese variety-television telop caption craft since the 1990s",
+     "tags": [
+      "outlined-caption",
+      "emotional-scale",
+      "hand-placement"
+     ],
+     "spark": "A gasp lands as fat yellow katakana with a red outline tilted eight degrees; the follow-up mutter sits tiny and gray in the corner, and both are gone before the laugh ends.",
+     "system": [
+      "Palette/material: high-chroma fills with contrast outlines and drop shadows built for legibility over anything; each emotional register owns a color family",
+      "Type/composition: free placement keyed to the speaker, scale mapped to intensity, never a fixed lower-third band; rotation is punctuation",
+      "Topology/navigation: Move by speaker, by beat, and by reaction.",
+      "Controls/state: Land, hold, and vanish; emphasis states change scale and outline weight, not position.",
+      "Responsive/motion: Captions enter with a single snap and leave clean; reduced motion pins them for the full beat."
+     ],
+     "webLeverage": "A caption layer of absolutely-placed outlined type driven by content beats, fully readable in sequence",
      "strength": "dual"
     }
    ]
@@ -4266,6 +4506,46 @@
      "spark": "you punch four steps into the red quarter of the row and hit run, the chase light comes around, and the empty machine suddenly has a pulse you made, so you lean in and accent the offbeat",
      "webLeverage": "web audio clocks the chase light and playback while each step key stays a toggle button operable by keyboard",
      "strength": "dual"
+    },
+    {
+     "id": "bloomberg-amber-terminal",
+     "form": "a financial data terminal, where amber section headers, color-keyed cells, and a function-key command language make dense ranked tables the entire interface",
+     "lineage": "The Bloomberg Terminal and professional market-data screen design since the 1990s",
+     "tags": [
+      "amber-headers",
+      "color-keyed-cells",
+      "command-language"
+     ],
+     "spark": "A black field fills with fractional prices; one row flashes from amber to green as it reranks, and a typed four-letter command repaints the whole screen into a different instrument.",
+     "system": [
+      "Palette/material: absolute black ground, amber headers, green and red reserved for direction, cyan for the typed command line; color is state, never decoration",
+      "Type/composition: dense tabular monospace ranked in strict columns, section headers in amber caps, the command line always resident at one edge",
+      "Topology/navigation: Move by typed command, by ranked column, and by linked panel.",
+      "Controls/state: Query, rank, flash, and pin; a value change flashes once and settles, and every number exposes its source.",
+      "Responsive/motion: Columns drop by declared priority on narrow screens; flashes are single-frame and honor reduced motion by holding color."
+     ],
+     "webLeverage": "Real data tables with a working command palette and single-flash state transitions",
+     "strength": "world"
+    },
+    {
+     "id": "weatherstar-local-forecast",
+     "form": "a WeatherStar local forecast, where an LED-style font, weather pictograms, and ranked city rows cycle on a blue-purple gradient that never stops broadcasting",
+     "lineage": "The Weather Channel's WeatherStar 4000 character generator and the Local on the 8s format",
+     "tags": [
+      "led-forecast-font",
+      "timed-cycle",
+      "gradient-field"
+     ],
+     "spark": "The gradient deepens toward night as CURRENT CONDITIONS slides up; a star icon and 72 degrees hold the frame for exactly eight seconds before the extended forecast wipes in.",
+     "system": [
+      "Palette/material: blue-to-purple gradient field with white LED-style numerals, yellow reserved for advisories; the crawl bar owns the bottom edge",
+      "Type/composition: chunky pixel forecast font over ranked city rows, one pictogram per condition, panels timed rather than stacked",
+      "Topology/navigation: Move by segment, by city row, and by forecast day.",
+      "Controls/state: Cycle, hold, and advise; an advisory recolors the crawl and interrupts the cycle honestly.",
+      "Responsive/motion: The cycle is the pacing: timed panel advances with wipe transitions, fully paused by reduced motion into a paged view."
+     ],
+     "webLeverage": "A self-advancing timed panel cycle with an accessible paged fallback and a live crawl region",
+     "strength": "world"
     }
    ]
   },
@@ -4682,6 +4962,26 @@
       "Responsive/motion: Drawings replot stroke by stroke at readable speed; reduced motion shows finished plots instantly."
      ],
      "webLeverage": "SVG stroke drawing with animated path length and user-adjustable seed parameters that stay deterministic",
+     "strength": "world"
+    },
+    {
+     "id": "cyworld-minihompy-room",
+     "form": "a minihompy room, where a furnishable isometric miniature space, an acorn economy, and a visitor ledger make identity something you decorate",
+     "lineage": "Cyworld's Korean minihompy culture, 2003 to 2009",
+     "tags": [
+      "isometric-room",
+      "furnish-economy",
+      "visitor-ledger"
+     ],
+     "spark": "A pastel room holds a tiny record player bought last week; the visitor counter ticks past 1,004, today's mood is a small rain cloud, and a friend leaves a note in the guest ledger.",
+     "system": [
+      "Palette/material: pastel wallpaper and floor tiles in an isometric frame, sticker-like furnishings with soft outlines; the room itself is the profile",
+      "Type/composition: compact rounded labels on panels around the room, the diary column beside it, counters and mood marks as small honest chrome",
+      "Topology/navigation: Move by room, by diary entry, and by friend link.",
+      "Controls/state: Furnish, rearrange, and visit; placing an item changes the room for every visitor.",
+      "Responsive/motion: The room stays whole at every size while panels restack around it; furnishing lands with one soft settle."
+     ],
+     "webLeverage": "A persistent decoratable isometric scene as the identity surface, with real furnishing state",
      "strength": "world"
     }
    ]
