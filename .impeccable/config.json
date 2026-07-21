@@ -137,6 +137,24 @@
         ],
         "createdAt": "2026-07-21T00:00:00.000Z",
         "reason": "Hero proof before/after cards and the slop-pattern preview are deliberate anti-pattern specimens with foreign product palettes and type; extends the existing before-state demo waivers to the v4 homepage file"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "site/styles/home-refresh.css"
+        ],
+        "createdAt": "2026-07-21T00:00:00.000Z",
+        "reason": "The hero proof before-card's side-tab border is the showcased tell (user asked for its callout annotation), and the slop-pattern preview renders the side-tab specimen by design"
+      },
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "site/styles/home-refresh.css"
+        ],
+        "createdAt": "2026-07-21T00:00:00.000Z",
+        "reason": "The slop-pattern preview draws the decorative grid-line background as a deliberate generated-UI specimen"
       }
     ]
   },
