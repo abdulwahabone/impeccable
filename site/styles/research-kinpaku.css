@@ -125,7 +125,7 @@
 	min-width: 60px;
 	height: 60px;
 	font-family: var(--ks-font-display);
-	font-size: 2.4rem;
+	font-size: 2.5rem;
 	font-weight: 700;
 	color: var(--ks-dark-ink);
 	background: var(--ks-kinpaku);
@@ -152,7 +152,7 @@
 .research-roll h2 {
 	margin: 0;
 	font-family: var(--ks-font-display);
-	font-size: clamp(1.5rem, 4vw, 1.95rem);
+	font-size: clamp(1.5rem, 4vw, 2rem);
 	font-weight: 600;
 	line-height: 1.18;
 	letter-spacing: 0.005em;
@@ -333,7 +333,7 @@
 .research-chapter-title {
 	margin: 0 0 16px;
 	font-family: var(--ks-font-display);
-	font-size: clamp(1.9rem, 5vw, 2.6rem);
+	font-size: clamp(2rem, 5vw, 2.6rem);
 	font-weight: 700;
 	line-height: 1.08;
 	color: var(--ks-champagne);
@@ -353,7 +353,7 @@
 .research-close-big {
 	max-width: none;
 	font-family: var(--ks-font-display);
-	font-size: clamp(1.5rem, 3.6vw, 1.9rem);
+	font-size: clamp(1.5rem, 3.6vw, 2rem);
 	font-style: italic;
 	line-height: 1.35;
 	color: var(--ks-champagne);

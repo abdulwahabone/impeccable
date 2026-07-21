@@ -21,7 +21,7 @@ Run `bun run build` after changing anything in `skill/`, transformer code, or us
 
 ## Generated Provider Output Policy
 
-The root harness folders (`.agents/skills/`, `.claude/skills/`, `.cursor/skills/`, `.gemini/skills/`, `.github/skills/`, `.kiro/skills/`, `.opencode/skills/`, `.pi/skills/`, `.qoder/skills/`, `.rovodev/skills/`, `.trae*/skills/`) and `plugin/` stay tracked so `main` remains installable for direct GitHub, `npx skills`, and submodule users. They are still generated artifacts.
+The root harness folders (`.agents/skills/`, `.claude/skills/`, `.cursor/skills/`, `.gemini/skills/`, `.github/skills/`, `.kiro/skills/`, `.opencode/skills/`, `.pi/skills/`, `.qoder/skills/`, `.rovodev/skills/`, `.trae*/skills/`, `.vibe/skills/`) and `plugin/` stay tracked so `main` remains installable for direct GitHub, `npx skills`, and submodule users. They are still generated artifacts.
 
 Normal development should be source-first: stage changes in `skill/`, `scripts/`, `cli/`, `site/`, `extension/`, `functions/`, and `tests/`; leave generated harness churn unstaged unless the user asked for it. After source changes land on `main`, `.github/workflows/sync-generated-output.yml` runs `bun run build:release` and commits generated provider output directly back to `main`. Treat generated harness diffs as release artifacts and keep them out of feature PRs unless they are the point of the PR.
 
@@ -66,6 +66,8 @@ Conventions: wrap the identifying heading text in straight double quotes inside 
 ## Commit & Pull Request Guidelines
 
 Recent history favors short, imperative subjects such as `Fix: ...`, `Add ...`, `Improve ...`, or `Bump ...`. Keep commits focused and explain the user-facing impact when it is not obvious. PRs should summarize what changed, list validation performed, and call out whether generated provider output was intentionally omitted or intentionally refreshed. Include screenshots for visible `site/` changes and mention affected providers when transform behavior changes.
+
+**Do not bump manifest versions or add changelog entries in a feature PR.** Bumping is a release step: a version in a feature branch conflicts with every other open branch, and a changelog entry describes a release that has not happened yet. Land the code; the maintainer bumps `package.json` / `.claude-plugin/plugin.json` / `extension/manifest.json` and writes `site/pages/changelog.astro` when cutting the release (see **Releases**). The only PR that touches a manifest version is one whose purpose is the release itself.
 
 ## Contributing, Issue, and PR Guidelines
 
