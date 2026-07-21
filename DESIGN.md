@@ -145,6 +145,21 @@ typography:
     fontSize: "0.72rem"
     fontWeight: 500
     letterSpacing: "0.22em"
+  label:
+    # Micro caps chrome label, one step below eyebrow: tile numbers
+    # (.ks-bento-num), zone labels, tier tags, chips. For UI chrome that
+    # must whisper next to imagery; never for running copy.
+    fontFamily: "SFMono-Regular, Roboto Mono, Consolas, monospace"
+    fontSize: "0.62rem"
+    fontWeight: 500
+    letterSpacing: "0.24em"
+  caption:
+    # Small supporting text: card captions, meta link rows, inline status
+    # lines. One step, so near-duplicate 0.78-0.85rem literals don't creep.
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "0.85rem"
+    fontWeight: 400
+    lineHeight: 1.55
 
 rounded:
   none: "0"

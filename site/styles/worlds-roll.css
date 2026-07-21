@@ -25,6 +25,13 @@
 
 .worlds-lead {
 	max-width: 62ch;
+	/* No stranded words at the rag, and the trailing research link moves to
+	   the next line as one piece instead of breaking after "Why". */
+	text-wrap: pretty;
+}
+
+.worlds-lead .cheatsheet-link {
+	white-space: nowrap;
 }
 
 /* ============================================================
@@ -104,7 +111,7 @@
 
 .worlds-card-tier {
 	font-family: var(--ks-mono);
-	font-size: 0.58rem;
+	font-size: 0.62rem;
 	letter-spacing: 0.24em;
 	text-transform: uppercase;
 	color: var(--ks-text-faint);
@@ -125,7 +132,7 @@
 	inset: auto 0 0 0;
 	bottom: calc(1.15em + 2.2rem);
 	padding: 44px 14px 12px;
-	font-size: 0.78rem;
+	font-size: 0.85rem;
 	line-height: 1.5;
 	color: var(--ks-text);
 	background: linear-gradient(to top, oklch(7% 0.006 95 / 0.94) 45%, transparent);
@@ -240,7 +247,7 @@
 .worlds-roll-meta {
 	overflow: hidden;
 	font-family: var(--ks-mono);
-	font-size: 0.64rem;
+	font-size: 0.62rem;
 	letter-spacing: 0.04em;
 	color: var(--ks-text-mute-deep);
 	text-overflow: ellipsis;
@@ -301,7 +308,7 @@
 	z-index: 1;
 	padding: 4px 10px;
 	font-family: var(--ks-mono);
-	font-size: 0.6rem;
+	font-size: 0.62rem;
 	letter-spacing: 0.24em;
 	text-transform: uppercase;
 	color: var(--ks-dark-ink);
@@ -343,7 +350,7 @@
 .worlds-played-cta {
 	margin-top: 6px;
 	font-family: var(--ks-mono);
-	font-size: 0.66rem;
+	font-size: 0.62rem;
 	letter-spacing: 0.22em;
 	text-transform: uppercase;
 	color: var(--ks-kinpaku);
@@ -353,7 +360,7 @@
 	display: flex;
 	gap: 18px;
 	margin: 14px 2px 0;
-	font-size: 0.82rem;
+	font-size: 0.85rem;
 }
 
 .worlds-played-meta a {
