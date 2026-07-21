@@ -1,0 +1,378 @@
+---
+import Base from '../layouts/Base.astro';
+import '../styles/sub-pages.css';
+import '../styles/research-kinpaku.css';
+---
+
+<Base
+  title="The Model Can't Roll Its Own Dice | Impeccable Research"
+  description="Seven measured lessons from teaching a coding model to produce genuinely distinct design one-shot, and the human-reviewed world catalog and roll API those lessons became."
+  activeNav="docs"
+  canonicalPath="/research"
+  bodyClass="sub-page kinpaku-chrome kinpaku-surface research-page"
+>
+  <article class="research-article">
+    <header class="research-header">
+      <p class="research-kicker">Field notes &middot; getting divergence out of a design model</p>
+      <h1 class="research-title">The model can't roll <em>its own dice</em></h1>
+      <p class="research-dek">
+        Seven measured lessons from teaching a coding model to produce genuinely
+        distinct design, one-shot. Every claim below was earned by an experiment
+        that first proved us wrong. Then the part that came after: the lessons
+        hardened into a human-reviewed catalog of worlds and a roll API that now
+        ships in the skill.
+      </p>
+      <p class="research-prov">impeccable v4 one-shot campaign &middot; ~24 skill iterations, ~150 sampled concepts, ~$1,900 of evals &middot; July 2026</p>
+    </header>
+
+    <section class="research-lesson">
+      <div class="research-roll"><span class="research-die">1</span>
+        <h2>The model doesn't lack creativity. It lacks <mark>variance</mark>.</h2>
+      </div>
+      <p>
+        We asked for design concepts under sixteen different creative framings: a
+        bland-design-epidemic pep talk, an impossible-to-please client, taste
+        vocabulary, world-building metaphors. Thirty of thirty-five answers
+        were <strong>the identical concept</strong>. Temperature buys you different
+        sentences, not different ideas.
+      </p>
+      <figure class="research-spec">
+        <figcaption>Four different "be creative" prompts &middot; four verbatim answers</figcaption>
+        <p><span class="research-dim">bland-epidemic &rarr;</span> <span class="research-same">"The page <b>is</b> a trace. Every section is a span in one incident's waterfall&hellip;"</span></p>
+        <p><span class="research-dim">demanding-client &rarr;</span> <span class="research-same">"The page <b>is</b> a trace. Every section is a span in one 2,340ms failing request&hellip;"</span></p>
+        <p><span class="research-dim">world-building &rarr;</span> <span class="research-same">"The page <b>is</b> a trace. Every section is a span in one root waterfall&hellip;"</span></p>
+        <p><span class="research-dim">drenched-in-character &rarr;</span> <span class="research-same">"The page <b>is</b> a trace. Every section is a span in one continuous waterfall&hellip;"</span></p>
+      </figure>
+      <p>
+        Exhortation prose changes the skin and never touches the concept. This is
+        the finding that kills most people's first instinct.
+      </p>
+    </section>
+
+    <section class="research-lesson">
+      <div class="research-roll"><span class="research-die">2</span>
+        <h2>Rejection doesn't generate. It <mark>advances a queue</mark>.</h2>
+      </div>
+      <p>
+        "Write down your first three ideas, discard them unseen, build the
+        fourth." It works: the model escapes its #1 concept, and lands on its #2
+        concept. Every time. Across every rejection-shaped operation we tried,
+        including cross-pollination where the model picks its own adjacent field.
+      </p>
+      <p>
+        The concept prior for a given category is about <strong>two ideas
+        deep</strong>. Telling a model to avoid X gets you everyone's second
+        idea, which is a different rut, not creativity.
+      </p>
+    </section>
+
+    <section class="research-lesson">
+      <div class="research-roll"><span class="research-die">3</span>
+        <h2>One model, one taste function: <mark>argmax is deterministic</mark>.</h2>
+      </div>
+      <p>
+        Forcing a real designer's procedure, deriving seven candidate directions
+        from the audience's world with a written rationale for each, produces
+        genuinely diverse <em>lists</em>. Then "build the most resonant one"
+        crowns the same winner in every run. Diversity exists in the model's
+        candidates and dies at its selection step.
+      </p>
+      <figure class="research-spec">
+        <figcaption>One derived shortlist, ordered by the model's own resonance ranking</figcaption>
+        <p><span class="research-dim">1.</span> the trace waterfall <span class="research-dim">&larr; what every run ships</span></p>
+        <p><span class="research-dim">2.</span> the postmortem doc <span class="research-dim">&larr; what "be different" ships</span></p>
+        <p><span class="research-same">3. the terminal session &larr; assigned by dice: became the page</span></p>
+        <p><span class="research-dim">4.</span> the man page &nbsp;&nbsp;<span class="research-dim">5.</span> the pager timeline</p>
+      </figure>
+      <p>
+        The fix: <strong>the model derives the grounded shortlist; a script rolls
+        which index gets built.</strong> The dice never touch an ungrounded idea.
+        They only refuse the argmax rut. And the script prints a reproduction key
+        with every roll, so a bad draw in the field is a replayable bug report,
+        not a mystery.
+      </p>
+    </section>
+
+    <section class="research-lesson">
+      <div class="research-roll"><span class="research-die">4</span>
+        <h2>Derivation is bounded by the subject's <mark>cultural depth</mark>.</h2>
+      </div>
+      <p>
+        For a product rooted in Polish TV culture, the model's own candidate list
+        was wonderful seven deep: the end-of-film voice credit, the newspaper TV
+        guide, teletext at #3, the video-rental shop, the dubbing script. For SRE
+        tooling, seven-deep is still terminals and postmortems. A monoculture
+        home yields a monoculture list.
+      </p>
+      <p>
+        That's when <strong>assigned foreign forms</strong> earn their keep: a
+        naturalist's field guide, a broadsheet sports section, injected from a
+        curated pool and weighed against the derived list on two axes. Does the
+        audience identify with it; does it make the product clearer. They lose to
+        strong cultural material and win over thin categories. Which is exactly
+        the shape you want.
+      </p>
+    </section>
+
+    <section class="research-lesson">
+      <div class="research-roll"><span class="research-die">5</span>
+        <h2>Your anti-gimmick guard is probably <mark>your ceiling</mark>.</h2>
+      </div>
+      <p>
+        We shipped a "costume check": <span class="research-brake">if a visitor
+        would notice the borrowed form before the product, the candidate
+        fails.</span> Sounds wise. Then we noticed that our 10/10 human
+        reference, a real site built entirely as teletext, fails that check. You
+        notice the form instantly; it works anyway, because the task stays easy.
+      </p>
+      <p>
+        Count the brakes in your prompt against the accelerators. Ours ran five
+        to one, and the model does that arithmetic: it lands at 65% commitment,
+        and 65% commitment is what "bland" looks like. We deleted the check and
+        inverted the order: <strong>land fully committed first, that's the hard
+        part, then make it clear and effective in later passes.</strong> Biggest
+        single quality jump of the campaign.
+      </p>
+      <figure class="research-figure">
+        <div class="research-pair">
+          <figure>
+            <img src="/assets/research/iteration13-before.jpeg" alt="Early iteration: dark template landing page with standard split hero" width="760" height="570" loading="lazy" decoding="async" />
+            <figcaption><b>Before</b> &middot; iteration 13 &middot; the category's page, competently executed</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/research/film-reel-after.jpeg" alt="Film-reel page: sprocket holes down both edges, Academy countdown as hero" width="760" height="570" loading="lazy" decoding="async" />
+            <figcaption><b>After commit-first</b> &middot; the page IS a film reel: sprocket rails, REEL/FRAME section labels &middot; rated most distinct of the campaign</figcaption>
+          </figure>
+        </div>
+      </figure>
+      <figure class="research-figure">
+        <img src="/assets/research/vermilion-waveform.jpeg" alt="Full-bleed vermilion page with dual waveform bands showing the ducked audio mix" width="760" height="570" loading="lazy" decoding="async" />
+        <figcaption><b>Same architecture, different roll</b> &middot; the product's audio mechanism drawn as the hero, page drenched in one committed color &middot; first output rated "close to the competitor benchmark"</figcaption>
+      </figure>
+    </section>
+
+    <section class="research-lesson">
+      <div class="research-roll"><span class="research-die">6</span>
+        <h2>Every design axis has its own prior. Judge the skeleton <mark>skin-blind</mark>.</h2>
+      </div>
+      <p>
+        Concept, palette, composition, motion: each converges independently, and
+        dislodging one leaves the others at default. Our best failure was a page
+        whose every atom was committed teletext, page-number chips, dithered
+        level bars, the four color-key buttons as the nav, sitting on a
+        completely standard marketing grid.
+      </p>
+      <figure class="research-figure">
+        <img src="/assets/research/teletext-template-bones.jpeg" alt="Teletext-styled page: P100 chip, pixel block type, color-key navigation, on a conventional two-column layout" width="760" height="570" loading="lazy" decoding="async" />
+        <figcaption><b>Committed skin, template bones</b> &middot; every component speaks teletext; the wireframe underneath is the category's standard page</figcaption>
+      </figure>
+      <p>
+        Committed skin hides template bones from any judge that looks at styled
+        output, including the model judging itself. The check that catches
+        it: <strong>strip every color, face, and texture in your head, leaving only
+        the arrangement of blocks. Could that wireframe belong to the category's
+        standard page?</strong> The reference teletext site passes as a
+        wireframe. This page doesn't.
+      </p>
+    </section>
+
+    <section class="research-lesson">
+      <div class="research-roll"><span class="research-die">7</span>
+        <h2>Models describe brilliantly and build conservatively. <mark>Hold them to their own promises</mark>.</h2>
+      </div>
+      <p>
+        Contracts promised radical structure ("the page IS a distributed trace;
+        section headers are span names with durations") and the build shipped a
+        default hero anyway. Nothing ever compared pixels to promise. Generic
+        quality critics made it worse: pages got busier, not better, because a
+        rubric invites additions.
+      </p>
+      <p>
+        What worked: the model writes its direction contract <strong>into the
+        artifact itself</strong> as a comment block, and an automated pass at
+        completion feeds it back. Audit the render promise by promise, rebuild
+        the gaps. Self-accountability has ground truth; rubrics don't.
+      </p>
+      <figure class="research-spec">
+        <figcaption>The contract format, written at the top of every build</figcaption>
+        <p>UNIQUE: <span class="research-dim">the one idea this page owns</span></p>
+        <p>NOT-TEMPLATE: <span class="research-dim">how the structure differs from the category's page, stated honestly</span></p>
+        <p>OWN-WORLD: <span class="research-dim">palette + components recognizable with all content removed</span></p>
+        <p>STORY: <span class="research-dim">what the visitor understands, believes, does</span></p>
+        <p>FIRST VIEWPORT: <span class="research-dim">the exact composition, what is where, at what scale</span></p>
+        <p>FORM: <span class="research-dim">chosen candidate, list position, and the dice key that picked it</span></p>
+      </figure>
+    </section>
+
+    <section class="research-lesson research-landing">
+      <div class="research-roll"><span class="research-die research-die--sum">=</span>
+        <h2>Where it landed</h2>
+      </div>
+      <p>
+        Same model, same briefs, same one-shot constraint as the baseline. The
+        only thing that changed is the architecture above.
+      </p>
+      <table class="research-table">
+        <thead>
+          <tr><th>Checkpoint</th><th>Human verdict (design director)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>baseline</td><td>"all boring and bland, competent but not good" &middot; 0/9 wins vs competitor skill on the hardest task</td></tr>
+          <tr><td>+ dice</td><td>"massive improvement, especially on the redesign"</td></tr>
+          <tr><td>+ form scale</td><td>"first time close to the competitor benchmark"</td></tr>
+          <tr><td>+ commit-first</td><td>"truly commits to the concept, most distinct so far, by a margin"</td></tr>
+          <tr class="research-win"><td>full architecture</td><td>first 8/10 of the campaign &middot; "I can't believe we got something so unique and good" &middot; category beat the competitor skill AND the bare model</td></tr>
+        </tbody>
+      </table>
+      <figure class="research-figure">
+        <div class="research-pair research-pair--tall">
+          <figure>
+            <img src="/assets/research/twotone-transit.jpeg" alt="Two-tone transit app design" width="351" height="760" loading="lazy" decoding="async" />
+            <figcaption><b>The 8/10</b> &middot; "twotone greatness" &middot; mobile transit, one-shot</figcaption>
+          </figure>
+          <figure>
+            <img src="/assets/research/mooring-line-docs.jpeg" alt="Documentation site whose sidebar is a mooring line descending to the seafloor" width="760" height="570" loading="lazy" decoding="async" />
+            <figcaption><b>Form serving function</b> &middot; docs whose nav is a mooring line: Overview at the surface, API reference at 4,200m</figcaption>
+          </figure>
+        </div>
+      </figure>
+      <p>
+        Cross-model, the pairwise judge that had scored every previous iteration
+        in the 30&ndash;40% range against the strongest competitor skill scored
+        the final architecture at <strong>100% of decisive pairs</strong> on the
+        deep-validated tasks, and positive across four fresh categories it had
+        never been tuned on.
+      </p>
+    </section>
+
+    <div class="research-chapter">
+      <p class="research-chapter-kicker">Part two &middot; what the dice became</p>
+      <h2 class="research-chapter-title">From seven lessons to a catalog you can roll</h2>
+      <p>
+        The campaign proved the architecture. Production needed the dice to have
+        faces worth landing on. So the curated pool from lesson four grew into a
+        full catalog: 337 authored worlds, taken through a complete human review
+        sweep, wired to a public roll API. Here is what survived contact with a
+        reviewer.
+      </p>
+    </div>
+
+    <section class="research-lesson research-lesson--catalog">
+      <div class="research-roll"><span class="research-die research-die--catalog">8</span>
+        <h2>A world is a <mark>graphic system</mark>, not a mood.</h2>
+      </div>
+      <p>
+        Every catalog entry passes the born-designed test: its source is a
+        produced 2D or display artifact with an existing graphic system, never a
+        material, a mood, or a place. Era-and-school specific, so "1950s Blue
+        Note session sleeve", never "record covers". Each entry carries five
+        system rules (palette and material, type and composition, topology,
+        controls and state, responsive motion) plus one vivid spark scene, and
+        declares its strength: a <strong>world</strong> (it brings the visual
+        identity), a <strong>composition</strong> (it brings the page's
+        structural staging), or <strong>dual</strong>. Stagings are a separate
+        deck, one per surface mode: persuade, operate, read, experience.
+      </p>
+      <p>
+        Names from the approved pool, the way the API exposes them: Fillmore
+        Handbill. Wax Print Market. Split Flap Concourse. Teletext Service, the
+        world lesson five's human reference pointed at all along.
+      </p>
+    </section>
+
+    <section class="research-lesson research-lesson--catalog">
+      <div class="research-roll"><span class="research-die research-die--catalog">9</span>
+        <h2>Nothing ships without a <mark>human verdict</mark> and a render.</h2>
+      </div>
+      <p>
+        Authoring is agent work; approval is not. New entries land as pending and
+        pass a render gate before review: a specimen board first, then a desktop
+        hero generated with the board attached as binding reference, so both
+        images stay one system. The reviewer sees the world rendered, then
+        decides: approve or reject, star ratings on approvals, a note on
+        anything instructive.
+      </p>
+      <p>
+        The founding sweep reviewed 325 entries by hand. 169 approved, 75 rated
+        three-star flagship. The dominant rejection reads "doesn't translate to
+        interface": material worlds without an intrinsic 2D pattern system never
+        recover, and re-authoring them fails again. Rework hit about a third,
+        and only ever for taste fixes, never translation fixes.
+      </p>
+    </section>
+
+    <section class="research-lesson research-lesson--catalog">
+      <div class="research-roll"><span class="research-die research-die--catalog">10</span>
+        <h2>Proven seams <mark>saturate fast</mark>.</h2>
+      </div>
+      <p>
+        The obvious growth strategy, mine deeper where the flagships came from,
+        failed on contact. A depth round of twelve second-tier artifacts from
+        already-mined veins scored 3/12 with zero flagships; the reviewer's
+        recurring note was "too similar to others we already have". A different
+        artifact with the same green-phosphor system is a duplicate, whatever its
+        name.
+      </p>
+      <p>
+        Breadth wins. New rounds stay small, target unmined territory at its
+        canonical peak, and expect a 25&ndash;40% hit rate now that the initial
+        harvest is done. Exhausted families are retired outright and never
+        receive new entries.
+      </p>
+    </section>
+
+    <section class="research-lesson research-lesson--catalog">
+      <div class="research-roll"><span class="research-die research-die--catalog">11</span>
+        <h2>The roll is <mark>weighted, chained, and reproducible</mark>.</h2>
+      </div>
+      <p>
+        A roll deals six challengers, two from each translation tier (graphic,
+        interaction, atmosphere), plus one staging matched to the surface's
+        mode. Ratings feed the draw: a three-star world carries double odds, a
+        one-star world sits out entirely unless its tier has nothing else.
+        Re-rolls chain: every world already dealt under a key is excluded from
+        the next hand, so "deal again" explores instead of reshuffling.
+      </p>
+      <p>
+        And lesson three's reproduction key survived productionization: the same
+        key against the same pool revision reproduces a roll bit for bit, in the
+        skill and in the API.
+      </p>
+    </section>
+
+    <section class="research-lesson research-lesson--catalog">
+      <div class="research-roll"><span class="research-die research-die--catalog">12</span>
+        <h2>The dice are now <mark>a public API</mark>.</h2>
+      </div>
+      <p>
+        <code>GET /api/roll</code> deals from the approved pool. The catalog
+        never ships to clients in full; a response exposes exactly the entries it
+        deals, nothing more. The request itself is the impression record, and an
+        anonymous choice ping notes which dealt world a project committed to. No
+        identity, no project data, and senders honor <code>DO_NOT_TRACK</code> before calling. That choice stream is the next review signal: worlds
+        that keep winning commits argue for their rating.
+      </p>
+      <p>
+        You can watch the dice work: the <a href="/#worlds">homepage deals a live
+        hand</a> from the flagship tier, and <a href="/neo-mirai/">Neo
+        Mirai</a> is the world that took a commit all the way to a shipped build.
+      </p>
+    </section>
+
+    <div class="research-close">
+      <p class="research-close-big">
+        The model always had the taste. Our job turned out to be rolling dice it
+        can't roll itself, deleting our own brakes, and holding it to its own
+        promises.
+      </p>
+      <p class="research-colophon">
+        Method notes: all concept-level findings were measured with contract
+        probes (sampling design intent as ~200-word contracts, pennies per
+        variant) before any build was paid for; human verdicts are per-sample
+        ratings by the project's design director; the pairwise judge is
+        screenshot-based with both-orderings position-bias cancellation. Catalog
+        figures reflect the July 2026 review sweep. Produced with impeccable v4.
+      </p>
+    </div>
+  </article>
+</Base>
