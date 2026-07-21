@@ -147,6 +147,7 @@ html.light .hero-proof {
   background: var(--ks-kinpaku);
 }
 
+.proof-polish--before,
 .proof-polish-head,
 .proof-polish-pulse,
 .proof-polish-heading,
@@ -165,6 +166,13 @@ html.light .hero-proof {
   top: auto;
   bottom: 2px;
   transform: none;
+}
+
+/* Anchored to the card itself: the connector line lands on the purple
+   side-tab border at the card's left edge. Sits between the heading and
+   surface annotations so the four labels never collide. */
+.proof-annotation--sidetab {
+  top: 66%;
 }
 
 .hero-proof-seam {
@@ -2071,7 +2079,7 @@ html.light .home-kinpaku .steering-desktop {
 .home-kinpaku .why-mode-card--persuade b {
   color: var(--ks-champagne);
   font-family: var(--ks-font-wordmark);
-  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
   font-weight: 300;
   line-height: 0.92;
 }
@@ -2148,7 +2156,7 @@ html.light .home-kinpaku .steering-desktop {
   margin-bottom: 12px;
   color: var(--ks-champagne);
   font-family: var(--ks-font-wordmark);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 400;
 }
 
@@ -2384,7 +2392,7 @@ html.light .home-kinpaku .why-hook-loop .why-ci-summary strong {
   }
 
   .home-kinpaku .hero-rebuild-title {
-    font-size: clamp(3rem, 15vw, 4.4rem);
+    font-size: clamp(3rem, 15vw, 4.5rem);
   }
 
   .hero-proof-canvas {
@@ -2413,6 +2421,7 @@ html.light .home-kinpaku .why-hook-loop .why-ci-summary strong {
   }
 
   .proof-annotation--surface,
+  .proof-annotation--sidetab,
   .proof-distill-nested .proof-annotation,
   .proof-clarify-cta .proof-annotation {
     display: none;

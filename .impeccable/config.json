@@ -101,6 +101,42 @@
         ],
         "createdAt": "2026-07-19T00:00:00.000Z",
         "reason": "User confirmed the .why-slop-title gradient is an intentional AI-tell demo in the before-state comparison"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "*",
+        "files": [
+          "site/styles/home-refresh.css"
+        ],
+        "createdAt": "2026-07-21T00:00:00.000Z",
+        "reason": "Hero proof before/after cards and the slop-pattern preview are deliberate anti-pattern specimens with foreign product palettes and type; extends the existing before-state demo waivers to the v4 homepage file"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "site/styles/home-refresh.css"
+        ],
+        "createdAt": "2026-07-21T00:00:00.000Z",
+        "reason": "Hero proof before/after cards and the slop-pattern preview are deliberate anti-pattern specimens with foreign product palettes and type; extends the existing before-state demo waivers to the v4 homepage file"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "*",
+        "files": [
+          "site/styles/home-refresh.css"
+        ],
+        "createdAt": "2026-07-21T00:00:00.000Z",
+        "reason": "Hero proof before/after cards and the slop-pattern preview are deliberate anti-pattern specimens with foreign product palettes and type; extends the existing before-state demo waivers to the v4 homepage file"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "*",
+        "files": [
+          "site/styles/home-refresh.css"
+        ],
+        "createdAt": "2026-07-21T00:00:00.000Z",
+        "reason": "Hero proof before/after cards and the slop-pattern preview are deliberate anti-pattern specimens with foreign product palettes and type; extends the existing before-state demo waivers to the v4 homepage file"
       }
     ]
   },
