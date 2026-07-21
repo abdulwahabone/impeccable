@@ -1,6 +1,6 @@
 {
  "schemaVersion": 7,
- "catalogVersion": "2026-07-21T21:53:37.000Z",
+ "catalogVersion": "2026-07-21T22:17:16.000Z",
  "comment": "Human-reviewed creative worlds for concept-seed.mjs, organized into seven inspiration wells: the distinct places designers actually mine for award-level work. Every entry must create an immediate mental image, inherit concrete material, spatial, or compositional laws, translate those laws into reusable interface grammar, and exploit the web medium. Literal software archetypes, style names without inherited laws, and tacked-on spectacle are rejected before review.",
  "qualityBar": {
   "principle": "Catalog visual worlds a designer could mine on sight: every concept must name a magnetic world, artifact, or graphic tradition whose look immediately yields a palette and material vocabulary, a type voice, at least three distinct interface component roles, and one signature state change, then stay structurally generative, product-legible, and responsibly executable across a whole product rather than one opening page. Prefer worlds people already recognize and love: built-in cultural resonance beats equal lawfulness in obscurity.",
@@ -706,6 +706,26 @@
       "Responsive/motion: Density reflows by dropping ornament layers in declared steps; the one shouting word never shrinks."
      ],
      "webLeverage": "Layered SVG mark systems with density tiers driven by container queries",
+     "strength": "world"
+    },
+    {
+     "id": "highlife-sleeve",
+     "form": "a hand-lettered record sleeve, where a beaming bandleader portrait floats in tropical color under an exuberant painted band name",
+     "lineage": "West African highlife and Afro-funk album sleeves, Ghanaian and Nigerian pressings, 1960s to 1970s",
+     "tags": [
+      "hand-lettered",
+      "tropical-palette",
+      "portrait-sleeve"
+     ],
+     "spark": "A bandleader grins from a cut-out portrait against a wall of mango orange and palm green. The band name arcs overhead in fat hand-brushed letters, each one outlined twice, drop-shadowed once, and packed cheek to cheek.",
+     "system": [
+      "Palette/material: Saturated tropical color, mango, palm green, sky, and hibiscus red, on warm cream board",
+      "Type/composition: Exuberant hand-brushed display lettering, double-outlined and shadowed, arcing across the top; a smaller sans for track lists below",
+      "Topology/navigation: Move by release title, by bandleader portrait, and by side and track.",
+      "Controls/state: Flip, cue, and credit; selecting a track brightens its row and lifts the sleeve portrait forward over its color field.",
+      "Responsive/motion: The arced title reflows to a straight stacked banner on narrow screens; reduced-motion swaps sleeves with a plain cross-fade."
+     ],
+     "webLeverage": "Set the arced band name on an SVG textPath and layer double outlines with paint-order stroke, so the hand-lettered headline stays crisp at any size.",
      "strength": "world"
     }
    ]
@@ -2318,6 +2338,86 @@
      ],
      "webLeverage": "Integer-scaled pixel rendering with a stepped zoom stage and discoverable hover labels",
      "strength": "world"
+    },
+    {
+     "id": "neubrutalist-award-grade",
+     "form": "an award-grade neubrutalist product site, where heavy black borders and hard offset shadows are deployed with grid discipline rather than sticker chaos",
+     "lineage": "the Gumroad-era neubrutalism and Awwwards-tier flat-brutalist school, 2021 onward",
+     "tags": [
+      "neubrutalism",
+      "hard-shadow",
+      "flat-solid"
+     ],
+     "spark": "Flat blocks of clashing solid color sit inside heavy black outlines, each casting a hard offset shadow; press a button and it snaps down into that shadow, the whole page locked to one rhythmic grid.",
+     "system": [
+      "Palette/material: bright unmodulated solids such as marigold, hot pink, electric blue, and lime on off-white, every element outlined in true black",
+      "Type/composition: a chunky grotesk in a few decisive sizes, set tight and left",
+      "Topology/navigation: Move by scanning the bordered card grid, by clicking chunky labeled buttons, and by following a fixed top bar of the same weight.",
+      "Controls/state: Buttons carry a resting offset shadow; on press they translate into the shadow and it collapses, giving a physical click, and toggles flip solid fills.",
+      "Responsive/motion: motion is limited to snappy translate-on-press, and reduced-motion keeps the color-state change without the travel."
+     ],
+     "webLeverage": "Encode the whole system as CSS custom properties for border-width, shadow-offset, and a fixed solid palette, so the hard-shadow press is a transform:translate that consumes the shadow token.",
+     "strength": "world"
+    },
+    {
+     "id": "japanese-high-density-web",
+     "form": "a Japanese contemporary high-density site, where tiny type, boxed modules, and utility-red accents pack far more onto one screen than a Western grid would dare",
+     "lineage": "Japanese corporate and EC web-density culture in the Rakuten and Kakaku lineage, refined, 2015 onward",
+     "tags": [
+      "high-density",
+      "modular-boxes",
+      "utility-red"
+     ],
+     "spark": "Dozens of boxed modules tile a single scroll, each ruled with hairlines and headed by a small red tab; prices, badges, and nav rails crowd in at tiny sizes, and nothing wastes a pixel of the packed grid.",
+     "system": [
+      "Palette/material: bright white ground, dense black text, a signal utility-red for tabs and prices, cool grays for module borders and fills",
+      "Type/composition: a compact gothic sans at small sizes with tight leading; a mosaic of ruled rectangular modules, each with its own small header tab, packed edge to edge.",
+      "Topology/navigation: Move by scanning the dense module mosaic, by a persistent multi-row nav rail, and by expandable category accordions in a left rail.",
+      "Controls/state: Hovering a module raises its border and reveals secondary actions; tabs switch content in place; badges mark new, sale, and limited states.",
+      "Responsive/motion: motion is minimal and functional, and reduced-motion keeps only instant state swaps."
+     ],
+     "webLeverage": "Build the module mosaic as a dense CSS grid with named template areas and a strict hairline border system, so hundreds of small blocks tile without the whitespace inflation of a default SaaS grid.",
+     "strength": "world"
+    },
+    {
+     "id": "editor-theme-brand-surface",
+     "form": "a brand surface built as a themed code editor, where a full syntax-highlight token palette, line numbers, tabs, and gutters become the entire visual identity",
+     "lineage": "the Dracula, Tokyo Night, and editor-color-theme culture, 2017 onward",
+     "tags": [
+      "editor-theme",
+      "syntax-palette",
+      "multi-token-color"
+     ],
+     "spark": "The page reads like an open editor: a tabbed title bar, a numbered gutter down the left, and content syntax-highlighted in six token colors at once, a selection glow sweeping a line as a caret blinks in the active pane.",
+     "system": [
+      "Palette/material: a deep desaturated indigo-charcoal editor ground carrying a full syntax palette of six-plus token hues used at once, keyword purple, string green, function blue",
+      "Type/composition: one monospace for everything on a strict character grid",
+      "Topology/navigation: Move by switching editor tabs, by a file-tree sidebar, and by a command-palette overlay summoned over the dimmed editor.",
+      "Controls/state: Hovering a token reveals a tooltip peek; the caret blinks in the focused pane; a selection glow marks the active region and the status bar reflects mode.",
+      "Responsive/motion: transitions are instant editor-style swaps, and reduced-motion stills the caret and selection sweep."
+     ],
+     "webLeverage": "Define the whole identity as a syntax-token CSS variable theme of six-plus token colors applied through real highlighted markup, so every surface is colored by token role rather than a single accent.",
+     "strength": "dual"
+    },
+    {
+     "id": "tabular-fintech-typographic",
+     "form": "a fintech typographic system, where monospaced tabular figures lock every number into aligned columns and the type itself does the work of the interface",
+     "lineage": "the Mercury, Ramp, and precision-finance typographic school, 2019 onward",
+     "tags": [
+      "tabular-figures",
+      "aligned-ledger",
+      "inline-sparkline"
+     ],
+     "spark": "Columns of tabular figures align to the decimal down a dense ledger, green and red deltas trailing each row, tiny inline sparklines riding beside balances, every number locked to the same monospace width so the eye scans straight down.",
+     "system": [
+      "Palette/material: near-white or ink ground, restrained neutral grays, and a disciplined green and red delta pair reserved strictly for gains and losses",
+      "Type/composition: a text face with true tabular lining figures beside a mono for codes",
+      "Topology/navigation: Move by scanning aligned numeric columns, by sortable table headers, and by drilling a row into its transaction detail.",
+      "Controls/state: Hovering a row reveals its inline sparkline and secondary figures; sorting reflows columns while keeping decimal alignment; deltas recolor on live update.",
+      "Responsive/motion: value changes tick with a brief count-up, and reduced-motion sets figures instantly."
+     ],
+     "webLeverage": "Enable font-feature-settings 'tnum' and 'lnum' across every numeric field and align columns on the decimal, so hundreds of figures stack in a true ledger rather than a loose SaaS card grid.",
+     "strength": "dual"
     }
    ]
   },
@@ -2545,6 +2645,106 @@
      ],
      "webLeverage": "SVG part constellations with light drift physics and an assemble-on-focus interaction",
      "strength": "world"
+    },
+    {
+     "id": "underground-resistance",
+     "form": "a militant record-label identity kit, where every surface is stamped from the same black stencil and no member ever shows a face",
+     "lineage": "Underground Resistance, Detroit techno, Mad Mike Banks and Jeff Mills, late-1980s onward",
+     "tags": [
+      "stencil",
+      "black-and-white",
+      "techno-militant"
+     ],
+     "spark": "A white sheet hits the platen and the black star stamps down, off-register, ink bleeding into the paper grain. Catalog numbers march in stencil caps. Every operative stays masked; the collective speaks, never the individual.",
+     "system": [
+      "Palette/material: Pure black on newsprint white, one spot red reserved for warnings and sold-out stamps; matte uncoated stock, roller-streaked ink, hard photocopy grain.",
+      "Type/composition: Stencil-cut grotesque caps and military stencil numerals, left-locked to a rigid baseline grid; the five-point star insignia anchors every masthead",
+      "Topology/navigation: Move by catalog number, by operative call-sign, and by transmission sequence.",
+      "Controls/state: Stamp, redact, and enlist; a selected release flips from outline stencil to fully inked solid, as if freshly pressed.",
+      "Responsive/motion: Columns collapse to a single stamped stack on narrow screens; reduced-motion holds the inked state and drops the press-down animation."
+     ],
+     "webLeverage": "Render the star insignia and catalog numerals as SVG with a turbulence-based feDisplacementMap filter, so each print instance shows a slightly different off-register ink bleed.",
+     "strength": "world"
+    },
+    {
+     "id": "kraftwerk-man-machine",
+     "form": "a man-machine band identity, where every element is a neon-lit line diagram drawn on a strict traffic grid",
+     "lineage": "Kraftwerk and Emil Schult, Dusseldorf, Kling Klang studio, constructivist neo-pop, 1974 onward",
+     "tags": [
+      "neon-line",
+      "traffic-signal",
+      "man-machine-grid"
+     ],
+     "spark": "Red and yellow lines snap along an invisible grid, wiring four identical figures into a diagram of themselves. A single hazard-red rule crosses the page. Everything hums at the frequency of a pedestrian signal turning green.",
+     "system": [
+      "Palette/material: Traffic-signal red, amber, and green on flat black and paper white; enamel-smooth fills with no texture; one hazard red carries every accent.",
+      "Type/composition: Geometric sans in tight tracked caps on a visible modular grid; thin neon rules connect labels like a wiring schematic; symmetry and repetition over contrast.",
+      "Topology/navigation: Move by grid coordinate, by signal color, and by numbered track.",
+      "Controls/state: Wire, route, and cycle; an active node lights its connecting lines from dim rule to full neon, like current reaching a lamp.",
+      "Responsive/motion: The grid reflows to fewer columns while keeping every connector orthogonal; reduced-motion lights nodes instantly with no traveling pulse."
+     ],
+     "webLeverage": "Draw the connector network as a single SVG path set and animate current with stroke-dashoffset, gated behind prefers-reduced-motion.",
+     "strength": "world"
+    },
+    {
+     "id": "studio-dumbar-identity",
+     "form": "a modular identity system, where photographed reality and hard vector bars snap together under one loud grammar of colored blocks",
+     "lineage": "Studio Dumbar, The Hague, Dutch postmodern identity design, Gert Dumbar, 1977 onward",
+     "tags": [
+      "colored-bars",
+      "photo-vector",
+      "modular-grammar"
+     ],
+     "spark": "A staged photograph tilts under a stack of saturated bars. Loose vector marks scatter like dropped confetti, then lock to an invisible module. The system stays recognizable no matter how far the parts are thrown.",
+     "system": [
+      "Palette/material: Primary saturated blocks, cyan, magenta, yellow, and grass green, over cool grey and photographic mid-tones; flat vector fills against real photographic depth.",
+      "Type/composition: Neutral Dutch grotesque set small and businesslike, overrun by oversized colored bars and playful vector fragments",
+      "Topology/navigation: Move by color band, by module cell, and by photographic scene.",
+      "Controls/state: Snap, layer, and scatter; selecting a band brings its bar forward and pushes the photo layer back with a parallax shift.",
+      "Responsive/motion: Bars restack from horizontal rows to vertical columns as width shrinks; reduced-motion places them directly with no rotation or slide."
+     ],
+     "webLeverage": "Compose colored bars and photo panels as CSS grid layers with mix-blend-mode multiply, so overlaps produce the system's signature secondary colors.",
+     "strength": "dual"
+    },
+    {
+     "id": "luxury-fashion-flagship",
+     "form": "the digital flagship of a fashion house, where monumental editorial type and vast negative space frame slow full-bleed imagery like a printed lookbook come to life",
+     "lineage": "the Jacquemus, Bottega Veneta, and The Row digital-flagship school, 2018 onward",
+     "tags": [
+      "fashion-flagship",
+      "editorial-monumental",
+      "negative-space"
+     ],
+     "spark": "A single garment fills the screen against acres of bone-white space, one enormous serif word set low; scroll and the image holds, then cuts slowly to the next look as a hairline nav waits quietly overhead.",
+     "system": [
+      "Palette/material: near-monochrome bone-white and ink, one restrained seasonal accent, full-bleed photography as the only texture, and generous matte negative space.",
+      "Type/composition: a monumental high-contrast serif for display against a spare grotesk for labels and product data",
+      "Topology/navigation: Move by slow full-bleed look-to-look scroll, by a hairline top nav of few words, and into a spare product grid and a quiet cart drawer.",
+      "Controls/state: Hover fades between garment views; add-to-cart slides a minimal drawer from the edge; size and color selectors are set as understated type rather than chips.",
+      "Responsive/motion: reveals are slow full-bleed fades, and reduced-motion cuts directly between looks."
+     ],
+     "webLeverage": "Drive the full-bleed look transitions with scroll-snap sections and slow object-fit:cover crossfades, keeping a persistent hairline nav and a slide-in cart drawer across routes.",
+     "strength": "world"
+    },
+    {
+     "id": "generative-parametric-identity",
+     "form": "a generative brand identity, where a parametric mark reseeds from live inputs and its own seed derives the palette, motion, and layout of every surface around it",
+     "lineage": "the living-logo and generative-identity school from Media Lab and Sagmeister-era systems onward, 2016 onward",
+     "tags": [
+      "generative-identity",
+      "parametric-mark",
+      "seed-derived-system"
+     ],
+     "spark": "A logo redraws itself from a few parameters, and the same seed spills outward: buttons, dividers, and headers borrow its palette and rhythm, so a refresh tunes the whole brand a few degrees off its last self.",
+     "system": [
+      "Palette/material: a seed-derived palette generated from the mark's parameters as a base hue plus algorithmic harmonies, flat vector surfaces",
+      "Type/composition: a neutral geometric sans holds the type voice steady while the parametric system varies color and form",
+      "Topology/navigation: Move by scrolling seed-themed sections, by a nav whose mark animates live, and by a parameters panel that reseeds the identity on demand.",
+      "Controls/state: Adjusting a parameter or reseeding regenerates the mark, palette, and accents together in real time; hover states pull from the active seed's harmony.",
+      "Responsive/motion: the logo animates parametrically at idle, and reduced-motion renders one static seed frame."
+     ],
+     "webLeverage": "Generate the mark as parametric SVG or canvas from a seed, and derive CSS custom properties for palette, spacing, and accent from that same seed so buttons, dividers, and headers restyle in lockstep with the logo.",
+     "strength": "dual"
     }
    ]
   },
@@ -3980,6 +4180,46 @@
      "spark": "You flatten the album under the lamp and the moon rocket stands in checkerboard red and white, drawn with the same calm line as the professor's teacup, every rivet exactly as important as it should be.",
      "webLeverage": "svg shapes with a single stroke width scale losslessly, and css flat fills swap per state without any shading pipeline",
      "strength": "world"
+    },
+    {
+     "id": "black-gold-augmentation",
+     "form": "an augmentation console, where black voids are inlaid with gilt filigree and every capability grows on a hexagonal tree",
+     "lineage": "Deus Ex: Human Revolution art direction, Jonathan Jacques-Belletete, Renaissance-cyberpunk, 2011",
+     "tags": [
+      "black-and-gold",
+      "hexagon-tree",
+      "filigree"
+     ],
+     "spark": "A hexagon lights amber at the center of a dark panel, and gilt vine-work threads outward to the augments it unlocks. Baroque filigree frames a cold readout. Gold leaf and machine oil share one surface.",
+     "system": [
+      "Palette/material: Deep charcoal and near-black grounds inlaid with flat antique gold and a single amber highlight",
+      "Type/composition: A high-contrast serif for titles paired with a narrow technical sans for data, set inside filigree frames; hexagonal modules tile the working area",
+      "Topology/navigation: Move by hexagon branch, by augment tier, and by filigree-framed panel.",
+      "Controls/state: Unlock, branch, and invest; an acquired node fills from hollow gold outline to solid gilt and threads a vine to its neighbors.",
+      "Responsive/motion: The hex tree recenters and prunes outer rings on small screens; reduced-motion fills nodes solid instantly without the drawing sweep."
+     ],
+     "webLeverage": "Build the augmentation tree as an SVG hex grid and animate each unlock with an SVG stroke-draw on the gilt connector paths.",
+     "strength": "world"
+    },
+    {
+     "id": "kinetic-sand-glyphs",
+     "form": "an Afrofuturist control surface, where raised kinetic sand and warm gold form rotating rings of glyphs",
+     "lineage": "Wakandan design language, Black Panther production design, Hannah Beachler and Ruth Carter, Afrofuturism, 2018",
+     "tags": [
+      "kinetic-sand",
+      "gold-glyph-rings",
+      "afrofuturist"
+     ],
+     "spark": "Fine black sand rises into raised relief on a low table, spelling a ring of glyphs in warm gold light. A fingertip turns the ring; the sand collapses and reforms into the next command. Ochre earth meets refined gold.",
+     "system": [
+      "Palette/material: Warm ochre, deep umber, and matte black grounds lit by antique gold",
+      "Type/composition: A humanist sans for interface copy beside a ring of geometric glyphs; concentric circular dials organize the field; radial hierarchy from a warm central sun.",
+      "Topology/navigation: Move by rotating glyph ring, by concentric tier, and by raised-sand region.",
+      "Controls/state: Turn, raise, and settle; a chosen glyph lifts higher in relief and warms from umber to gold as the ring locks.",
+      "Responsive/motion: Rings collapse to a single stacked dial on narrow screens; reduced-motion cross-fades relief maps with no grain animation."
+     ],
+     "webLeverage": "Render the sand relief as a canvas heightfield displaced by Perlin noise, and drive glyph-ring rotation with a CSS conic-gradient dial control.",
+     "strength": "world"
     }
    ]
   },
@@ -4824,6 +5064,146 @@
       "Responsive/motion: The room stays whole at every size while panels restack around it; furnishing lands with one soft settle."
      ],
      "webLeverage": "A persistent decoratable isometric scene as the identity surface, with real furnishing state",
+     "strength": "world"
+    },
+    {
+     "id": "variable-font-specimen",
+     "form": "an interactive type specimen, where dragging an axis slider morphs a whole grid of glyphs in real time",
+     "lineage": "Contemporary digital type foundries, variable-font specimen microsites, OpenType 1.8 axes, 2016 onward",
+     "tags": [
+      "axis-sliders",
+      "glyph-grid",
+      "type-tester"
+     ],
+     "spark": "A single giant letter fills the screen. You drag the weight slider and it thickens from hairline to black under your finger, live. Below, a grid of every glyph breathes in step, and a monospace readout counts the axis values.",
+     "system": [
+      "Palette/material: Near-white paper and ink black with one foundry accent; flat surfaces, generous negative space, no ornament so the letterforms carry everything.",
+      "Type/composition: The specimen face at enormous display size against tiny monospace UI labels; a strict measure and baseline grid; hierarchy by scale contrast alone.",
+      "Topology/navigation: Move by axis slider, by glyph cell, and by size and specimen view.",
+      "Controls/state: Drag, type, and pin; moving an axis remaps every glyph on the page continuously and updates the live coordinate readout.",
+      "Responsive/motion: reduced-motion snaps between named instances instead of animating the interpolation."
+     ],
+     "webLeverage": "Bind range inputs to CSS font-variation-settings through a custom property, so one slider drives font-variation across the entire glyph grid with no per-glyph JavaScript.",
+     "strength": "dual"
+    },
+    {
+     "id": "ikeda-datamatics",
+     "form": "a data-sublime field, where dense barcode columns and sine lattices strobe in pure black and white",
+     "lineage": "Ryoji Ikeda, datamatics and test pattern series, austere audiovisual data art, 2006 onward",
+     "tags": [
+      "black-and-white",
+      "barcode-data",
+      "sine-lattice"
+     ],
+     "spark": "A wall of hairline vertical bars, some black, some white, holds like a frozen barcode. Dense monospace numbers pack the margin. A single sine curve traces the lattice, and for one frame the whole field snaps to its negative.",
+     "system": [
+      "Palette/material: Pure black and pure white only, no grey and no color; flat pixel-crisp bars, hairline rules, and monospace numerics; the occasional full-frame inversion.",
+      "Type/composition: One monospace face at data density, set in tight tabular columns; barcode bar-fields and sine curves structure the page",
+      "Topology/navigation: Move by data column, by frequency band, and by frame index.",
+      "Controls/state: Scan, sample, and invert; selecting a column pulls its numbers into focus while the surrounding field drops to a faint bar pattern.",
+      "Responsive/motion: Columns thin and drop from the edges as width shrinks; reduced-motion disables all strobing and holds a single high-contrast still."
+     ],
+     "webLeverage": "Render the barcode and sine lattice on canvas from a seeded sequence, stepping frames on requestAnimationFrame that halts entirely under prefers-reduced-motion.",
+     "strength": "world"
+    },
+    {
+     "id": "scrollytelling-sticky-graphic",
+     "form": "a scrollytelling explainer, where a graphic pins to the viewport while a column of stepping prose scrubs it through state after state",
+     "lineage": "The Pudding, NYT Upshot, and the Bloomberg and Reuters interactive-journalism school, 2015 onward",
+     "tags": [
+      "scrollytelling",
+      "data-journalism",
+      "sticky-graphic"
+     ],
+     "spark": "You scroll a column of short paragraphs and a chart holds fast beside them, bars regrouping and a highlighted cohort lighting up exactly as the sentence you are reading claims it does.",
+     "system": [
+      "Palette/material: warm paper-white ground, ink-black body text, one editorial accent such as signal red or ochre reserved for the highlighted series",
+      "Type/composition: a workhorse serif for prose at a generous measure against a tight grotesk for chart labels and figure numbers",
+      "Topology/navigation: Move by scrolling the prose column, by stepping through numbered figures, and by jumping to section anchors in a slim progress rail.",
+      "Controls/state: Scroll position drives the active step; each step re-scrubs the pinned graphic and fades the previous annotation as the new one writes in.",
+      "Responsive/motion: scroll-linked transitions ease between keyframes, and reduced-motion swaps scrubbing for discrete cut-to-state."
+     ],
+     "webLeverage": "Bind an IntersectionObserver step index to a single pinned graphic held with position:sticky, tweening between authored keyframe states rather than swapping images.",
+     "strength": "dual"
+    },
+    {
+     "id": "animated-terminal-hero",
+     "form": "the launch hero of a developer tool, where a recorded shell types itself across gradient-lit box-drawing panes as if a human were driving it live",
+     "lineage": "the Charm, Warp, and modern gradient-TUI marketing school, 2021 onward",
+     "tags": [
+      "styled-tui",
+      "terminal-hero",
+      "gradient-ansi"
+     ],
+     "spark": "A rounded pane sits center stage and a prompt types itself, output blooming in soft ANSI gradients, a spinner resolving to a green check while a copy-chip waits below for the one command you actually need.",
+     "system": [
+      "Palette/material: near-black terminal ground, a warm-to-cool ANSI gradient from magenta through cyan for emphasis, dim gray chrome",
+      "Type/composition: one humanist monospace for everything, aligned to a strict character grid; tabbed code blocks and framed panes stacked on a centered single-column stage.",
+      "Topology/navigation: Move by tabbing between command examples, by replaying the typed sequence, and by copying any chip straight into your own shell.",
+      "Controls/state: A play control drives the typing animation; spinners resolve to success or error glyphs, and copy-chips flash a copied confirmation.",
+      "Responsive/motion: the type-on animation respects prefers-reduced-motion by rendering the finished terminal state instantly."
+     ],
+     "webLeverage": "Drive the type-on effect from a timed token stream over pre-rendered ANSI, mapping 256-color codes to CSS custom properties so the gradient theming stays swappable.",
+     "strength": "world"
+    },
+    {
+     "id": "webgl-shader-portal",
+     "form": "the full-bleed portal of an experiential studio, where a GPU shader scene fills the screen and the interface floats as thin type over living pixels",
+     "lineage": "the Active Theory, Lusion, and Awwwards experiential-WebGL school, 2016 onward",
+     "tags": [
+      "webgl-shader",
+      "custom-cursor",
+      "page-transition"
+     ],
+     "spark": "A full-screen shader breathes in slow color, a custom cursor trailing a soft distortion where it moves; a loader counts to one hundred, then thin uppercase links dissolve the mesh into the next scene as you click through.",
+     "system": [
+      "Palette/material: a deep single-hue ground driven by a fragment shader, fine film grain, one incandescent accent for hovers",
+      "Type/composition: an oversized variable grotesk for a single hero word against tiny tracked-out labels at the margins",
+      "Topology/navigation: Move by hovering the shader to displace it, by clicking thin corner links, and by letting inertial scroll drift the camera through the scene.",
+      "Controls/state: The cursor warps the field under it; page changes trigger a mesh transition that dissolves one scene into the next behind a percentage loader.",
+      "Responsive/motion: physics-scroll inertia eases all movement, and reduced-motion freezes the scene and disables the custom cursor."
+     ],
+     "webLeverage": "Render the background as a single fullscreen WebGL fragment shader with a mouse-uniform displacement, and drive route changes through a shader dissolve transition rather than DOM swaps.",
+     "strength": "world"
+    },
+    {
+     "id": "hand-drawn-zine-explainer",
+     "form": "a hand-drawn technical zine on the web, where marker lettering, doodle arrows, and mascots teach a hard concept the way a friend sketches it on a napkin",
+     "lineage": "the wizardzines and Julia Evans hand-illustrated explainer school, 2018 onward",
+     "tags": [
+      "hand-drawn",
+      "technical-zine",
+      "doodle-annotation"
+     ],
+     "spark": "A cheerful marker headline sits above a doodled diagram, hand-drawn arrows looping from a wide-eyed mascot to a boxed code snippet, highlighter swipes marking the one line that matters as you step through the comic panels.",
+     "system": [
+      "Palette/material: cream paper ground, black marker ink, two or three flat highlighter accents in yellow, pink, and teal",
+      "Type/composition: a hand-lettered marker face for headings paired with a clean readable sans for body",
+      "Topology/navigation: Move by stepping through numbered comic panels, by clicking mascot-guided call-outs, and by a sketched table-of-contents sidebar.",
+      "Controls/state: Hovering a doodle reveals its explanation; highlighter swipes animate across the active line; a mascot changes expression to mark done, warning, and gotcha states.",
+      "Responsive/motion: draw-on animation traces arrows in on scroll, and reduced-motion renders them already drawn."
+     ],
+     "webLeverage": "Author diagrams as inline SVG with hand-drawn paths and animate the doodle arrows via stroke-dashoffset draw-on tied to scroll position.",
+     "strength": "world"
+    },
+    {
+     "id": "risograph-web-system",
+     "form": "a risograph-textured web system, where two or three spot inks misregister and grain over a warm paper ground the way a real Riso print does",
+     "lineage": "the born-web risograph-hybrid and small-press print school, 2017 onward",
+     "tags": [
+      "risograph",
+      "spot-ink",
+      "halftone-grain"
+     ],
+     "spark": "Flat fluorescent pink and blue shapes sit slightly out of register on toothy paper, halftone grain crawling their overlaps; hover a card and its inks shift a hair off-alignment, blooming a third color where they cross.",
+     "system": [
+      "Palette/material: warm paper-tone ground, two or three fluorescent Riso spot inks such as fluoro pink, federal blue, and sunflower that multiply where they overlap",
+      "Type/composition: a bold grotesk or condensed serif set in single spot colors; cut-paper shapes and blocky layouts with deliberate slight misregistration between the ink layers.",
+      "Topology/navigation: Move by scrolling through ink-layered sections, by clicking cut-paper shape buttons, and by a spot-colored index rail.",
+      "Controls/state: Hover shifts an element's ink layers out of register for a printed-shudder feel; active states swap which spot ink sits on top",
+      "Responsive/motion: misregister transitions are quick and subtle, and reduced-motion locks the layers in perfect registration."
+     ],
+     "webLeverage": "Composite each spot-ink layer as a separate element with mix-blend-mode:multiply over an SVG halftone and grain filter, and drive the misregister on hover with small per-layer transforms.",
      "strength": "world"
     }
    ]
