@@ -188,6 +188,8 @@ export async function selectApprovedStaging({ scope, key, reroll = 0, mode = nul
   return pick;
 }
 
+const CARD_BASE = 'https://impeccable.style/worlds/cards';
+
 const publicConcept = concept => ({
   id: concept.id,
   name: concept.name,
@@ -196,6 +198,10 @@ const publicConcept = concept => ({
   system: concept.system,
   webLeverage: concept.webLeverage,
   wellTier: concept.wellTier,
+  // Rendered reference cards: a design-system board and a desktop hero built
+  // in this world. They are a craft bar, not a mockup to copy.
+  cardBoard: `${CARD_BASE}/${concept.id}.webp`,
+  cardHero: `${CARD_BASE}/${concept.id}-hero.webp`,
 });
 
 const publicComposition = composition => ({
