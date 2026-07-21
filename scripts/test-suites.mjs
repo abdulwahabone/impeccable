@@ -17,7 +17,8 @@ export const SUITES = {
     triggers: [
       ...COMMON_INFRA_PATTERNS,
       /^catalog\//,
-      /^scripts\/(worlds-review-vite-plugin|validate-concept-catalog|sync-api-data)\.mjs$/,
+      /^functions\/api\//,
+      /^scripts\/(worlds-review-vite-plugin|world-roll-dev-plugin|validate-concept-catalog|sync-api-data)\.mjs$/,
       /^skill\/scripts\/(concept-seed|lib\/(composition-catalog|concept-catalog)|live\/ui-core)/,
       /^site\/(pages|content|components|layouts|scripts|styles|lib)\//,
       /^cli\/engine\//,
@@ -38,6 +39,7 @@ export const SUITES = {
           'tests/shiki-theme.test.mjs',
           'tests/slop-catalog.test.mjs',
           'tests/theme.test.mjs',
+          'tests/world-roll-core.test.mjs',
           'tests/worlds-review-vite-plugin.test.mjs',
         ],
       },

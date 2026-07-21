@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import { impeccableShikiThemes } from './site/lib/impeccable-shiki-theme.mjs';
 import { worldsReviewPlugin } from './scripts/worlds-review-vite-plugin.mjs';
+import { worldRollDevPlugin } from './scripts/world-roll-dev-plugin.mjs';
 
 export default defineConfig({
   srcDir: './site',
@@ -20,7 +21,7 @@ export default defineConfig({
   },
   outDir: './build',
   vite: {
-    plugins: [worldsReviewPlugin()],
+    plugins: [worldsReviewPlugin(), worldRollDevPlugin()],
     build: {
       assetsInlineLimit: 0,
     },
