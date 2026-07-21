@@ -1,6 +1,6 @@
 {
  "schemaVersion": 7,
- "catalogVersion": "2026-07-21T03:23:26.063Z",
+ "catalogVersion": "2026-07-21T20:24:56.000Z",
  "comment": "Human-reviewed creative worlds for concept-seed.mjs, organized into seven inspiration wells: the distinct places designers actually mine for award-level work. Every entry must create an immediate mental image, inherit concrete material, spatial, or compositional laws, translate those laws into reusable interface grammar, and exploit the web medium. Literal software archetypes, style names without inherited laws, and tacked-on spectacle are rejected before review.",
  "qualityBar": {
   "principle": "Catalog visual worlds a designer could mine on sight: every concept must name a magnetic world, artifact, or graphic tradition whose look immediately yields a palette and material vocabulary, a type voice, at least three distinct interface component roles, and one signature state change, then stay structurally generative, product-legible, and responsibly executable across a whole product rather than one opening page. Prefer worlds people already recognize and love: built-in cultural resonance beats equal lawfulness in obscurity.",
@@ -377,6 +377,26 @@
      "spark": "You lie on the rug tracing a tiny car through a page where the bakery has no front wall, the flour sack says flour, and every fireman, pig, and pickle truck is busy doing exactly what its label promises.",
      "webLeverage": "svg cutaway layers toggle facades while css transforms pan one continuous labeled scene under pointer or touch",
      "strength": "dual"
+    },
+    {
+     "id": "massin-stage-page",
+     "form": "a Massin stage page, where a play's dialogue is typeset as performance: each voice its own face, shouts swelling across the spread, faces printed as inked stamps",
+     "lineage": "Robert Massin's typographic staging of La Cantatrice Chauve and French expressive book design",
+     "tags": [
+      "type-as-voice",
+      "stage-spread",
+      "printed-performance"
+     ],
+     "spark": "Two voices argue across the gutter in colliding sizes; her words print solid black and slightly angry, his dissolve letter by letter into the margin as he loses the point.",
+     "system": [
+      "Palette/material: high-contrast black ink on white with occasional single-color voices; rough stamp-print portrait textures",
+      "Type/composition: one face per speaker with size carrying volume; lines bend, collide, and overlap by intent while captions stay calm",
+      "Topology/navigation: Move by scene, by speaker, and by outburst.",
+      "Controls/state: Follow a voice, mute a voice, and replay an exchange; emphasis changes scale, never color alone.",
+      "Responsive/motion: Dialogue enters in reading order with theatrical timing; narrow screens stack voices but keep their faces and angles."
+     ],
+     "webLeverage": "Variable font axes as volume with the play rendered in semantic dialogue markup",
+     "strength": "dual"
     }
    ]
   },
@@ -644,6 +664,26 @@
      ],
      "spark": "On a concrete pole at dusk the same poster repeats five times, fluorescent pink and green stacked to the edges, and the headline name arcs across all five in letters you can read from the moving bus.",
      "webLeverage": "variable font width axes condense each line to exact measure while css blend modes make fluorescent inks glow on black",
+     "strength": "world"
+    },
+    {
+     "id": "tanaka-plane-portrait",
+     "form": "an Ikko Tanaka poster, where a face or figure is rebuilt from a few flat geometric planes of color and the grid quietly does the rest",
+     "lineage": "Ikko Tanaka's Nihon Buyo posters and Japanese graphic modernism",
+     "tags": [
+      "flat-planes",
+      "geometric-portrait",
+      "japanese-modernism"
+     ],
+     "spark": "Five colored shapes on a quiet grid suddenly become a dancer's face; the eye is one red semicircle, and removing any single plane collapses the whole person.",
+     "system": [
+      "Palette/material: calm paper ground carrying a small set of confident flat planes in vermilion, indigo, gold, and black; no outlines anywhere",
+      "Type/composition: minimal grotesk locked to the same grid that places the planes; monumental figure, whisper-quiet caption",
+      "Topology/navigation: Move by figure, by plane, and by series.",
+      "Controls/state: Compose, remove, and swap planes; focus names what each plane is doing for the figure.",
+      "Responsive/motion: Planes glide to recompose the figure per aspect ratio; the figure never scales below recognizability."
+     ],
+     "webLeverage": "Layered CSS and SVG planes recomposing responsively while remaining one semantic figure",
      "strength": "world"
     }
    ]
@@ -953,6 +993,66 @@
      "spark": "You unroll the sheet and Fig. 2 blooms into an exploded view, forty parts hanging on invisible threads, numeral 23 arcing on a curved leader to the one washer the whole claim depends on.",
      "webLeverage": "svg leader lines and hatch patterns redraw responsively while an animated transform explodes assemblies along their axes",
      "strength": "dual"
+    },
+    {
+     "id": "isotype-quantity-atlas",
+     "form": "an Isotype statistical atlas, where quantities are rows of repeated flat pictograms and every comparison is countable at a glance",
+     "lineage": "Otto Neurath and Gerd Arntz's Isotype movement and its printed statistical atlases",
+     "tags": [
+      "unit-pictogram",
+      "countable-rows",
+      "flat-statistics"
+     ],
+     "spark": "Ranks of identical black figures march across the page, one per million; the strike year is a sudden red row twice as long, and no axis is needed to feel it.",
+     "system": [
+      "Palette/material: warm off-white page, flat black pictograms, one insistent red reserved for the figure that matters; no gradients anywhere",
+      "Type/composition: quiet grotesk captions under bold row labels; charts are ranked rows of repeated units aligned to one common left edge",
+      "Topology/navigation: Move by question, by decade, and by population row.",
+      "Controls/state: Count, compare, isolate, and re-unit quantities; selection turns a row red.",
+      "Responsive/motion: Rows grow by adding whole units one at a time; narrow screens change the unit value and say so plainly."
+     ],
+     "webLeverage": "Unit-count charts as real DOM lists, one element per unit, so quantities stay countable by screen readers",
+     "strength": "dual"
+    },
+    {
+     "id": "dubois-data-portraits",
+     "form": "the 1900 Du Bois data portraits, where hand-inked bars, spirals, and color fields turn hard statistics into unapologetically bold graphic argument",
+     "lineage": "W. E. B. Du Bois's American Negro Exhibit charts from the 1900 Paris Exposition",
+     "tags": [
+      "hand-inked-charts",
+      "spiral-bar",
+      "bold-statistics"
+     ],
+     "spark": "A crimson spiral coils tighter than the page should allow, gold and black bars slam against hand-lettered captions, and one wandering line carries a population across fifty years.",
+     "system": [
+      "Palette/material: aged cream board with saturated crimson, gold, emerald, and ink black laid down flat by hand",
+      "Type/composition: hand-lettered small-caps captions; each chart invents the form its question needs: coiled spirals, wrapped bars, stepped squares",
+      "Topology/navigation: Move by question, by chart form, and by year.",
+      "Controls/state: Trace, unroll, and compare; a spiral unrolls into a bar to prove the same quantity.",
+      "Responsive/motion: Charts redraw as if inked in one continuous stroke; small screens show one chart at a time at full bleed."
+     ],
+     "webLeverage": "SVG chart forms with an unroll transition between spiral and bar encodings of the same data",
+     "strength": "dual"
+    },
+    {
+     "id": "kolam-dot-lattice",
+     "form": "a kolam pattern book, where looping lines travel around dot lattices in unbroken paths and every morning's design is both geometry and welcome",
+     "lineage": "Tamil kolam threshold drawing, its printed pattern books, and dot-lattice loop grammar",
+     "tags": [
+      "dot-lattice",
+      "unbroken-loop",
+      "threshold-pattern"
+     ],
+     "spark": "A grid of dots waits like sheet music; one white line sets out, bends around every dot without lifting, and closes exactly where it began as the doorway brightens.",
+     "system": [
+      "Palette/material: deep threshold ground with rice-white line work; celebration variants add bordered bands of saturated pigment",
+      "Type/composition: pattern-book numbering and modest labels beside dominant lattice drawings; symmetry classes organize the page",
+      "Topology/navigation: Move by lattice size, symmetry family, and occasion.",
+      "Controls/state: Trace, continue, and complete loops; an unfinished path is a visible, honest state.",
+      "Responsive/motion: Loops draw as one continuous stroke; small screens reduce the lattice count, never the line weight."
+     ],
+     "webLeverage": "SVG single-path loop drawing with pathLength animation and lattice sizes derived from the viewport",
+     "strength": "world"
     }
    ]
   },
@@ -1769,6 +1869,26 @@
      ],
      "spark": "Your footsteps echo on terrazzo as one emerald script hums awake over the milliner's glass, its reflection pooling at your feet, the rest of the corridor waiting in half-lit brass.",
      "webLeverage": "svg filters render tube glow and its doubled reflection, and view transitions carry the escalator glide between floors."
+    },
+    {
+     "id": "crouwel-grid-specimen",
+     "form": "a Wim Crouwel gridded type specimen, where letterforms are built cell by cell on a visible construction grid and the poster is the proof",
+     "lineage": "Wim Crouwel's New Alphabet, Total Design, and the Stedelijk exhibition catalogs",
+     "tags": [
+      "construction-grid",
+      "built-letterforms",
+      "systematic-poster"
+     ],
+     "spark": "Faint blue gridlines cover the sheet like graph paper; enormous letterforms assemble themselves from its cells, and one diagonal is the only rebellion the system permits.",
+     "system": [
+      "Palette/material: white or one stark saturated ground, faint construction-grid hairlines, one accent plane earned by the headline",
+      "Type/composition: monumental grid-constructed letterforms over small neutral grotesk; the layout grid stays visible as part of the design",
+      "Topology/navigation: Move by cell, by letter, and by catalog entry.",
+      "Controls/state: Reveal construction, snap to cells, and toggle grid visibility as a real state.",
+      "Responsive/motion: The page reflows by whole cells; letterforms rebuild cell by cell when content changes."
+     ],
+     "webLeverage": "CSS grid as the literal visible armature with display letterforms drawn from the same grid tokens",
+     "strength": "dual"
     }
    ]
   },
@@ -2036,6 +2156,66 @@
      "spark": "In the waiting room the little screen ticks as a clock until your thumb wakes it, and the gray juggler hops between five molded poses while a helmeted figure blinks twice before the wrench falls.",
      "webLeverage": "every pose lives as an svg segment toggled by state, so animation is pure discrete visibility, faithful to lcd physics",
      "strength": "dual"
+    },
+    {
+     "id": "emigre-bitmap-specimen",
+     "form": "an Emigre bitmap type specimen, where coarse pixel letterforms are set proudly at poster scale and the low resolution is the aesthetic",
+     "lineage": "Zuzana Licko and Rudy VanderLans's Emigre magazine and the first Macintosh-era digital type foundry",
+     "tags": [
+      "bitmap-type",
+      "specimen-poster",
+      "proud-resolution"
+     ],
+     "spark": "A headline built from visible pixels towers over dense justified columns; the same face repeats at five sizes, and at the smallest the pixels dissolve into smooth gray text.",
+     "system": [
+      "Palette/material: newsprint white and rich black with one synthetic accent; halftone and dot-matrix textures as legitimate surfaces",
+      "Type/composition: coarse bitmap display faces against fine text grotesks; specimen-style repetition of one form at many sizes",
+      "Topology/navigation: Move by typeface, by size step, and by issue spread.",
+      "Controls/state: Scale, compare, and toggle bitmap versus smooth rendering as an honest state.",
+      "Responsive/motion: Pixel letterforms scale only in whole-pixel multiples; nothing antialiases unless the reader asks."
+     ],
+     "webLeverage": "Pixel-honest display type via image-rendering rules and font sizes locked to integer multiples",
+     "strength": "world"
+    },
+    {
+     "id": "feltron-personal-annual",
+     "form": "a personal annual report, where one life's year is typeset like a corporate annual: small multiples, ranked lists, and a disciplined accent color",
+     "lineage": "Nicholas Felton's annual reports and the personal-data design school they started",
+     "tags": [
+      "small-multiples",
+      "ranked-year",
+      "one-accent"
+     ],
+     "spark": "A whole year compresses into one austere spread: 365 tiny squares, four ranked lists, one map of everywhere a person walked, all in black and a single unexpected color.",
+     "system": [
+      "Palette/material: austere near-white ground, ink black, and one disciplined accent reserved for the number of the year",
+      "Type/composition: numeric display type at monumental scale over small-caps labels; dense small-multiple grids inside wide margins",
+      "Topology/navigation: Move by month, by metric, and by superlative.",
+      "Controls/state: Rank, filter, and annotate; every figure exposes its source count.",
+      "Responsive/motion: Small multiples reflow by whole units; the year counter rolls once like an odometer, on load."
+     ],
+     "webLeverage": "Real data tables under the small multiples so every statistic stays selectable and screen-readable",
+     "strength": "dual"
+    },
+    {
+     "id": "cooper-information-landscape",
+     "form": "an information landscape, where translucent typography hangs in deep z-space and reading is flying slowly through fog toward what matters",
+     "lineage": "Muriel Cooper's MIT Visible Language Workshop and the Information Landscapes demonstrations",
+     "tags": [
+      "z-space-type",
+      "translucent-depth",
+      "fly-through"
+     ],
+     "spark": "Headlines hang in blue depth like signage in weather; as you drift forward a paragraph condenses out of the fog, sharpens, and the rest of the world politely blurs.",
+     "system": [
+      "Palette/material: deep atmospheric ground with translucent white and spectral accent type; fog as a working material rather than decoration",
+      "Type/composition: one grotesk at radically different depths; hierarchy is distance and focus is proximity",
+      "Topology/navigation: Move by depth layer, by topic cluster, and by approach path.",
+      "Controls/state: Approach, focus, and recede; depth-of-field states say what is active.",
+      "Responsive/motion: Camera drift stays slow and damped; reduced motion collapses depth into ordered flat layers without losing hierarchy."
+     ],
+     "webLeverage": "WebGL or CSS 3D depth stack with a complete flat semantic document behind it",
+     "strength": "dual"
     }
    ]
   },
@@ -2222,6 +2402,46 @@
      ],
      "spark": "the continuity announcer reads what comes next while a viridian 2 made entirely of water collapses and reforms beside the menu, and somehow the channel feels like a person you have known for years",
      "webLeverage": "canvas and shader passes rematerialize one svg mark per section while the junction menu stays keyboard-navigable",
+     "strength": "world"
+    },
+    {
+     "id": "aicher-olympic-program",
+     "form": "the Munich 1972 Olympic identity program, where a rational pictogram grid, a rainbow of cool pastels, and one radiant spiral emblem carry an entire games without a single national color",
+     "lineage": "Otl Aicher's Munich 1972 design program, its Univers signage, and the Aicher pictogram system",
+     "tags": [
+      "pictogram-grid",
+      "cool-rainbow",
+      "identity-program"
+     ],
+     "spark": "A silver poster breathes light blue and spring green; athletes built from circles and 45-degree limbs sprint across a strict grid while the radiant spiral turns above the schedule.",
+     "system": [
+      "Palette/material: silver-white ground with light blue, emerald, orange, and yellow pastel bands, deliberately without red or gold; flat matte print surfaces",
+      "Type/composition: Univers-voiced grotesk locked to a strict typographic grid, generous banner-like color banding, pictograms constructed on a 45-degree geometric armature",
+      "Topology/navigation: Move by discipline, venue, schedule slot, and pictogram family.",
+      "Controls/state: Filter, locate, and wayfind with states carried by band color and pictogram pose change.",
+      "Responsive/motion: Bands restack as horizontal strata on narrow screens; pictograms change by swapping pose frames, never by easing."
+     ],
+     "webLeverage": "SVG pictogram system with pose-swap sprite states over a fully semantic schedule grid",
+     "strength": "dual"
+    },
+    {
+     "id": "pintori-olivetti-poster",
+     "form": "a Pintori Olivetti poster, where typewriter parts scatter into playful geometric constellations that sell precision as joy",
+     "lineage": "Giovanni Pintori's Olivetti advertising studio and Italian corporate modernism",
+     "tags": [
+      "geometric-play",
+      "part-constellation",
+      "corporate-joy"
+     ],
+     "spark": "A thousand tiny keys, springs, and number wheels drift into orbit around one word set in quiet lowercase, and a single red dot lands exactly where the letter O should be.",
+     "system": [
+      "Palette/material: paper white with mid-century primaries plus one precise red reserved for the landing point of the whole composition",
+      "Type/composition: modest lowercase grotesk wordmarks beneath exuberant part-built diagrams; asymmetric balance on generous whitespace",
+      "Topology/navigation: Move by product, by mechanism, and by constellation.",
+      "Controls/state: Assemble, scatter, and trace; focusing a part names its real function.",
+      "Responsive/motion: Constellations drift gently and reassemble into the product silhouette on focus; reduced motion lands them assembled."
+     ],
+     "webLeverage": "SVG part constellations with light drift physics and an assemble-on-focus interaction",
      "strength": "world"
     }
    ]
@@ -4442,6 +4662,26 @@
      ],
      "spark": "You drag a window and its gray dither shears into moire as it moves; the trash can's lid pops open pixel by pixel, and the marching ants around your selection never stop walking.",
      "webLeverage": "image-rendering pixelated canvas keeps dithers crisp at integer scale, and CSS steps() animation drives the marching-ants selection border",
+     "strength": "world"
+    },
+    {
+     "id": "molnar-plotter-suite",
+     "form": "a plotter drawing suite, where a pen machine draws thousands of near-identical lines and the artwork lives in the programmed deviation",
+     "lineage": "Vera Molnár's plotter series and the first generation of machine-drawn art",
+     "tags": [
+      "pen-plotter",
+      "programmed-deviation",
+      "line-series"
+     ],
+     "spark": "Forty squares repeat across the sheet in trembling ballpoint; each drifts one degree further from perfect, and somewhere in the middle the grid quietly becomes weather.",
+     "system": [
+      "Palette/material: plotter-paper white with one or two pen colors; every mark is a stroked line and nothing is ever filled",
+      "Type/composition: gallery-quiet grotesk captions beneath drawings; series laid out as numbered suites in equal frames",
+      "Topology/navigation: Move by series, by parameter value, and by deviation step.",
+      "Controls/state: Adjust a parameter and watch the suite redraw; states are seeds, and every seed is reproducible.",
+      "Responsive/motion: Drawings replot stroke by stroke at readable speed; reduced motion shows finished plots instantly."
+     ],
+     "webLeverage": "SVG stroke drawing with animated path length and user-adjustable seed parameters that stay deterministic",
      "strength": "world"
     }
    ]
