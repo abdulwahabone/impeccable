@@ -1,6 +1,6 @@
 {
  "schemaVersion": 7,
- "catalogVersion": "2026-07-21T21:33:10.000Z",
+ "catalogVersion": "2026-07-21T21:53:37.000Z",
  "comment": "Human-reviewed creative worlds for concept-seed.mjs, organized into seven inspiration wells: the distinct places designers actually mine for award-level work. Every entry must create an immediate mental image, inherit concrete material, spatial, or compositional laws, translate those laws into reusable interface grammar, and exploit the web medium. Literal software archetypes, style names without inherited laws, and tacked-on spectacle are rejected before review.",
  "qualityBar": {
   "principle": "Catalog visual worlds a designer could mine on sight: every concept must name a magnetic world, artifact, or graphic tradition whose look immediately yields a palette and material vocabulary, a type voice, at least three distinct interface component roles, and one signature state change, then stay structurally generative, product-legible, and responsibly executable across a whole product rather than one opening page. Prefer worlds people already recognize and love: built-in cultural resonance beats equal lawfulness in obscurity.",
@@ -16,7 +16,8 @@
    "The concept differs from its nearest catalog neighbor only by subject matter, specimen, industry, lineage wording, or visual styling rather than by memorable experience and at least two reusable system laws.",
    "The source is merely respectable or technically interesting, not magnetic enough that a person would choose to experience it.",
    "The concept is an atmosphere or material world whose material carries no intrinsic two-dimensional pattern or graphic system; mood, light, or texture alone never yields component grammar.",
-   "The concept is an abstract notation or symbol lineage with no produced-artifact tradition behind it; notation qualifies only as a designed, printed, or displayed artifact."
+   "The concept is an abstract notation or symbol lineage with no produced-artifact tradition behind it; notation qualifies only as a designed, printed, or displayed artifact.",
+   "The world's rendered look coincides with a currently AI-colonized trend (glassmorphism waves, aurora gradients, soft neon glass): however legitimate the historical lineage, if this month's AI-generated design already wears the aesthetic, the entry reads as slop on arrival and cannot recover."
   ],
   "reviewAxes": [
    "source-world specificity",
