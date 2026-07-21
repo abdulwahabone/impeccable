@@ -8,7 +8,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SRC = join(ROOT, 'skill', 'scripts');
+const SRC = join(ROOT, 'catalog');
 const DEST = join(ROOT, 'functions', 'api', '_data');
 const FILES = [
   'concept-ingredients.json',

@@ -105,10 +105,10 @@ function validateSystem(system) {
 }
 
 export function worldsReviewPlugin({ root = process.cwd() } = {}) {
-  const catalogPath = path.join(root, 'skill', 'scripts', 'concept-ingredients.json');
-  const reviewsPath = path.join(root, 'skill', 'scripts', 'concept-reviews.json');
-  const compositionCatalogPath = path.join(root, 'skill', 'scripts', 'composition-ingredients.json');
-  const compositionReviewsPath = path.join(root, 'skill', 'scripts', 'composition-reviews.json');
+  const catalogPath = path.join(root, 'catalog', 'concept-ingredients.json');
+  const reviewsPath = path.join(root, 'catalog', 'concept-reviews.json');
+  const compositionCatalogPath = path.join(root, 'catalog', 'composition-ingredients.json');
+  const compositionReviewsPath = path.join(root, 'catalog', 'composition-reviews.json');
   let mutationQueue = Promise.resolve();
 
   // Composition-catalog reviews share the review mechanics but none of the

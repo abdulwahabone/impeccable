@@ -1,4 +1,7 @@
 ---
+// Dev-only lab: never render (or inline catalog data) in a production build.
+if (!import.meta.env.DEV) return Astro.redirect('/');
+
 import fs from 'node:fs';
 import path from 'node:path';
 import Base from '../../layouts/Base.astro';
@@ -7,8 +10,8 @@ import '../../styles/worlds-lab.css';
 import { conceptContentHash } from '../../../skill/scripts/lib/concept-catalog.mjs';
 
 const ROOT = process.cwd();
-const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'skill', 'scripts', 'concept-ingredients.json'), 'utf8'));
-const reviewData = JSON.parse(fs.readFileSync(path.join(ROOT, 'skill', 'scripts', 'concept-reviews.json'), 'utf8'));
+const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'concept-ingredients.json'), 'utf8'));
+const reviewData = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'concept-reviews.json'), 'utf8'));
 const reviews = reviewData.reviews || {};
 const CARD_DIR = path.join(ROOT, 'site', 'public', 'worlds', 'cards');
 const cardManifest = (() => {

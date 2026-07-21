@@ -30,9 +30,9 @@ function concept(id, form, spark) {
 
 async function fixtureRoot() {
   const root = await mkdtemp(path.join(os.tmpdir(), 'impeccable-worlds-'));
-  const scripts = path.join(root, 'skill', 'scripts');
-  await mkdir(scripts, { recursive: true });
-  await writeFile(path.join(scripts, 'concept-ingredients.json'), JSON.stringify({
+  const catalogDir = path.join(root, 'catalog');
+  await mkdir(catalogDir, { recursive: true });
+  await writeFile(path.join(catalogDir, 'concept-ingredients.json'), JSON.stringify({
     schemaVersion: 7,
     catalogVersion: 'test',
     qualityBar: {
@@ -107,7 +107,7 @@ async function fixtureRoot() {
       },
     ],
   }, null, 2));
-  const catalog = JSON.parse(await readFile(path.join(scripts, 'concept-ingredients.json'), 'utf8'));
+  const catalog = JSON.parse(await readFile(path.join(catalogDir, 'concept-ingredients.json'), 'utf8'));
   const conceptById = new Map(catalog.families.flatMap(family => family.concepts.map(entry => [entry.id, entry])));
   const approvedReview = id => ({
     status: 'approved',
@@ -115,7 +115,7 @@ async function fixtureRoot() {
     reviewedAt: '2026-07-18T00:00:00.000Z',
     formHash: conceptContentHash(conceptById.get(id)),
   });
-  await writeFile(path.join(scripts, 'concept-reviews.json'), JSON.stringify({
+  await writeFile(path.join(catalogDir, 'concept-reviews.json'), JSON.stringify({
     schemaVersion: 2,
     reviews: {
       'editorial-living-broadsheet': approvedReview('editorial-living-broadsheet'),
@@ -171,11 +171,11 @@ describe('worlds review dev middleware', () => {
     const handler = handlerFor(root);
     const approved = await request(handler, { action: 'review', id: 'editorial-field-guide', status: 'approved' });
     assert.equal(approved.status, 200);
-    const reviewsPath = path.join(root, 'skill', 'scripts', 'concept-reviews.json');
+    const reviewsPath = path.join(root, 'catalog', 'concept-reviews.json');
     const reviews = JSON.parse(await readFile(reviewsPath, 'utf8'));
     assert.equal(reviews.reviews['editorial-field-guide'].status, 'approved');
     assert.equal(reviews.reviews['editorial-field-guide'].reviewedBy, 'pbakaus');
-    const writtenCatalog = JSON.parse(await readFile(path.join(root, 'skill', 'scripts', 'concept-ingredients.json'), 'utf8'));
+    const writtenCatalog = JSON.parse(await readFile(path.join(root, 'catalog', 'concept-ingredients.json'), 'utf8'));
     const reviewedConcept = writtenCatalog.families.flatMap(family => family.concepts).find(entry => entry.id === 'editorial-field-guide');
     assert.equal(reviews.reviews['editorial-field-guide'].formHash, conceptContentHash(reviewedConcept));
 
@@ -195,7 +195,7 @@ describe('worlds review dev middleware', () => {
       note: '  too abstract, no design culture behind it  ',
     });
     assert.equal(noted.status, 200);
-    const reviewsPath = path.join(root, 'skill', 'scripts', 'concept-reviews.json');
+    const reviewsPath = path.join(root, 'catalog', 'concept-reviews.json');
     let reviews = JSON.parse(await readFile(reviewsPath, 'utf8'));
     assert.equal(reviews.reviews['editorial-field-guide'].note, 'too abstract, no design culture behind it');
 
@@ -228,7 +228,7 @@ describe('worlds review dev middleware', () => {
   it('rates approved concepts, clears with null, and survives a re-approve', async () => {
     const root = await fixtureRoot();
     const handler = handlerFor(root);
-    const reviewsPath = path.join(root, 'skill', 'scripts', 'concept-reviews.json');
+    const reviewsPath = path.join(root, 'catalog', 'concept-reviews.json');
 
     const early = await request(handler, { action: 'rate', id: 'editorial-field-guide', rating: 3 });
     assert.equal(early.status, 400);
@@ -278,7 +278,7 @@ describe('worlds review dev middleware', () => {
       webLeverage: 'let readers zoom, compare, and filter live specimen observations without losing place',
     });
     assert.equal(response.status, 200);
-    const catalog = JSON.parse(await readFile(path.join(root, 'skill', 'scripts', 'concept-ingredients.json'), 'utf8'));
+    const catalog = JSON.parse(await readFile(path.join(root, 'catalog', 'concept-ingredients.json'), 'utf8'));
     assert.equal(catalog.families[0].concepts.length, 1);
     assert.equal(catalog.families[1].concepts[0].id, 'editorial-field-guide');
     assert.match(catalog.families[1].concepts[0].form, /expanded field guide/);
@@ -286,7 +286,7 @@ describe('worlds review dev middleware', () => {
     assert.match(catalog.families[1].concepts[0].spark, /moonlit field/);
     assert.match(catalog.families[1].concepts[0].webLeverage, /zoom/);
     assert.equal(response.body.result.status, 'pending');
-    const reviews = JSON.parse(await readFile(path.join(root, 'skill', 'scripts', 'concept-reviews.json'), 'utf8'));
+    const reviews = JSON.parse(await readFile(path.join(root, 'catalog', 'concept-reviews.json'), 'utf8'));
     assert.equal(reviews.reviews['editorial-field-guide'], undefined);
   });
 
@@ -333,10 +333,10 @@ describe('worlds review dev middleware', () => {
     const handler = handlerFor(root);
     const retyped = await request(handler, { action: 'strength', id: 'mapping-celestial-instrument', strength: 'composition' });
     assert.equal(retyped.status, 200);
-    const catalog = JSON.parse(await readFile(path.join(root, 'skill', 'scripts', 'concept-ingredients.json'), 'utf8'));
+    const catalog = JSON.parse(await readFile(path.join(root, 'catalog', 'concept-ingredients.json'), 'utf8'));
     const entry = catalog.families.flatMap(family => family.concepts).find(item => item.id === 'mapping-celestial-instrument');
     assert.equal(entry.strength, 'composition');
-    const reviews = JSON.parse(await readFile(path.join(root, 'skill', 'scripts', 'concept-reviews.json'), 'utf8'));
+    const reviews = JSON.parse(await readFile(path.join(root, 'catalog', 'concept-reviews.json'), 'utf8'));
     assert.equal(reviews.reviews['mapping-celestial-instrument'].status, 'approved');
 
     const invalid = await request(handler, { action: 'strength', id: 'mapping-celestial-instrument', strength: 'vibe' });
@@ -371,7 +371,7 @@ describe('worlds review dev middleware', () => {
   it('rejects a move that would empty a family or a literal software archetype', async () => {
     const root = await fixtureRoot();
     const handler = handlerFor(root);
-    const solo = JSON.parse(await readFile(path.join(root, 'skill', 'scripts', 'concept-ingredients.json'), 'utf8'))
+    const solo = JSON.parse(await readFile(path.join(root, 'catalog', 'concept-ingredients.json'), 'utf8'))
       .families.find(family => family.id === 'dream').concepts[0];
     const emptyFamily = await request(handler, {
       action: 'update',

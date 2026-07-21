@@ -9,10 +9,15 @@ import {
   validateConceptCatalog,
   validateConceptEntry,
 } from '../skill/scripts/lib/concept-catalog.mjs';
-import { renderChallenger, selectApprovedChallengers, selectApprovedStaging } from '../skill/scripts/concept-seed.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SCRIPT = path.join(ROOT, 'skill', 'scripts', 'concept-seed.mjs');
+const CATALOG_DIR = path.join(ROOT, 'catalog');
+
+// concept-seed.mjs resolves its catalog once at module load, so the env var
+// must be set before the import (hence the dynamic form).
+process.env.IMPECCABLE_CATALOG_DIR = CATALOG_DIR;
+const { renderChallenger, selectApprovedChallengers, selectApprovedStaging } = await import('../skill/scripts/concept-seed.mjs');
 
 const TEST_WELLS = [
   { id: 'well-one', label: 'Well One', tier: 'graphic', description: 'Graphic systems whose compositional laws transfer to interface almost directly.' },
@@ -43,6 +48,7 @@ function run(scope, extraArgs = []) {
   return spawnSync(process.execPath, [SCRIPT, '--scope', scope, '--from', 'stable-test', ...extraArgs], {
     cwd: ROOT,
     encoding: 'utf-8',
+    env: { ...process.env, IMPECCABLE_CATALOG_DIR: CATALOG_DIR },
   });
 }
 
@@ -99,8 +105,8 @@ describe('concept seed scopes', () => {
   });
 
   it('validates the web-generative catalog and human review gate', () => {
-    const catalogPath = path.join(ROOT, 'skill', 'scripts', 'concept-ingredients.json');
-    const reviewsPath = path.join(ROOT, 'skill', 'scripts', 'concept-reviews.json');
+    const catalogPath = path.join(CATALOG_DIR, 'concept-ingredients.json');
+    const reviewsPath = path.join(CATALOG_DIR, 'concept-reviews.json');
     const { catalog, reviewData, concepts } = readConceptCatalog(catalogPath, reviewsPath);
     const result = validateConceptCatalog(catalog, reviewData, { minimumTotal: 260 });
 

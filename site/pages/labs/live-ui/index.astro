@@ -1,4 +1,7 @@
 ---
+// Dev-only lab: never render (or inline catalog data) in a production build.
+if (!import.meta.env.DEV) return Astro.redirect('/');
+
 import Base from '../../../layouts/Base.astro';
 import LiveUiGallery from '../../../components/LiveUiGallery.astro';
 import '../../../styles/live-ui-lab.css';

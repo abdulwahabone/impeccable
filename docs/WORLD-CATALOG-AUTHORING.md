@@ -1,6 +1,6 @@
 # World catalog authoring guide
 
-How new concept-world rounds are authored, gated, and reviewed. Distilled from the full human sweep of 2026-07-20/21 (325 entries reviewed, 169 approved, all approved entries star-rated). The machine-readable core lives in `skill/scripts/concept-ingredients.json` under `qualityBar` (`rejectIf`, `authoringStrategy`); this guide carries the reasoning and the territory map.
+How new concept-world rounds are authored, gated, and reviewed. Distilled from the full human sweep of 2026-07-20/21 (325 entries reviewed, 169 approved, all approved entries star-rated). The machine-readable core lives in `catalog/concept-ingredients.json` under `qualityBar` (`rejectIf`, `authoringStrategy`); this guide carries the reasoning and the territory map.
 
 ## The pipeline
 

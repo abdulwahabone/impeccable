@@ -264,12 +264,12 @@ async function main() {
   // render world-catalog concepts. Both share the manifest and output dir.
   const concepts = isStaging
     ? readCompositionCatalog(
-        join(ROOT, 'skill', 'scripts', 'composition-ingredients.json'),
-        join(ROOT, 'skill', 'scripts', 'composition-reviews.json')
+        join(ROOT, 'catalog', 'composition-ingredients.json'),
+        join(ROOT, 'catalog', 'composition-reviews.json')
       ).compositions
     : readConceptCatalog(
-        join(ROOT, 'skill', 'scripts', 'concept-ingredients.json'),
-        join(ROOT, 'skill', 'scripts', 'concept-reviews.json')
+        join(ROOT, 'catalog', 'concept-ingredients.json'),
+        join(ROOT, 'catalog', 'concept-reviews.json')
       ).concepts;
   const hashOf = isStaging ? compositionContentHash : conceptContentHash;
   mkdirSync(outDir, { recursive: true });
@@ -331,12 +331,12 @@ async function main() {
   // Prune manifest entries for ids that left both catalogs (they share the
   // manifest, so pruning must check the union).
   const worldIds = readConceptCatalog(
-    join(ROOT, 'skill', 'scripts', 'concept-ingredients.json'),
-    join(ROOT, 'skill', 'scripts', 'concept-reviews.json')
+    join(ROOT, 'catalog', 'concept-ingredients.json'),
+    join(ROOT, 'catalog', 'concept-reviews.json')
   ).concepts.map(concept => concept.id);
   const stagingIds = readCompositionCatalog(
-    join(ROOT, 'skill', 'scripts', 'composition-ingredients.json'),
-    join(ROOT, 'skill', 'scripts', 'composition-reviews.json')
+    join(ROOT, 'catalog', 'composition-ingredients.json'),
+    join(ROOT, 'catalog', 'composition-reviews.json')
   ).compositions.map(composition => composition.id);
   const liveIds = new Set([...worldIds, ...stagingIds]);
   for (const id of Object.keys(manifest)) {
