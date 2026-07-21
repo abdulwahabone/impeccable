@@ -1,0 +1,406 @@
+/*
+ * Worlds section — the live roll on the homepage.
+ *
+ * One coherent moment: six flagship worlds dealt onto the table with a
+ * slight fan, Neo Mirai pinned beside them as the played card. Deal-in and
+ * sweep-out are the only authored motions; everything else stays still so
+ * the cards' own art does the talking. Uses kinpaku tokens throughout
+ * (loaded at :root by the homepage import chain).
+ */
+
+.home-kinpaku .worlds-section {
+	position: relative;
+	isolation: isolate;
+	padding: 112px 0;
+}
+
+.home-kinpaku .worlds-section > * {
+	position: relative;
+	z-index: 1;
+}
+
+.worlds-intro {
+	margin-bottom: 40px;
+}
+
+.worlds-lead {
+	max-width: 62ch;
+}
+
+/* ============================================================
+   Table layout: dealt hand left, played card right.
+   ============================================================ */
+
+.worlds-table {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 340px;
+	gap: 48px;
+	align-items: start;
+}
+
+.worlds-zone-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 16px;
+	margin-bottom: 16px;
+}
+
+.worlds-zone-label {
+	font-family: var(--ks-mono);
+	font-size: 0.62rem;
+	letter-spacing: 0.28em;
+	text-transform: uppercase;
+	color: var(--ks-kinpaku);
+}
+
+.worlds-played-zone > .worlds-zone-label {
+	display: block;
+	margin-bottom: 16px;
+	color: var(--ks-patina);
+}
+
+/* ============================================================
+   The dealt hand.
+   ============================================================ */
+
+.worlds-hand {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 22px 20px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	/* Reserve two card rows so the deal never shifts the page. */
+	min-height: clamp(280px, 30vw, 420px);
+}
+
+.worlds-card {
+	position: relative;
+	overflow: hidden;
+	background: var(--ks-lacquer-raised);
+	border: 1px solid var(--ks-rule);
+	border-radius: 10px;
+	box-shadow: 0 18px 40px oklch(0% 0 0 / 0.35);
+	transform: rotate(var(--fan, 0deg));
+}
+
+.worlds-card img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 9;
+	object-fit: cover;
+	background:
+		linear-gradient(100deg, var(--ks-graphite) 40%, var(--ks-graphite-2) 50%, var(--ks-graphite) 60%);
+}
+
+.worlds-card-caption {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+	padding: 12px 14px 14px;
+}
+
+.worlds-card-tier {
+	font-family: var(--ks-mono);
+	font-size: 0.58rem;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+	color: var(--ks-text-faint);
+}
+
+.worlds-card-name {
+	font-family: var(--ks-font-display);
+	font-size: 1.18rem;
+	font-weight: 600;
+	line-height: 1.15;
+	letter-spacing: 0.01em;
+	color: var(--ks-champagne);
+}
+
+/* Spark: the world's one-line scene, revealed over the art on hover. */
+.worlds-card-spark {
+	position: absolute;
+	inset: auto 0 0 0;
+	bottom: calc(1.15em + 2.2rem);
+	padding: 44px 14px 12px;
+	font-size: 0.78rem;
+	line-height: 1.5;
+	color: var(--ks-text);
+	background: linear-gradient(to top, oklch(7% 0.006 95 / 0.94) 45%, transparent);
+	opacity: 0;
+	transition: opacity 0.25s ease;
+	pointer-events: none;
+}
+
+.worlds-card:hover .worlds-card-spark,
+.worlds-card:focus-within .worlds-card-spark {
+	opacity: 1;
+}
+
+@media (hover: hover) {
+	.worlds-card {
+		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+	}
+
+	.worlds-card:hover {
+		transform: rotate(0deg) translateY(-5px);
+		border-color: var(--ks-kinpaku-deep);
+	}
+}
+
+/* ============================================================
+   Deal / sweep choreography. Motion-gated: reduced-motion visitors
+   get the finished table, no transforms.
+   ============================================================ */
+
+@media (prefers-reduced-motion: no-preference) {
+	.worlds-card {
+		opacity: 0;
+		transform: translate3d(0, 52px, 0) rotate(calc(var(--fan, 0deg) * 4)) scale(0.92);
+		transition:
+			transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) var(--deal-delay, 0ms),
+			opacity 0.45s ease var(--deal-delay, 0ms),
+			border-color 0.3s ease;
+	}
+
+	.worlds-card.is-dealt {
+		opacity: 1;
+		transform: rotate(var(--fan, 0deg));
+	}
+
+	@media (hover: hover) {
+		.worlds-card.is-dealt:hover {
+			transform: rotate(0deg) translateY(-5px);
+			transition:
+				transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+				border-color 0.3s ease;
+		}
+	}
+
+	.worlds-card.is-swept {
+		opacity: 0;
+		transform: translate3d(-120%, -10px, 0) rotate(-9deg);
+		transition:
+			transform 0.42s cubic-bezier(0.55, 0, 0.85, 0.36) var(--sweep-delay, 0ms),
+			opacity 0.36s ease var(--sweep-delay, 0ms);
+	}
+}
+
+/* ============================================================
+   Deck controls: the re-roll die and the reproduction key.
+   ============================================================ */
+
+.worlds-deck-controls {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	min-width: 0;
+}
+
+.worlds-reroll {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 7px 14px;
+	font-family: var(--ks-mono);
+	font-size: 0.72rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--ks-kinpaku);
+	background: transparent;
+	border: 1px solid var(--ks-rule);
+	border-radius: 6px;
+	cursor: pointer;
+	transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.worlds-reroll:hover:not(:disabled),
+.worlds-reroll:focus-visible {
+	color: var(--ks-kinpaku-pale);
+	border-color: var(--ks-kinpaku-deep);
+}
+
+.worlds-reroll:disabled {
+	color: var(--ks-text-mute-deep);
+	cursor: wait;
+}
+
+.worlds-reroll-die {
+	width: 15px;
+	height: 15px;
+	transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.worlds-reroll:hover:not(:disabled) .worlds-reroll-die {
+	transform: rotate(112deg);
+}
+
+.worlds-roll-meta {
+	overflow: hidden;
+	font-family: var(--ks-mono);
+	font-size: 0.64rem;
+	letter-spacing: 0.04em;
+	color: var(--ks-text-mute-deep);
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.worlds-hand-status {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	padding: 0;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+}
+
+.worlds-hand-status.is-error {
+	position: static;
+	width: auto;
+	height: auto;
+	margin: 14px 0 0;
+	clip: auto;
+	white-space: normal;
+	font-size: 0.85rem;
+	color: var(--ks-text-muted);
+}
+
+/* ============================================================
+   The played card: Neo Mirai, committed and built.
+   ============================================================ */
+
+.worlds-played-card {
+	position: relative;
+	display: block;
+	overflow: hidden;
+	background: var(--ks-lacquer-raised);
+	border: 1px solid var(--ks-kinpaku-deep);
+	border-radius: 10px;
+	box-shadow:
+		0 0 0 1px oklch(84% 0.19 80.46 / 0.14),
+		0 22px 48px oklch(0% 0 0 / 0.4);
+	text-decoration: none;
+	transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+
+.worlds-played-card:hover {
+	transform: translateY(-5px);
+	box-shadow:
+		0 0 0 1px oklch(84% 0.19 80.46 / 0.28),
+		0 26px 56px oklch(0% 0 0 / 0.45);
+}
+
+.worlds-played-chip {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	z-index: 1;
+	padding: 4px 10px;
+	font-family: var(--ks-mono);
+	font-size: 0.6rem;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+	color: var(--ks-dark-ink);
+	background: var(--ks-kinpaku);
+	border-radius: 4px;
+}
+
+.worlds-played-card img {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 16 / 10;
+	object-fit: cover;
+	object-position: top;
+}
+
+.worlds-played-caption {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 16px 18px 18px;
+	border-top: 1px solid var(--ks-rule);
+}
+
+.worlds-played-caption strong {
+	font-family: var(--ks-font-display);
+	font-size: 1.4rem;
+	font-weight: 600;
+	line-height: 1.1;
+	color: var(--ks-champagne);
+}
+
+.worlds-played-caption > span:not(.worlds-played-cta) {
+	font-size: 0.85rem;
+	line-height: 1.55;
+	color: var(--ks-text-muted);
+}
+
+.worlds-played-cta {
+	margin-top: 6px;
+	font-family: var(--ks-mono);
+	font-size: 0.66rem;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+	color: var(--ks-kinpaku);
+}
+
+.worlds-played-meta {
+	display: flex;
+	gap: 18px;
+	margin: 14px 2px 0;
+	font-size: 0.82rem;
+}
+
+.worlds-played-meta a {
+	color: var(--ks-text-muted);
+	text-decoration: none;
+}
+
+.worlds-played-meta a:hover {
+	color: var(--ks-kinpaku);
+}
+
+/* ============================================================
+   Responsive.
+   ============================================================ */
+
+@media (max-width: 1100px) {
+	.worlds-table {
+		grid-template-columns: minmax(0, 1fr);
+	}
+
+	.worlds-hand-zone {
+		min-width: 0;
+	}
+
+	.worlds-played-zone {
+		max-width: 520px;
+	}
+}
+
+@media (max-width: 760px) {
+	.worlds-hand {
+		display: flex;
+		gap: 14px;
+		margin: 0;
+		padding-bottom: 10px;
+		overflow-x: auto;
+		scroll-snap-type: x mandatory;
+		-webkit-overflow-scrolling: touch;
+		min-height: 0;
+	}
+
+	.worlds-card {
+		flex: 0 0 min(78vw, 340px);
+		scroll-snap-align: start;
+	}
+
+	.worlds-zone-head {
+		flex-wrap: wrap;
+	}
+}

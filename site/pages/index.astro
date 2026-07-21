@@ -4,12 +4,14 @@ import Testimonials from '../components/Testimonials.astro';
 import HeroProof from '../components/HeroProof.astro';
 import LiveSteeringDemo from '../components/LiveSteeringDemo.astro';
 import SlopPatternPreview from '../components/SlopPatternPreview.astro';
+import WorldsRoll from '../components/WorldsRoll.astro';
 import '../styles/main.css';
 import '../styles/sub-pages.css';
 import '../styles/home-kinpaku.css';
 import '../styles/home-rebuild.css';
 import '../styles/home-refresh.css';
 import '../styles/testimonials.css';
+import '../styles/worlds-roll.css';
 
 // Hero background is the locked /design-system finalist referenced from CSS:
 // /assets/neo-kinpaku/candidates/finalists/m-01-v2-01.png.
@@ -56,9 +58,9 @@ import '../styles/testimonials.css';
         <h1 class="hero-rebuild-title">The missing design vocabulary for agents.</h1>
 
         <p class="hero-rebuild-body">
-          Impeccable stops AI-generated interfaces from collapsing into the same tells. It teaches
-          your agent what to avoid, gives you precise commands to steer it, and audits the result
-          in your production codebase.
+          Impeccable strips the slop from AI-generated interfaces, gives you precise commands
+          to steer, and iterates visual variants live in your product. Then <a href="/research" class="hero-rebuild-research-link">the dice</a>: pushed out
+          of distribution, your model designs ambitious visual worlds it could never reach alone.
         </p>
 
         <div class="hero-rebuild-actions">
@@ -230,8 +232,13 @@ import '../styles/testimonials.css';
       </div>
     </section>
 
+    <!-- 03. WORLDS: the live roll. Deals six flagship worlds from /api/roll,
+         Neo Mirai anchors as the played card. Replaces the old Neo Mirai
+         bento tile; the page only ever renders what a roll deals. -->
+    <WorldsRoll />
 
-    <!-- 05. READY TO DROP IN: bento grid with six tiles. Replaces the
+
+    <!-- 05. READY TO DROP IN: bento grid with five tiles. Replaces the
          carousel (initWhyTabs in app.js returns early when .why-layout is
          missing, so leaving that JS in place is harmless). Tiles share
          inner content classes (.why-panel-title, .why-panel-body,
@@ -354,42 +361,9 @@ import '../styles/testimonials.css';
             </div>
           </article>
 
-          <!-- T4: wide. V4 creative direction, shown through a real case. -->
-          <article class="ks-bento-tile ks-bento-tile--span-8 why-panel--vizfirst" id="why-tuned">
-            <span class="ks-bento-num" data-color="patina">04</span>
-            <h3 class="why-panel-title">Gives capable models a point of view.</h3>
-            <p class="why-panel-body">V4 turns real project material into an ownable surface concept, then holds the build to it. Below: the Neo Mirai case.</p>
-              <div class="why-visual why-visual--vizfirst">
-                <div class="why-direction-rail">
-                  <span><i>Mode</i> Persuade</span>
-                  <span><i>Concept</i> A cultural dispatch from the near future</span>
-                  <span class="why-direction-locked"><i>Direction contract</i> Locked</span>
-                </div>
-                <figure class="why-vz-plate why-vz-plate--hifi">
-                  <span class="why-vz-plate-kind">01 &middot; Visual probe</span>
-                  <a class="why-vz-plate-frame" href="/cases/neo-mirai" aria-label="Read the Neo Mirai case study">
-                    <img src="assets/openai_image_2_hifi.jpg" alt="Auto-generated hi-fi landing-page mock in editorial warm-paper style." loading="lazy" width="864" height="1821" />
-                  </a>
-                </figure>
-                <figure class="why-vz-plate why-vz-plate--brand">
-                  <span class="why-vz-plate-kind">02 &middot; Direction</span>
-                  <a class="why-vz-plate-frame" href="/cases/neo-mirai" aria-label="Read the Neo Mirai case study">
-                    <img src="assets/openai_image_2_brand.jpg" alt="Auto-generated brand toolkit: identity lockups, palette, type, icon system, and application mocks for a fictional AI design conference." loading="lazy" width="1536" height="1024" />
-                  </a>
-                </figure>
-                <figure class="why-vz-plate why-vz-plate--live">
-                  <span class="why-vz-plate-kind">03 &middot; Shipped surface</span>
-                  <a class="why-vz-plate-frame" href="/neo-mirai/" aria-label="Open the Neo Mirai live build">
-                    <img src="assets/cases/neo-mirai/live-fold.png" alt="Finished Neo Mirai website hero and agenda, implemented from the generated conference mock." loading="lazy" width="1440" height="1100" />
-                  </a>
-                </figure>
-              </div>
-              <p class="why-panel-meta"><a href="/cases/neo-mirai">Read the case &rarr;</a> &nbsp;&middot;&nbsp; <a href="/neo-mirai/">Open the live build &rarr;</a></p>
-          </article>
-
-          <!-- T5: medium. Surface modes replace the old brand/product registers. -->
-          <article class="ks-bento-tile ks-bento-tile--span-6" id="why-modes">
-            <span class="ks-bento-num" data-color="kinpaku">05</span>
+          <!-- T4: medium. Surface modes replace the old brand/product registers. -->
+          <article class="ks-bento-tile ks-bento-tile--span-4" id="why-modes">
+            <span class="ks-bento-num" data-color="kinpaku">04</span>
             <h3 class="why-panel-title">Knows what the surface is for.</h3>
             <p class="why-panel-body">A landing page should persuade. A dashboard should help someone work. Impeccable names the mode before it designs.</p>
 
@@ -428,10 +402,10 @@ import '../styles/testimonials.css';
 
           </article>
 
-          <!-- T6: medium. Hooks keep the detector in the agent loop; CI is
+          <!-- T5: medium. Hooks keep the detector in the agent loop; CI is
                the final gate rather than the whole story. -->
-          <article class="ks-bento-tile ks-bento-tile--span-6" id="why-ci">
-            <span class="ks-bento-num" data-color="patina">06</span>
+          <article class="ks-bento-tile ks-bento-tile--span-4" id="why-ci">
+            <span class="ks-bento-num" data-color="patina">05</span>
             <h3 class="why-panel-title">Block slop before it ships.</h3>
             <p class="why-panel-body">Hooks inspect each UI edit and send findings straight back to the agent. The same detector can fail a PR.</p>
               <div class="why-visual why-visual--ci">

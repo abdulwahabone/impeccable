@@ -1,0 +1,85 @@
+---
+// Worlds section: a live hand dealt by /api/roll. The page never touches the
+// catalog itself (the labs-leak lesson): everything rendered client-side is
+// exactly what one roll response exposes. Neo Mirai is the section's played
+// card, the world that was committed and fully built.
+import fs from 'node:fs';
+import path from 'node:path';
+
+// Cards live in R2 in production (functions/worlds/cards). Dev prefers local
+// generation output under site/public/worlds/cards and falls back to the
+// published set on clones without it.
+const CARD_DIR = path.join(process.cwd(), 'site', 'public', 'worlds', 'cards');
+const hasLocalCards = fs.existsSync(CARD_DIR)
+  && fs.readdirSync(CARD_DIR).some(file => file.endsWith('-hero.webp'));
+const cardsBase = (import.meta.env.PROD || hasLocalCards)
+  ? '/worlds/cards'
+  : 'https://impeccable.style/worlds/cards';
+---
+
+<section class="worlds-section" id="worlds" aria-labelledby="worlds-title" data-worlds-section data-cards-base={cardsBase}>
+  <div class="section-header" data-reveal>
+    <h2 class="section-title" id="worlds-title">Worlds on the table</h2>
+  </div>
+
+  <div class="worlds-intro" data-reveal>
+    <p class="section-lead worlds-lead">
+      Ask a model to be creative and it builds its favorite idea, every run.
+      So Impeccable rolls dice the model cannot roll itself: 337 authored
+      worlds, 169 approved in human review, each a complete graphic system.
+      The hand below is dealt live by the same roll API the skill uses.
+      <a class="cheatsheet-link" href="/research">Why dice? Read the research &rarr;</a>
+    </p>
+  </div>
+
+  <div class="worlds-table">
+    <div class="worlds-hand-zone">
+      <div class="worlds-zone-head">
+        <span class="worlds-zone-label">01 &middot; Imagine</span>
+        <div class="worlds-deck-controls">
+          <button type="button" class="worlds-reroll" data-worlds-reroll disabled>
+            <svg viewBox="0 0 24 24" aria-hidden="true" class="worlds-reroll-die">
+              <rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
+              <circle cx="8.4" cy="8.4" r="1.5" fill="currentColor"/>
+              <circle cx="15.6" cy="8.4" r="1.5" fill="currentColor"/>
+              <circle cx="8.4" cy="15.6" r="1.5" fill="currentColor"/>
+              <circle cx="15.6" cy="15.6" r="1.5" fill="currentColor"/>
+              <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+            </svg>
+            <span>Deal again</span>
+          </button>
+          <span class="worlds-roll-meta" data-worlds-meta aria-hidden="true"></span>
+        </div>
+      </div>
+      <ul class="worlds-hand" data-worlds-hand aria-label="Six worlds dealt from the flagship pool"></ul>
+      <p class="worlds-hand-status" data-worlds-status role="status"></p>
+    </div>
+
+    <aside class="worlds-played-zone" aria-label="The committed world">
+      <span class="worlds-zone-label">02 &middot; Commit</span>
+      <a class="worlds-played-card" href="/neo-mirai/">
+        <span class="worlds-played-chip">Played</span>
+        <img
+          src="assets/cases/neo-mirai/live-fold.png"
+          alt="Neo Mirai website hero, the committed world built end to end"
+          width="1440" height="1100"
+          loading="lazy" decoding="async"
+        />
+        <span class="worlds-played-caption">
+          <strong>Neo Mirai</strong>
+          <span>One world got the commit. Impeccable held the build to it, from roll to shipped page.</span>
+          <span class="worlds-played-cta">03 &middot; Build &rarr;</span>
+        </span>
+      </a>
+      <p class="worlds-played-meta">
+        <a href="/neo-mirai/">Open the live build &rarr;</a>
+        <a href="/cases/neo-mirai">Read the case &rarr;</a>
+      </p>
+    </aside>
+  </div>
+</section>
+
+<script>
+  import { initWorldsRoll } from '../scripts/components/worlds-roll.js';
+  initWorldsRoll();
+</script>
