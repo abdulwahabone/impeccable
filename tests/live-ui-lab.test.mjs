@@ -56,6 +56,41 @@ test('Live UI gallery organizes states into browsable workflow clusters', () => 
   assert.match(styles, /\.lvg-steer-dots\s*\{[^}]*margin-left:\s*auto;[^}]*justify-content:\s*flex-end;/s);
 });
 
+test('Live UI gallery always uses dark ink on solid gold', () => {
+  const styles = read('site/styles/live-ui-gallery.css');
+  const solidGoldRules = [...styles.matchAll(/([^{}]+)\{([^{}]*background:\s*var\(--lvg-live-brand\)[^{}]*)\}/g)];
+
+  assert.match(styles, /--lvg-live-on-brand:\s*var\(--lvg-live-ink\);/);
+  assert.match(styles, /--lvg-live-brand-highlight:\s*color-mix\([^;]+var\(--lvg-live-brand\)[^;]+\);/);
+  assert.ok(solidGoldRules.length > 0, 'expected solid-gold Live UI rules');
+
+  for (const [, selector, declarations] of solidGoldRules) {
+    assert.doesNotMatch(
+      declarations,
+      /color:\s*(?:white|#fff(?:fff)?|oklch\((?:9[0-9]|100)%)/i,
+      `${selector.trim()} must not put light text on solid gold`,
+    );
+  }
+
+  for (const selector of [
+    '.lvg-tune-button[aria-expanded="true"] .lvg-tune-badge',
+    '.lvg-param-steps button[aria-pressed="true"]',
+  ]) {
+    const escapedSelector = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    assert.match(
+      styles,
+      new RegExp(`${escapedSelector}\\s*\\{[^}]*color:\\s*var\\(--lvg-live-on-brand\\);[^}]*background:\\s*var\\(--lvg-live-brand\\);`, 's'),
+      `${selector} should use the shared on-gold foreground`,
+    );
+  }
+
+  assert.match(
+    styles,
+    /\.lvg-host-target\[data-edited="true"\] h4\s*\{[^}]*color:\s*var\(--lvg-live-on-brand\);[^}]*background:\s*var\(--lvg-live-brand-highlight\);/s,
+    'edited host text should use dark ink on its gold highlight in either host theme',
+  );
+});
+
 test('legacy Live Lab URL redirects to the labs namespace', () => {
   const redirect = read('site/pages/live-lab/index.astro');
   assert.match(redirect, /Astro\.redirect\('\/labs\/live-ui', 301\)/);

@@ -16,7 +16,9 @@
   --lvg-live-brand: oklch(84% 0.19 80.46);
   --lvg-live-brand-hover: oklch(86% 0.07 84);
   --lvg-live-brand-soft: oklch(84% 0.19 80.46 / 0.18);
+  --lvg-live-brand-highlight: color-mix(in oklch, var(--lvg-live-brand) 24%, oklch(98% 0.006 95));
   --lvg-live-ink: oklch(4% 0.004 95);
+  --lvg-live-on-brand: var(--lvg-live-ink);
   --lvg-live-surface: oklch(15% 0.008 95);
   --lvg-live-chat: oklch(22% 0.012 82);
   --lvg-live-toggle: oklch(27% 0 0);
@@ -447,7 +449,8 @@
 }
 
 .lvg-host-target[data-edited="true"] h4 {
-  background: color-mix(in oklch, var(--lvg-live-brand) 24%, transparent);
+  color: var(--lvg-live-on-brand);
+  background: var(--lvg-live-brand-highlight);
   box-shadow: inset 0 -1px var(--lvg-live-brand);
 }
 
@@ -494,7 +497,7 @@
 
 .lvg-edit-badge .is-primary,
 .lvg-edit-badge .is-icon {
-  color: var(--lvg-live-ink);
+  color: var(--lvg-live-on-brand);
   background: var(--lvg-live-brand);
   border-color: var(--lvg-live-brand);
 }
@@ -677,7 +680,7 @@
 }
 
 .lvg-configure-submit {
-  color: var(--lvg-live-ink);
+  color: var(--lvg-live-on-brand);
   background: var(--lvg-live-brand);
 }
 
@@ -875,7 +878,7 @@ button.lvg-dot {
 }
 
 .lvg-tune-button[aria-expanded="true"] .lvg-tune-badge {
-  color: oklch(98% 0 0);
+  color: var(--lvg-live-on-brand);
   background: var(--lvg-live-brand);
 }
 
@@ -891,7 +894,7 @@ button.lvg-dot {
 
 .lvg-accept {
   padding: 5px 14px;
-  color: var(--lvg-live-ink);
+  color: var(--lvg-live-on-brand);
   background: var(--lvg-live-brand);
   border: 0;
   border-radius: 5px;
@@ -987,7 +990,7 @@ button.lvg-dot {
 }
 
 .lvg-param-steps button[aria-pressed="true"] {
-  color: oklch(98% 0 0);
+  color: var(--lvg-live-on-brand);
   background: var(--lvg-live-brand);
 }
 
@@ -1278,7 +1281,7 @@ button.lvg-dot {
   padding: 0 5px;
   align-items: center;
   justify-content: center;
-  color: var(--lvg-live-ink);
+  color: var(--lvg-live-on-brand);
   background: var(--lvg-live-brand);
   border-radius: 7px;
   font-family: var(--lvg-live-mono);
@@ -1459,7 +1462,7 @@ button.lvg-dot {
 .lvg-pending-pill {
   gap: 8px;
   padding: 7px 12px 7px 14px;
-  color: var(--lvg-live-ink);
+  color: var(--lvg-live-on-brand);
   background: var(--lvg-live-brand);
   border: 0;
   box-shadow: 0 4px 16px oklch(0% 0 0 / 0.16), 0 1px 3px oklch(0% 0 0 / 0.1);
@@ -1523,7 +1526,7 @@ button.lvg-dot {
 }
 
 .lvg-pending-decision.is-primary {
-  color: var(--lvg-live-ink);
+  color: var(--lvg-live-on-brand);
   background: var(--lvg-live-brand);
   border-color: var(--lvg-live-brand);
 }
