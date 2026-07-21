@@ -1458,10 +1458,7 @@ if (IS_BROWSER) {
     const _ruleOk = (id) => !_disabled.length || !_disabled.includes(id);
     const designSystem = browserDesignSystemConfig();
     const designSeen = { fonts: new Set(), colors: new Set(), radii: new Set() };
-    // Note: provider-gated rules (--gpt / --gemini) are NOT filtered here. In a
-    // real browser env (detector page, live overlay, extension) running every
-    // check is free, so we always surface them; the gating is purely a CLI
-    // output concern, applied in the Node engines' detect* return paths.
+    // All deterministic rules run in the browser and extension path.
 
     for (const el of document.querySelectorAll('*')) {
       // Skip impeccable's own elements and any descendants (overlays, labels, banner, nav buttons)

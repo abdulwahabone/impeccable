@@ -56,7 +56,7 @@ Delight must not:
 - become mandatory, unskippable, or exhausting on repeat;
 - add a dependency or asset cost disproportionate to the moment.
 
-For authored motion, load [animate.md](animate.md). Respect reduced motion, screen readers, keyboard use, touch, localization, and cultural context. Nonessential loops stop when hidden. Make celebration intensity proportional to frequency and consequence.
+For authored motion, load [animate.md](animate.md). Respect screen readers, keyboard use, touch, localization, and cultural context. Nonessential loops stop when hidden. Make celebration intensity proportional to frequency and consequence.
 
 ## Verify
 
@@ -64,7 +64,7 @@ For authored motion, load [animate.md](animate.md). Respect reduced motion, scre
 - It improves comprehension, confidence, motivation, or emotional recovery.
 - The interface remains fast and obvious without the flourish.
 - Repetition does not turn charm into friction.
-- Reduced-motion, muted, keyboard, touch, and localized paths work.
+- Muted, keyboard, touch, and localized paths work.
 - The result feels like the selected world, not a generic “delight” treatment.
 
 When the personality feels earned, hand off to `/impeccable polish` for the final pass.

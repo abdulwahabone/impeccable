@@ -1,0 +1,1365 @@
+{
+  "schemaVersion": 1,
+  "comment": "Human review decisions for the composition catalog, keyed by stable composition ID. Missing entries are pending and ineligible for challenger sampling. formHash fingerprints the reviewed content.",
+  "reviews": {
+    "collective-fields-addressable-cell-wall": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:46:19.679Z",
+      "formHash": "5b0e286a6052"
+    },
+    "collective-fields-advocacy-quorum": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:14:37.908Z",
+      "formHash": "f27d9c965262"
+    },
+    "collective-fields-cascade-trigger": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:40:02.311Z",
+      "formHash": "1591d65943ab"
+    },
+    "collective-fields-condensed-outtakes": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:12:55.090Z",
+      "formHash": "f9cb980879c9"
+    },
+    "collective-fields-detail-first-index": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:12:59.703Z",
+      "formHash": "4480abc01a0b"
+    },
+    "collective-fields-entrained-flash-field": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:44:02.531Z",
+      "formHash": "06750f762736"
+    },
+    "collective-fields-folded-curtain": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:15:31.564Z",
+      "formHash": "e0d0f0d138dc"
+    },
+    "collective-fields-generative-tile-family": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:44:13.566Z",
+      "formHash": "208fda774b11"
+    },
+    "collective-fields-particle-consensus": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T23:39:57.160Z",
+      "formHash": "60076164a878"
+    },
+    "collective-fields-presence-field": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:44:31.436Z",
+      "formHash": "314eeafdd4bf"
+    },
+    "collective-fields-private-release-current": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:14:56.095Z",
+      "formHash": "5bf65b4fcd51"
+    },
+    "collective-fields-quorum-ring": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:07:17.985Z",
+      "formHash": "33ebcc5e4225"
+    },
+    "collective-fields-roving-sweep": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:44:39.710Z",
+      "formHash": "1ea9676cbae4"
+    },
+    "collective-fields-shared-formation": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:44:49.601Z",
+      "formHash": "d762a3b1cd7f"
+    },
+    "collective-fields-staked-claims": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:07:11.864Z",
+      "formHash": "f4cbad4cdbb5"
+    },
+    "collective-fields-synchronized-array": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:45:08.862Z",
+      "formHash": "fb853922fd28"
+    },
+    "collective-fields-three-rule-flock": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:45:29.651Z",
+      "formHash": "b05c20fa7fed"
+    },
+    "collective-fields-worn-paths": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:48:47.188Z",
+      "formHash": "49f1b61c6ba4"
+    },
+    "data-dramaturgy-aging-shelf": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:04:57.277Z",
+      "formHash": "0442f48e5a91"
+    },
+    "data-dramaturgy-braided-year": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:47:55.348Z",
+      "formHash": "277953633e55"
+    },
+    "data-dramaturgy-cast-indicator-calendar": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:49:04.333Z",
+      "formHash": "bf228fa7f8bd"
+    },
+    "data-dramaturgy-commitment-lattice": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:49:14.173Z",
+      "formHash": "3e8671283bbc"
+    },
+    "data-dramaturgy-continuous-trace": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:49:22.500Z",
+      "formHash": "69ac0c6b1eb0"
+    },
+    "data-dramaturgy-correction-record": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:09:11.198Z",
+      "formHash": "7024549254d0"
+    },
+    "data-dramaturgy-counted-units": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:56:03.324Z",
+      "formHash": "8bf62014f6dd"
+    },
+    "data-dramaturgy-counting-chorus": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:58:47.455Z",
+      "formHash": "9e352a998230",
+      "note": "the visualization didn't really work here i think?"
+    },
+    "data-dramaturgy-diagnostic-plate": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:56:34.335Z",
+      "formHash": "cab317188afb"
+    },
+    "data-dramaturgy-evidence-board": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:48:51.278Z",
+      "formHash": "a0b30bf4bfdf",
+      "note": "a bit basic"
+    },
+    "data-dramaturgy-evidence-transect": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:56:57.706Z",
+      "formHash": "e95ba1e76680"
+    },
+    "data-dramaturgy-full-state-trace": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:10:02.505Z",
+      "formHash": "9d3075ff6713"
+    },
+    "data-dramaturgy-intersecting-fix": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:14:16.100Z",
+      "formHash": "fafeb91f7815"
+    },
+    "data-dramaturgy-light-table-triage": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:57:10.425Z",
+      "formHash": "d51b92959cf2"
+    },
+    "data-dramaturgy-live-ledger": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:57:33.377Z",
+      "formHash": "9460a27ff21c",
+      "note": "too basic"
+    },
+    "data-dramaturgy-opening-and-race": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:57:46.553Z",
+      "formHash": "4819d3e495f5"
+    },
+    "data-dramaturgy-periodic-sweep-score": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:57:55.381Z",
+      "formHash": "3116152f6c13"
+    },
+    "data-dramaturgy-product-teardown": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:58:08.356Z",
+      "formHash": "3760ddccee10"
+    },
+    "data-dramaturgy-raking-relief-terrain": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:15:15.499Z",
+      "formHash": "0a0bd938e1cd"
+    },
+    "data-dramaturgy-reconciliation-zip": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:04:29.202Z",
+      "formHash": "e104c49c5524"
+    },
+    "data-dramaturgy-record-core": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:04:15.770Z",
+      "formHash": "6cb33b26844c"
+    },
+    "data-dramaturgy-replayable-ledger": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:13:15.738Z",
+      "formHash": "0b07b7b47ffd"
+    },
+    "data-dramaturgy-routed-triplicate": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:58:33.144Z",
+      "formHash": "1c13280e050d",
+      "note": "too basic"
+    },
+    "data-dramaturgy-ruled-timeline": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:49:00.993Z",
+      "formHash": "e99b23f0f608",
+      "note": "ok"
+    },
+    "data-dramaturgy-scrubbed-datum": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T00:59:09.968Z",
+      "formHash": "57d9adf1c124"
+    },
+    "data-dramaturgy-seeded-tracers": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:14:33.146Z",
+      "formHash": "5adc309f421c"
+    },
+    "data-dramaturgy-specimen-waterfall": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:00:14.107Z",
+      "formHash": "af4d40a45112",
+      "note": "a bit strange, can't really imagine how it would translate to many niches"
+    },
+    "data-dramaturgy-suspect-lineup": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:05:09.824Z",
+      "formHash": "42dc3e4eaa6d"
+    },
+    "data-dramaturgy-sweep-and-decay": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:00:38.008Z",
+      "formHash": "d78b848c80cc",
+      "note": "good, but we have a lot of circular sweeps?"
+    },
+    "data-dramaturgy-visible-transit": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:49:14.335Z",
+      "formHash": "a5c36df6fe11",
+      "note": "needs image regen I think"
+    },
+    "first-viewport-aperture-projection-room": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:01:00.820Z",
+      "formHash": "2106885b8fc9"
+    },
+    "first-viewport-cold-open-arrival": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:11:24.357Z",
+      "formHash": "3f80def8d524"
+    },
+    "first-viewport-constant-silhouette": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:01:06.744Z",
+      "formHash": "f1f232b4a044"
+    },
+    "first-viewport-converging-pair": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:01:13.779Z",
+      "formHash": "66b54f754181"
+    },
+    "first-viewport-conversational-form": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:01:39.715Z",
+      "formHash": "bd2837e37689"
+    },
+    "first-viewport-corner-block-crop": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:49:30.685Z",
+      "formHash": "123d79a03cf1"
+    },
+    "first-viewport-cropped-giant": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:05:37.106Z",
+      "formHash": "c75f9a0c98d9"
+    },
+    "first-viewport-crossing-seam": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:05:47.485Z",
+      "formHash": "0afb20074f99"
+    },
+    "first-viewport-declarative-bars": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:49:40.300Z",
+      "formHash": "5dd5e31c3b88",
+      "note": "too basic"
+    },
+    "first-viewport-empty-stage-flood": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:46:44.192Z",
+      "formHash": "eca7b157e6e4"
+    },
+    "first-viewport-evidenced-absence": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:47:21.093Z",
+      "formHash": "5402058a1d1d"
+    },
+    "first-viewport-generated-screening": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:47:38.569Z",
+      "formHash": "5f1f70dd2aaf"
+    },
+    "first-viewport-grid-break-focal": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:48:03.511Z",
+      "formHash": "7596a5dacc89"
+    },
+    "first-viewport-inverted-zoom-out": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:48:31.908Z",
+      "formHash": "826872eb4e37",
+      "note": "good but the image is non-sensical"
+    },
+    "first-viewport-live-mirror": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:49:59.516Z",
+      "formHash": "ef3ce0e65ce3"
+    },
+    "first-viewport-monumental-berth": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:50:09.751Z",
+      "formHash": "1de7c681ae07"
+    },
+    "first-viewport-overture-flicker": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:11:33.900Z",
+      "formHash": "1b1f7cdf4959"
+    },
+    "first-viewport-pointer-protagonist": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:50:20.717Z",
+      "formHash": "b7cdfc5942b6"
+    },
+    "first-viewport-split-argument": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:50:25.584Z",
+      "formHash": "8cc1b8b29221"
+    },
+    "first-viewport-type-as-architecture": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:50:31.390Z",
+      "formHash": "5f3962aabc51"
+    },
+    "interaction-physics-beam-board": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:50:45.287Z",
+      "formHash": "859b4bb34f8a"
+    },
+    "interaction-physics-bellows-breath": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:15:22.422Z",
+      "formHash": "d1c989aa5231"
+    },
+    "interaction-physics-counterweighted-branch-balance": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:50:54.805Z",
+      "formHash": "af5e25b8a831"
+    },
+    "interaction-physics-cursor-spotlight": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:51:02.605Z",
+      "formHash": "5b1f70ee67ab"
+    },
+    "interaction-physics-drop-assembly": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:51:08.710Z",
+      "formHash": "acd9398dd438"
+    },
+    "interaction-physics-elastic-scope": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:05:59.106Z",
+      "formHash": "8053e74c69b1"
+    },
+    "interaction-physics-live-thread-unravel": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:51:13.878Z",
+      "formHash": "75e477e127c8"
+    },
+    "interaction-physics-mass-and-settle": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:51:32.853Z",
+      "formHash": "dd971cd46c1a",
+      "note": "this seems to be a dupe, or close to it"
+    },
+    "interaction-physics-metered-reserve": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:51:43.060Z",
+      "formHash": "5d5e8ceb027a"
+    },
+    "interaction-physics-mirror-multiplier": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:51:56.538Z",
+      "formHash": "00e7c1d950f8"
+    },
+    "interaction-physics-paired-interlock": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:05:46.551Z",
+      "formHash": "c7db711f0d07",
+      "note": "very niche"
+    },
+    "interaction-physics-patch-graph-wall": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:52:04.833Z",
+      "formHash": "f023146507e5"
+    },
+    "interaction-physics-pivot-fan": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:52:24.159Z",
+      "formHash": "82d6564c91f2"
+    },
+    "interaction-physics-staged-cascade": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:52:35.695Z",
+      "formHash": "3db7b7df4a27"
+    },
+    "interaction-physics-tension-commit": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:34:03.489Z",
+      "formHash": "bf865a7cc538"
+    },
+    "interaction-physics-threshold-relay": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:14:43.114Z",
+      "formHash": "ed672ae5b3ed"
+    },
+    "interaction-physics-trim-and-launch": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:34:17.582Z",
+      "formHash": "25147120e4fd"
+    },
+    "interaction-physics-two-key-commit": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:34:27.518Z",
+      "formHash": "5fb91acea6cf"
+    },
+    "interaction-physics-weighted-drag": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:06:09.975Z",
+      "formHash": "7e8f3276dfdd"
+    },
+    "interaction-physics-wound-medium": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:34:35.896Z",
+      "formHash": "e6ef0ca4b88d"
+    },
+    "narrative-scroll-accumulating-precis": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:09:52.403Z",
+      "formHash": "04a641fcbcca"
+    },
+    "narrative-scroll-carved-epoch-descent": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:34:41.663Z",
+      "formHash": "84146c6e70fe"
+    },
+    "narrative-scroll-continuous-thread": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:35:07.770Z",
+      "formHash": "b188aba4a6be"
+    },
+    "narrative-scroll-diffuse-to-stream": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:38:03.161Z",
+      "formHash": "6953235878e9"
+    },
+    "narrative-scroll-end-credit-roll": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:12:16.593Z",
+      "formHash": "24d6af3a2ec2"
+    },
+    "narrative-scroll-endless-table": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:38:26.462Z",
+      "formHash": "c0a966308388",
+      "note": "too abstract"
+    },
+    "narrative-scroll-folded-continuous-route": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:38:43.906Z",
+      "formHash": "7a18b8124234"
+    },
+    "narrative-scroll-gatefold-liner-notes": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:38:58.937Z",
+      "formHash": "8d509e22e5ba"
+    },
+    "narrative-scroll-giant-gutter": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:40:29.274Z",
+      "formHash": "57c6c8af4517",
+      "note": "a little strange variant, otherwise i like comic strips"
+    },
+    "narrative-scroll-horizontal-rail": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:40:43.037Z",
+      "formHash": "3bb1a893d0ff"
+    },
+    "narrative-scroll-interstitial-labels": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:12:04.675Z",
+      "formHash": "c600840f9111"
+    },
+    "narrative-scroll-long-return-arc": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:40:58.284Z",
+      "formHash": "56828e077a30"
+    },
+    "narrative-scroll-lookback-depth": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:44:05.313Z",
+      "formHash": "9c94163cce3f"
+    },
+    "narrative-scroll-measured-hang": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:12:00.084Z",
+      "formHash": "aacd135ea695"
+    },
+    "narrative-scroll-parallel-streams-merge": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:44:21.558Z",
+      "formHash": "7951ddfa41f2"
+    },
+    "narrative-scroll-processional-order": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:14:48.355Z",
+      "formHash": "fe772d1d17d2"
+    },
+    "narrative-scroll-receipt-unspool": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:44:46.563Z",
+      "formHash": "c91693646d27"
+    },
+    "narrative-scroll-seed-generations": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:45:00.476Z",
+      "formHash": "96a979980edb",
+      "note": "too niche"
+    },
+    "narrative-scroll-self-playing-score": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:45:41.561Z",
+      "formHash": "d4ad05cc1cfd",
+      "note": "too niche, music doesn't often apply"
+    },
+    "narrative-scroll-slow-loop-breakthrough": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:46:01.571Z",
+      "formHash": "252419af2510",
+      "note": "too niche"
+    },
+    "narrative-scroll-sticky-morph": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:46:13.907Z",
+      "formHash": "8564fb01b8f9"
+    },
+    "narrative-scroll-threshold-promenade": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:46:24.707Z",
+      "formHash": "78ee5275b5d0"
+    },
+    "narrative-scroll-two-speed-parallax-argument": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:47:06.701Z",
+      "formHash": "a23a0cbe3b46"
+    },
+    "narrative-scroll-unbroken-route": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:47:16.353Z",
+      "formHash": "09e658a284b2"
+    },
+    "narrative-scroll-vertical-strata-ascent": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:47:26.357Z",
+      "formHash": "bc401f87427e"
+    },
+    "narrative-scroll-widening-intervals": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:47:42.250Z",
+      "formHash": "3e5fe9bdafe1"
+    },
+    "narrative-scroll-withheld-reveal": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:48:01.480Z",
+      "formHash": "46113a1efa4b"
+    },
+    "narrative-scroll-wordless-steps": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:48:13.646Z",
+      "formHash": "5a2ccebcec34"
+    },
+    "narrative-scroll-zoom-anchored-chapters": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:10:57.072Z",
+      "formHash": "238a44c82011"
+    },
+    "reading-rhythm-claim-evidence-binding": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:07:44.586Z",
+      "formHash": "e6acd25a1112"
+    },
+    "reading-rhythm-cumulative-live-example": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:07:32.376Z",
+      "formHash": "dacdc4dc2fee"
+    },
+    "reading-rhythm-fading-scaffold": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:08:21.518Z",
+      "formHash": "990cb9d09e52"
+    },
+    "reading-rhythm-failure-first-repair": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:08:44.130Z",
+      "formHash": "3ccb4f8a3af1"
+    },
+    "reading-rhythm-goal-compiled-route": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:10:39.203Z",
+      "formHash": "bb2a0526c2ca"
+    },
+    "reading-rhythm-invertible-commentary": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:08:29.679Z",
+      "formHash": "c663f47b9454"
+    },
+    "reading-rhythm-latched-checkpoints": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:08:50.198Z",
+      "formHash": "ac5121be1924"
+    },
+    "reading-rhythm-prediction-checkpoint": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:07:59.445Z",
+      "formHash": "05b2884599b2"
+    },
+    "reading-rhythm-shared-anchor-crossings": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:13:07.369Z",
+      "formHash": "77a1030bc5f8"
+    },
+    "reading-rhythm-spaced-returns": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:10:50.791Z",
+      "formHash": "94500ead668b"
+    },
+    "reading-rhythm-spec-sheet-law": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:13:27.258Z",
+      "formHash": "112231aea30b"
+    },
+    "reading-rhythm-summoned-definitions": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:08:35.760Z",
+      "formHash": "33ee7fcb0ddf"
+    },
+    "reading-rhythm-telescoping-depth": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:08:09.547Z",
+      "formHash": "e1a3c7730435"
+    },
+    "reading-rhythm-transcluded-crossrefs": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:10:22.665Z",
+      "formHash": "bf6e290fbabf"
+    },
+    "reading-rhythm-two-door-corpus": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:09:40.598Z",
+      "formHash": "4abf6a107ec6"
+    },
+    "reading-rhythm-version-seams": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:09:27.856Z",
+      "formHash": "6657d9e6ce1c"
+    },
+    "reveal-transform-affinity-surface": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:48:51.179Z",
+      "formHash": "8278034dee9d",
+      "note": "too niche"
+    },
+    "reveal-transform-aligned-fragments-snap": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:49:07.039Z",
+      "formHash": "3e0ac2e40826"
+    },
+    "reveal-transform-before-after-page": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:49:18.836Z",
+      "formHash": "1e73a444ca8f"
+    },
+    "reveal-transform-carried-motion": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:49:27.235Z",
+      "formHash": "749d72d9472e"
+    },
+    "reveal-transform-concentric-disclosure-cycle": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:49:35.209Z",
+      "formHash": "21557e658016"
+    },
+    "reveal-transform-constraint-collapse": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:49:53.261Z",
+      "formHash": "5bd61bc48dc5"
+    },
+    "reveal-transform-creased-unfolding": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:15:09.221Z",
+      "formHash": "92997f97f0c7"
+    },
+    "reveal-transform-dissection-plate": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:50:01.303Z",
+      "formHash": "2caf72206b56"
+    },
+    "reveal-transform-entered-through-process": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:12:29.890Z",
+      "formHash": "5bb58d21c769"
+    },
+    "reveal-transform-exploded-axis": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:50:07.496Z",
+      "formHash": "dc6ae287bfec"
+    },
+    "reveal-transform-flat-page-standing-city": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:50:24.544Z",
+      "formHash": "899d673f6afe"
+    },
+    "reveal-transform-folding-volume": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:50:37.631Z",
+      "formHash": "44cfb4faa2c6"
+    },
+    "reveal-transform-lit-veil": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:50:47.553Z",
+      "formHash": "76130f5f72f7"
+    },
+    "reveal-transform-mask-through-letter": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:50:51.184Z",
+      "formHash": "6a63b9b1e93b"
+    },
+    "reveal-transform-masked-stage": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:51:01.668Z",
+      "formHash": "c76936529b30"
+    },
+    "reveal-transform-molt-migration": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:06:56.309Z",
+      "formHash": "9bf7528f1f3e"
+    },
+    "reveal-transform-mutable-anchor": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:51:11.585Z",
+      "formHash": "e0a697659d92"
+    },
+    "reveal-transform-onionskin-diff": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:06:46.027Z",
+      "formHash": "1182ef6953c3"
+    },
+    "reveal-transform-page-stack-assembly": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:51:31.210Z",
+      "formHash": "a1a7f1a631ae"
+    },
+    "reveal-transform-parallel-making": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:51:45.783Z",
+      "formHash": "9fd58c757c57"
+    },
+    "reveal-transform-peeled-strata": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:51:58.271Z",
+      "formHash": "724fc224989a"
+    },
+    "reveal-transform-raking-beam": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:52:05.688Z",
+      "formHash": "10fb5dbd9c86"
+    },
+    "reveal-transform-reduction-passes": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:52:18.199Z",
+      "formHash": "fa8737b0665b"
+    },
+    "reveal-transform-released-plume-settle": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:52:25.834Z",
+      "formHash": "d00353d4aac1"
+    },
+    "reveal-transform-resumable-index": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:12:20.988Z",
+      "formHash": "520ceb2a19ea"
+    },
+    "reveal-transform-room-before-work": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:12:35.096Z",
+      "formHash": "8bc689d05183"
+    },
+    "reveal-transform-rule-grown-spiral": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:52:40.825Z",
+      "formHash": "7ef59161f211"
+    },
+    "reveal-transform-staged-reorganization-chambers": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:52:49.311Z",
+      "formHash": "4620bb08e2ea"
+    },
+    "reveal-transform-stroke-score": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:53:13.886Z",
+      "formHash": "bfd5e5066c21"
+    },
+    "reveal-transform-three-distances": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:12:48.580Z",
+      "formHash": "bf4b8cf688f6"
+    },
+    "reveal-transform-translation-gate": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:53:25.833Z",
+      "formHash": "459cafc60ac9"
+    },
+    "reveal-transform-turntable-scenes": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:53:40.534Z",
+      "formHash": "d9858e1faa4a"
+    },
+    "reveal-transform-xray-toggle": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:53:56.179Z",
+      "formHash": "a7cd90159b63"
+    },
+    "spatial-navigation-angle-dependent-facets": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:54:12.761Z",
+      "formHash": "a1996644cbd3"
+    },
+    "spatial-navigation-annotated-margins": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:54:30.320Z",
+      "formHash": "ec68fbcb134f",
+      "note": "too basic, llm will already do this"
+    },
+    "spatial-navigation-branching-fan-routes": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:54:40.474Z",
+      "formHash": "0ce1c87f7fd5"
+    },
+    "spatial-navigation-carried-object": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:06:31.251Z",
+      "formHash": "d29fa5822284"
+    },
+    "spatial-navigation-continuous-world": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:54:49.564Z",
+      "formHash": "514a5675b2ba"
+    },
+    "spatial-navigation-depth-landscape": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:54:59.434Z",
+      "formHash": "717937cac746"
+    },
+    "spatial-navigation-diagonal-axis": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:55:08.602Z",
+      "formHash": "fe79d35e4f80"
+    },
+    "spatial-navigation-docked-capsules": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:55:24.918Z",
+      "formHash": "b374be091598"
+    },
+    "spatial-navigation-elimination-key": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:11:03.646Z",
+      "formHash": "865b2172620d"
+    },
+    "spatial-navigation-enfilade-sightline": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:11:39.316Z",
+      "formHash": "92ad411992d3"
+    },
+    "spatial-navigation-express-aisle": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:11:48.241Z",
+      "formHash": "140b262a2201"
+    },
+    "spatial-navigation-filament-zoom": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:55:39.957Z",
+      "formHash": "6de7694e7ede"
+    },
+    "spatial-navigation-geared-orbits": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:56:01.617Z",
+      "formHash": "3eb6162f0610"
+    },
+    "spatial-navigation-inverted-depth-stacks": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:56:11.554Z",
+      "formHash": "7d9401bf6000"
+    },
+    "spatial-navigation-landmark-horizon": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:06:39.674Z",
+      "formHash": "0060e99a4a92"
+    },
+    "spatial-navigation-magnitude-ladder": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:56:19.136Z",
+      "formHash": "b7a2ada6bfcd"
+    },
+    "spatial-navigation-miniature-glide": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:56:45.681Z",
+      "formHash": "ece888175514"
+    },
+    "spatial-navigation-modular-signs": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:57:02.539Z",
+      "formHash": "ce6b36f7416f"
+    },
+    "spatial-navigation-nested-shell-descent": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:57:09.492Z",
+      "formHash": "e0964c223223"
+    },
+    "spatial-navigation-open-storage-annex": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:11:52.532Z",
+      "formHash": "02fe8546ffff"
+    },
+    "spatial-navigation-orchard-of-moments": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:57:16.815Z",
+      "formHash": "06ad1a8bd60f"
+    },
+    "spatial-navigation-pierced-density": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:57:31.932Z",
+      "formHash": "ecb2652359d0"
+    },
+    "spatial-navigation-portal-counterparts": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:57:47.101Z",
+      "formHash": "1ad7a8700306"
+    },
+    "spatial-navigation-portal-peepholes": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:57:53.386Z",
+      "formHash": "cd4e20da1bbc"
+    },
+    "spatial-navigation-prerequisite-terrain": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:11:07.562Z",
+      "formHash": "8d831a049ad8"
+    },
+    "spatial-navigation-relation-drawers": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:58:20.427Z",
+      "formHash": "7b47dd913d1a"
+    },
+    "spatial-navigation-shadow-path-locality": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:58:33.393Z",
+      "formHash": "6a1d6139d6a1"
+    },
+    "spatial-navigation-split-spectrum-corridors": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:58:38.223Z",
+      "formHash": "6001a3cb782d"
+    },
+    "spatial-navigation-stacked-commons": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:58:51.519Z",
+      "formHash": "ee9a3f7e52c8"
+    },
+    "spatial-navigation-taxonomy-flight": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:15:04.767Z",
+      "formHash": "86d233cf3c16"
+    },
+    "spatial-navigation-tide-locked-rooms": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:59:05.455Z",
+      "formHash": "8fa83cd58b53"
+    },
+    "spatial-navigation-toc-exploded": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:59:24.940Z",
+      "formHash": "199e032fffec"
+    },
+    "spatial-navigation-tooling-by-zoom": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:06:16.530Z",
+      "formHash": "2266cbf8ca00"
+    },
+    "spatial-navigation-traced-pipeline": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:59:44.621Z",
+      "formHash": "28dba8e6b4d3"
+    },
+    "spatial-navigation-transit-stack": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:13:41.785Z",
+      "formHash": "947efa710711"
+    },
+    "spatial-navigation-tuned-bands": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:59:56.470Z",
+      "formHash": "ae767b38cef0"
+    },
+    "spatial-navigation-verso-return": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:11:44.783Z",
+      "formHash": "d68ba1493edb"
+    },
+    "spatial-navigation-zoned-colony-districts": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:00:01.758Z",
+      "formHash": "ad2cfb6b11a1"
+    },
+    "working-surfaces-command-sentence": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:04:05.180Z",
+      "formHash": "ec4b5099fc8a"
+    },
+    "working-surfaces-depth-row": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:03:22.339Z",
+      "formHash": "5b072f9c78fe"
+    },
+    "working-surfaces-drawn-registration": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:14:21.738Z",
+      "formHash": "396a2bdbcdea"
+    },
+    "working-surfaces-exemplar-proof-sheet": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:03:44.539Z",
+      "formHash": "edf374b03b96"
+    },
+    "working-surfaces-finite-tile-inventory": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:15:00.566Z",
+      "formHash": "74404540fb66"
+    },
+    "working-surfaces-focus-airlock": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:00:42.874Z",
+      "formHash": "b38c8a527688",
+      "note": "too specific"
+    },
+    "working-surfaces-held-failure": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:02:30.754Z",
+      "formHash": "d725615c14b6",
+      "note": "good idea but bad image"
+    },
+    "working-surfaces-keyed-overlay": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:03:10.347Z",
+      "formHash": "93b676c13e52"
+    },
+    "working-surfaces-object-time-fan": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:00:56.703Z",
+      "formHash": "e6e08a802973"
+    },
+    "working-surfaces-passed-baton": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:02:03.184Z",
+      "formHash": "06c975439887"
+    },
+    "working-surfaces-perimeter-rail": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:13:35.815Z",
+      "formHash": "9475f78ebd27"
+    },
+    "working-surfaces-reenacted-diff": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:01:37.324Z",
+      "formHash": "e92791213577"
+    },
+    "working-surfaces-rehearsed-command": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:00:18.903Z",
+      "formHash": "66331559cdbf"
+    },
+    "working-surfaces-shadow-runner": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:01:48.530Z",
+      "formHash": "c02594677efd"
+    },
+    "working-surfaces-sorting-gates": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:01:06.446Z",
+      "formHash": "62965e1f63f4"
+    },
+    "working-surfaces-splice-strip": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:03:55.370Z",
+      "formHash": "6e74a3d80fba"
+    },
+    "working-surfaces-tethered-bench": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:01:22.039Z",
+      "formHash": "1a0989c5a26c"
+    },
+    "working-surfaces-twinned-probe": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:03:33.387Z",
+      "formHash": "7c1a7bfeb465"
+    },
+    "working-surfaces-verdict-run": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:01:15.259Z",
+      "formHash": "40148b81e1bd"
+    }
+  }
+}

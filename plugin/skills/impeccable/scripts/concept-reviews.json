@@ -1,0 +1,2201 @@
+{
+  "schemaVersion": 2,
+  "comment": "Human review decisions keyed by stable concept ID. Missing entries are pending and ineligible for challenger sampling. formHash fingerprints the reviewed content; a mismatch marks the review stale.",
+  "reviews": {
+    "architecture-inhabitable-space-acoustic-cloister": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:48:18.430Z",
+      "formHash": "4e2beac1f509"
+    },
+    "architecture-inhabitable-space-daylight-section": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:48:28.467Z",
+      "formHash": "69ed80f9b28f",
+      "rating": 2
+    },
+    "architecture-inhabitable-space-ruin-inhabitation-layers": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:06:47.630Z",
+      "formHash": "90ab06138e78",
+      "note": "didn't quite translate"
+    },
+    "architecture-inhabitable-space-versailles-bosquet-vistas": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:07:09.591Z",
+      "formHash": "d1a4b4fe0746",
+      "rating": 2
+    },
+    "brand-identity-canon-brodovitch-bazaar-spread": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:54:19.287Z",
+      "formHash": "c6c597e1b6e8",
+      "rating": 2
+    },
+    "brand-identity-canon-channel-junction-ident": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:16:28.462Z",
+      "formHash": "5d4973946ca1",
+      "note": "mhh the model had no idea what to do with that"
+    },
+    "brand-identity-canon-ddb-think-small-page": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:54:35.445Z",
+      "formHash": "33b364d204ae",
+      "note": "too simplistic"
+    },
+    "brand-identity-canon-fletcher-wit-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:54:43.206Z",
+      "formHash": "2dc541c5091b",
+      "rating": 2
+    },
+    "brand-identity-canon-girard-color-compendium": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:55:12.538Z",
+      "formHash": "45c419f8e525",
+      "note": "idk doesn't come together that nicely"
+    },
+    "brand-identity-canon-kalman-colors-magazine": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:55:24.933Z",
+      "formHash": "246a338e0d1b",
+      "note": "no clear identity"
+    },
+    "brand-identity-canon-push-pin-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:56:20.061Z",
+      "formHash": "6927cf346107",
+      "rating": 3
+    },
+    "brand-identity-canon-saville-catalog-sleeve": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:56:54.008Z",
+      "formHash": "eb6ddaa651a2",
+      "rating": 3
+    },
+    "brand-identity-canon-scher-street-typography": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:57:05.514Z",
+      "formHash": "f8e89b86e282",
+      "rating": 3
+    },
+    "broadcast-programming-teletext-service": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:54:27.158Z",
+      "formHash": "0cb3bb9bb40a",
+      "rating": 3
+    },
+    "cinema-cinematography-editing-hand-processed-film-bloom": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T03:07:07.811Z",
+      "formHash": "985cf55fa6bb",
+      "rating": 2
+    },
+    "cinema-cinematography-editing-multiplane-cel-dawn": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:05:03.402Z",
+      "formHash": "1f9e37608f1f",
+      "rating": 3
+    },
+    "clay-ceramics-fracture-celadon-ice-crackle": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:36:23.751Z",
+      "formHash": "23e1d842adcc",
+      "note": "too narrow"
+    },
+    "clay-ceramics-fracture-coiled-earth-tower": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:54:15.393Z",
+      "formHash": "59ba7a2a1e17",
+      "rating": 2
+    },
+    "clay-ceramics-fracture-glaze-river-shelf": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T03:04:57.012Z",
+      "formHash": "f4c6084cbc9d",
+      "rating": 3
+    },
+    "clay-ceramics-fracture-interlocking-vault-tile": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:36:35.646Z",
+      "formHash": "af55b5a07535",
+      "note": "too narrow"
+    },
+    "clay-ceramics-fracture-porcelain-lantern-skin": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:36:50.489Z",
+      "formHash": "7819084299b3",
+      "note": "doesn't translate well"
+    },
+    "clay-ceramics-fracture-raku-smoke-flash": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T03:05:02.304Z",
+      "formHash": "ec5af4e1fb10",
+      "rating": 3
+    },
+    "clay-ceramics-fracture-saggar-ember-map": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:36:56.422Z",
+      "formHash": "ab2e2437b5a0"
+    },
+    "clay-ceramics-fracture-talavera-courtyard": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:30:50.765Z",
+      "formHash": "b14de730b649",
+      "rating": 2
+    },
+    "clouds-storms-auroras-auroral-curtain": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:34:08.097Z",
+      "formHash": "af2b53ba3650",
+      "note": "transferred to composition catalog as collective-fields-folded-curtain"
+    },
+    "clouds-storms-auroras-hurricane-eye-wall": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:25:32.597Z",
+      "formHash": "7ad02bb7665f"
+    },
+    "clouds-storms-auroras-iridescent-cloud-edge": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:25:39.354Z",
+      "formHash": "37606f28dfe5",
+      "rating": 2
+    },
+    "clouds-storms-auroras-monsoon-wall-arrival": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:25:45.033Z",
+      "formHash": "c1ea8d378af1"
+    },
+    "clouds-storms-auroras-supercell-cathedral": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:25:49.996Z",
+      "formHash": "2b49c25232c2"
+    },
+    "craft-making-glazier-colorfield-partition": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:13:24.481Z",
+      "formHash": "ff39c0843823",
+      "rating": 2
+    },
+    "craft-making-planished-copper-wall": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:13:13.154Z",
+      "formHash": "190c11312113",
+      "note": "still doesn't quite work"
+    },
+    "design-canon-after-hours-galleria": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:09:10.536Z",
+      "formHash": "259b64752642",
+      "note": "didn't translate well into a full visual system"
+    },
+    "design-canon-alhambra-zellige-court": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:04:11.069Z",
+      "formHash": "f5cccab6ee64",
+      "note": "this is pretty cool, the actual concept is meh but i love that it is middle eastern, i'd love some more inspiration from around the world, not just western centric visual systems",
+      "rating": 2
+    },
+    "design-canon-art-nouveau-metro-threshold": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:36:50.522Z",
+      "formHash": "c9d127b251b5",
+      "rating": 3
+    },
+    "design-canon-bauhaus-foundation-workshop": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:36:54.615Z",
+      "formHash": "a73dc2846c6b",
+      "rating": 2
+    },
+    "design-canon-braun-calibration-bench": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T18:01:47.166Z",
+      "formHash": "7453eccbdb22"
+    },
+    "design-canon-brutalist-conservatory-terrace": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T20:56:58.341Z",
+      "formHash": "67490b9a50cf",
+      "rating": 1
+    },
+    "design-canon-constructivist-agit-train": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:49:16.809Z",
+      "formHash": "32d737308578",
+      "rating": 3
+    },
+    "design-canon-creator-hardware-bench": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T20:50:50.882Z",
+      "formHash": "05b73d84a82a",
+      "rating": 3
+    },
+    "design-canon-dancheong-bracket-polychrome": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:18:46.217Z",
+      "formHash": "43655dc9ca4a",
+      "note": "this didn't translate well into ui"
+    },
+    "design-canon-deco-cinema-lobby": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:38:38.339Z",
+      "formHash": "a5bd48e45fde",
+      "rating": 2
+    },
+    "design-canon-factory-silkscreen-loft": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T20:57:56.845Z",
+      "formHash": "8f2773f0899b",
+      "rating": 3
+    },
+    "design-canon-futurist-bolted-book": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:49:12.615Z",
+      "formHash": "fc18058e933b",
+      "rating": 2
+    },
+    "design-canon-googie-starburst-diner": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:44:46.918Z",
+      "formHash": "df7257e6c87e",
+      "rating": 3
+    },
+    "design-canon-hoffmann-gridsmith-showroom": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:47:39.058Z",
+      "formHash": "1324f3010a36",
+      "rating": 2
+    },
+    "design-canon-liquid-light-ballroom": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:47:35.740Z",
+      "formHash": "8d63cb13d10a",
+      "rating": 3
+    },
+    "design-canon-memphis-showroom-morning": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T20:58:41.495Z",
+      "formHash": "3aec0d34dca4",
+      "rating": 3
+    },
+    "design-canon-morris-pattern-drawing-room": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T20:58:50.133Z",
+      "formHash": "139b001f373f"
+    },
+    "design-canon-nasa-worm-standards-room": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T20:59:13.705Z",
+      "formHash": "b73024c53e46"
+    },
+    "design-canon-neon-mall-nocturne": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:19:23.896Z",
+      "formHash": "bd7eed5249a6",
+      "note": "didn't quite do a good job in the image gen, unfortunately"
+    },
+    "design-canon-piazza-italia-colonnade": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T20:59:20.261Z",
+      "formHash": "47cc86967fb6"
+    },
+    "design-canon-punk-pasteup-table": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:51:34.866Z",
+      "formHash": "cceb2528dbff",
+      "rating": 3
+    },
+    "design-canon-raygun-layout-desk": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:45:37.503Z",
+      "formHash": "f40bff13d6c8",
+      "rating": 3
+    },
+    "design-canon-rietveld-sliding-house": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:51:36.777Z",
+      "formHash": "45e1bcfc8efa",
+      "rating": 3
+    },
+    "design-canon-riley-moire-gallery": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:49:25.027Z",
+      "formHash": "303df6128155",
+      "rating": 2
+    },
+    "design-canon-shaker-meeting-room": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:00:00.087Z",
+      "formHash": "6f794747fa27"
+    },
+    "design-canon-streamliner-observation-lounge": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:00:24.038Z",
+      "formHash": "7d49056ebc5a",
+      "rating": 2
+    },
+    "design-canon-sunken-conversation-pit": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:01:13.662Z",
+      "formHash": "934359ec11ac",
+      "rating": 1
+    },
+    "design-canon-suprematist-icon-corner": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:51:56.459Z",
+      "formHash": "a942b09af803"
+    },
+    "design-canon-swiss-grid-poster-wall": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:51:58.760Z",
+      "formHash": "057473a2bf3e",
+      "rating": 2
+    },
+    "design-canon-vaporwave-mall-atrium": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:02:01.903Z",
+      "formHash": "2013eab6fdea",
+      "note": "too kitschy. neon shopping mall would work, but the font here and accepts are terrible.."
+    },
+    "design-canon-wegner-cabinetmaker-bench": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:02:19.462Z",
+      "formHash": "ac0297d20235",
+      "note": "doesn't translate well"
+    },
+    "design-canon-y2k-translucent-lounge": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:46:01.585Z",
+      "formHash": "bdec2a066312",
+      "rating": 2
+    },
+    "digital-design-canon-antialiased-racing-league": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:07:28.662Z",
+      "formHash": "e83fa3a4d5e1",
+      "rating": 3
+    },
+    "digital-design-canon-aqua-liquid-desktop": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:07:37.683Z",
+      "formHash": "9555a2fa7a92"
+    },
+    "digital-design-canon-console-dashboard-atmosphere": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:08:20.460Z",
+      "formHash": "6364dec2bc9e"
+    },
+    "digital-design-canon-desktop-skin-workshop": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:10:13.087Z",
+      "formHash": "255600c1c178",
+      "note": "cool but not practical, dont think anyone would use it, at least the mobile ui"
+    },
+    "digital-design-canon-gameboy-four-shade-field": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:51:18.583Z",
+      "formHash": "f456e19646e8",
+      "rating": 2
+    },
+    "digital-design-canon-greiman-hybrid-collage": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:51:24.896Z",
+      "formHash": "8bf7f5f6c3de",
+      "rating": 3
+    },
+    "digital-design-canon-metro-typographic-tiles": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:51:44.201Z",
+      "formHash": "6fe7451d25b9",
+      "rating": 2
+    },
+    "digital-design-canon-phosphor-line-atelier": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:09:33.022Z",
+      "formHash": "c3da2d5da335",
+      "note": "pretty boring system, monotonous"
+    },
+    "digital-design-canon-skeuomorph-leather-studio": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:52:53.316Z",
+      "formHash": "5c6b3ecedc91",
+      "rating": 2
+    },
+    "digital-design-canon-utilitarian-antiweb": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:53:02.962Z",
+      "formHash": "fdcea37396f2"
+    },
+    "digital-design-canon-vector-phosphor-arcade": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:53:21.291Z",
+      "formHash": "8d928a7cc936",
+      "note": "too game ui like"
+    },
+    "digital-design-canon-winamp-skin-bazaar": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:53:43.974Z",
+      "formHash": "1a7a968532c0",
+      "note": "clever, but probably too specific"
+    },
+    "dream-surreal-impossible-worlds-alphabet-storm": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T03:07:37.037Z",
+      "formHash": "4a4f84bcbe81",
+      "rating": 3
+    },
+    "dream-surreal-impossible-worlds-cloud-quarry": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:01:36.762Z",
+      "formHash": "da0fc8caf721",
+      "rating": 2
+    },
+    "dream-surreal-impossible-worlds-gravity-rain-garden": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:55:08.139Z",
+      "formHash": "7d0a1de7238a",
+      "rating": 3
+    },
+    "dream-surreal-impossible-worlds-luminescent-alien-understory": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:02:59.667Z",
+      "formHash": "07c7b83f92b6",
+      "note": "maybe some refining",
+      "rating": 2
+    },
+    "dream-surreal-impossible-worlds-moon-shadow-bazaar": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T03:05:34.272Z",
+      "formHash": "9b9db9cef377",
+      "rating": 2
+    },
+    "dream-surreal-impossible-worlds-sleeping-city-fold": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T03:07:52.979Z",
+      "formHash": "8d58264e3329",
+      "rating": 3
+    },
+    "earth-water-worlds-banded-agate-slice": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:12:49.601Z",
+      "formHash": "c1a0cec8ab14",
+      "note": "doesn't quite work"
+    },
+    "editorial-sequence-montage-botanical-folio-season": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:35:49.699Z",
+      "formHash": "dd5d4dc258f9",
+      "rating": 2
+    },
+    "exhibition-museum-curation-provenance-ribbon": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:49:48.361Z",
+      "formHash": "457a6aae320b",
+      "rating": 2
+    },
+    "food-fermentation-culinary-theater-candlelit-potion-class": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:45:31.273Z",
+      "formHash": "3f086e7fbf35",
+      "note": "looks to kitschy/cheap"
+    },
+    "food-fermentation-culinary-theater-chocolate-temper-crystal-river": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:45:43.040Z",
+      "formHash": "afe820ff33b4",
+      "note": "doesn't translate well"
+    },
+    "food-fermentation-culinary-theater-pastry-lamination-geology": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:45:57.761Z",
+      "formHash": "7db883d29e1e",
+      "note": "too abstract"
+    },
+    "food-fermentation-culinary-theater-pickling-brine-calendar": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:46:12.363Z",
+      "formHash": "b8899682531e",
+      "rating": 2
+    },
+    "food-fermentation-culinary-theater-sourdough-microbial-sky": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:46:18.364Z",
+      "formHash": "03b931710d68"
+    },
+    "food-fermentation-culinary-theater-tea-steeping-color-clock": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:46:28.908Z",
+      "formHash": "bb51161029e8"
+    },
+    "forests-canopies-mycelium-mangrove-amphibious-maze": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:57:25.187Z",
+      "formHash": "cfedcdd10daa"
+    },
+    "galaxies-nebulae-deep-time-accretion-disk-threshold": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:31:22.179Z",
+      "formHash": "9f145b9da864",
+      "rating": 2
+    },
+    "games-toys-physics-play-brick-build-instructions": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:52:17.304Z",
+      "formHash": "917dd5fba436",
+      "rating": 3
+    },
+    "games-toys-physics-play-magnetic-marble-cosmos": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:51:22.652Z",
+      "formHash": "fd751da23f86",
+      "note": "too abstract"
+    },
+    "games-toys-physics-play-mechanical-puzzle-cutaway": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:51:32.500Z",
+      "formHash": "1210db32b209"
+    },
+    "games-toys-physics-play-room-height-marble-run": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:52:08.695Z",
+      "formHash": "daa27921734f"
+    },
+    "generative-art-computational-color-chord-counterpoint": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T03:07:24.358Z",
+      "formHash": "fc5413547cbe",
+      "rating": 2
+    },
+    "geological-strata-crystals-basalt-column-organ": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:26:08.080Z",
+      "formHash": "298672933e14",
+      "rating": 1
+    },
+    "geological-strata-crystals-cave-speleothem-chronicle": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:26:32.777Z",
+      "formHash": "d9ffe1a62c39"
+    },
+    "geological-strata-crystals-gem-lapidary-bench": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:30:40.356Z",
+      "formHash": "34f0cd960b55",
+      "note": "doesn't work well as a visual system"
+    },
+    "geological-strata-crystals-geode-hidden-cathedral": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:27:22.209Z",
+      "formHash": "2e50213a6ef7",
+      "note": "good idea, want something with geodes or gemstones, but this one doesn't quite work"
+    },
+    "geological-strata-crystals-salt-polygon-horizon": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:27:41.508Z",
+      "formHash": "5faf51465835"
+    },
+    "glass-refraction-transparency-breath-blown-vessel": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:00:46.323Z",
+      "formHash": "f8830b60e717"
+    },
+    "glass-refraction-transparency-fresnel-ring-beacon": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:37:16.207Z",
+      "formHash": "b4dd222cb2cc"
+    },
+    "glass-refraction-transparency-leaded-rose-aperture": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:37:45.779Z",
+      "formHash": "962691597f4a",
+      "note": "stained-glass would be great, this one is a bit too gothic/religious"
+    },
+    "glass-refraction-transparency-millefiori-section": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:37:50.699Z",
+      "formHash": "ef6ddaf36069"
+    },
+    "glass-refraction-transparency-prismatic-caustic-nave": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:37:55.371Z",
+      "formHash": "462c547778b3"
+    },
+    "glass-refraction-transparency-secular-stained-light": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:31:16.970Z",
+      "formHash": "91e17131f456",
+      "note": "a bit too gimmicky / confusing"
+    },
+    "growth-metamorphosis-branching-fern-fiddlehead-unfurl": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:29:37.778Z",
+      "formHash": "e14f443351f6"
+    },
+    "growth-metamorphosis-branching-ikebana-ma-arrangement": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:56:38.852Z",
+      "formHash": "db14b6c4d9d5",
+      "rating": 2
+    },
+    "ink-pigment-printmaking-cyanotype-shadow-herbarium": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:05:50.231Z",
+      "formHash": "b0f4bc97478c"
+    },
+    "ink-pigment-printmaking-drybrush-reed-storm": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:36:01.279Z",
+      "formHash": "69d7f5e61f7b",
+      "rating": 3
+    },
+    "ink-pigment-printmaking-handscroll-and-seal": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:16:22.959Z",
+      "formHash": "e5e915df4c93",
+      "note": "didn't translate intto interesting visual ui, for some reason"
+    },
+    "ink-pigment-printmaking-mezzotint-velvet-night": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:36:06.739Z",
+      "formHash": "2ab0422e5e71",
+      "rating": 2
+    },
+    "ink-pigment-printmaking-persian-miniature-page": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:15:11.814Z",
+      "formHash": "9ae736765f05",
+      "rating": 2
+    },
+    "ink-pigment-printmaking-screenprint-transparent-overlap": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:35:20.019Z",
+      "formHash": "3ef512775a5c",
+      "rating": 3
+    },
+    "kinetic-sculpture-automata-cam-drum-mechanical-garden": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:34:44.241Z",
+      "formHash": "0dd272024b42"
+    },
+    "kinetic-sculpture-automata-crank-paper-menagerie": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:53:55.163Z",
+      "formHash": "c655bbc9672a",
+      "rating": 3
+    },
+    "kinetic-sculpture-automata-endless-column-rhythm": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:36:02.834Z",
+      "formHash": "0988633fee7f"
+    },
+    "kinetic-sculpture-automata-escapement-tide-clock": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:34:52.694Z",
+      "formHash": "f8a0a1035255"
+    },
+    "kinetic-sculpture-automata-infinity-polka-field": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:35:54.239Z",
+      "formHash": "44896bd5ebe9"
+    },
+    "kinetic-sculpture-automata-tensegrity-breathing-column": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:35:31.170Z",
+      "formHash": "b89fa7b95332",
+      "rating": 2
+    },
+    "kinetic-sculpture-automata-water-cup-chain": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:35:39.343Z",
+      "formHash": "04ba13e17b4b"
+    },
+    "kinetic-sculpture-automata-wind-vane-chorus": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:35:46.281Z",
+      "formHash": "33f4c9b24f6b"
+    },
+    "light-shadow-caustics-indoor-weather-sun": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:34:33.172Z",
+      "formHash": "453a8ed9e1ef",
+      "rating": 2
+    },
+    "light-shadow-caustics-rain-night-cityscape": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:32:57.742Z",
+      "formHash": "2bfda34b228a",
+      "rating": 2
+    },
+    "light-shadow-caustics-skyspace-aperture-threshold": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:34:16.432Z",
+      "formHash": "5f8274732e17"
+    },
+    "light-shadow-caustics-water-caustic-floor": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:33:24.369Z",
+      "formHash": "bb29f1144b09"
+    },
+    "magnetism-electricity-plasma-ferrofluid-spike-crown": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:33:33.404Z",
+      "formHash": "2c742a4d6b47"
+    },
+    "magnetism-electricity-plasma-hand-bent-neon-circuit": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:33:46.463Z",
+      "formHash": "6deca9771768",
+      "rating": 2
+    },
+    "magnetism-electricity-plasma-lichtenberg-fractal-scar": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:33:50.827Z",
+      "formHash": "2e1caa489825"
+    },
+    "magnetism-electricity-plasma-magnetic-tape-memory-landscape": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:34:04.419Z",
+      "formHash": "8bf85892ee10"
+    },
+    "mapping-navigation-celestial-navigation-instrument": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:13:28.983Z",
+      "formHash": "6921416fadd8",
+      "note": "pretty boring visual world, unfortunately"
+    },
+    "medium-native-algorave-source-floor": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:16:05.853Z",
+      "formHash": "57329a80a72d",
+      "rating": 2
+    },
+    "medium-native-ansi-bbs-nightboard": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:57:21.479Z",
+      "formHash": "c4874503c74e",
+      "rating": 3
+    },
+    "medium-native-ascii-live-scene-render": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:57:29.043Z",
+      "formHash": "919c25d1c180",
+      "rating": 2
+    },
+    "medium-native-crt-arcade-pixel-glow": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:52:24.494Z",
+      "formHash": "cf23e6b68424",
+      "rating": 3
+    },
+    "medium-native-fluid-ink-basin": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:27:07.215Z",
+      "formHash": "9b2c65da871e",
+      "rating": 2
+    },
+    "medium-native-hypercard-stack-shoebox": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:57:54.525Z",
+      "formHash": "d545776af055",
+      "rating": 2
+    },
+    "medium-native-life-colony-petri-grid": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:58:01.797Z",
+      "formHash": "179cece9f4ec"
+    },
+    "medium-native-lsystem-grammar-garden": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:27:23.682Z",
+      "formHash": "5f820c5f1a1f"
+    },
+    "medium-native-mandelbrot-coastline-dive": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:58:09.514Z",
+      "formHash": "e21325eb7381"
+    },
+    "medium-native-noise-flow-ink-field": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:58:21.196Z",
+      "formHash": "19f1e56efe45"
+    },
+    "medium-native-one-bit-desktop": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:24:57.715Z",
+      "formHash": "078f9be8645a",
+      "rating": 3
+    },
+    "medium-native-scroll-driven-strata-essay": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:27:40.692Z",
+      "formHash": "d94487199c2e",
+      "note": "a bit too abstract"
+    },
+    "medium-native-variable-font-bellows-press": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:34:08.082Z",
+      "formHash": "4e9e4d64ff96",
+      "note": "transferred to composition catalog as interaction-physics-bellows-breath"
+    },
+    "medium-native-webring-homepage-lane": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:16:42.525Z",
+      "formHash": "b0c156291a7c",
+      "rating": 3
+    },
+    "memory-palimpsest-ruins-archive-demolished-street-ghost-grid": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:53:00.617Z",
+      "formHash": "a627c20ddcd4"
+    },
+    "memory-palimpsest-ruins-archive-fire-damaged-film-recovery": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:53:27.886Z",
+      "formHash": "b09678ce3908"
+    },
+    "memory-palimpsest-ruins-archive-floodline-house-memory": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:53:36.002Z",
+      "formHash": "01c4fd6ab208"
+    },
+    "memory-palimpsest-ruins-archive-ghost-sign-gable": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:54:19.413Z",
+      "formHash": "f5b5c659b8e1",
+      "rating": 2
+    },
+    "memory-palimpsest-ruins-archive-vanished-theater-seat-field": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:54:09.932Z",
+      "formHash": "4d785c5d10c4",
+      "note": "the vanished part is weird"
+    },
+    "metal-forging-patina-blacksmith-scale-shower": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:38:05.136Z",
+      "formHash": "31e86e3d626f",
+      "rating": 2
+    },
+    "metal-forging-patina-copper-lantern-souk": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:31:35.660Z",
+      "formHash": "8a2a8cf7e1a0",
+      "rating": 2
+    },
+    "metal-forging-patina-hammered-copper-vessel": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:38:33.261Z",
+      "formHash": "32ae979822ab",
+      "note": "i love this hammered copper, but somehow doesn't translate well"
+    },
+    "metal-forging-patina-lost-wax-bronze-shell": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:38:38.572Z",
+      "formHash": "bf9cf4335b4f"
+    },
+    "metal-forging-patina-mokume-gane-burl": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:38:54.922Z",
+      "formHash": "956c7ab1c8b2",
+      "note": "too narrow as a visual system"
+    },
+    "metal-forging-patina-repousse-sun-relief": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:39:00.029Z",
+      "formHash": "fa8745252989"
+    },
+    "metal-forging-patina-temper-color-ribbon": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:39:16.440Z",
+      "formHash": "8fc97c9c3397"
+    },
+    "music-rhythm-sound-resonance-harmonic-lantern-field": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:47:09.423Z",
+      "formHash": "8a376ee2fbd0",
+      "note": "doesn't come together"
+    },
+    "music-rhythm-sound-resonance-spectral-stained-glass": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:47:25.444Z",
+      "formHash": "cb664a3bc93e",
+      "note": "too narrow"
+    },
+    "notation-diagram-systems-adinkra-symbol-cloth": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:18:24.759Z",
+      "formHash": "f6cc0126ce34",
+      "rating": 3
+    },
+    "notation-diagram-systems-chess-notation": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:08:46.774Z",
+      "formHash": "ef3862847f1c"
+    },
+    "notation-diagram-systems-graphic-score": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:09:01.527Z",
+      "formHash": "954c666e9c1c"
+    },
+    "notation-diagram-systems-guitar-tab": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:09:09.649Z",
+      "formHash": "0c6b3613a754"
+    },
+    "notation-diagram-systems-heraldic-roll-of-arms": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:10:07.197Z",
+      "formHash": "21e4c76a20f9"
+    },
+    "notation-diagram-systems-kamon-crest-system": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:17:05.116Z",
+      "formHash": "30f4b6c72b24",
+      "note": "didn't translate into a strong visual system"
+    },
+    "notation-diagram-systems-knitting-chart": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:09:27.267Z",
+      "formHash": "4c3b1da1cd01"
+    },
+    "notation-diagram-systems-labanotation": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:50:45.941Z",
+      "formHash": "93db538ae6b9",
+      "rating": 2
+    },
+    "notation-diagram-systems-orienteering-map": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T01:00:58.578Z",
+      "formHash": "d58c56e54f3a",
+      "rating": 2
+    },
+    "notation-diagram-systems-quipu-knot-ledger": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:17:53.536Z",
+      "formHash": "b3f82031da10",
+      "note": "looks a little meh"
+    },
+    "notation-diagram-systems-star-atlas": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T01:00:54.481Z",
+      "formHash": "44c55b723e8c",
+      "rating": 2
+    },
+    "notation-diagram-systems-synoptic-map": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:09:58.805Z",
+      "formHash": "d923fa33ac7a"
+    },
+    "notation-diagram-systems-thangka-mandala-cosmogram": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:16:37.088Z",
+      "formHash": "d9ff7c3fddbb",
+      "rating": 2
+    },
+    "orbits-eclipses-celestial-cycles-tidally-locked-world": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:55:57.204Z",
+      "formHash": "b4861250da03"
+    },
+    "paper-folds-pleats-deployable-akari-light-sculpture": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:44:09.147Z",
+      "formHash": "35e43f8ace43",
+      "rating": 2
+    },
+    "paper-folds-pleats-deployable-curved-crease-shell": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:39:42.524Z",
+      "formHash": "f1dfd589d9ee",
+      "rating": 2
+    },
+    "paper-folds-pleats-deployable-kirigami-expansion-net": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:39:53.024Z",
+      "formHash": "4c96649cad2e"
+    },
+    "paper-folds-pleats-deployable-miura-orbit-sheet": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:40:22.168Z",
+      "formHash": "73065a95ec32",
+      "rating": 3
+    },
+    "paper-folds-pleats-deployable-orizuru-crane-sequence": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T03:05:23.194Z",
+      "formHash": "45179e408ffa",
+      "rating": 3
+    },
+    "pop-culture-shelf-acid-rave-flyer": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T17:58:52.669Z",
+      "formHash": "9daf52c53f0e",
+      "note": "quite a look, but tasteless"
+    },
+    "pop-culture-shelf-anime-command-center": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:17:00.644Z",
+      "formHash": "2f15dbd0a4ae",
+      "rating": 3
+    },
+    "pop-culture-shelf-arcade-marquee-row": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:17:17.653Z",
+      "formHash": "be3834a2a3a5",
+      "rating": 3
+    },
+    "pop-culture-shelf-bebop-title-card": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:17:34.812Z",
+      "formHash": "9b9dca89c000",
+      "rating": 3
+    },
+    "pop-culture-shelf-benday-comic-page": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:17:51.297Z",
+      "formHash": "d13bd725fde8",
+      "rating": 3
+    },
+    "pop-culture-shelf-blister-card-wall": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:18:40.160Z",
+      "formHash": "9009ba3c267d",
+      "note": "this is nice, but too extremely manly (the metal brush is no good). i'd love some more gender neutral action figure variants, or maybe even barbie / female like"
+    },
+    "pop-culture-shelf-bollywood-painted-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:23:05.779Z",
+      "formHash": "e73b32786cb1",
+      "rating": 3
+    },
+    "pop-culture-shelf-camcorder-overlay": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:23:30.108Z",
+      "formHash": "6a2ec4bf21b8",
+      "note": "pretty good but the 'recording indicator' is already an ai slop meme"
+    },
+    "pop-culture-shelf-cassette-futurism-deck": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:23:51.902Z",
+      "formHash": "9d931778e58b",
+      "rating": 3
+    },
+    "pop-culture-shelf-cereal-box-aisle": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:19:26.344Z",
+      "formHash": "b277206f13be",
+      "rating": 2
+    },
+    "pop-culture-shelf-city-pop-airbrush": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:19:42.911Z",
+      "formHash": "0351a5c2ef86",
+      "rating": 3
+    },
+    "pop-culture-shelf-code-cascade-terminal": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:20:12.516Z",
+      "formHash": "78aa9e470149",
+      "rating": 2
+    },
+    "pop-culture-shelf-couture-doll-atelier": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:11:09.587Z",
+      "formHash": "55c635457cf6",
+      "rating": 2
+    },
+    "pop-culture-shelf-elbow-panel-console": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:20:21.387Z",
+      "formHash": "c03295e94c55",
+      "rating": 3
+    },
+    "pop-culture-shelf-endurance-livery-garage": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:20:45.808Z",
+      "formHash": "e2cf5e645c37",
+      "rating": 3
+    },
+    "pop-culture-shelf-eurostile-panel-computer": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:21:07.405Z",
+      "formHash": "3d8570929d01",
+      "note": "thought this would translate well, but the imagery sucks"
+    },
+    "pop-culture-shelf-fashion-doll-dreamhouse": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:24:33.452Z",
+      "formHash": "5b2c00b753f3",
+      "note": "this one is a bit too over the top pink, but i would love to see some more alts that have feminine energy, including fashion-doll"
+    },
+    "pop-culture-shelf-foil-stamped-deck": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:11:37.389Z",
+      "formHash": "2ae6aabe36ba",
+      "note": "very limited system"
+    },
+    "pop-culture-shelf-football-kit-crest": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:21:18.086Z",
+      "formHash": "90223a8dae2c",
+      "rating": 2
+    },
+    "pop-culture-shelf-grand-tour-jersey-road": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:18:25.087Z",
+      "formHash": "017058257948",
+      "note": "not very distinct visually"
+    },
+    "pop-culture-shelf-industrial-starship-terminal": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:21:29.922Z",
+      "formHash": "80d9f60e4933",
+      "rating": 3
+    },
+    "pop-culture-shelf-jingle-truck-art": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:20:18.580Z",
+      "formHash": "17deb25a8a66",
+      "rating": 3
+    },
+    "pop-culture-shelf-kaiju-broadcast-alert": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:22:14.420Z",
+      "formHash": "e30d52565f93",
+      "rating": 3
+    },
+    "pop-culture-shelf-magical-girl-transformation": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:25:38.839Z",
+      "formHash": "15ea1694c0e4",
+      "rating": 3
+    },
+    "pop-culture-shelf-magnetic-weather-board": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:17:41.250Z",
+      "formHash": "c2d18673aed1"
+    },
+    "pop-culture-shelf-manga-screentone-page": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:22:32.172Z",
+      "formHash": "19b561ab581f",
+      "rating": 3
+    },
+    "pop-culture-shelf-neo-tokyo-neon-night": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:22:48.505Z",
+      "formHash": "3042a0e8d90e",
+      "rating": 3
+    },
+    "pop-culture-shelf-photocard-binder": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:23:06.085Z",
+      "formHash": "6de4cba7b3ec",
+      "rating": 3
+    },
+    "pop-culture-shelf-rebel-menu-interface": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:23:13.149Z",
+      "formHash": "a5dc48c6da3d",
+      "rating": 3
+    },
+    "pop-culture-shelf-rpg-dialog-window": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:23:28.000Z",
+      "formHash": "4aa26d6b57dd",
+      "rating": 2
+    },
+    "pop-culture-shelf-saturday-title-card": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:23:43.773Z",
+      "formHash": "fe429d29ebac",
+      "rating": 3
+    },
+    "pop-culture-shelf-shaw-brothers-freeze-title": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:17:56.399Z",
+      "formHash": "05cb3033b4df"
+    },
+    "pop-culture-shelf-skate-deck-wall": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:23:53.620Z",
+      "formHash": "18be148b0a44",
+      "rating": 3
+    },
+    "pop-culture-shelf-starship-readout-grid": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:12:14.161Z",
+      "formHash": "eaa6395b7b17",
+      "note": "ok but no visual consistency at all, the two images are very different"
+    },
+    "pop-culture-shelf-sticker-sheet-decoden": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:25:51.181Z",
+      "formHash": "487db979de97",
+      "rating": 3
+    },
+    "pop-culture-shelf-tcg-card-frame": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:24:25.434Z",
+      "formHash": "46ee311519d3",
+      "note": "good concept but this old game ui just looks a bit too cheap"
+    },
+    "pop-culture-shelf-teen-magazine-quiz": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:30:22.781Z",
+      "formHash": "20789c603f03",
+      "rating": 3
+    },
+    "pop-culture-shelf-viewfinder-bracket-hud": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:12:33.210Z",
+      "formHash": "13e8f4ae3510",
+      "rating": 2
+    },
+    "pop-culture-shelf-wax-pack-card": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:24:43.351Z",
+      "formHash": "9680eedcf515",
+      "rating": 2
+    },
+    "pop-culture-shelf-window-box-toy-shelf": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:11:17.580Z",
+      "formHash": "a5e4ba3c67c4",
+      "rating": 2
+    },
+    "posters-covers-sleeves-ecm-sleeve": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:37:02.807Z",
+      "formHash": "c9511fd3b44f",
+      "rating": 1
+    },
+    "posters-covers-sleeves-fight-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:35:42.649Z",
+      "formHash": "4cf1b66a6930",
+      "rating": 2
+    },
+    "posters-covers-sleeves-fillmore-handbill": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:35:48.300Z",
+      "formHash": "7217ee73fe84",
+      "rating": 3
+    },
+    "posters-covers-sleeves-hatch-show-print": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:35:54.877Z",
+      "formHash": "152569058e20",
+      "rating": 2
+    },
+    "posters-covers-sleeves-ospaaal-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:37:06.182Z",
+      "formHash": "210f6b2d2081",
+      "rating": 2
+    },
+    "posters-covers-sleeves-pelican-jacket": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:08:13.145Z",
+      "formHash": "148d339c7eb2"
+    },
+    "posters-covers-sleeves-polish-film-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:36:01.378Z",
+      "formHash": "351b708d3267",
+      "rating": 3
+    },
+    "posters-covers-sleeves-pulp-rack": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:37:09.361Z",
+      "formHash": "d36814466051",
+      "rating": 3
+    },
+    "posters-covers-sleeves-saul-bass-title": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:36:08.012Z",
+      "formHash": "9e078b9bd4b0",
+      "rating": 3
+    },
+    "posters-covers-sleeves-silent-intertitle-card": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:16:03.876Z",
+      "formHash": "80d26387896d",
+      "note": "doesn't quite work as ui"
+    },
+    "posters-covers-sleeves-stenberg-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T01:00:36.161Z",
+      "formHash": "7f0a3281c9d9",
+      "rating": 3
+    },
+    "posters-covers-sleeves-wpa-park-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:36:12.046Z",
+      "formHash": "dfd4045a4484",
+      "rating": 3
+    },
+    "product-industrial-mechanical-espresso-lever": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:19:11.071Z",
+      "formHash": "1b36aca50f16",
+      "note": "doesn't translate well"
+    },
+    "product-industrial-mechanical-letterpress-composing": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:23:28.315Z",
+      "formHash": "c4367e1654b4"
+    },
+    "product-industrial-mechanical-linotype-caster": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:23:40.240Z",
+      "formHash": "ae253e24dd93"
+    },
+    "product-industrial-mechanical-manual-typewriter": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:23:51.078Z",
+      "formHash": "b3aa4bd3ea47"
+    },
+    "product-industrial-mechanical-pipe-organ-keydesk": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:24:13.277Z",
+      "formHash": "d3b3972a3dbb"
+    },
+    "reefs-bioluminescent-nocturnal-chromatophore-skin-language": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:30:37.209Z",
+      "formHash": "2b2c2823f0e6",
+      "rating": 2
+    },
+    "reefs-bioluminescent-nocturnal-plankton-wake-stars": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:56:44.958Z",
+      "formHash": "a75c2ffad668",
+      "rating": 2
+    },
+    "reference-taxonomy-biodiversity-tree-of-life": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:30:47.551Z",
+      "formHash": "4171d1bd201b"
+    },
+    "ritual-ceremony-festival-lantern-river-vows": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:52:27.535Z",
+      "formHash": "12f190f234a5"
+    },
+    "ritual-ceremony-festival-mask-unveiling-sequence": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:52:33.819Z",
+      "formHash": "6c95c865ef2e"
+    },
+    "ritual-ceremony-festival-papel-picado-canopy": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:52:52.366Z",
+      "formHash": "90ac1a8624bf",
+      "rating": 2
+    },
+    "ritual-ceremony-festival-yggdrasil-nine-realms": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:55:03.699Z",
+      "formHash": "ecf31e685e00",
+      "rating": 2
+    },
+    "rivers-tides-ocean-depths-hydrothermal-vent-oasis": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:28:05.207Z",
+      "formHash": "5916befa86d3",
+      "rating": 1
+    },
+    "rivers-tides-ocean-depths-mesophotic-deep-dive": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:28:20.672Z",
+      "formHash": "4f4fc26744fe",
+      "rating": 2
+    },
+    "rivers-tides-ocean-depths-tidal-bore-front": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:28:45.459Z",
+      "formHash": "cb4a82b433e3"
+    },
+    "scientific-notation-oscilloscope-signal-bench": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:54:31.683Z",
+      "formHash": "e4176f6a5f24",
+      "rating": 3
+    },
+    "scientific-notation-particle-detector-event-display": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:54:34.409Z",
+      "formHash": "38af570c03fd",
+      "rating": 2
+    },
+    "signals-instruments-barograph-week-drum": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:14:20.074Z",
+      "formHash": "8af5e5530772",
+      "note": "brass fake ui feels cheap"
+    },
+    "signals-instruments-darkroom-safelight-bay": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:14:30.006Z",
+      "formHash": "66ba8bf2ca20",
+      "rating": 3
+    },
+    "signals-instruments-drum-machine-step-row": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:19:25.554Z",
+      "formHash": "d3903436b74c",
+      "rating": 2
+    },
+    "signals-instruments-election-night-big-board": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:18:34.906Z",
+      "formHash": "bd625a7be98d"
+    },
+    "signals-instruments-evening-switchboard": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:14:37.857Z",
+      "formHash": "c35a5d1e75b5"
+    },
+    "signals-instruments-night-flight-six-pack": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:15:04.865Z",
+      "formHash": "75224c47c879",
+      "rating": 3
+    },
+    "signals-instruments-nixie-laboratory-counter": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:15:16.002Z",
+      "formHash": "e2207f89124f",
+      "rating": 3
+    },
+    "signals-instruments-phosphor-terminal-midnight": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:55:02.528Z",
+      "formHash": "79c30264dac8",
+      "rating": 3
+    },
+    "signals-instruments-pinball-backglass": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:15:45.914Z",
+      "formHash": "7826eb4258fc",
+      "rating": 2
+    },
+    "signals-instruments-radar-scope-watch": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:18:51.661Z",
+      "formHash": "101927928fd8",
+      "note": "too similar to others we already have"
+    },
+    "signals-instruments-seven-segment-alarm-clock": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:18:06.179Z",
+      "formHash": "6f36e22e535b",
+      "rating": 2
+    },
+    "signals-instruments-split-flap-concourse": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:24:52.128Z",
+      "formHash": "fc15f90782d4",
+      "rating": 3
+    },
+    "signals-instruments-telegraph-key-sounder": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:18:18.727Z",
+      "formHash": "0cb00b347bf9",
+      "rating": 1
+    },
+    "signals-instruments-telemetry-ward-monitor": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:19:15.391Z",
+      "formHash": "e8ecd4100953",
+      "note": "doesn't work as visual system"
+    },
+    "signals-instruments-ticker-tape-quote-board": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:18:56.294Z",
+      "formHash": "d73a7e62cb36"
+    },
+    "signals-instruments-vu-meter-bridge": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:18:26.849Z",
+      "formHash": "dcdffbc4daa9",
+      "rating": 2
+    },
+    "social-participatory-public-space-communal-repair-tapestry": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:52:45.084Z",
+      "formHash": "205386791419"
+    },
+    "stagecraft-theater-lighting-cyclorama-dawn": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:05:31.116Z",
+      "formHash": "b15be17ef77a",
+      "rating": 3
+    },
+    "stagecraft-theater-lighting-fly-tower-transformation": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:47:42.026Z",
+      "formHash": "54624f93322f",
+      "note": "too abstract"
+    },
+    "stagecraft-theater-lighting-peppers-ghost-table": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:05:53.262Z",
+      "formHash": "5252612fb11b"
+    },
+    "swarms-flocks-migration-bee-swarm-consensus": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:31:07.502Z",
+      "formHash": "22357a3c0961"
+    },
+    "textiles-weave-drape-fashion-bias-cut-gravity-line": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:41:04.888Z",
+      "formHash": "33d4077f2207",
+      "note": "i think this wouldn't translate well in non fashion worlds"
+    },
+    "textiles-weave-drape-fashion-conductive-embroidered-night": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:41:16.948Z",
+      "formHash": "b6d9447e83eb"
+    },
+    "textiles-weave-drape-fashion-drawcord-transforming-cape": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:41:32.885Z",
+      "formHash": "496ed82d73ab",
+      "rating": 3
+    },
+    "textiles-weave-drape-fashion-fortuny-pleat-fall": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:41:40.862Z",
+      "formHash": "99f33b2ab2ed"
+    },
+    "textiles-weave-drape-fashion-ikat-ghost-grid": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:42:03.950Z",
+      "formHash": "26c0fa28e252",
+      "rating": 2
+    },
+    "textiles-weave-drape-fashion-industrial-quote-grammar": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:44:43.541Z",
+      "formHash": "96ecc8896a69",
+      "rating": 3
+    },
+    "textiles-weave-drape-fashion-jacquard-punched-brocade": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:42:12.837Z",
+      "formHash": "984370c38326",
+      "rating": 2
+    },
+    "textiles-weave-drape-fashion-lace-negative-cathedral": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:42:44.142Z",
+      "formHash": "0afd1ca69a09",
+      "note": "desktop ui needs regen"
+    },
+    "textiles-weave-drape-fashion-margiela-blank-atelier": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:44:27.470Z",
+      "formHash": "bbb6cbcf8c69",
+      "note": "too bland/white"
+    },
+    "textiles-weave-drape-fashion-memory-quilt-atlas": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:42:54.980Z",
+      "formHash": "7dabca7ef289",
+      "rating": 2
+    },
+    "textiles-weave-drape-fashion-runway-color-procession": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:43:10.850Z",
+      "formHash": "7b774dd55532"
+    },
+    "textiles-weave-drape-fashion-shibori-resist-topography": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:43:20.443Z",
+      "formHash": "f4bba338b51d",
+      "note": "too narrow"
+    },
+    "textiles-weave-drape-fashion-sneaker-box-stacks": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:45:11.989Z",
+      "formHash": "60955f6b97ef",
+      "rating": 2
+    },
+    "textiles-weave-drape-fashion-warp-weighted-loom": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T22:43:45.769Z",
+      "formHash": "516261daa343"
+    },
+    "textiles-weave-drape-fashion-wax-print-market": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:31:46.211Z",
+      "formHash": "968869f074ad",
+      "rating": 3
+    },
+    "typography-calligraphy-writing-copperplate-pressure-ribbon": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:06:52.664Z",
+      "formHash": "2f63c8afba07"
+    },
+    "typography-calligraphy-writing-crossing-script-dialogue": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:07:00.157Z",
+      "formHash": "244131fd85f2"
+    },
+    "typography-calligraphy-writing-illuminated-initial-vine": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:36:35.891Z",
+      "formHash": "772e2bf27f04",
+      "rating": 3
+    },
+    "typography-calligraphy-writing-palimpsest-scraped-letter": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T16:07:13.352Z",
+      "formHash": "efe02203e878"
+    },
+    "typography-calligraphy-writing-zoomorphic-calligram": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:15:48.907Z",
+      "formHash": "742df15b0fec",
+      "rating": 2
+    },
+    "vernacular-ephemera-apothecary-tin-wall": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T02:03:15.187Z",
+      "formHash": "5e2cc839b554",
+      "note": "doesn't work"
+    },
+    "vernacular-ephemera-banknote-proof-table": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:52:13.019Z",
+      "formHash": "aea8aae5bb94",
+      "rating": 2
+    },
+    "vernacular-ephemera-blank-tape-brand-wall": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:19:58.757Z",
+      "formHash": "11d66074f3d2",
+      "note": "didn't quite translate well"
+    },
+    "vernacular-ephemera-board-game-deed": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:05:55.214Z",
+      "formHash": "ed8a1cbc6e3c",
+      "note": "doesn't translate well"
+    },
+    "vernacular-ephemera-cancellation-stamp-album": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:47:56.997Z",
+      "formHash": "a73fa1e1f5bf",
+      "rating": 2
+    },
+    "vernacular-ephemera-cassette-j-card": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:06:38.026Z",
+      "formHash": "416a7f16afa9",
+      "note": "pretty good, would love to see more cassette tape and vhs aesthetic design systems",
+      "rating": 2
+    },
+    "vernacular-ephemera-cigar-box-lithograph": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:17:32.258Z",
+      "formHash": "e7296752f08d",
+      "note": "doesn't quite work"
+    },
+    "vernacular-ephemera-citrus-crate-labels": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:06:46.688Z",
+      "formHash": "80b417da2c67"
+    },
+    "vernacular-ephemera-conductor-punch-stubs": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:07:06.901Z",
+      "formHash": "115d8432fe39",
+      "note": "a bit to reduced to these bunch stubs"
+    },
+    "vernacular-ephemera-ekiben-wrapper-kiosk": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:16:59.438Z",
+      "formHash": "1a5796f8c16a",
+      "rating": 2
+    },
+    "vernacular-ephemera-elevator-floor-directory": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:07:24.788Z",
+      "formHash": "d84a7a86fdc8",
+      "note": "the fake brass on ui looks cheap for some reason"
+    },
+    "vernacular-ephemera-folded-road-map": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:07:38.162Z",
+      "formHash": "bca58515565e",
+      "note": "only ok"
+    },
+    "vernacular-ephemera-grandstand-score-wall": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:10:46.913Z",
+      "formHash": "46f038c57583",
+      "note": "not very tasteful / interesting"
+    },
+    "vernacular-ephemera-hand-turned-scoreboard": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:08:20.670Z",
+      "formHash": "60480b396a15",
+      "note": "ok but it is a bit too limited.. would like to see a variation that expands on this a little more, but right now it's just green"
+    },
+    "vernacular-ephemera-hardware-bin-wall": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:08:57.340Z",
+      "formHash": "b510082d67fd",
+      "note": "same problem as copper, the skeuomorphism here looks cheap (often skeuomorphism works, don't take is as sign against skeuo)"
+    },
+    "vernacular-ephemera-jet-age-ticket-wallet": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:49:00.941Z",
+      "formHash": "49a84562c50e",
+      "rating": 2
+    },
+    "vernacular-ephemera-letter-tile-menu-board": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:52:50.393Z",
+      "formHash": "d364981cd083"
+    },
+    "vernacular-ephemera-library-due-date-card": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:09:16.630Z",
+      "formHash": "67d38ca64155",
+      "rating": 2
+    },
+    "vernacular-ephemera-loteria-tabla-night": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T04:17:13.551Z",
+      "formHash": "40df848ca763",
+      "rating": 2
+    },
+    "vernacular-ephemera-matchbook-drawer": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:09:29.515Z",
+      "formHash": "851e96a0930a",
+      "rating": 2
+    },
+    "vernacular-ephemera-newspaper-weather-map": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:09:50.597Z",
+      "formHash": "c73aece60368",
+      "note": "too simplistic, the visual system"
+    },
+    "vernacular-ephemera-punch-clock-timecard": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:10:22.127Z",
+      "formHash": "66749cbbe184",
+      "note": "doesn't translate well into visual idea"
+    },
+    "vernacular-ephemera-racing-form-betting-slip": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:53:15.625Z",
+      "formHash": "422395b9cb23",
+      "rating": 1
+    },
+    "vernacular-ephemera-seed-packet-rack": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:10:39.408Z",
+      "formHash": "5461262e266b",
+      "rating": 2
+    },
+    "vernacular-ephemera-signboard-canyon-midnight": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:11:04.361Z",
+      "formHash": "c9bf0f00aeef",
+      "rating": 2
+    },
+    "vernacular-ephemera-vhs-rental-wall": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:48:47.540Z",
+      "formHash": "4068e0586ee7",
+      "rating": 3
+    },
+    "vernacular-ephemera-well-traveled-passport": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:12:33.476Z",
+      "formHash": "8c2835c91e3a",
+      "note": "borderline overall",
+      "rating": 2
+    },
+    "vernacular-ephemera-worn-playing-card-deck": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T21:12:42.432Z",
+      "formHash": "070266e5177e"
+    },
+    "wayfinding-cartography-signage-emergency-light-braid": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T01:59:15.547Z",
+      "formHash": "19f26a7ceb45",
+      "note": "this feels too gimmicky / one-trick pony"
+    },
+    "wayfinding-cartography-signage-karakoram-raised-relief-map": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T03:34:08.063Z",
+      "formHash": "1a6e197488ac",
+      "note": "transferred to composition catalog as data-dramaturgy-raking-relief-terrain"
+    },
+    "wayfinding-cartography-signage-midnight-transit-diagram": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T00:43:35.710Z",
+      "formHash": "5fafe9dc951a",
+      "rating": 2
+    },
+    "wayfinding-cartography-signage-night-market-sign-river": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T20:38:17.861Z",
+      "formHash": "11599cf43054",
+      "rating": 3
+    },
+    "wayfinding-cartography-signage-salt-stiffened-treasure-map": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T01:01:33.273Z",
+      "formHash": "c3a4d2653604",
+      "rating": 3
+    },
+    "wayfinding-cartography-signage-terminal-yellow-wayfinding": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T02:51:18.311Z",
+      "formHash": "66509a5e8866",
+      "rating": 3
+    },
+    "wayfinding-cartography-signage-tidal-harbor-compass": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-20T18:01:33.562Z",
+      "formHash": "69d3e36cbbd5"
+    }
+  }
+}

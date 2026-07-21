@@ -3,7 +3,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { finding } from '../../findings.mjs';
-import { filterByProviders } from '../../registry/antipatterns.mjs';
 import { profileFindingsAsync, profileStep, profileStepAsync } from '../../profile/profiler.mjs';
 import { captureVisualContrastCandidate } from '../visual/screenshot-contrast.mjs';
 import { checkContentHiddenAtRest } from '../../rules/checks.mjs';
@@ -295,14 +294,14 @@ async function detectUrl(url, options = {}) {
       }, () => browser.close());
     }
   }
-  return filterByProviders(results.map(f => {
+  return results.map(f => {
     const item = finding(f.id, url, f.snippet);
     if (f.ignoreValue) item.ignoreValue = f.ignoreValue;
     // Per-finding severity promotion (e.g. hero-region pulsing dot)
     // overrides the registry default carried by finding().
     if (f.severity && f.severity !== item.severity) item.severity = f.severity;
     return item;
-  }), options.providers);
+  });
 }
 
 async function createBrowserDetector(options = {}) {

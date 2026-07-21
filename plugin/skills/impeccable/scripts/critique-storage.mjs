@@ -141,6 +141,15 @@ export function readTrend(slug, { limit = 5, cwd = process.cwd() } = {}) {
 
 // ---- CLI ---------------------------------------------------------------
 
+// Accept either a ready slug or a concrete target (path/URL) everywhere, so
+// callers never have to run the slug step separately. Anything containing a
+// path or URL marker is resolved through slugFromTarget.
+function coerceSlug(value) {
+  if (!value) return null;
+  if (/^[a-z0-9-]+$/.test(value) && !value.includes('/')) return value;
+  return slugFromTarget(value);
+}
+
 function main(argv) {
   const [cmd, ...args] = argv;
   switch (cmd) {
@@ -151,8 +160,9 @@ function main(argv) {
       return;
     }
     case 'write': {
-      const [slug, bodyFile] = args;
-      if (!slug || !bodyFile) { process.stderr.write('usage: write <slug> <body-file>\n'); process.exit(1); }
+      const [slugArg, bodyFile] = args;
+      const slug = coerceSlug(slugArg);
+      if (!slug || !bodyFile) { process.stderr.write('usage: write <slug-or-target> <body-file>\n'); process.exit(1); }
       const raw = fs.readFileSync(bodyFile, 'utf-8');
       // The body file may be a full report. The caller passes the meta as
       // a JSON object on stdin if it wants structured frontmatter; otherwise
@@ -167,13 +177,13 @@ function main(argv) {
       return;
     }
     case 'latest': {
-      const latest = readLatestSnapshot(args[0]);
+      const latest = readLatestSnapshot(coerceSlug(args[0]));
       if (!latest) { process.exit(2); }
       process.stdout.write(latest.body);
       return;
     }
     case 'trend': {
-      const rows = readTrend(args[0], { limit: args[1] ? Number(args[1]) : 5 });
+      const rows = readTrend(coerceSlug(args[0]), { limit: args[1] ? Number(args[1]) : 5 });
       process.stdout.write(JSON.stringify(rows, null, 2) + '\n');
       return;
     }

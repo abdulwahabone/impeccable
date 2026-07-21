@@ -492,12 +492,11 @@ const ANTIPATTERNS = [
     skillGuideline: 'font size outside the project design system',
   },
 
-  // ── Provider tells: opt-in via --gpt / --gemini (gated off by default) ──
+  // ── Common generated-UI tells ───────────────────────────────────────────
   {
     id: 'gpt-thin-border-wide-shadow',
     category: 'slop',
     severity: 'advisory',
-    gated: 'gpt',
     name: 'Hairline border with wide shadow',
     description:
       'A hairline border paired with a wide, diffuse shadow is a recurring generated-UI signature. Commit to one — a defined edge or a soft elevation — rather than both at once.',
@@ -508,7 +507,6 @@ const ANTIPATTERNS = [
     id: 'repeating-stripes-gradient',
     category: 'slop',
     severity: 'advisory',
-    gated: 'gpt',
     name: 'Repeating-gradient stripes',
     description:
       'Repeating-gradient stripes used as surface decoration are a recurring generated-UI signature. Reach for a deliberate texture or leave the surface plain.',
@@ -519,7 +517,6 @@ const ANTIPATTERNS = [
     id: 'codex-grid-background',
     category: 'slop',
     severity: 'advisory',
-    gated: 'gpt',
     name: 'Decorative grid-line background',
     description:
       'A decorative grid or line-field background drawn with hairline linear-gradient layers tiled by a fixed pixel cell is a recurring generated-UI signature. Reserve grid overlays for actual canvas, map, blueprint, or measurement surfaces; elsewhere use product structure or a plain surface.',
@@ -530,7 +527,6 @@ const ANTIPATTERNS = [
     id: 'theater-slop-phrase',
     category: 'slop',
     severity: 'advisory',
-    gated: 'gpt',
     name: 'Theater framing copy',
     description:
       'Dismissing something as "theater" is a recurring generated-copy tic. Say plainly what the thing does or does not do.',
@@ -541,7 +537,6 @@ const ANTIPATTERNS = [
     id: 'image-hover-transform',
     category: 'slop',
     severity: 'advisory',
-    gated: 'gemini',
     name: 'Image hover transform',
     description:
       'Scaling or rotating an image on hover is a recurring generated-UI signature. Let imagery sit still, or use a subtler, purposeful interaction.',
@@ -569,25 +564,6 @@ function getRuleEngineSupport(engine) {
   return RULE_ENGINE_SUPPORT[engine] || new Set();
 }
 
-// Set of provider tags that gate rules off by default (e.g. 'gpt', 'gemini').
-const GATED_PROVIDERS = new Set(
-  ANTIPATTERNS.map(rule => rule.gated).filter(Boolean),
-);
-
-// Drop findings for rules gated behind a provider tag unless that provider
-// was explicitly enabled (CLI --gpt / --gemini). Non-gated findings always
-// pass through. `findings` carry the rule id on `.antipattern`.
-function filterByProviders(findings, providers = []) {
-  const enabled = new Set(providers || []);
-  if (!GATED_PROVIDERS.size) return findings;
-  return findings.filter(f => {
-    const rule = getAntipattern(f.antipattern);
-    if (!rule || !rule.gated) return true;
-    return enabled.has(rule.gated);
-  });
-}
-
-
 // Set of scope tags rules can declare (e.g. 'type', 'layout'). Used by the
 // CLI --scope flag to narrow output to one design domain.
 const RULE_SCOPES = new Set(
@@ -609,10 +585,8 @@ export {
   ANTIPATTERNS,
   RULE_SCOPES,
   RULE_ENGINE_SUPPORT,
-  GATED_PROVIDERS,
   getAntipattern,
   getRulesForCategory,
   getRuleEngineSupport,
-  filterByProviders,
   filterByScopes,
 };

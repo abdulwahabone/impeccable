@@ -19,11 +19,11 @@ Resolve one stable target, run two independent assessments, synthesize a design 
    - "the homepage" -> `site/pages/index.astro` or `index.html`
    - "the settings modal" -> the primary component file
    - "this page" -> the current URL or source file
-2. **Compute the slug**:
+2. **Confirm the target slugs cleanly**:
    ```bash
    node .cursor/skills/impeccable/scripts/critique-storage.mjs slug "<resolved-path-or-url>"
    ```
-   Keep it. If the command exits non-zero, skip persistence and trend for this run, but continue the critique.
+   Every later command also accepts the resolved target directly and derives the same slug internally; never hand-write a slug. If this exits non-zero, skip persistence and trend for this run, but continue the critique.
 3. **Read `.impeccable/critique/ignore.md`** if it exists. Drop matching findings silently; it is the only prior-run input critique consumes.
 
 ### Assessment Orchestration
@@ -181,7 +181,7 @@ Skip this step if the Setup slug was null (vague or root-level target).
 2. **Pass the structured metadata** through `IMPECCABLE_CRITIQUE_META` (JSON), then run the write command:
    ```bash
    IMPECCABLE_CRITIQUE_META='{"target":"<user phrasing>","total_score":<n>,"p0_count":<n>,"p1_count":<n>}' \
-     node .cursor/skills/impeccable/scripts/critique-storage.mjs write <slug> <body-file>
+     node .cursor/skills/impeccable/scripts/critique-storage.mjs write "<resolved target>" <body-file>
    ```
    The helper prints the absolute path it wrote.
 
@@ -189,7 +189,7 @@ Skip this step if the Setup slug was null (vague or root-level target).
 
 4. **Read the trend** for context:
    ```bash
-   node .cursor/skills/impeccable/scripts/critique-storage.mjs trend <slug> 5
+   node .cursor/skills/impeccable/scripts/critique-storage.mjs trend "<resolved target>" 5
    ```
    This returns a JSON array of the last 5 frontmatter entries (including the one you just wrote).
 

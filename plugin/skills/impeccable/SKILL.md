@@ -21,6 +21,7 @@ Core principles:
 
 1. Run `node .claude/skills/impeccable/scripts/context.mjs` once per session (if the runtime shows this skill's loaded base directory, run `node <skill-base-dir>/scripts/context.mjs`; keep cwd at the user's project). Pass a named source file or route as `--target <path>`. It loads PRODUCT.md, DESIGN.md, the matching surface brief, and native-platform guidance when applicable; follow its directives and do not rerun it.
 2. Before acting, load the one playbook that owns the request: the Commands table's reference for an explicit or clearly implied sub-command, or [reference/new-work.md](reference/new-work.md) for a new surface or replacement visual world. Then inspect the target and at least one representative source of incumbent visual truth (tokens, theme, CSS, component, or asset) before editing.
+3. After analysis and direction are resolved, load [reference/build-floor.md](reference/build-floor.md) immediately before editing UI. Do not load it for planning-only work.
 
 ## How to design
 
@@ -30,27 +31,14 @@ Core principles:
 
 ## Modes
 
-Choose the mode from the requested surface, not the product, and persist it only in that surface brief. A tool's landing page is still Persuade; a fashion house's documentation is still Read. See [new-work.md](reference/new-work.md) for new surfaces and [operate.md](reference/operate.md) for deeper Operate/Read guidance.
+The mode names what the visitor's success looks like on this surface.
 
-- **Persuade:** win someone over; design is the product. Earn attention and action. Ship real imagery when the brief needs it; follow the committed world, not category habit.
-- **Operate:** help someone do work. Scanability, consistency, native expectations, and the real usage scene outrank expression. Brand lives in precise details.
-- **Read:** make something understood. Structure for comprehension, then make the reading experience worth staying in.
-- **Experience:** present a body of work. Let the artifact lead from the first viewport; the interface recedes.
+- **Persuade:** the visitor decides and acts; design is the product. Landing pages, marketing, campaigns, pricing. Earn attention and action. Ship real imagery when the brief needs it; follow the committed world, not category habit.
+- **Operate:** the visitor completes a task. App UI, dashboards, editors, admin, settings, tools. Scanability, consistency, native expectations, and the real usage scene outrank expression. Brand lives in precise details.
+- **Read:** the visitor understands something. Docs, articles, guides, help, changelogs. Structure for comprehension, then make the reading experience worth staying in.
+- **Experience:** the visitor is inside the work itself. Portfolios, galleries, showcases. Let the artifact lead from the first viewport; the interface recedes.
 
-## Craft floor
-
-Build to this floor without announcing it.
-
-- **Contrast:** body and placeholder text ≥4.5:1; large text ≥3:1. On colored surfaces, tint secondary text from that hue or the foreground instead of using gray.
-- **Depth:** shadows describe light with offset and soft blur; zero-offset colored halos are decoration.
-- **Spacing:** tight groups, generous separation, no cramped containers; space above a heading exceeds space below. Verify computed values.
-- **Type:** body measure 65–75ch; display max 6rem and tracking floor -0.04em; balance headings; use clear scale/weight contrast; test overflow at every breakpoint.
-- **Motion:** author one coherent moment instead of scattered effects. Use exponential ease-out and an already-visible default. Premium motion is not transform/opacity alone: it may add focus, depth, masks, light, or material change through blur/filter, backdrop-filter, clip-path/masks, or shadow when smooth. Always provide reduced motion.
-- **Shipping:** real content, working controls, responsive composition, keyboard focus, and the states users hit: hover, disabled, loading, error, and empty.
-- **Copy:** use the product's language; controls name their action, errors name the problem and recovery.
-- **Coverage:** every brief requirement must exist and be findable within seconds.
-
-Before finishing changed UI, follow the quality guidance supplied by `context.mjs` and hooks. Context requests a manual scan only when no automatic detector is active; never add a second detector pass.
+Choose the mode from the requested surface, not the product, and persist it only in that surface brief. A tool's landing page is still Persuade; a fashion house's documentation is still Read; a docs index is Read, not Persuade. See [new-work.md](reference/new-work.md) for new surfaces and [operate.md](reference/operate.md) for deeper Operate/Read guidance.
 
 ## Commands
 

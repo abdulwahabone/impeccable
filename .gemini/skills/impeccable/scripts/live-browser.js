@@ -8678,9 +8678,9 @@ void main() {
   function buildSteerProcessingDots() {
     const P = pageChatPalette();
     const wrap = el('span', {
-      display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-      gap: '5px', flex: '1', minWidth: '0',
-      padding: '0 12px 0 2px',
+      display: 'inline-flex', alignItems: 'center', justifyContent: 'flex-end',
+      gap: '5px', flex: '0 0 auto', minWidth: '0', marginLeft: 'auto',
+      padding: '0 12px 0 8px',
       pointerEvents: 'none',
     });
     wrap.setAttribute('aria-hidden', 'true');

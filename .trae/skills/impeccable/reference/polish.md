@@ -29,8 +29,7 @@ Use the feature yourself at representative desktop and mobile sizes. Determine:
 If a prior critique exists, use it as one input:
 
 ```bash
-slug=$(node .trae/skills/impeccable/scripts/critique-storage.mjs slug "<resolved target>")
-node .trae/skills/impeccable/scripts/critique-storage.mjs latest "$slug"
+node .trae/skills/impeccable/scripts/critique-storage.mjs latest "<resolved target>"
 ```
 
 Exit 0 returns the latest snapshot; incorporate relevant P0/P1 findings and name the snapshot read. Exit 2 means none exists. Perform an independent pass either way.
@@ -73,7 +72,7 @@ Do not perfect one corner while leaving the rest below the same quality bar.
 
 - Every control needs appropriate default, hover, focus, active, disabled, loading, error, and success behavior.
 - Preserve visible keyboard focus, logical tab order, labels, and platform-appropriate touch targets.
-- Keep motion coherent, interruptible, performant, and reduced-motion aware. Do not add animation merely to make polish visible.
+- Keep motion coherent, interruptible, and performant. Do not add animation merely to make polish visible.
 - Validate long, missing, localized, offline, slow, and permission-limited content where the product can encounter it.
 
 ### Content and code
@@ -89,7 +88,7 @@ Walk the complete path again with mouse, keyboard, and touch where applicable. C
 
 - mobile, intermediate, and wide layouts;
 - loading, empty, error, success, disabled, long-content, and missing-content states;
-- zoom, contrast, focus, semantics, screen-reader names, and reduced motion;
+- zoom, contrast, focus, semantics, and screen-reader names;
 - console errors, layout shift, interaction latency, image loading, and supported browsers;
 - agreement with DESIGN.md, neighboring features, and the user's scope.
 

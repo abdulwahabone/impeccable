@@ -92,8 +92,6 @@ Scan files or URLs for UI anti-patterns and design quality issues.
 Options:
   --json              Output results as JSON
   --quiet             In text mode, only print the final findings count
-  --gpt               Also report GPT-specific provider tells (off by default)
-  --gemini            Also report Gemini-specific provider tells (off by default)
   --scope <name>      Only report rules in the given design domain
                       (type, layout). Comma-separated.
   --viewport <WxH>    Browser viewport for URL scans (default 1280x800),
@@ -150,13 +148,15 @@ async function detectCli() {
       'Note: --fast is deprecated and ignored. The full scan is fast now and runs every rule.\n',
     );
   }
+  if (args.includes('--gpt') || args.includes('--gemini')) {
+    process.stderr.write(
+      'Note: --gpt and --gemini are deprecated and ignored. Generated-UI tells now run by default.\n',
+    );
+  }
   const configEnabled = !args.includes('--no-config');
   const detectionConfig = configEnabled
     ? readDetectionConfig(process.cwd())
     : { ignoreRules: [], ignoreFiles: [], ignoreValues: [] };
-  const providers = [];
-  if (args.includes('--gpt')) providers.push('gpt');
-  if (args.includes('--gemini')) providers.push('gemini');
   const scopes = [];
   for (let i = 0; i < args.length; i++) {
     if (args[i] !== '--scope' && !args[i].startsWith('--scope=')) continue;
@@ -204,7 +204,7 @@ async function detectCli() {
   // apply by default. `--no-config` (raw scan) and the dedicated
   // `--no-inline-ignores` both turn them off.
   const inlineIgnoresEnabled = configEnabled && !args.includes('--no-inline-ignores');
-  const scanOptions = { providers, inlineIgnores: inlineIgnoresEnabled };
+  const scanOptions = { inlineIgnores: inlineIgnoresEnabled };
   if (designSystem) scanOptions.designSystem = designSystem;
   if (viewport) scanOptions.viewport = viewport;
   const targets = args.filter(a => !a.startsWith('--'));

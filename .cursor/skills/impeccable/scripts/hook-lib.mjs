@@ -1846,8 +1846,8 @@ export async function runHook({ stdinJson, env = {}, cwd = process.cwd(), now = 
 
 // ── Direction-contract audit ─────────────────────────────────────────────
 // The skill's decide-then-build step opens the built HTML artifact with a
-// DIRECTION CONTRACT comment (UNIQUE / NOT-TEMPLATE / OWN-WORLD / STORY /
-// FIRST VIEWPORT / FORM blocks). At Stop time the deep pass extracts that
+// DIRECTION CONTRACT comment (THESIS / OWN-WORLD / STORY / FIRST VIEWPORT /
+// BAR-RAISER / FORM blocks). At Stop time the deep pass extracts that
 // comment and feeds it back so the model audits the render against its own
 // promises. Proven in the eval harness: sample contracts promised radical
 // compositions and the build shipped the standard template anyway, because
@@ -1870,7 +1870,7 @@ export const CONTRACT_MAX_CHARS = 1800;
 // stack an unbounded message.
 export const CONTRACT_AUDIT_MAX_FILES = 3;
 export const CONTRACT_EXTS = new Set(['.html', '.htm', '.astro', '.svelte', '.vue', '.jsx', '.tsx']);
-export const CONTRACT_REQUIRED_FIELDS = ['UNIQUE', 'NOT-TEMPLATE', 'OWN-WORLD', 'STORY', 'FIRST VIEWPORT', 'FORM'];
+export const CONTRACT_REQUIRED_FIELDS = ['THESIS', 'OWN-WORLD', 'STORY', 'FIRST VIEWPORT', 'BAR-RAISER', 'FORM'];
 
 /**
  * Extract the artifact's own direction-contract comment from the head of an

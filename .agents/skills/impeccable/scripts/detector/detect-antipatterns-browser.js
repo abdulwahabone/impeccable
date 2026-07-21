@@ -594,12 +594,11 @@ const ANTIPATTERNS = [
     skillGuideline: 'font size outside the project design system',
   },
 
-  // ── Provider tells: opt-in via --gpt / --gemini (gated off by default) ──
+  // ── Common generated-UI tells ───────────────────────────────────────────
   {
     id: 'gpt-thin-border-wide-shadow',
     category: 'slop',
     severity: 'advisory',
-    gated: 'gpt',
     name: 'Hairline border with wide shadow',
     description:
       'A hairline border paired with a wide, diffuse shadow is a recurring generated-UI signature. Commit to one — a defined edge or a soft elevation — rather than both at once.',
@@ -610,7 +609,6 @@ const ANTIPATTERNS = [
     id: 'repeating-stripes-gradient',
     category: 'slop',
     severity: 'advisory',
-    gated: 'gpt',
     name: 'Repeating-gradient stripes',
     description:
       'Repeating-gradient stripes used as surface decoration are a recurring generated-UI signature. Reach for a deliberate texture or leave the surface plain.',
@@ -621,7 +619,6 @@ const ANTIPATTERNS = [
     id: 'codex-grid-background',
     category: 'slop',
     severity: 'advisory',
-    gated: 'gpt',
     name: 'Decorative grid-line background',
     description:
       'A decorative grid or line-field background drawn with hairline linear-gradient layers tiled by a fixed pixel cell is a recurring generated-UI signature. Reserve grid overlays for actual canvas, map, blueprint, or measurement surfaces; elsewhere use product structure or a plain surface.',
@@ -632,7 +629,6 @@ const ANTIPATTERNS = [
     id: 'theater-slop-phrase',
     category: 'slop',
     severity: 'advisory',
-    gated: 'gpt',
     name: 'Theater framing copy',
     description:
       'Dismissing something as "theater" is a recurring generated-copy tic. Say plainly what the thing does or does not do.',
@@ -643,7 +639,6 @@ const ANTIPATTERNS = [
     id: 'image-hover-transform',
     category: 'slop',
     severity: 'advisory',
-    gated: 'gemini',
     name: 'Image hover transform',
     description:
       'Scaling or rotating an image on hover is a recurring generated-UI signature. Let imagery sit still, or use a subtler, purposeful interaction.',
@@ -808,6 +803,9 @@ function checkBorders(tag, widths, colors, radius, opts = {}) {
   // text-level borders, not chips. They skip the left/right arms below.
   const spanBadge = tag === 'span' && !!opts.badgeLike;
   if (BORDER_SAFE_TAGS.has(tag) && !spanBadge) return [];
+  // A live status/alert region wears a colored single-edge border as a
+  // severity accent (toast, snackbar, callout), not as the side-tab tell.
+  if (opts.statusContext) return [];
   const findings = [];
   const sides = ['Top', 'Right', 'Bottom', 'Left'];
 
@@ -1130,27 +1128,57 @@ function isAccentColor(cssColor) {
   return false;
 }
 
+function resolveHeroHeadingSizePx(value) {
+  const input = String(value || '').trim().toLowerCase();
+  if (!input) return 0;
+
+  const simpleLengthPx = (token) => {
+    const match = /^(-?\d*\.?\d+)\s*(px|rem|em|%)?$/.exec(String(token || '').trim());
+    if (!match) return null;
+    const amount = Number(match[1]);
+    if (!Number.isFinite(amount)) return null;
+    if (match[2] === 'rem' || match[2] === 'em') return amount * 16;
+    if (match[2] === '%') return amount * 0.16;
+    return amount;
+  };
+
+  const direct = simpleLengthPx(input);
+  if (direct !== null) return direct;
+
+  // Static CSS engines cannot resolve viewport units, but clamp's min/max
+  // bounds still tell us whether the heading can ever reach hero scale.
+  const clamp = /^clamp\((.*)\)$/.exec(input);
+  if (clamp) {
+    const parts = clamp[1].split(',');
+    if (parts.length === 3) {
+      const bounds = [simpleLengthPx(parts[0]), simpleLengthPx(parts[2])]
+        .filter((candidate) => candidate !== null);
+      if (bounds.length > 0) return Math.max(...bounds);
+    }
+  }
+
+  return 0;
+}
+
 // Sibling-relationship rule. Anchor on a hero-scale h1, look at the
 // previousElementSibling, and gate on EITHER the classic tracked-
 // uppercase eyebrow OR the modern accent-colored bold eyebrow.
 function checkHeroEyebrow(opts) {
   const {
     headingTag, headingText, headingFontSize,
+    headingInApplicationContext,
     siblingTag, siblingText, siblingTextTransform,
     siblingFontSize, siblingLetterSpacing,
     siblingFontWeight, siblingColor,
     siblingHasAccentDashPseudo,
   } = opts;
   if (headingTag !== 'h1') return [];
-  // We previously gated on headingFontSize >= 48 to anchor "hero scale".
-  // But modern hero h1s use clamp() / vw / var(--text-*), none of which
-  // jsdom can resolve — the computed value comes back as "2em" or
-  // "var(--text-9xl)" and parseFloat returns 2 or NaN. The gate fails
-  // on virtually every Tailwind v4 / framework build. The other gates
-  // (sibling text 2-60 chars, font-size ≤ 14px, accent-bold OR
-  // tracked-caps) are tight enough to avoid false positives on non-
-  // hero h1s — a tiny tan label directly above any h1 is the
-  // antipattern regardless of how big the h1 ends up.
+  // This is specifically a marketing-hero cliché, not a ban on compact
+  // context labels in product UI (for example, a station name inside a tab
+  // panel). Browser-computed sizes are reliable; the static adapter also
+  // resolves ordinary px/rem/em and clamp() bounds before reaching here.
+  if (headingInApplicationContext) return [];
+  if (!(headingFontSize >= 48)) return [];
   if (!siblingTag) return [];
   // An h2 above an h1 is a different anti-pattern (heading hierarchy / dual
   // headings) — never an eyebrow.
@@ -1392,6 +1420,49 @@ function scanCssTextForGlow(content) {
     }
   }
   return results;
+}
+
+// Decorative grid or line-field backgrounds drawn with hairline
+// linear-gradient layers tiled by a fixed pixel cell. Shared by the HTML
+// pattern pass and the regex source engine so standalone CSS, component
+// styles, and inline styles receive the same coverage. Both signals must
+// co-occur in one declaration block; unrelated rules must not add up across
+// the file. Returns [{ index, snippet }], capped at one finding per source to
+// match the page-level HTML check's existing behavior.
+function scanCssTextForGridBackground(content) {
+  const hairlineRe = /\b\d{1,3}px\s*,\s*transparent\s+\d{1,3}px/gi;
+  const invertedHairlineRe = /transparent\s+calc\(100%\s*-\s*\d{1,3}px\)/gi;
+  const sizeDeclPxRe = /background-size\s*:[^;{}"']*\b\d{1,3}px\b/i;
+  const sizeDeclPxPairRe = /background-size\s*:[^;{}"']*\b\d{1,3}px\s+\d{1,3}px/i;
+  const shorthandPxAnyRe = /\/\s*\d{1,3}px\b/;
+  const shorthandPxPairRe = /\/\s*\d{1,3}px\s+\d{1,3}px/;
+  const bgDeclRe = /\bbackground(?:-image)?\s*:\s*([^;{}"']*)/gi;
+  const blockRe = /\{([^{}]*)\}|style\s*=\s*"([^"]*)"|style\s*=\s*'([^']*)'/gi;
+  let blk;
+  while ((blk = blockRe.exec(content)) !== null) {
+    const block = blk[1] || blk[2] || blk[3] || '';
+    let hairlineCount = 0;
+    let bgJoined = '';
+    let bm;
+    bgDeclRe.lastIndex = 0;
+    while ((bm = bgDeclRe.exec(block)) !== null) {
+      hairlineCount += (bm[1].match(hairlineRe) || []).length;
+      hairlineCount += (bm[1].match(invertedHairlineRe) || []).length;
+      bgJoined += `${bm[1]};`;
+    }
+    if (hairlineCount === 0) continue;
+    const hasPxCell = sizeDeclPxRe.test(block) || shorthandPxAnyRe.test(bgJoined);
+    const hasPxPairCell = sizeDeclPxPairRe.test(block) || shorthandPxPairRe.test(bgJoined);
+    if ((hairlineCount >= 2 && hasPxCell) || hasPxPairCell) {
+      return [{
+        index: blk.index,
+        snippet: hairlineCount >= 2
+          ? 'two-axis grid-line gradient background'
+          : 'px-tiled hairline line-field background',
+      }];
+    }
+  }
+  return [];
 }
 
 // Decorative chromatic halo drawn as a radial-gradient background on a dark
@@ -2204,12 +2275,12 @@ function checkHtmlPatterns(html) {
     findings.push({ id: 'radial-halo', snippet: haloHits[0].snippet });
   }
 
-  // --- Provider tells (gated): repeating-gradient stripes (GPT) ---
+  // --- Generated-UI tells: repeating-gradient stripes ---
   if (/repeating-(?:linear|radial|conic)-gradient\s*\(/i.test(html)) {
     findings.push({ id: 'repeating-stripes-gradient', snippet: 'repeating-gradient decorative stripes' });
   }
 
-  // --- Provider tells (gated): two-axis grid-line background (Codex/GPT) ---
+  // --- Generated-UI tells: two-axis grid-line background ---
   // The Codex grid tell is two hairline `linear-gradient(... <color> 1px,
   // transparent 1px)` layers (one per axis) tiled by a repeating
   // `background-size` cell. Both signals must co-occur in the SAME style block
@@ -2222,54 +2293,12 @@ function checkHtmlPatterns(html) {
   // in for the second axis. Colors like `oklch(96% 0.012 82 / 0.055)` carry
   // nested parens, so match the hairline stop directly rather than parsing
   // whole gradient layers.
-  {
-    // Hairline stop shapes: the classic leading form (`<color> 1px,
-    // transparent 1px`) and the inverted end-of-tile form
-    // (`transparent calc(100% - 1px), <color> 1px`).
-    const hairlineRe = /\b\d{1,3}px\s*,\s*transparent\s+\d{1,3}px/gi;
-    const invertedHairlineRe = /transparent\s+calc\(100%\s*-\s*\d{1,3}px\)/gi;
-    // Tiling cell: a background-size declaration with px values, or the
-    // background shorthand's `/ <size>` slot (only matched inside
-    // background values so border-radius slash syntax can't stand in).
-    const sizeDeclPxRe = /background-size\s*:[^;{}"']*\b\d{1,3}px\b/i;
-    const sizeDeclPxPairRe = /background-size\s*:[^;{}"']*\b\d{1,3}px\s+\d{1,3}px/i;
-    const shorthandPxAnyRe = /\/\s*\d{1,3}px\b/;
-    const shorthandPxPairRe = /\/\s*\d{1,3}px\s+\d{1,3}px/;
-    const bgDeclRe = /\bbackground(?:-image)?\s*:\s*([^;{}"']*)/gi;
-    const blockRe = /\{([^{}]*)\}|style\s*=\s*"([^"]*)"|style\s*=\s*'([^']*)'/gi;
-    let blk;
-    while ((blk = blockRe.exec(html)) !== null) {
-      const block = blk[1] || blk[2] || blk[3] || '';
-      let hairlineCount = 0;
-      let bgJoined = '';
-      let bm;
-      bgDeclRe.lastIndex = 0;
-      while ((bm = bgDeclRe.exec(block)) !== null) {
-        hairlineCount += (bm[1].match(hairlineRe) || []).length;
-        hairlineCount += (bm[1].match(invertedHairlineRe) || []).length;
-        bgJoined += bm[1] + ';';
-      }
-      if (hairlineCount === 0) continue;
-      const hasPxCell = sizeDeclPxRe.test(block) || shorthandPxAnyRe.test(bgJoined);
-      const hasPxPairCell = sizeDeclPxPairRe.test(block) || shorthandPxPairRe.test(bgJoined);
-      // Two hairline layers + any px tile = the classic two-axis grid.
-      // A single hairline layer only counts when tiled by a px pair cell
-      // (e.g. `/ 40px 40px`) — a page-scale repeating line field. Single
-      // hairlines tiled by percentage cells (`background-size: 25% 100%`)
-      // are structural rules on data-viz tracks/graphs and stay legal.
-      if ((hairlineCount >= 2 && hasPxCell) || hasPxPairCell) {
-        findings.push({
-          id: 'codex-grid-background',
-          snippet: hairlineCount >= 2
-            ? 'two-axis grid-line gradient background'
-            : 'px-tiled hairline line-field background',
-        });
-        break;
-      }
-    }
+  const gridHits = scanCssTextForGridBackground(html);
+  if (gridHits.length > 0) {
+    findings.push({ id: 'codex-grid-background', snippet: gridHits[0].snippet });
   }
 
-  // --- Provider tells (gated): "X theater" framing copy (GPT) ---
+  // --- Generated-copy tells: "X theater" framing copy ---
   // Lives here (regex-on-HTML) rather than in the text-content analyzers so it
   // runs in the bundled browser path too, not just the CLI/static path.
   {
@@ -2281,7 +2310,7 @@ function checkHtmlPatterns(html) {
     if (tm) findings.push({ id: 'theater-slop-phrase', snippet: `"${tm[0].trim()}"` });
   }
 
-  // --- Provider tells (gated): image hover transform (Gemini) ---
+  // --- Generated-UI tells: image hover transform ---
   // A CSS `img...:hover { transform: ... }` rule, or a Tailwind hover:scale /
   // hover:rotate / hover:translate utility on an <img>. Each distinct
   // mechanism is its own finding.
@@ -2490,6 +2519,20 @@ function isTabContextElement(el) {
   return false;
 }
 
+// Status-surface context for accent borders. On a live status/alert region
+// (role=status|alert|alertdialog|log, or aria-live=polite|assertive) a colored
+// single-edge border is the established severity-accent convention — a toast,
+// snackbar, or callout bar — not the decorative side-tab tell. The element
+// itself or a wrapping live region qualifies. This never fires from the
+// CSS-only / regex scanners, which have no role information.
+function isStatusContextElement(el) {
+  if (!el) return false;
+  try {
+    if (el.closest?.('[role="status"], [role="alert"], [role="alertdialog"], [role="log"], [aria-live="polite"], [aria-live="assertive"]')) return true;
+  } catch { /* selector engine differences — fall through */ }
+  return false;
+}
+
 function checkElementBordersDOM(el) {
   const tag = el.tagName.toLowerCase();
   if (BORDER_SAFE_TAGS.has(tag)) return [];
@@ -2505,6 +2548,7 @@ function checkElementBordersDOM(el) {
   const ownBg = parseRgb(style.backgroundColor) || parseAnyColor(style.backgroundColor);
   return checkBorders(tag, widths, colors, parseFloat(style.borderRadius) || 0, {
     tabContext: isTabContextElement(el),
+    statusContext: isStatusContextElement(el),
     badgeLike: !!(ownBg && (ownBg.a ?? 1) > 0.1),
   });
 }
@@ -2716,6 +2760,7 @@ function checkElementHeroEyebrowDOM(el) {
     headingTag: tag,
     headingText: el.textContent || '',
     headingFontSize: parseFloat(headStyle.fontSize) || 0,
+    headingInApplicationContext: !!el.closest('[role="tabpanel"], [role="dialog"], [role="application"], dialog'),
     siblingTag: sibling.tagName.toLowerCase(),
     siblingText: sibling.textContent || '',
     siblingTextTransform: sibStyle.textTransform || '',
@@ -3955,6 +4000,7 @@ function checkElementBorders(tag, style, overrides, resolvedRadius, el = null) {
   const ownBg = parseAnyColor(style.backgroundColor);
   return checkBorders(tag, widths, colors, radius, {
     tabContext: isTabContextElement(el),
+    statusContext: isStatusContextElement(el),
     badgeLike: !!(ownBg && (ownBg.a ?? 1) > 0.1),
   });
 }
@@ -4145,7 +4191,8 @@ function checkElementHeroEyebrow(el, style, tag, window, customPropMap) {
   return checkHeroEyebrow({
     headingTag: tag,
     headingText: el.textContent || '',
-    headingFontSize: parseFloat(headingFontSizeRaw) || 0,
+    headingFontSize: resolveHeroHeadingSizePx(headingFontSizeRaw),
+    headingInApplicationContext: !!el.closest?.('[role="tabpanel"], [role="dialog"], [role="application"], dialog'),
     siblingTag: sibling.tagName.toLowerCase(),
     siblingText: sibling.textContent || '',
     siblingTextTransform: sibStyle.textTransform || '',
@@ -4829,7 +4876,7 @@ function checkElementOversizedH1DOM(el) {
   return checkOversizedH1({ tag, fontSize, headingText, rect, viewportWidth, viewportHeight });
 }
 
-// ─── GPT tell: hairline border + wide diffuse shadow (gated --gpt) ────────────
+// ─── Generated-UI tell: hairline border + wide diffuse shadow ────────────────
 const CSS_COLOR_TOKEN_RE = /(?:rgba?|hsla?|oklch|oklab|lab|lch|color)\([^)]*\)|#[0-9a-fA-F]{3,8}\b|\b(?:black|white|transparent|currentcolor)\b/gi;
 
 function shadowLayerAlpha(layer) {
@@ -7254,10 +7301,7 @@ if (IS_BROWSER) {
     const _ruleOk = (id) => !_disabled.length || !_disabled.includes(id);
     const designSystem = browserDesignSystemConfig();
     const designSeen = { fonts: new Set(), colors: new Set(), radii: new Set() };
-    // Note: provider-gated rules (--gpt / --gemini) are NOT filtered here. In a
-    // real browser env (detector page, live overlay, extension) running every
-    // check is free, so we always surface them; the gating is purely a CLI
-    // output concern, applied in the Node engines' detect* return paths.
+    // All deterministic rules run in the browser and extension path.
 
     for (const el of document.querySelectorAll('*')) {
       // Skip impeccable's own elements and any descendants (overlays, labels, banner, nav buttons)

@@ -2,11 +2,10 @@ import { GENERIC_FONTS, OVERUSED_FONTS } from '../../shared/constants.mjs';
 import { isNeutralColor } from '../../shared/color.mjs';
 import { extractGoogleFontFamilies } from '../../shared/fonts.mjs';
 import { checkSourceDesignSystem } from '../../design-system.mjs';
-import { scanCssTextForGlow, scanCssTextForMarquee, scanCssTextForRadialHalo } from '../../rules/checks.mjs';
+import { scanCssTextForGlow, scanCssTextForGridBackground, scanCssTextForMarquee, scanCssTextForRadialHalo } from '../../rules/checks.mjs';
 import { isFullPage } from '../../shared/page.mjs';
 import { applyInlineIgnores } from '../../shared/inline-ignores.mjs';
 import { finding } from '../../findings.mjs';
-import { filterByProviders } from '../../registry/antipatterns.mjs';
 import { profileFindings, profileStep } from '../../profile/profiler.mjs';
 
 // ---------------------------------------------------------------------------
@@ -456,6 +455,19 @@ function detectText(content, filePath, options = {}) {
     phase: 'source',
   }));
 
+  // Block-level CSS checks that need multiple declarations must run over the
+  // complete source, not line-by-line. This covers standalone stylesheets,
+  // component style blocks, inline styles, and CSS-in-JS templates.
+  findings.push(...profileFindings(profile, {
+    engine: 'regex',
+    phase: 'source',
+    ruleId: 'codex-grid-background',
+    target: filePath,
+  }, () => scanCssTextForGridBackground(content).map(hit => {
+    const line = content.substring(0, hit.index).split('\n').length;
+    return finding('codex-grid-background', filePath, hit.snippet, line);
+  })));
+
   // Extract and scan <style> blocks from Vue/Svelte SFCs
   const styleBlocks = profile
     ? profileStep(profile, {
@@ -532,10 +544,9 @@ function detectText(content, filePath, options = {}) {
     }
   }
 
-  const byProvider = filterByProviders(deduped, options?.providers);
   // Inline `impeccable-disable*` waivers travel with the file; honor them unless
   // explicitly bypassed (`--no-config` / `--no-inline-ignores`).
-  return options?.inlineIgnores === false ? byProvider : applyInlineIgnores(byProvider, content);
+  return options?.inlineIgnores === false ? deduped : applyInlineIgnores(deduped, content);
 }
 
 export {

@@ -29,7 +29,7 @@ Write a short plan before implementation:
 - **Focal moment:** the one sequence or interaction that deserves authorship, if any.
 - **Continuity:** the state, layout, or navigation changes that need explanation.
 - **Feedback:** the controls and outcomes that need acknowledgment.
-- **Budget:** which effects may be expensive, how often they run, and the reduced-motion equivalent.
+- **Budget:** which effects may be expensive and how often they run.
 
 The focal moment must come from this product and surface concept. A generic fade-and-rise, hover lift, parallax layer, or scroll reveal is not a thesis.
 
@@ -72,8 +72,6 @@ Keep content visible in the default state so failed scripts do not hide the page
 
 ## Accessibility and control
 
-Honor `prefers-reduced-motion` with an intentional alternative. Preserve state change and hierarchy while removing travel, parallax, flashing, or prolonged sequences. Do not replace every animation globally with `0.01ms` if that destroys useful feedback. Motion must never block focus, interaction, reading, or task completion.
-
 Respect autoplay and sound preferences. Any nonessential loop must stop when offscreen or hidden.
 
 ## Verify
@@ -81,7 +79,7 @@ Respect autoplay and sound preferences. Any nonessential loop must stop when off
 - The focal motion is specific to the selected world and surface.
 - Every supporting animation explains feedback, state, or relationship.
 - Interruption and repeated use behave correctly.
-- Desktop, mobile, keyboard, and reduced-motion paths remain usable.
+- Desktop, mobile, and keyboard paths remain usable.
 - Expensive effects stay smooth on the target device.
 - Removing an animation would lose meaning or authored character, not merely decoration.
 
