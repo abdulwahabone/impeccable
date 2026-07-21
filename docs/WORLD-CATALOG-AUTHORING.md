@@ -5,9 +5,10 @@ How new concept-world rounds are authored, gated, and reviewed. Distilled from t
 ## The pipeline
 
 1. An authoring agent reads `qualityBar` (including `authoringStrategy`) and the review file. Three-star approvals are positive exemplars; rejection and rating notes are negative space.
-2. New entries merge as `pending`. Nothing ships without human review.
-3. The render gate runs before review: specimen board first, then the desktop hero generated with the board attached as binding reference (`scripts/generate-world-cards.mjs`; the images/edits path keeps both images one system).
-4. The reviewer decides in `/labs/worlds`: approve or reject, star ratings on approvals (3 exceptional, 2 solid, 1 marginal), notes on anything instructive. Ratings feed challenger draws in `concept-seed.mjs` (3-star doubles odds, 1-star sits out).
+2. New entries merge as `pending`. Nothing ships without human review. Serialization is `JSON.stringify(catalog, indent 1)` plus a trailing newline, which round-trips byte-identical, so an authoring diff is purely additive. Write `webLeverage` as a buildable commitment, not decoration: the skill now instructs builds to implement the named technique rather than a static imitation of it.
+3. The render gate runs before review: specimen board first, then the desktop hero generated with the board attached as binding reference (`scripts/generate-world-cards.mjs`; the images/edits path keeps both images one system). The card manifest is content-hash keyed, so a bare run renders exactly the new or edited entries and nothing else.
+4. **One command closes an authoring round**: `bun run catalog:round` validates the catalog, renders every stale or missing card, and prints the round status table (`catalog:status` runs the table alone). A round is review-ready when the table reports the render gate complete.
+5. The reviewer decides in `/labs/worlds`: approve or reject, star ratings on approvals (3 exceptional, 2 solid, 1 marginal), notes on anything instructive. Ratings feed challenger draws in `concept-seed.mjs` (3-star doubles odds, 1-star sits out). After review, `bun run world-cards:publish` pushes approved cards to R2.
 
 ## What wins
 

@@ -64,7 +64,9 @@
     "screenshot": "bun run scripts/screenshot-antipatterns.js",
     "og-image": "bun run scripts/generate-og-image.js",
     "world-cards": "node scripts/generate-world-cards.mjs",
-    "world-cards:publish": "node scripts/publish-world-cards.mjs"
+    "world-cards:publish": "node scripts/publish-world-cards.mjs",
+    "catalog:round": "npm run validate:catalog && npm run world-cards && npm run catalog:status",
+    "catalog:status": "node scripts/catalog-round-status.mjs"
   },
   "dependencies": {
     "css-select": "^7.0.0",
