@@ -170,9 +170,13 @@ html.light .hero-proof {
 
 /* Anchored to the card itself: the connector line lands on the purple
    side-tab border at the card's left edge. Sits between the heading and
-   surface annotations so the four labels never collide. */
+   surface annotations so the four labels never collide. Offsets resolve
+   against the card's padding box, which starts inside the 7px tab, so the
+   tab's width is added back: the connector then stops as it touches the
+   tab's outer edge instead of crossing it. */
 .proof-annotation--sidetab {
   top: 66%;
+  right: calc(100% + 7px + 16px);
 }
 
 .hero-proof-seam {
