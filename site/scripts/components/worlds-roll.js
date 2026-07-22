@@ -58,7 +58,6 @@ export function initWorldsRoll() {
   const buildCard = (world, index, roll) => {
     const item = document.createElement('li');
     item.className = 'worlds-card';
-    item.style.setProperty('--deal-delay', `${index * DEAL_STAGGER_MS}ms`);
     item.style.setProperty('--fan', `${FAN_ANGLES[index % FAN_ANGLES.length]}deg`);
 
     const image = document.createElement('img');
@@ -97,6 +96,19 @@ export function initWorldsRoll() {
     return Promise.race([settled, new Promise(resolve => setTimeout(resolve, IMAGE_WAIT_MS))]);
   };
 
+  // Where the deck sits: the middle of the hand. Cards deal out from there and
+  // collapse back into it, which is what makes the motion read as dealing
+  // rather than as a grid of panels sliding up. Ported from the skill's
+  // decision page (serve-question.mjs), which does the same trick.
+  const offsetToDeck = card => {
+    const deck = hand.getBoundingClientRect();
+    const rect = card.getBoundingClientRect();
+    return {
+      dx: (deck.left + deck.width / 2) - (rect.left + rect.width / 2),
+      dy: (deck.top + deck.height / 2) - (rect.top + rect.height / 2) + 14,
+    };
+  };
+
   const dealHand = async roll => {
     const cards = roll.challengers.map((world, index) => buildCard(world, index, roll));
     hand.replaceChildren(...cards);
@@ -104,22 +116,81 @@ export function initWorldsRoll() {
     status.textContent = '';
     meta.textContent = `roll ${roll.key}:${roll.reroll} · pool ${roll.poolRevision}`;
     await waitForImages(cards);
-    // Force a layout so the undealt state paints before transitions start.
-    hand.getBoundingClientRect();
-    requestAnimationFrame(() => {
-      for (const card of cards) card.classList.add('is-dealt');
-    });
+
+    if (!reducedMotion) {
+      // Stack every card on the deck first, unblurred order preserved by
+      // z-index so the top of the pile is the first one dealt.
+      cards.forEach((card, index) => {
+        const { dx, dy } = offsetToDeck(card);
+        card.style.transition = 'none';
+        card.style.transform = `translate(${dx}px, ${dy}px) rotate(${index % 2 ? 5 : -4}deg) scale(0.9)`;
+        card.style.opacity = '0';
+        card.style.filter = 'blur(10px)';
+        card.style.zIndex = String(cards.length - index);
+      });
+      // Two frames: one to paint the stacked state, one to start the deal.
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    }
+
+    for (const [index, card] of cards.entries()) {
+      card.classList.add('is-dealt');
+      if (reducedMotion) continue;
+      const delay = index * DEAL_STAGGER_MS;
+      card.style.transition =
+        `transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms,`
+        + ` opacity 0.45s ease ${delay}ms,`
+        + ` filter 0.55s ease ${delay}ms`;
+      card.style.transform = '';
+      card.style.opacity = '';
+      card.style.filter = '';
+      // Hand the card back to CSS once it lands, so hover and focus states are
+      // not fighting an inline transition.
+      card.addEventListener('transitionend', function settle(event) {
+        if (event.propertyName !== 'transform') return;
+        card.style.transition = '';
+        card.style.zIndex = '';
+        card.removeEventListener('transitionend', settle);
+      });
+    }
+
     status.textContent = `Dealt ${roll.challengers.map(world => world.name).join(', ')}.`;
   };
 
-  const sweepHand = () => {
+  // Collapse the hand back onto the deck, then hold shimmer skeletons in the
+  // grid while the next roll is in flight. Without the skeletons the section
+  // empties out and the page reads as broken for the length of the fetch.
+  const sweepHand = async () => {
     const cards = [...hand.children];
-    if (cards.length === 0 || reducedMotion) return Promise.resolve();
-    cards.forEach((card, index) => {
-      card.style.setProperty('--sweep-delay', `${index * 40}ms`);
-      card.classList.add('is-swept');
-    });
-    return new Promise(resolve => setTimeout(resolve, SWEEP_MS));
+    if (cards.length === 0) return;
+
+    if (!reducedMotion) {
+      cards.forEach((card, index) => {
+        const { dx, dy } = offsetToDeck(card);
+        card.style.transition =
+          `transform 0.5s cubic-bezier(0.5, 0, 0.75, 0) ${index * 60}ms,`
+          + ` opacity 0.4s ease ${index * 60 + 120}ms,`
+          + ` filter 0.45s ease ${index * 60}ms`;
+        card.style.transform = `translate(${dx}px, ${dy}px) rotate(${index % 2 ? 6 : -5}deg) scale(0.9)`;
+        card.style.opacity = '0';
+        card.style.filter = 'blur(8px)';
+      });
+      await new Promise(resolve => setTimeout(resolve, SWEEP_MS));
+    }
+
+    const height = cards[0]?.getBoundingClientRect().height ?? 0;
+    hand.replaceChildren(...cards.map(() => {
+      const skeleton = document.createElement('li');
+      skeleton.className = 'worlds-card worlds-card--skeleton';
+      if (height) skeleton.style.height = `${height}px`;
+      skeleton.setAttribute('aria-hidden', 'true');
+      skeleton.innerHTML =
+        '<span class="worlds-skeleton-media"></span>'
+        + '<span class="worlds-card-caption">'
+        + '<span class="worlds-skeleton-line worlds-skeleton-line--tier"></span>'
+        + '<span class="worlds-skeleton-line worlds-skeleton-line--name"></span>'
+        + '</span>';
+      return skeleton;
+    }));
   };
 
   const showError = () => {
