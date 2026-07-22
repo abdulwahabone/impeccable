@@ -32,6 +32,7 @@ uniform vec2 u_res;
 uniform float u_tearSpeed;
 uniform float u_glowIntensity;
 uniform float u_openBias;
+uniform float u_lineOffset;
 uniform vec2 u_mouse;
 uniform sampler2D u_world;
 // 0 before a card is ready, ramps to 1 as it fades in.
@@ -107,26 +108,27 @@ float easeInOutCubic(float t) {
 }
 
 // Jagged tear path across the frame, reshuffled per cycle.
+//
+// u_lineOffset moves the whole rip up the frame. The across coordinate grows
+// upward, so subtracting a positive offset puts the tear above centre. (No
+// backticks in here: this comment lives inside the GLSL template literal, and a
+// backtick would end the string.) This is the vertical
+// counterpart to u_openBias: on a phone there is no horizontal room to bias the
+// opening into, because the copy spans nearly the full width, so the rip is
+// lifted clear of it instead. Left at 0 on wide screens, where the horizontal
+// bias already does the work.
 float tearLine(vec2 uv, float progress, float cycleIndex) {
   vec2 rnd = hash2(vec2(cycleIndex * 17.31, cycleIndex * 43.71));
   float angle = (rnd.x - 0.5) * 0.5;
   vec2 dir = vec2(cos(angle), sin(angle));
   vec2 perp = vec2(-dir.y, dir.x);
   float along = dot(uv, dir);
-  float across = dot(uv, perp);
+  float across = dot(uv, perp) - u_lineOffset;
   float wobble = fbm(vec2(along * 2.2 + rnd.y * 31.0, cycleIndex * 3.7), 4) - 0.5;
   float fibres = (fibrousFbm(vec2(along * 26.0, cycleIndex * 11.3)) - 0.5) * 0.06;
   return across - (wobble * 0.42 + fibres) * min(progress * 3.0, 1.0);
 }
 
-// Gap opens outward from a point biased into the right half of the frame.
-//
-// u_openBias moves that point off center so the sheet stays closed over the
-// copy column. This is what replaces the old full-width scrim: rather than
-// darkening the text area to survive a tear passing behind it, the tear simply
-// does not open there. The tear line still crosses the whole frame, so the crack
-// reads edge to edge, but the gap width falls to zero before it reaches the
-// words. The page flips the bias on narrow screens, where the copy sits low.
 // The tear direction for this cycle. Shared so the gap, the taper and the glow
 // all agree on which way the rip runs.
 vec2 tearDir(float cycleIndex) {
@@ -554,6 +556,7 @@ export function initTornPaper({ canvas, world, worlds, cardsBase, rotate = true 
   const uWorldFade = u('u_worldFade');
   const uWorldAspect = u('u_worldAspect');
   const uOpenBias = u('u_openBias');
+  const uLineOffset = u('u_lineOffset');
 
   gl.uniform1f(uTearSpeed, 1.0);
   gl.uniform1f(uGlowIntensity, 1.0);
@@ -561,6 +564,7 @@ export function initTornPaper({ canvas, world, worlds, cardsBase, rotate = true 
   gl.uniform1f(uWorldFade, 0.0);
   gl.uniform1f(uWorldAspect, 16 / 9);
   gl.uniform1f(uOpenBias, 0.0);
+  gl.uniform1f(uLineOffset, 0.0);
 
   // Card textures are arbitrary sizes, so no mipmaps and clamped wrapping.
   // The fade is driven by elapsed time, not a per-frame increment: a per-frame
@@ -635,8 +639,26 @@ export function initTornPaper({ canvas, world, worlds, cardsBase, rotate = true 
   // Below the CSS breakpoint the copy sits at the bottom instead and the tear
   // clears it vertically, so the opening returns to centre.
   const NARROW_BREAKPOINT = 820;
+  function isNarrow() {
+    return window.innerWidth <= NARROW_BREAKPOINT;
+  }
+
   function openBias() {
-    return window.innerWidth <= NARROW_BREAKPOINT ? 0.5 : 0.74;
+    return isNarrow() ? 0.5 : 0.74;
+  }
+
+  // How far up the frame the rip sits, in uv units (uv is scaled by the short
+  // side, so on a portrait phone the frame runs to about +/-1.05 vertically).
+  //
+  // Narrow screens need this because the horizontal bias has nothing to work
+  // with: the copy spans the full width, so there is no side to open away from.
+  // The copy is bottom-aligned there, so the rip moves into the empty upper half
+  // instead. Zero on wide screens, where openBias already keeps it clear.
+  //
+  // Keep in step with the .pro-stage rules under the same breakpoint in pro.css:
+  // if the copy stops being bottom-aligned, this offset stops being right.
+  function lineOffset() {
+    return isNarrow() ? 0.42 : 0.0;
   }
 
   function resize() {
@@ -691,6 +713,7 @@ export function initTornPaper({ canvas, world, worlds, cardsBase, rotate = true 
     gl.uniform1f(uWorldFade, fade);
     gl.uniform1f(uWorldAspect, worldAspect);
     gl.uniform1f(uOpenBias, openBias());
+    gl.uniform1f(uLineOffset, lineOffset());
     gl.drawArrays(gl.TRIANGLES, 0, 3);
   }
 
