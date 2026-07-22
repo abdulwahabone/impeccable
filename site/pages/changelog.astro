@@ -23,8 +23,20 @@ import '../styles/changelog-faq-kinpaku.css';
       <button type="button" class="cf-filter-btn" data-cf-filter="all" aria-pressed="false">All</button>
     </div>
 
-    <article id="v3.9.1" class="cf-entry cf-entry--current">
-      <header class="cf-entry-head"><span class="cf-version">v3.9.1</span><span class="cf-date">July 1, 2026</span><span class="cf-current-badge">Current</span></header>
+    <article id="v4.0.0" class="cf-entry cf-entry--current">
+      <header class="cf-entry-head"><span class="cf-version">v4.0.0</span><span class="cf-date">July 21, 2026</span><span class="cf-current-badge">Current</span></header>
+      <p class="cf-entry-lead">The largest release since launch. One-shot design gets its quality from a roll the model cannot rig, backed by a reviewed deck of 185 visual worlds and rendered cards that set the craft bar before a line of code is written.</p>
+      <ul class="cf-items">
+        <li><strong>Direction by dice, not by taste.</strong> On a new build, Impeccable no longer lets the model choose its own safe option. An external seed assigns which grounded direction gets built and deals challenger worlds alongside it, so the same brief stops converging on the same three fonts over a cream background. Every roll prints a reproduction key, and you can re-roll on stated factual grounds with the chain recorded.</li>
+        <li><strong>A reviewed deck of 185 visual worlds.</strong> Each build draws challengers from a human-curated catalog of approved directions, served through a public roll API. These are real design systems rather than mood words: a Du Bois data portrait, an Aicher pictogram program, a broadcast waveform. The category default never enters the draw.</li>
+        <li><strong>Rendered cards set the craft bar.</strong> Every dealt world arrives with two rendered faces, a design-system board and a desktop hero, so the agent can see the finish it is aiming for before it builds. In our recovery runs, builds that saw the cards came out visibly more committed than the ones that did not.</li>
+        <li><strong>Decide the hand in your browser.</strong> A new visual decision page lays the dealt worlds out as cards you flip and re-roll with live loading states, then sends your pick straight back to the agent. Visualizing the direction before writing production code is now the default, with a reference image generated through your OpenAI key when one is present.</li>
+        <li><strong>The craft floor, enforced.</strong> The new-build flow runs on written direction contracts and a finishing review that reads the result with fresh eyes in its own agent. Underneath sits a 58-rule detector wired into an edit hook, so slop gets flagged as it lands, and the guidance itself now adapts to the model behind it.</li>
+      </ul>
+    </article>
+
+    <article id="v3.9.1" class="cf-entry">
+      <header class="cf-entry-head"><span class="cf-version">v3.9.1</span><span class="cf-date">July 1, 2026</span></header>
       <p class="cf-entry-lead">A packaging fix so the design hook loads in Codex.</p>
       <ul class="cf-items">
         <li><strong>Codex loads the plugin design hook again.</strong> The plugin-packaged hook manifest carried a top-level <code>description</code> field that Codex's strict hook parser rejected, so the post-edit design check failed to register. That field is gone from the plugin artifact, and the hook now loads cleanly on Codex while staying identical for Claude Code.</li>
@@ -129,6 +141,17 @@ import '../styles/changelog-faq-kinpaku.css';
         <li><strong>Detector: 14 new rules.</strong> <code>cream-palette</code>, <code>em-dash-overuse</code>, <code>marketing-buzzword</code>, <code>numbered-section-markers</code>, <code>aphoristic-cadence</code>, <code>theater-slop-phrase</code>, <code>oversized-h1</code>, <code>extreme-negative-tracking</code>, <code>gpt-thin-border-wide-shadow</code>, <code>repeating-stripes-gradient</code>, <code>image-hover-transform</code>, <code>broken-image</code>, <code>text-overflow</code>, and <code>clipped-overflow-container</code>. 41 deterministic rules total, one canonical registry feeding the CLI, the browser extension, critique, and the evals.</li>
         <li><strong>The skill keeps itself current.</strong> On the first session of the day, Impeccable quietly checks whether a newer version shipped. If one has, it offers to run <code>npx impeccable update</code> for you. It always asks first, never nags about a version you declined, and never interrupts the task you're on. Set <code>IMPECCABLE_NO_UPDATE_CHECK=1</code> to turn it off.</li>
         <li><strong>Sharper craft under the hood.</strong> Beyond the bans, the craft itself got tighter. Small defaults landed where they pay off, like <code>text-wrap: balance</code> on headings, which cleaned up ragged hero type across the ablation runs. And the instructions themselves got leaner: orphan reference files folded into their commands, context loading simplified, and a new LLM-backed test suite that catches instruction-following regressions across three providers on every change. Plus dedicated <a href="/changelog">/changelog</a> and <a href="/faq">/faq</a> pages.</li>
+      </ul>
+    </article>
+
+    <article id="cli-v3.3.0" class="cf-entry">
+      <header class="cf-entry-head"><span class="cf-version">CLI v3.3.0</span><span class="cf-date">July 21, 2026</span></header>
+      <p class="cf-entry-lead">The detector reaches 58 rules and learns where each product lives.</p>
+      <ul class="cf-items">
+        <li><strong>A dozen new anti-pattern rules.</strong> The deterministic set now flags soft radial glow halos and accent spotlights, marquee scrollers, blinking terminal cursors, decorative dot and grid fields, text sitting under an overlay, first-viewport content that overflows its column, and hero art assembled from stock geometric shapes. That brings the count to 58.</li>
+        <li><strong>Context roots live in config, not your package manager.</strong> Declare where each product's <code>PRODUCT.md</code> and <code>DESIGN.md</code> sit in <code>.impeccable/config.json</code>, so detection and setup work in repos that are not laid out as package workspaces.</li>
+        <li><strong>Scope one rule to one file.</strong> <code>impeccable ignores</code> can now waive a rule for a single file with a wildcard value, so a domain-appropriate pattern in one component stops being reported without silencing the rule everywhere.</li>
+        <li><strong>Nested products honor <code>--target</code>.</strong> Scans of a nested app inside a non-monorepo repo now resolve the right context and source, instead of falling back to the repository root.</li>
       </ul>
     </article>
 
