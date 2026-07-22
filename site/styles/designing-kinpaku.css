@@ -1721,3 +1721,52 @@
   margin: 0;
   text-wrap: pretty;
 }
+
+/* Progressive disclosure on this page. Mirrors the docs accordion
+   (.docs-prose-details), which is scoped to .docs-kinpaku .prose and so does
+   not reach here. Used for setup detail that would otherwise interrupt the
+   four-phase read. */
+.designing-kinpaku .designing-details {
+  margin-top: 22px;
+  border-top: 1px solid var(--ks-rule);
+  border-bottom: 1px solid var(--ks-rule);
+}
+.designing-kinpaku .designing-details summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 15px 0;
+  color: var(--ks-champagne);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+.designing-kinpaku .designing-details summary::-webkit-details-marker {
+  display: none;
+}
+.designing-kinpaku .designing-details summary::after {
+  content: "+";
+  font-family: var(--ks-mono);
+  font-weight: 500;
+  color: var(--ks-kinpaku);
+}
+.designing-kinpaku .designing-details[open] summary::after {
+  content: "-";
+}
+.designing-kinpaku .designing-details summary:focus-visible {
+  outline: 2px solid var(--ks-patina);
+  outline-offset: 4px;
+}
+.designing-kinpaku .designing-details > div {
+  display: grid;
+  gap: 0.8em;
+  padding: 0 0 18px;
+}
+.designing-kinpaku .designing-details > div p {
+  margin: 0;
+  color: var(--ks-text);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
