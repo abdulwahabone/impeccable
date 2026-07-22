@@ -32,7 +32,9 @@ function findRepoRoot() {
 
 const REPO_ROOT = findRepoRoot();
 
-// Only rating-3 approved concepts, matching the homepage's flagship pool.
+// Only rating-3 approved concepts. Deliberately stricter than the homepage
+// roll, which deals two-star and up: the tear shows one card at a time, so it
+// should only ever be a flagship.
 const FLAGSHIP_RATING = 3;
 
 function readJson(...segments) {

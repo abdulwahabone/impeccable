@@ -9,7 +9,7 @@
  */
 
 const SCOPE = 'direction';
-const RATING = 2; // flagship tier only
+const RATING = 2; // two-star and up, not flagship-only; keep the lead copy's count in sync
 const MAX_REROLL = 8; // API cap; past it we start a fresh key
 const FAN_ANGLES = [-2.1, 1.4, -1.1, 1.9, -1.6, 1.2];
 const DEAL_STAGGER_MS = 75;

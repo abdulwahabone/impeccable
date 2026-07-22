@@ -62,7 +62,7 @@ An addition to an existing page changes neither without asking.
 
 Ask a coding model for something creative and it builds its favorite idea, every run. Sixteen different "be creative" framings returned the identical concept in thirty of thirty-five runs. It is not a shortage of creativity, it is a shortage of variance: one model has one taste function, so its top-ranked idea always wins.
 
-So the ranking gets broken from outside. A roll decides which of the model's own ideas has to be taken seriously, and deals challengers from a reviewed catalog of 169 visual worlds to compete against them. [The research](/research) has the full account.
+So the ranking gets broken from outside. A roll decides which of the model's own ideas has to be taken seriously, and deals challengers from a reviewed catalog of 188 visual worlds to compete against them. [The research](/research) has the full account.
 
 Challengers are not templates and never get applied as one. Each has to survive translation into your product first, and most lose to a strong idea derived from the product itself. That is the intended outcome.
 
