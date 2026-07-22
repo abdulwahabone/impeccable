@@ -323,7 +323,8 @@
 
 .hero-v4-slice:hover .hero-v4-slice-slab::before,
 .hero-v4-slice:focus-visible .hero-v4-slice-slab::before {
-  opacity: 0.42;
+  /* Tracks .ks-button-primary:hover::before against the softened 0.38 base. */
+  opacity: 0.26;
 }
 
 /* Same ring as .ks-button. Inset, because an offset ring on a full-bleed band
@@ -345,9 +346,9 @@
   min-height: 54px;
 }
 
-/* The texture comes from .ks-leaf-face in the kit (kinpaku fill, leaf over it at
-   60%), the same face the primary CTA wears. Raw leaf at full strength read too
-   busy at this size and its cracks cut through the glyph. */
+/* The texture comes from .ks-leaf-face in the kit, the same face the primary CTA
+   wears, so softening the leaf there softens this too. Raw leaf at full strength
+   read too busy at this size and its cracks cut through the glyph. */
 .hero-v4-slice-slab {
   flex: none;
   display: grid;

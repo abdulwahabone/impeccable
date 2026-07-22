@@ -169,7 +169,9 @@
 }
 
 .ks-button.ks-button-primary:hover::before {
-  opacity: 0.42;
+  /* Keeps the same step-back ratio against the softened 0.38 base; at the old
+     0.42 it would now be adding texture on hover, not removing it. */
+  opacity: 0.26;
 }
 
 .ks-button.ks-button-primary:active {
@@ -182,10 +184,15 @@
    Gold-leaf face — a kinpaku fill with the leaf texture over it
 
    The brand's material instead of flat paint. Gold sits underneath and the leaf
-   asset goes over it at 60%, which is the point of the pairing: the texture on
-   its own carries near-black cracks that drop the fill well below dark-ink
-   type's contrast in patches, and softening it against the token keeps the fill
-   inside the gold the rest of the system uses.
+   asset goes over it, which is the point of the pairing: the texture on its own
+   carries near-black cracks that drop the fill well below dark-ink type's
+   contrast in patches, and softening it against the token keeps the fill inside
+   the gold the rest of the system uses.
+
+   The overlay sits at 38%. It ran at 60%, where the facets read as glare in the
+   hero and the CTA and the v4 slab both shouted over the headline. Lower is not
+   a loss of material: the crack structure still reads at this weight, it just
+   stops competing for first attention.
 
    A pseudo-element, not a second background layer: a background-image cannot
    carry its own opacity, and z-index -1 inside the element's own stacking
@@ -211,7 +218,7 @@
      the 1500px asset averages into flat gold and the leaf stops reading. 68%/44%
      is an even field rather than a crack. */
   background: url("/assets/neo-kinpaku/kinpaku-gold-leaf.png") 68% 44% / 340px auto no-repeat;
-  opacity: 0.6;
+  opacity: 0.38;
   pointer-events: none;
   transition: opacity 180ms var(--ks-ease);
 }
