@@ -19,13 +19,33 @@ import '../styles/sub-pages.css';
 
 <div class="privacy-content">
   <h1>Privacy Policy</h1>
-  <p class="updated">Last updated: June 8, 2026</p>
+  <p class="updated">Last updated: July 21, 2026</p>
 
   <h2>What Impeccable is</h2>
-  <p>Impeccable is an open-source collection of agent skills (text files) that run locally in your AI coding tool. The skills themselves collect no data, send no project content to Impeccable, and have no analytics. The only network request made by the skill is an optional, GET-only version check described below.</p>
+  <p>Impeccable is an open-source collection of agent skills (text files) that run locally in your AI coding tool. Your project files, prompts, page content, and detection results are never sent to Impeccable.</p>
+  <p>The skill makes exactly three requests to Impeccable's own servers, all listed below: a version check, a request for a set of visual worlds when you start new design work, and an optional note of which one you chose. Each is best-effort, silent on failure, and separately disableable. A fourth request goes to OpenAI rather than to us, and only if you have configured a key for it.</p>
 
   <h2>Skill version check</h2>
   <p>When an agent loads the Impeccable skill, <code>scripts/context.mjs</code> may make a best-effort <code>GET</code> request to <code>https://impeccable.style/api/version</code> at most once per day to check whether a newer skill version is available. The request sends no project files, prompts, page content, detection results, or personal information. It is silent on failure and can be disabled by setting <code>IMPECCABLE_NO_UPDATE_CHECK=1</code>.</p>
+
+  <h2>The world roll</h2>
+  <p>When you start new design work, Impeccable asks our server for a set of candidate visual worlds to weigh against the directions it derives from your product. That is a <code>GET</code> request to <code>https://impeccable.style/api/roll</code> carrying four values and nothing else:</p>
+  <ul>
+    <li><strong>a roll key</strong> - eight random characters generated on your machine for that roll, so the same hand can be reproduced. It is not derived from you, your project, or your machine, and it is not stored anywhere on your computer.</li>
+    <li><strong>a scope</strong> - whether the roll is for a whole visual direction or a single surface.</li>
+    <li><strong>a re-roll number</strong> - which round of the same roll this is.</li>
+    <li><strong>a mode</strong>, when one applies - one of <code>persuade</code>, <code>operate</code>, <code>read</code>, or <code>experience</code>. This is the only value that says anything about your work, and only that you are designing a marketing page, an app screen, documentation, or a showcase.</li>
+  </ul>
+  <p>No project name, file path, prompt, brief, or design content is sent. The request times out quickly, and on any failure the skill falls back to a local roll that needs no network at all, so the design work continues either way.</p>
+
+  <h2>Which world you chose</h2>
+  <p>If a world we dealt becomes the direction you build, the skill sends one <code>POST</code> to <code>https://impeccable.style/api/chosen</code> noting the identifier of that world, the roll key, the scope, and the mode. It tells us which worlds in our catalog are actually worth building with. It carries nothing about your project and no identifier for you or your machine, and the server answers the same way whether or not it recorded anything.</p>
+  <p>Set either <code>IMPECCABLE_NO_TELEMETRY=1</code> or the standard <code>DO_NOT_TRACK=1</code> to switch it off. The skill only ever sends this for a roll our server dealt; a roll served from a local catalog never sends one.</p>
+  <p>Both the roll and the choice are recorded as counts in Cloudflare's analytics, with no request bodies retained and nothing that identifies a sender. Like any web request, they reach Cloudflare's edge, which sees the connecting IP address in order to answer; we do not store it or attach it to these records.</p>
+
+  <h2>Image generation, if you enable it</h2>
+  <p>Impeccable can render a design direction as a picture before it builds it. Where your coding tool has its own image generation, that stays inside your tool and its own privacy policy governs it.</p>
+  <p>If instead you set <code>OPENAI_API_KEY</code>, <code>scripts/generate-image.mjs</code> sends a text description of the design direction to <code>https://api.openai.com/v1/images/generations</code>, billed to your key. That description is written for the purpose and does not include your source files, but it does describe the work, so it is content leaving your machine to a third party. It happens only when a key is set, the skill states the cost before the first image, and OpenAI's privacy policy governs what they receive. Unset the key and nothing is sent.</p>
 
   <h2>Website analytics</h2>
   <p>The Impeccable website (<a href="https://impeccable.style">impeccable.style</a>) uses Google Analytics to understand traffic patterns (page views, referrers, country). No personal information is collected beyond what Google Analytics provides by default. No cookies are used for advertising.</p>
@@ -35,6 +55,9 @@ import '../styles/sub-pages.css';
 
   <h2>Coding-agent plugins</h2>
   <p>When installed as a plugin for ChatGPT, Codex, or Claude Code, Impeccable runs within the local coding-agent session. The bundled design hook inspects UI files after edits and reports findings back to that local session. No project content or detection results are sent to Impeccable's servers. The host application's privacy policy governs the application itself.</p>
+
+  <h2>Local servers</h2>
+  <p>Two features run a small HTTP server on your own machine, and a browser page talks to it. Live Mode uses one so the picker in your browser can reach the agent, and the direction-choosing page uses one to send your pick back. Both listen on localhost, both are torn down when the feature exits, and nothing either of them handles leaves your computer. Screenshots and annotations from Live Mode are written to your project's temporary files and read by your local agent.</p>
 
   <h2>Chrome Extension</h2>
   <p>The Impeccable Chrome DevTools extension runs entirely in your browser. All anti-pattern detection happens locally on the page you are inspecting. No page content, URLs, or detection results are ever sent to any external server.</p>
