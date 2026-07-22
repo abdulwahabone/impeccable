@@ -56,6 +56,12 @@ The hook does not report everything on every edit. You get two passes instead:
 
 <p class="docs-context-note"><strong>Web only.</strong> The hook parses HTML and CSS, so it does not run on a project whose <code>PRODUCT.md</code> declares <code>ios</code>, <code>android</code>, or <code>adaptive</code>. See <a href="/docs/context">Design Context</a>.</p>
 
+### Checking it is really running
+
+A hook can look installed and scan nothing: if its script path stops resolving, after a move or a reinstall, the manifest still registers and no findings ever arrive. Silence reads as a clean codebase.
+
+[`/impeccable doctor`](/docs/doctor) checks for exactly that, along with a manifest that says enabled while config says otherwise. Worth running once after you move a project.
+
 ## Handling intentional findings
 
 Persist an exception only after you confirm the finding is intentional. Prefer the narrowest exception:

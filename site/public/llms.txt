@@ -17,9 +17,16 @@ Use the website pages below as the current public documentation. Use the GitHub 
 
 - [Tutorials index](https://impeccable.style/tutorials): Step-by-step guides for installation, live iteration, and visual critique.
 - [Iterate on UI with Live Mode](https://impeccable.style/tutorials/iterate-live): Use `/impeccable live` against a running dev server to generate and accept UI variants.
-- [Design Context](https://impeccable.style/docs/context): Explain PRODUCT.md, DESIGN.md, surface briefs, visitor modes, platform, and the design sidecar.
-- [New work](https://impeccable.style/docs/new-work): How a direction is resolved for a new page, a redesign, or an addition.
 - [Critique with the visual overlay](https://impeccable.style/tutorials/critique-with-overlay): Combine `/impeccable critique`, deterministic detection, and the browser overlay.
+
+## Concepts and Reference
+
+- [Design Context](https://impeccable.style/docs/context): PRODUCT.md, DESIGN.md, surface briefs, the four visitor modes, the platform axis, and the design sidecar.
+- [New work](https://impeccable.style/docs/new-work): How a direction is resolved for a new page, a redesign, or an addition to an existing one.
+- [Config and ignores](https://impeccable.style/docs/config): `.impeccable/config.json`, detector exceptions, inline ignore comments, and project roots.
+- [Detector CLI](https://impeccable.style/docs/detector): `npx impeccable detect` over files, directories, and rendered URLs.
+- [Design hooks](https://impeccable.style/docs/hooks): Provider-native hooks that run the detector as the agent edits UI files.
+- [Doctor](https://impeccable.style/docs/doctor): Find and repair drift between a project's Impeccable files and the installed version.
 
 ## Command Reference
 

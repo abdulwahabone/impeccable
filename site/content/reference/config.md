@@ -41,6 +41,8 @@ npx impeccable ignores remove-value design-system-color "#ff00aa"
 
 The same detector config is used by the CLI and the hook, so an ignore behaves consistently in both places.
 
+<p class="docs-context-note">A config file fails quietly when it is wrong: a misspelled key is simply never read, an ignored rule id that no longer exists suppresses nothing, and a <code>projectRoots</code> glob that matches no directory leaves the repo root standing in for the app you meant. <a href="/docs/doctor">/impeccable doctor</a> checks for all three. It also reads <code>"stalenessCheck": false</code> here, which turns off the session-start staleness notice.</p>
+
 ## Shared or local
 
 Default ignores go into `.impeccable/config.json`. Commit them when they represent team intent: a legacy folder, a confirmed brand exception, or a project-wide rule decision.

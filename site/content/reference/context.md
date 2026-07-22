@@ -88,7 +88,8 @@ Those get different treatment because they are different jobs, not because you c
     </ul>
     <p>The mode comes from the surface, <strong>not from what the company sells</strong>. A developer tool's landing page is still Persuade. A fashion house's documentation is still Read. A docs index is Read, not Persuade.</p>
     <p>Name it explicitly only when a page is genuinely ambiguous. Once resolved, it is recorded in that surface's brief under <code>.impeccable/surfaces/</code>.</p>
-    <p><strong>Upgrading from v3?</strong> Modes replace the old brand/product <strong>register</strong>. A leftover <code>## Register</code> heading in <code>PRODUCT.md</code> is harmless and no longer read. Brand maps to Persuade, product maps to Operate, and Read and Experience are the two cases the old split had nowhere to put.</p>
+    <p><strong>Upgrading from v3?</strong> Modes replace the old brand/product <strong>register</strong>. Brand maps to Persuade, product maps to Operate, and Read and Experience are the two cases the old split had nowhere to put.</p>
+    <p>A leftover <code>## Register</code> heading in <code>PRODUCT.md</code> is no longer read, and <a href="/docs/doctor">doctor</a> will find it and offer to delete it. Worth accepting: a retired axis left in the file is the kind of thing that reads as still meaningful to the next person.</p>
   </div>
 </details>
 
@@ -132,6 +133,9 @@ Use this rule:
 | New palette, type stack, component primitives, radius scale, or design rules | `/impeccable document` |
 | A hook says `DESIGN.md` is newer than `.impeccable/design.json` | `/impeccable document` |
 | One-off intentional detector finding | Add a narrow ignore with `/impeccable hooks ignore-value` or `npx impeccable ignores`. |
+| You are not sure what has fallen behind | `/impeccable doctor` ([Doctor](/docs/doctor)) |
+
+Impeccable also checks these files at the start of a session and mentions what looks stale, at most once a week per project. [Doctor](/docs/doctor) is the same report on demand, with the expensive checks added.
 
 Treat context files like any other design artifact: review them in code review when they change, and update them when the product changes.
 
