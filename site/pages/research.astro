@@ -18,11 +18,12 @@ import '../styles/research-kinpaku.css';
       <p class="research-dek">
         Seven measured lessons from teaching a coding model to produce genuinely
         distinct design, one-shot. Every claim below was earned by an experiment
-        that first proved us wrong. Then the part that came after: the lessons
-        hardened into a human-reviewed catalog of worlds and a roll API that now
-        ships in the skill.
+        that first proved us wrong. Then the lessons hardened into a
+        human-reviewed catalog of worlds and a roll API that ships in the
+        skill. And then we broke it, by accident, and the collapse measured
+        exactly what the lessons predicted. That story is part three.
       </p>
-      <p class="research-prov">impeccable v4 one-shot campaign &middot; ~24 skill iterations, ~150 sampled concepts, ~$1,900 of evals &middot; July 2026</p>
+      <p class="research-prov">impeccable v4 one-shot campaign &middot; ~30 skill iterations, ~200 sampled concepts, ~$2,600 of evals &middot; July 2026</p>
     </header>
 
     <section class="research-lesson">
@@ -251,9 +252,10 @@ import '../styles/research-kinpaku.css';
       <p>
         The campaign proved the architecture. Production needed the dice to have
         faces worth landing on. So the curated pool from lesson four grew into a
-        full catalog: 337 authored worlds, taken through a complete human review
-        sweep, wired to a public roll API. Here is what survived contact with a
-        reviewer.
+        full catalog: 375 authored worlds and counting, every one through human
+        review, wired to a public roll API. 185 are approved; 83 carry the
+        three-star flagship rating that doubles their odds in the draw. Here is
+        what survived contact with a reviewer.
       </p>
     </div>
 
@@ -274,9 +276,15 @@ import '../styles/research-kinpaku.css';
         deck, one per surface mode: persuade, operate, read, experience.
       </p>
       <p>
-        Names from the approved pool, the way the API exposes them: Fillmore
-        Handbill. Wax Print Market. Split Flap Concourse. Teletext Service, the
-        world lesson five's human reference pointed at all along.
+        The sharpest predictor of a flagship rating turned out to be a verb:
+        the winning systems <em>argue</em> or <em>perform</em>. The Du Bois
+        data portraits argue; a Massin stage page performs its dialogue; a
+        variety-show telop field performs the speech it captions. Systems that
+        merely exist, pure notation, minimal seriality, tasteful restraint,
+        die in review no matter how legitimate their lineage. Names from the
+        approved pool, the way the API exposes them: Fillmore Handbill. Wax
+        Print Market. Teletext Service, the world lesson five's human reference
+        pointed at all along. Du Bois Data Portraits. eBoy Pixorama.
       </p>
     </section>
 
@@ -297,7 +305,11 @@ import '../styles/research-kinpaku.css';
         three-star flagship. The dominant rejection reads "doesn't translate to
         interface": material worlds without an intrinsic 2D pattern system never
         recover, and re-authoring them fails again. Rework hit about a third,
-        and only ever for taste fixes, never translation fixes.
+        and only ever for taste fixes, never translation fixes. A later round
+        added a rejection dimension no style guide saw coming: an aesthetic
+        current AI output has colonized is dead on arrival regardless of its
+        history. Frutiger Aero has a real 2004 lineage; it died in review
+        because this month's glassmorphism slop wears its face.
       </p>
     </section>
 
@@ -317,7 +329,15 @@ import '../styles/research-kinpaku.css';
         Breadth wins. New rounds stay small, target unmined territory at its
         canonical peak, and expect a 25&ndash;40% hit rate now that the initial
         harvest is done. Exhausted families are retired outright and never
-        receive new entries.
+        receive new entries. The subtler trap took longer to name: asking an
+        authoring agent to justify each candidate by its nearest existing
+        neighbor selects <em>for</em> redundancy, because only near-duplicates
+        have a neighbor to cite. Dedup now happens at shelf level. A candidate
+        names the shelf it would sit on; if that shelf already holds an
+        approved entry, it needs a higher peak or it is out. The same gate
+        produces a strange, useful side effect: with the familiar middle
+        pruned away, review outcomes go bimodal. One round came back four
+        approvals from seven entries, every single one flagship.
       </p>
     </section>
 
@@ -336,7 +356,13 @@ import '../styles/research-kinpaku.css';
       <p>
         And lesson three's reproduction key survived productionization: the same
         key against the same pool revision reproduces a roll bit for bit, in the
-        skill and in the API.
+        skill and in the API. Each dealt world now travels with its rendered
+        cards, a design-system board and a desktop hero, framed to the model as
+        a quality bar rather than a mockup: this is the finish level the build
+        must reach, in its own direction. In a controlled build run, the two
+        pages whose models saw the cards came back the strongest of the
+        campaign; the one page whose hand happened to carry no cards came back
+        the flattest. One accidental control is not proof. It repeated.
       </p>
     </section>
 
@@ -359,6 +385,92 @@ import '../styles/research-kinpaku.css';
       </p>
     </section>
 
+    <div class="research-chapter">
+      <p class="research-chapter-kicker">Part three &middot; the reversal</p>
+      <h2 class="research-chapter-title">We un-built it by accident, and the collapse kept score</h2>
+      <p>
+        Weeks after the architecture shipped, a large refactor quietly reversed
+        most of it. Nobody decided to. An audit softened the dice, a safety
+        pass resurrected the deleted brake, a cleanup dropped the calibration.
+        Craft quality fell off a cliff within days, and the wreckage turned out
+        to be the best controlled experiment of the project.
+      </p>
+    </div>
+
+    <section class="research-lesson research-lesson--catalog">
+      <div class="research-roll"><span class="research-die research-die--catalog">13</span>
+        <h2>Assignment is the keystone. Nomination is <mark>argmax in dice's clothing</mark>.</h2>
+      </div>
+      <p>
+        The refactor changed one verb: the script stopped <em>assigning</em>
+        the build and started <em>promoting</em> a candidate into a shortlist
+        for someone to choose from. Model, veto floor, simulated user: every
+        available chooser is a taste function, and taste functions pick the
+        safest card. The selection layer picked option one in 27 of 30 packets,
+        and six niches converged on one warm-paper look.
+      </p>
+      <p>
+        The autopsy A/B put it beyond argument. Same model, same briefs, same
+        dice keys, same guidance in both arms; only the selection mechanism
+        differed. The tournament arm reproduced the collapse three for three in
+        every niche. The assignment arm produced ten materially different
+        directions in twelve packets, rolled the culturally right answer for a
+        Polish product on its first try, and let a catalog challenger win
+        exactly where the grounded list was thinnest. Lesson three was never
+        about randomness. It is about who holds the pen at the moment of
+        choice.
+      </p>
+    </section>
+
+    <section class="research-lesson research-lesson--catalog">
+      <div class="research-roll"><span class="research-die research-die--catalog">14</span>
+        <h2>Brakes regrow. <mark>Counterweights don't</mark>.</h2>
+      </div>
+      <p>
+        The costume check we deleted in lesson five came back wearing four new
+        names: a translation veto, a carrier-removal test, an
+        imaginative-distance clause, an anti-nostalgia rule. Nobody reintroduced
+        it on purpose; every honest repair pass added one more careful
+        adjective, and "restrained" leaked from truth fixes into five of six
+        direction briefs. The models did the arithmetic and shipped beige.
+        Brief protocol now: a direction states facts and the chosen world's own
+        materials. Restraint adjectives in a brief fail the run.
+      </p>
+      <p>
+        The counterweights went the other way: deleted once, gone entirely. The
+        calibration paragraph naming the model's saturated default looks is a
+        rule no detector can enforce, because "warm cream, serif display,
+        terracotta accent" is a gestalt, not a scannable property. The next
+        build after its deletion shipped exactly that page, on two different
+        models. Prose rules and mechanical rules need separate homes, and the
+        prose ones need a guard: one model later dodged the font calibration by
+        arguing a bookshop subject deserved its favorite serif. The rule now
+        says a subject association is never a reason.
+      </p>
+    </section>
+
+    <section class="research-lesson research-lesson--catalog">
+      <div class="research-roll"><span class="research-die research-die--catalog">15</span>
+        <h2>Same dice, same assignment, <mark>different hands</mark>.</h2>
+      </div>
+      <p>
+        Recovery exposed the last variable: the model itself. On matched dice
+        keys with identical assignments, one builder rendered a children's
+        reading product as indigo bookcloth, coral thread, and marigold; the
+        other rendered the same list positions as cream paper and lamplight,
+        twice. The dice decide which idea gets built. The model's rendition
+        prior decides what that idea looks like, and it survives everything
+        except being named precisely. Calibration is not a paragraph you write
+        once; it is a ledger of the specific escapes each model attempts.
+      </p>
+      <p>
+        Two days after the reversal was diagnosed, the recovered architecture
+        produced the largest, most committed artifacts of the entire campaign.
+        Every mechanism above earned its place twice: once by working, once by
+        being measured in its absence.
+      </p>
+    </section>
+
     <div class="research-close">
       <p class="research-close-big">
         The model always had the taste. Our job turned out to be rolling dice it
@@ -370,8 +482,10 @@ import '../styles/research-kinpaku.css';
         probes (sampling design intent as ~200-word contracts, pennies per
         variant) before any build was paid for; human verdicts are per-sample
         ratings by the project's design director; the pairwise judge is
-        screenshot-based with both-orderings position-bias cancellation. Catalog
-        figures reflect the July 2026 review sweep. Produced with impeccable v4.
+        screenshot-based with both-orderings position-bias cancellation. Part
+        three's autopsy A/B ran both selection mechanisms on matched dice keys
+        with identical guidance in both arms. Catalog figures reflect the July
+        2026 reviews. Produced with impeccable v4.
       </p>
     </div>
   </article>
