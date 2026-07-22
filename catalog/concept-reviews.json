@@ -8,6 +8,12 @@
       "reviewedAt": "2026-07-21T20:50:28.147Z",
       "formHash": "9ee954e794ff"
     },
+    "animated-terminal-hero": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:22:58.548Z",
+      "formHash": "0c1234261355"
+    },
     "architecture-inhabitable-space-acoustic-cloister": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -41,6 +47,12 @@
       "reviewedAt": "2026-07-21T20:53:12.887Z",
       "formHash": "2e6dc8ff77ee",
       "rating": 2
+    },
+    "black-gold-augmentation": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:21:48.438Z",
+      "formHash": "2bbe8208a852"
     },
     "brand-identity-canon-brodovitch-bazaar-spread": {
       "status": "approved",
@@ -766,6 +778,13 @@
       "formHash": "fc5413547cbe",
       "rating": 2
     },
+    "generative-parametric-identity": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:21:39.377Z",
+      "formHash": "0854d1c8696e",
+      "rating": 2
+    },
     "geological-strata-crystals-basalt-column-organ": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -857,11 +876,26 @@
       "formHash": "db14b6c4d9d5",
       "rating": 2
     },
+    "hand-drawn-zine-explainer": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:23:23.267Z",
+      "formHash": "b093dca167b1",
+      "rating": 3
+    },
     "highlife-sleeve": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T02:20:03.186Z",
-      "formHash": "802dd1c85508"
+      "formHash": "802dd1c85508",
+      "rating": 2
+    },
+    "ikeda-datamatics": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:22:34.991Z",
+      "formHash": "34005ff821ef",
+      "rating": 3
     },
     "ink-pigment-printmaking-cyanotype-shadow-herbarium": {
       "status": "rejected",
@@ -914,7 +948,15 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T02:20:28.505Z",
-      "formHash": "eeb63a014ce6"
+      "formHash": "eeb63a014ce6",
+      "rating": 2
+    },
+    "kinetic-sand-glyphs": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:22:08.434Z",
+      "formHash": "47cbf6886ff9",
+      "rating": 2
     },
     "kinetic-sculpture-automata-cam-drum-mechanical-garden": {
       "status": "rejected",
@@ -972,6 +1014,13 @@
       "reviewedAt": "2026-07-21T20:47:36.036Z",
       "formHash": "5b034baaf3b0"
     },
+    "kraftwerk-man-machine": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:20:48.619Z",
+      "formHash": "1fc3f97ceaa5",
+      "rating": 2
+    },
     "light-shadow-caustics-indoor-weather-sun": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -997,6 +1046,13 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:33:24.369Z",
       "formHash": "bb29f1144b09"
+    },
+    "luxury-fashion-flagship": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:21:25.142Z",
+      "formHash": "47e581bfa1fa",
+      "rating": 2
     },
     "magnetism-electricity-plasma-ferrofluid-spike-crown": {
       "status": "rejected",
@@ -1240,7 +1296,8 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T02:20:16.571Z",
-      "formHash": "48655a1e4c9e"
+      "formHash": "48655a1e4c9e",
+      "rating": 2
     },
     "nier-bone-console": {
       "status": "rejected",
@@ -1825,6 +1882,13 @@
       "reviewedAt": "2026-07-20T22:30:47.551Z",
       "formHash": "4171d1bd201b"
     },
+    "risograph-web-system": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:23:31.706Z",
+      "formHash": "68e24a2e339e",
+      "rating": 3
+    },
     "ritual-ceremony-festival-lantern-river-vows": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -1884,6 +1948,12 @@
       "reviewedAt": "2026-07-20T02:54:34.409Z",
       "formHash": "38af570c03fd",
       "rating": 2
+    },
+    "scrollytelling-sticky-graphic": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:22:48.917Z",
+      "formHash": "6f03bcf033f0"
     },
     "signals-instruments-barograph-week-drum": {
       "status": "rejected",
@@ -2020,11 +2090,23 @@
       "reviewedAt": "2026-07-20T22:05:53.262Z",
       "formHash": "5252612fb11b"
     },
+    "studio-dumbar-identity": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:21:10.854Z",
+      "formHash": "ab066d6d28da"
+    },
     "swarms-flocks-migration-bee-swarm-consensus": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:31:07.502Z",
       "formHash": "22357a3c0961"
+    },
+    "tabular-fintech-typographic": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:20:17.795Z",
+      "formHash": "a9c8739046ec"
     },
     "tanaka-plane-portrait": {
       "status": "approved",
@@ -2171,6 +2253,20 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T01:15:48.907Z",
       "formHash": "742df15b0fec",
+      "rating": 2
+    },
+    "underground-resistance": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:20:38.952Z",
+      "formHash": "85ab43db5d6b",
+      "rating": 1
+    },
+    "variable-font-specimen": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:22:26.246Z",
+      "formHash": "11ff6958996f",
       "rating": 2
     },
     "variety-telop-caption-field": {
@@ -2429,6 +2525,13 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T18:01:33.562Z",
       "formHash": "69d3e36cbbd5"
+    },
+    "webgl-shader-portal": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T07:23:14.175Z",
+      "formHash": "978837754074",
+      "rating": 2
     }
   }
 }
