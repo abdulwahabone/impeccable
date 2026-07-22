@@ -30,12 +30,17 @@ That creates `DESIGN.md`, the visual-system file, plus a generated helper at `.i
   <div class="docs-context-flow-source">
     <span class="docs-context-flow-label">Strategy</span>
     <strong>PRODUCT.md</strong>
-    <span>Audience, purpose, voice, register, anti-references.</span>
+    <span>Platform, users, purpose, positioning, evidence, brand commitments.</span>
   </div>
   <div class="docs-context-flow-source">
     <span class="docs-context-flow-label">Visual system</span>
     <strong>DESIGN.md</strong>
     <span>Colors, type, components, radii, design rules.</span>
+  </div>
+  <div class="docs-context-flow-source">
+    <span class="docs-context-flow-label">Per surface</span>
+    <strong>.impeccable/surfaces/</strong>
+    <span>One page's mode, job, proof sequence, and chosen direction.</span>
   </div>
   <div class="docs-context-flow-source docs-context-flow-source--generated">
     <span class="docs-context-flow-label">Generated</span>
@@ -53,34 +58,64 @@ That creates `DESIGN.md`, the visual-system file, plus a generated helper at `.i
 
 | File | What it should answer | Update it when |
 |---|---|---|
-| `PRODUCT.md` | Who is this for? What is the product trying to do? What should the brand feel like? Is this a brand surface or a product surface? What should the work avoid? | Audience, positioning, product purpose, voice, register, or anti-references change. |
+| `PRODUCT.md` | What platform is this? Who is it for? What does the product do, and what claim could a neighbor not copy? What real evidence and brand commitments exist? | Platform, audience, positioning, purpose, constraints, evidence, or brand commitments change. |
 | `DESIGN.md` | What colors, type stacks, component treatments, radii, elevation, and visual rules are allowed? | Palette, typography, components, tokens, spacing/radius scales, or design rules change. |
+| `.impeccable/surfaces/*.md` | For one page or route: what mode is it, what job does it do, what proof does it show, and which direction was chosen? | Written by the work itself. Edit it when a page's strategy changes. |
 | `.impeccable/design.json` | What structured design data should automation use? | Do not edit it directly. Refresh it by running `/impeccable document`. |
 
 The markdown files are the files you own. The generated JSON helps the detector, hooks, and Live Mode read the design system precisely.
 
-## The most important choice: brand or product
+## Scope your request to one surface
 
-Impeccable calls this choice the **register**. In daily use, just decide what kind of surface you are asking it to judge.
-
-- **Brand surface:** marketing site, landing page, campaign, portfolio, editorial page. The visitor is evaluating, trusting, remembering, comparing, or feeling the brand.
-- **Product surface:** app UI, dashboard, admin screen, workflow tool, settings page. The user is configuring, monitoring, searching, submitting, comparing data, or finishing a task.
-
-The same visual move can be right in one register and wrong in the other. A campaign page can afford a huge image, expressive type, and one dominant idea per screen. A dashboard needs density, predictable controls, readable states, stable navigation, and quieter motion.
-
-Many codebases have both. Set the project default to the surface you work on most, then be explicit when a task differs:
+The judgment that changes Impeccable's output most is what the visitor came to the page to **do**. It reads that from the surface you named, so the useful habit is naming one:
 
 ```text
-/impeccable polish the marketing homepage as a brand surface
-/impeccable audit the billing settings as a product surface
+/impeccable polish the marketing homepage
+/impeccable audit the billing settings
 ```
+
+Those get different treatment because they are different jobs, not because you configured anything. A marketing page has to earn attention; a settings screen has to disappear. One project usually holds several kinds, which is why this is decided per surface rather than set once for the whole repo.
+
+<details class="docs-context-details">
+  <summary>The four modes, and what each one changes</summary>
+  <div>
+    <p>Impeccable names four, and picks from the surface in front of it:</p>
+    <ul>
+      <li><strong>Persuade.</strong> The visitor decides and acts: landing pages, marketing, campaigns, pricing. Design is the product, so it has to earn attention. Distinctive type, committed palette, image-led openings.</li>
+      <li><strong>Operate.</strong> The visitor completes a task: app UI, dashboards, editors, admin, tools. Density, predictable controls, readable states, stable navigation, quieter motion. Brand lives in precise details.</li>
+      <li><strong>Read.</strong> The visitor understands something: docs, guides, help, changelogs. Comprehension first, then a reading experience worth staying in.</li>
+      <li><strong>Experience.</strong> The visitor is inside the work: portfolios, galleries, showcases. The artifact leads and the interface recedes.</li>
+    </ul>
+    <p>The mode comes from the surface, <strong>not from what the company sells</strong>. A developer tool's landing page is still Persuade. A fashion house's documentation is still Read. A docs index is Read, not Persuade.</p>
+    <p>Name it explicitly only when a page is genuinely ambiguous. Once resolved, it is recorded in that surface's brief under <code>.impeccable/surfaces/</code>.</p>
+    <p><strong>Upgrading from v3?</strong> Modes replace the old brand/product <strong>register</strong>. A leftover <code>## Register</code> heading in <code>PRODUCT.md</code> is harmless and no longer read. Brand maps to Persuade, product maps to Operate, and Read and Experience are the two cases the old split had nowhere to put.</p>
+  </div>
+</details>
+
+<details class="docs-context-details">
+  <summary>Native apps: iOS, Android, and adaptive (alpha)</summary>
+  <div>
+    <p>If you build for the web, skip this. `PRODUCT.md` carries a <code>## Platform</code> line, and <code>/impeccable init</code> works the value out while it scans your project, asking only when the evidence is ambiguous. A missing field means <code>web</code>.</p>
+    <table>
+      <thead><tr><th>Value</th><th>Means</th></tr></thead>
+      <tbody>
+        <tr><td><code>web</code></td><td>A website or web app, including responsive mobile web. The default.</td></tr>
+        <tr><td><code>ios</code></td><td>A native iOS or iPadOS app. Loads the Apple HIG guidance.</td></tr>
+        <tr><td><code>android</code></td><td>A native Android app. Loads Material Design 3 guidance.</td></tr>
+        <tr><td><code>adaptive</code></td><td>One Flutter, React Native, or KMP codebase that genuinely adapts per OS. Loads both.</td></tr>
+      </tbody>
+    </table>
+    <p>On a native platform, <code>audit</code> and <code>adapt</code> run native passes covering VoiceOver, TalkBack, touch targets, and platform conformance instead of CSS.</p>
+    <p><strong>Native support is alpha.</strong> Live Mode, the detector, and the design hook all read a browser or parse HTML, so they sit out on a native project. Mobile web stays <code>web</code>, and a native wrapper around a website does not make its design language native.</p>
+  </div>
+</details>
 
 ## How context changes the output
 
 With context loaded, Impeccable can:
 
 - preserve the right identity instead of "improving" it into something generic;
-- pick the right standard for the surface: expressive brand page or efficient product UI;
+- pick the right standard for the surface, whether that is a Persuade page that has to land or an Operate screen that has to disappear;
 - replace hardcoded visual choices with documented tokens and components;
 - flag drift, such as fonts, colors, or border radii outside `DESIGN.md`;
 - keep Live Mode variants aligned with the system instead of inventing new palettes.
@@ -93,7 +128,7 @@ Use this rule:
 
 | Change in the project | Run |
 |---|---|
-| New audience, positioning, product purpose, brand voice, or register | `/impeccable init` |
+| New audience, positioning, product purpose, platform, evidence, or brand commitments | `/impeccable init` |
 | New palette, type stack, component primitives, radius scale, or design rules | `/impeccable document` |
 | A hook says `DESIGN.md` is newer than `.impeccable/design.json` | `/impeccable document` |
 | One-off intentional detector finding | Add a narrow ignore with `/impeccable hooks ignore-value` or `npx impeccable ignores`. |
@@ -115,8 +150,9 @@ Treat context files like any other design artifact: review them in code review w
 <details class="docs-context-details">
   <summary>What happens when docs and code disagree</summary>
   <div>
-    <p><code>PRODUCT.md</code> wins on strategy: audience, tone, register, anti-references, and whether a change should preserve or reject the current identity.</p>
+    <p><code>PRODUCT.md</code> wins on durable product and voice decisions: platform, audience, positioning, constraints, evidence, and brand commitments.</p>
     <p><code>DESIGN.md</code> wins on visual decisions: color, typography, radius, elevation, component behavior, and system-specific do/don't rules.</p>
+    <p>A surface brief in <code>.impeccable/surfaces/</code> wins on that one page's strategy: its mode, its job, the proof sequence, and the direction that was chosen for it.</p>
     <p>Existing code still matters. Commands read project files before editing and preserve real conventions when they are stronger or newer than the docs. A stale <code>DESIGN.md</code> is a signal to refresh the docs, not permission to ignore the implementation.</p>
   </div>
 </details>

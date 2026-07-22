@@ -113,7 +113,7 @@ The stop also strips the `<script>` tag from your dev entry and stops the helper
 
 - Run `/impeccable live` on a different page after a `/impeccable polish` pass to A/B the polished version against two more directions.
 - Pair with [critique with the overlay](/tutorials/critique-with-overlay): run critique first, fix priority issues, then use live to explore redirections on the element critique flagged.
-- Reach for `/impeccable craft` when you want the shape-then-build flow (a new feature end-to-end, not a single element).
+- Describe the surface plainly (`/impeccable a pricing page for enterprise customers`) when you want a whole page end-to-end rather than a single element. That runs the [new-work flow](/docs/new-work).
 
 ## Common issues
 

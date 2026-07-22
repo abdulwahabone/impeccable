@@ -30,7 +30,7 @@ tagline: "Think before you build. Produce a design brief through discovery, not 
         <span class="docs-viz-file-v">Mobile-first. WCAG AA contrast. One column, no modals.</span>
       </div>
     </div>
-    <div class="docs-viz-file-footer">Hand it to <code>/impeccable</code>, <code>/impeccable craft</code>, or any implementation flow.</div>
+    <div class="docs-viz-file-footer">Hand it to <code>/impeccable</code> or any implementation flow.</div>
   </div>
   <p class="docs-viz-caption">A shape brief is a compass, not a spec. It captures intent, not UI. Implementation skills read it before writing a line of code.</p>
 </div>
@@ -54,7 +54,9 @@ The skill runs a structured discovery interview in conversation. It will not wri
 
 You answer naturally. The skill asks follow-ups, not a form. At the end it produces a design brief: a structured artifact you can hand to `/impeccable` or any other implementation skill.
 
-Note: if you want the full flow (discovery interview, then straight into building), use `/impeccable craft` instead. It runs `/impeccable shape` internally, then continues into implementation with visual iteration. `/impeccable shape` standalone is for when you want just the brief, so you can take it to whatever implementation approach you prefer.
+Note: if you want the discovery *and* the build in one go, just describe the surface. A plain `/impeccable a settings screen for team billing` runs the same discovery, resolves the visual direction with you, and continues into implementation. See [New work](/docs/new-work). `shape` standalone is for when you want only the brief, so you can take it to whatever implementation approach you prefer.
+
+When `shape` has already run its interview, new-work reuses those confirmed answers rather than asking again.
 
 ## Try it
 

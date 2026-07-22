@@ -47,7 +47,6 @@ const EXCLUDED_SKILLS = new Set([
 export const SKILL_CATEGORIES = {
   // CREATE - build something new
   impeccable: 'create',
-  craft: 'create',
   shape: 'create',
   // EVALUATE - review and assess
   critique: 'evaluate',
@@ -107,8 +106,7 @@ export const CATEGORY_DESCRIPTIONS = {
  */
 export const COMMAND_RELATIONSHIPS = {
   // Create
-  craft: { combinesWith: ['shape'] },
-  shape: { combinesWith: ['craft'] },
+  shape: { combinesWith: ['init'] },
   // Evaluate (these are the "diagnostics" that lead to fixes)
   audit: { leadsTo: ['harden', 'optimize', 'adapt', 'clarify'] },
   critique: { leadsTo: ['polish', 'distill', 'bolder', 'quieter', 'typeset', 'layout'] },
@@ -131,7 +129,7 @@ export const COMMAND_RELATIONSHIPS = {
   harden: { combinesWith: ['optimize'] },
   onboard: { combinesWith: ['clarify', 'delight'] },
   // System
-  init: { combinesWith: ['document'] },
+  init: { combinesWith: ['document'], leadsTo: ['document', 'shape'] },
   document: { combinesWith: ['init', 'extract'] },
   extract: { combinesWith: ['document'] },
   live: {},

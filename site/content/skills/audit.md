@@ -71,6 +71,8 @@ Each dimension gets a 0 to 4 score. Each finding gets a severity: P0 blocks the 
 
 Audit does not fix anything. It documents. Route the findings to `/impeccable polish`, `/impeccable harden`, or `/impeccable optimize` depending on the category.
 
+**On a native project, audit runs a different pass.** When `PRODUCT.md` declares `ios`, `android`, or `adaptive`, the five web dimensions do not apply, so audit swaps to a native version: VoiceOver and TalkBack behavior, Dynamic Type and font scaling, touch targets at platform minimums, and conformance to the Apple HIG or Material 3 conventions your platform is held to. The deterministic detector has no native equivalent and sits out. See [Design Context](/docs/context) for how the platform is set, which is usually automatically.
+
 ## Try it
 
 ```

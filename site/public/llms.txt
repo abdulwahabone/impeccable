@@ -17,14 +17,14 @@ Use the website pages below as the current public documentation. Use the GitHub 
 
 - [Tutorials index](https://impeccable.style/tutorials): Step-by-step guides for installation, live iteration, and visual critique.
 - [Iterate on UI with Live Mode](https://impeccable.style/tutorials/iterate-live): Use `/impeccable live` against a running dev server to generate and accept UI variants.
-- [Design Context](https://impeccable.style/docs/context): Explain PRODUCT.md, DESIGN.md, register, and the design sidecar.
+- [Design Context](https://impeccable.style/docs/context): Explain PRODUCT.md, DESIGN.md, surface briefs, visitor modes, platform, and the design sidecar.
+- [New work](https://impeccable.style/docs/new-work): How a direction is resolved for a new page, a redesign, or an addition.
 - [Critique with the visual overlay](https://impeccable.style/tutorials/critique-with-overlay): Combine `/impeccable critique`, deterministic detection, and the browser overlay.
 
 ## Command Reference
 
 - [impeccable](https://impeccable.style/docs/impeccable): Main command for recommendations, freeform design work, and loading the full design guide.
 - [init](https://impeccable.style/docs/init): Set up design context with `PRODUCT.md`, optional `DESIGN.md`, Live Mode configuration, and next-command recommendations.
-- [craft](https://impeccable.style/docs/craft): Shape, build, and visually iterate a new feature end to end.
 - [shape](https://impeccable.style/docs/shape): Run a discovery interview and produce a design brief before code.
 - [live](https://impeccable.style/docs/live): Select browser elements, generate UI variants, and write accepted changes back to source.
 - [document](https://impeccable.style/docs/document): Generate a `DESIGN.md` file from the current visual system.

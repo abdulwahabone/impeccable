@@ -19,6 +19,8 @@ The skill works through four dimensions of contextual fit:
 
 The non-negotiable rule: adapt, do not amputate. Critical functionality cannot disappear on mobile just because it is inconvenient. Find a way to fit it, redesign the interaction, or reconsider whether it was really critical on desktop.
 
+**On a native project, adapt works in native dimensions.** When `PRODUCT.md` declares `ios`, `android`, or `adaptive`, breakpoints and CSS clamps are the wrong vocabulary, so adapt swaps to a native version: phone to tablet, one platform's conventions to the other's, and web patterns translated into native affordances rather than transplanted. See [Design Context](/docs/context).
+
 ## Try it
 
 ```

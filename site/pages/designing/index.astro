@@ -84,11 +84,11 @@ import '../../styles/designing-kinpaku.css';
   <section class="ks-section designing-phase" id="start">
     <header class="ks-section-head designing-phase-head">
       <h2 class="designing-phase-title">Start with context.</h2>
-      <p class="ks-section-sub designing-phase-sub">Before asking an agent to design, give it the basics: who the interface is for, what it should feel like, what it should avoid, and whether this is a marketing surface or an app screen. <code>/impeccable init</code> saves that context first. Then use <code>/impeccable shape</code> for a brief or <code>/impeccable craft</code> for the full build.</p>
+      <p class="ks-section-sub designing-phase-sub">Before asking an agent to design, give it the basics: what platform this is, who the interface is for, what the product can honestly claim, and what evidence actually exists. <code>/impeccable init</code> saves that context once. Then use <code>/impeccable shape</code> for a brief, or just describe the surface you want and Impeccable takes it through the new-work flow.</p>
       <div class="designing-phase-commands">
         <a class="designing-phase-cmd" href="/docs/init">/impeccable init</a>
         <a class="designing-phase-cmd" href="/docs/shape">/impeccable shape</a>
-        <a class="designing-phase-cmd" href="/docs/craft">/impeccable craft</a>
+        <a class="designing-phase-cmd" href="/docs/new-work">New work</a>
       </div>
     </header>
 
@@ -102,31 +102,32 @@ import '../../styles/designing-kinpaku.css';
             </div>
             <div class="docs-viz-file-body">
               <div class="docs-viz-file-row">
-                <span class="docs-viz-file-k">Register</span>
-                <span class="docs-viz-file-v">Product. Design serves the task.</span>
+                <span class="docs-viz-file-k">Platform</span>
+                <span class="docs-viz-file-v">web</span>
               </div>
               <div class="docs-viz-file-row">
                 <span class="docs-viz-file-k">Users</span>
                 <span class="docs-viz-file-v">SREs on call, reading fast, often in the dark.</span>
               </div>
               <div class="docs-viz-file-row">
-                <span class="docs-viz-file-k">Voice</span>
-                <span class="docs-viz-file-v">Calm, clinical, no hype.</span>
+                <span class="docs-viz-file-k">Positioning</span>
+                <span class="docs-viz-file-v">Traces every alert back to the deploy that caused it.</span>
               </div>
               <div class="docs-viz-file-row">
-                <span class="docs-viz-file-k">Anti-references</span>
-                <span class="docs-viz-file-v">Purple gradients. Glassmorphism. Hype.</span>
+                <span class="docs-viz-file-k">Evidence on hand</span>
+                <span class="docs-viz-file-v">Real incident timelines. No customer logos yet.</span>
               </div>
             </div>
           </div>
           <div class="designing-start-grid-prose">
-            <p>Init runs a short setup interview about audience, brand/product lane, voice, and anti-references. It writes <code>PRODUCT.md</code> and, if there's code to scan, offers a <code>DESIGN.md</code>. Every later command reads both files before generating.</p>
+            <p>Init scans the codebase, forms its own read of the platform and the product, and asks only what it could not work out. It writes <code>PRODUCT.md</code> and, if there's code to scan, offers a <code>DESIGN.md</code>. Every later command reads both before generating.</p>
+            <p>It does not ask about colors or type. Those get decided with the surface, not before it.</p>
           </div>
         </div>
       </div>
 
       <div class="designing-start-step">
-        <p class="designing-start-step-note">For blank-slate work, a visual reference helps more than a long prompt. <code>shape</code> can draft a brand toolkit for review, and <code>craft</code> can code toward a hi-fi mock instead of a paragraph. Neo Mirai is the full loop: generated direction, implemented page, browser iteration.</p>
+        <p class="designing-start-step-note">For blank-slate work, a visual reference helps more than a long prompt. Impeccable renders the chosen direction as a system board and a first-surface mock, then codes toward that image instead of a paragraph. Neo Mirai is the full loop: rolled direction, implemented page, browser iteration.</p>
 
         <div class="designing-visualize-spread">
           <figure class="designing-visualize-plate designing-visualize-plate--brand">
@@ -145,7 +146,7 @@ import '../../styles/designing-kinpaku.css';
             </a>
             <figcaption class="designing-visualize-plate-cap">
               <span class="designing-visualize-plate-kind">Visualize</span>
-              <p class="designing-visualize-plate-note">Hi-fi reference. The destination, before the first line of CSS. Craft codes toward a concrete image, not an abstract brief. That is the step change.</p>
+              <p class="designing-visualize-plate-note">Hi-fi reference. The destination, before the first line of CSS. The build codes toward a concrete image, not an abstract brief. That is the step change.</p>
             </figcaption>
           </figure>
 
@@ -160,7 +161,7 @@ import '../../styles/designing-kinpaku.css';
           </figure>
         </div>
 
-        <p class="designing-visualize-foot">The first two plates were generated by <strong>OpenAI GPT Image 2</strong>. The third is the implemented Neo Mirai page. <strong>Gemini Nano Banana Pro</strong>, <strong>Imagen 4 Ultra</strong>, and <strong>Grok Imagen</strong> work the same way, via Codex, Gemini CLI, and compatible harnesses.</p>
+        <p class="designing-visualize-foot">The first two plates were generated by <strong>OpenAI GPT Image 2</strong>. The third is the implemented Neo Mirai page. <strong>Gemini Nano Banana Pro</strong>, <strong>Imagen 4 Ultra</strong>, and <strong>Grok Imagen</strong> work the same way, via Codex, Gemini CLI, and compatible harnesses. No native image tool? Set <code>OPENAI_API_KEY</code> and Impeccable renders through gpt-image-2 instead, billed to your own key.</p>
       </div>
     </div>
   </section>
@@ -384,23 +385,23 @@ import '../../styles/designing-kinpaku.css';
     </div>
   </section>
 
-  <section class="ks-section designing-phase designing-phase--appendix" aria-label="Brand or product lane">
+  <section class="ks-section designing-phase designing-phase--appendix" aria-label="The four visitor modes">
     <header class="ks-section-head designing-phase-head">
-      <h2 class="designing-phase-title">Brand, or product.</h2>
-      <p class="ks-section-sub designing-phase-sub">Two defaults with different vocabularies. Impeccable picks the lane from your task cue and <code>PRODUCT.md</code> before every command, so <code>typeset</code>, <code>animate</code>, <code>colorize</code>, and friends adjust their output to match. You rarely need to set it by hand.</p>
+      <h2 class="designing-phase-title">What did the visitor come to do?</h2>
+      <p class="ks-section-sub designing-phase-sub">Four modes, four vocabularies. Impeccable reads the mode from the surface you named, not from what the company sells, so <code>typeset</code>, <code>animate</code>, <code>colorize</code>, and friends adjust to match. A tool's landing page is still Persuade; a fashion house's docs are still Read. One project usually holds all four.</p>
     </header>
 
     <div class="designing-phase-body">
       <div class="ks-bento designing-lanes">
         <article class="ks-bento-tile ks-bento-tile--span-6">
-          <p class="designing-lane-rule"><strong>Brand.</strong> Design is the deliverable: landing pages, campaigns, editorial, portfolios. Distinctive type, committed palette, image-led heroes. The impression is the product.</p>
+          <p class="designing-lane-rule"><strong>Persuade.</strong> The visitor decides and acts: landing pages, campaigns, pricing, editorial. Design is the product here, so it has to earn attention. Distinctive type, committed palette, image-led heroes.</p>
           <div class="designing-lane-mock designing-lane-mock--brand" aria-hidden="true">
             <span class="designing-lane-mock-label">Issue 04 · Dispatch</span>
             <span class="designing-lane-mock-title"><span class="designing-lane-mock-accent">Shape</span> the story.</span>
           </div>
         </article>
         <article class="ks-bento-tile ks-bento-tile--span-6">
-          <p class="designing-lane-rule"><strong>Product.</strong> Design serves the task: app UI, admin, dashboards, tools. Fluent density, semantic states, repeatable components. Users are here to finish something.</p>
+          <p class="designing-lane-rule"><strong>Operate.</strong> The visitor completes a task: app UI, admin, dashboards, editors, tools. Scanability and native expectations outrank expression, and brand lives in precise details.</p>
           <div class="designing-lane-mock designing-lane-mock--product" aria-hidden="true">
             <div class="designing-lane-product-row">
               <span class="designing-lane-product-k">Users</span>
@@ -414,6 +415,23 @@ import '../../styles/designing-kinpaku.css';
               <span class="designing-lane-product-k">Conversion</span>
               <span class="designing-lane-product-v">4.8%</span>
             </div>
+          </div>
+        </article>
+        <article class="ks-bento-tile ks-bento-tile--span-6">
+          <p class="designing-lane-rule"><strong>Read.</strong> The visitor understands something: docs, guides, help, changelogs. Structure for comprehension first, then make the reading worth staying in. Measure, rhythm, and quiet hierarchy carry it.</p>
+          <div class="designing-lane-mock designing-lane-mock--read" aria-hidden="true">
+            <span class="designing-lane-mock-label">Reference · Context</span>
+            <span class="designing-lane-read-h">Resolving visual authority</span>
+            <span class="designing-lane-read-line"></span>
+            <span class="designing-lane-read-line"></span>
+            <span class="designing-lane-read-line designing-lane-read-line--short"></span>
+          </div>
+        </article>
+        <article class="ks-bento-tile ks-bento-tile--span-6">
+          <p class="designing-lane-rule"><strong>Experience.</strong> The visitor is inside the work itself: portfolios, galleries, showcases. The artifact leads from the first viewport and the interface recedes until it is almost gone.</p>
+          <div class="designing-lane-mock designing-lane-mock--experience" aria-hidden="true">
+            <span class="designing-lane-plate"></span>
+            <span class="designing-lane-mock-label">01 / 24 · Untitled</span>
           </div>
         </article>
       </div>

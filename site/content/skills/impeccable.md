@@ -24,10 +24,10 @@ Most AI-generated UIs fail the same way: generic fonts, purple gradients, card g
 
 Two files at your project root shape everything the skill does:
 
-- **`PRODUCT.md`** says what the project is for: audience, product purpose, voice, anti-references, and whether the surface is brand or product.
+- **`PRODUCT.md`** says what the project is for: platform, audience, product purpose, positioning, real evidence, and brand commitments.
 - **`DESIGN.md`** says how the interface should look: colors, typography, components, elevation, and design rules.
 
-Every command reads both files before generating. The most important setup choice is **brand vs product**: is this a marketing surface where the impression is the product, or an app surface where design helps someone finish a task? The docs call this choice **register**. See [Design Context](/docs/context) for examples.
+Every command reads both files before generating, plus any brief for the specific surface you named. The judgment that changes the most is the surface's **mode**, which names what the visitor came to do: Persuade, Operate, Read, or Experience. Impeccable reads that from the surface itself rather than from what the company sells, so one project can hold all four. See [Design Context](/docs/context) for what each mode changes.
 
 On first use in a project, `/impeccable` may route you into `init`: a short interview that writes `PRODUCT.md` and offers to write `DESIGN.md`. Future commands read those files without asking again.
 
@@ -85,4 +85,4 @@ To remove: `/impeccable unpin critique`. Pins live as directories named after th
 - **Treating it like a style guide.** It is an opinionated design partner, not a linter. The defaults exist to raise the floor, not to overrule your judgment. If you have a real reason to push back (brand guideline, accessibility constraint, user research), push back and explain why. The skill will work with you. What produces worse output is ignoring the opinion without a reason.
 - **Expecting it to fix existing code.** `/impeccable` is for creation. For refinement, reach for `/impeccable polish`, `/impeccable distill`, or `/impeccable critique` instead.
 - **Running it before `init` has saved context.** On a fresh project it will interview you mid-flight, which is fine but slower. Running `/impeccable init` first is smoother.
-- **Picking the wrong brand/product lane.** Marketing pages and app screens need different defaults. If `PRODUCT.md` has no `## Register` field (legacy), run `/impeccable init` to add it.
+- **Letting it judge the wrong mode.** A landing page and a settings screen need different defaults, and the mode comes from the surface you named. If a request spans both, scope it to one surface at a time or say which mode you mean.

@@ -38,6 +38,24 @@ Claude Code, GitHub Copilot, and Codex run after the edit. Cursor checks propose
 
 Plain `.ts` and `.js` files are scanned, but the hook stays quiet unless it finds something design-relevant.
 
+### Two speeds
+
+The hook does not report everything on every edit. You get two passes instead:
+
+- **Per edit:** only what is objectively broken or compounds if ignored. Broken images, overflowing and clipped text, contrast failures, tiny text, gradient text, glow, and drift from your own `DESIGN.md`.
+- **At the end of the session:** the full rule set across every UI file you touched, minus anything already reported.
+
+<details class="docs-prose-details">
+  <summary>Why it is split, and how to turn the split off</summary>
+  <div>
+    <p>Reporting every rule on every edit made models measurably more conservative rather than more careful. One copy-level rule alone fired about ninety-seven times in a single session, and the findings that get fixed well (contrast, padding, glow) are the ones judged against a finished page, not a half-written one.</p>
+    <p>The deep pass fires once per session; a second stop is silent, because its findings are remembered.</p>
+    <p>Set <code>hook: { "perEditRules": "all" }</code> in <code>.impeccable/config.json</code> to get every rule on every edit again. Cursor and GitHub Copilot are exempt from the split, since they have no end-of-session pass wired and nothing should be deferred into a pass that never runs.</p>
+  </div>
+</details>
+
+<p class="docs-context-note"><strong>Web only.</strong> The hook parses HTML and CSS, so it does not run on a project whose <code>PRODUCT.md</code> declares <code>ios</code>, <code>android</code>, or <code>adaptive</code>. See <a href="/docs/context">Design Context</a>.</p>
+
 ## Handling intentional findings
 
 Persist an exception only after you confirm the finding is intentional. Prefer the narrowest exception:

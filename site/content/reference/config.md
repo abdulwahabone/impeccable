@@ -65,11 +65,16 @@ Impeccable normally finds nested projects through package-manager workspace decl
 
 Each matched folder becomes its own project: it can carry its own `PRODUCT.md` and `DESIGN.md`, it appears in the app picker, and it falls back to the repo root per file for any context it does not define. See [Design Context](/docs/context).
 
-How the patterns behave:
-
-- Patterns are relative to the repo root and use the same glob syntax as `package.json` workspaces, including `*`, `**`, and `!` negation.
-- `projectRoots` in `config.local.json` extends the shared list, so one developer can add private roots without committing them.
-- A path matched by any `projectRoots` pattern, positive or negated, is governed by this config alone. Package-manager workspaces apply only to paths these patterns do not match, and each source's `!` negations apply only to its own patterns. So `"!apps/internal"` here hides a package workspace from Impeccable, while a package-level negation never hides a folder that `projectRoots` declares.
+<details class="docs-prose-details">
+  <summary>How the patterns resolve against package workspaces</summary>
+  <div>
+    <ul>
+      <li>Patterns are relative to the repo root and use the same glob syntax as <code>package.json</code> workspaces, including <code>*</code>, <code>**</code>, and <code>!</code> negation.</li>
+      <li><code>projectRoots</code> in <code>config.local.json</code> extends the shared list, so one developer can add private roots without committing them.</li>
+      <li>A path matched by any <code>projectRoots</code> pattern, positive or negated, is governed by this config alone. Package-manager workspaces apply only to paths these patterns do not match, and each source's <code>!</code> negations apply only to its own patterns. So <code>"!apps/internal"</code> here hides a package workspace from Impeccable, while a package-level negation never hides a folder that <code>projectRoots</code> declares.</li>
+    </ul>
+  </div>
+</details>
 
 ## Value ignores
 
@@ -97,7 +102,7 @@ Config ignores live in `.impeccable/config.json`, which is the right home for re
 <!-- impeccable-disable overused-font: exported brand doc, font is first-party -->
 ```
 
-The directive is comment-syntax-agnostic, so the same marker works in `//`, `/* */`, `<!-- -->`, `#`, and `{/* */}` comments across HTML, CSS, JSX, TSX, Vue, and Svelte. Three scopes are available:
+The marker works in any comment syntax, and three scopes are available:
 
 ```css
 /* impeccable-disable overused-font */            /* whole file */
@@ -105,11 +110,15 @@ The directive is comment-syntax-agnostic, so the same marker works in `//`, `/* 
 /* impeccable-disable-next-line bounce-easing */
 ```
 
-List one or more rule ids, comma-separated, or omit them (or use `*`) for every rule. A reason after `:` or `--` is optional and recommended; it is for the diff, and the scanner discards it. Like config ignores, a matched directive suppresses the finding.
-
-Static HTML findings have no line number, so only whole-file `impeccable-disable` applies to them. That is the standalone-document case this exists for. The line-scoped forms apply to CSS, JSX, TSX, Vue, and Svelte, where findings carry a line.
-
-Inline directives apply by default. `--no-inline-ignores` turns them off for one run while keeping config ignores; `--no-config` turns off config and inline ignores together.
+<details class="docs-prose-details">
+  <summary>Syntax details and per-file behavior</summary>
+  <div>
+    <p>The directive is comment-syntax-agnostic: the same marker works in <code>//</code>, <code>/* */</code>, <code>&lt;!-- --&gt;</code>, <code>#</code>, and <code>{/* */}</code> comments across HTML, CSS, JSX, TSX, Vue, and Svelte.</p>
+    <p>List one or more rule ids, comma-separated, or omit them (or use <code>*</code>) for every rule. A reason after <code>:</code> or <code>--</code> is optional and recommended; it is for the diff, and the scanner discards it.</p>
+    <p>Static HTML findings have no line number, so only whole-file <code>impeccable-disable</code> applies to them. That is the standalone-document case this exists for. The line-scoped forms apply to CSS, JSX, TSX, Vue, and Svelte, where findings carry a line.</p>
+    <p>Inline directives apply by default. <code>--no-inline-ignores</code> turns them off for one run while keeping config ignores; <code>--no-config</code> turns off config and inline ignores together.</p>
+  </div>
+</details>
 
 ## Details when the default path is not enough
 

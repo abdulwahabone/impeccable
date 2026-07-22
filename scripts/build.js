@@ -638,6 +638,7 @@ function generateCFConfig(buildDir) {
 /skills/teach /docs/init 301
 /skills/:id /docs/:id 301
 /docs/teach /docs/init 301
+/docs/craft /docs/new-work 301
 /anti-patterns /slop#catalog 301
 /visual-mode /slop#see-it 301
 /worlds /labs/worlds 301

@@ -76,19 +76,32 @@ Run `/impeccable document` once you have enough of a visual system to document: 
 Reach for it when:
 
 - **You just ran `/impeccable init`** and `PRODUCT.md` now exists. Document is the matching visual-side file.
-- **A command nudged you toward it.** Live, craft, and polish all read DESIGN.md. If it is missing, the skill suggests running document first.
+- **A command nudged you toward it.** Live, polish, and the new-work flow all read DESIGN.md. If it is missing, the skill suggests running document first.
 - **The design has drifted** from an older DESIGN.md and the file no longer describes the live system.
 - **Before a large redesign**, to capture current state as a reference for the next direction.
 
-For projects with no code yet (fresh `init` run, nothing built), there is a seed mode: `/impeccable document --seed` asks five quick strategic questions (color strategy, type direction, motion style, references, anti-references) and writes a scaffold. Re-run in scan mode once there is code.
-
 ## How it works
 
-The scan pass finds design assets in priority order: CSS custom properties, Tailwind config, CSS-in-JS themes, design token files, component source, the global stylesheet, and finally computed styles from the live rendered output if a browser is available. It auto-extracts everything it can, then asks one grouped question for the parts that need creative input: the **Creative North Star** (a single named metaphor for the whole system, like "The Editorial Sanctuary"), descriptive color names, the elevation philosophy, and the component character.
+It reads your code, extracts everything it can on its own, and then asks one grouped question about the parts a scan cannot infer: what the system is *for*. That includes a named metaphor for the whole thing (something like "The Editorial Sanctuary"), descriptive color names, and the character your components are meant to have.
 
-Output is a DESIGN.md with exactly six sections: Overview, Colors, Typography, Elevation, Components, Do's and Don'ts. Headers are fixed character-for-character so the file is parseable by other tools. Alongside it, `.impeccable/design.json` is written as a machine-readable sidecar. That sidecar gives Live Mode and design-aware detector rules structured access to this project's actual palette, type, radii, component snippets, and narrative.
+You get a `DESIGN.md` you can read and edit, plus a generated `.impeccable/design.json` sidecar that lets Live Mode and the design-aware detector rules check work against your real palette, type, and radii.
 
-Every other command reads DESIGN.md on invocation. Variants, polishes, audits, and new features inherit the visual system without being told. See [Design Context](/docs/context) for how DESIGN.md relates to PRODUCT.md and `.impeccable/design.json`.
+Every other command reads `DESIGN.md` on invocation, so variants, polishes, audits, and new surfaces inherit the visual system without being told. See [Design Context](/docs/context) for how the files relate.
+
+<details class="docs-prose-details">
+  <summary>Where it looks, and the exact file shape</summary>
+  <div>
+    <p>The scan checks sources in priority order: CSS custom properties, Tailwind config, CSS-in-JS themes, design token files, component source, the global stylesheet, and finally computed styles from the rendered page if a browser is available.</p>
+    <p>The output has exactly six sections: Overview, Colors, Typography, Elevation, Components, and Do's and Don'ts. The headers are fixed character-for-character so other tools can parse the file.</p>
+  </div>
+</details>
+
+<details class="docs-prose-details">
+  <summary>No code yet? Use seed mode</summary>
+  <div>
+    <p>On a fresh <code>init</code> with nothing built, <code>/impeccable document --seed</code> asks five quick strategic questions (color strategy, type direction, motion style, references, anti-references) and writes a scaffold. Re-run it in normal scan mode once there is code to read.</p>
+  </div>
+</details>
 
 ## Try it
 

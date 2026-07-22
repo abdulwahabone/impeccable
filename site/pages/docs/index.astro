@@ -30,9 +30,9 @@ for (const cat of CATEGORY_ORDER) {
 
 const session = [
   { slug: 'shape', verb: 'Plan' },
-  { slug: 'craft', verb: 'Build' },
   { slug: 'critique', verb: 'Review' },
   { slug: 'polish', verb: 'Refine' },
+  { slug: 'live', verb: 'Iterate' },
 ];
 
 const startSteps = [
@@ -80,9 +80,9 @@ const choices = [
     href: '/docs/live',
   },
   {
-    need: 'Build a new feature',
-    command: '/impeccable craft',
-    href: '/docs/craft',
+    need: 'Build a new surface',
+    command: '/impeccable <describe it>',
+    href: '/docs/new-work',
   },
 ];
 
@@ -91,6 +91,11 @@ const manualTopics = [
     topic: 'Design Context',
     href: '/docs/context',
     label: 'PRODUCT.md + DESIGN.md',
+  },
+  {
+    topic: 'New work',
+    href: '/docs/new-work',
+    label: 'Direction for new surfaces',
   },
   {
     topic: 'Detector CLI',
@@ -113,7 +118,7 @@ const chains: { id: string; a: string; b: string; arrow: string; line: string }[
   { id: 'bolder-quieter', a: 'bolder', b: 'quieter', arrow: '↔', line: 'Two halves of voice. Loud or restrained, never neutral.' },
   { id: 'audit-harden', a: 'audit', b: 'harden', arrow: '→', line: 'Find the technical issues. Then fix them.' },
   { id: 'critique-polish', a: 'critique', b: 'polish', arrow: '→', line: 'Review the work. Then refine it.' },
-  { id: 'shape-craft', a: 'shape', b: 'craft', arrow: '→', line: 'Plan the feature. Then build the plan.' },
+  { id: 'init-shape', a: 'init', b: 'shape', arrow: '→', line: 'Capture the product. Then plan the surface.' },
 ];
 ---
 

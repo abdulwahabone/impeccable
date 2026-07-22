@@ -65,19 +65,15 @@ Run:
 /impeccable init
 ```
 
-The first question is simple: is this a **brand surface** or a **product surface**?
+Init scans your codebase first and forms its own read of the project, including which platform it targets: `web`, `ios`, `android`, or `adaptive`. It asks about the platform only when the evidence is ambiguous, so most projects never see that question.
 
-- **Brand surface:** marketing site, landing page, campaign, portfolio. The impression is the product.
-- **Product surface:** app UI, dashboard, admin, workflow tool. The design helps someone finish a task.
-
-The docs call this choice **register**. It changes the defaults Impeccable uses for type, color, density, and motion. See [Design Context](/docs/context) for examples. Init forms a hypothesis from your codebase and asks you to confirm it.
-
-Then a handful of shorter questions:
+Then a short round of questions, usually two or three:
 
 - **Who is this product for?** Be specific. Not "users" but "solo founders evaluating a new tool on their phone between meetings".
-- **What is the brand voice in three words?** Pick real words. "Warm and mechanical and opinionated" is better than "modern and clean".
-- **Any visual references?** Named brands, products, or printed objects, not adjectives. "Klim Type Foundry specimen pages", not "technical and clean".
-- **Anti-references?** Things the product should explicitly not look like, equally named.
+- **What does it make possible, and what could a neighboring product not truthfully claim?** This becomes the positioning line every later design decision leans on.
+- **What must future work preserve?** Durable constraints, existing brand commitments, terminology, and the real content and proof you actually have.
+
+Init does not ask about colors, fonts, or visual references. Those get decided later, together with the surface they belong to. See [Design Context](/docs/context) for what lands in each file.
 
 Answer in your own words. The skill writes `PRODUCT.md` with the answers, and every future command reads it automatically.
 
@@ -120,7 +116,7 @@ Review the diff. If something does not feel right, ask the model to explain the 
 - `/impeccable critique the landing page` runs a full design review with scoring, persona tests, and automated detection. It is the best way to find what to fix next.
 - `/impeccable audit the checkout` runs accessibility, performance, theming, responsive, and anti-pattern checks against the implementation. Useful before shipping.
 - `npx impeccable detect src/` runs the deterministic detector directly from the terminal. See [Detector CLI](/docs/detector).
-- `/impeccable craft a pricing page for enterprise customers` runs the full shape-then-build flow on a brand new feature.
+- `/impeccable a pricing page for enterprise customers` takes a new surface through the [new-work flow](/docs/new-work): it resolves the direction with you, then builds it.
 - **Pin your favorites.** If you reach for one command constantly, `/impeccable pin audit` makes `/audit` work as a standalone shortcut without reversing the consolidation.
 - `/impeccable redo this hero section` works too. Any description after `/impeccable` applies the design principles to the task.
 

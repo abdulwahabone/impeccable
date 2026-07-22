@@ -10,20 +10,20 @@ tagline: "Set up a project for Impeccable, once. Context, live mode, and where t
     </div>
     <div class="docs-viz-file-body">
       <div class="docs-viz-file-row">
-        <span class="docs-viz-file-k">Register</span>
-        <span class="docs-viz-file-v">Product. Design serves the task.</span>
+        <span class="docs-viz-file-k">Platform</span>
+        <span class="docs-viz-file-v">web</span>
       </div>
       <div class="docs-viz-file-row">
         <span class="docs-viz-file-k">Users</span>
         <span class="docs-viz-file-v">SREs on call, reading fast, often in the dark.</span>
       </div>
       <div class="docs-viz-file-row">
-        <span class="docs-viz-file-k">Brand voice</span>
-        <span class="docs-viz-file-v">Calm, clinical, no hype.</span>
+        <span class="docs-viz-file-k">Positioning</span>
+        <span class="docs-viz-file-v">Traces every alert back to the deploy that caused it.</span>
       </div>
       <div class="docs-viz-file-row">
-        <span class="docs-viz-file-k">Anti-references</span>
-        <span class="docs-viz-file-v">Purple gradients. Glassmorphism. "Boost your productivity."</span>
+        <span class="docs-viz-file-k">Evidence on hand</span>
+        <span class="docs-viz-file-v">Real incident timelines. No customer logos yet, do not invent any.</span>
       </div>
     </div>
     <div class="docs-viz-file-footer">Every command reads this before writing a line of code.</div>
@@ -45,20 +45,23 @@ Reach for it when:
 
 One codebase scan feeds everything init writes:
 
-- **`PRODUCT.md`** is the strategic file. It stores the audience, product purpose, voice, anti-references, design principles, accessibility needs, and the brand/product choice. Answers "who, what, why".
+- **`PRODUCT.md`** is the strategic file. Platform, users and their situation, product purpose, positioning, operating context, capabilities and constraints, brand commitments, evidence on hand, design principles, and accessibility needs. Answers "who, what, why".
 - **`DESIGN.md`** is the visual file. Colors, typography, elevation, components, do's and don'ts. Answers "how it looks". Written by the delegated `/impeccable document` command, which init invokes at the end.
 - **Live mode config.** Since the same crawl already knows your framework and entry files, init pre-configures `/impeccable live` so it opens straight into variant mode with no first-time setup.
 
-The flow scans the codebase first (README, package.json, components, tokens, brand assets) and asks you to confirm one core choice: is this a brand surface or a product surface?
+The flow scans the codebase first (README, package.json, components, tokens, brand assets) and turns that into a hypothesis rather than a questionnaire. It forms its own read of the platform (`web`, `ios`, `android`, or `adaptive`) and asks only when the evidence is genuinely ambiguous, so most projects never answer a platform question at all.
 
-- **Brand:** landing pages, marketing pages, portfolios, campaigns. The impression is the product.
-- **Product:** app UI, dashboards, admin screens, tools. The design helps someone finish a task.
+Then it asks what the repository could not tell it, at most three questions per round:
 
-The docs call that choice **register**. It shapes typography, motion, color, and density. After that, init asks only what it could not infer: users, personality in three real words, references and anti-references, accessibility requirements.
+- who the primary user is, in what situation, doing what job;
+- what the product makes possible, and the mechanism or claim a neighboring product could not truthfully copy;
+- what durable constraints, assets, evidence, or product facts future work must preserve.
+
+Init deliberately does **not** ask for an aesthetic direction: no colors, no typography, no visual references. Those decisions belong to the design work itself, where the surface, its mode, and the direction roll all get a say. If you volunteer a binding visual constraint, init records it without expanding on it.
 
 PRODUCT.md is strategic only. No colors, no fonts, no pixel values. Those live in DESIGN.md. Keeping the two files separate is deliberate: strategy can stay stable while the visual system evolves. See [Design Context](/docs/context) for the full load order and how the files interact.
 
-It closes by pointing you at the best commands to run next, picked from what the scan turned up: `craft` or `shape` for new work, `critique` or `audit` for what is already there, `live` to iterate visually. No guessing where to begin.
+It closes by pointing you at the best commands to run next, picked from what the scan turned up: `shape` to plan new work, `critique` or `audit` for what is already there, `live` to iterate visually. For a build, you can simply describe what you want and Impeccable routes it through the new-work flow. No guessing where to begin.
 
 ## Try it
 
@@ -66,13 +69,14 @@ It closes by pointing you at the best commands to run next, picked from what the
 /impeccable init
 ```
 
-Expect a 5 to 8 minute interview. The first question is usually the brand/product choice; the rest are short. Init will quote back what it inferred from your code ("from the routes, this looks like a product surface, match?") so you are confirming, not starting from scratch.
+Expect a short interview, usually one round of two or three questions. Init quotes back what it inferred from your code ("from the routes and the Swift package, this reads as an iOS app, match?") so you are confirming rather than starting from scratch.
 
 Along the way it offers to run `/impeccable document` for you. Say yes unless you have a specific reason to hold off. A real DESIGN.md is what keeps variants, polishes, and audits on-brand.
 
 ## Pitfalls
 
 - **Skipping it to "just try a command quickly".** Every other command will interview you mid-flight instead. Running init first is faster, not slower.
-- **Giving generic answers.** "Modern and clean" is not useful. "Warm, mechanical, opinionated" is. Be specific. Be willing to disagree with safe defaults.
+- **Giving generic answers.** "It helps teams collaborate" is not useful. "It traces every alert back to the deploy that caused it" is. The positioning line is the one future work leans on hardest.
 - **Treating PRODUCT.md as immutable.** The file is yours. If init put something in there that is not quite right, edit it. Every command reads the current file.
-- **Listing only adjectives for references.** Brands, products, printed objects: named, not described. "Klim Type Foundry specimen pages", not "technical and clean". Anti-references should be equally specific.
+- **Expecting it to ask about visuals.** It will not, on purpose. Colors, type, and references belong to the design work, where the surface and its direction are decided together.
+- **Claiming evidence you do not have.** The Evidence on Hand section exists so later work knows what is real. State the absences too, and nothing downstream will invent a customer logo or a fake metric.

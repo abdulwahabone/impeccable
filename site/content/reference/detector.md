@@ -40,6 +40,10 @@ The detector looks for design and implementation patterns that are usually visib
 
 Directories are walked for design-relevant files. HTML files include linked local CSS. Framework files such as JSX, TSX, Vue, Svelte, Astro, and CSS modules get source-text checks. URL targets use a browser and inspect the rendered page.
 
+Server-side templates are covered too, once you name their extensions. Add them under `detector.extensions` in `.impeccable/config.json` and Blade, ERB, Twig, or Handlebars files get the same checks as JSX. See [Config and ignores](/docs/config).
+
+<p class="docs-context-note"><strong>Web only.</strong> The engine reads HTML and CSS, so it has nothing to say about a native iOS or Android codebase. On a project whose <code>PRODUCT.md</code> declares <code>ios</code>, <code>android</code>, or <code>adaptive</code>, use <code>/impeccable audit</code>, which runs a native pass covering VoiceOver, TalkBack, touch targets, and platform conformance instead.</p>
+
 ## How to read results
 
 Plain output groups findings by file and prints the rule id, snippet, and explanation. Exit codes are:

@@ -5,7 +5,6 @@
 
 export const SKILL_CATEGORIES: Record<string, string> = {
   impeccable: 'create',
-  craft: 'create',
   shape: 'create',
   critique: 'evaluate',
   audit: 'evaluate',
@@ -55,8 +54,8 @@ export const COMMAND_RELATIONSHIPS: Record<string, {
   pairs?: string;
   combinesWith?: string[];
 }> = {
-  craft: { combinesWith: ['shape'] },
-  shape: { combinesWith: ['craft'] },
+  shape: { combinesWith: ['init'] },
+  init: { combinesWith: ['document'], leadsTo: ['document', 'shape'] },
   audit: { leadsTo: ['harden', 'optimize', 'adapt', 'clarify'] },
   critique: { leadsTo: ['polish', 'distill', 'bolder', 'quieter', 'typeset', 'layout'] },
   typeset: { combinesWith: ['bolder', 'polish'] },
@@ -74,8 +73,7 @@ export const COMMAND_RELATIONSHIPS: Record<string, {
   optimize: {},
   harden: { combinesWith: ['optimize'] },
   onboard: { combinesWith: ['clarify', 'delight'] },
-  teach: { combinesWith: ['document'] },
-  document: { combinesWith: ['teach', 'extract'] },
+  document: { combinesWith: ['init', 'extract'] },
   extract: { combinesWith: ['document'] },
   live: {},
 };

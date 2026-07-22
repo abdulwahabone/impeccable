@@ -1416,11 +1416,33 @@
   background: transparent;
   padding: 0 clamp(20px, 3.5vw, 44px);
 }
-.designing-kinpaku .designing-lanes .ks-bento-tile:first-child {
+/* Four modes on a 2x2 grid: the left tile of each row loses its left padding,
+   the right tile takes the centre hairline, and the second row takes a top
+   rule so the quadrants read as a grid rather than four loose blocks. */
+.designing-kinpaku .designing-lanes .ks-bento-tile:nth-child(odd) {
   padding-left: 0;
 }
-.designing-kinpaku .designing-lanes .ks-bento-tile + .ks-bento-tile {
+.designing-kinpaku .designing-lanes .ks-bento-tile:nth-child(even) {
   border-left: 1px solid var(--ks-rule);
+}
+.designing-kinpaku .designing-lanes .ks-bento-tile:nth-child(n + 3) {
+  border-top: 1px solid var(--ks-rule);
+  padding-top: clamp(22px, 3vw, 34px);
+  margin-top: clamp(22px, 3vw, 34px);
+}
+@media (max-width: 720px) {
+  .designing-kinpaku .designing-lanes .ks-bento-tile:nth-child(even) {
+    border-left: 0;
+  }
+  .designing-kinpaku .designing-lanes .ks-bento-tile:nth-child(n + 2) {
+    border-top: 1px solid var(--ks-rule);
+    padding-top: clamp(22px, 3vw, 34px);
+    margin-top: clamp(22px, 3vw, 34px);
+  }
+  .designing-kinpaku .designing-lanes .ks-bento-tile {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .designing-kinpaku .designing-lane-kind {
@@ -1472,6 +1494,50 @@
   align-items: stretch;
   padding: 0;
   gap: 0;
+}
+
+/* Read: a measure with a heading and three text lines, so the tile shows
+   rhythm rather than describing it. */
+.designing-kinpaku .designing-lane-mock--read {
+  align-items: flex-start;
+  gap: 7px;
+}
+.designing-kinpaku .designing-lane-read-h {
+  color: var(--ks-champagne);
+  font-size: 0.95rem;
+  font-weight: 500;
+  margin-bottom: 3px;
+}
+.designing-kinpaku .designing-lane-read-line {
+  display: block;
+  width: 100%;
+  height: 5px;
+  border-radius: 2px;
+  background: var(--ks-rule);
+}
+.designing-kinpaku .designing-lane-read-line--short {
+  width: 58%;
+}
+
+/* Experience: the artifact fills the frame and the only chrome is a caption. */
+.designing-kinpaku .designing-lane-mock--experience {
+  align-items: stretch;
+  justify-content: flex-end;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+  position: relative;
+}
+.designing-kinpaku .designing-lane-plate {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(120% 90% at 22% 18%, color-mix(in oklch, var(--ks-kinpaku) 22%, transparent), transparent 62%),
+    linear-gradient(160deg, color-mix(in oklch, var(--ks-patina) 42%, var(--ks-lacquer)), var(--ks-lacquer));
+}
+.designing-kinpaku .designing-lane-mock--experience .designing-lane-mock-label {
+  position: relative;
+  padding: 10px 14px;
 }
 .designing-kinpaku .designing-lane-mock-label {
   color: var(--ks-patina);
