@@ -19,9 +19,7 @@ import '../styles/research-kinpaku.css';
         Seven measured lessons from teaching a coding model to produce genuinely
         distinct design, one-shot. Every claim below was earned by an experiment
         that first proved us wrong. Then the lessons hardened into a
-        human-reviewed catalog of worlds and a roll API that ships in the
-        skill. And then we broke it, by accident, and the collapse measured
-        exactly what the lessons predicted. That story is part three.
+        human-reviewed catalog of worlds and a roll API that ships in the skill.
       </p>
       <p class="research-prov">impeccable v4 one-shot campaign &middot; ~30 skill iterations, ~200 sampled concepts, ~$2,600 of evals &middot; July 2026</p>
     </header>
@@ -88,9 +86,14 @@ import '../styles/research-kinpaku.css';
       <p>
         The fix: <strong>the model derives the grounded shortlist; a script rolls
         which index gets built.</strong> The dice never touch an ungrounded idea.
-        They only refuse the argmax rut. And the script prints a reproduction key
-        with every roll, so a bad draw in the field is a replayable bug report,
-        not a mystery.
+        They only refuse the argmax rut. A later A/B settled which word carries
+        the weight: hand the model a shortlist and let anything pick from it,
+        itself, a veto floor, a simulated user, and every chooser reverts to
+        argmax, option one in 27 of 30 packets. So the dice have to
+        <strong>assign</strong> the index; the moment they merely nominate a
+        menu, a taste function collapses it again. And the script prints a
+        reproduction key with every roll, so a bad draw in the field is a
+        replayable bug report, not a mystery.
       </p>
     </section>
 
@@ -154,26 +157,33 @@ import '../styles/research-kinpaku.css';
 
     <section class="research-lesson">
       <div class="research-roll"><span class="research-die">6</span>
-        <h2>Every design axis has its own prior. Judge the skeleton <mark>skin-blind</mark>.</h2>
+        <h2>Every axis converges on its own. <mark>Committed skin hides template bones</mark>.</h2>
       </div>
       <p>
         Concept, palette, composition, motion: each converges independently, and
         dislodging one leaves the others at default. Our best failure was a page
         whose every atom was committed teletext, page-number chips, dithered
         level bars, the four color-key buttons as the nav, sitting on a
-        completely standard marketing grid.
+        completely standard marketing grid. Committed skin hides template bones
+        from any judge that looks at styled output, including the model judging
+        itself.
       </p>
       <figure class="research-figure">
         <img src="/assets/research/teletext-template-bones.jpeg" alt="Teletext-styled page: P100 chip, pixel block type, color-key navigation, on a conventional two-column layout" width="760" height="570" loading="lazy" decoding="async" />
         <figcaption><b>Committed skin, template bones</b> &middot; every component speaks teletext; the wireframe underneath is the category's standard page</figcaption>
       </figure>
       <p>
-        Committed skin hides template bones from any judge that looks at styled
-        output, including the model judging itself. The check that catches
-        it: <strong>strip every color, face, and texture in your head, leaving only
-        the arrangement of blocks. Could that wireframe belong to the category's
-        standard page?</strong> The reference teletext site passes as a
-        wireframe. This page doesn't.
+        The diagnosis held; our first two remedies did not. We asked the model to
+        strip color and texture in its head and check the bare wireframe against
+        the category's standard page. Told to do it silently, it wrote no verdict
+        and shipped the template anyway, pure audit theater. Told to write the
+        verdict out, the ceremony taxed the build and quality dropped, so we cut
+        the build-time check entirely. What stands is one generative line,
+        <strong>borrow the form's skeleton, not its clothes</strong>: let the form
+        set the structure, and a committed skin on a template grid is the tell it
+        only reached the surface. Skin-blind judgment survives too, but as a
+        review instrument, a wireframe grader and a fresh reviewer at the finish,
+        never as the builder grading itself mid-flight.
       </p>
     </section>
 
@@ -190,18 +200,22 @@ import '../styles/research-kinpaku.css';
       </p>
       <p>
         What worked: the model writes its direction contract <strong>into the
-        artifact itself</strong> as a comment block, and an automated pass at
-        completion feeds it back. Audit the render promise by promise, rebuild
-        the gaps. Self-accountability has ground truth; rubrics don't.
+        artifact itself</strong> as a comment block, five short blocks at the top
+        of the file. We first fed it back inside the same build thread at
+        completion, and a thread grading its own work rubber-stamps it, the same
+        theater lesson six ran into. So the audit moved out: a
+        <strong>separate reviewer agent</strong>, a fresh reader, checks the
+        render against the contract promise by promise and rebuilds the gaps,
+        while the build thread stays building. Self-accountability has ground
+        truth; rubrics don't.
       </p>
       <figure class="research-spec">
-        <figcaption>The contract format, written at the top of every build</figcaption>
-        <p>UNIQUE: <span class="research-dim">the one idea this page owns</span></p>
-        <p>NOT-TEMPLATE: <span class="research-dim">how the structure differs from the category's page, stated honestly</span></p>
+        <figcaption>The contract, five blocks at the top of every build, audited by a fresh reviewer at the finish</figcaption>
+        <p>THESIS: <span class="research-dim">the one idea this page owns, and the category default it refuses</span></p>
         <p>OWN-WORLD: <span class="research-dim">palette + components recognizable with all content removed</span></p>
         <p>STORY: <span class="research-dim">what the visitor understands, believes, does</span></p>
-        <p>FIRST VIEWPORT: <span class="research-dim">the exact composition, what is where, at what scale</span></p>
-        <p>FORM: <span class="research-dim">chosen candidate, list position, and the dice key that picked it</span></p>
+        <p>FIRST VIEWPORT: <span class="research-dim">the exact composition, and where the primary action sits</span></p>
+        <p>FORM: <span class="research-dim">chosen form, its position on the list, and the seed key that picked it</span></p>
       </figure>
     </section>
 
@@ -346,9 +360,9 @@ import '../styles/research-kinpaku.css';
         <h2>The roll is <mark>weighted, chained, and reproducible</mark>.</h2>
       </div>
       <p>
-        A roll deals six challengers, two from each translation tier (graphic,
-        interaction, atmosphere), plus one staging matched to the surface's
-        mode. Ratings feed the draw: a three-star world carries double odds, a
+        A roll deals six challengers, two from each translation tier (graphic
+        systems, instrument languages, atmosphere worlds), plus one staging
+        matched to the surface's mode. Ratings feed the draw: a three-star world carries double odds, a
         one-star world sits out entirely unless its tier has nothing else.
         Re-rolls chain: every world already dealt under a key is excluded from
         the next hand, so "deal again" explores instead of reshuffling.
@@ -385,92 +399,6 @@ import '../styles/research-kinpaku.css';
       </p>
     </section>
 
-    <div class="research-chapter">
-      <p class="research-chapter-kicker">Part three &middot; the reversal</p>
-      <h2 class="research-chapter-title">We un-built it by accident, and the collapse kept score</h2>
-      <p>
-        Weeks after the architecture shipped, a large refactor quietly reversed
-        most of it. Nobody decided to. An audit softened the dice, a safety
-        pass resurrected the deleted brake, a cleanup dropped the calibration.
-        Craft quality fell off a cliff within days, and the wreckage turned out
-        to be the best controlled experiment of the project.
-      </p>
-    </div>
-
-    <section class="research-lesson research-lesson--catalog">
-      <div class="research-roll"><span class="research-die research-die--catalog">13</span>
-        <h2>Assignment is the keystone. Nomination is <mark>argmax in dice's clothing</mark>.</h2>
-      </div>
-      <p>
-        The refactor changed one verb: the script stopped <em>assigning</em>
-        the build and started <em>promoting</em> a candidate into a shortlist
-        for someone to choose from. Model, veto floor, simulated user: every
-        available chooser is a taste function, and taste functions pick the
-        safest card. The selection layer picked option one in 27 of 30 packets,
-        and six niches converged on one warm-paper look.
-      </p>
-      <p>
-        The autopsy A/B put it beyond argument. Same model, same briefs, same
-        dice keys, same guidance in both arms; only the selection mechanism
-        differed. The tournament arm reproduced the collapse three for three in
-        every niche. The assignment arm produced ten materially different
-        directions in twelve packets, rolled the culturally right answer for a
-        Polish product on its first try, and let a catalog challenger win
-        exactly where the grounded list was thinnest. Lesson three was never
-        about randomness. It is about who holds the pen at the moment of
-        choice.
-      </p>
-    </section>
-
-    <section class="research-lesson research-lesson--catalog">
-      <div class="research-roll"><span class="research-die research-die--catalog">14</span>
-        <h2>Brakes regrow. <mark>Counterweights don't</mark>.</h2>
-      </div>
-      <p>
-        The costume check we deleted in lesson five came back wearing four new
-        names: a translation veto, a carrier-removal test, an
-        imaginative-distance clause, an anti-nostalgia rule. Nobody reintroduced
-        it on purpose; every honest repair pass added one more careful
-        adjective, and "restrained" leaked from truth fixes into five of six
-        direction briefs. The models did the arithmetic and shipped beige.
-        Brief protocol now: a direction states facts and the chosen world's own
-        materials. Restraint adjectives in a brief fail the run.
-      </p>
-      <p>
-        The counterweights went the other way: deleted once, gone entirely. The
-        calibration paragraph naming the model's saturated default looks is a
-        rule no detector can enforce, because "warm cream, serif display,
-        terracotta accent" is a gestalt, not a scannable property. The next
-        build after its deletion shipped exactly that page, on two different
-        models. Prose rules and mechanical rules need separate homes, and the
-        prose ones need a guard: one model later dodged the font calibration by
-        arguing a bookshop subject deserved its favorite serif. The rule now
-        says a subject association is never a reason.
-      </p>
-    </section>
-
-    <section class="research-lesson research-lesson--catalog">
-      <div class="research-roll"><span class="research-die research-die--catalog">15</span>
-        <h2>Same dice, same assignment, <mark>different hands</mark>.</h2>
-      </div>
-      <p>
-        Recovery exposed the last variable: the model itself. On matched dice
-        keys with identical assignments, one builder rendered a children's
-        reading product as indigo bookcloth, coral thread, and marigold; the
-        other rendered the same list positions as cream paper and lamplight,
-        twice. The dice decide which idea gets built. The model's rendition
-        prior decides what that idea looks like, and it survives everything
-        except being named precisely. Calibration is not a paragraph you write
-        once; it is a ledger of the specific escapes each model attempts.
-      </p>
-      <p>
-        Two days after the reversal was diagnosed, the recovered architecture
-        produced the largest, most committed artifacts of the entire campaign.
-        Every mechanism above earned its place twice: once by working, once by
-        being measured in its absence.
-      </p>
-    </section>
-
     <div class="research-close">
       <p class="research-close-big">
         The model always had the taste. Our job turned out to be rolling dice it
@@ -482,10 +410,10 @@ import '../styles/research-kinpaku.css';
         probes (sampling design intent as ~200-word contracts, pennies per
         variant) before any build was paid for; human verdicts are per-sample
         ratings by the project's design director; the pairwise judge is
-        screenshot-based with both-orderings position-bias cancellation. Part
-        three's autopsy A/B ran both selection mechanisms on matched dice keys
-        with identical guidance in both arms. Catalog figures reflect the July
-        2026 reviews. Produced with impeccable v4.
+        screenshot-based with both-orderings position-bias cancellation. Lesson
+        three's assignment A/B ran both selection mechanisms on matched dice
+        keys with identical guidance in both arms. Catalog figures reflect the
+        July 2026 reviews. Produced with impeccable v4.
       </p>
     </div>
   </article>
