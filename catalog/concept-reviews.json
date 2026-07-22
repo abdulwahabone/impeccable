@@ -2,6 +2,12 @@
   "schemaVersion": 2,
   "comment": "Human review decisions keyed by stable concept ID. Missing entries are pending and ineligible for challenger sampling. formHash fingerprints the reviewed content; a mismatch marks the review stale.",
   "reviews": {
+    "aicher-olympic-program": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:50:28.147Z",
+      "formHash": "9ee954e794ff"
+    },
     "architecture-inhabitable-space-acoustic-cloister": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -27,6 +33,13 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:07:09.591Z",
       "formHash": "d1a4b4fe0746",
+      "rating": 2
+    },
+    "architecture-places-azulejo-station-hall": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:53:12.887Z",
+      "formHash": "2e6dc8ff77ee",
       "rating": 2
     },
     "brand-identity-canon-brodovitch-bazaar-spread": {
@@ -200,6 +213,12 @@
       "reviewedAt": "2026-07-20T22:25:49.996Z",
       "formHash": "2b49c25232c2"
     },
+    "cooper-information-landscape": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:50:21.413Z",
+      "formHash": "fc40bd760dd8"
+    },
     "craft-making-glazier-colorfield-partition": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -213,6 +232,20 @@
       "reviewedAt": "2026-07-21T03:13:13.154Z",
       "formHash": "190c11312113",
       "note": "still doesn't quite work"
+    },
+    "crouwel-grid-specimen": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:48:31.036Z",
+      "formHash": "60a8b308e161",
+      "rating": 2
+    },
+    "cyworld-minihompy-room": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T21:52:16.909Z",
+      "formHash": "04a45715b9d5",
+      "rating": 3
     },
     "design-canon-after-hours-galleria": {
       "status": "rejected",
@@ -459,6 +492,13 @@
       "formHash": "255600c1c178",
       "note": "cool but not practical, dont think anyone would use it, at least the mobile ui"
     },
+    "digital-design-canon-game-watch-lcd-stage": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:49:09.002Z",
+      "formHash": "17aab748b0c9",
+      "note": "feels too close to the copyrighted material (usually ok, but not with nintendo)"
+    },
     "digital-design-canon-gameboy-four-shade-field": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -557,12 +597,33 @@
       "formHash": "8d58264e3329",
       "rating": 3
     },
+    "dubois-data-portraits": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:47:21.621Z",
+      "formHash": "d02c397cd7a8",
+      "rating": 3
+    },
     "earth-water-worlds-banded-agate-slice": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T03:12:49.601Z",
       "formHash": "c1a0cec8ab14",
       "note": "doesn't quite work"
+    },
+    "eboy-pixorama-metropolis": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T21:51:57.757Z",
+      "formHash": "38dd6ea70c46",
+      "rating": 3
+    },
+    "editor-theme-brand-surface": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T02:20:47.161Z",
+      "formHash": "14349d7e6900",
+      "note": "ai purple :("
     },
     "editorial-sequence-montage-botanical-folio-season": {
       "status": "approved",
@@ -571,12 +632,39 @@
       "formHash": "dd5d4dc258f9",
       "rating": 2
     },
+    "emigre-bitmap-specimen": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:49:29.656Z",
+      "formHash": "e250abc806af",
+      "rating": 3
+    },
     "exhibition-museum-curation-provenance-ribbon": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:49:48.361Z",
       "formHash": "457a6aae320b",
       "rating": 2
+    },
+    "fashion-folded-worlds-sewing-pattern-envelope": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:52:56.124Z",
+      "formHash": "e956fd382df6",
+      "rating": 2
+    },
+    "fashion-folded-worlds-tartan-sett-registry": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:53:03.452Z",
+      "formHash": "b75b3be5003f"
+    },
+    "feltron-personal-annual": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:50:06.024Z",
+      "formHash": "b30ca219f1c6",
+      "rating": 1
     },
     "food-fermentation-culinary-theater-candlelit-potion-class": {
       "status": "rejected",
@@ -624,6 +712,13 @@
       "reviewedAt": "2026-07-20T21:57:25.187Z",
       "formHash": "cfedcdd10daa"
     },
+    "frutiger-aero-glasswater": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T21:51:48.578Z",
+      "formHash": "87308b45cb64",
+      "note": "very similar to the new glassmorphism wave, which is an ai slop trend"
+    },
     "galaxies-nebulae-deep-time-accretion-disk-threshold": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -637,6 +732,13 @@
       "reviewedAt": "2026-07-20T22:52:17.304Z",
       "formHash": "917dd5fba436",
       "rating": 3
+    },
+    "games-toys-physics-play-hanafuda-flower-months": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:53:40.413Z",
+      "formHash": "a355a424ad86",
+      "note": "too specifically cultural - can't see this work for many use-cases"
     },
     "games-toys-physics-play-magnetic-marble-cosmos": {
       "status": "rejected",
@@ -735,6 +837,13 @@
       "formHash": "91e17131f456",
       "note": "a bit too gimmicky / confusing"
     },
+    "graphic-worlds-publishing-busytown-cross-section": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:28:46.888Z",
+      "formHash": "4a274a9a22bf",
+      "rating": 2
+    },
     "growth-metamorphosis-branching-fern-fiddlehead-unfurl": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -747,6 +856,12 @@
       "reviewedAt": "2026-07-20T00:56:38.852Z",
       "formHash": "db14b6c4d9d5",
       "rating": 2
+    },
+    "highlife-sleeve": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T02:20:03.186Z",
+      "formHash": "802dd1c85508"
     },
     "ink-pigment-printmaking-cyanotype-shadow-herbarium": {
       "status": "rejected",
@@ -788,6 +903,18 @@
       "reviewedAt": "2026-07-20T00:35:20.019Z",
       "formHash": "3ef512775a5c",
       "rating": 3
+    },
+    "isotype-quantity-atlas": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:47:13.385Z",
+      "formHash": "89f5363311ca"
+    },
+    "japanese-high-density-web": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T02:20:28.505Z",
+      "formHash": "eeb63a014ce6"
     },
     "kinetic-sculpture-automata-cam-drum-mechanical-garden": {
       "status": "rejected",
@@ -838,6 +965,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:35:46.281Z",
       "formHash": "33f4c9b24f6b"
+    },
+    "kolam-dot-lattice": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:47:36.036Z",
+      "formHash": "5b034baaf3b0"
     },
     "light-shadow-caustics-indoor-weather-sun": {
       "status": "approved",
@@ -896,6 +1029,19 @@
       "reviewedAt": "2026-07-20T21:13:28.983Z",
       "formHash": "6921416fadd8",
       "note": "pretty boring visual world, unfortunately"
+    },
+    "maps-journeys-sanborn-insurance-plat": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:48:08.024Z",
+      "formHash": "6d16e3299a76"
+    },
+    "massin-stage-page": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:45:59.415Z",
+      "formHash": "2dcdc9eb7664",
+      "rating": 3
     },
     "medium-native-algorave-source-floor": {
       "status": "approved",
@@ -1069,6 +1215,13 @@
       "reviewedAt": "2026-07-20T22:39:16.440Z",
       "formHash": "8fc97c9c3397"
     },
+    "molnar-plotter-suite": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:52:38.545Z",
+      "formHash": "4e9f2023cd6a",
+      "note": "a bit too basic"
+    },
     "music-rhythm-sound-resonance-harmonic-lantern-field": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -1082,6 +1235,18 @@
       "reviewedAt": "2026-07-20T22:47:25.444Z",
       "formHash": "cb664a3bc93e",
       "note": "too narrow"
+    },
+    "neubrutalist-award-grade": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-22T02:20:16.571Z",
+      "formHash": "48655a1e4c9e"
+    },
+    "nier-bone-console": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T21:51:03.436Z",
+      "formHash": "7ef21bacd221"
     },
     "notation-diagram-systems-adinkra-symbol-cloth": {
       "status": "approved",
@@ -1107,6 +1272,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T16:09:09.649Z",
       "formHash": "0c6b3613a754"
+    },
+    "notation-diagram-systems-haeckel-radiolarian-plate": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:46:35.645Z",
+      "formHash": "28fb6ceed78b"
     },
     "notation-diagram-systems-heraldic-roll-of-arms": {
       "status": "rejected",
@@ -1139,6 +1310,13 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T01:00:58.578Z",
       "formHash": "d58c56e54f3a",
+      "rating": 2
+    },
+    "notation-diagram-systems-patent-drawing-sheet": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:47:00.437Z",
+      "formHash": "5457d8e09516",
       "rating": 2
     },
     "notation-diagram-systems-quipu-knot-ledger": {
@@ -1174,6 +1352,12 @@
       "reviewedAt": "2026-07-20T21:55:57.204Z",
       "formHash": "b4861250da03"
     },
+    "painted-ledger-dialogue": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T21:51:18.960Z",
+      "formHash": "a68fffe8ff39"
+    },
     "paper-folds-pleats-deployable-akari-light-sculpture": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -1207,6 +1391,13 @@
       "reviewedAt": "2026-07-20T03:05:23.194Z",
       "formHash": "45179e408ffa",
       "rating": 3
+    },
+    "pintori-olivetti-poster": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:51:09.511Z",
+      "formHash": "3120fdc94201",
+      "note": "doesn't translate that well into a visual system"
     },
     "pop-culture-shelf-acid-rave-flyer": {
       "status": "rejected",
@@ -1368,6 +1559,13 @@
       "reviewedAt": "2026-07-20T22:22:14.420Z",
       "formHash": "e30d52565f93",
       "rating": 3
+    },
+    "pop-culture-shelf-ligne-claire-album": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:51:52.681Z",
+      "formHash": "ffa5a3a5ddb8",
+      "rating": 2
     },
     "pop-culture-shelf-magical-girl-transformation": {
       "status": "approved",
@@ -1554,6 +1752,13 @@
       "reviewedAt": "2026-07-21T04:16:03.876Z",
       "formHash": "80d26387896d",
       "note": "doesn't quite work as ui"
+    },
+    "posters-covers-sleeves-sonidero-dayglo-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:46:15.005Z",
+      "formHash": "d942c5c0785e",
+      "rating": 2
     },
     "posters-covers-sleeves-stenberg-poster": {
       "status": "approved",
@@ -1821,6 +2026,20 @@
       "reviewedAt": "2026-07-20T22:31:07.502Z",
       "formHash": "22357a3c0961"
     },
+    "tanaka-plane-portrait": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:46:23.518Z",
+      "formHash": "4d96ce3dc15f",
+      "rating": 3
+    },
+    "tdr-info-noise-sleeve": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T21:50:43.930Z",
+      "formHash": "c29b91469a74",
+      "rating": 3
+    },
     "textiles-weave-drape-fashion-bias-cut-gravity-line": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -1953,6 +2172,20 @@
       "reviewedAt": "2026-07-21T01:15:48.907Z",
       "formHash": "742df15b0fec",
       "rating": 2
+    },
+    "variety-telop-caption-field": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T21:52:09.600Z",
+      "formHash": "03ef7ce6e03a",
+      "rating": 3
+    },
+    "vernacular-ephemera-airline-safety-card": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-07-21T20:51:37.837Z",
+      "formHash": "9f23e345694a",
+      "note": "interesting but better as composition"
     },
     "vernacular-ephemera-apothecary-tin-wall": {
       "status": "rejected",
