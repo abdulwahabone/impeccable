@@ -10,7 +10,8 @@
 //   DB                  D1 binding (required)
 //   CF_ACCOUNT_ID       Cloudflare account id       (optional; no id, no email)
 //   CF_EMAIL_TOKEN      API token with email send   (optional; no token, no email)
-//   WAITLIST_FROM       verified sender, e.g. hello@impeccable.pro
+//   WAITLIST_FROM       verified sender, bare address, e.g. hello@impeccable.pro
+//   WAITLIST_FROM_NAME  display name in the inbox (optional, has a default)
 //   WAITLIST_IP_SALT    salt for the stored IP hash
 //   WAITLIST_UNSUB_SECRET  HMAC key for unsubscribe links. Treat as write-once:
 //                          rotating it invalidates the links in mail already
@@ -80,6 +81,13 @@ async function sendConfirmation(env, email, origin) {
   const from = env.WAITLIST_FROM;
   if (!accountId || !token || !from) return { sent: false, reason: 'not-configured' };
 
+  // The name shown in the inbox. Defaulted rather than required so the sender
+  // never falls back to the local part of the address, and overridable through
+  // the environment so changing it does not need a deploy. Kept separate from
+  // WAITLIST_FROM because that value is also used as a bare address in the
+  // mailto unsubscribe below, where a display name would break the link.
+  const fromName = env.WAITLIST_FROM_NAME || 'Paul Bakaus';
+
   // Every mail carries a way out. With the secret set that is a one-click link;
   // without it, a mailto so the message is never sent with no route at all,
   // which is what the signup form promises.
@@ -102,7 +110,10 @@ async function sendConfirmation(env, email, origin) {
         },
         body: JSON.stringify({
           to: email,
-          from,
+          // An object, not a bare address. With a plain string the API sends no
+          // display name and mail clients fall back to showing the local part,
+          // so a message from hello@impeccable.pro arrives from "hello".
+          from: { email: from, name: fromName },
           subject: CONFIRMATION_SUBJECT,
           text: confirmationText(unsubUrl),
           html: confirmationHtml(unsubUrl),
