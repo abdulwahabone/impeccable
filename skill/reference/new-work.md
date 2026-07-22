@@ -1,169 +1,104 @@
 # New visual work
 
-This flow owns the durable visual world when authority is absent, expanding, or explicitly replaced, plus only as much task-level shaping as the requested scope needs. PRODUCT.md owns product truth, DESIGN.md confirmed visual truth, and `.impeccable/surfaces/` durable task strategy. Complete [init.md](init.md) first when PRODUCT.md is missing. Missing DESIGN.md does not route back to init.
+Use this flow when making a new surface or replacing a visual identity. PRODUCT.md owns product truth. DESIGN.md owns durable visual decisions. A surface brief keeps strategy that belongs only to one route or artifact. Complete [init.md](init.md) first when PRODUCT.md is missing; a missing DESIGN.md does not route back to init.
 
-## Vocabulary
+## 1. Decide what is already true
 
-Terms this file uses throughout, defined once:
+Read DESIGN.md, representative code, tokens, components, and assets.
 
-- **World:** the durable visual identity: palette, materials, type voice, ornament logic, and component character that outlive any single surface.
-- **Coupled pair:** one world joined to one concrete first-surface expression, selected together as a single decision, never as two tournaments.
-- **Staging:** an identity-free structural idea for a surface (hierarchy, sequence, interaction). The seed may append one; it brings no palette, typeface, or material.
-- **Candidate floor:** the five veto tests in section 4. A candidate passes all five or is discarded and replaced.
-- **Direction contract:** six promise blocks written into the artifact's opening comment before code, audited against the render by the hooks.
-- **Surface brief:** durable surface strategy persisted to `.impeccable/surfaces/` via `surface-brief.mjs`.
-- **Attended run:** a user is present to answer questions. Unattended fallbacks apply only when no one can answer.
+- **Redesign:** preserve product truth, content, function, constraints, and explicit brand commitments; replace the old visual world rather than polishing it. The old look is evidence of what the subject is, not authority over what it becomes.
+- **Established world:** inherit it. A missing DESIGN.md does not erase a coherent identity already present in code; document that identity instead of inventing a replacement.
+- **Incomplete brand:** preserve confirmed assets and recognizable traits, then help the user expand the system for this new surface.
+- **No visual authority:** create a new world with the user.
 
-## 1. Name the intent
+A section, component, feature, or state inside an established surface inherits that surface. Do not turn a local addition into a new identity exercise.
 
-- **Greenfield:** no coherent visual implementation.
-- **Local extension:** a section, feature, component, or state inside an established surface and world.
-- **New surface:** a whole page, route, screen, flow, or standalone experience inside an established world.
-- **Expression expansion:** an established brand entering an unresolved whole-surface family or app boundary.
-- **Redesign/rebrand:** replace the world while preserving unchanged product truth, content, function, native affordances, constraints, and brand commitments.
-- **Refinement:** leave this flow for the scoped command; preserve the world and scope.
+## 2. Ask what will change the work
 
-Classify before ideation: work that must join an existing page is a local extension, and a novel layout it would benefit from does not promote it to a new surface. A plain "redesign this page/site" authorizes replacement. "Redesign this within the current brand/system" means extension or refinement. Ask once only when the wording is genuinely ambiguous.
+Ask one round of two or three related questions through the structured question tool when available. Skip settled facts; a precise request may need only a compact confirmation.
 
-## 2. Resolve visual authority
+- **Persuade:** clarify who must act, what they should believe, and which real proof, content, or assets can earn that belief.
+- **Operate:** clarify the task, information, important states, frequency, and constraints.
+- **Read:** clarify the reader's question, source material, structure, and wayfinding.
+- **Experience:** clarify what leads, how exploration unfolds, and which interaction or transition matters.
 
-Read DESIGN.md and representative code, tokens, components, and assets. Choose one path:
+Across modes, ask what success looks like, what must remain untouched, and what would make a polished result feel wrong. Do not ask for CSS values or canned aesthetic lanes.
 
-- **A. Explicit redesign.** The old DESIGN.md and implementation are not authority. Keep only unrevoked product facts, content, function, native expectations, constraints, and brand commitments. Establish a replacement world.
-- **B. DESIGN.md covers this kind of surface.** Use its invariants and normative tokens; skip world-building and discover the surface.
-- **C. Coherent implementation, no DESIGN.md.** Code, assets, tokens, type, and component behavior are incumbent authority. Run [document.md](document.md) in scan mode, confirm the extracted invariants, then write DESIGN.md. Do not offer replacement worlds unless the user asked for a redesign.
-- **D. Brand exists, whole-surface family unresolved.** Preserve logo, color/type assets, voice, recognizable component/motion traits, and constraints. Ask what must carry and where expression may expand; offer two or three compatible ranges, not replacement identities, and merge the choice into DESIGN.md (child-app DESIGN.md when the range is local).
-- **E. No confirmed visual authority.** Establish a world. Scaffolds, framework defaults, and stray utilities are not identity.
+## 3. Choose the right amount of invention
 
-A local extension stays on B or C: its surrounding surface is authority even when DESIGN.md is incomplete.
+### Extend an existing surface
 
-## 3. Discover the requested surface
+Inherit its world and composition. Resolve only the new purpose, content, hierarchy, states, interaction, and how the addition joins the surrounding experience. Do not run a concept tournament or change DESIGN.md unless the user approves a durable system change.
 
-Name this surface's audience, job, visitor mode, real content, primary action/task, evidence, constraints, and memorable moment. PRODUCT.md supplies truth and DESIGN.md the world; neither decides narrative or composition.
+### Create a whole surface inside an established world
 
-In an attended run, ask one round of at most three material questions without repeating durable facts: CTA hierarchy, proof sequence, content gaps, and interaction outcomes belong here, not in PRODUCT.md. For a fully specified narrow request, state the interpretation and invite correction. When `shape` has already completed its discovery interview, reuse those confirmed answers and do not ask again.
+Keep the visual system fixed. Derive five to seven materially different structures from the content, task, and user behavior, ordered by resonance. For a genuinely open whole page, screen, or flow, run:
 
-## 4. The candidate floor
+`node {{scripts_path}}/concept-seed.mjs --scope surface --mode <mode>`
 
-When generating choices, veto rather than rationalize. Before a candidate reaches the user, discard and replace it if any floor fails:
+The script assigns which structure gets built: your top-ranked structure is what every run would ship, and a single ranking is deterministic, so the dice come from outside. Dress its staging challengers in the committed identity and weigh them against your list before building. Never run the script for a local extension or a precisely specified narrow request; shape those directly.
 
-- **Truth:** every relationship it visualizes exists in product truth; resemblance is not evidence.
-- **Translation:** after removing source names, props, materials, and vocabulary, a product-native relationship, behavior, or proof remains. Otherwise it is costume, not a concept.
-- **Consequence:** removing its bar-raiser materially weakens the surface's central argument or use; name what the visitor could no longer understand or do. Otherwise it is ordinary craft.
-- **Survival:** its signature remains compelling on the primary device and within the real asset and tool budget.
-- **Fit:** its risk is an honest tradeoff, not a probable violation of the brief or audience.
+### Create or replace the visual world
 
-Passing some floors never rescues a failed one. (The bar-raiser is the contract block defined in section 6: the product-native move that lifts the surface above competent convention.)
+1. Name the product's unique mechanism in one sentence, the audience's real scene, its cultural home, and what this first surface must prove. Note the page this category always ships and its predictable opposite; name both as the rut and keep them out of the seven-candidate list, so no die face is spent on the page the category already ships.
+2. From that cultural world, list seven concrete visual systems, artifacts, places, or rituals the audience knows by heart, each with one line on why it resonates and can carry the mechanism, ordered by resonance. The audience's world includes its graphic and screen traditions, the notation, publications, identity programs, data graphics, and interfaces it reads daily, not only its physical objects; a nameable abstract system (a school of poster, a documentation standard, a data-graphic tradition) is as concrete a candidate as any artifact. What would this thing look like as a physical object; what did its world look like before the web? Near-duplicates count once. When more than three of the seven share one material family, the derivation stopped at the subject's most obvious artifact; the audience's world is larger than that, so dig until the list spans at least three families.
+3. Turn that material into complete directions: each joins a reusable visual world to a concrete first-surface experience.
+4. Run `node {{scripts_path}}/concept-seed.mjs --scope direction --mode <mode>` and follow what it prints. The script assigns which direction gets built and deals catalog challengers. Fuse each challenger before judging it: the challenger supplies the form and its system grammar, the product supplies every fact, and clarity wins conflicts. Weigh fused challengers against the assigned direction on exactly two axes, audience identification and product clarity; losing to strong grounded material is a valid outcome, and beating a thin or tool-monoculture list is the point. <!-- rule:skill-concept-procedure -->
+5. Present one direction, fully committed: its world, first viewport, visitor path, signature interaction, cross-surface reach, and honest risk. Offer re-roll with an optional one-line steer instead of a ranked menu; a lineup invites the safest card. Re-roll eliminates every direction already shown, grounded and challenger alike; after two consecutive re-rolls, ask what quality is missing. You may re-roll on your own only on named factual grounds, when the assigned direction cannot carry the product's truth or task; taste is never grounds. The user may re-roll freely, and a user- or brief-pinned direction beats the roll, always. <!-- rule:skill-assigned-plus-reroll --> Pick the channel by capability, not by habit: can you put a page in front of the user, through an in-app browser or by opening a browser window on their machine outside your harness? If yes, present the decision visually: write an options payload with the assigned direction leading, the dealt challengers as alternates carrying their QUALITY BAR cards, and re-roll plus steer enabled; a degraded roll with no challengers still uses the page, as a single text-only card with re-roll, then run `node {{scripts_path}}/serve-question.mjs --start --payload <file>` (run it with `--schema` first for the exact payload shape). It daemonizes, prints the page URL and a key, and exits immediately; now open that URL for the user, preferring the in-app browser when the harness has one, then the system opener, then showing the URL. Collect the choice with `--wait --key <key>`, repeating while it exits 3; the ANSWER prints as JSON. Exit 4 means the page was closed without an answer: re-present once through the structured question tool, and with no answer there either, proceed unattended with the assigned direction and state the assumptions. A harness that can leave a shell blocked in the background may instead run the script without `--start` and let it auto-open and block. If no, because the session is headless, CI, an eval worker, or a remote shell with no display, skip the page and put the same decision through the structured question tool; the script self-detects these environments and exits 2 with that advice, so treat exit 2 as this fallback, never as an error to retry. <!-- rule:skill-visual-decision-page -->
 
-## 5. Shape or select the direction
+Catalog worlds are working systems, not mood references. When one survives, carry its palette and material, type and composition, topology, controls and state, and responsive rules into the product. When the source is itself an interface language, commit to its native grammar across navigation, content, controls, and states. When the harness can view images, open the QUALITY BAR board and hero the seed prints for the world you build (when it only reads local images, download the card to a temp file first and view that): they set the craft level the build must reach, the finish, commitment, and art direction of a rendered reference, and never dictate the composition; your surface serves this product.
 
-Do not select a new world and its first surface concept in separate tournaments. That creates a safe global choice followed by a more interesting local choice whose "lineage" exists only in prose. Pick the one lane that matches the intent and authority path.
+Every direction the roll can land on must already be viable: every relationship and claim it visualizes true, a real palette and component family, a distinctive composition with one product-specific experience, workable at full-surface scale within the available assets, tools, and performance budget. A candidate that fails on truth is replaced before the roll, never rescued by it. Truth binds claims, not demonstrations: in greenfield work, author whatever illustrative material the concept needs at full fidelity, label it synthetic wherever a visitor could mistake it for the real thing, and hand the user the list of what to replace with real material. What stays uninventable are commercial and factual claims: prices, customers, benchmarks, endpoints, capabilities the product does not have. Refusing a bold direction because its demonstration data does not exist yet is the timidity reflex wearing honesty's clothes. <!-- rule:skill-truth-binds-claims -->
 
-### Local extension (B or C): inherit, do not reseed
+For **Persuade**, the opening must make the offer intelligible and desirable, expose a clear action, and demonstrate something only this product can prove. Conversion lives inside the form's own vocabulary: a hook that lands in one line, a visible primary action, a legible reading order. A committed form that hides the offer or the action has not finished translating. <!-- rule:skill-persuade-conversion-in-form --> For **Operate**, expression may never obscure the task, state, or familiar affordance. For **Read**, comprehension and wayfinding remain intact. For **Experience**, the work itself leads from the first viewport.
 
-Inherit both the world and the surrounding surface's direction. Resolve only the decisions the addition actually introduces: purpose, content, hierarchy, state or interaction, and how it joins the existing sequence; in an attended run use short, related question rounds while those are open. Do not run `concept-seed.mjs`, generate competing surface metaphors, offer alternate worlds, write a direction contract, or change DESIGN.md without user approval. The result may still have an authored, surprising layout; its novelty must come from the material and the established grammar, not a new identity thesis. If the request reveals a genuine gap in the brand system, name the gap and ask before treating it as path D; never silently turn a section into an expression-expansion exercise.
+## 4. Commit the world
 
-### New surface inside stable authority (B or C)
+Pick a color strategy before picking colors: Restrained (neutrals plus one accent; the default when the visitor came to operate or read), Committed (one saturated color carries 30-60% of the surface), Full palette (3-4 named roles), or Drenched (the surface IS the color). Persuade and Experience surfaces have permission for the bolder strategies; take them when the brief allows. Color commits at page scale: fields that own whole regions, not accents scattered over a neutral ground. Dark or light is never a default: write one sentence of physical scene (who uses this, where, under what light) and let it force the answer. <!-- rule:skill-color-strategy -->
 
-The world supplies the vocabulary; the task concept supplies the sentence.
+Choose faces like objects from the subject's world, in the mode's register. Operate and Read surfaces are well served by system stacks and workhorse UI faces; Persuade and Experience surfaces want faces with a point of view, and these training-data defaults mean you stopped looking: Fraunces, Playfair Display, Cormorant, Lora, Crimson, Newsreader, Syne, Space Grotesk, Space Mono, IBM Plex, Inter-as-display, DM Sans, DM Serif, Outfit, Plus Jakarta Sans, Instrument Sans. Naming one of these faces anyway requires a reason no other face could satisfy, and a subject association is never that reason: books wanting a serif, bookshops wanting hand-lettering, and tech wanting a mono are the associations the list exists to break. <!-- rule:skill-typo-reflex-faces -->
 
-1. Derive five to seven structural candidates from the content, mechanism, audience, and confirmed authority. Translate its relationships and behavior, not just its styling.
-2. Run `node {{scripts_path}}/concept-seed.mjs --scope surface --mode <mode>` (the surface's mode: persuade, operate, read, or experience) only when a whole page, route, screen, flow, or standalone experience calls for high-concept exploration. Otherwise shape the strongest grounded structure directly. Never run it for a local extension. When the seed appends a STAGING CHALLENGER, it is identity-free structure: dress it in the committed visual identity before judging it against the grounded candidates.
-3. Name the habitual arrangement and predictable contrarian response. Apply the candidate floor, then judge survivors skin-blind: topology, sequence, or interaction must remain different after names and styling disappear.
-4. When materially different whole-surface choices would help, present two or three neutral options with thesis, sequence, focal moment, signature, implementation consequence, and concrete inherited world rules, following **Present, visualize, re-roll** below. Let the user select or revise before code.
+Calibration: AI-generated interfaces cluster around a few looks regardless of subject: warm cream ground, high-contrast serif display, and a terracotta or signal-red accent; near-black with one neon accent and glowing edges; broadsheet-editorial hairlines, italic display serif, and small tracked mono labels. All are legitimate when the brief calls for them; the brief always wins. Where the brief leaves the aesthetic free, landing in one of them means the self-check failed: if someone could guess your aesthetic from the category alone, or from category-plus-avoidance, rework until neither answer is obvious. <!-- rule:skill-calibration-saturated-looks --> Energy is not the enemy of trust: a brief's negative constraints (no gamification, no hype) rule out those devices, not exuberance, and adjectives describing the product's behavior (quiet support, calm coaching) do not dictate the surface's energy. <!-- rule:skill-constraints-rule-out-devices-not-energy --> A bookish, warm, or child-facing subject does not soften the calibration: book cloth, thread, jackets, endpapers, and shelf ephemera span the whole saturated spectrum, and cream paper is the smallest corner of that world; landing on cream plus serif for a book subject is the default wearing the subject's clothes. <!-- rule:skill-book-subject-not-cream-license --> A brief-pinned world pins the world, not its softest rendition: the pinned world's full material range stays in play, and a rendition that matches what any model ships for that world failed the self-check at execution rather than selection. <!-- rule:skill-pinned-world-not-default-rendition -->
 
-Unattended: use the promoted candidate when a roll ran, otherwise the strongest grounded structure; it must survive both tests.
+<claude>
+Your measured rendition prior: warm, bookish, family, and child-facing subjects come out as cream grounds, serif display with italic accents, and lamplight, even when the assigned direction never asked for them. Treat that first palette as already spent. Before writing code, reread your OWN-WORLD block: when it says cream, paper, parchment, ivory, or lamplight for a Persuade surface the brief did not pin, the rendition failed and you rework it from the world's saturated materials first. The same subject renders as bookcloth, thread, jacket, and endpaper color on other models; nothing about the subject requires your default.
+</claude>
 
-### New or replacement world (A, D, or E): choose a coupled pair
+## 5. Record the decision
 
-1. **Ground.** Derive the product mechanism, user scene, audience's cultural home, and what this surface uniquely proves. Name the category default and its predictable contrarian response; neither may enter the shortlist unchanged.
-2. **Derive pairs.** Generate five to seven grounded coupled pairs and order them by product fit. Each joins a durable system to a concrete first-surface structure, native behavior, non-routine bar-raiser, and implementation consequence. State what becomes impossible without the bar-raiser. Different names or materials on the same experience are one candidate.
-3. **Break the ranking rut once.** Run `node {{scripts_path}}/concept-seed.mjs --scope direction --mode <mode>`, where the mode is the first surface's: persuade, operate, read, or experience. The seed names a PROMOTED INDEX; elevate the pair at that position of your own ranked list into the serious shortlist and judge it as a peer of your top picks. For each challenger, first state the relationship, state change, or affordance it imports without naming the source; only then translate it into a coherent system and task solution. Keep that logic, but discard the source carrier, materials, and vocabulary unless product evidence earns them as functional parts of the product. A candidate still named or explained by the source object has not been translated. Compare every translated pair with the grounded list on audience identification, product clarity, system leverage, and use of the medium. When the seed appends a FIRST-SURFACE STAGING, treat it as a candidate structure for the first surface: dress it in each shortlisted world before judging, and keep world and staging one coupled decision.
-4. **Test at full strength.** Apply the candidate floor. Strip names, styling, and source carrier; survivors must still differ in structure, sequence, or interaction. Their world must also govern the whole product: the navigation, a dense surface, and a quiet surface, with the last two dissimilar.
-5. **Offer coupled choices.** Present two or three equally viable pairs without recommendation cues, following **Present, visualize, re-roll** below. For each, show the world rules, first-surface expression, bar-raiser, cross-surface consequence, risk, and what fails without the bar-raiser. If fewer than two clear every veto, derive replacements rather than padding the choice. Ask what is closest, should combine, or feels wrong; rejection is allowed.
-6. **Resolve once.** The user selects or revises the pair. Extract the durable rules into DESIGN.md and the task-specific strategy into the surface brief; do not reopen either half independently.
+Before code, state the chosen direction as a contract in the artifact's opening comment, five short blocks, 150 words at most. THESIS: the one idea this surface owns and the category-default arrangement it refuses. OWN-WORLD: the palette and component language, specific enough to be recognizable with all content removed. STORY: what the visitor understands, believes, and does. FIRST VIEWPORT: the exact composition, what is where and at what scale, and where the primary action sits. FORM: the chosen form, its position on your ordered list, and the seed key the script printed. If a block reads like a mood, the direction is not decided yet; the finishing review audits the render against this contract. <!-- rule:skill-decide-then-build -->
 
-Unattended: use the assigned grounded pair only if it survives product fit, coupling, and breadth; mark assumptions. This is fallback, not user choice.
+When a new or replacement world is chosen, write DESIGN.md at the appropriate project or app boundary using [document.md](document.md). Record only durable system rules; exact tokens may remain provisional until the first build establishes them. An ordinary extension does not rewrite DESIGN.md.
 
-### Present, visualize, re-roll
-
-These rules govern every candidate presentation above, in either lane.
-
-When the harness can generate images, visualizing the finalists is required, not decoration: render each presented candidate as a world board (palette, materials, type voice, component character) plus a first-surface mock at a realistic viewport; a surface-scope candidate inside a committed world gets the mock alone. Render designed artifacts: invented product names, real English interface copy, no instruction text transcribed onto the image, no dashboard or game chrome the concept itself did not earn. The images are selection aids only; the direction contract and DESIGN.md stay the sole authority, and no image persists as a project file.
-
-Always offer **re-roll** beside the candidates, with an optional one-line steer for what is missing. Re-roll eliminates every candidate presented so far, grounded and challenger alike; none may return reworded. Derive genuinely new grounded candidates from unexplored angles of the same grounding, honor the steer, rerun the seed with `--from <key> --reroll <round>` so it draws challengers it has not yet shown, apply the candidate floor, rerank, and present again under these same rules. After two consecutive re-rolls, ask what quality is missing before rolling a third time; silent re-rolls converge on guessing.
-
-An unattended run has no one to re-roll or eye-test. When image generation is available there, render one mock of the chosen direction and correct material drift between mock and build before finishing.
-
-For a substantial high-fidelity surface with native image generation, load [codex.md](codex.md) after selection; probes stay inside the selected direction. For `shape`, stop after selection and continue in [shape.md](shape.md).
-
-## 6. Write the direction contract for a whole surface
-
-If a competent default could satisfy the concept, sharpen its focal moment until one product-specific move changes implementation and raises the experience above competent convention.
-
-Before code, write a direction contract of at most 150 words in the artifact's opening HTML or framework comment; the first 200 characters must name `DIRECTION CONTRACT`. The artifact comment is the contract's only home: hooks audit the render against it, and the surface brief references it rather than duplicating it. <!-- rule:skill-decide-then-build -->
-
-- `THESIS`: the product-specific idea and the category-default arrangement it refuses;
-- `OWN-WORLD`: the confirmed DESIGN.md invariants, tokens, and materials it uses;
-- `STORY`: what the visitor understands, believes, and does;
-- `FIRST VIEWPORT`: exact composition, hierarchy, action, and where the concept exceeds competent convention;
-- `BAR-RAISER`: the product-native use of interaction, motion, state, space, or computation that makes this more than a strong static composition; routine functional state alone does not clear the bar;
-- `FORM`: chosen structure or behavior, signature, implementation consequence, and seed key.
-
-The contract is task-scoped, inspectable, and subordinate to the user's choice. A local extension skips it unless the user explicitly wants the addition to become a distinct authored moment; the shaped decisions are its implementation plan instead.
-
-## 7. Persist the surface brief
-
-Once the primary target or route is known, persist durable surface-level product/UX strategy separately from PRODUCT.md and DESIGN.md. `<primary-target>` is a concrete repo-relative source file path or route URL, never a natural-language description; the script derives the clone-stable slug mechanically, so never hand-write one. Prefer a clone-stable source file; map routes and alternate entries as related targets. For a local extension, update the parent surface's record only when the work establishes durable product strategy; do not create a component-level brief by reflex. Read any record first:
+If the work establishes durable strategy for a route or artifact, read its existing surface brief, then update it:
 
 `node {{scripts_path}}/surface-brief.mjs read <primary-target>`
 
-Exit 0: preserve still-valid decisions and change only what the user changed; for redesign, retain valid product strategy, content, function, and open decisions while replacing the visual direction. Exit 2: no brief exists. Write with `node {{scripts_path}}/surface-brief.mjs write <primary-target> <body-file> [related-target ...]`, which persists `.impeccable/surfaces/<target-slug>.md` as durable context for later sessions; leave version control to the user's normal flow. Exclude global truth, exact tokens, transient notes, and work logs. The concise body:
+`node {{scripts_path}}/surface-brief.mjs write <primary-target> <body-file> [related-target ...]`
 
-```markdown
-# Surface brief: [name]
+Keep the brief small: scope and visitor mode; audience, job, action/task, proof/content, and constraints; chosen direction and memorable moment; unresolved decisions. Do not copy global product truth or DESIGN.md tokens into it.
 
-## Scope
-[Primary/related route or artifact, visitor mode, and what this surface owns.]
+Visualize before you build whenever any image generation is available, a harness-native tool or the API fallback context.mjs reports: render the chosen direction as a design-system board and a first-surface mock, correct material drift between mock and intent, then build. Seeing the direction first measurably strengthens the result. [codex.md](codex.md) carries the deep native-generation flow; the mock is a selection aid, not authority. <!-- rule:skill-visualize-before-build -->
 
-## Product strategy
-[Surface-specific audience and job, desired outcome, primary/secondary action or task, content and proof sequence, factual constraints, and explicitly open decisions.]
+For `shape`, return the selected direction to [shape.md](shape.md) and stop before persistence or implementation.
 
-## Selected direction
-[Reference to the applicable DESIGN.md world or expression range, selected surface concept, focal moment, narrative/interaction sequence, implementation consequence, and a pointer to the artifact carrying the direction contract.]
+## 6. Build with full commitment
 
-## Open decisions
-[Only unresolved items that later work must not silently invent. Omit when empty.]
-```
+Build the assigned direction, not a safer interpretation of it. The form supplies structure, reading order, component conventions, and native motion; the product supplies every fact. Commit every atom: nav, buttons, inputs, and links are rebuilt in the form's vocabulary, and a stock component inside a committed form is a lapse. Land the first build fully committed; committing is the hard part, and the passes that follow exist to make the committed thing clear and effective, never to dilute it. In unattended work, the safe rendition is the known risk. <!-- rule:skill-commit-every-atom -->
 
-## 8. Write or update DESIGN.md
+- **The first viewport is a thesis, not a header.** Demonstrate the mechanism immediately, at the scale the form has in life; do not trap the concept inside a standard hero or card shell. The memory test: if someone left after one viewport, what would they describe an hour later? If the honest answer is a mood, the concept has not committed yet.
+- **Prove, don't claim.** Show the subject doing its job: the interface at work, the mechanism dramatized, specifics a competitor could not copy-paste. Sections that restate a claim in different words add length, not substance. Demonstration data is design material: author it at full fidelity and label it synthetic; never invent prices, customers, benchmarks, or capabilities.
+- **Author the assets; never substitute chrome.** Great surfaces live on carefully made content: names, entries, titles, copy, covers, thumbnails, textures. In greenfield work every blank the ask round left open is yours to author at production fidelity; content is authorable, claims are labelable, and no section is omittable. When a commercial claim stayed unanswered, ship a clearly marked placeholder value and hand the user the replacement list; a section thinned or dropped for missing truth is the asset gap wearing honesty's clothes. Decoration compensating for missing content, gradients, glass, borders, icon tiles where an authored asset belongs, is the same gap wearing chrome's. <!-- rule:skill-author-assets-not-chrome -->
+- **Generate the imagery the build needs.** When any image generation is available, a harness-native tool or the API fallback context.mjs reports, generating the design's imagery is part of building: heroes, covers, demonstration thumbnails, textures, marks. Gray boxes and stock-styled placeholders are not a fallback while generation is one command away; state the cost once before the first render and batch what the surface needs. <!-- rule:skill-generate-build-imagery -->
+- **Build the form's web leverage.** When the chosen world names a technique (canvas, WebGL, view transitions, generative motion), build the technique itself, not a static imitation of it; the graceful fallback serves constrained clients, it is not the default experience.
+- **Pace the scroll like a studio.** Vary density, scale, image, motion, and quiet inside one grammar; a dense passage earns a quiet one, and the page ends anchored by a real close. One spacing rhythm throughout, with more space above a heading than below it.
+- **Use real, verified imagery when the brief implies it.** Search for the subject's physical object rather than the category; one decisive photo beats five mediocre ones. Verify stock URLs resolve.
+- **Author motion as material.** The form has native motion, what it does in life between states; give the page that motion once, orchestrated, rather than scattered hover effects. Bound expensive effects and keep content visible by default.
 
-For A or E, write or replace DESIGN.md at the resolved project/app boundary; for D, merge only the approved expansion range. The format, in brief: YAML frontmatter carrying machine-readable tokens (colors, typography, rounded, spacing, components), then the canonical markdown sections in fixed order, with tokens normative and prose as application context. [document.md](document.md) carries the full schema and examples; never fetch a remote spec. Record the chosen durable rules and add:
+Preserve semantics, accessibility, performance, responsiveness, project conventions, and working behavior.
 
-`<!-- STATUS: DIRECTIONAL SEED; exact tokens remain provisional until the first implementation pass. -->`
+## 7. Inspect and finish
 
-Do not fabricate YAML tokens; add exact values only after the user, assets, or implementation establishes them. The selected pair authorizes its world and first expression together without another confirmation. A local extension does not change DESIGN.md unless the user approves a durable system addition.
+Inspect desktop and mobile, critique the render against the user's request, the direction contract, and DESIGN.md, fix material gaps, and re-inspect. On a Persuade surface, verify the mode did its job: a first-time visitor should know what this is, why it matters, and what to do within seconds, in the form's own vocabulary. After a first implementation of a new world, update DESIGN.md with the exact tokens and behaviors that survived the build.
 
-## 9. Plan and build
-
-Plan from the selected direction or local shape and real content, never a category skeleton. In redesign, remove inherited visual tokens. Load only needed specialist references; focal interaction or authored animation reads [animate.md](animate.md), even without the `animate` command.
-
-Build the strongest coherent direction once. Its grammar governs navigation, actions, controls, content, and transitions without disguising affordances. Give the focal form the scale that gives it force; do not trap it inside a conventional opening panel.
-
-- **Make the opening a thesis.** Demonstrate the mechanism immediately; leave an idea, interaction, or evidence, not merely mood.
-- **Commit before correcting.** Land the hard move at full strength before refining it. In unattended work, safety is the known risk.
-- **Commit at page scale.** Let color, material, image, or type own a region when the world calls for it. Scattered signature decoration is not commitment.
-- **Pace the whole surface.** Vary density, scale, image, motion, and quiet inside one grammar. Cut repeated claims; prove the mechanism with real artifact, interaction, data, transformation, or content.
-- **Author motion as material.** Motion expresses the world and task. Premium moments go beyond repeated transform/opacity through earned focus, depth, masks, continuity, light, or material change. Bound expensive effects, test in-browser, and keep content visible by default.
-
-Preserve semantics, affordances, accessibility, performance, responsiveness, and project conventions. Operate/Read express through topology, hierarchy, density, rhythm, and state; Persuade/Experience may earn drama.
-
-## 10. Solidify the visual record
-
-After first implementation of a new/replacement world or approved expansion, refresh DESIGN.md from the build: replace provisional direction with the exact type, color roles, tokens, spacing/radii, components, states, and motion that survived; add normative YAML tokens only for values the implementation actually uses; remove the directional-seed status once record and implementation agree; preserve broader world invariants and expression ranges. Do not promote the task's story, opening composition, or one-off motif into a global rule unless it is intentionally reusable. Ordinary extension does not rewrite DESIGN.md; only approved durable changes do.
-
-## 11. Finish like a studio
-
-Inspect desktop and mobile; critique against the brief, DESIGN.md, and the applicable shape, concept, or contract; patch material defects; recheck skin-blind. Follow the quality guidance supplied by `context.mjs` and hooks. Context requests a manual scan only when no automatic detector is active; never add another detector pass. Fix real gaps and classify false positives until none remain. <!-- rule:skill-finish-like-studio -->
-
-When the harness can run a separate agent, this finishing review belongs there, not in the build thread: hand the reviewer the artifact path, its direction contract, and the detector command, and have it return a short list of material fixes; apply them and finish. A fresh reader catches what the builder's own eyes slide past. <!-- rule:skill-finish-separate-reviewer -->
+When the harness can run a separate agent, this review belongs there, not in the build thread: give it the original request, confirmed answers, the artifact path, its direction contract, DESIGN.md, and existing hook findings. Ask for a short list of material fixes, promise by promise against the contract, apply them, and finish. Do not run a second detector. <!-- rule:skill-finish-separate-reviewer -->

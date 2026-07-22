@@ -10,9 +10,7 @@
  *     `hookSpecificOutput.additionalContext` when findings exist.
  *   - Stop: runs the FULL detector rule set over every UI file touched this
  *     session (the deep pass), deduped against what the per-edit pass already
- *     surfaced, and emits once via the Stop additionalContext channel. Touched
- *     HTML artifacts opening with a direction-contract comment get a one-time
- *     contract-audit section appended to the same emission.
+ *     surfaced, and emits once via the Stop additionalContext channel.
  *
  * Contract: never break a turn. Always exit 0. Clean files emit a small ack
  * unless quiet mode is enabled; a clean Stop pass is silent.

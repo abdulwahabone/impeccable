@@ -132,11 +132,13 @@ Present the Nielsen's 10 heuristics scores as a table:
 | 8 | Aesthetic and Minimalist Design | ? | |
 | 9 | Error Recovery | ? | |
 | 10 | Help and Documentation | ? | |
-| **Total** | | **??/40** | **[Rating band]** |
+| **Total** | | **??/[applicable max]** | **[Rating band]** |
 
-Be honest with scores. A 4 means genuinely excellent. Most real interfaces score 20-32.
+The applicable maximum is 4 times the number of heuristics you actually scored: **/40** when all ten apply, **/32** when two are `n/a`. Never print `/40` over a partial set.
 
-**Mode applicability**: heuristics 7 (Flexibility and Efficiency) and 10 (Help and Documentation) may be scored `n/a` on Persuade and Experience surfaces (landing pages, campaigns, portfolios, bodies of work), as may any other heuristic that genuinely cannot apply to the surface under review. Write `n/a` in the Score cell with a one-line reason, and renormalize the total to the applicable maximum (e.g. **24/32** when two heuristics are n/a) so the rating band stays proportional. The persisted snapshot must record which heuristics were scored n/a.
+Be honest with scores. A 4 means genuinely excellent. Most real interfaces score 20-32 out of 40.
+
+**Mode applicability**: heuristics 7 (Flexibility and Efficiency) and 10 (Help and Documentation) may be scored `n/a` on Persuade and Experience surfaces (landing pages, campaigns, portfolios, bodies of work), as may any other heuristic that genuinely cannot apply to the surface under review. Write `n/a` in the Score cell with a one-line reason, and renormalize the total to the applicable maximum (e.g. **24/32** when two heuristics are n/a) so the rating band stays proportional. The persisted snapshot must record the applicable maximum and which heuristics were scored n/a.
 
 #### Design Specificity Verdict
 
@@ -214,10 +216,10 @@ Skip this step if the Setup slug was null (vague or root-level target).
 
 2. **Pass the structured metadata** through `IMPECCABLE_CRITIQUE_META` (JSON), then run the write command:
    ```bash
-   IMPECCABLE_CRITIQUE_META='{"target":"<user phrasing>","total_score":<n>,"p0_count":<n>,"p1_count":<n>}' \
+   IMPECCABLE_CRITIQUE_META='{"target":"<user phrasing>","total_score":<n>,"max_score":<n>,"na_heuristics":"<comma-separated numbers, or empty>","p0_count":<n>,"p1_count":<n>}' \
      node {{scripts_path}}/critique-storage.mjs write "<resolved target>" <body-file>
    ```
-   The helper prints the absolute path it wrote.
+   `max_score` is the applicable maximum from the heuristic table (40 when every heuristic applied), so a later run can tell a renormalized total from a full one. The helper prints the absolute path it wrote.
 
 3. **Delete the temp body file** after the write attempt completes, whether the write succeeded or failed. If deletion fails, mention `temp-file cleanup failed: <reason>` briefly in the final output, but do not block the critique.
 
@@ -229,8 +231,10 @@ Skip this step if the Setup slug was null (vague or root-level target).
 
 5. **Append a single line to the user-visible output**, after the report and before the questions:
 
-   > **Trend for `<slug>` (last 5 runs): 24 → 28 → 32 → 29 → 32**
+   > **Trend for `<slug>` (last 5 runs): 24 → 28 → 32 → 29 → 32 (out of 40)**
    > Wrote `.impeccable/critique/<filename>`.
+
+   Read `max_score` on each trend entry. When every entry shares one maximum, state it once as above. When they differ, print each score with its own denominator (`24/32 → 30/40`) and note that the runs scored different heuristic sets, so the line is not a like-for-like comparison. Treat a missing `max_score` on an older entry as 40.
 
    If this is the first run for the slug, the trend is just one score; say so: "First run for this target, no trend yet."
 
@@ -622,6 +626,8 @@ Even if the system is usable without docs, help should be easy to find, task-foc
 | 20–27 | Acceptable | Significant improvements needed before users are happy |
 | 12–19 | Poor | Major UX overhaul required; core experience broken |
 | 0–11 | Critical | Redesign needed; unusable in current state |
+
+When heuristics were scored `n/a`, the maximum is lower than 40; read the band off the percentage instead of the raw number (90%+ Excellent, 70%+ Good, 50%+ Acceptable, 30%+ Poor, below that Critical). 24/32 is 75%, so Good.
 
 ---
 

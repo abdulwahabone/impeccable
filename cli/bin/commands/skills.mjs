@@ -23,7 +23,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const API_BASE = 'https://impeccable.style';
 
 // Provider folder names in project roots
-const PROVIDER_DIRS = ['.claude', '.cursor', '.gemini', '.agents', '.github', '.kiro', '.opencode', '.pi', '.qoder', '.trae', '.trae-cn', '.rovodev', '.vibe'];
+const PROVIDER_DIRS = ['.claude', '.cursor', '.gemini', '.agents', '.github', '.grok', '.kiro', '.opencode', '.pi', '.qoder', '.trae', '.trae-cn', '.rovodev', '.vibe'];
 const PROVIDER_ALIASES = {
   agents: '.agents',
   claude: '.claude',
@@ -33,6 +33,9 @@ const PROVIDER_ALIASES = {
   cursor: '.cursor',
   gemini: '.gemini',
   github: '.github',
+  grok: '.grok',
+  'grok-build': '.grok',
+  xai: '.grok',
   kiro: '.kiro',
   opencode: '.opencode',
   pi: '.pi',
@@ -50,6 +53,7 @@ const PROVIDER_DISPLAY = {
   '.cursor': { name: 'Cursor', input: 'cursor' },
   '.gemini': { name: 'Gemini CLI', input: 'gemini' },
   '.github': { name: 'GitHub Copilot', input: 'github' },
+  '.grok': { name: 'Grok Build', input: 'grok' },
   '.kiro': { name: 'Kiro', input: 'kiro' },
   '.opencode': { name: 'OpenCode', input: 'opencode' },
   '.pi': { name: 'Project Indigo', input: 'pi' },
@@ -59,7 +63,7 @@ const PROVIDER_DISPLAY = {
   '.trae-cn': { name: 'Trae CN', input: 'trae-cn' },
   '.vibe': { name: 'Mistral Vibe', input: 'vibe' },
 };
-const PROVIDER_INPUT_ORDER = ['claude', 'codex', 'cursor', 'gemini', 'github', 'kiro', 'opencode', 'pi', 'qoder', 'trae', 'trae-cn', 'rovo-dev', 'vibe'];
+const PROVIDER_INPUT_ORDER = ['claude', 'codex', 'cursor', 'gemini', 'github', 'grok', 'kiro', 'opencode', 'pi', 'qoder', 'trae', 'trae-cn', 'rovo-dev', 'vibe'];
 
 // Providers whose GLOBAL (home) skills dir is not `<provider>/skills`.
 // Pi discovers global skills from ~/.pi/agent/skills/; project scope
@@ -76,6 +80,7 @@ const GLOBAL_HARNESS_HINTS = [
   { home: '.codex', provider: '.agents' },
   { home: '.cursor', provider: '.cursor' },
   { home: '.gemini', provider: '.gemini' },
+  { home: '.grok', provider: '.grok' },
   { home: '.kiro', provider: '.kiro' },
   { home: '.opencode', provider: '.opencode' },
   { home: '.pi', provider: '.pi' },
@@ -119,6 +124,12 @@ const PROVIDER_HOOK_ARTIFACTS = {
   // so source and dest are the same path.
   '.github': [
     { sourceProvider: '.github', rel: 'hooks/impeccable.json', destProvider: '.github' },
+  ],
+  // Grok Build discovers project hooks from `.grok/hooks/*.json`. Team-shared
+  // by default (commit them if the whole team uses Grok); folder trust is still
+  // required via `/hooks-trust` or `--trust` before they run.
+  '.grok': [
+    { sourceProvider: '.grok', rel: 'hooks/impeccable.json', destProvider: '.grok' },
   ],
 };
 
@@ -571,7 +582,7 @@ async function copyOrExtractLocalBundle(sourceValue) {
  */
 function normalizeForHash(content) {
   return content
-    .replace(/\.(claude|cursor|agents|github|gemini|codex|kiro|opencode|pi|qoder|trae|trae-cn|rovodev|vibe)\/skills\//g, '.PROVIDER/skills/');
+    .replace(/\.(claude|cursor|agents|github|gemini|codex|grok|kiro|opencode|pi|qoder|trae|trae-cn|rovodev|vibe)\/skills\//g, '.PROVIDER/skills/');
 }
 
 function hashSkillFile(filePath) {

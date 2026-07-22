@@ -21,7 +21,7 @@ Show the probes together and ask what should carry forward, what feels false to 
 
 Do not begin code until the user approves a direction or explicitly delegates the choice. If they delegate, choose using the task brief, PRODUCT.md, and DESIGN.md, and state the evidence. Approval refines the task concept; it does not modify DESIGN.md.
 
-After approval, summarize the composition and the parts of the comp that must not be literalized. Return to new-work.md and write the direction contract from the approved surface concept before code.
+After approval, summarize the composition and the parts of the comp that must not be literalized. Return to new-work.md, record the direction contract from the approved surface concept, then build.
 
 ## Inventory implementation fidelity
 
@@ -35,4 +35,4 @@ Treat the comp as a north star, not something to trace. Do not rasterize core UI
 
 When clean raster ingredients are required and a scoped subagent is available and authorized, use `impeccable_asset_producer`. Give it the approved comp, output paths, required dimensions and formats, transparency needs, crop notes, and what must remain semantic code. Otherwise produce the minimum required assets with the native image-generation capability in the current thread.
 
-Return to [new-work.md](new-work.md) for the direction contract, implementation, and finishing pass.
+Return to [new-work.md](new-work.md) for the direction contract, implementation, and the finishing pass.

@@ -2,8 +2,6 @@
 
 Discover what should be made and how it should work, then return a confirmed design brief without code.
 
-**Product gate:** when context reports that PRODUCT.md is missing, load and complete [init.md](init.md) before Phase 1. Do not substitute shape questions for the product interview. Once PRODUCT.md exists, return here; product context does not replace task discovery.
-
 ## Phase 1: Discovery interview
 
 Do not write code or choose visual direction yet.
