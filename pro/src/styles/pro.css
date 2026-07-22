@@ -157,18 +157,6 @@
 	max-width: 480px;
 }
 
-/* The heading is the label for the field in practice, so it stays small: the
-   headline above is the page's voice, not this. */
-.pro-join-title {
-	font-family: var(--ks-mono);
-	font-size: 0.625rem;
-	font-weight: 400;
-	letter-spacing: 0.28em;
-	text-transform: uppercase;
-	color: var(--ks-kinpaku);
-	margin-bottom: 14px;
-}
-
 .pro-label {
 	/* Present for screen readers and focus order; the placeholder carries the
 	   visual cue in a layout this sparse. */

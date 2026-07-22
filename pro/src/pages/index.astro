@@ -75,8 +75,9 @@ const worlds = flagshipWorlds();
       announced.
     </p>
 
-    <section class="pro-join" id="join" aria-labelledby="join-title">
-      <h2 class="pro-join-title" id="join-title">Join the waitlist</h2>
+    {/* The button carries the label, so there is no visible heading repeating it.
+        The section is named for assistive tech instead. */}
+    <section class="pro-join" id="join" aria-label="Join the waitlist">
       <form class="pro-form" data-waitlist-form novalidate>
         <label class="pro-label" for="waitlist-email">Email address</label>
         <div class="pro-field-row">
@@ -92,7 +93,7 @@ const worlds = flagshipWorlds();
             aria-describedby="waitlist-status"
           />
           <button class="pro-submit" type="submit" data-waitlist-submit>
-            <span data-waitlist-submit-label>Get the one mail</span>
+            <span data-waitlist-submit-label>Join the waitlist</span>
           </button>
         </div>
         <p class="pro-form-status" id="waitlist-status" role="status" aria-live="polite" data-waitlist-status></p>
