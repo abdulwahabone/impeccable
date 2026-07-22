@@ -18,7 +18,7 @@
 	padding: 0 20px 40px;
 	color: var(--ks-text);
 	font-family: var(--ks-font);
-	font-size: 1.02rem;
+	font-size: 1rem;
 	line-height: 1.72;
 }
 
@@ -34,7 +34,7 @@
 .research-article a {
 	color: var(--ks-kinpaku);
 	text-decoration: underline;
-	text-decoration-color: oklch(84% 0.19 80.46 / 0.35);
+	text-decoration-color: color-mix(in oklch, var(--ks-kinpaku) 35%, transparent);
 	text-underline-offset: 3px;
 }
 
@@ -62,8 +62,8 @@
 .research-kicker {
 	margin: 0 0 24px;
 	font-family: var(--ks-mono);
-	font-size: 0.68rem;
-	font-weight: 600;
+	font-size: 0.6875rem;
+	font-weight: 500;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
 	color: var(--ks-kinpaku);
@@ -73,9 +73,9 @@
 	margin: 0 0 20px;
 	font-family: var(--ks-font-display);
 	font-size: clamp(2.6rem, 7vw, 4rem);
-	font-weight: 700;
+	font-weight: var(--ks-type-display-weight);
 	line-height: 1.02;
-	letter-spacing: 0.005em;
+	letter-spacing: var(--ks-type-display-track);
 	color: var(--ks-champagne);
 	text-wrap: balance;
 }
@@ -87,7 +87,7 @@
 
 .research-dek {
 	max-width: 60ch;
-	font-size: 1.15rem;
+	font-size: 1.125rem;
 	color: var(--ks-text-muted);
 }
 
@@ -96,7 +96,7 @@
 	padding-top: 14px;
 	border-top: 1px solid var(--ks-rule);
 	font-family: var(--ks-mono);
-	font-size: 0.72rem;
+	font-size: 0.75rem;
 	line-height: 1.6;
 	color: var(--ks-text-faint);
 }
@@ -126,7 +126,7 @@
 	height: 60px;
 	font-family: var(--ks-font-display);
 	font-size: 2.5rem;
-	font-weight: 700;
+	font-weight: 500;
 	color: var(--ks-dark-ink);
 	background: var(--ks-kinpaku);
 	border-radius: 10px;
@@ -153,7 +153,7 @@
 	margin: 0;
 	font-family: var(--ks-font-display);
 	font-size: clamp(1.5rem, 4vw, 2rem);
-	font-weight: 600;
+	font-weight: var(--ks-type-headline-weight);
 	line-height: 1.18;
 	letter-spacing: 0.005em;
 	color: var(--ks-champagne);
@@ -163,11 +163,11 @@
 .research-roll h2 mark {
 	padding: 0 2px;
 	color: inherit;
-	background: linear-gradient(transparent 68%, oklch(84% 0.19 80.46 / 0.34) 68%);
+	background: linear-gradient(transparent 68%, color-mix(in oklch, var(--ks-kinpaku) 34%, transparent) 68%);
 }
 
 .research-lesson--catalog .research-roll h2 mark {
-	background: linear-gradient(transparent 68%, oklch(70% 0.12 188 / 0.3) 68%);
+	background: linear-gradient(transparent 68%, color-mix(in oklch, var(--ks-patina) 30%, transparent) 68%);
 }
 
 .research-brake {
@@ -184,7 +184,7 @@
 	padding: 20px 22px;
 	overflow-x: auto;
 	font-family: var(--ks-mono);
-	font-size: 0.8rem;
+	font-size: 0.8125rem;
 	line-height: 1.75;
 	color: var(--ks-code-block-fg);
 	background: var(--ks-code-block-bg);
@@ -260,7 +260,7 @@
 .research-figure figcaption {
 	margin-top: 9px;
 	font-family: var(--ks-mono);
-	font-size: 0.7rem;
+	font-size: 0.6875rem;
 	line-height: 1.6;
 	color: var(--ks-text-faint);
 }
@@ -284,7 +284,7 @@
 .research-table th {
 	padding: 8px 14px 8px 0;
 	font-family: var(--ks-mono);
-	font-size: 0.64rem;
+	font-size: 0.625rem;
 	font-weight: 600;
 	letter-spacing: 0.1em;
 	text-align: left;
@@ -301,7 +301,7 @@
 
 .research-table td:first-child {
 	font-family: var(--ks-mono);
-	font-size: 0.78rem;
+	font-size: 0.8125rem;
 	white-space: nowrap;
 }
 
@@ -323,8 +323,8 @@
 .research-chapter-kicker {
 	margin: 0 0 18px;
 	font-family: var(--ks-mono);
-	font-size: 0.68rem;
-	font-weight: 600;
+	font-size: 0.6875rem;
+	font-weight: 500;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
 	color: var(--ks-patina);
@@ -362,7 +362,7 @@
 .research-colophon {
 	margin-top: 30px;
 	font-family: var(--ks-mono);
-	font-size: 0.72rem;
+	font-size: 0.75rem;
 	line-height: 1.8;
 	color: var(--ks-text-faint);
 }
