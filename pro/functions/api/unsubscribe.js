@@ -53,14 +53,20 @@ function escapeHtml(value) {
     .replace(/"/g, '&quot;');
 }
 
-const BAD_LINK = page(
-  'Link not valid',
-  `<h1>That link is not valid</h1>
-   <p>It may have been broken across lines by a mail client, or the address may
-   already be off the list. Nothing has changed.</p>
-   <p><a href="https://impeccable.style">impeccable.style</a></p>`,
-  400,
-);
+// A function, not a constant. Two reasons, and the deploy caught the first:
+// building a Response in module scope is a disallowed global-scope operation in
+// the Workers runtime, and a Response body can only be consumed once, so a
+// shared instance would break every request after the first.
+function badLink() {
+  return page(
+    'Link not valid',
+    `<h1>That link is not valid</h1>
+     <p>It may have been broken across lines by a mail client, or the address may
+     already be off the list. Nothing has changed.</p>
+     <p><a href="https://impeccable.style">impeccable.style</a></p>`,
+    400,
+  );
+}
 
 /** Validate the query pair. Returns the address, or null when it does not check out. */
 async function authorize(request, env) {
@@ -79,7 +85,7 @@ async function authorize(request, env) {
 
 export async function onRequestGet({ request, env }) {
   const email = await authorize(request, env);
-  if (!email) return BAD_LINK;
+  if (!email) return badLink();
 
   const url = new URL(request.url);
   return page(
@@ -96,7 +102,7 @@ export async function onRequestGet({ request, env }) {
 
 export async function onRequestPost({ request, env }) {
   const email = await authorize(request, env);
-  if (!email) return BAD_LINK;
+  if (!email) return badLink();
 
   if (!env.DB) {
     console.error('unsubscribe: DB binding missing');

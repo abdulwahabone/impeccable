@@ -170,3 +170,20 @@ test('a missing DB binding is a 503, not a crash', async () => {
 
   assert.equal(res.status, 503);
 });
+
+test('a refusal is built per request, not shared between them', async () => {
+  // A shared Response instance passes a single-call test and then fails in
+  // production: a body can only be consumed once. Building one in module scope
+  // is also a disallowed global-scope operation in the Workers runtime, which is
+  // how this surfaced (the deploy rejected the Function outright).
+  const env = { DB: stubDb(), WAITLIST_UNSUB_SECRET: SECRET };
+  const bad = url(EMAIL, 'f'.repeat(32));
+
+  const first = await onRequestGet({ request: new Request(bad), env });
+  const second = await onRequestGet({ request: new Request(bad), env });
+
+  assert.notEqual(first, second, 'each refusal must be its own Response');
+  assert.equal(first.bodyUsed, false);
+  assert.match(await first.text(), /not valid/);
+  assert.match(await second.text(), /not valid/, 'the second body must still be readable');
+});
