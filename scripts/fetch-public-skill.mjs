@@ -13,7 +13,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 const TARBALL = 'https://github.com/pbakaus/impeccable/archive/refs/heads/main.tar.gz';
-const OVERLAY_DIRS = ['skill', 'cli'];
+// .claude-plugin carries the released version the build stamps into every
+// SKILL.md and version.json; without it the bundle keeps the mirror's number.
+const OVERLAY_DIRS = ['skill', 'cli', '.claude-plugin'];
 
 if (!process.env.CF_PAGES && !process.argv.includes('--force')) {
   process.stdout.write('fetch-public-skill: local run without --force, keeping mirror copies\n');

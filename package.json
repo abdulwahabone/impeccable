@@ -51,7 +51,7 @@
     "rebuild:release": "bun run clean && bun run build:release",
     "dev": "bun run scripts/gen-dev-api.mjs && npx astro dev",
     "preview": "bun run build && npx astro preview",
-    "deploy": "node scripts/sync-api-data.mjs && bun run build && wrangler pages deploy build/",
+    "deploy": "node scripts/fetch-public-skill.mjs --force && node scripts/sync-api-data.mjs && bun run build && wrangler pages deploy build/",
     "dev:pro": "cd pro && npx astro dev",
     "build:pro": "npx astro build --config pro/astro.config.mjs",
     "deploy:pro": "bun run build:pro && wrangler pages deploy --cwd pro",
