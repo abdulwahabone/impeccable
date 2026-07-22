@@ -142,7 +142,8 @@
 
 .ks-button-arrow svg { width: 100%; height: 100%; display: block; }
 
-/* Warm-gold flat primary. Hover lifts to pale; active darkens to rich.
+/* Warm-gold primary, wearing the gold-leaf face below. Hover lifts to vivid;
+   active darkens to rich.
    Variants chain on .ks-button so specificity (0,2,0) wins over generic page
    anchor resets like `.kinpaku-system-page a { color: inherit }` (0,1,1).
    Use class="ks-button ks-button-primary" — both classes required. */
@@ -152,17 +153,67 @@
   border-color: var(--ks-kinpaku);
 }
 
+/* Hover lifts to a more vibrant gold, not a paler one. --ks-kinpaku-pale drops
+   chroma from 0.19 to 0.07, which renders as beige rgb(231,206,157) against the
+   base fill's rgb(255,186,0): the primary action looked like it was dimming on
+   approach. The base gold already sits on the sRGB gamut edge, so vibrancy here
+   means a brighter fully saturated gold, rgb(255,199,0), and on a P3 display it
+   genuinely gains chroma too. The leaf also steps back a little, since its dark
+   facets are the thing muting the fill: more texture on hover reads as dimming,
+   which is the effect we are fixing. */
 .ks-button.ks-button-primary:hover {
-  background: var(--ks-kinpaku-pale);
-  border-color: var(--ks-kinpaku-pale);
+  background: var(--ks-kinpaku-vivid);
+  border-color: var(--ks-kinpaku-vivid);
   color: var(--ks-dark-ink);
   transform: translateY(-1px);
+}
+
+.ks-button.ks-button-primary:hover::before {
+  opacity: 0.42;
 }
 
 .ks-button.ks-button-primary:active {
   transform: translateY(0);
   background: var(--ks-kinpaku-rich);
   border-color: var(--ks-kinpaku-rich);
+}
+
+/* ------------------------------------------------------------
+   Gold-leaf face — a kinpaku fill with the leaf texture over it
+
+   The brand's material instead of flat paint. Gold sits underneath and the leaf
+   asset goes over it at 60%, which is the point of the pairing: the texture on
+   its own carries near-black cracks that drop the fill well below dark-ink
+   type's contrast in patches, and softening it against the token keeps the fill
+   inside the gold the rest of the system uses.
+
+   A pseudo-element, not a second background layer: a background-image cannot
+   carry its own opacity, and z-index -1 inside the element's own stacking
+   context paints the texture above the gold fill and below the label.
+
+   Applied to the primary action here; .ks-leaf-face opts any other gold fill in
+   (the homepage v4 chip uses it, so both stay one treatment).
+   ------------------------------------------------------------ */
+.ks-leaf-face,
+.ks-button.ks-button-primary {
+  position: relative;
+  isolation: isolate;
+}
+
+.ks-leaf-face::before,
+.ks-button.ks-button-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  /* Fixed 340px render, not `cover`: scaled to fit a 40px chip or a 52px button
+     the 1500px asset averages into flat gold and the leaf stops reading. 68%/44%
+     is an even field rather than a crack. */
+  background: url("/assets/neo-kinpaku/kinpaku-gold-leaf.png") 68% 44% / 340px auto no-repeat;
+  opacity: 0.6;
+  pointer-events: none;
+  transition: opacity 180ms var(--ks-ease);
 }
 
 .ks-button.ks-button-secondary {

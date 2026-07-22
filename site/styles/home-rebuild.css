@@ -23,11 +23,18 @@
      fills the entire viewport and the testimonials read as out of sight. */
   min-height: calc(100svh - 115px);
   display: grid;
+  /* Row 1 takes the free space and centres the hero content in it; row 2 is the
+     v4 slice, sized to itself and sitting flush on the hero's bottom border. A
+     single auto row would share the slack with the slice and float the band up
+     off the edge. */
+  grid-template-rows: 1fr auto;
   align-items: center;
   /* Top padding clears the fixed (overlay) header (97px). On short viewports the
      hero grows to fit its content and pins it at this padding-top, so the demo
-     never tucks under the nav; on tall viewports the content still centers. */
-  padding: 113px 0 96px;
+     never tucks under the nav; on tall viewports the content still centers. No
+     bottom padding: the slice is the hero's bottom edge, and its own inner rail
+     carries the air the padding used to. */
+  padding: 113px 0 0;
   overflow: hidden;
   /* Hairline divider into the testimonials below, matching the testimonial
      card border color. */
@@ -254,8 +261,163 @@
   border-color: oklch(78% 0.12 82 / 0.45);
 }
 
+/* ----------------------------------------------------------------------------
+   V4 SLICE — the version announcement as a band along the hero's bottom edge
+
+   Full bleed and flush to the hero's bottom border on purpose. As a floating
+   panel it became a second object in the composition, competing with the
+   headline and the proof demo; as an edge-to-edge band it reads as chrome the
+   hero sits on top of. Nothing inside it is a card: no radius, no shadow, one
+   gold seam on top, and the content on the same rail as the headline.
+
+   It occupies the hero grid's second row (grid-template-rows: 1fr auto above),
+   so the hero's copy centres in the space that is left rather than the band
+   overlapping it on short viewports.
+
+   The fill is opaque lacquer, not frosted glass: nothing else on the site uses
+   backdrop blur, and over a photographic hero an opaque band is also the only
+   version whose contrast is knowable at every width.
+
+   The gold leaf appears once, in the 40px slab. Run across the whole band it
+   loses the leaf at this height and puts type over unpredictable facets and
+   cracks; a small chip against the oxide is where the material still reads.
+---------------------------------------------------------------------------- */
+.hero-v4-slice {
+  position: relative;
+  z-index: 2;
+  align-self: end;
+  /* The deepest lacquer step, one below the page ground, so the band reads as a
+     recessed strip the hero sits on. Gold carries the band as a seam, a chip and
+     the cue instead of as a fill: filled with --ks-kinpaku it twins the primary
+     CTA directly above it and takes the eye off the headline, and the darker gold
+     steps (rich, deep) go olive at this size. Both notes are from renders. */
+  background: var(--ks-lacquer-deep);
+  /* Gold seam on lacquer: the kintsugi pairing the brand is built on, and it
+     draws the band's top edge without making the band a panel. */
+  border-top: 1px solid color-mix(in oklab, var(--ks-kinpaku) 55%, transparent);
+  text-decoration: none;
+  /* Slides up from under the hero's bottom edge once the hero has landed. The
+     hero clips it (overflow: hidden), so the travel reads as the band arriving
+     rather than a box fading in. */
+  animation: heroV4Rise 620ms var(--ks-ease) 900ms both;
+  transition: background-color 200ms var(--ks-ease);
+}
+
+@keyframes heroV4Rise {
+  from { opacity: 0; transform: translateY(100%); }
+  to   { opacity: 1; transform: none; }
+}
+
+.hero-v4-slice:hover,
+.hero-v4-slice:focus-visible {
+  background: var(--ks-lacquer);
+  border-top-color: var(--ks-kinpaku);
+}
+
+/* The chip lights up on hover the same way the primary CTA does: vivid gold, and
+   the leaf steps back so more of it shows through. */
+.hero-v4-slice:hover .hero-v4-slice-slab,
+.hero-v4-slice:focus-visible .hero-v4-slice-slab {
+  background: var(--ks-kinpaku-vivid);
+}
+
+.hero-v4-slice:hover .hero-v4-slice-slab::before,
+.hero-v4-slice:focus-visible .hero-v4-slice-slab::before {
+  opacity: 0.42;
+}
+
+/* Same ring as .ks-button. Inset, because an offset ring on a full-bleed band
+   would draw outside the hero and get clipped. */
+.hero-v4-slice:focus-visible {
+  outline: 2px solid var(--ks-patina);
+  outline-offset: -4px;
+}
+
+/* Mirrors .hero-rebuild-container's rail so the slab lines up under the
+   headline and the cue sits on the right content edge. */
+.hero-v4-slice-inner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 9px clamp(22px, 4vw, 56px);
+  min-height: 54px;
+}
+
+/* The texture comes from .ks-leaf-face in the kit (kinpaku fill, leaf over it at
+   60%), the same face the primary CTA wears. Raw leaf at full strength read too
+   busy at this size and its cracks cut through the glyph. */
+.hero-v4-slice-slab {
+  flex: none;
+  display: grid;
+  place-items: center;
+  min-width: 40px;
+  padding: 5px 9px;
+  background: var(--ks-kinpaku);
+  border-radius: 2px;
+  transition: background-color 200ms var(--ks-ease);
+  color: var(--ks-dark-ink);
+  font-family: var(--ks-font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* One line in a thin band: the claim first, what it means beside it a step back.
+   The flex gap carries the sentence break rather than whitespace, which Astro
+   drops between </strong> and the next text node. */
+.hero-v4-slice-copy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 7px;
+  min-width: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.hero-v4-slice-copy strong {
+  color: var(--ks-champagne);
+  font-weight: 500;
+}
+
+.hero-v4-slice-copy > span {
+  color: var(--ks-text-muted);
+}
+
+.hero-v4-slice-cue {
+  flex: none;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ks-kinpaku);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hero-v4-slice-cue svg {
+  width: 15px;
+  height: 8px;
+  transition: transform 200ms var(--ks-ease);
+}
+
+.hero-v4-slice:hover .hero-v4-slice-cue svg,
+.hero-v4-slice:focus-visible .hero-v4-slice-cue svg {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-v4-slice { animation: none; }
+  .hero-v4-slice-cue svg { transition: none; }
+}
+
 @media (max-width: 1080px) {
-  .hero-rebuild { padding: 108px 0 80px; }   /* keep top clear of the fixed header */
+  .hero-rebuild { padding: 108px 0 0; }   /* keep top clear of the fixed header */
   /* minmax(0, 1fr), not 1fr: a plain 1fr track has an `auto` (min-content)
      floor, so the demo's 460px-wide browser frame held the column wider than a
      phone viewport and the hero clipped. minmax(0,…) lets it shrink and the
@@ -263,10 +425,15 @@
   .hero-rebuild-container { grid-template-columns: minmax(0, 1fr); gap: 48px; }
   .hero-rebuild-right { justify-self: stretch; max-width: 100%; }
   .home-kinpaku .hero-rebuild-right .split-container { height: 380px; }
+  /* Stacked hero: the content row now ends just above the band instead of in the
+     hero's old 80px bottom padding, so the demo would touch the hairline. Put
+     that air back on the content row, not on the hero, which would push the band
+     off the bottom edge. */
+  .hero-rebuild-container { padding-bottom: 44px; }
 }
 
 @media (max-width: 720px) {
-  .hero-rebuild { padding: 92px 0 64px; }   /* clear the compact mobile header */
+  .hero-rebuild { padding: 92px 0 0; }   /* clear the compact mobile header */
   /* Title keeps its design-system clamp (floors at 3.4rem ≈ 54px here): the
      Alumni Sans display face is narrow, so "interfaces" stays well within a
      320px+ viewport. No mobile shrink — at 54px against 16.8px body it holds a
@@ -278,6 +445,22 @@
      Collapse to logo + Book — the realistic narrow-viewport nav, and it keeps
      the hero (the picked element) as the demo's clear subject. */
   .hero-live-demo .hotel-nav-links { display: none; }
+  .hero-rebuild-container { padding-bottom: 36px; }
+  /* Phone widths: three columns in one row don't fit, and letting the band's flex
+     row wrap breaks before the copy (its max-content is wider than the row),
+     which drops the slab onto a line of its own. Two explicit grid rows instead:
+     slab beside the copy, cue under the copy on the same left edge. */
+  .hero-v4-slice-inner {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 9px 11px;
+    padding-block: 12px;
+  }
+  /* Against a copy block that wraps to three lines, a centred slab floats at the
+     middle of the band with nothing beside it. Pin it to the first line. */
+  .hero-v4-slice-slab { align-self: start; }
+  .hero-v4-slice-cue { grid-column: 2; margin-left: 0; }
 }
 
 /* ============================================================================

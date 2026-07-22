@@ -1049,6 +1049,26 @@ html.light .home-kinpaku .hero-rebuild-right .split-label-item {
   color: var(--ks-champagne);
 }
 
+/* V4 slice — the band's fill and type come from the lacquer and text tokens, so
+   the theme swap carries it to a cream strip with dark ink on its own. Two things
+   don't: the seam needs the deeper gold to read against paper, and the cue drops
+   to patina because small gold text does not hold on paper (see the token file's
+   note). The slab keeps its gold leaf in both themes; dark ink on leaf reads
+   either way. */
+html.light .hero-v4-slice {
+  border-top-color: color-mix(in oklab, var(--ks-kinpaku-deep) 70%, transparent);
+}
+
+html.light .hero-v4-slice:hover,
+html.light .hero-v4-slice:focus-visible {
+  background: var(--ks-lacquer-raised);
+  border-top-color: var(--ks-kinpaku-deep);
+}
+
+html.light .hero-v4-slice-cue {
+  color: var(--ks-link-on-paper);
+}
+
 html.light .home-kinpaku .split-badge {
   background: oklch(99% 0.008 95 / 0.92);
 }

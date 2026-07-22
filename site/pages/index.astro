@@ -81,6 +81,7 @@ import '../styles/worlds-roll.css';
           <span class="hero-rebuild-logo has-tooltip" data-tooltip="GitHub Copilot"><img src="assets/github-copilot-logo.svg" alt="GitHub Copilot" width="20" height="20" loading="lazy"></span>
           <span class="hero-rebuild-logo has-tooltip" data-tooltip="Cursor"><img src="assets/cursor-logo.png" alt="Cursor" width="22" height="22" loading="lazy"></span>
           <span class="hero-rebuild-logo has-tooltip" data-tooltip="Gemini CLI"><img src="assets/gemini-logo.png" alt="Gemini CLI" width="20" height="20" loading="lazy"></span>
+          <span class="hero-rebuild-logo has-tooltip" data-tooltip="Grok Build"><img src="assets/grok-logo.png" alt="Grok Build" width="20" height="20" loading="lazy"></span>
           <span class="hero-rebuild-logo has-tooltip" data-tooltip="Antigravity"><img src="assets/antigravity-logo.png" alt="Antigravity" width="20" height="20" loading="lazy"></span>
           <span class="hero-rebuild-logo has-tooltip" data-tooltip="OpenCode"><img src="assets/opencode-logo.png" alt="OpenCode" width="20" height="20" loading="lazy"></span>
           <span class="hero-rebuild-logo has-tooltip" data-tooltip="Pi"><img src="assets/pi-logo.svg" alt="Pi" width="20" height="20" loading="lazy"></span>
@@ -91,6 +92,28 @@ import '../styles/worlds-roll.css';
         <HeroProof />
       </div>
     </div>
+
+    <!-- Version announcement: a full-bleed slice along the hero's bottom edge,
+         not a floating panel. It reads as chrome under the composition rather
+         than a second object competing with the headline and the demo. The tiny
+         slab is the one place here that carries the gold-leaf texture at full
+         vibrancy; the band itself stays a lacquer wash, because gold type on the
+         gold-leaf hero art does not hold. -->
+    <a class="hero-v4-slice" href="/changelog">
+      <span class="hero-v4-slice-inner">
+        <span class="hero-v4-slice-slab ks-leaf-face" aria-hidden="true">v4</span>
+        <span class="hero-v4-slice-copy">
+          <strong>Version 4 is here.</strong>
+          <span>A leaner core, tuned on frontier models like Fable and GPT-5.6-Sol. Four visitor modes. Pages that commit.</span>
+        </span>
+        <span class="hero-v4-slice-cue">
+          What changed
+          <svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" aria-hidden="true">
+            <path d="M0 4h14M10 0l4 4-4 4"/>
+          </svg>
+        </span>
+      </span>
+    </a>
   </section>
 </Fragment>
 
@@ -613,7 +636,7 @@ import '../styles/worlds-roll.css';
           </div>
         </div>
 
-        <p class="downloads-rebuild-note">Works with Cursor, Claude Code, GitHub Copilot, Gemini CLI, Codex CLI, and every other major AI coding harness.</p>
+        <p class="downloads-rebuild-note">Works with Cursor, Claude Code, GitHub Copilot, Gemini CLI, Codex CLI, Grok Build, and every other major AI coding harness.</p>
 
         <p class="downloads-rebuild-secondary"><a href="/tutorials/getting-started">Read the setup guide</a> &middot; <a href="/changelog">See what's new</a> &middot; <a href="/faq">Got questions?</a></p>
       </div>
