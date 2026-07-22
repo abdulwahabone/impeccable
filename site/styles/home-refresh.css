@@ -127,14 +127,42 @@ html.light .hero-proof {
   letter-spacing: normal;
   line-height: 1;
   text-transform: none;
-  transform: translateY(-50%);
-  transition: opacity 80ms linear;
+
+  /* Revealed by the seam, not switched on.
+     ------------------------------------------------------------------
+     app.js conceals a label while `targetX >= seamX`, so a label becomes
+     valid only once the divider has swept past the thing it points at. The
+     motion says that: the tag wipes open in the direction the seam travelled
+     (left to right, since the label sits left of its target), resolving out
+     of a small blur as it lands, and the connector hairline then draws out
+     toward the target like a measurement being taken.
+
+     The wipe is a clip-path so the tag is uncovered rather than faded, which
+     is what ties it to the seam. Transitions are symmetric, so dragging back
+     the other way closes it the same way it opened.
+
+     `visibility` is in the transition list on purpose. It used to snap, which
+     cut the exit short; transitioning it holds the tag visible for the length
+     of the close and flips it at the end, keeping it out of the a11y tree and
+     off the pointer while concealed. */
+  clip-path: inset(-2px -2px -2px 0);
+  filter: blur(0);
+  transform: translateY(-50%) translateX(0);
+  transition:
+    opacity 200ms var(--ks-ease),
+    clip-path 300ms var(--ks-ease),
+    filter 220ms var(--ks-ease),
+    transform 300ms var(--ks-ease),
+    visibility 300ms;
   pointer-events: none;
 }
 
 .proof-annotation.is-concealed {
   opacity: 0;
   visibility: hidden;
+  clip-path: inset(-2px 100% -2px 0);
+  filter: blur(3px);
+  transform: translateY(-50%) translateX(-7px);
 }
 
 .proof-annotation::after {
@@ -145,6 +173,33 @@ html.light .hero-proof {
   width: 17px;
   height: 1px;
   background: var(--ks-kinpaku);
+  /* Draws from the tag toward the target, and only after the tag has landed. */
+  transform-origin: left center;
+  transform: scaleX(1);
+  transition: transform 260ms var(--ks-ease) 90ms;
+}
+
+.proof-annotation.is-concealed::after {
+  transform: scaleX(0);
+  transition-delay: 0ms;
+}
+
+/* The wipe, the blur and the connector draw are the authored part; reduced
+   motion keeps the state change and drops all of it. */
+@media (prefers-reduced-motion: reduce) {
+  .proof-annotation,
+  .proof-annotation.is-concealed {
+    clip-path: none;
+    filter: none;
+    transform: translateY(-50%);
+    transition: opacity 80ms linear;
+  }
+
+  .proof-annotation::after,
+  .proof-annotation.is-concealed::after {
+    transform: none;
+    transition: none;
+  }
 }
 
 .proof-polish--before,

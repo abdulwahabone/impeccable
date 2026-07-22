@@ -17,13 +17,18 @@ const proofs = [
         data-proof-panel={proof.id}
         hidden={index !== 0}
       >
+        {/* Every annotation ships concealed. app.js only computes the concealed
+            state for the panel that is currently visible, so a tab that has
+            never been opened would otherwise arrive with its tags already
+            revealed and animate them closed as you land on it. Starting closed
+            means the wipe only ever runs in the direction the seam travels. */}
         <div class="hero-proof-layer hero-proof-layer--before">
           <span class="hero-proof-side-label hero-proof-side-label--before">Before</span>
 
           <div class={`hero-proof-canvas hero-proof-canvas--${proof.id}`} aria-hidden="true">
             {proof.id === 'polish' && (
               <article class="proof-polish proof-polish--before">
-                <span class="proof-annotation proof-annotation--sidetab">Side-tab border</span>
+                <span class="proof-annotation proof-annotation--sidetab is-concealed">Side-tab border</span>
                 <header class="proof-polish-head">
                   <span class="proof-polish-sprint">Launch / 14</span>
                   <span class="proof-polish-pulse">
@@ -33,16 +38,16 @@ const proofs = [
                 <div class="proof-polish-body">
                   <span class="proof-polish-kicker">
                     Release planning
-                    <span class="proof-annotation">AI kicker</span>
+                    <span class="proof-annotation is-concealed">AI kicker</span>
                   </span>
                   <div class="proof-polish-heading">
                     <h3>Ship the <em>launch plan</em> by Friday.</h3>
-                    <span class="proof-annotation">Italic serif</span>
+                    <span class="proof-annotation is-concealed">Italic serif</span>
                   </div>
                   <p>Owners, dependencies, and decisions in one view.</p>
                   <div class="proof-polish-progress"><i></i></div>
                   <footer><span>8 of 11 decisions closed</span><b>Review plan →</b></footer>
-                  <span class="proof-annotation proof-annotation--surface">AI beige</span>
+                  <span class="proof-annotation proof-annotation--surface is-concealed">AI beige</span>
                 </div>
               </article>
             )}
@@ -53,7 +58,7 @@ const proofs = [
                   <strong>Analytics overview</strong>
                   <span class="proof-distill-live">
                     Live
-                    <span class="proof-annotation">Status-chip soup</span>
+                    <span class="proof-annotation is-concealed">Status-chip soup</span>
                   </span>
                 </header>
                 <div class="proof-distill-grid">
@@ -61,11 +66,11 @@ const proofs = [
                   <div><small>Orders</small><b>1,248</b><i>+8%</i></div>
                   <div><small>Visitors</small><b>18.4k</b><i>+21%</i></div>
                   <div><small>Conversion</small><b>3.8%</b><i>+4%</i></div>
-                  <span class="proof-annotation">Everything equal</span>
+                  <span class="proof-annotation is-concealed">Everything equal</span>
                 </div>
                 <div class="proof-distill-nested">
                   <span>Weekly performance</span><div><i></i><i></i><i></i></div>
-                  <span class="proof-annotation">Cards in cards</span>
+                  <span class="proof-annotation is-concealed">Cards in cards</span>
                 </div>
               </article>
             )}
@@ -75,15 +80,15 @@ const proofs = [
                 <header><span>Get started</span><small>All fields required</small></header>
                 <div class="proof-clarify-heading">
                   <h3>Unlock your potential today</h3>
-                  <span class="proof-annotation">Vague headline</span>
+                  <span class="proof-annotation is-concealed">Vague headline</span>
                 </div>
                 <div class="proof-clarify-fields">
                   <i>Acme Labs</i><i>Product lead</i><i>Activation</i><i>This quarter</i>
-                  <span class="proof-annotation">Too many fields</span>
+                  <span class="proof-annotation is-concealed">Too many fields</span>
                 </div>
                 <span class="proof-clarify-cta">
                   Continue
-                  <span class="proof-annotation">Generic CTA</span>
+                  <span class="proof-annotation is-concealed">Generic CTA</span>
                 </span>
               </article>
             )}
