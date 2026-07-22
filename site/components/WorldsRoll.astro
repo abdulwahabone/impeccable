@@ -38,7 +38,11 @@ const cardsBase = (import.meta.env.PROD || hasLocalCards)
     <div class="worlds-hand-zone">
       <div class="worlds-zone-head">
         <span class="worlds-zone-label">01 &middot; Imagine</span>
+        {/* Reproduction key first, control last: the button anchors to the
+            right edge of the hand and the key fills the slack, so the die is
+            always in the same place no matter how long the key runs. */}
         <div class="worlds-deck-controls">
+          <span class="worlds-roll-meta" data-worlds-meta aria-hidden="true"></span>
           <button type="button" class="worlds-reroll" data-worlds-reroll disabled>
             <svg viewBox="0 0 24 24" aria-hidden="true" class="worlds-reroll-die">
               <rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/>
@@ -50,7 +54,6 @@ const cardsBase = (import.meta.env.PROD || hasLocalCards)
             </svg>
             <span>Deal again</span>
           </button>
-          <span class="worlds-roll-meta" data-worlds-meta aria-hidden="true"></span>
         </div>
       </div>
       <ul class="worlds-hand" data-worlds-hand aria-label="Six worlds dealt from the rated pool"></ul>

@@ -280,6 +280,9 @@
 .worlds-reroll {
 	display: inline-flex;
 	align-items: center;
+	/* Never give up width to the reproduction key beside it; the key ellipses
+	   instead. */
+	flex: none;
 	gap: 8px;
 	padding: 7px 14px;
 	font-family: var(--ks-mono);
@@ -316,6 +319,11 @@
 }
 
 .worlds-roll-meta {
+	/* Takes the slack between the label and the control, and truncates rather
+	   than pushing the die off the right edge. */
+	flex: 1 1 auto;
+	min-width: 0;
+	text-align: right;
 	overflow: hidden;
 	font-family: var(--ks-mono);
 	font-size: 0.625rem;
