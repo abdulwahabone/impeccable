@@ -237,6 +237,18 @@ import '../styles/changelog-faq-kinpaku.css';
       </ul>
     </article>
 
+    <article id="cli-v3.3.1" class="cf-entry">
+      <header class="cf-entry-head"><span class="cf-version">CLI v3.3.1</span><span class="cf-date">July 22, 2026</span></header>
+      <p class="cf-entry-lead">A hotfix for global installs, plus a gentler em dash rule.</p>
+      <ul class="cf-items">
+        <li>User-level installs no longer write project-relative hook paths that crash every turn in other projects; hooks are guarded so a missing file exits quietly instead of breaking your session.</li>
+        <li><code>skills update</code> names the install it is about to touch, honors <code>--user</code> and <code>--project</code>, and asks instead of silently picking when both exist.</li>
+        <li>The em dash rule is now advisory: reported separately, never counted as a failure, skipped by hooks by default, and it only fires on genuine saturation. It also counts HTML entities, so encoded dashes no longer slip past.</li>
+        <li>New rule: undersized-ui-text flags functional text below an 11px floor, even when the size is on the documented ramp. 59 rules total.</li>
+        <li><code>detect</code> resolves DESIGN.md from each scan target's own project, not the directory you ran it from.</li>
+      </ul>
+    </article>
+
     <article id="cli-v3.3.0" class="cf-entry">
       <header class="cf-entry-head"><span class="cf-version">CLI v3.3.0</span><span class="cf-date">July 21, 2026</span></header>
       <p class="cf-entry-lead">The detector reaches 58 rules and learns where each product lives.</p>
