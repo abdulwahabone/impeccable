@@ -1,0 +1,63 @@
+# Deploys impeccable.pro on every push to main.
+#
+# Why a workflow instead of connecting the Pages project to the repo: Pages
+# resolves the functions/ directory relative to the project's configured root
+# directory, and there is no setting to point it somewhere else. With root "/"
+# the impeccable.pro deployment would pick up the main site's functions/ (the
+# roll API and downloads) and never see pro/functions/, so /api/waitlist would
+# not exist. With root "pro" the functions are right but there is no package.json
+# there to install from.
+#
+# `wrangler pages deploy --cwd pro` sidesteps both: pro/ becomes the project root
+# for the deploy, so pro/functions/ and pro/wrangler.toml are what get used. That
+# is the same command `bun run deploy:pro` runs locally, so CI and a local deploy
+# cannot drift.
+#
+# Do NOT also connect this project to the repository in the Cloudflare dashboard.
+# Both would build on the same push and race each other.
+#
+# Required repository secrets:
+#   CLOUDFLARE_API_TOKEN   token with Cloudflare Pages: Edit on the account
+#   CLOUDFLARE_ACCOUNT_ID  a1c235a1d94ce25c22fb40ead4a2a617
+
+name: Deploy impeccable.pro
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# No paths filter on purpose. The flagship world list is baked into the page at
+# build time from catalog/, and the page also imports site/styles and
+# site/components/Footer.astro, so a filter narrow enough to be useful would miss
+# edits that genuinely change what ships. A redeploy is cheap; a stale deck is
+# confusing.
+
+concurrency:
+  group: deploy-pro
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build the Pro site
+        run: bun run build:pro
+
+      # --branch main marks this as a production deployment explicitly rather
+      # than relying on branch inference from the checkout.
+      - name: Deploy to Cloudflare Pages
+        run: bunx wrangler pages deploy --cwd pro --branch main
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
