@@ -30,6 +30,8 @@
  *     }, ...
  *   ],
  *   "reroll": true,          // adds a re-roll action (returns {"optionId":"reroll"})
+ *   "canon": true,           // adds the quiet "Play it straight" standing exit
+ *                            // (returns {"optionId":"canon"}); direction rounds only
  *   "steer": true            // adds a free-text steer field returned with any answer
  * }
  *
@@ -93,6 +95,24 @@ if (wantsBrowser && !process.env.IMPECCABLE_QUESTION_FORCE) {
   }
 }
 
+// Both answer channels (blocking stdout and --wait collection) print through
+// this: the ANSWER line, then a directive to open the chosen card's imagery
+// when it has any. The card viewing happens at the moment of choice, in the
+// working turn, because a build that never reopens the chosen world's board
+// and hero calibrates on nothing.
+function printAnswer(raw) {
+  console.log(`ANSWER: ${raw}`);
+  try {
+    const a = JSON.parse(raw);
+    if (a.hero || a.board) {
+      console.log("CHOSEN CARD: open the chosen world's board and hero images now, before any code (download local copies first when your harness only reads files); they set the craft bar the build must reach.");
+    }
+    if (a.optionId === 'canon') {
+      console.log('CANON CHOSEN: the user picked the category standard on purpose. Ask once for two or three products this should sit alongside; their craft level becomes the quality bar. Execute the canon at full commitment, conventions embraced without irony or smuggled quirk.');
+    }
+  } catch { /* raw answer */ }
+}
+
 const payloadPath = arg('payload');
 const timeoutSec = Number(arg('timeout', '900'));
 const portArg = Number(arg('port', '0'));
@@ -109,9 +129,10 @@ if (hasFlag('schema')) {
       { id: 'challenger-teletext', label: 'Teletext Service', lineage: 'broadcast teletext magazines', body: 'Fused alternate.', hero: 'https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp' },
     ],
     reroll: true,
+    canon: true,
     steer: true,
   }, null, 2));
-  console.log('\nOption ids return verbatim in ANSWER; "reroll" is reserved. hero/board accept URLs or local paths.');
+  console.log('\nOption ids return verbatim in ANSWER; "reroll" and "canon" are reserved. hero/board accept URLs or local paths. canon adds a quiet standing "Play it straight" action for direction decisions: the user\'s explicit door to the category standard. Include it only for visual-direction rounds; never present canon as your own recommendation.');
   process.exit(0);
 }
 
@@ -144,7 +165,7 @@ if (hasFlag('wait')) {
   }
   if (!answered()) { console.log(`WAITING: no answer yet after ${pollSec}s; run --wait --key ${key} again`); process.exit(3); }
   const collected = fs.readFileSync(answerFile(key), 'utf8').trim();
-  console.log(`ANSWER: ${collected}`);
+  printAnswer(collected);
   // A re-roll keeps the table open: the server stays alive awaiting --update,
   // so only the answer file is consumed. Terminal choices clean up fully.
   let isRerollAnswer = false;
@@ -242,12 +263,12 @@ function page() {
   const cards = options.map((option, index) => `
     <article class="card" style="--fan:${index === 0 ? '0deg' : (index % 2 ? '1.4deg' : '-1.2deg')};--deal:${index * 90}ms" data-id="${esc(option.id)}">
       <div class="card-inner">
-        <div class="face front${index === 0 ? ' lead' : ''}">
+        <div class="face front${index === 0 ? ' lead' : ''}${option.heroSrc || option.boardSrc ? '' : ' text-only'}">
           ${option.kicker ? `<span class="kicker">${esc(option.kicker)}</span>` : ''}
-          <div class="media">
-            ${option.heroSrc ? `<img src="${esc(option.heroSrc)}" alt="">` : '<div class="hero-blank"></div>'}
-            <div class="chips">${option.heroSrc ? expandChip : ''}${option.boardSrc ? flipChip('Board') : ''}</div>
-          </div>
+          ${option.heroSrc || option.boardSrc ? `<div class="media">
+            <img src="${esc(option.heroSrc || option.boardSrc)}" alt="">
+            <div class="chips">${expandChip}${option.boardSrc && option.heroSrc ? flipChip('Board') : ''}</div>
+          </div>` : ''}
           <div class="body">
             ${option.lineage ? `<p class="tier">${esc(option.lineage)}</p>` : ''}
             <h2>${esc(option.label)}</h2>
@@ -255,7 +276,7 @@ function page() {
             <button class="choose" data-id="${esc(option.id)}">Build this</button>
           </div>
         </div>
-        ${option.boardSrc ? `<div class="face back${index === 0 ? ' lead' : ''}">
+        ${option.boardSrc && option.heroSrc ? `<div class="face back${index === 0 ? ' lead' : ''}">
           <div class="media back-media">
             <img src="${esc(option.boardSrc)}" alt="">
             <div class="chips">${expandChip}${flipChip('Hero')}</div>
@@ -328,6 +349,10 @@ function page() {
   .card:hover .face.lead { border-color: var(--ks-kinpaku); }
   @media (prefers-reduced-motion: reduce) { .card-inner { transition: none; } }
   .kicker { position: absolute; z-index: 2; top: 12px; left: 12px; padding: 4px 10px; background: var(--ks-kinpaku); color: var(--ks-dark-ink); font-family: var(--ks-mono); font-size: .625rem; letter-spacing: .24em; text-transform: uppercase; border-radius: 4px; }
+  /* Text-only card: a grounded direction with no rendered card drops the media
+     region entirely instead of reserving a blank 16:9 void. */
+  .face.text-only .kicker { position: static; align-self: flex-start; margin: 14px 0 0 14px; }
+  .face.text-only .body { padding-top: 12px; }
   .media { position: relative; width: 100%; aspect-ratio: 16/9; flex: none; }
   .media img { width: 100%; height: 100%; object-fit: cover; display: block; background: linear-gradient(100deg, var(--ks-graphite) 40%, var(--ks-graphite-2) 50%, var(--ks-graphite) 60%); }
   .face.back { background: var(--ks-lacquer-deep); }
@@ -350,6 +375,11 @@ function page() {
   #reroll { display: inline-flex; align-items: center; align-self: stretch; gap: 8px; padding: 0 16px; font-family: var(--ks-mono); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ks-kinpaku); background: transparent; border: 1px solid var(--ks-rule); border-radius: 6px; cursor: pointer; transition: border-color .2s ease, color .2s ease; }
   #reroll:hover { color: var(--ks-kinpaku-pale); border-color: var(--ks-kinpaku-deep); }
   #reroll svg { width: 15px; height: 15px; }
+  /* The quiet exit: always available, never argued with, visually subordinate
+     to the dealt cards and the re-roll so it reads as the user's own door,
+     not a recommendation. */
+  #canon { align-self: center; padding: 0 4px; font-family: var(--ks-mono); font-size: .66rem; letter-spacing: .08em; text-transform: uppercase; color: inherit; opacity: .45; background: transparent; border: none; border-bottom: 1px dotted currentColor; cursor: pointer; transition: opacity .2s ease; }
+  #canon:hover { opacity: .85; }
   .card.skeleton .media { background: var(--ks-graphite); }
   .shimmer { width: 100%; height: 100%; background: linear-gradient(100deg, var(--ks-graphite) 35%, var(--ks-graphite-2) 50%, var(--ks-graphite) 65%); background-size: 220% 100%; animation: shimmer 1.4s linear infinite; }
   .card.skeleton .line { height: 11px; border-radius: 4px; background: linear-gradient(100deg, var(--ks-graphite) 35%, var(--ks-graphite-2) 50%, var(--ks-graphite) 65%); background-size: 220% 100%; animation: shimmer 1.4s linear infinite; }
@@ -384,6 +414,7 @@ function page() {
 <footer>
   ${payload.steer ? '<input id="steer" placeholder="Optional steer: what should be different or kept?">' : ''}
   ${payload.reroll ? '<button id="reroll"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8.4" cy="8.4" r="1.5" fill="currentColor"/><circle cx="15.6" cy="8.4" r="1.5" fill="currentColor"/><circle cx="8.4" cy="15.6" r="1.5" fill="currentColor"/><circle cx="15.6" cy="15.6" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg><span>Re-roll</span></button>' : ''}
+  ${payload.canon ? '<button id="canon" title="Skip the roll: build the page this category ships, executed impeccably">Play it straight</button>' : ''}
 </footer>
 <script>
   const steer = () => document.getElementById('steer')?.value || '';
@@ -454,6 +485,7 @@ function page() {
   const closeLightbox = () => { lightbox.classList.remove('open'); setTimeout(() => { lightbox.hidden = true; }, 250); };
   lightbox.addEventListener('click', closeLightbox);
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !lightbox.hidden) closeLightbox(); });
+  document.getElementById('canon')?.addEventListener('click', () => answer('canon'));
   document.getElementById('reroll')?.addEventListener('click', async () => {
     await fetch('/answer', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ optionId: 'reroll', steer: steer() }) });
     const grid = document.querySelector('.grid');
@@ -518,7 +550,11 @@ const server = http.createServer((req, res) => {
   if (imageMatch) {
     const abs = localImages[Number(imageMatch[1])];
     if (!abs) { res.writeHead(404); res.end(); return; }
-    const type = abs.endsWith('.webp') ? 'image/webp' : abs.endsWith('.png') ? 'image/png' : 'image/jpeg';
+    const type = abs.endsWith('.webp') ? 'image/webp'
+      : abs.endsWith('.png') ? 'image/png'
+      : abs.endsWith('.svg') ? 'image/svg+xml'
+      : abs.endsWith('.gif') ? 'image/gif'
+      : 'image/jpeg';
     res.writeHead(200, { 'content-type': type });
     fs.createReadStream(abs).pipe(res);
     return;
@@ -531,13 +567,18 @@ const server = http.createServer((req, res) => {
       res.end('{"ok":true}');
       let parsed = {};
       try { parsed = JSON.parse(body); } catch { /* empty steer */ }
-      const answer = JSON.stringify({ optionId: parsed.optionId ?? null, steer: parsed.steer ?? '' });
+      const chosen = options.find((o) => o.id === parsed.optionId);
+      const answer = JSON.stringify({
+        optionId: parsed.optionId ?? null,
+        steer: parsed.steer ?? '',
+        ...(chosen?.hero || chosen?.board ? { hero: chosen.hero ?? null, board: chosen.board ?? null } : {}),
+      });
       const isReroll = parsed.optionId === 'reroll';
       if (detachedKey) {
         fs.mkdirSync(QUESTION_DIR, { recursive: true });
         fs.writeFileSync(answerFile(detachedKey), answer + '\n');
       } else {
-        console.log(`ANSWER: ${answer}`);
+        printAnswer(answer);
       }
       // A re-roll in detached mode keeps the table open: the client shows a
       // loading hand and reloads when --update delivers the next round.

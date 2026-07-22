@@ -1195,21 +1195,52 @@ function hookScriptPathForProvider(skillRoot, provider) {
   return null;
 }
 
-function rewriteHookCommandsForSkillRoot(value, provider, skillRoot) {
+// Wrap a `node "PATH"` hook command so a missing skill file is a silent no-op
+// (exit 0) instead of a Node module-resolution crash. hook.mjs promises to
+// "never break a turn. Always exit 0.", but that only holds once Node can load
+// the file; a stale/missing path crashes before any of that logic runs. The
+// `[ ! -f X ] || node X` form (NOT `... || true`) preserves Node's own exit
+// code when the file exists, so Claude's exit-2 blocking signal still reaches
+// the agent. POSIX-shell form, consistent with the project's other hook
+// commands (e.g. the GitHub manifest's `$(git rev-parse ...)`).
+function guardHookCommand(quotedPath) {
+  return `[ ! -f ${quotedPath} ] || node ${quotedPath}`;
+}
+
+// Transform bundled hook commands for the actual install target:
+//   * absolute — rewrite the (marker) command to the resolved absolute skill
+//     path. Required when the manifest is a user/global file (~/.claude/
+//     settings.local.json) that fires in EVERY project, so ${CLAUDE_PROJECT_DIR}
+//     would resolve per-project to dirs without a skill copy (issue #399); also
+//     when a project hook points at a skill installed elsewhere (--scope=global).
+//   * otherwise — keep the bundle's own ${CLAUDE_PROJECT_DIR}-relative path,
+//     which correctly resolves for a project-scoped install.
+// Either way the command is wrapped with the missing-file guard.
+function rewriteHookCommandsForSkillRoot(value, provider, { skillRoot, absolute }) {
   const hookScript = hookScriptPathForProvider(skillRoot, provider);
+  // Providers we don't own a `node "PATH"` command hook for (.github, .grok)
+  // carry their own portable command forms; leave them untouched.
   if (!hookScript) return value;
 
   if (typeof value === 'string') {
-    if (valueHasImpeccableHookMarker(value)) return `node ${JSON.stringify(hookScript)}`;
-    return value;
+    if (!valueHasImpeccableHookMarker(value)) return value;
+    let quotedPath;
+    if (absolute) {
+      quotedPath = JSON.stringify(hookScript);
+    } else {
+      // Preserve the bundle's own path token (e.g. ${CLAUDE_PROJECT_DIR}/...).
+      const match = value.match(/"([^"]+)"/);
+      quotedPath = match ? JSON.stringify(match[1]) : JSON.stringify(hookScript);
+    }
+    return guardHookCommand(quotedPath);
   }
   if (Array.isArray(value)) {
-    return value.map(item => rewriteHookCommandsForSkillRoot(item, provider, skillRoot));
+    return value.map(item => rewriteHookCommandsForSkillRoot(item, provider, { skillRoot, absolute }));
   }
   if (value && typeof value === 'object') {
     const next = {};
     for (const [key, child] of Object.entries(value)) {
-      next[key] = rewriteHookCommandsForSkillRoot(child, provider, skillRoot);
+      next[key] = rewriteHookCommandsForSkillRoot(child, provider, { skillRoot, absolute });
     }
     return next;
   }
@@ -1391,9 +1422,14 @@ function copyProviderHooks(bundleDir, root, providers, { force = false, skillRoo
       }
 
       const freshManifest = readJsonFile(src, 'Bundled hook manifest');
-      const fresh = skillRoot === root
-        ? freshManifest
-        : rewriteHookCommandsForSkillRoot(freshManifest, provider, skillRoot);
+      // Rewrite to an absolute skill path when the skill lives elsewhere than
+      // this manifest's root (--scope=global project hook) OR when the manifest
+      // itself is a user/global file. A global settings file fires in every
+      // project, so ${CLAUDE_PROJECT_DIR} there crashes Node wherever no local
+      // skill copy exists (issue #399); the resolved absolute path is correct
+      // for the one global skill it targets.
+      const absolute = skillRoot !== root || isHomeDir(root);
+      const fresh = rewriteHookCommandsForSkillRoot(freshManifest, provider, { skillRoot, absolute });
       let next = fresh;
 
       if (existsSync(dest)) {
@@ -1741,6 +1777,67 @@ function findInstalledProviders(root, scope) {
   return found;
 }
 
+// Like findInstalledProviders, but only counts a provider whose skills dir
+// actually holds the IMPECCABLE skill (canonical, prefixed, or legacy teach-).
+// `update` uses this so it never mistakes a repo that vendors OTHER first-party
+// skills under .claude/skills for an impeccable install and drops a copy in
+// (issue #399, part 2).
+function findImpeccableProviders(root, scope) {
+  const found = [];
+  for (const d of PROVIDER_DIRS) {
+    for (const skillsDir of existingSkillsDirs(root, d, scope)) {
+      let entries;
+      try { entries = readdirSync(skillsDir); } catch { continue; }
+      if (entries.some(e =>
+        e === 'impeccable' || e.endsWith('-impeccable') ||
+        e === 'teach-impeccable' || e.endsWith('-teach-impeccable')
+      )) {
+        found.push(d);
+        break;
+      }
+    }
+  }
+  return found;
+}
+
+// Resolve which install `skills update` should refresh: project-level (the CWD's
+// git root) or user-level (~/.claude etc.). Returns a plain descriptor; the
+// caller handles the interactive both-exist prompt via `ambiguous`.
+function resolveUpdateTarget({ projectRoot, home, explicitScope }) {
+  // A home-rooted repo (a dotfiles checkout at $HOME) overlaps project and user
+  // installs under one root; keep the historical unscoped scan so overlapping
+  // layouts (e.g. Pi's ~/.pi/skills and ~/.pi/agent/skills) both refresh.
+  const homeRooted = isHomeDir(projectRoot);
+  if (homeRooted && !explicitScope) {
+    const providers = findInstalledProviders(home);
+    return providers.length ? { root: home, scope: undefined, providers, scopeLabel: 'user level' } : null;
+  }
+
+  const projectProviders = homeRooted ? [] : findImpeccableProviders(projectRoot, 'project');
+  const userProviders = findImpeccableProviders(home, 'user');
+
+  if (explicitScope === 'user') {
+    return userProviders.length
+      ? { root: home, scope: 'user', providers: userProviders, scopeLabel: 'user level' }
+      : null;
+  }
+  if (explicitScope === 'project') {
+    return projectProviders.length
+      ? { root: projectRoot, scope: 'project', providers: projectProviders, scopeLabel: 'this project' }
+      : null;
+  }
+  if (projectProviders.length && userProviders.length) {
+    return { ambiguous: true, projectRoot, home, projectProviders, userProviders };
+  }
+  if (projectProviders.length) {
+    return { root: projectRoot, scope: 'project', providers: projectProviders, scopeLabel: 'this project' };
+  }
+  if (userProviders.length) {
+    return { root: home, scope: 'user', providers: userProviders, scopeLabel: 'user level' };
+  }
+  return null;
+}
+
 function findLinkedProviders(root, providers, scope) {
   return providers.filter(provider => {
     for (const skillsDir of providerSkillsDirCandidates(root, provider, scope)) {
@@ -1800,20 +1897,55 @@ async function update(flags = []) {
   const yes = flags.includes('-y') || flags.includes('--yes');
   const force = flags.includes('--force');
   const installHooks = !flags.includes('--no-hooks');
+  const scopeValue = getInstallScopeValue(flags);
+  const explicitScope = normalizeInstallScope(scopeValue);
+  if (scopeValue && !explicitScope) {
+    console.error(`Unknown update scope: ${scopeValue}. Use --project or --user.`);
+    process.exit(1);
+  }
 
   // Download the latest skills directly from impeccable.style.
   // We skip `npx skills update` because it has a known upstream bug
   // (vercel-labs/skills#775) where it can't find the lock file.
-  const root = findProjectRoot();
-  const providers = findInstalledProviders(root);
-  const linkedProviders = findLinkedProviders(root, providers);
-  const copyProviders = providers.filter(provider => !linkedProviders.includes(provider));
+  const projectRoot = findProjectRoot();
+  const home = homedir();
 
-  if (providers.length === 0) {
-    console.log('No impeccable skill folders found in this project.');
+  let target = resolveUpdateTarget({ projectRoot, home, explicitScope });
+  if (!target) {
+    if (explicitScope) {
+      const where = explicitScope === 'user' ? `user level (${formatPathForDisplay(home)})` : `this project (${projectRoot})`;
+      console.log(`No impeccable skill folders found at the ${where}.`);
+    } else {
+      console.log('No impeccable skill folders found in this project or at the user level.');
+    }
     console.log('Run `npx impeccable install` to install first.');
     process.exit(1);
   }
+
+  // Both a project and a user-level install exist and no scope was given. Never
+  // silently pick (issue #399, part 2): prompt when interactive, else default to
+  // the project and say how to target the other.
+  if (target.ambiguous) {
+    console.log('Impeccable is installed both here and at the user level:');
+    console.log(`  project    ${projectRoot}  (${target.projectProviders.join(', ')})`);
+    console.log(`  user level ${formatPathForDisplay(home)}  (${target.userProviders.join(', ')})`);
+    let pickUser = false;
+    if (!yes && process.stdin.isTTY) {
+      const ans = await ask('Update which? [project]/user: ');
+      pickUser = ['user', 'u', 'global', 'home'].includes(ans);
+    } else {
+      console.log('Defaulting to the project. Re-run with --user to update the user-level install instead.');
+    }
+    target = pickUser
+      ? { root: home, scope: 'user', providers: target.userProviders, scopeLabel: 'user level' }
+      : { root: projectRoot, scope: 'project', providers: target.projectProviders, scopeLabel: 'this project' };
+  }
+
+  const { root, scope } = target;
+  console.log(`Updating the ${target.scopeLabel} install: ${formatPathForDisplay(root)} (${target.providers.join(', ')})`);
+  const providers = target.providers;
+  const linkedProviders = findLinkedProviders(root, providers, scope);
+  const copyProviders = providers.filter(provider => !linkedProviders.includes(provider));
 
   if (linkedProviders.length > 0) {
     console.log(`Linked skills found in: ${linkedProviders.join(', ')}`);
@@ -1833,12 +1965,12 @@ async function update(flags = []) {
   }
 
   // Compare local vs remote -- skip if already up to date
-  if (isUpToDate(root, copyProviders, tmpDir)) {
+  if (isUpToDate(root, copyProviders, tmpDir, scope)) {
     try {
       const wantHooks = installHooks && await decideHookInstall(root, copyProviders, { yes });
       const hookTargets = wantHooks ? copyProviderHooks(tmpDir, root, copyProviders, { force }) : [];
       rmSync(tmpDir, { recursive: true, force: true });
-      const v = getSkillsVersion(root);
+      const v = getSkillsVersion(root, scope);
       console.log(`Skills are up to date${v ? ` (v${v})` : ''}.`);
       if (hookTargets.length > 0) console.log(`Installed hooks into: ${hookTargets.join(', ')}`);
       console.log('Nothing else to do.');
@@ -1865,16 +1997,16 @@ async function update(flags = []) {
 
     // Retire any old `i-`-prefixed install up front so the refresh lands on the
     // canonical `impeccable` dir rather than orphaning the prefixed copy.
-    const migrated = migrateUnprefixImpeccable(root);
+    const migrated = migrateUnprefixImpeccable(root, scope);
     if (migrated > 0) console.log('Migrated a prefixed install back to /impeccable (the i- prefix is no longer used).');
 
-    const updated = refreshProviderSkills(tmpDir, root, copyProviders);
+    const updated = refreshProviderSkills(tmpDir, root, copyProviders, scope);
     const wantHooks = installHooks && await decideHookInstall(root, providers, { yes });
     const hookTargets = wantHooks ? copyProviderHooks(tmpDir, root, providers, { force }) : [];
 
     rmSync(tmpDir, { recursive: true, force: true });
 
-    const v = getSkillsVersion(root);
+    const v = getSkillsVersion(root, scope);
     console.log(`Updated ${updated} skill(s)${v ? ` to v${v}` : ''}.`);
     if (hookTargets.length > 0) console.log(`Installed hooks into: ${hookTargets.join(', ')}`);
     console.log('Done!\n');

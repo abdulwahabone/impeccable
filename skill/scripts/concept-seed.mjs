@@ -79,6 +79,13 @@ const here = dirname(fileURLToPath(import.meta.url));
 const CATALOG_DIR = process.env.IMPECCABLE_CATALOG_DIR || here;
 const API_BASE = (process.env.IMPECCABLE_API_URL || 'https://impeccable.style/api').replace(/\/$/, '');
 const API_TIMEOUT_MS = Number(process.env.IMPECCABLE_API_TIMEOUT || 4000);
+// All API calls in one seed run share a single deadline so an unreachable
+// network degrades after one timeout total, never one timeout per call.
+let apiDeadline = null;
+function apiBudgetMs() {
+  if (apiDeadline === null) apiDeadline = Date.now() + API_TIMEOUT_MS;
+  return Math.max(0, apiDeadline - Date.now());
+}
 
 const localStates = new Map();
 function loadLocal(catalogDir = CATALOG_DIR) {
@@ -120,9 +127,15 @@ async function fetchRoll({ scope, key, mode, reroll }) {
   const params = new URLSearchParams({ scope, key, reroll: String(reroll) });
   if (mode) params.set('mode', mode);
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), apiBudgetMs());
   try {
-    const response = await fetch(`${API_BASE}/roll?${params}`, { signal: controller.signal });
+    // Race the budget explicitly: abort signals do not reliably cancel the
+    // TCP connect phase, so a blackholed route would otherwise stall ~10s.
+    const response = await Promise.race([
+      fetch(`${API_BASE}/roll?${params}`, { signal: controller.signal }),
+      new Promise(resolveTimeout => setTimeout(() => resolveTimeout(null), apiBudgetMs())),
+    ]);
+    if (!response) return null;
     if (!response.ok) return null;
     const roll = await response.json();
     if (!Array.isArray(roll.challengers) || roll.challengers.length === 0) return null;
@@ -143,7 +156,7 @@ function telemetryDisabled() {
 export async function pingChosen({ chosenId, key, scope, mode }) {
   if (telemetryDisabled() || !chosenId) return false;
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), API_TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), apiBudgetMs());
   try {
     await fetch(`${API_BASE}/chosen`, {
       method: 'POST',
@@ -445,7 +458,10 @@ ASSIGNED INDEX: ${buildIndex}
   The assignment exists to refuse the model's ranking rut, never to outrank
   the user or the brief. Never expose assignment metadata in user-facing labels.
 No challengers this run: the roll service was unreachable and no local
-catalog exists. Proceed with the grounded candidates alone; the assignment
+catalog exists. A sandboxed shell without network egress is the most common
+cause: if this harness can rerun the command with network access granted,
+do that once before proceeding. Otherwise proceed with the grounded
+candidates alone; the assignment
 above still applies at full strength. Tell the user plainly that this roll
 ran degraded, with no challengers and no quality-bar boards; do not present
 the outcome as a full roll. A degraded roll changes the cards, not the
@@ -543,4 +559,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     process.stderr.write(`${error instanceof Error ? error.message : String(error)}\n`);
     process.exitCode = 1;
   }
+  // A raced-out fetch may still hold a socket; exit explicitly so the CLI
+  // never lingers on a dead network path after output is written.
+  process.exit(process.exitCode ?? 0);
 }
