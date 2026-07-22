@@ -111,6 +111,17 @@
 }
 .cf-items a:hover { color: var(--ks-patina-pale); }
 
+/* Group label inside a large release, so a dozen items read as four themes
+   rather than one wall. */
+.cf-group {
+  margin: 22px 0 10px;
+  font-family: var(--ks-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ks-kinpaku);
+}
+
 .cf-entry {
   margin: 0 0 22px;
   padding: 20px 24px;
@@ -209,11 +220,52 @@
   background: oklch(78% 0.12 82 / 0.14);
   border: 1px solid oklch(78% 0.12 82 / 0.4);
 }
-.cf-ba figcaption {
+.cf-ba figcaption,
+.cf-cards figcaption {
   margin-top: 12px;
   color: var(--ks-text-muted);
   font-size: 0.86rem;
   line-height: 1.55;
+}
+
+/* Dealt hand — real world cards straight off the roll, three across. */
+.cf-cards {
+  margin: 0 0 22px;
+}
+.cf-cards-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.cf-cards-row--pair { grid-template-columns: 1fr 1fr; }
+@media (max-width: 640px) {
+  .cf-cards-row { grid-template-columns: 1fr; }
+}
+.cf-card {
+  position: relative;
+  border: 1px solid var(--ks-rule);
+  border-radius: 5px;
+  overflow: hidden;
+  background: oklch(8% 0.006 95);
+}
+.cf-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* The strip always sits on its own dark scrim over the card art, so its
+   colors are fixed rather than themed: the light-mode champagne token is a
+   near-black and would disappear here. */
+.cf-card-name {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 34px 12px 9px;
+  font-family: var(--ks-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: oklch(95% 0.012 88);
+  background: linear-gradient(to top, oklch(8% 0.006 95 / 0.96) 40%, transparent);
 }
 
 /* Stat row — three big numbers from the bias-mining sweep. */
@@ -258,6 +310,12 @@
   font-size: 0.78rem;
   line-height: 1.5;
 }
+.cf-stats-note a {
+  color: var(--ks-patina);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.cf-stats-note a:hover { color: var(--ks-patina-pale); }
 
 /* ============================================================================
    FAQ

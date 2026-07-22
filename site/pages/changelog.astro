@@ -25,13 +25,86 @@ import '../styles/changelog-faq-kinpaku.css';
 
     <article id="v4.0.0" class="cf-entry cf-entry--current">
       <header class="cf-entry-head"><span class="cf-version">v4.0.0</span><span class="cf-date">July 21, 2026</span><span class="cf-current-badge">Current</span></header>
-      <p class="cf-entry-lead">The largest release since launch. One-shot design gets its quality from a roll the model cannot rig, backed by a reviewed deck of 185 visual worlds and rendered cards that set the craft bar before a line of code is written.</p>
+      <p class="cf-entry-lead">Ask a coding model to be creative and it builds its favorite idea, every run. A campaign of measurement showed that is not a shortage of creativity but a shortage of variance, and v4 is the fix: the direction now gets rolled from outside the model's own ranking, so greenfield builds, redesigns, and extensions land somewhere it would not have reached alone.</p>
+
+      <figure class="cf-cards">
+        <div class="cf-cards-row">
+          <div class="cf-card">
+            <img src="/worlds/cards/dubois-data-portraits-hero.webp" alt="A world card rendered as a dark hero page: cream and red hand-drawn charts, a spiral labor diagram, and the headline See history as data." loading="lazy" width="2048" height="1152" />
+            <span class="cf-card-name">Dubois Data Portraits</span>
+          </div>
+          <div class="cf-card">
+            <img src="/worlds/cards/signals-instruments-split-flap-concourse-hero.webp" alt="A world card rendered as a hero page built from a split-flap departure board, with amber status rows over a photograph of a station concourse." loading="lazy" width="2048" height="1152" />
+            <span class="cf-card-name">Split Flap Concourse</span>
+          </div>
+          <div class="cf-card">
+            <img src="/worlds/cards/posters-covers-sleeves-saul-bass-title-hero.webp" alt="A world card rendered as a hero page in cut-paper style: an orange field, a black reaching hand, and the headline Stories move people." loading="lazy" width="2048" height="1152" />
+            <span class="cf-card-name">Saul Bass Title</span>
+          </div>
+        </div>
+        <figcaption>Three worlds from one roll. They are challengers, not templates: they enter the shortlist against the directions the model derives from your own product, and they only take the build when they beat them. The deck holds 169 approved worlds, dealt live by the same roll API the skill calls.</figcaption>
+      </figure>
+
+      <figure class="cf-cards">
+        <div class="cf-cards-row cf-cards-row--pair">
+          <div class="cf-card">
+            <img src="/worlds/cards/design-canon-memphis-showroom-morning.webp" alt="The system board for the Memphis Showroom Morning world: pink, mint, lilac and yellow swatches with terrazzo and squiggle laminates, a heavy display typeface, buttons, inputs, cards, and a nav bar." loading="lazy" width="2048" height="1152" />
+            <span class="cf-card-name">Face one &middot; system board</span>
+          </div>
+          <div class="cf-card">
+            <img src="/worlds/cards/design-canon-memphis-showroom-morning-hero.webp" alt="The same world as a full desktop hero for a furniture shop, with cut-paper headline blocks over a photographed pink and mint showroom." loading="lazy" width="2048" height="1152" />
+            <span class="cf-card-name">Face two &middot; hero</span>
+          </div>
+        </div>
+        <figcaption>A fourth world, Memphis Showroom Morning, in both of the faces every card carries: a board that fixes palette, type, and component character, and a hero at a real viewport. The agent studies both before it writes a line.</figcaption>
+      </figure>
+
+      <div class="cf-stats" aria-label="Measurements behind the v4 roll">
+        <div class="cf-stat">
+          <span class="cf-stat-num">30 / 35</span>
+          <span class="cf-stat-label">answers that came back as the identical concept when we asked for creativity sixteen different ways</span>
+        </div>
+        <div class="cf-stat">
+          <span class="cf-stat-num">169</span>
+          <span class="cf-stat-label">worlds approved into the deck, out of 325 reviewed by hand</span>
+        </div>
+        <div class="cf-stat">
+          <span class="cf-stat-num">58</span>
+          <span class="cf-stat-label">deterministic slop and quality rules the detector now enforces</span>
+        </div>
+        <p class="cf-stats-note">From the v4 one-shot campaign: roughly 30 skill iterations, 200 sampled concepts, and $2,600 of evals. <a href="/research">Read the research</a>.</p>
+      </div>
+
+      <p class="cf-group">Creativity you can get out of a model</p>
       <ul class="cf-items">
-        <li><strong>Direction by dice, not by taste.</strong> On a new build, Impeccable no longer lets the model choose its own safe option. An external seed assigns which grounded direction gets built and deals challenger worlds alongside it, so the same brief stops converging on the same three fonts over a cream background. Every roll prints a reproduction key, and you can re-roll on stated factual grounds with the chain recorded.</li>
-        <li><strong>A reviewed deck of 185 visual worlds.</strong> Each build draws challengers from a human-curated catalog of approved directions, served through a public roll API. These are real design systems rather than mood words: a Du Bois data portrait, an Aicher pictogram program, a broadcast waveform. The category default never enters the draw.</li>
-        <li><strong>Rendered cards set the craft bar.</strong> Every dealt world arrives with two rendered faces, a design-system board and a desktop hero, so the agent can see the finish it is aiming for before it builds. In our recovery runs, builds that saw the cards came out visibly more committed than the ones that did not.</li>
-        <li><strong>Decide the hand in your browser.</strong> A new visual decision page lays the dealt worlds out as cards you flip and re-roll with live loading states, then sends your pick straight back to the agent. Visualizing the direction before writing production code is now the default, with a reference image generated through your OpenAI key when one is present.</li>
-        <li><strong>The craft floor, enforced.</strong> The new-build flow runs on written direction contracts and a finishing review that reads the result with fresh eyes in its own agent. Underneath sits a 58-rule detector wired into an edit hook, so slop gets flagged as it lands, and the guidance itself now adapts to the model behind it.</li>
+        <li><strong>Direction by dice, not by taste.</strong> The model no longer picks its own favorite. An outside seed names which of its grounded directions must be taken seriously and deals six challenger worlds beside it, so the same brief stops landing on the same three fonts over a cream background. Every roll prints a key that reproduces it, and a re-roll clears the table rather than rewording what you turned down.</li>
+        <li><strong>169 reviewed worlds, dealt as challengers.</strong> These are not templates. A world competes against the directions the model derived from your product and wins only on merit, which is how it behaves in practice: strong cultural material beats the deck, thin categories lose to it. Ratings weight the draw, the category default never enters it, and the pool is served by a public roll API.</li>
+        <li><strong>No command to pick. Just say what you want.</strong> Impeccable now works out what kind of job it is on its own: a blank slate, a whole new page inside an existing product, a section added to a page that already works, a redesign, or a scoped refinement. Each one gets a different amount of freedom, which is the part that used to go wrong. A redesign treats the old look as evidence and replaces it, rather than polishing what you asked to be rid of. An addition inherits the surrounding page's world and decides only what it actually introduces, rather than quietly restyling your product around a new idea. <code>/impeccable craft</code> is deprecated because of this: describing the surface does the same thing, and it no longer matters whether you knew the command existed.</li>
+        <li><strong>Decide the direction in your browser.</strong> In an attended session Impeccable opens a decision page: the assigned direction leading, the dealt challengers as alternates with their quality-bar cards, and re-roll plus a one-line steer. It presents one committed direction rather than a ranked menu, because a lineup invites the safest card. You re-roll freely; the agent may only re-roll on named factual grounds, and a direction you pinned always wins.</li>
+        <li><strong>See it rendered before it is built.</strong> The chosen direction gets drawn as a design-system board and a first-surface mock, then the build is corrected against it. This no longer needs a harness with a native image tool: set <code>OPENAI_API_KEY</code> and the skill renders through gpt-image-2 instead, telling you it bills your own key before the first image.</li>
+        <li><strong>The build states its intent, then gets checked against it.</strong> Before code, the agent writes a five-block contract into the artifact's opening comment, 150 words at most: thesis, own world, story, first viewport, and form with the seed key. If a block reads like a mood, the direction is not decided yet. The finishing review then audits the render against it promise by promise, in its own agent where the harness allows.</li>
+      </ul>
+
+      <p class="cf-group">iOS and Android, in alpha</p>
+      <ul class="cf-items">
+        <li><strong>Native projects get native guidance.</strong> One of the most requested features. Impeccable works out the platform from the project during <code>init</code> and only asks when the evidence is ambiguous, so there is normally nothing to configure. On an iOS, Android, or cross-platform codebase it loads the Apple HIG or Material 3 rulebook on top of the design guidance, and runs <code>audit</code> and <code>adapt</code> as native passes covering VoiceOver, TalkBack, touch targets, and platform conformance instead of CSS.</li>
+        <li><strong>What native does not cover yet.</strong> Live mode, the detector, and the design hook all read a browser or parse HTML, so they sit out on native projects. Web projects are unaffected.</li>
+      </ul>
+
+      <p class="cf-group">Rebuilt for current models</p>
+      <ul class="cf-items">
+        <li><strong>A much leaner core, on purpose.</strong> Fable 5 and GPT-5.6 follow short, well-structured instruction better than long insistent prose, and repeating a rule three ways now costs more than it buys. So the skill was restructured rather than extended: the always-loaded core is a fraction of its old length, several references were consolidated or rewritten around it, and depth loads only when the work calls for it. Scoped work stops detouring, so asking to polish one button no longer triggers a full product interview.</li>
+        <li><strong>Four visitor modes replace brand and product.</strong> A surface is now Persuade, Operate, Read, or Experience, chosen from what the visitor came to do rather than from what the company sells. A tool's landing page is still Persuade; a fashion house's documentation is still Read. The mode is decided per surface, so one project can hold all four.</li>
+        <li><strong>Surfaces remember their strategy.</strong> Page-level decisions (audience, proof sequence, selected direction, what is still open) persist to <code>.impeccable/surfaces/</code>, so a later session continues that page's argument instead of inventing a new one. PRODUCT.md gained positioning, evidence on hand, and brand commitments.</li>
+        <li><strong>The design hook got two speeds.</strong> Being nagged on every edit measurably made models play safe, so per-edit checks now surface only what is objectively broken: contrast failures, overflowing text, broken images, glow, and drift from your own design system. Everything else waits for one full pass across every UI file you touched, run when the work is done.</li>
+      </ul>
+
+      <p class="cf-group">Detector, Live mode, and harnesses</p>
+      <ul class="cf-items">
+        <li><strong>Twelve new detector rules, 58 in total.</strong> Radial glow halos and accent spotlights, marquee scrollers, blinking terminal cursors, decorative dot and grid fields, text sitting under an overlay, first-viewport content that overflows its column, and hero art assembled from stock geometric shapes. Several were widened rather than added: hover-state contrast, nav CTA contrast, chip contrast, and side-edge stripes painted with an inset shadow.</li>
+        <li><strong>The detector reads your templates.</strong> Name your server-side template extensions in config and Blade, ERB, and Twig projects get the same checks as JSX.</li>
+        <li><strong>Live mode is quicker and safer.</strong> The helper prepares the wrap before the agent hears about your click, which takes a round trip out of every variant. Accepts hold a real lock, so two writers can never land on the same file, Vue directives survive a round trip intact, and Elixir templates and server-rendered pages accept cleanly.</li>
+        <li><strong>Two more harnesses, thirteen supported tools.</strong> Grok Build and Mistral Vibe both join as compiled builds, each with its own hook manifest. <code>npx impeccable install</code> detects them like the rest and installs the version tuned for that tool.</li>
       </ul>
     </article>
 
