@@ -1,13 +1,21 @@
 ---
+interface Props {
+  // Absolute origin to prefix the site links with. Empty on impeccable.style,
+  // where these are root-relative. impeccable.pro is a separate Pages project
+  // and passes the main origin so its footer links resolve instead of 404.
+  origin?: string;
+}
+
+const { origin = '' } = Astro.props;
 ---
 
 <footer class="site-footer">
   <div class="footer-row">
-    <a class="footer-logo" href="/">Impeccable</a>
+    <a class="footer-logo" href={`${origin}/`}>Impeccable</a>
     <nav class="footer-links" aria-label="Footer">
-      <a href="/changelog">Changelog</a>
-      <a href="/faq">FAQ</a>
-      <a href="/privacy">Privacy</a>
+      <a href={`${origin}/changelog`}>Changelog</a>
+      <a href={`${origin}/faq`}>FAQ</a>
+      <a href={`${origin}/privacy`}>Privacy</a>
       <a href="https://github.com/pbakaus/impeccable">GitHub</a>
     </nav>
     <div class="footer-credit">

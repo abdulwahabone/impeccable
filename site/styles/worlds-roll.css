@@ -373,6 +373,56 @@
 }
 
 /* ============================================================
+   The Pro whisper. One line under the table, weighted like a
+   footnote: Pro has no date and no price yet, so it must not
+   read as loud as the worlds it is talking about.
+   ============================================================ */
+
+/* Both themes live in this file rather than in light-mode.css, the way
+   home-refresh.css handles its own light rules. A light override placed in
+   light-mode.css loses to these selectors in practice despite scoring higher,
+   so keeping the pair adjacent makes the winner obvious and order-determined.
+
+   `.home-kinpaku p` and `.home-kinpaku a { color: inherit }` are both (0,1,1),
+   so every rule here needs the .home-kinpaku prefix to land at all. */
+.home-kinpaku .worlds-psst {
+	margin-top: 34px;
+	font-size: 0.8125rem;
+	color: var(--ks-text-faint);
+}
+
+/* text-faint sits at 4.41:1 on paper, just under AA for 13px, so paper steps up
+   one stop. Dark mode already clears it at 5.7:1. */
+html.light .home-kinpaku .worlds-psst {
+	color: var(--ks-text-muted);
+}
+
+/* kinpaku-deep (61%) only reaches 3.5:1 against the lacquer, so the link takes
+   the richer gold. Quiet is a size and weight decision here, not a contrast one:
+   a 13px link still has to be readable. */
+.home-kinpaku .worlds-psst a {
+	color: var(--ks-kinpaku-rich);
+	text-decoration: none;
+	border-bottom: 1px solid transparent;
+	transition: color 180ms var(--ks-ease, ease), border-color 180ms var(--ks-ease, ease);
+}
+
+.home-kinpaku .worlds-psst a:hover {
+	color: var(--ks-kinpaku);
+	border-bottom-color: var(--ks-kinpaku-deep);
+}
+
+/* Fill gold is for fills on paper, never text: patina is the link color there. */
+html.light .home-kinpaku .worlds-psst a {
+	color: var(--ks-link-on-paper);
+}
+
+html.light .home-kinpaku .worlds-psst a:hover {
+	color: var(--ks-link-on-paper-hover);
+	border-bottom-color: var(--ks-link-on-paper-line);
+}
+
+/* ============================================================
    Responsive.
    ============================================================ */
 
@@ -410,4 +460,5 @@
 	.worlds-zone-head {
 		flex-wrap: wrap;
 	}
+
 }

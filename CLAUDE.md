@@ -104,6 +104,85 @@ bun run deploy     # Build + deploy to Cloudflare Pages
 
 The `/worlds` design-system card images are generated per concept (`bun run world-cards`, gpt-image-2) into `site/public/worlds/cards/`, which is gitignored except `manifest.json` (content hashes + generation stamps). Production serves them from the `impeccable-world-cards` R2 bucket via `functions/worlds/cards/[[file]].js`; the build strips local card files from `build/` (`scripts/strip-local-world-cards.mjs`) so deploys stay light. After generating or regenerating cards, run `bun run world-cards:publish` to upload changed files. The worlds page prefers local files in dev and falls back to the published URLs on clones without local generation output.
 
+## impeccable.pro (the Pro waitlist)
+
+`pro/` is a **second, independent Cloudflare Pages project** in this repo, serving `impeccable.pro`. It is not part of the main site's build: `bun run build` and `bun run deploy` never touch it, and a broken Pro deploy cannot take down impeccable.style.
+
+```bash
+bun run dev:pro      # astro dev on :4330 (4321 stays free for the main site)
+bun run build:pro    # → pro/build/ (gitignored)
+bun run deploy:pro   # build + wrangler pages deploy --cwd pro
+```
+
+**Why `--cwd pro`.** Pages resolves Functions from a fixed `functions/` dir relative to the project root, and `wrangler pages deploy` has no `--functions` flag. Running with `--cwd pro` makes `pro/` the project root, so `pro/functions/` is picked up instead of the main site's root `functions/`.
+
+Two gotchas the layout already works around, both worth keeping in mind before editing `pro/astro.config.mjs` or the scripts:
+
+- **Paths in `pro/astro.config.mjs` are absolute** (built from `import.meta.url`). Astro resolves relative config paths against the cwd, not the config file, so `srcDir: './src'` would point at the main site and write output into the main `build/`.
+- **`dev:pro` does `cd pro` first.** Astro 7's dev server is a background daemon keyed by cwd, so running it from the repo root gets refused when the main site's dev server is already up.
+
+**Structure:**
+
+| Path | What it is |
+|---|---|
+| `pro/src/pages/index.astro` | the whole page: teaser, waitlist form, shader canvas |
+| `pro/src/styles/pro.css` | page styles, tokens only, no hardcoded brand values |
+| `pro/src/scripts/torn-paper-worlds.js` | the WebGL torn-paper shader and world reveal |
+| `pro/src/scripts/waitlist-form.js` | form submit, inline success and error states |
+| `pro/src/lib/flagship-worlds.mjs` | build-time flagship deck, read from `catalog/` |
+| `pro/functions/api/waitlist.js` | `POST /api/waitlist`: validate, rate-limit, insert, mail |
+| `pro/functions/api/_waitlist-core.js` | pure validation shared by the function and the dev plugin |
+| `pro/functions/worlds/cards/[[file]].js` | serves hero cards from R2, same-origin |
+| `pro/dev-plugin.mjs` | dev stand-ins: the waitlist function and local card files |
+| `pro/schema.sql` | the D1 `waitlist` table |
+
+### The torn paper reveal
+
+The page is one full-bleed WebGL shader: paper tears open on a 7 second cycle and a different world from the flagship deck shows through. The shader is adapted from the "Torn Paper" study in [pbakaus/radiant](https://github.com/pbakaus/radiant) (MIT). Two things to know before touching it:
+
+- **The world list is baked at build time**, not fetched. `flagship-worlds.mjs` reads `catalog/concept-ingredients.json` plus the reviews and the card manifest, keeps approved rating-3 concepts that have a generated hero, and names them through the same `deriveConceptName` the roll API uses. About 9 KB inlined. This is deliberate: `/api/roll` is on another origin, and a page that only teases the deck should not go down when the main site does. It resolves the repo root by walking up for `catalog/`, because Astro bundles the module and the cwd differs between `build:pro` and `dev:pro`.
+- **Cards are served same-origin** by `pro/functions/worlds/cards/`, off the same `impeccable-world-cards` R2 bucket. The main site's card route sets no CORS headers, and a cross-origin image would taint the WebGL canvas and break the draw. In dev the cards come off disk from `site/public/worlds/cards` via `pro/dev-plugin.mjs`.
+
+Add `?world=<concept-id>` to pin a specific card instead of a random one, which is the way to reproduce a look or a bug.
+
+Traps worth remembering if the reveal ever looks wrong:
+
+- The light field is **additive and unbounded**, so its luminance runs past 1. It lights the card via a clamped luminance rather than by tinting; multiplying by the raw value blows a card out to white, and using its color turns every world magenta.
+- The card fade is **time-based, not per-frame**. A per-frame ramp finishes in a quarter second on a 120Hz display and never finishes in a throttled background tab.
+- **The paper is black**, built from `--ks-graphite` over the `--ks-lacquer` ground, not the cream of the original study. Grain, curl, crack and film-grain amplitudes were all rebalanced for it: they are absolute values, and the cream numbers swamp a 0.047 base or clip straight through it. On dark paper the curl highlight carries the form, since there is almost no headroom below the sheet.
+
+**Legibility is geometry here, not a scrim.** There is no dark overlay behind the copy. `u_openBias` moves the point the gap opens from into the right-hand 74% of the frame, so the sheet stays shut over the copy column, and the edge glow tapers to a quarter across the same curve. The crack still crosses the full frame; only the opening and its glow are biased. `openBias()` returns 0.5 below the 820px breakpoint, where the copy sits at the bottom and the tear clears it vertically instead. If you move the copy, move the bias.
+
+`tearTaper` is where the rip either looks real or does not, and it has two properties that are easy to undo by accident:
+
+- **It measures along the tear axis, not screen x.** Screen x looks like the natural choice for lining the opening up with the copy column, but its contours are vertical while the tear runs at an angle, so the taper cuts across the rip rather than following it and the shape stops reading as torn. The bias is converted from a fraction of frame width into along units, which keeps the layout anchor without giving up tear space.
+- **It is asymmetric**, shutting over ~0.52 to the left of the opening and running out over ~1.15 to the right. That asymmetry is what lets a right-side-only opening still look natural: the sheet closes quickly over the headline and the rip carries off the right edge of the frame. A short symmetric taper around an off-centre point reads as a lens or an eye. Amplitude stays at the study's 0.26; widening it for a bigger reveal also tips it from rip toward hole.
+
+**Parallax runs against the pointer**, and deeper layers move further: the card (deepest) shifts most, the glow just behind the paper least, the paper not at all. Treating the pointer as an eye moving past a fixed aperture is the trap here; it inverts the sign, and while it is defensible on paper it looks plainly wrong on screen. Note also that `coverUV` flips `v`, so an offset computed in uv space must have its y negated before being added to a texture coordinate, or the vertical parallax runs opposite the horizontal and the card appears to slide diagonally against the tear.
+
+**A different world every tear.** The reveal rotates on the cycle boundary, which is the start of the 1.5s calm phase, so the card is exchanged while the paper is shut and the fade finishes before it opens again. The next card is decoded ahead of time, one `WebGLTexture` is reused for every upload, and a card that fails to load is skipped rather than stalling the rotation. `?world=` pins one card and turns rotation off.
+
+The page is dark-only and has no theme toggle: the paper and plasma are authored for the lacquer ground.
+
+**Brand comes from the main site, not copies.** The page imports `site/styles/kinpaku-tokens.css`, `site/styles/tokens.css`, `site/styles/footer.css`, and `site/components/Footer.astro` directly, so a token change on impeccable.style lands here too. `Footer.astro` takes an `origin` prop for exactly this: Pro passes `https://impeccable.style` so the footer links resolve across domains. Do **not** import `kinpaku-kit.css` or `light-mode.css`; they are ~3,500 lines whose selectors never match this page, and `light-mode.css` pulls two multi-megabyte hero PNGs into the bundle.
+
+**Prose is gated.** `pro/src` is in `validateProse`'s target list in `scripts/build.js`, so the copy is held to `docs/STYLE.md` like the rest of the site. Note this catches em dashes in **code comments** too.
+
+### Waitlist storage and mail
+
+D1 database `impeccable-pro-waitlist`, bound as `DB` in `pro/wrangler.toml` (which also binds `WORLD_CARDS` for the card route). Emails are stored normalized (trimmed, lowercased); a `UNIQUE` index plus `INSERT OR IGNORE` makes a repeat signup a no-op. The endpoint returns an identical response for a new and an existing address on purpose, so it cannot be used to test whether someone is on the list. Rate limiting counts rows per IP hash per hour; the raw IP is never stored, only a salted SHA-256.
+
+```bash
+bun run d1:pro:schema         # apply schema.sql to the remote database
+bun run d1:pro:schema:local   # same, against the local dev database
+bun run d1:pro:count          # how many signups
+bun run d1:pro:export         # dump the list as JSON
+```
+
+Confirmation mail goes through the **Cloudflare Email Service REST API**, not the Workers `EMAIL` binding, because send bindings are a Workers feature and this is a Pages Function. The send is wrapped so it can never fail the signup: a stored-but-unmailed address beats a 500 that loses it. With `CF_ACCOUNT_ID` / `CF_EMAIL_TOKEN` / `WAITLIST_FROM` unset, signups still store and simply do not mail.
+
+**Secrets** (Pages project settings, or `wrangler pages secret put ... --project-name impeccable-pro`): `CF_ACCOUNT_ID`, `CF_EMAIL_TOKEN` (API token with email send), `WAITLIST_FROM` (verified sender on the onboarded domain), `WAITLIST_IP_SALT`.
+
 ## Social sharing image (OG card)
 
 The OG / Twitter card is generated, not hand-drawn. To regenerate after a brand or copy change:

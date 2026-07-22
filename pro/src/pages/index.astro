@@ -1,0 +1,162 @@
+---
+// impeccable.pro: the Pro waitlist. One page, deployed as its own Cloudflare
+// Pages project (see pro/wrangler.toml). Brand comes from the main site's token
+// files rather than copies, so this page cannot drift from impeccable.style.
+//
+// The whole page is a torn paper shader that opens onto a different world from
+// the flagship deck on every load, with a teaser and an email field over it.
+// The deck is the product, so the page argues by showing one rather than
+// listing features.
+
+import Footer from '../../../site/components/Footer.astro';
+import { flagshipWorlds } from '../lib/flagship-worlds.mjs';
+import '../../../site/styles/kinpaku-tokens.css';
+import '../../../site/styles/tokens.css';
+import '../../../site/styles/footer.css';
+import '../styles/pro.css';
+
+const MAIN_SITE = 'https://impeccable.style';
+const TITLE = 'Impeccable Pro';
+const DESCRIPTION = 'A world catalog that grows every week, and every design in it usable as a direct seed. Join the waitlist.';
+const OG_IMAGE = `${MAIN_SITE}/og-image-v2.jpg`;
+
+// Resolved at build time from catalog/. The client picks one per load, so the
+// reveal is a different world on every visit.
+const worlds = flagshipWorlds();
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION}>
+  <meta name="theme-color" content="#010101">
+  <link rel="canonical" href="https://impeccable.pro/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://impeccable.pro/">
+  <meta property="og:title" content={TITLE}>
+  <meta property="og:description" content={DESCRIPTION}>
+  <meta property="og:image" content={OG_IMAGE}>
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:creator" content="@pbakaus">
+  <meta name="twitter:title" content={TITLE}>
+  <meta name="twitter:description" content={DESCRIPTION}>
+  <meta name="twitter:image" content={OG_IMAGE}>
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700&family=Alumni+Sans:wght@100;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="pro-page">
+  <a href="#join" class="skip-link">Skip to the signup</a>
+
+  {/* Decorative. Everything it says is said in text below. */}
+  <canvas class="pro-canvas" data-torn-paper aria-hidden="true"></canvas>
+  <div class="pro-scrim" aria-hidden="true"></div>
+
+  <main class="pro-stage" id="main">
+    <a class="pro-wordmark" href={MAIN_SITE}>
+      Impeccable <span class="pro-wordmark-badge">Pro</span>
+    </a>
+
+    <h1 class="pro-title">Get ready for Pro.</h1>
+
+    <p class="pro-lead">
+      Behind this paper is one of 75 reviewed worlds, and new ones land every
+      week. That deck already works. It is also the smallest part of what Pro is
+      going to be: the rest is being built now, and this list is where it gets
+      announced.
+    </p>
+
+    <section class="pro-join" id="join" aria-labelledby="join-title">
+      <h2 class="pro-join-title" id="join-title">Join the waitlist</h2>
+      <form class="pro-form" data-waitlist-form novalidate>
+        <label class="pro-label" for="waitlist-email">Email address</label>
+        <div class="pro-field-row">
+          <input
+            class="pro-input"
+            id="waitlist-email"
+            name="email"
+            type="email"
+            inputmode="email"
+            autocomplete="email"
+            placeholder="you@studio.com"
+            required
+            aria-describedby="waitlist-status"
+          />
+          <button class="pro-submit" type="submit" data-waitlist-submit>
+            <span data-waitlist-submit-label>Get the one mail</span>
+          </button>
+        </div>
+        <p class="pro-form-status" id="waitlist-status" role="status" aria-live="polite" data-waitlist-status></p>
+      </form>
+      <p class="pro-fineprint">
+        One mail, with an unsubscribe link in it.
+      </p>
+    </section>
+  </main>
+
+  {/* Credits the world on screen, like a plate caption. In flow between the
+      stage and the footer: that puts it in the true bottom-left corner of the
+      scene, aligned to the viewport edge rather than to the copy column, and it
+      cannot collide with the footer whatever height the footer wraps to. */}
+  <p class="pro-revealed" data-world-caption hidden>
+    <span class="pro-revealed-label">Behind the paper</span>
+    <span data-world-name></span>
+  </p>
+
+  <Footer origin={MAIN_SITE} />
+
+  <script define:vars={{ worlds }}>
+    // The world list is inlined rather than fetched: it is a few KB, and the
+    // reveal should not wait on a round trip.
+    window.__impeccableWorlds = worlds;
+  </script>
+  <script>
+    import { initTornPaper, pickWorld } from '../scripts/torn-paper-worlds.js';
+    import { initWaitlistForm } from '../scripts/waitlist-form.js';
+
+    const canvas = document.querySelector('[data-torn-paper]');
+    const worlds = window.__impeccableWorlds || [];
+    const world = pickWorld(worlds);
+    // A pinned ?world= stays put, so a specific card can be inspected without
+    // the rotation swapping it out every seven seconds.
+    const pinned = new URLSearchParams(window.location.search).has('world');
+
+    if (canvas) {
+      const started = initTornPaper({
+        canvas,
+        world,
+        worlds,
+        cardsBase: '/worlds/cards',
+        rotate: !pinned,
+      });
+      if (!started) {
+        // No WebGL: drop the canvas so the CSS fallback ground shows through.
+        canvas.remove();
+        document.body.classList.add('pro-page--static');
+      } else if (world) {
+        // Name the world only once its card is actually on screen, so the
+        // caption never describes something the visitor cannot see. Fires on
+        // every rotation, not just the first, so it stays in step with the tear.
+        const caption = document.querySelector('[data-world-caption]');
+        const name = document.querySelector('[data-world-name]');
+        canvas.addEventListener('worldrevealed', event => {
+          if (!caption || !name) return;
+          name.textContent = event.detail.name;
+          caption.hidden = false;
+        });
+      }
+    }
+
+    initWaitlistForm();
+  </script>
+</body>
+</html>

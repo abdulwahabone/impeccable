@@ -1,0 +1,18 @@
+# impeccable.pro: the Pro waitlist. A second Cloudflare Pages project living in
+# this repo, deployed with `wrangler pages deploy --cwd pro` so that Pages
+# resolves ./functions from here instead of the main site's root functions dir.
+name = "impeccable-pro"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "./build"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "impeccable-pro-waitlist"
+database_id = "fc7950ad-792d-46d7-8a47-be100fd529c7"
+
+# The same bucket the main site reads. This project serves the cards itself so
+# the torn paper shader gets a same-origin texture (a cross-origin image would
+# taint the WebGL canvas).
+[[r2_buckets]]
+binding = "WORLD_CARDS"
+bucket_name = "impeccable-world-cards"
