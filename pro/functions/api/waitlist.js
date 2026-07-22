@@ -113,7 +113,11 @@ async function sendConfirmation(env, email, origin) {
           // An object, not a bare address. With a plain string the API sends no
           // display name and mail clients fall back to showing the local part,
           // so a message from hello@impeccable.pro arrives from "hello".
-          from: { email: from, name: fromName },
+          //
+          // The key is `address`, not `email`. Getting that wrong makes the body
+          // invalid, the API rejects it, and because the send is deliberately
+          // non-fatal the only symptom is a stored signup that never gets mailed.
+          from: { address: from, name: fromName },
           subject: CONFIRMATION_SUBJECT,
           text: confirmationText(unsubUrl),
           html: confirmationHtml(unsubUrl),
@@ -130,7 +134,12 @@ async function sendConfirmation(env, email, origin) {
       },
     );
     if (!res.ok) {
-      console.error(`waitlist: email send failed with HTTP ${res.status}`);
+      // Log the response body, not just the status. The API answers a bad body
+      // with a specific message (invalid_request_schema and which field), and a
+      // bare status number is what let a wrong `from` shape look like a mystery
+      // twice over: signups stored fine and the mail simply never arrived.
+      const detail = await res.text().catch(() => '');
+      console.error(`waitlist: email send failed with HTTP ${res.status}: ${detail.slice(0, 500)}`);
       return { sent: false, reason: `http-${res.status}` };
     }
     return { sent: true };
