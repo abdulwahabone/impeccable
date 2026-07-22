@@ -259,7 +259,20 @@ function initHeroProof() {
 
 			const panelRect = panel.getBoundingClientRect();
 			const seamX = panelRect.left + panelRect.width * position / 100;
-			panel.querySelectorAll(".hero-proof-layer--before .proof-annotation").forEach((annotation) => {
+			const annotations = Array.from(panel.querySelectorAll(".hero-proof-layer--before .proof-annotation"));
+
+			// Stagger the reveal down the card. The tags annotate top to bottom,
+			// but they are not authored in that order (the side-tab tag comes
+			// first in markup and sits third on screen), so the index comes from
+			// the measured top rather than from :nth-child.
+			annotations
+				.map((annotation) => ({ annotation, top: annotation.getBoundingClientRect().top }))
+				.sort((a, b) => a.top - b.top)
+				.forEach(({ annotation }, order) => {
+					annotation.style.setProperty("--reveal-index", String(order));
+				});
+
+			annotations.forEach((annotation) => {
 				const target = annotation.parentElement;
 				const targetX = target?.getBoundingClientRect().left ?? panelRect.left;
 				annotation.classList.toggle("is-concealed", position <= 0 || targetX >= seamX);
