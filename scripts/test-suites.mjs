@@ -41,6 +41,7 @@ export const SUITES = {
           'tests/slop-catalog.test.mjs',
           'tests/theme.test.mjs',
           'tests/waitlist-core.test.mjs',
+          'tests/waitlist-unsubscribe.test.mjs',
           'tests/world-roll-core.test.mjs',
           'tests/worlds-review-vite-plugin.test.mjs',
         ],

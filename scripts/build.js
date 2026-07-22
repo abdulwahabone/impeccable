@@ -182,7 +182,10 @@ function validateProse(rootDir) {
     // impeccable.pro is a second Pages project (pro/), deployed separately. It
     // is scanned here so the waitlist copy is held to the same brief as the
     // main site rather than being the one ungated prose surface in the repo.
+    // pro/functions is included for the confirmation email: that copy lands in
+    // real inboxes, which is the last place an AI tell should slip through.
     'pro/src',
+    'pro/functions',
     'README.md',
     'README.npm.md',
   ];

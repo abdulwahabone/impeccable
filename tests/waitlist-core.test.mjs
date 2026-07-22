@@ -11,6 +11,8 @@ import {
   sanitizeField,
   hashIp,
   windowStartIso,
+  unsubscribeToken,
+  tokensMatch,
   MAX_EMAIL_LENGTH,
   RATE_LIMIT_WINDOW_MS,
 } from '../pro/functions/api/_waitlist-core.js';
@@ -122,4 +124,39 @@ test('windowStartIso returns the ISO timestamp one window back', () => {
     windowStartIso(now),
     new Date(now - RATE_LIMIT_WINDOW_MS).toISOString(),
   );
+});
+
+test('unsubscribeToken is per address, so one link cannot remove another', async () => {
+  const mine = await unsubscribeToken('paul@example.com', 'secret');
+  const theirs = await unsubscribeToken('someone@example.com', 'secret');
+  assert.notEqual(mine, theirs, 'a shared token would let anyone unsubscribe anyone');
+  assert.match(mine, /^[0-9a-f]{32}$/);
+});
+
+test('unsubscribeToken is deterministic and keyed by the secret', async () => {
+  const a = await unsubscribeToken('paul@example.com', 'secret');
+  const b = await unsubscribeToken('paul@example.com', 'secret');
+  assert.equal(a, b, 'a link mailed yesterday has to still verify today');
+
+  const rotated = await unsubscribeToken('paul@example.com', 'other-secret');
+  assert.notEqual(a, rotated);
+});
+
+test('unsubscribeToken returns null without a secret or an address', async () => {
+  // Null is what makes the endpoint refuse rather than delete whatever the query
+  // names, and what makes the mail fall back to a mailto unsubscribe.
+  assert.equal(await unsubscribeToken('paul@example.com', ''), null);
+  assert.equal(await unsubscribeToken('paul@example.com', undefined), null);
+  assert.equal(await unsubscribeToken('', 'secret'), null);
+});
+
+test('tokensMatch accepts an exact match and rejects near misses', () => {
+  const token = 'a'.repeat(32);
+  assert.equal(tokensMatch(token, token), true);
+  assert.equal(tokensMatch(token, `${'a'.repeat(31)}b`), false);
+  // Length mismatch must fail rather than compare a prefix.
+  assert.equal(tokensMatch(token, 'a'.repeat(31)), false);
+  assert.equal(tokensMatch(token, ''), false);
+  assert.equal(tokensMatch(undefined, token), false);
+  assert.equal(tokensMatch(null, null), false);
 });

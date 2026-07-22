@@ -60,3 +60,47 @@ export async function hashIp(ip, salt = '') {
 export function windowStartIso(nowMs, windowMs = RATE_LIMIT_WINDOW_MS) {
   return new Date(nowMs - windowMs).toISOString();
 }
+
+/**
+ * Per-address unsubscribe token, derived rather than stored.
+ *
+ * HMAC of the address under a server secret, so the link in someone's mail only
+ * ever works for their own address. A guessable or shared token would let anyone
+ * unsubscribe anyone. Derived instead of stored so there is no schema change and
+ * no extra column to keep in sync, at the cost of the tokens all changing if the
+ * secret is rotated (which invalidates links in mail already delivered, so treat
+ * WAITLIST_UNSUB_SECRET as write-once).
+ *
+ * @returns {Promise<string|null>} 32 hex chars, or null with no secret set.
+ */
+export async function unsubscribeToken(email, secret) {
+  if (!secret || !email) return null;
+  const encoder = new TextEncoder();
+  const key = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(secret),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  );
+  // Namespaced so this HMAC can never collide with another use of the secret.
+  const mac = await crypto.subtle.sign('HMAC', key, encoder.encode(`unsubscribe:${email}`));
+  return [...new Uint8Array(mac)]
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('')
+    .slice(0, 32);
+}
+
+/**
+ * Compare in constant time. A plain === leaks how many leading characters were
+ * right, which is enough to forge a token one character at a time.
+ */
+export function tokensMatch(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i += 1) {
+    diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return diff === 0;
+}

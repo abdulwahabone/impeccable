@@ -12,6 +12,9 @@
 //   CF_EMAIL_TOKEN      API token with email send   (optional; no token, no email)
 //   WAITLIST_FROM       verified sender, e.g. hello@impeccable.pro
 //   WAITLIST_IP_SALT    salt for the stored IP hash
+//   WAITLIST_UNSUB_SECRET  HMAC key for unsubscribe links. Treat as write-once:
+//                          rotating it invalidates the links in mail already
+//                          delivered. Unset falls back to a mailto unsubscribe.
 
 import {
   normalizeEmail,
@@ -19,6 +22,7 @@ import {
   sanitizeField,
   hashIp,
   windowStartIso,
+  unsubscribeToken,
   RATE_LIMIT_MAX,
 } from './_waitlist-core.js';
 
@@ -33,34 +37,35 @@ function json(payload, status = 200) {
 
 const CONFIRMATION_SUBJECT = 'You are on the Impeccable Pro list';
 
-function confirmationText() {
+function confirmationText(unsubUrl) {
   return [
     'You are on the list for Impeccable Pro.',
     '',
-    'What you can count on: the world catalog grows every week, human-reviewed,',
-    'and every design in it works as a direct seed for a build.',
+    'Many have asked me what a paid version of Impeccable would look like. We are',
+    'hard at work so we can answer that question in the most satisfying way',
+    'possible.',
     '',
-    'What is still being figured out: detector rules learned from your own design',
-    'system, and a hosted place to keep every generation, variant and audit.',
-    'You will hear about those when they work, not before.',
+    'You will get one mail when there is something to open. Nothing before that.',
     '',
-    'No other mail from this address until there is something to open.',
+    'Now go forth and explore some visual worlds with Impeccable 4.',
     '',
     'Paul',
     'https://impeccable.style',
+    '',
+    `Unsubscribe: ${unsubUrl}`,
   ].join('\n');
 }
 
-function confirmationHtml() {
+function confirmationHtml(unsubUrl) {
   return [
     '<p>You are on the list for Impeccable Pro.</p>',
-    '<p><strong>What you can count on:</strong> the world catalog grows every week,',
-    'human-reviewed, and every design in it works as a direct seed for a build.</p>',
-    '<p><strong>What is still being figured out:</strong> detector rules learned from',
-    'your own design system, and a hosted place to keep every generation, variant',
-    'and audit. You will hear about those when they work, not before.</p>',
-    '<p>No other mail from this address until there is something to open.</p>',
+    '<p>Many have asked me what a paid version of Impeccable would look like. We are',
+    'hard at work so we can answer that question in the most satisfying way',
+    'possible.</p>',
+    '<p>You will get one mail when there is something to open. Nothing before that.</p>',
+    '<p>Now go forth and explore some visual worlds with Impeccable 4.</p>',
     '<p>Paul<br><a href="https://impeccable.style">impeccable.style</a></p>',
+    `<p style="font-size:13px;color:#888"><a href="${unsubUrl}">Unsubscribe</a></p>`,
   ].join('\n');
 }
 
@@ -69,11 +74,22 @@ function confirmationHtml() {
  * far better outcome than a 500 that loses the address, and the sending domain
  * may not be onboarded yet.
  */
-async function sendConfirmation(env, email) {
+async function sendConfirmation(env, email, origin) {
   const accountId = env.CF_ACCOUNT_ID;
   const token = env.CF_EMAIL_TOKEN;
   const from = env.WAITLIST_FROM;
   if (!accountId || !token || !from) return { sent: false, reason: 'not-configured' };
+
+  // Every mail carries a way out. With the secret set that is a one-click link;
+  // without it, a mailto so the message is never sent with no route at all,
+  // which is what the signup form promises.
+  const unsubToken = await unsubscribeToken(email, env.WAITLIST_UNSUB_SECRET);
+  const unsubUrl = unsubToken
+    ? `${origin}/api/unsubscribe?e=${encodeURIComponent(email)}&t=${unsubToken}`
+    : `mailto:${from}?subject=${encodeURIComponent('Unsubscribe')}`;
+  if (!unsubToken) {
+    console.error('waitlist: WAITLIST_UNSUB_SECRET unset, falling back to mailto unsubscribe');
+  }
 
   try {
     const res = await fetch(
@@ -88,8 +104,17 @@ async function sendConfirmation(env, email) {
           to: email,
           from,
           subject: CONFIRMATION_SUBJECT,
-          text: confirmationText(),
-          html: confirmationHtml(),
+          text: confirmationText(unsubUrl),
+          html: confirmationHtml(unsubUrl),
+          // RFC 8058. List-Unsubscribe-Post is what turns the header into the
+          // native one-click button in Gmail and Apple Mail, and it POSTs, which
+          // is why the endpoint keeps GET read-only.
+          headers: unsubToken
+            ? {
+              'List-Unsubscribe': `<${unsubUrl}>`,
+              'List-Unsubscribe-Post': 'List-Unsubscribe=One-Click',
+            }
+            : { 'List-Unsubscribe': `<${unsubUrl}>` },
         }),
       },
     );
@@ -153,7 +178,7 @@ export async function onRequestPost({ request, env }) {
 
     const isNew = (result?.meta?.changes ?? 0) > 0;
     if (isNew) {
-      await sendConfirmation(env, email);
+      await sendConfirmation(env, email, new URL(request.url).origin);
     }
 
     // Deliberately identical for new and already-present addresses. Telling the

@@ -181,7 +181,18 @@ bun run d1:pro:export         # dump the list as JSON
 
 Confirmation mail goes through the **Cloudflare Email Service REST API**, not the Workers `EMAIL` binding, because send bindings are a Workers feature and this is a Pages Function. The send is wrapped so it can never fail the signup: a stored-but-unmailed address beats a 500 that loses it. With `CF_ACCOUNT_ID` / `CF_EMAIL_TOKEN` / `WAITLIST_FROM` unset, signups still store and simply do not mail.
 
-**Secrets** (Pages project settings, or `wrangler pages secret put ... --project-name impeccable-pro`): `CF_ACCOUNT_ID`, `CF_EMAIL_TOKEN` (API token with email send), `WAITLIST_FROM` (verified sender on the onboarded domain), `WAITLIST_IP_SALT`.
+**Secrets** (Pages project settings, or `wrangler pages secret put ... --project-name impeccable-pro`): `CF_ACCOUNT_ID`, `CF_EMAIL_TOKEN` (API token with email send), `WAITLIST_FROM` (verified sender on the onboarded domain), `WAITLIST_IP_SALT`, `WAITLIST_UNSUB_SECRET`.
+
+### Unsubscribe
+
+`pro/functions/api/unsubscribe.js`. The token is an HMAC of the address under `WAITLIST_UNSUB_SECRET`, derived rather than stored, so there is no schema change and a link only ever works for its own address. **Treat that secret as write-once**: rotating it invalidates the links in mail already delivered.
+
+Two properties are what keep this safe, and both are covered by `tests/waitlist-unsubscribe.test.mjs`:
+
+- **GET confirms, POST acts.** Mail clients, scanners and link previewers fetch every URL in a message, so a GET that unsubscribed on sight would remove people who never clicked. This is also why RFC 8058 one-click uses POST, which the `List-Unsubscribe-Post` header on the outgoing mail opts into, giving the native button in Gmail and Apple Mail.
+- **No secret means refuse.** With no secret no token can be verified, so the endpoint must reject rather than fall through to deleting whatever address the query names.
+
+The row is deleted rather than flagged: there is no reason to keep an address that asked to be gone, and a later signup by the same person is theirs to make. If the secret is unset when mail goes out, the send falls back to a `mailto:` unsubscribe rather than shipping a message with no way out, since the signup form promises one.
 
 ## Social sharing image (OG card)
 
