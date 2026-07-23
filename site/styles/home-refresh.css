@@ -919,7 +919,7 @@ html.light .hero-proof-tab.is-active {
 html.light .slop-scan-control:hover,
 html.light .slop-scan-control:focus-visible,
 html.light .slop-scan-control[aria-pressed="true"] {
-  color: var(--ks-kinpaku-deep);
+  color: var(--ks-accent-ink);
 }
 
 html.light .slop-scan-control[aria-pressed="true"] .slop-scan-control-dot {
@@ -2341,12 +2341,12 @@ html.light .home-kinpaku .steering-desktop {
 
 .home-kinpaku .why-hook-step--found .why-hook-mark {
   border-color: oklch(78% 0.12 82 / 0.48);
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
 }
 
 .home-kinpaku .why-hook-step--clean .why-hook-mark {
   border-color: oklch(70% 0.105 190 / 0.48);
-  color: var(--ks-patina);
+  color: var(--ks-state-ink);
 }
 
 .home-kinpaku .why-hook-loop .why-ci-summary {
@@ -2362,19 +2362,19 @@ html.light .home-kinpaku .steering-desktop {
 }
 
 .home-kinpaku .why-hook-loop .why-ci-summary strong {
-  color: var(--ks-patina);
+  color: var(--ks-state-ink);
   font-weight: 500;
 }
 
 html.light .home-kinpaku .why-ci-status--hook {
   border-color: oklch(49% 0.08 188 / 0.34);
-  color: var(--ks-patina-deep);
-  background: oklch(70% 0.105 190 / 0.08);
+  color: color-mix(in oklch, var(--ks-state-ink) 82%, var(--ks-champagne));
+  background: transparent;
 }
 
 html.light .home-kinpaku .why-hook-step--clean .why-hook-mark,
 html.light .home-kinpaku .why-hook-loop .why-ci-summary strong {
-  color: var(--ks-patina-deep);
+  color: var(--ks-state-ink);
 }
 
 @media (max-width: 720px) {

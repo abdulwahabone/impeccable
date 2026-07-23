@@ -70,7 +70,7 @@
 }
 .cf-filter-btn:hover { color: var(--ks-text); }
 .cf-filter-btn.is-active {
-  color: var(--ks-lacquer);
+  color: var(--ks-dark-ink);
   background: var(--ks-kinpaku);
   font-weight: 600;
 }
@@ -120,7 +120,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
 }
 
 .cf-entry {
@@ -217,7 +217,7 @@
   border: 1px solid var(--ks-rule);
 }
 .cf-ba-tag--after {
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
   background: oklch(78% 0.12 82 / 0.14);
   border: 1px solid oklch(78% 0.12 82 / 0.4);
 }
@@ -312,11 +312,11 @@
   line-height: 1.5;
 }
 .cf-stats-note a {
-  color: var(--ks-patina);
+  color: var(--ks-state-ink);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.cf-stats-note a:hover { color: var(--ks-patina-pale); }
+.cf-stats-note a:hover { color: var(--ks-state-ink); }
 
 /* ============================================================================
    FAQ
