@@ -446,6 +446,14 @@ html.light .hero-proof-seam::after {
   background: var(--ks-kinpaku);
 }
 
+html.light .proof-polish--after .proof-polish-sprint {
+  color: var(--ks-patina-deep);
+}
+
+html.light .proof-polish--after .proof-polish-progress i {
+  background: var(--ks-patina-deep);
+}
+
 .proof-polish--before .proof-polish-progress {
   background: oklch(82% 0.026 70);
 }
