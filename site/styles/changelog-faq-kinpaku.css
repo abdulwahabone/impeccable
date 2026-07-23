@@ -103,6 +103,7 @@
   background: var(--ks-code-bg);
   padding: var(--ks-code-pad);
   border-radius: var(--ks-code-radius);
+  overflow-wrap: anywhere;
 }
 .cf-items a {
   color: var(--ks-patina);
