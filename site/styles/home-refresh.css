@@ -2460,12 +2460,46 @@ html.light .home-kinpaku .why-hook-loop .why-ci-summary strong {
     font-size: clamp(3rem, 15vw, 4.5rem);
   }
 
+  /* The fixed 4:3 stage falls below the panels' minimum content height on
+     narrow phones. Preserve enough room for each card and its vertical insets
+     so the stage rule never cuts through the comparison content. */
+  .hero-proof-stage {
+    width: 100%;
+    min-height: 301px;
+  }
+
   .hero-proof-canvas {
-    padding: 38px 18px 26px;
+    padding: 38px 16px 26px;
   }
 
   .hero-proof-canvas > article {
-    width: min(284px, calc(100% - 34px));
+    width: 100%;
+    max-width: 284px;
+    min-width: 0;
+  }
+
+  .hero-proof-canvas > article.proof-clarify {
+    height: auto;
+    min-height: 203px;
+  }
+
+  .hero-proof-canvas > article.proof-polish {
+    height: auto;
+    min-height: 198px;
+  }
+
+  .hero-proof-canvas > article.proof-distill {
+    height: auto;
+    min-height: 250px;
+  }
+
+  .proof-distill--after {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .proof-distill--after .proof-distill-chart {
+    flex: 1 0 76px;
   }
 
   .hero-proof-side-label {
@@ -2474,21 +2508,6 @@ html.light .home-kinpaku .why-hook-loop .why-ci-summary strong {
   }
 
   .proof-annotation {
-    top: 0;
-    right: auto;
-    left: -4px;
-    font-size: 0.875rem;
-    transform: translateY(-50%);
-  }
-
-  .proof-annotation::after {
-    display: none;
-  }
-
-  .proof-annotation--surface,
-  .proof-annotation--sidetab,
-  .proof-distill-nested .proof-annotation,
-  .proof-clarify-cta .proof-annotation {
     display: none;
   }
 
