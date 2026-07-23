@@ -23,8 +23,20 @@ import '../styles/changelog-faq-kinpaku.css';
       <button type="button" class="cf-filter-btn" data-cf-filter="all" aria-pressed="false">All</button>
     </div>
 
-    <article id="v4.0.1" class="cf-entry cf-entry--current">
-      <header class="cf-entry-head"><span class="cf-version">v4.0.1</span><span class="cf-date">July 22, 2026</span><span class="cf-current-badge">Current</span></header>
+    <article id="v4.0.2" class="cf-entry cf-entry--current">
+      <header class="cf-entry-head"><span class="cf-version">v4.0.2</span><span class="cf-date">July 23, 2026</span><span class="cf-current-badge">Current</span></header>
+      <p class="cf-entry-lead">Security hardening, a live mode that stopped fighting its own frameworks, and TanStack support. Most of this release traces to user reports filed in the last two days; thank you.</p>
+      <ul class="cf-entry-list">
+        <li><strong>Security.</strong> The live helper no longer serves its bearer token to any page that asks: loopback-only CORS and a token-gated script (#304). The <code>/source</code> route can no longer read sibling directories whose names extend the project root (#401).</li>
+        <li><strong>Live mode, unregressed.</strong> One atomic source write per cycle again, so React and Vite apps stop reload-storming mid-generation; progressive injection no longer races React ownership; the progress bar never moves backward; a dropped tab resumes instead of ending the session; and variant cycles skip redundant per-variant QA.</li>
+        <li><strong>TanStack, first class.</strong> TanStack Router works on the standard Vite path, and TanStack Start gets a real SSR adapter, both covered by e2e fixtures.</li>
+        <li><strong>Hooks behave.</strong> The Stop hook honors <code>stop_hook_active</code>, so a declined finding can never re-block your turn twenty times (#400). The doctor no longer reports a correctly installed hook as missing (#402).</li>
+        <li><strong>Sharper flows.</strong> The finish review runs as a shipped subagent with clear authorization on gated harnesses; quality-bar cards download into the workspace so sandboxed viewers can open them; and under hard turn caps the shipped page outranks optional imagery.</li>
+      </ul>
+    </article>
+
+    <article id="v4.0.1" class="cf-entry">
+      <header class="cf-entry-head"><span class="cf-version">v4.0.1</span><span class="cf-date">July 22, 2026</span></header>
       <p class="cf-entry-lead">A day of live testing against v4.0 turned up the places where the interactive spine could be skipped, and v4.0.1 closes them. The flow now holds its shape on every harness, and the craft machinery gained teeth.</p>
       <ul class="cf-entry-list">
         <li><strong>Play it straight.</strong> Every direction round now carries a quiet standing exit to the category standard. Pick it and the skill asks which products yours should sit alongside, then executes the canon at their craft level. It is your door; the model never recommends it.</li>
