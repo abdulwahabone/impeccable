@@ -594,7 +594,7 @@ html.light .home-kinpaku .worlds-played-card:hover {
 
 html.light .home-kinpaku .worlds-zone-label,
 html.light .home-kinpaku .worlds-played-cta {
-	color: var(--ks-patina);
+	color: var(--ks-state-ink);
 }
 
 html.light .home-kinpaku .worlds-reroll {
@@ -604,6 +604,12 @@ html.light .home-kinpaku .worlds-reroll {
 
 html.light .home-kinpaku .worlds-reroll:hover:not(:disabled),
 html.light .home-kinpaku .worlds-reroll:focus-visible {
-	color: var(--ks-link-on-paper-hover);
+	color: var(--ks-accent-ink);
 	border-color: var(--ks-patina);
+}
+
+html.light .home-kinpaku .worlds-played-meta a:hover,
+html.light .home-kinpaku .worlds-psst a,
+html.light .home-kinpaku .worlds-psst a:hover {
+	color: var(--ks-accent-ink);
 }

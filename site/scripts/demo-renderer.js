@@ -94,7 +94,7 @@ export function renderCommandDemo(commandId) {
                   <span style="opacity: 0.8;">Opens the result in a browser, checks against the brief and anti-pattern list, refines until the polish bar is high.</span>
                 </div>
               </div>
-              <div style="font-size: 12px; opacity: 0.5; margin-top: 2px; font-style: italic;">The full shape-then-build flow in one command. Best for brand-new features.</div>
+              <div class="demo-craft-note" style="font-size: 12px; opacity: 0.5; margin-top: 2px; font-style: italic;">The full shape-then-build flow in one command. Best for brand-new features.</div>
             </div>
           </div>
         </div>
@@ -185,18 +185,18 @@ export function renderCommandDemo(commandId) {
 
   // Use split-screen comparison
   return `
-    <div class="demo-split-comparison" data-demo="command-${demo.id}">
+    <figure class="demo-split-comparison" data-demo="command-${demo.id}" style="margin: 0;">
       <div class="split-container">
         <div class="split-before">
-          <div class="split-content">${demo.before}</div>
+          <div class="split-content" inert aria-hidden="true">${demo.before}</div>
         </div>
         <div class="split-after">
-          <div class="split-content">${demo.after || demo.before}</div>
+          <div class="split-content" inert aria-hidden="true">${demo.after || demo.before}</div>
         </div>
         <div class="split-divider"></div>
       </div>
-      <div class="demo-caption">${demo.caption}</div>
-    </div>
+      <figcaption class="demo-caption">${demo.caption}</figcaption>
+    </figure>
   `;
 }
 
@@ -248,6 +248,7 @@ export function renderSkillDemo(skillId) {
 function renderSkillTabDemo(skillId, tab) {
   const hasToggle = tab.hasToggle !== false;
   const demoId = `${skillId}-${tab.id}`;
+  const viewportAccessibility = tab.interactiveBefore === true ? '' : ' inert aria-hidden="true"';
 
   return `
     <div class="demo-container">
@@ -260,7 +261,7 @@ function renderSkillTabDemo(skillId, tab) {
           </div>
         ` : ''}
       </div>
-      <div class="demo-viewport" data-state="before" id="${demoId}-viewport">
+      <div class="demo-viewport" data-state="before" id="${demoId}-viewport"${viewportAccessibility}>
         ${tab.before}
       </div>
       <div class="demo-caption">${tab.caption}</div>
@@ -285,5 +286,3 @@ export function setupDemoTabs() {
     });
   });
 }
-
-

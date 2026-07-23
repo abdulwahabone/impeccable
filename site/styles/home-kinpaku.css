@@ -976,13 +976,41 @@
 .home-kinpaku .magazine-spread[data-category="harden"] { --spread-accent: var(--ks-patina); }
 .home-kinpaku .magazine-spread[data-category="system"] { --spread-accent: var(--ks-muted); }
 
-/* In the command palette the section accent (--spread-accent) carries the whole
-   category identity: the kicker, the skill name (big title + active list item),
-   and the divider. The slash before /impeccable is demoted to the namespace's
-   muted ink — it's punctuation, not identity. (Light mode re-applies these accent
-   colors in light-mode.css to clear that file's :is() eyebrow rule.) */
-.home-kinpaku .magazine-container :is(.spread-command-name, .spread-category-label, .fisheye-item.is-active) {
-  color: var(--spread-accent);
+/* Keep gold and patina for the spread's decorative marks, but use their
+   accessible semantic ink roles for small text inside rendered demos. */
+.home-kinpaku .magazine-spread:is(
+  [data-category="create"],
+  [data-category="refine"],
+  [data-category="simplify"]
+) .demo-viewport,
+.home-kinpaku .mobile-commands-layout:is(
+  [data-category="create"],
+  [data-category="refine"],
+  [data-category="simplify"]
+) .demo-viewport {
+  --spread-accent: var(--ks-gold-ink);
+}
+
+.home-kinpaku .magazine-spread:is(
+  [data-category="evaluate"],
+  [data-category="harden"]
+) .demo-viewport,
+.home-kinpaku .mobile-commands-layout:is(
+  [data-category="evaluate"],
+  [data-category="harden"]
+) .demo-viewport {
+  --spread-accent: var(--ks-state-ink);
+}
+
+html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
+  color: var(--ks-text-muted);
+  opacity: 1 !important;
+}
+
+/* Command titles and category labels follow the current category accent. The
+   slash before /impeccable stays muted punctuation. */
+.home-kinpaku .magazine-container :is(.spread-command-name, .spread-category-label) {
+  color: var(--spread-accent, var(--ks-kinpaku));
 }
 
 .home-kinpaku .magazine-container .spread-command-name .spread-slash {
@@ -1007,17 +1035,13 @@
   font-size: 1.125rem;
 }
 
-.home-kinpaku .fisheye-item.is-active {
-  color: var(--ks-kinpaku);
-}
-
 .home-kinpaku .fisheye-slash,
 .home-kinpaku .fisheye-item.is-active .fisheye-slash {
   color: var(--ks-patina);
 }
 
 .home-kinpaku .spread-command-name {
-  color: var(--ks-kinpaku);
+  color: var(--spread-accent, var(--ks-kinpaku));
   font-family: var(--ks-font-display);
   font-size: 4rem;
   font-weight: 100;
@@ -1025,13 +1049,20 @@
 }
 
 .home-kinpaku .spread-command-name .spread-namespace,
-.home-kinpaku .spread-description,
-.home-kinpaku .spread-flow-label {
+.home-kinpaku .spread-description {
+  color: var(--ks-muted);
+}
+
+.home-kinpaku .spread-flow-label,
+.home-kinpaku .spread-flow-icon {
   color: var(--ks-muted);
 }
 
 .home-kinpaku .spread-flow-cmd {
-  color: var(--ks-code-cmd);
+  color: var(--spread-accent, var(--ks-code-cmd));
+}
+
+.home-kinpaku .spread-flow-cmd {
   background: var(--ks-code-bg);
   border: 0;
   border-radius: var(--ks-code-radius);
@@ -1629,7 +1660,7 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 .home-kinpaku .why-terminal-ok,
 .home-kinpaku .why-terminal-path,
 .home-kinpaku .why-dm-badge {
-  color: var(--ks-patina);
+  color: var(--ks-state-ink);
 }
 
 .home-kinpaku .why-visual--ci {
@@ -1715,7 +1746,7 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 }
 
 .home-kinpaku .why-ci-cmd {
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
   margin-right: 10px;
 }
 
@@ -1763,7 +1794,7 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
   font-family: var(--ks-mono);
   font-size: 0.62rem;
   letter-spacing: 0.18em;
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
   vertical-align: middle;
   transform: translateY(-3px);
 }
@@ -2158,7 +2189,7 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 }
 
 .home-kinpaku .why-dm-tile-meta span:first-child {
-  color: var(--ks-kinpaku-pale);
+  color: var(--ks-state-ink);
 }
 
 .home-kinpaku .why-dm-color-hero {

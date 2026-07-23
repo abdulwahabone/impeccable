@@ -134,7 +134,7 @@
 
 .detector-nav-group h2 {
   letter-spacing: 0.2em;
-  color: var(--ks-kinpaku-deep);
+  color: var(--ks-accent-ink);
 }
 
 .detector-nav-list {
@@ -256,7 +256,7 @@
   border: 1px solid var(--ks-kinpaku);
   border-radius: 2px;
   background: transparent;
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
   font-family: var(--ks-font);
   font-size: 0.8125rem;
   font-weight: 500;
@@ -404,7 +404,7 @@
 
 .detector-rule-pill span {
   font-family: var(--ks-mono);
-  color: var(--ks-patina);
+  color: var(--ks-state-ink);
 }
 
 .detector-empty-pill {
