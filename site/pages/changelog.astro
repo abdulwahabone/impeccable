@@ -23,8 +23,21 @@ import '../styles/changelog-faq-kinpaku.css';
       <button type="button" class="cf-filter-btn" data-cf-filter="all" aria-pressed="false">All</button>
     </div>
 
-    <article id="v4.0.2" class="cf-entry cf-entry--current">
-      <header class="cf-entry-head"><span class="cf-version">v4.0.2</span><span class="cf-date">July 23, 2026</span><span class="cf-current-badge">Current</span></header>
+    <article id="v4.0.3" class="cf-entry cf-entry--current">
+      <header class="cf-entry-head"><span class="cf-version">v4.0.3</span><span class="cf-date">July 27, 2026</span><span class="cf-current-badge">Current</span></header>
+      <p class="cf-entry-lead">A weekend of live runs, transcript against transcript, became the biggest quality release since v4. The direction choice is now a real design surface, sketches stream in while you read, and the finish ends on a verdict instead of a feeling.</p>
+      <ul class="cf-entry-list">
+        <li><strong>The decision page grew up.</strong> Every direction card shares one anatomy: thesis, palette chips, material tags, first viewport, honest risk. Every dealt challenger appears with the model's verdict written on it, the category standard sits on the table as its own quiet card, and the full read lives on the card's back behind a Details flip. The deck runs edge to edge, pages on its long axis, and fades whichever side hides more cards.</li>
+        <li><strong>Sketches, streamed and honest.</strong> With image generation available, each card gets a quick direction sketch rendered through one deliberately unfinished shared frame, produced one subagent per card in parallel where the harness allows. The page serves instantly and sketches land as they finish; catalog inspirations ride picture-in-picture, labeled as inspiration, and take over the frame on hover instead of posing as your future design. Only the product name and one real headline are legible in a sketch; every other text region is greeked, so a sketch cannot invent specs, prices, or dates.</li>
+        <li><strong>The finish ends on a verdict.</strong> After the independent review, the fix batch, and a same-viewport recapture, the screenshots go back to the reviewer, which scores every fix resolved, partial, or unresolved. Open items earn exactly one more round, two rounds is the ceiling, and the final verdict table reaches you as it stands, open items included.</li>
+        <li><strong>The review got eyes for style.</strong> The fidelity check now classifies every salient element of the approved comp, with two mandatory rows: display lettering of a different character fails however the layout matches, and flat CSS standing in for painted or textured artwork fails regardless of placement. An asset applied at near-invisible opacity no longer counts as shipped.</li>
+        <li><strong>Kickers are banned.</strong> The eyebrow label above a heading is out of the craft floor entirely: no brief earns it back. The heading carries its own weight.</li>
+        <li><strong>Sturdier machinery.</strong> DESIGN.md is written at finish by a dedicated documenter subagent, from the built page rather than from intentions; harnesses without subagents get generated inline fallbacks for every shipped agent role; the concept roll survives output truncation and build pipelines that strip comments; catalog challengers now carry a breadth axis so an excellent but narrow world stops crowding the deal; and a failed decision-page start says why, with a log to read.</li>
+      </ul>
+    </article>
+
+    <article id="v4.0.2" class="cf-entry">
+      <header class="cf-entry-head"><span class="cf-version">v4.0.2</span><span class="cf-date">July 23, 2026</span></header>
       <p class="cf-entry-lead">Security hardening, a live mode that stopped fighting its own frameworks, and TanStack support. Most of this release traces to user reports filed in the last two days; thank you.</p>
       <ul class="cf-entry-list">
         <li><strong>Security.</strong> The live helper no longer serves its bearer token to any page that asks: loopback-only CORS and a token-gated script (#304). The <code>/source</code> route can no longer read sibling directories whose names extend the project root (#401).</li>
@@ -249,6 +262,19 @@ import '../styles/changelog-faq-kinpaku.css';
       </ul>
     </article>
 
+    <article id="cli-v3.4.0" class="cf-entry">
+      <header class="cf-entry-head"><span class="cf-version">CLI v3.4.0</span><span class="cf-date">July 27, 2026</span></header>
+      <p class="cf-entry-lead">The kicker ban lands in the detector, a new glow rule, and scans that skip what they should.</p>
+      <ul class="cf-items">
+        <li><strong>Kickers are banned.</strong> New <code>kicker-above-heading</code> rule flags the first eyebrow label above any heading, replacing the old advisory that waited for three repeats. Breadcrumbs, datelines, card metadata, form labels, and document numbering all stay exempt.</li>
+        <li><strong>New rule: <code>radial-spotlight-glow</code>.</strong> The soft chromatic glow fading to transparent behind content, a favorite AI default, is now a named finding, distinct from the existing halo rule.</li>
+        <li><strong>Stripes hiding in stylesheets.</strong> Pseudo-element stripe patterns are now caught in standalone CSS files and style blocks, not just inline styles, and findings carry their source lines.</li>
+        <li><strong>Scans skip what they should.</strong> Hidden directories and vendored paths are out of the walk, while conventional UI source dirs like <code>.vuepress</code> stay in; scans get faster and quieter at once.</li>
+        <li><strong>Fewer false positives.</strong> Forms whose <code>id</code> shadows the DOM API no longer crash element checks, <code>background-clip: text</code> gradients stop tripping contrast, and non-rendered text is excluded from tiny-text findings.</li>
+        <li><strong>OpenCode installs land where OpenCode looks.</strong> Global skill installs write to the config directory OpenCode actually reads, with the legacy location migrated safely.</li>
+      </ul>
+    </article>
+
     <article id="cli-v3.3.1" class="cf-entry">
       <header class="cf-entry-head"><span class="cf-version">CLI v3.3.1</span><span class="cf-date">July 22, 2026</span></header>
       <p class="cf-entry-lead">A hotfix for global installs, plus a gentler em dash rule.</p>
@@ -367,6 +393,13 @@ import '../styles/changelog-faq-kinpaku.css';
         <li><strong>14 new detection rules.</strong> <code>cream-palette</code> (warm off-white "claude beige" backgrounds, including Tailwind warm-light utilities), <code>em-dash-overuse</code>, <code>marketing-buzzword</code>, <code>numbered-section-markers</code>, <code>aphoristic-cadence</code>, <code>theater-slop-phrase</code>, <code>oversized-h1</code>, <code>extreme-negative-tracking</code>, <code>gpt-thin-border-wide-shadow</code>, <code>repeating-stripes-gradient</code>, <code>image-hover-transform</code>, <code>broken-image</code>, <code>text-overflow</code>, and <code>clipped-overflow-container</code>. 41 deterministic rules total.</li>
         <li><strong>everything-centered removed.</strong> Dropped from the registry, the regex analyzer, and the layout checks: the rule caught too many legitimately centered layouts to earn its place.</li>
         <li><strong>One canonical registry.</strong> Eval-side detection logic folded back into the shared engine, so the CLI, the browser extension, the critique skill, and the evals all run the exact same checks.</li>
+      </ul>
+    </article>
+
+    <article id="ext-v1.3.0" class="cf-entry">
+      <header class="cf-entry-head"><span class="cf-version">Extension v1.3.0</span><span class="cf-date">July 27, 2026</span></header>
+      <ul class="cf-items">
+        <li><strong>The updated detector, in your browser.</strong> The extension ships the current rule engine: the new <code>kicker-above-heading</code> ban, the <code>radial-spotlight-glow</code> rule, stylesheet stripe scanning, and the latest false-positive hardening for shadowed form ids, clipped-text gradients, and non-rendered text.</li>
       </ul>
     </article>
 
