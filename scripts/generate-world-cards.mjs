@@ -77,7 +77,7 @@ The page is designed wholly inside this visual world: ${concept.form}.
 Palette and materials: ${palette}
 Typography and composition: ${type}
 Atmosphere, never written on the page but carried into it: ${concept.spark}
-Light the page like the world: its hour, light quality, and mood shape the page ground, surfaces, and imagery, not just the accent color. A nocturnal or interior world produces a genuinely dark, atmospherically lit page.
+Light the page like the world: its hour, light quality, and mood shape the page ground, surfaces, and imagery, not just the accent color. Take the page ground from the palette above rather than from atmosphere: a world of cream stock, daylight, paper, or bright ink produces a genuinely light page, and only a world that is actually nocturnal or interior produces a dark one. Do not darken a page whose palette is light.
 
 Invent a plausible fictional product or brand this world would naturally serve and write short realistic copy for it (plain punctuation, never an em dash): an invented name that reuses no brand, label, designer, or place name from the world description, a headline of at most eight words, one supporting sentence, and button labels. The result must read as a real, current, award-caliber website built from this world's laws: disciplined grid, aligned edges, believable interface details, generous intentional spacing. Not a poster, not a pastiche, a landing page.
 
@@ -228,7 +228,15 @@ async function generateCard(ai, model, concept, kind) {
         ? await generateOpenAI(model, concept, kind)
         : await generateGemini(ai, model, concept, kind);
       if (!raw) throw new Error('no image part in response');
-      return await sharp(raw).webp({ quality: 90 }).toBuffer();
+      const webp = await sharp(raw).webp({ quality: 90 }).toBuffer();
+      // A moderated request can come back as a valid, correctly sized, entirely
+      // blank frame rather than an error, which every exception-based check
+      // reads as success and the manifest then stamps as generated. Treat a
+      // flat frame as a failure so it retries and, if it keeps failing, reports
+      // instead of silently shipping a black card.
+      const { channels: [luma] } = await sharp(webp).greyscale().stats();
+      if (luma.stdev < 3) throw new Error(`blank frame returned (stdev ${luma.stdev.toFixed(2)}), likely moderated`);
+      return webp;
     } catch (error) {
       lastError = error;
       const wait = attempt * 8000;
@@ -282,47 +290,61 @@ async function main() {
 
   const fileFor = (concept, kind) => join(outDir, `${concept.id}${kind === 'hero' ? '-hero' : ''}.webp`);
   const stampKey = kind => (kind === 'hero' ? 'heroGeneratedAt' : 'generatedAt');
+  // One queue entry per concept, holding its jobs in kind order, because the
+  // hero takes the board off disk as binding style reference. Queuing board and
+  // hero as independent jobs lets a worker start the hero first: on a new
+  // concept there is no board yet so the reference is silently skipped, and on a
+  // reworked concept the previous version's board is still sitting there, so the
+  // new hero is generated from the art direction that was just replaced.
+  // Concepts still run concurrently; only the pair within a concept is ordered.
   const queue = [];
+  let queued = 0;
   for (const concept of concepts) {
     if (only && !only.includes(concept.id)) continue;
     const hash = hashOf(concept);
     const row = manifest[concept.id];
+    const jobs = [];
     for (const kind of kinds) {
       const needed = force
         || !existsSync(fileFor(concept, kind))
         || row?.hash !== hash
         || !row?.[stampKey(kind)];
-      if (needed || only) queue.push({ concept, kind });
+      if ((needed || only) && queued < limit) {
+        jobs.push({ concept, kind });
+        queued += 1;
+      }
     }
+    if (jobs.length > 0) queue.push(jobs);
   }
-  queue.splice(limit);
 
   if (only) {
-    const found = new Set(queue.map(job => job.concept.id));
+    const found = new Set(queue.flat().map(job => job.concept.id));
     const missing = only.filter(id => !found.has(id));
     if (missing.length) throw new Error(`concept not found: ${missing.join(', ')}`);
   }
-  process.stdout.write(`generating ${queue.length} images (${kinds.join('+')}) across ${concepts.length} concepts with ${modelKey} -> ${outDir}\n`);
+  process.stdout.write(`generating ${queued} images (${kinds.join('+')}) across ${concepts.length} concepts with ${modelKey} -> ${outDir}\n`);
 
   let done = 0;
   let failed = 0;
   const worker = async () => {
     while (queue.length > 0) {
-      const { concept, kind } = queue.shift();
-      try {
-        const webp = await generateCard(ai, model, concept, kind);
-        writeFileSync(fileFor(concept, kind), webp);
-        const row = manifest[concept.id] || {};
-        row.hash = hashOf(concept);
-        row.model = modelKey;
-        row[stampKey(kind)] = new Date().toISOString();
-        manifest[concept.id] = row;
-        writeManifest();
-        done += 1;
-        process.stdout.write(`  [${done}] ${concept.id} ${kind} (${Math.round(webp.length / 1024)}KB)\n`);
-      } catch (error) {
-        failed += 1;
-        process.stderr.write(`  FAILED ${concept.id} ${kind}: ${error.message}\n`);
+      const jobs = queue.shift();
+      for (const { concept, kind } of jobs) {
+        try {
+          const webp = await generateCard(ai, model, concept, kind);
+          writeFileSync(fileFor(concept, kind), webp);
+          const row = manifest[concept.id] || {};
+          row.hash = hashOf(concept);
+          row.model = modelKey;
+          row[stampKey(kind)] = new Date().toISOString();
+          manifest[concept.id] = row;
+          writeManifest();
+          done += 1;
+          process.stdout.write(`  [${done}] ${concept.id} ${kind} (${Math.round(webp.length / 1024)}KB)\n`);
+        } catch (error) {
+          failed += 1;
+          process.stderr.write(`  FAILED ${concept.id} ${kind}: ${error.message}\n`);
+        }
       }
     }
   };

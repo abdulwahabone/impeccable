@@ -50,9 +50,14 @@ async function readJson(filePath) {
   return JSON.parse(await readFile(filePath, 'utf8'));
 }
 
-async function writeJsonAtomic(filePath, value) {
+// Ingredient catalogs serialize at indent 1 and review files at indent 2. That
+// is the authoring contract in docs/WORLD-CATALOG-AUTHORING.md: it is what makes
+// an authoring round round-trip byte-identical, so its diff stays purely
+// additive. Writing every file at one indent reformats the whole catalog on the
+// first review and buries the round in thousands of phantom line changes.
+async function writeJsonAtomic(filePath, value, indent = 2) {
   const temporaryPath = `${filePath}.${process.pid}.${Date.now()}.tmp`;
-  await writeFile(temporaryPath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
+  await writeFile(temporaryPath, `${JSON.stringify(value, null, indent)}\n`, 'utf8');
   await rename(temporaryPath, filePath);
 }
 
@@ -114,14 +119,37 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
   // Composition-catalog reviews share the review mechanics but none of the
   // world catalog's floors or editing; v1 supports the review action only.
   async function mutateComposition(body) {
-    if (body.action !== 'review') throw new Error('Compositions support the review action only');
-    if (!REVIEW_STATUSES.has(body.status)) throw new Error('Review status is invalid');
-    const note = typeof body.note === 'string' ? body.note.trim() : '';
-    if (note.length > 500) throw new Error('Review note must be 500 characters or fewer');
+    if (body.action !== 'review' && body.action !== 'breadth') {
+      throw new Error('Compositions support the review and breadth actions only');
+    }
     const catalog = await readJson(compositionCatalogPath);
     const reviewData = await readJson(compositionReviewsPath);
     const entry = (catalog.compositions || []).find(composition => composition.id === body.id);
     if (!entry) throw new Error('Composition was not found');
+
+    // Stagings had no gate at all: selectApprovedStagings filtered on approval
+    // and surface only, so a staging too specific to serve an arbitrary build
+    // could not be held out of challenger draws by any means.
+    if (body.action === 'breadth') {
+      const review = reviewData.reviews[body.id];
+      if (review?.status !== 'approved') throw new Error('Breadth only applies to approved stagings');
+      if (body.breadth === 'niche') {
+        review.breadth = 'niche';
+      } else if (body.breadth === 'general' || body.breadth === null) {
+        delete review.breadth;
+      } else {
+        throw new Error('Breadth must be general or niche');
+      }
+      const { errors: breadthErrors } = validateCompositionCatalog(catalog, reviewData);
+      if (breadthErrors.length > 0) throw new Error(breadthErrors[0]);
+      await writeJsonAtomic(compositionReviewsPath, reviewData);
+      return { id: body.id, breadth: review.breadth ?? 'general', review };
+    }
+
+    if (!REVIEW_STATUSES.has(body.status)) throw new Error('Review status is invalid');
+    const note = typeof body.note === 'string' ? body.note.trim() : '';
+    if (note.length > 500) throw new Error('Review note must be 500 characters or fewer');
+    const previousBreadth = reviewData.reviews[body.id]?.breadth;
     if (body.status === 'pending') {
       delete reviewData.reviews[body.id];
     } else {
@@ -131,6 +159,7 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
         reviewedAt: new Date().toISOString(),
         formHash: compositionContentHash(entry),
         ...(note ? { note } : {}),
+        ...(body.status === 'approved' && previousBreadth === 'niche' ? { breadth: previousBreadth } : {}),
       };
     }
     reviewData.reviews = Object.fromEntries(Object.entries(reviewData.reviews).sort(([a], [b]) => a.localeCompare(b)));
@@ -159,6 +188,7 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       if (note.length > 500) throw new Error('Review note must be 500 characters or fewer');
       const previousStatus = reviewData.reviews[body.id]?.status || 'pending';
       const previousRating = reviewData.reviews[body.id]?.rating;
+      const previousBreadth = reviewData.reviews[body.id]?.breadth;
       if (body.status === 'pending') {
         delete reviewData.reviews[body.id];
       } else {
@@ -169,6 +199,7 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
           formHash: conceptContentHash(match.concept),
           ...(note ? { note } : {}),
           ...(body.status === 'approved' && [1, 2, 3].includes(previousRating) ? { rating: previousRating } : {}),
+          ...(body.status === 'approved' && previousBreadth === 'niche' ? { breadth: previousBreadth } : {}),
         };
       }
       if (previousStatus === 'approved' && body.status !== 'approved') assertApprovedFloor(catalog, reviewData);
@@ -185,7 +216,7 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       match.concept.strength = body.strength;
       catalog.catalogVersion = new Date().toISOString();
       assertValidCatalog(catalog, reviewData);
-      await writeJsonAtomic(catalogPath, catalog);
+      await writeJsonAtomic(catalogPath, catalog, 1);
       return { id: body.id, strength: body.strength, catalogVersion: catalog.catalogVersion };
     }
 
@@ -205,6 +236,27 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       assertValidCatalog(catalog, reviewData);
       await writeJsonAtomic(reviewsPath, reviewData);
       return { id: body.id, rating: review.rating ?? null, review };
+    }
+
+    // Breadth is deliberately separate from rating. Rating grades how good a
+    // world is; breadth says whether it can serve an arbitrary build. Before
+    // this existed the only way to hold a narrow world back was to rate it
+    // marginal, which made "excellent but niche" indistinguishable from "weak"
+    // and quietly corrupted the calibration signal for the next authoring
+    // round. Absent means general; only 'niche' is stored.
+    if (body.action === 'breadth') {
+      const review = reviewData.reviews[body.id];
+      if (review?.status !== 'approved') throw new Error('Breadth only applies to approved concepts');
+      if (body.breadth === 'niche') {
+        review.breadth = 'niche';
+      } else if (body.breadth === 'general' || body.breadth === null) {
+        delete review.breadth;
+      } else {
+        throw new Error('Breadth must be general or niche');
+      }
+      assertValidCatalog(catalog, reviewData);
+      await writeJsonAtomic(reviewsPath, reviewData);
+      return { id: body.id, breadth: review.breadth ?? 'general', review };
     }
 
     if (body.action === 'update') {
@@ -256,7 +308,7 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       }
       if (previousStatus === 'approved') assertApprovedFloor(catalog, reviewData);
       assertValidCatalog(catalog, reviewData);
-      await writeJsonAtomic(catalogPath, catalog);
+      await writeJsonAtomic(catalogPath, catalog, 1);
       if (previousStatus !== 'pending') await writeJsonAtomic(reviewsPath, reviewData);
       return {
         id: body.id,

@@ -226,6 +226,16 @@ const pageData = JSON.stringify({
                   >★</button>
                 ))}
               </div>
+              <button
+                type="button"
+                class="worlds-breadth-toggle"
+                data-breadth-toggle
+                hidden={initialConcept.status !== 'approved'}
+                aria-pressed={String(initialConcept.review?.breadth === 'niche')}
+                disabled={!import.meta.env.DEV}
+                title="Niche: keep the approval but hold this world out of challenger draws (press N)"
+                aria-keyshortcuts="n"
+              >Niche</button>
               <div class="worlds-strength-toggle" role="group" aria-label="Concept strength: what this entry is strong at" data-strength-toggle>
                 {['world', 'composition', 'dual'].map(value => (
                   <button
@@ -457,6 +467,7 @@ const pageData = JSON.stringify({
     const strengthButtons = [...document.querySelectorAll('[data-strength-option]')];
     const ratingGroup = document.querySelector('[data-rating-group]');
     const ratingButtons = [...document.querySelectorAll('[data-rating-option]')];
+    const breadthToggle = document.querySelector('[data-breadth-toggle]');
     let notedConceptId = '';
     const reviewNoteWrapEl = document.querySelector('[data-concept-review-note-wrap]');
     const reviewNoteEl = document.querySelector('[data-concept-review-note]');
@@ -674,6 +685,8 @@ const pageData = JSON.stringify({
       ratingButtons.forEach(button => {
         button.setAttribute('aria-pressed', String((concept.review?.rating || 0) >= Number(button.dataset.ratingOption)));
       });
+      breadthToggle.hidden = concept.status !== 'approved';
+      breadthToggle.setAttribute('aria-pressed', String(concept.review?.breadth === 'niche'));
       // The decision-note field mirrors the current concept's saved note.
       // Only refill when the concept changes so re-renders never clobber typing.
       if (concept.id !== notedConceptId) {
@@ -840,6 +853,31 @@ const pageData = JSON.stringify({
         showToast(rating
           ? `Rated ${'★'.repeat(rating)}: ${concept.form.split(',')[0]}`
           : `Rating cleared: ${concept.form.split(',')[0]}`);
+      } catch (error) {
+        showToast(error instanceof Error ? error.message : String(error), 'error');
+      }
+    }
+
+    // Breadth is not a quality grade. It answers whether a world can serve an
+    // arbitrary build, so an excellent but narrow world can be held out of
+    // challenger draws without being libelled as marginal.
+    async function toggleBreadth() {
+      const concept = currentConcept();
+      if (!canWrite || !concept || concept.status !== 'approved') return;
+      const breadth = concept.review?.breadth === 'niche' ? 'general' : 'niche';
+      try {
+        const response = await fetch('/__impeccable/worlds', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'breadth', id: concept.id, breadth }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Breadth could not be saved');
+        concept.review = result.result.review;
+        render();
+        showToast(breadth === 'niche'
+          ? `Held out of challenger draws: ${concept.form.split(',')[0]}`
+          : `Back in challenger draws: ${concept.form.split(',')[0]}`);
       } catch (error) {
         showToast(error instanceof Error ? error.message : String(error), 'error');
       }
@@ -1031,6 +1069,7 @@ const pageData = JSON.stringify({
     ratingButtons.forEach(button => {
       button.addEventListener('click', () => setRating(Number(button.dataset.ratingOption)));
     });
+    breadthToggle.addEventListener('click', () => toggleBreadth());
     document.querySelectorAll('[data-review-status]').forEach(button => {
       button.addEventListener('click', () => review(button.dataset.reviewStatus));
     });
@@ -1092,6 +1131,8 @@ const pageData = JSON.stringify({
         openEditor();
       } else if (['1', '2', '3'].includes(event.key) && !event.altKey && !event.metaKey && !event.ctrlKey) {
         setRating(Number(event.key));
+      } else if (event.key.toLowerCase() === 'n' && !event.altKey && !event.metaKey && !event.ctrlKey) {
+        toggleBreadth();
       }
     });
     window.addEventListener('beforeunload', event => {

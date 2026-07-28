@@ -18,6 +18,30 @@ const compositionState = readCompositionCatalog(
 );
 const compositionResult = validateCompositionCatalog(compositionState.catalog, compositionState.reviewData);
 
+// A world-catalog entry at composition strength cannot be approved: the review
+// plugin refuses it outright ("stagings live in the composition catalog"), so
+// authoring one guarantees a rejection and a wasted pair of renders. The shared
+// validator in skill/ is owned by the public repo and permits it, so this gate
+// lives here, where the authoring round actually runs.
+// Only pending ones are an error. A reviewer marking an entry "composition" and
+// rejecting it is the documented routing flow: it joins the mining queue and
+// waits to be migrated, so failing on those would break the reviewer's own
+// workflow. A pending one is an authoring mistake that costs a guaranteed
+// rejection and a wasted pair of renders.
+const stagingStrength = catalog.families
+  .flatMap(family => family.concepts.map(concept => ({ family: family.id, concept })))
+  .filter(({ concept }) => concept.strength === 'composition');
+const unrouted = stagingStrength.filter(({ concept }) => (reviewData.reviews?.[concept.id]?.status || 'pending') === 'pending');
+for (const { family, concept } of unrouted) {
+  result.errors.push(
+    `concept ${concept.id} (${family}) is strength "composition" and still pending: author world-catalog entries as world or dual, since a staging cannot be approved here`
+  );
+}
+const miningQueue = stagingStrength.length - unrouted.length;
+if (miningQueue > 0) {
+  process.stdout.write(`concept-catalog: ${miningQueue} rejected staging-strength entr${miningQueue === 1 ? 'y' : 'ies'} awaiting migration to the composition catalog\n`);
+}
+
 let failed = false;
 if (result.errors.length > 0) {
   for (const error of result.errors) process.stderr.write(`concept-catalog: ${error}\n`);

@@ -261,6 +261,7 @@
 .worlds-status-grid button:focus-visible,
 .worlds-decision-note:focus-visible,
 .worlds-strength-toggle button:focus-visible,
+.worlds-breadth-toggle:focus-visible,
 .worlds-rating button:focus-visible,
 .worlds-family-button:focus-visible,
 .worlds-queue-item:focus-visible,
@@ -836,6 +837,38 @@ button kbd {
 }
 
 .worlds-strength-toggle button:disabled {
+  cursor: not-allowed;
+}
+
+/* Breadth is a hold, not a grade: it reads as a quiet outline until engaged,
+   then takes the warning-adjacent patina so a held-back world is obvious at a
+   glance in the queue without implying the world is weak. */
+.worlds-breadth-toggle {
+  min-height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.worlds-breadth-toggle:hover:not(:disabled) {
+  background: var(--ks-graphite);
+  color: var(--ks-text-muted);
+}
+
+.worlds-breadth-toggle[aria-pressed="true"] {
+  border-color: color-mix(in oklch, var(--ks-champagne), transparent 60%);
+  background: color-mix(in oklch, var(--ks-champagne), transparent 88%);
+  color: var(--ks-champagne);
+}
+
+.worlds-breadth-toggle:disabled {
   cursor: not-allowed;
 }
 

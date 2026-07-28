@@ -212,6 +212,16 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions })
               <p class="worlds-action-note" data-action-note role="status" aria-live="polite"></p>
             </div>
             <div class="worlds-action-buttons">
+              <button
+                type="button"
+                class="worlds-breadth-toggle"
+                data-breadth-toggle
+                hidden
+                aria-pressed="false"
+                disabled={!import.meta.env.DEV}
+                title="Niche: keep the approval but hold this staging out of challenger draws (press N)"
+                aria-keyshortcuts="n"
+              >Niche</button>
               <button type="button" class="worlds-action-reject" data-review-status="rejected" disabled={!import.meta.env.DEV} aria-keyshortcuts="Alt+R"><span>Reject</span><kbd>⌥R</kbd></button>
               <button type="button" class="worlds-action-pending" data-review-status="pending" disabled={!import.meta.env.DEV} aria-keyshortcuts="Alt+U"><span>Return to backlog</span><kbd>⌥U</kbd></button>
               <button type="button" class="worlds-action-approve" data-review-status="approved" disabled={!import.meta.env.DEV} aria-keyshortcuts="Alt+A"><span>Approve</span><kbd>⌥A</kbd></button>
@@ -241,6 +251,7 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions })
     const queueList = document.querySelector('[data-queue-list]');
     const searchInput = document.querySelector('[data-search]');
     const decisionNoteInput = document.querySelector('[data-decision-note]');
+    const breadthToggle = document.querySelector('[data-breadth-toggle]');
     const actionNote = document.querySelector('[data-action-note]');
     const toast = document.querySelector('[data-toast]');
     let toastTimer = 0;
@@ -361,6 +372,8 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions })
       for (const button of document.querySelectorAll('[data-review-status]')) {
         button.classList.toggle('is-current', button.dataset.reviewStatus === item.status);
       }
+      breadthToggle.hidden = item.status !== 'approved';
+      breadthToggle.setAttribute('aria-pressed', String(item.review?.breadth === 'niche'));
       const position = visible.findIndex(entry => entry.id === item.id);
       el('[data-previous]').disabled = position <= 0;
       el('[data-next]').disabled = position === -1 || position >= visible.length - 1;
@@ -434,6 +447,32 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions })
     searchInput.addEventListener('input', () => { state.query = searchInput.value; render(); });
     el('[data-previous]').addEventListener('click', () => move(-1));
     el('[data-next]').addEventListener('click', () => move(1));
+    // Stagings previously had no gate at all: selectApprovedStagings filtered
+    // on approval and surface only, so a staging too specific to serve an
+    // arbitrary build could not be held out of challenger draws.
+    async function toggleBreadth() {
+      const item = current();
+      if (!canWrite || !item || item.status !== 'approved') return;
+      const breadth = item.review?.breadth === 'niche' ? 'general' : 'niche';
+      try {
+        const response = await fetch('/__impeccable/worlds', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'breadth', catalog: 'compositions', id: item.id, breadth }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Breadth could not be saved');
+        item.review = result.result.review;
+        render();
+        showToast(breadth === 'niche'
+          ? 'Held out of challenger draws'
+          : 'Back in challenger draws');
+      } catch (error) {
+        showToast(error instanceof Error ? error.message : String(error), 'error');
+      }
+    }
+
+    breadthToggle.addEventListener('click', () => toggleBreadth());
     document.querySelectorAll('[data-review-status]').forEach(button => {
       button.addEventListener('click', () => review(button.dataset.reviewStatus));
     });
@@ -446,6 +485,7 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions })
       }
       if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) return;
       if (event.key === '/') { event.preventDefault(); searchInput.focus(); }
+      else if (event.key.toLowerCase() === 'n' && !event.altKey && !event.metaKey && !event.ctrlKey) { event.preventDefault(); toggleBreadth(); }
       else if (event.key.toLowerCase() === 'j' || (event.key === 'ArrowDown' && !event.altKey && !event.metaKey && !event.ctrlKey)) { event.preventDefault(); move(1); }
       else if (event.key.toLowerCase() === 'k' || (event.key === 'ArrowUp' && !event.altKey && !event.metaKey && !event.ctrlKey)) { event.preventDefault(); move(-1); }
       else if (event.altKey && event.code === 'KeyA') { event.preventDefault(); review('approved'); }

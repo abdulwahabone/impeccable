@@ -4737,6 +4737,2074 @@
    "webLeverage": "Canvas or WebGL band simulation with DOM band fallbacks and scroll-driven fold progression",
    "sourceConceptId": "clouds-storms-auroras-auroral-curtain",
    "provenanceNote": "Kept the field-folded band ensemble and substorm reorganization; stripped auroral color and sky material."
+  },
+  {
+   "id": "reading-rhythm-crossing-script-dialogue",
+   "familyId": "reading-rhythm",
+   "surface": "read",
+   "form": "a bilingual reading surface staged as two sovereign texts running in their own native directions, where they touch only at shared proper names that become the reachable crossings between them",
+   "lineage": "Japanese tategaki composition, bilingual poetry publishing, ruby annotation, and multilingual book typography",
+   "tags": [
+    "native-direction",
+    "shared-anchor",
+    "crossing-point"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Each text keeps its own writing direction and neither is demoted to a gloss; shared names sit as the only elements belonging to both.",
+    "Sequence/attention: Attention moves down one text until a shared name pulls it across, then continues in the other direction from that anchor.",
+    "Controls/state: Read, align, annotate, and compare, with source, translation, shared, divergent, glossed, and untranslated states.",
+    "Adaptation: Narrow frames separate the scripts into synchronized native-direction panes and keep explicit anchors between corresponding points."
+   ],
+   "spark": "Two poems running at right angles to each other, touching only where they both name the same river, and that name becomes the door between them.",
+   "webLeverage": "Native writing modes, ruby annotation, and bidirectional deep links let either text stay sovereign while crossings remain addressable.",
+   "sourceConceptId": "typography-calligraphy-writing-crossing-script-dialogue",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reveal-transform-palimpsest-scraped-letter",
+   "familyId": "reveal-transform",
+   "surface": "read",
+   "form": "a document surface staged as a scraped palimpsest, where erased earlier writing returns under raking light and every recovered layer keeps its own confidence rating beside it",
+   "lineage": "Manuscript palimpsests, multispectral conservation imaging, and layered textual scholarship",
+   "tags": [
+    "erased-layer",
+    "raking-recovery",
+    "confidence-rating"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The visible text holds the surface and earlier layers sit beneath it, reachable only by changing the light rather than by scrolling.",
+    "Sequence/attention: Attention moves from what is legible now to what was removed, so reading order is chronological in reverse.",
+    "Controls/state: Reveal, suppress, align, and cite, with visible, erased, recovered, uncertain, and damaged states.",
+    "Adaptation: Small screens use synchronized registered layers rather than side-by-side comparison, and every reading stays available as semantic text."
+   ],
+   "spark": "Tilt the light and a sentence somebody scraped off eight hundred years ago comes back up through the one written over it, still uncertain in three places.",
+   "webLeverage": "Aligned multispectral image layers blend locally while transcriptions and confidence values stay first-class selectable text.",
+   "sourceConceptId": "typography-calligraphy-writing-palimpsest-scraped-letter",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-utopian-scholastic-cutaway",
+   "familyId": "spatial-navigation",
+   "surface": "read",
+   "form": "an explanatory surface staged as one axonometric cutaway holding every level at once, where numbered leaders thread out of the drawing into a caption bank and pull the reader deeper into the same section",
+   "lineage": "Cutaway encyclopedia illustration, axonometric sectional drawing, and numbered call-out apparatus",
+   "tags": [
+    "single-cutaway",
+    "numbered-leader",
+    "caption-bank"
+   ],
+   "grammar": [
+    "Staging/hierarchy: One drawing owns the frame and shows every floor simultaneously; the caption bank ranks beneath it and never competes for the same space.",
+    "Sequence/attention: Attention starts at the whole section, follows a numbered leader inward, and arrives at one labelled activity among dozens.",
+    "Controls/state: Numbered circles light their leader on hover and pin their caption open when active; read call-outs keep a small tick.",
+    "Adaptation: Narrow frames stack the caption bank under a pannable drawing, and movement pans and zooms rather than cutting between views."
+   ],
+   "spark": "Five floors sliced open at once with forty tiny people all doing something different, and twenty numbered circles promising that following every one explains the whole building.",
+   "webLeverage": "An interactive SVG cutaway zooms into labelled detail groups with numbered call-out state and pannable responsive framing.",
+   "sourceConceptId": "graphic-worlds-publishing-utopian-scholastic-cutaway",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-systems-chess-notation",
+   "familyId": "data-dramaturgy",
+   "surface": "operate",
+   "form": "a decision surface staged as a coordinate board beside its own move ledger, where any line of the ledger reconstructs the exact state and terse glyphs pass judgment on it in two characters",
+   "lineage": "Staunton diagram conventions, algebraic notation, and annotation symbol grammar",
+   "tags": [
+    "reconstructable-ledger",
+    "coordinate-grid",
+    "judgment-glyph"
+   ],
+   "grammar": [
+    "Staging/hierarchy: A fixed coordinate grid is the world and a numbered two-column ledger is its history; neither can be collapsed without losing the other.",
+    "Sequence/attention: Attention alternates between the current position and the line that produced it, so history is always one glance away.",
+    "Controls/state: Every action is a terse coordinate phrase, annotation glyphs grade it from brilliant to blunder, and branches indent as variations.",
+    "Adaptation: Board and ledger sit side by side then stack, coordinates never abbreviate, and pieces glide one move at a time."
+   ],
+   "spark": "Every line of the ledger rebuilds the whole board exactly, and two characters after the move tell you what somebody thought of it.",
+   "webLeverage": "URL searchParams deep-link any ply, so every position in the ledger has a shareable address.",
+   "sourceConceptId": "notation-diagram-systems-chess-notation",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-systems-guitar-tab",
+   "familyId": "data-dramaturgy",
+   "surface": "read",
+   "form": "an instruction surface staged as six horizontal string lines carrying numbers in time order, where technique is written as punctuation between the digits and a cursor sweeps the current beat across all six at once",
+   "lineage": "Lute tablature ancestry, transcription publishing, and ASCII tab archive convention",
+   "tags": [
+    "string-lines",
+    "technique-punctuation",
+    "beat-cursor"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Six lines are the physical strings and numbers sit on the line that sounds them, so position on the page is position on the instrument.",
+    "Sequence/attention: Attention tracks a single sweeping cursor left to right, and loops return it to the section start rather than advancing.",
+    "Controls/state: Technique is punctuation, a curved arrow carries a bend's reach, and the current beat highlights across all six lines together.",
+    "Adaptation: Measures wrap like text and a looped section repeats in place, with the cursor sweeping at tempo or at half speed."
+   ],
+   "spark": "Six lines, a column of numbers, and a cursor moving across all of them at once, slowing to half speed exactly where your hands cannot keep up.",
+   "webLeverage": "Web Audio drives the beat cursor and slows playback while the tab stays synchronized column by column.",
+   "sourceConceptId": "notation-diagram-systems-guitar-tab",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "working-surfaces-systems-knitting-chart",
+   "familyId": "working-surfaces",
+   "surface": "operate",
+   "form": "a work surface staged as a squared grid worked in alternating direction, where one highlighted row is the only live line, completed rows dim below it, and a bracketed repeat tiles sideways to any width",
+   "lineage": "Stitch dictionary charting, motif repeat brackets, and published pattern treasuries",
+   "tags": [
+    "boustrophedon-row",
+    "live-row",
+    "repeat-bracket"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The grid is worked bottom up and the current row holds full contrast; everything above it is instruction and everything below is record.",
+    "Sequence/attention: Attention sits on one row and moves cell by cell, reversing direction each pass the way the physical work does.",
+    "Controls/state: Each cell carries one symbol from a fixed legend, the working row highlights, and completed rows dim beneath the needle line.",
+    "Adaptation: The bracketed repeat tiles honestly to fill any width, and progress crawls cell by cell rather than jumping."
+   ],
+   "spark": "One row lit, everything below it gone quiet, and a bracket saying repeat this bit as many times as your width needs.",
+   "webLeverage": "CSS grid renders the chart while local IndexedDB state keeps your working row when you return offline.",
+   "sourceConceptId": "notation-diagram-systems-knitting-chart",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-raised-relief-map",
+   "familyId": "spatial-navigation",
+   "surface": "experience",
+   "form": "a terrain surface staged as a raised-relief model under a movable light, where plan, ridge profile, and horizon view stay locked to the same route position instead of flattening into one scroll",
+   "lineage": "Topographic survey, raised-relief cartography, alpine route mapping, and shaded terrain rendering",
+   "tags": [
+    "movable-light",
+    "linked-views",
+    "route-position"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Relief owns the surface and the light source is the primary instrument; route lines sit on the terrain rather than above it.",
+    "Sequence/attention: Attention moves along a route through range, basin, approach valley, and pass, with the shadow revealing what the plan hides.",
+    "Controls/state: Tilt light, trace route, and section terrain, with open, exposed, glaciated, shadowed, blocked, and alternate states.",
+    "Adaptation: Small screens synchronize plan, section, and horizon views on the same position rather than flattening the mountain into one scroll."
+   ],
+   "spark": "Swing the light around and a pass that looked open in plan turns out to sit in shadow behind a ridge you could not see from above.",
+   "webLeverage": "Linked plan, section, and horizon views keep one route position synchronized while live conditions annotate each segment.",
+   "sourceConceptId": "wayfinding-cartography-signage-karakoram-raised-relief-map",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-tidal-harbor-compass",
+   "familyId": "spatial-navigation",
+   "surface": "operate",
+   "form": "a routing surface staged around a moving shoreline, where navigable depth bands expand and close as the tide is scrubbed and every passage carries the window in which it exists",
+   "lineage": "Pilot charts, tide tables, harbor buoyage, and coastal wayfinding practice",
+   "tags": [
+    "depth-band",
+    "tide-scrub",
+    "time-window"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Depth bands are the map and the shoreline is a variable, so the navigable area is redrawn by time rather than by zoom.",
+    "Sequence/attention: Attention lands on the next tidal decision first and the wider overview stays one gesture away.",
+    "Controls/state: Set vessel or walking limits, scrub the tide, and compare alternate passages against their closing windows.",
+    "Adaptation: Phones center the imminent decision while preserving a north-up overview, and every route states its own expiry."
+   ],
+   "spark": "Drag the tide forward two hours and the channel you were planning to use quietly becomes mud.",
+   "webLeverage": "Tide and weather feeds combine with offline vector charts and device heading for time-aware routes with explicit windows.",
+   "sourceConceptId": "wayfinding-cartography-signage-tidal-harbor-compass",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "working-surfaces-worm-standards-room",
+   "familyId": "working-surfaces",
+   "surface": "operate",
+   "form": "a specification surface staged as numbered spec pages reached by document code, where every page shows correct use beside forbidden use and clearspace rules appear as live measurement callouts",
+   "lineage": "Federal graphics standards manuals, reduction-test discipline, and stencil utility marking",
+   "tags": [
+    "spec-page",
+    "correct-beside-forbidden",
+    "measured-clearspace"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Every view is a numbered spec page reached by code, and correct use is always paired with the violation it prevents.",
+    "Sequence/attention: Attention checks the rule, then the permitted example, then the forbidden one, in that fixed order on every page.",
+    "Controls/state: Elements carry clearspace and minimum-size rules as visible callouts, and violations flag in the manual's alarm red.",
+    "Adaptation: Every layout passes a reduction test, staying legible at decal size before poster size, with motion as a drafting slide."
+   ],
+   "spark": "Every page shows you the right way and, immediately beside it, the wrong way with a red flag on it, measured to the millimeter.",
+   "webLeverage": "Computed-style measurement overlays drawn in SVG expose live clearspace math on every element.",
+   "sourceConceptId": "design-canon-nasa-worm-standards-room",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "working-surfaces-shaker-meeting-room",
+   "familyId": "working-surfaces",
+   "surface": "operate",
+   "form": "a workspace staged as a swept floor circled by a peg rail, where the center stays deliberately empty for the task at hand and every tool hangs at one ordained height until it is needed",
+   "lineage": "Shaker meetinghouse order, peg rail discipline, and use-earns-place doctrine",
+   "tags": [
+    "empty-center",
+    "perimeter-rail",
+    "earned-place"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The center is reserved for the work and everything else hangs on a perimeter rail at one fixed height; nothing occupies the middle at rest.",
+    "Sequence/attention: Attention stays on the emptied center, and tools enter it only for as long as they are in use.",
+    "Controls/state: Tools come off the rail into use and return to their peg; an occupied peg means rest and an empty peg means work in progress.",
+    "Adaptation: The rail wraps to as many edges as the viewport allows with order preserved, and motion is a quiet lift and re-hang."
+   ],
+   "spark": "The middle of the room is empty on purpose, and you can tell what somebody is doing by which peg is bare.",
+   "webLeverage": "Drag and drop between rail and floor makes taking a tool down and hanging it back the entire interaction model.",
+   "sourceConceptId": "design-canon-shaker-meeting-room",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-wegner-cabinetmaker-bench",
+   "familyId": "interaction-physics",
+   "surface": "operate",
+   "form": "an assembly surface staged as a dry fit, where every joint is test-seated and inspected before anything commits and no connection locks until the whole object stands up unglued",
+   "lineage": "Danish cabinetmaking, dry-fit discipline, and eased-edge finishing practice",
+   "tags": [
+    "dry-fit",
+    "joint-by-joint",
+    "commit-last"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Work proceeds joint by joint and each connection stays visible; the assembled whole is the last thing to appear, not the first.",
+    "Sequence/attention: Attention rests on the joint currently being fitted while completed ones stay inspectable behind it.",
+    "Controls/state: Fit states are physical, running loose, snug, then seated, and nothing locks until every joint dry-fits.",
+    "Adaptation: Components rescale on shared curvature radii so eased edges stay proportional, and motion is a slow press-fit."
+   ],
+   "spark": "The whole chair stands up before a single drop of glue, and if one joint is loose you find out now rather than in a year.",
+   "webLeverage": "Curvature tokens from one scale keep eased edges proportional while ResizeObserver holds the ratio at any size.",
+   "sourceConceptId": "design-canon-wegner-cabinetmaker-bench",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reveal-transform-avantgarde-state-kit",
+   "familyId": "reveal-transform",
+   "surface": "operate",
+   "form": "a document surface staged as an issuing office, where progress means being issued the next artifact rather than choosing one, and a stamped seal cannot be un-stamped once it lands",
+   "lineage": "Fictional civic identity programs, passport and seal production, and official form specification",
+   "tags": [
+    "issued-not-chosen",
+    "irreversible-stamp",
+    "document-set"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The world is a document set and the current artifact fills the frame; there is no menu, only what has been issued so far.",
+    "Sequence/attention: Attention follows the form fields in their printed order, ending at the seal block where the action commits.",
+    "Controls/state: Controls are form fields and stamps; an action stamps a seal into the sheet and issued states cannot be reversed.",
+    "Adaptation: Forms reflow inside their ruled boxes at any width, and motion is the firm downward press of a stamp."
+   ],
+   "spark": "You do not pick the next page. It is issued to you, stamped, and the stamp does not come off.",
+   "webLeverage": "Form state persists locally, an SVG seal stamp animates on commit, and irreversible issued state is recorded in history.",
+   "sourceConceptId": "design-canon-retro-avantgarde-state-kit",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-free-clockwork-broadside",
+   "familyId": "data-dramaturgy",
+   "surface": "read",
+   "form": "an explanatory surface staged as an engraved elevation ruled with dimension lines, where following a dimension out of the drawing lands on the numbered claim that justifies it",
+   "lineage": "Victorian exhibition broadsides, patent-style claim drafting, and engraved elevation practice",
+   "tags": [
+    "dimension-leader",
+    "numbered-claim",
+    "elevation-map"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The machine drawing is the map and the claim column is subordinate to it; dimensions are the only connection between them.",
+    "Sequence/attention: Attention starts on the object, follows a dimension line outward, and arrives at the claim that explains that measurement.",
+    "Controls/state: Numbered claims draw their leader onto the elevation when active, and satisfied claims take a struck rule.",
+    "Adaptation: The claim column drops beneath the elevation as frames narrow, and motion is a leader line drawing itself out."
+   ],
+   "spark": "A dimension line runs off the side of the drawing and lands on claim eleven, which explains why that measurement had to be exactly that.",
+   "webLeverage": "An interactive SVG elevation animates leader lines with claims as deep-linked state and responsive column reflow.",
+   "sourceConceptId": "design-canon-brass-free-clockwork-broadside",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "first-viewport-think-small-page",
+   "familyId": "first-viewport",
+   "surface": "persuade",
+   "form": "an opening surface staged as one small honest exhibit adrift in enormous void, where the void keeps a fixed two-thirds share at every width and understatement carries the entire argument",
+   "lineage": "Mid-century advertising art direction, two-thirds void composition, and three-column copy discipline",
+   "tags": [
+    "fixed-void-share",
+    "single-exhibit",
+    "understatement"
+   ],
+   "grammar": [
+    "Staging/hierarchy: One page argues one claim, the small photograph is the exhibit, and the void is a measured proportion rather than leftover space.",
+    "Sequence/attention: Attention finds the small object first because nothing competes with it, then drops to the headline and its full stop.",
+    "Controls/state: The headline is the control and understatement is the state language; the active page sets its period in ink black.",
+    "Adaptation: Three columns become one at phone width but the void keeps its two-thirds share, and nothing animates."
+   ],
+   "spark": "A photograph small enough to miss, floating in white space nobody would dare buy today, and a headline that ends in a full stop.",
+   "webLeverage": "CSS grid fixes the two-thirds image field over a strict three-column copy block at every width.",
+   "sourceConceptId": "brand-identity-canon-ddb-think-small-page",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "narrative-scroll-kalman-colors-magazine",
+   "familyId": "narrative-scroll",
+   "surface": "read",
+   "form": "a reading surface staged as paired images arguing with each other, where the juxtaposition of two full-bleed photographs is the entire editorial claim and captions carry two languages in locked columns",
+   "lineage": "Documentary magazine art direction, paired-image juxtaposition, and bilingual caption discipline",
+   "tags": [
+    "paired-argument",
+    "full-bleed-pair",
+    "bilingual-caption"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Two photographs share equal weight and neither illustrates the other; the caption pair is welded to its image at all sizes.",
+    "Sequence/attention: Attention crosses between the two images before reading either caption, so the comparison lands before the explanation.",
+    "Controls/state: Selection frames a photograph with a thin ink rule, captions swap lead language on toggle, and unread spreads carry a folded corner.",
+    "Adaptation: The pair stacks vertically on phones with captions welded to their image, and there is no motion beyond the page cut."
+   ],
+   "spark": "Two photographs side by side, no commentary, and by the time you have looked at both the argument has already been made.",
+   "webLeverage": "Object-fit runs photographs full bleed at any viewport while grid locks the two caption languages in paired columns.",
+   "sourceConceptId": "brand-identity-canon-kalman-colors-magazine",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "first-viewport-limb-illustration-system",
+   "familyId": "first-viewport",
+   "surface": "persuade",
+   "form": "a marketing surface staged as a row of identical section cards, where every card reuses the same figure vocabulary at the same scale and lateral travel is the only movement available",
+   "lineage": "Corporate flat-illustration house styles and repeated section-card composition",
+   "tags": [
+    "identical-cards",
+    "lateral-travel",
+    "reused-vocabulary"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Sections are identical cards in a row and none is allowed to dominate; the repetition is the structure.",
+    "Sequence/attention: Attention moves sideways through equivalent compositions rather than descending a hierarchy.",
+    "Controls/state: Controls are pill buttons in the primary hue, the active one darkens a step, and the disabled one drops to the tint.",
+    "Adaptation: Figures rescale cleanly to any width, and motion is a gentle sway with a soft fade between sections."
+   ],
+   "spark": "Six cards in a row, all the same size, all the same figures, and the sameness is doing the persuading.",
+   "webLeverage": "Responsive SVG figures animate on state with brand hues as custom properties and section fade transitions.",
+   "sourceConceptId": "brand-identity-canon-flat-limb-illustration-system",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-conductor-punch-stubs",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "a surface staged as a mounted grid of tickets, where acting on any item punches it and the accumulating constellation of punch marks becomes the only record of what has been used",
+   "lineage": "Transit and cinema ticket stock, conductor punch codes, and fare-zone color systems",
+   "tags": [
+    "punch-accumulation",
+    "mounted-grid",
+    "use-as-record"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Items sit in a mounted grid grouped by stock color and denomination, and the grid never reorders itself.",
+    "Sequence/attention: Attention reads the accumulated punch pattern before any individual ticket, so history is legible at a glance.",
+    "Controls/state: Acting on an item punches it, and the punch is permanent; the pattern of holes is the visible history of use.",
+    "Adaptation: The grid tightens to a bandolier strip on phones, and punches appear as a single crisp perforation."
+   ],
+   "spark": "You cannot tell which tickets were used by reading them, only by the pattern of holes somebody made across the whole board.",
+   "webLeverage": "Canvas-perforated punch marks persist per item in local storage, making history tactile and inspectable.",
+   "sourceConceptId": "vernacular-ephemera-conductor-punch-stubs",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-elevator-floor-directory",
+   "familyId": "spatial-navigation",
+   "surface": "operate",
+   "form": "a navigation surface staged as a numbered vertical stack, where every destination belongs to exactly one floor, the directory is the only index, and a needle sweeps an arc showing where you currently are",
+   "lineage": "Department store directories, elevator call systems, and floor-arc indicator design",
+   "tags": [
+    "numbered-stack",
+    "single-index",
+    "sweeping-needle"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The building is a numbered stack read top to bottom and each destination belongs to one floor only; the directory is the sole index.",
+    "Sequence/attention: Attention tracks the needle sweeping the arc, so position is always ambient rather than something you query.",
+    "Controls/state: A floor is current, passing, or called; pressed calls glow until served and cannot be cancelled once passed.",
+    "Adaptation: Arrival is a vertical glide with a chime, and small screens enlarge the current floor line within the stack."
+   ],
+   "spark": "A brass arc above the doors with a needle sweeping across it, and you know exactly where you are without reading a single number.",
+   "webLeverage": "Scroll-snap sections make each floor a stop, with the needle arc bound to live scroll position.",
+   "sourceConceptId": "vernacular-ephemera-elevator-floor-directory",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-folded-road-map",
+   "familyId": "spatial-navigation",
+   "surface": "read",
+   "form": "a map surface staged as a folded sheet where unfolding is zooming, each opened panel doubling the visible country while city insets wait at the edges as pre-framed close-ups",
+   "lineage": "Oil-company courtesy maps, accordion folding, and strip-map inset conventions",
+   "tags": [
+    "unfold-as-zoom",
+    "crease-memory",
+    "edge-inset"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Panels are the zoom levels and creases are the boundaries between them; insets live at the edges rather than floating over the map.",
+    "Sequence/attention: Attention expands outward one crease at a time, so scale changes are discrete and rememberable.",
+    "Controls/state: The map remembers use in its creases; a traced route persists and softened folds show where trips really went.",
+    "Adaptation: Panels unfold across widening viewports one crease at a time, and a phone gets a single panel with crease-edge peeks."
+   ],
+   "spark": "Every crease is a zoom level, and after a year you can tell which corner of the country somebody actually drove through.",
+   "webLeverage": "3D fold transitions make each crease a zoom level, with the open panel state kept in the URL.",
+   "sourceConceptId": "vernacular-ephemera-folded-road-map",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-hand-turned-scoreboard",
+   "familyId": "data-dramaturgy",
+   "surface": "read",
+   "form": "a status surface staged as a fixed grid of innings and totals where nothing ever changes position, updates arrive as physical plates sliding into place, and an empty slot stays visibly empty",
+   "lineage": "Manual ballpark scoreboards, plate-change operation, and stadium sign painting",
+   "tags": [
+    "fixed-slots",
+    "plate-change",
+    "empty-stays-visible"
+   ],
+   "grammar": [
+    "Staging/hierarchy: A fixed grid holds every slot from the start; time reads left to right and no cell ever moves or collapses.",
+    "Sequence/attention: Attention scans the whole line at once because the layout is stable, then lands on whichever plate just changed.",
+    "Controls/state: Updates slide physical plates into place, and empty innings show blank plates rather than disappearing.",
+    "Adaptation: The distant view compresses to a line score on phones, and plate slides stay single, weighty, and announced."
+   ],
+   "spark": "Nothing on the board ever moves except the one plate that just changed, which is why you can read the whole summer from the bleachers.",
+   "webLeverage": "Live data feeds animate plate changes in real time while the DOM stays a readable line-score table.",
+   "sourceConceptId": "vernacular-ephemera-hand-turned-scoreboard",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-hardware-bin-wall",
+   "familyId": "spatial-navigation",
+   "surface": "operate",
+   "form": "a browsing surface staged as a wall of labelled drawers where location itself teaches the classification, families clustering vertically and sizes refining left to right",
+   "lineage": "Hardware store drawer walls, machinists' parts cabinets, and hand-inked label taxonomy",
+   "tags": [
+    "location-teaches",
+    "drawer-cluster",
+    "label-contract"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The wall is the index and position encodes taxonomy; drawers cluster by family and refine by size across the horizontal.",
+    "Sequence/attention: Attention navigates by remembered position rather than by reading, so the wall becomes faster the longer it is used.",
+    "Controls/state: A drawer is shut, cracked for a glance, or pulled to the counter, and a mis-shelved part is a visible lie.",
+    "Adaptation: Drawers glide out over the view rather than leaving it, and a phone shows one drawer column at a time."
+   ],
+   "spark": "After a month you stop reading the labels entirely, because the thing you want is simply two along and one down from the thing you wanted last time.",
+   "webLeverage": "Search flies the viewport to the matching drawer with scroll-driven animation, then opens it in place.",
+   "sourceConceptId": "vernacular-ephemera-hardware-bin-wall",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "working-surfaces-tile-menu-board",
+   "familyId": "working-surfaces",
+   "surface": "operate",
+   "form": "an editing surface staged as ruled channels holding a finite set of letter tiles, where spelling something new can require unspelling something old and the inventory is a real constraint",
+   "lineage": "Grooved-felt letter boards, soda-fountain menu walls, and finite tile-box practice",
+   "tags": [
+    "finite-inventory",
+    "channel-rows",
+    "unspell-to-spell"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The board is ruled channels read top to bottom with blank rows dividing sections; content is whatever the tiles currently spell.",
+    "Sequence/attention: Attention lands on what changed since yesterday, because everything else is physically identical to how it was left.",
+    "Controls/state: Editing pulls and presses individual tiles, and the tile box is finite, so a new special can cost an old one.",
+    "Adaptation: Rows rewrap tile by tile at narrow widths and never mid-tile, with changes clicking in one letter at a time."
+   ],
+   "spark": "There are only three letter Es left in the box, so today's special is going to have to be something else.",
+   "webLeverage": "Content edits animate tile by tile through DOM diffing, with a live character inventory enforcing the finite tile set.",
+   "sourceConceptId": "vernacular-ephemera-letter-tile-menu-board",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-newspaper-weather-map",
+   "familyId": "data-dramaturgy",
+   "surface": "read",
+   "form": "an information surface staged as one synoptic view of a whole territory, where pressure is read from line spacing, condition from symbol, and the ranked table beneath is the drill-down",
+   "lineage": "Wire-service weather maps, isobar and front notation, and agate city ranking tables",
+   "tags": [
+    "synoptic-whole",
+    "line-spacing-as-value",
+    "agate-drilldown"
+   ],
+   "grammar": [
+    "Staging/hierarchy: One map holds the entire territory and never crops; the ranked table sits beneath it as the only detail level.",
+    "Sequence/attention: Attention reads pressure from isobar spacing before any label, so the shape of the field lands before the numbers.",
+    "Controls/state: Fronts are the moving parts with teeth and bumps aimed along travel; today is inked and tomorrow is dashed.",
+    "Adaptation: The map holds its aspect while the city table reflows beneath on phones, and fronts advance in a slow sweep."
+   ],
+   "spark": "You can tell it is going to be a rough night from how tightly the lines are packed over the sea, before you read a single place name.",
+   "webLeverage": "Isobars and front symbols draw as layered SVG paths animated along real forecast data streams.",
+   "sourceConceptId": "vernacular-ephemera-newspaper-weather-map",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-punch-clock-timecard",
+   "familyId": "data-dramaturgy",
+   "surface": "operate",
+   "form": "a record surface staged as an append-only card, where the machine strikes the timestamp rather than the person, a row exists or it does not, and corrections must be initialled in the margin",
+   "lineage": "Time recorder machines, mill-floor card racks, and weekly payroll ledger practice",
+   "tags": [
+    "append-only",
+    "machine-struck",
+    "initialled-correction"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The rack is the roster with one slot per person, and a card's week reads top to bottom with no pagination anywhere.",
+    "Sequence/attention: Attention runs down the column looking for the gap, because absence is the only thing that stands out.",
+    "Controls/state: Inserting the card is the only input and the machine strikes the time itself; corrections are initialled rather than edited.",
+    "Adaptation: Narrow views show today's row large with the week faint behind it, and the strike is the sole event."
+   ],
+   "spark": "You do not write the time, the machine does, and the only way to change it is to sign your name next to the thing you changed.",
+   "webLeverage": "Timestamps are struck server-side and rendered as append-only rows, so the visible card is the audit trail.",
+   "sourceConceptId": "vernacular-ephemera-punch-clock-timecard",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reading-rhythm-airline-safety-card",
+   "familyId": "reading-rhythm",
+   "surface": "read",
+   "form": "an instruction surface staged as wordless numbered panels ranked by urgency, where the forbidden action always wears a red slash and every sequence resolves on a figure who is fine",
+   "lineage": "Wordless pictogram instruction, laminated seat-pocket ephemera, and numbered panel sequencing",
+   "tags": [
+    "wordless-panel",
+    "urgency-rank",
+    "red-slash"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Each scenario is a numbered strip and strips rank by urgency down the surface, with the exit diagram anchoring everything.",
+    "Sequence/attention: Attention moves panel to panel in strict numeric order, with no branching and no optional detail.",
+    "Controls/state: The current step holds full color while completed steps gray back, and forbidden actions wear the red slash.",
+    "Adaptation: Strips stack one panel per screen keeping their numerals, and motion is a straight cut between steps."
+   ],
+   "spark": "Not one word anywhere, and yet the order is unmistakable, right down to the red line through the thing you must not do.",
+   "webLeverage": "SVG pictogram panels advance with stepped timing so every instruction cuts frame to frame like the printed card.",
+   "sourceConceptId": "vernacular-ephemera-airline-safety-card",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reading-rhythm-century-tiki-menu",
+   "familyId": "reading-rhythm",
+   "surface": "read",
+   "form": "a browsing surface staged as a bound menu sectioned by strength and by hour, where dotted leaders stretch to hold the right edge and an unavailable line simply loses its price",
+   "lineage": "Mid-century hospitality menu print, dotted leader setting, and sectioned bound listings",
+   "tags": [
+    "leader-dots",
+    "section-binding",
+    "price-absence"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The menu is sectioned by strength and by hour, and sections are bound in a fixed order rather than filtered.",
+    "Sequence/attention: Attention travels the leader dots from name to price, which is the only horizontal movement on the surface.",
+    "Controls/state: Menu lines fill their leader dots solid when active, and unavailable ones drop the price entirely rather than graying.",
+    "Adaptation: Leaders stretch and contract to hold the right edge at any width, and motion is a bound page turn."
+   ],
+   "spark": "The dots run all the way across to the price, and when something has run out the price simply is not there any more.",
+   "webLeverage": "CSS dotted leaders stretch responsively with page-turn transitions and availability state driving each line.",
+   "sourceConceptId": "vernacular-ephemera-mid-century-tiki-menu",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reading-rhythm-lecture-hall-marginalia",
+   "familyId": "reading-rhythm",
+   "surface": "read",
+   "form": "a reading surface staged with commentary as a parallel track, where the text runs down and annotation runs sideways in the outer margin, and answering a note marks it rather than removing it",
+   "lineage": "Antiquarian marginalia practice, interlinear annotation, and reading-room glossing convention",
+   "tags": [
+    "parallel-margin",
+    "sideways-commentary",
+    "answered-tick"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The text holds the measure and the margin is a second track beside it, never an overlay and never a footnote pile.",
+    "Sequence/attention: Attention runs down the text and out into the margin at each anchor, returning to the same line it left.",
+    "Controls/state: Annotation anchors open their margin note when active, and answered notes take a small ink tick rather than disappearing.",
+    "Adaptation: The margin drops below the text on narrow frames, and motion is ink settling into paper as a note commits."
+   ],
+   "spark": "Somebody has been arguing with this page for thirty years in the outer margin, and their handwriting gets smaller and angrier toward the end of the chapter.",
+   "webLeverage": "Responsive margin notes reflow below the text with annotation anchors as deep-linked state and an ink-settle commit.",
+   "sourceConceptId": "pop-culture-shelf-lecture-hall-marginalia",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-kitchen-garden-almanac",
+   "familyId": "data-dramaturgy",
+   "surface": "operate",
+   "form": "a record surface staged as a hand-kept seasonal almanac, where the year is the only axis, rows are ruled by hand rather than generated, and a completed entry earns a physical specimen taped beside it",
+   "lineage": "Home almanac keeping, pressed-specimen albums, and hand-ruled sowing tables",
+   "tags": [
+    "season-axis",
+    "hand-ruled",
+    "earned-specimen"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The almanac runs by season and the month is the unit; there is no filtering, only turning to a time.",
+    "Sequence/attention: Attention moves through the year in order, so comparison is always against the same month last time.",
+    "Controls/state: Table cells are circled in pencil when active, and completed rows earn a small pressed specimen taped alongside.",
+    "Adaptation: Hand-ruled tables reflow into stacked rows, and motion is a page settling with the weight of what is taped to it."
+   ],
+   "spark": "Somebody ruled this table with a real ruler and still went crooked by the fourth row, then taped a dried cornflower next to April.",
+   "webLeverage": "Responsive hand-ruled tables stack with seasonal state in the URL and a settle animation weighted per specimen.",
+   "sourceConceptId": "pop-culture-shelf-kitchen-garden-almanac",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-flash-party-archive",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "an archive surface staged as a deliberately unsorted grid, where the only way through is one frame further into a night nobody indexed and viewing an image permanently dims it in the field",
+   "lineage": "Direct-flash party photography, blog gallery grids, and unindexed personal archives",
+   "tags": [
+    "unsorted-field",
+    "viewed-dims",
+    "one-frame-further"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The grid packs edge to edge with no gutters and no ranking, so no image is presented as more important than any other.",
+    "Sequence/attention: Attention has nothing to guide it, so movement is exploratory and the viewed set becomes the only structure that emerges.",
+    "Controls/state: Thumbnails blow to full frame when active, and viewed ones dim by one stop permanently in the grid.",
+    "Adaptation: The grid packs to any width with no gutters, and motion is a hard flash cut between frames."
+   ],
+   "spark": "Nobody sorted these, and the only order that ever appears is the trail of dimmed frames showing where you have already been.",
+   "webLeverage": "A responsive gutterless gallery grid with viewed state dimming thumbnails and a flash-cut transition between frames.",
+   "sourceConceptId": "pop-culture-shelf-direct-flash-party-archive",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-celestial-navigation-instrument",
+   "familyId": "data-dramaturgy",
+   "surface": "operate",
+   "form": "a plotting surface staged as a chart table where each observation becomes a line of position, confidence is the physical size of the resulting triangle, and doubtful sights are struck through but kept",
+   "lineage": "Sextant practice, sight-reduction tables, and running-fix plotting convention",
+   "tags": [
+    "line-of-position",
+    "triangle-as-confidence",
+    "struck-but-kept"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The chart is ground truth and every derived line is drawn onto it; tables and instruments are subordinate stations.",
+    "Sequence/attention: Attention cycles sight, reduction, plot, and back, with the fix emerging only after three passes.",
+    "Controls/state: A sight is taken, timed, reduced, then drawn; doubtful sights strike through but remain, and confidence is the triangle's size.",
+    "Adaptation: Small screens stack sight, tables, and chart as ordered stations, and the fix advances in discrete plotted steps."
+   ],
+   "spark": "Three lines cross and the triangle they leave is small enough to trust, or large enough that you take another sight.",
+   "webLeverage": "SVG lines of position draw onto a zoomable chart while device time feeds the chronometer and tables stay inspectable.",
+   "sourceConceptId": "mapping-navigation-celestial-navigation-instrument",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-barograph-week-drum",
+   "familyId": "data-dramaturgy",
+   "surface": "read",
+   "form": "a history surface staged as one unbroken trace on a slowly rotating drum, where time wraps rather than paginates and the present is simply where the needle happens to be touching",
+   "lineage": "Aneroid barograph instruments, chart drum recording, and inked continuous-trace design",
+   "tags": [
+    "unbroken-trace",
+    "wrapped-time",
+    "needle-present"
+   ],
+   "grammar": [
+    "Staging/hierarchy: One continuous trace owns the surface and the drum is the only container; there are no pages or segments.",
+    "Sequence/attention: Attention lands where the needle touches, then travels backward along the trace rather than jumping between views.",
+    "Controls/state: The present is the needle contact point, and annotations pin to the trace without interrupting its continuity.",
+    "Adaptation: The drum flattens to a scrollable strip on phones, and rotation stays slow, continuous, and pausable."
+   ],
+   "spark": "One unbroken line dragged around a drum for a week, and the storm on Thursday is a shape you can put your finger on.",
+   "webLeverage": "Continuous data draws a genuine unbroken SVG trace with timeline scrubbing along the drum.",
+   "sourceConceptId": "signals-instruments-barograph-week-drum",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-instruments-evening-switchboard",
+   "familyId": "interaction-physics",
+   "surface": "operate",
+   "form": "a connection surface staged as a jack field braided with physical cords, where every live session is a cord you can trace end to end and requests arrive as lamps rather than as a queue",
+   "lineage": "Manual telephone exchanges, cord-and-jack switchboard design, and operator lamp signaling",
+   "tags": [
+    "traceable-cord",
+    "jack-address",
+    "lamp-request"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The jack field is the address space and cords lie over it; connections are physical objects rather than list rows.",
+    "Sequence/attention: Attention is pulled by lamps, and tracing a cord from one end to the other is how a connection is understood.",
+    "Controls/state: Requests arrive as lamps, and connecting, holding, and ending are cord gestures with visible seats.",
+    "Adaptation: The board becomes a connection list on phones, and cord plugs stay single decisive motions."
+   ],
+   "spark": "Forty conversations happening at once, each one a weighted cord you could physically follow from one side of the board to the other.",
+   "webLeverage": "Live sessions render as patchable cords with real presence lamps and full keyboard connection control.",
+   "sourceConceptId": "signals-instruments-evening-switchboard",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-mechanical-espresso-lever",
+   "familyId": "interaction-physics",
+   "surface": "operate",
+   "form": "a task surface staged as one vertical arc where every stage is a position along a single stroke, pressure declining naturally rather than being set, and the result readable in the color of the output",
+   "lineage": "Lever espresso mechanics, declining-pressure profiles, and bar counter ritual",
+   "tags": [
+    "single-stroke",
+    "declining-pressure",
+    "color-as-state"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The whole task is one lever arc and every stage lives on it; there are no discrete steps to select between.",
+    "Sequence/attention: Attention follows the gauge and the color of the pour together, so the instrument and the result are read as one.",
+    "Controls/state: The spring declines pressure from nine bars toward six on its own, and the spent puck is the only record afterward.",
+    "Adaptation: Gauge and stroke condense to a single arc on small screens without splitting into separate controls."
+   ],
+   "spark": "You do not set the pressure, the spring gives it up as you go, and the only way to know it worked is the color of what comes out.",
+   "webLeverage": "A pointer-dragged lever drives a real pressure simulation over time and the pour renders live on canvas.",
+   "sourceConceptId": "product-industrial-mechanical-espresso-lever",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "working-surfaces-mechanical-letterpress-composing",
+   "familyId": "working-surfaces",
+   "surface": "operate",
+   "form": "an assembly surface staged as a composing stick filled one piece at a time, where the layout is held mirrored and backwards until it is locked, and a loose lockup spills visibly rather than failing quietly",
+   "lineage": "Hand composition, California job case layout, and quoin lockup discipline",
+   "tags": [
+    "mirrored-until-locked",
+    "piece-at-a-time",
+    "visible-spill"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The case maps frequency to reach with common sorts nearest; the line grows one piece at a time in a fixed measure.",
+    "Sequence/attention: Attention stays on the growing line, which reads mirrored and backwards until the moment it is pulled.",
+    "Controls/state: Nothing prints until the forme is locked tight, and a loose lockup is a visible failure that spills across the floor.",
+    "Adaptation: Line length is the stick's set gauge, so reflow means recomposing rather than rewrapping."
+   ],
+   "spark": "The whole thing reads backwards in your hand until you lock it up and pull one, and a loose quoin means type all over the floor.",
+   "webLeverage": "Sorts drag from case to stick with pointer events while a transform holds the forme mirrored until the pull.",
+   "sourceConceptId": "product-industrial-mechanical-letterpress-composing",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-mechanical-linotype-caster",
+   "familyId": "interaction-physics",
+   "surface": "operate",
+   "form": "a commit surface staged as a circulating loop where every element physically returns to its channel, a line commits by casting irreversibly, and an error is cast anyway and thrown back to be melted",
+   "lineage": "Hot-metal line casting, matrix circulation, and newsroom composing practice",
+   "tags": [
+    "circulating-loop",
+    "irreversible-cast",
+    "melt-to-retry"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Elements circulate magazine to assembler to caster to distributor, and every character physically returns to its channel.",
+    "Sequence/attention: Attention rides the assembling line as it justifies live, with spacebands wedging wider until the measure fills.",
+    "Controls/state: A line commits by casting and cannot be edited; errors are cast anyway and returned to the pot.",
+    "Adaptation: The assembling line justifies live as spacebands widen, so the measure is always physically satisfied."
+   ],
+   "spark": "Once the line casts there is no editing it, only throwing the whole slug back in the pot and setting it again.",
+   "webLeverage": "Each keystroke animates a matrix drop from a live keyboard listener and the cast slug renders on canvas.",
+   "sourceConceptId": "product-industrial-mechanical-linotype-caster",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-mechanical-manual-typewriter",
+   "familyId": "interaction-physics",
+   "surface": "operate",
+   "form": "a writing surface staged so the page never moves sideways and the carriage does, where every strike is a committed impression, corrections are visible scars, and a bell warns before the margin arrives",
+   "lineage": "Manual typewriter mechanics, carriage geometry, and margin bell convention",
+   "tags": [
+    "carriage-not-page",
+    "committed-strike",
+    "warning-bell"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Position is where the machine has carried the paper, one em at a time; the page itself never shifts.",
+    "Sequence/attention: Attention is warned before it needs to act, since the bell announces the margin before the line ends.",
+    "Controls/state: Each keystrike is a committed inked impression and corrections remain as visible scars.",
+    "Adaptation: Line width is the set margin and reflow means a fresh sheet rather than rewrapping."
+   ],
+   "spark": "The bell goes five characters before you run out of line, which is exactly enough warning to finish the word.",
+   "webLeverage": "Keyboard events fire typebar animation with Web Audio strikes and a timed margin bell notification.",
+   "sourceConceptId": "product-industrial-mechanical-manual-typewriter",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "working-surfaces-pipe-organ-keydesk",
+   "familyId": "working-surfaces",
+   "surface": "operate",
+   "form": "a command surface staged as stacked manuals with preselected registration, where drawknobs decide what may speak before a single key is pressed and saved combinations are recalled mid-phrase",
+   "lineage": "Tracker and symphonic organ keydesks, stop registration, and piston combination practice",
+   "tags": [
+    "preselected-registration",
+    "stacked-divisions",
+    "recalled-combination"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Manuals stack by division and each keyboard addresses a different body of sound; the pedalboard is a third hand.",
+    "Sequence/attention: Attention sets registration before playing, so configuration precedes action rather than interrupting it.",
+    "Controls/state: Drawknobs preselect which ranks may speak, and a registration is a saved combination recalled by piston mid-phrase.",
+    "Adaptation: Divisions fold onto one manual with stops summed on narrow screens rather than being hidden."
+   ],
+   "spark": "You decide what the instrument is allowed to be before you touch a key, and then change your mind halfway through a phrase with your thumb.",
+   "webLeverage": "Web Audio layers real rank samples per drawknob state while MIDI or keyboard input plays every division live.",
+   "sourceConceptId": "product-industrial-mechanical-pipe-organ-keydesk",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-colony-petri-grid",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "a simulation surface staged as an unbounded grid where birth and death are the only verbs, named colonies become bookmarks in coordinate space, and the generation clock is something the visitor owns",
+   "lineage": "Cellular automaton research, pattern taxonomy archives, and popular mathematics columns",
+   "tags": [
+    "two-verb-law",
+    "named-coordinates",
+    "owned-clock"
+   ],
+   "grammar": [
+    "Staging/hierarchy: An unbounded grid is the whole world and nothing frames it; named colonies are the only landmarks.",
+    "Sequence/attention: Attention follows emergent creatures rather than a designed path, so the sequence is discovered rather than authored.",
+    "Controls/state: Paint cells, stamp known creatures, step, run, and rewind; birth and death are the only state transitions.",
+    "Adaptation: Generation rate obeys a visible clock the visitor controls, and density scales to the device budget."
+   ],
+   "spark": "Two lines of law, and out of them a thing that walks across the grid forever and has a name because somebody found it first.",
+   "webLeverage": "Bit-packed simulation in a worker keeps million-cell colonies live while canvas zoom goes from cell to galaxy.",
+   "sourceConceptId": "medium-native-life-colony-petri-grid",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-lsystem-grammar-garden",
+   "familyId": "data-dramaturgy",
+   "surface": "experience",
+   "form": "a generative surface staged so every object is a visible sentence rewritten a fixed number of times, and selecting any branch highlights the exact production rule that grew it",
+   "lineage": "L-system research, algorithmic botany publishing, and turtle-graphics tradition",
+   "tags": [
+    "rule-to-form",
+    "selectable-production",
+    "rewrite-depth"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Rows of species are rule sets and each grown form sits under its own grammar; the rule is never hidden from the result.",
+    "Sequence/attention: Attention moves between a form and the production that made it, so cause is always one selection away.",
+    "Controls/state: Edit axiom, rules, angle, and depth, with every form carrying seedling through senescent generations.",
+    "Adaptation: Rewrite depth caps to the viewport budget rather than degrading the geometry."
+   ],
+   "spark": "Change one angle from twenty-five degrees to thirty and the fern quietly becomes a completely different plant.",
+   "webLeverage": "SVG turtle rendering keeps every branch a real addressable node, so grammar edits regrow the garden live.",
+   "sourceConceptId": "medium-native-lsystem-grammar-garden",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-mandelbrot-coastline-dive",
+   "familyId": "spatial-navigation",
+   "surface": "experience",
+   "form": "an exploration surface staged as an endless dive where place is a coordinate plus a depth, famous locations carry shareable addresses, and the iteration budget is shown as an honest limit",
+   "lineage": "Fractal geometry research, deep-zoom rendering practice, and named-location archives",
+   "tags": [
+    "coordinate-plus-depth",
+    "shareable-place",
+    "honest-limit"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The surface is one continuous structure with no levels; depth is the only hierarchy and it never ends.",
+    "Sequence/attention: Attention descends continuously, and detail refines progressively from coarse to sharp rather than popping in.",
+    "Controls/state: Zoom, re-center, and re-color are the verbs, with iteration budget and precision shown as visible limits.",
+    "Adaptation: Tiles refine progressively so the surface stays responsive on any device without hiding its own cost."
+   ],
+   "spark": "Everything you find down there was always already there, waiting at a coordinate you can send to somebody else.",
+   "webLeverage": "WebGL shaders with perturbation math compute each frame live, and the URL encodes any coordinate and depth.",
+   "sourceConceptId": "medium-native-mandelbrot-coastline-dive",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-flow-ink-field",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "a field surface staged as ten thousand strokes combed by an invisible wind, where travel means seeding particles and following their trails and zooming reveals finer octaves of the same force",
+   "lineage": "Noise-function research, flow-field generative practice, and magnetic filing demonstrations",
+   "tags": [
+    "invisible-force",
+    "seeded-trail",
+    "octave-depth"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The field fills the surface and the force is never drawn directly; only its effect on the strokes is visible.",
+    "Sequence/attention: Attention follows a seeded trail rather than a layout, so the visitor authors their own reading path.",
+    "Controls/state: Noise scale, octave count, and seed are the levers, and calm, laminar, and turbulent regions carry names.",
+    "Adaptation: Trail density adapts to the device budget while the underlying field stays identical."
+   ],
+   "spark": "You cannot see the wind at all, only ten thousand strokes that have clearly agreed about where it is going.",
+   "webLeverage": "Procedural noise evaluated per frame on canvas turns a pure function into weather the pointer can stir.",
+   "sourceConceptId": "medium-native-noise-flow-ink-field",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "narrative-scroll-driven-strata-essay",
+   "familyId": "narrative-scroll",
+   "surface": "read",
+   "form": "a long-form surface staged so the scrollbar is a drill, position in the page is position in the argument, and scrubbing backward disassembles the evidence in exact reverse",
+   "lineage": "Scrollytelling journalism, stratigraphic diagram convention, and pinned-scene narrative practice",
+   "tags": [
+    "scroll-as-depth",
+    "reversible-assembly",
+    "depth-gauge"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Layers stack downward as evidence accumulates, and a depth gauge states how far into the argument the reader is.",
+    "Sequence/attention: Attention is paced by travel, with scenes pinning while their evidence assembles around them.",
+    "Controls/state: Scenes pin while evidence assembles, and scrubbing backward disassembles it in reverse rather than cutting.",
+    "Adaptation: Layers thin to a single column on phones without losing the depth gauge or the reversibility."
+   ],
+   "spark": "Scroll down and the evidence builds itself around the claim; scroll back up and it takes itself apart in the same order.",
+   "webLeverage": "Scroll-driven animation and IntersectionObserver bind narrative state to the scrollbar itself.",
+   "sourceConceptId": "medium-native-scroll-driven-strata-essay",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reading-rhythm-font-bellows-press",
+   "familyId": "reading-rhythm",
+   "surface": "read",
+   "form": "a typographic surface staged so one family carries every voice, where weight answers importance, width answers density, slant answers tone, and each axis has a resting home to return to",
+   "lineage": "Variable font axis design, phototypesetting distortion experiments, and kinetic typography practice",
+   "tags": [
+    "one-family",
+    "axis-as-meaning",
+    "resting-home"
+   ],
+   "grammar": [
+    "Staging/hierarchy: All content is set in one family and the axis positions are the hierarchy; no second typeface is admitted.",
+    "Sequence/attention: Attention is directed by axis movement rather than by color or rule, so emphasis happens inside the text itself.",
+    "Controls/state: Weight answers importance, width answers density, and slant answers voice, each with a resting default.",
+    "Adaptation: Axes retune to viewport width instead of breaking the layout or dropping to a fallback."
+   ],
+   "spark": "There is only one typeface on the whole page, and it gets heavier, narrower and more urgent exactly where it needs to.",
+   "webLeverage": "CSS font-variation-settings animate live axes on real selectable text, so type performs without becoming images.",
+   "sourceConceptId": "medium-native-variable-font-bellows-press",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-tidally-locked-world",
+   "familyId": "spatial-navigation",
+   "surface": "experience",
+   "form": "a world surface staged around a fixed starward axis with no conventional east or west, where a living twilight ring is the only habitable navigation band and rotation is constrained by physical law",
+   "lineage": "Exoplanet climate modelling, speculative planetary visualization, and celestial mechanics",
+   "tags": [
+    "fixed-axis",
+    "twilight-band",
+    "law-constrained-motion"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The starward axis is fixed and everything is positioned relative to it; the terminator ring is the primary band.",
+    "Sequence/attention: Attention moves between dayside, terminator, and nightside rather than around a conventional globe.",
+    "Controls/state: Adjust atmosphere and inspect zones, with scorched, temperate, frozen, and storm states.",
+    "Adaptation: Phones use a terminator-first cross-section, and rotation stays constrained by the world's physical law."
+   ],
+   "spark": "There is no sunrise anywhere on this planet, only a ring of permanent evening where everything that lives has agreed to stay.",
+   "webLeverage": "GPU climate fields and physically based planetary rendering couple light, heat, and circulation.",
+   "sourceConceptId": "orbits-eclipses-celestial-cycles-tidally-locked-world",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-auroras-auroral-curtain",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "an atmospheric surface staged as folded luminous curtains where color encodes altitude rather than intensity, and substorms break the field into a sequence the visitor advances rather than watches",
+   "lineage": "Auroral science, night-sky cinematography, and atmospheric field observation",
+   "tags": [
+    "altitude-as-color",
+    "folded-curtain",
+    "substorm-sequence"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Curtains own the frame and fold along field lines; altitude is read from color rather than from position.",
+    "Sequence/attention: Attention follows a substorm through quiet, building, breaking, and recovering rather than resting on a still image.",
+    "Controls/state: Adjust solar input and isolate emissions, with quiet, building, breaking, and recovering states.",
+    "Adaptation: The dome recomposes into a panoramic ribbon on phones without flattening the altitude encoding."
+   ],
+   "spark": "The green is low and the red is impossibly high, and when it breaks it happens faster than anything that large should be able to.",
+   "webLeverage": "Procedural ribbon geometry and emission shaders respond to live magnetic-field data.",
+   "sourceConceptId": "clouds-storms-auroras-auroral-curtain",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "narrative-scroll-tidal-bore-front",
+   "familyId": "narrative-scroll",
+   "surface": "experience",
+   "form": "a river surface staged as a single moving front travelling upstream, where the whole reach is defined by its relation to that wall and the wave advances only when the visitor commands it",
+   "lineage": "River-tide dynamics, bore observation, and event-scale landscape film",
+   "tags": [
+    "single-front",
+    "upstream-travel",
+    "commanded-advance"
+   ],
+   "grammar": [
+    "Staging/hierarchy: One moving front organizes the entire reach; everything else is defined as before it, under it, or behind it.",
+    "Sequence/attention: Attention travels upstream with the front, so the sequence is spatial and temporal at once.",
+    "Controls/state: Scrub arrival and choose reach, with ebbing, approaching, passing, and reversed states.",
+    "Adaptation: The river becomes a horizontal arrival sequence on phones, and the wave moves only on command."
+   ],
+   "spark": "A wall of water going the wrong way up a river, and every bank behind it wakes up in the order the wall reaches them.",
+   "webLeverage": "Shallow-water simulation reproduces the front and its reflections along real terrain.",
+   "sourceConceptId": "rivers-tides-ocean-depths-tidal-bore-front",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-mangrove-amphibious-maze",
+   "familyId": "spatial-navigation",
+   "surface": "experience",
+   "form": "a landscape surface staged so routes exist only at certain water levels, where scrubbing the tide opens and closes passages and the same place is a different topology twice a day",
+   "lineage": "Mangrove ecology, tidal landscape survey, and amphibious route mapping",
+   "tags": [
+    "tide-gated-route",
+    "dual-topology",
+    "stilt-chamber"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Water level is the primary variable and the map is redrawn by it; canopy, root chamber, and creek are the layers.",
+    "Sequence/attention: Attention follows a route that may not exist an hour later, so timing is part of reading the space.",
+    "Controls/state: Scrub water level and follow species, with exposed, flooding, submerged, and draining states.",
+    "Adaptation: Phones present tide-dependent route strips, and water movement can be stepped rather than played."
+   ],
+   "spark": "The channel you swam through at noon is a wall of roots by evening, and both are the correct map.",
+   "webLeverage": "Terrain-aware tides and instanced root geometry create a genuinely amphibious topology.",
+   "sourceConceptId": "forests-canopies-mycelium-mangrove-amphibious-maze",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reveal-transform-fern-fiddlehead-unfurl",
+   "familyId": "reveal-transform",
+   "surface": "experience",
+   "form": "a disclosure surface staged as a coil that already contains its finished structure, where unrolling reveals rather than creates and every level of nesting was packed inside the last",
+   "lineage": "Developmental biology, botanical time-lapse, and recursive morphogenesis study",
+   "tags": [
+    "preloaded-structure",
+    "recursive-nesting",
+    "unroll-reveal"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The mature structure exists from the start inside the coil, so disclosure uncovers rather than builds.",
+    "Sequence/attention: Attention moves from whole coil inward through pinna and leaflet to the growth tip.",
+    "Controls/state: Scrub growth and isolate recursion, with coiled, opening, expanding, and mature states.",
+    "Adaptation: Phones unroll the spiral into nested disclosure, and motion follows direct scroll rather than autoplay."
+   ],
+   "spark": "The entire finished frond is already in there, folded down to nothing, waiting for enough water to let go.",
+   "webLeverage": "Procedural curves and recursive instancing grow the frond from a single rule.",
+   "sourceConceptId": "growth-metamorphosis-branching-fern-fiddlehead-unfurl",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-bee-swarm-consensus",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "a decision surface staged as decentralized advocacy, where support accumulates visibly across many agents, quorum is reached rather than declared, and departure never plays automatically",
+   "lineage": "Collective-behavior science, dance notation, and quorum decision research",
+   "tags": [
+    "accumulating-support",
+    "quorum-not-vote",
+    "held-departure"
+   ],
+   "grammar": [
+    "Staging/hierarchy: No agent is authoritative and the cluster holds the frame; candidate sites gain weight only through accumulated advocacy.",
+    "Sequence/attention: Attention follows proposals converging, so the outcome is legible before it is announced.",
+    "Controls/state: Inspect proposals and alter evidence, with exploring, advocating, converging, and committed states.",
+    "Adaptation: Phones recompose dances into directional vote arcs, and departure never auto-plays."
+   ],
+   "spark": "Nobody is in charge, and yet at some point the arguing simply stops and twenty thousand of them leave at once.",
+   "webLeverage": "Agent states and directional motion encode decentralized consensus as a readable accumulation.",
+   "sourceConceptId": "swarms-flocks-migration-bee-swarm-consensus",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-water-caustic-floor",
+   "familyId": "interaction-physics",
+   "surface": "experience",
+   "form": "a light surface staged so disturbance above is read entirely as pattern below, where focal knots braid and separate on the floor and depth alone controls the scale of the whole figure",
+   "lineage": "Water optics, architectural light installation, and caustic projection study",
+   "tags": [
+    "cause-above-effect-below",
+    "focal-knot",
+    "depth-sets-scale"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The floor pattern is the subject and the water surface is only its cause; the two are never shown as equals.",
+    "Sequence/attention: Attention reads the braided lace first and traces it back up to the wave that made it.",
+    "Controls/state: Disturb water and change depth, with diffuse, focusing, braided, and calm states.",
+    "Adaptation: Phones use a fixed top-down patch rather than attempting the full spatial relationship."
+   ],
+   "spark": "Touch the surface once and the whole floor reorganizes itself into a different lace a second later.",
+   "webLeverage": "Real-time water normals and caustic projection connect surface action to the light below.",
+   "sourceConceptId": "light-shadow-caustics-water-caustic-floor",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-ferrofluid-spike-crown",
+   "familyId": "interaction-physics",
+   "surface": "experience",
+   "form": "a material surface staged with hysteresis, where peaks nucleate into a repeating ring under field strength and the surface does not simply reverse when the force is removed",
+   "lineage": "Magnetic fluid research, Rosensweig instability, and responsive material art",
+   "tags": [
+    "hysteresis",
+    "nucleating-peaks",
+    "non-reversing"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The pool is flat until a field organizes it, and the spike ring is emergent rather than drawn.",
+    "Sequence/attention: Attention follows the magnet, since every change originates from a position the visitor controls.",
+    "Controls/state: Move magnet and change strength, with flat, nucleating, peaked, and relaxing states that do not retrace.",
+    "Adaptation: Phones use a sectional crown view, and motion follows direct magnet movement rather than playback."
+   ],
+   "spark": "Pull the magnet away and it does not go back the way it came; the surface remembers having been a crown.",
+   "webLeverage": "Height-field fluid simulation and magnetic potential generate genuine Rosensweig patterns.",
+   "sourceConceptId": "magnetism-electricity-plasma-ferrofluid-spike-crown",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reveal-transform-lichtenberg-fractal-scar",
+   "familyId": "reveal-transform",
+   "surface": "experience",
+   "form": "a surface staged around one irreversible event, where charge builds invisibly and then commits in a single branching discharge that cannot be replayed or undone, only examined afterward",
+   "lineage": "High-voltage material experiments, dielectric breakdown research, and fractal scar photography",
+   "tags": [
+    "single-commit",
+    "invisible-buildup",
+    "permanent-scar"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The material holds the frame while charge accumulates unseen; the branching figure appears only after commitment.",
+    "Sequence/attention: Attention waits through a buildup with no visible progress, then follows leaders outward from the origin to the terminal tips.",
+    "Controls/state: Choose charge and geometry, with charging, breaking down, branching, and fixed states that never reverse.",
+    "Adaptation: Phones use a progressive branch reveal, and discharge plays only by explicit action."
+   ],
+   "spark": "Nothing happens, nothing happens, and then in one instant the whole thing forks a thousand times and stays that way forever.",
+   "webLeverage": "Dielectric-breakdown growth produces unique volumetric branching structures per commit.",
+   "sourceConceptId": "magnetism-electricity-plasma-lichtenberg-fractal-scar",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-drum-mechanical-garden",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "a surface staged as a circular score, where one rotating drum releases many independent mechanisms in a precise sequence and every track can be retimed against the shared clock",
+   "lineage": "Clockwork automata, punched mechanical scores, and cam-driven kinetic sculpture",
+   "tags": [
+    "circular-score",
+    "shared-clock",
+    "retimable-track"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The drum is the score and each track governs a distinct family of movement; nothing acts outside the shared rotation.",
+    "Sequence/attention: Attention reads the whole score, then isolates one track to see which mechanism it drives.",
+    "Controls/state: Scrub, isolate, and retime cam tracks while dormant, rising, open, and folding states stay inspectable.",
+    "Adaptation: Small screens turn the drum into a horizontal score without losing track alignment."
+   ],
+   "spark": "One drum turning, and eleven separate mechanisms opening and closing in an order somebody cut into brass a century ago.",
+   "webLeverage": "A shared animation clock synchronizes many linked mechanisms while allowing frame-accurate direct scrubbing.",
+   "sourceConceptId": "kinetic-sculpture-automata-cam-drum-mechanical-garden",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-water-cup-chain",
+   "familyId": "interaction-physics",
+   "surface": "experience",
+   "form": "a surface staged as a vertical transfer chain, where each stage fills to a threshold before tipping to the next and upstream causes stay visible while downstream effects are still arriving",
+   "lineage": "Water clocks, chain pumps, and civic fountain engineering",
+   "tags": [
+    "threshold-tip",
+    "vertical-transfer",
+    "visible-upstream"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Content arranges as a vertical chain where every stage depends on the one above and both remain in view together.",
+    "Sequence/attention: Attention follows accumulation to a tipping point, so waiting is part of the reading rather than dead time.",
+    "Controls/state: Adjust inflow, hold a cup, and compare capacity, with empty, filling, tipping, and returning states explicit.",
+    "Adaptation: Phones use a vertical step sequence and replace fluid animation with labeled level changes when needed."
+   ],
+   "spark": "It fills for a long, patient while and then tips all at once, and the one below it starts filling before the first has finished emptying.",
+   "webLeverage": "Threshold-based state transitions produce convincing flow with minimal simulation and clear nonvisual fallbacks.",
+   "sourceConceptId": "kinetic-sculpture-automata-water-cup-chain",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-wind-vane-chorus",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "a surface staged as a field of individually tuned elements, where each answers a different threshold of the same passing force and the aggregate reading is a chorus rather than a single value",
+   "lineage": "Aeolian sculpture, weather instruments, and outdoor copper craft",
+   "tags": [
+    "individually-tuned",
+    "one-force-many-answers",
+    "aggregate-chorus"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The field holds the frame and no element is primary; each is tuned to a different threshold of the same force.",
+    "Sequence/attention: Attention enters through one element and then widens to the front passing across the whole field.",
+    "Controls/state: Filter by force, bearing, and duration, with calm, stirring, and resonant states kept distinct.",
+    "Adaptation: Compress the field into directional rows and substitute stepped state changes for continuous motion."
+   ],
+   "spark": "The same wind, and forty different answers to it, because every vane was tuned to notice something slightly different.",
+   "webLeverage": "Device orientation and live environmental data drive a bounded field whose motion encodes real conditions.",
+   "sourceConceptId": "kinetic-sculpture-automata-wind-vane-chorus",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-interlocking-vault-tile",
+   "familyId": "interaction-physics",
+   "surface": "operate",
+   "form": "an assembly surface staged so each placement is structurally consequential, where compression must find a continuous path through hundreds of small joints and an unsupported piece visibly cannot hold",
+   "lineage": "Ceramic vaulting, stereotomy, and interlocking modular construction",
+   "tags": [
+    "consequential-placement",
+    "force-path",
+    "assembly-order"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The vault is the whole and the force path through it is the real structure; individual tiles are subordinate to that path.",
+    "Sequence/attention: Attention moves from the whole vault down to a single joint and back out to whether the path still closes.",
+    "Controls/state: Place, rotate, test, and remove tiles, with unsupported, bearing, locked, overloaded, and failed states.",
+    "Adaptation: Assembly becomes ordered sectional steps with a keyboard-readable force path retained."
+   ],
+   "spark": "Take one tile out near the bottom and you can watch the load go looking for another way down, and not find one.",
+   "webLeverage": "Constraint checking makes each placement structurally consequential while a simplified section stays readable.",
+   "sourceConceptId": "clay-ceramics-fracture-interlocking-vault-tile",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reveal-transform-breath-blown-vessel",
+   "familyId": "reveal-transform",
+   "surface": "read",
+   "form": "a surface staged so the finished object records its own making, where asymmetry, wall thickness and trapped bubbles are readable evidence of specific moments and the silhouette never disappears while examining them",
+   "lineage": "Free-blown glass, furnace craft, and material process documentation",
+   "tags": [
+    "object-as-record",
+    "evidence-in-wall",
+    "silhouette-held"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The finished vessel holds the frame and process detail is reached inside it rather than replacing it.",
+    "Sequence/attention: Attention moves from the whole form to successive gathers, turns and breaths without losing the silhouette.",
+    "Controls/state: Rotate, section, compare, and annotate, with molten, gathering, inflated, annealing, and cooled states.",
+    "Adaptation: Compact screens replace free rotation with chosen orthographic views and supply tactile process description."
+   ],
+   "spark": "The wall is thinner on one side because of a turn somebody made eleven seconds in, and you can still see the bubble that got trapped doing it.",
+   "webLeverage": "Synchronized breath audio, wall-thickness sections, and rotation connect each maker's exhale to its result.",
+   "sourceConceptId": "glass-refraction-transparency-breath-blown-vessel",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reading-rhythm-fresnel-ring-beacon",
+   "familyId": "reading-rhythm",
+   "surface": "read",
+   "form": "a disclosure surface staged as concentric levels that gather toward one clear source and project outward, where many small steps combine into a single legible signal at long range",
+   "lineage": "Lighthouse optics, precision glass molding, and maritime signaling",
+   "tags": [
+    "concentric-gather",
+    "many-small-steps",
+    "long-range-signal"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Detail arranges in concentric rings around one central source; nothing sits outside the gathering geometry.",
+    "Sequence/attention: Attention starts at the periphery and is drawn inward, then follows the combined result outward as one beam.",
+    "Controls/state: Focus, rotate, occlude, and compare layers, with idle, gathering, aligned, and broadcasting states.",
+    "Adaptation: Rings flatten into nested disclosure bands and sweeping light becomes a stepped bearing indicator."
+   ],
+   "spark": "One small flame, and a hundred concentric steps of glass turning it into something visible from twenty miles out at sea.",
+   "webLeverage": "Efficient instanced optics show how many small refractive steps create one legible long-range signal.",
+   "sourceConceptId": "glass-refraction-transparency-fresnel-ring-beacon",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-kirigami-expansion-net",
+   "familyId": "interaction-physics",
+   "surface": "experience",
+   "form": "a surface staged so small cuts rotate into apertures far larger than the original sheet, where expansion is counterintuitive, fully reversible, and the flat original stays recoverable at any point",
+   "lineage": "Kirigami, auxetic materials, and deployable lattice research",
+   "tags": [
+    "cut-to-aperture",
+    "counterintuitive-expansion",
+    "recoverable-flat"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The sheet is the whole and cuts are the mechanism; the expanded state and the flat state are equally valid readings.",
+    "Sequence/attention: Attention follows a single cut as it becomes a hinge and then an aperture, then widens to the whole net.",
+    "Controls/state: Stretch, rotate, lock, and repair, with closed, opening, expanded, torn, and restored states.",
+    "Adaptation: Expansion presents as synchronized before and after nets with keyboard control of every region."
+   ],
+   "spark": "A sheet with slits in it opens into something four times its own area, and folds back down to a flat piece of paper.",
+   "webLeverage": "Lightweight hinge constraints reveal nonintuitive expansion while an SVG net supplies the exact cut geometry.",
+   "sourceConceptId": "paper-folds-pleats-deployable-kirigami-expansion-net",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "narrative-scroll-runway-color-procession",
+   "familyId": "narrative-scroll",
+   "surface": "experience",
+   "form": "a surface staged as an authored procession, where order is the argument, each item is held as long as the visitor wants, and nothing advances on its own",
+   "lineage": "Postwar salon presentation, runway scenography, and collection sequencing practice",
+   "tags": [
+    "authored-order",
+    "held-not-autoplayed",
+    "finale-weight"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The sequence is the composition and no item may be reordered; position within the run carries meaning.",
+    "Sequence/attention: Attention advances one item at a time along the authored order, with the finale weighted by everything before it.",
+    "Controls/state: Cue, hold, follow, isolate, and compare, with entering, full view, turning, exiting, and finale states.",
+    "Adaptation: The authored sequence is preserved with full stills and detail cuts, and autoplay is never required."
+   ],
+   "spark": "The order is the argument, and the last one only lands because of the eleven that walked before it.",
+   "webLeverage": "Synchronized full and detail media let users hold any item without losing collection order or context.",
+   "sourceConceptId": "textiles-weave-drape-fashion-runway-color-procession",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-candlelit-potion-class",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "a shared surface staged around one common vessel, where each participant's measured addition visibly changes the result for everyone and individual work and collective outcome stay legible at once",
+   "lineage": "Historical apothecary teaching, botanical color chemistry, and participatory culinary theater",
+   "tags": [
+    "shared-vessel",
+    "visible-contribution",
+    "individual-and-collective"
+   ],
+   "grammar": [
+    "Staging/hierarchy: A shared vessel holds the center and individual stations ring it; both remain visible at all times.",
+    "Sequence/attention: Attention alternates between one's own measure and what the shared result has become since the last addition.",
+    "Controls/state: Measure, grind, steep, strain, combine, and taste, with raw, bruised, infused, reacting, and settled states.",
+    "Adaptation: The long table recomposes as an ordered preparation sequence while color and texture stay described in text."
+   ],
+   "spark": "You add one measure of hibiscus and the whole shared pot shifts color in front of eight people who all did something different to it.",
+   "webLeverage": "A shared causal batch model lets each measured addition change color and strength for everyone in real time.",
+   "sourceConceptId": "food-fermentation-culinary-theater-candlelit-potion-class",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-temper-crystal-river",
+   "familyId": "data-dramaturgy",
+   "surface": "operate",
+   "form": "a process surface staged as a narrow working range, where an invisible crystal population determines the outcome and the visitor steers a variable that only reveals whether it worked at the very end",
+   "lineage": "Chocolatier tempering craft, cocoa-butter crystallography, and confectionery cooling curves",
+   "tags": [
+    "narrow-range",
+    "invisible-population",
+    "late-verdict"
+   ],
+   "grammar": [
+    "Staging/hierarchy: A single temperature path owns the surface and the crystal population is the hidden state it governs.",
+    "Sequence/attention: Attention tracks position against a narrow working band, where being slightly outside it matters more than being far outside.",
+    "Controls/state: Heat, stir, seed, and cool, with crystal populations and surface outcome updating together.",
+    "Adaptation: Phones use a single temperature river and express phases through pattern as well as color."
+   ],
+   "spark": "Two degrees either side of the working range and it will look identical until it sets, which is when it tells you.",
+   "webLeverage": "Probe input and a phase-transition model connect direct tempering actions to predicted crystal stability.",
+   "sourceConceptId": "food-fermentation-culinary-theater-chocolate-temper-crystal-river",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-pastry-lamination-geology",
+   "familyId": "data-dramaturgy",
+   "surface": "read",
+   "form": "a surface staged as accumulated strata, where each fold multiplies the layer count invisibly and a persistent cross-section is the only place the consequence of technique becomes visible",
+   "lineage": "Viennoiserie lamination, dough-fold diagrams, and cross-section food photography",
+   "tags": [
+    "multiplying-folds",
+    "persistent-section",
+    "invisible-until-cut"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The slab holds the surface and the cross-section sits alongside it permanently rather than appearing at the end.",
+    "Sequence/attention: Attention alternates between the action and the section, so cause and consequence stay adjacent.",
+    "Controls/state: Fold, chill, roll, and alter pressure, with butter continuity and final lift remaining visible.",
+    "Adaptation: One fold occupies each phone viewport with the cross-section persistently docked."
+   ],
+   "spark": "Three folds and you have twenty-seven layers you cannot see, and one warm room ruins every one of them at once.",
+   "webLeverage": "Layer-count computation, time-temperature guidance, and sectional animation connect hand technique to result.",
+   "sourceConceptId": "food-fermentation-culinary-theater-pastry-lamination-geology",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-sourdough-microbial-sky",
+   "familyId": "data-dramaturgy",
+   "surface": "operate",
+   "form": "a surface staged with honest uncertainty, where a living population is modelled as weather above the work and every prediction is shown as a range rather than a number",
+   "lineage": "Artisan sourdough fermentation, microbial ecology, and bakers' time-temperature practice",
+   "tags": [
+    "living-variable",
+    "predicted-range",
+    "weather-metaphor"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The work sits below and its microbial weather sits above; neither is complete without the other.",
+    "Sequence/attention: Attention reads the forecast band before the current state, so uncertainty is encountered first rather than last.",
+    "Controls/state: Change flour, hydration, inoculation, and temperature, with predicted fermentation visibly uncertain.",
+    "Adaptation: Phones stack the loaf and its weather as timed sections with discrete stage playback."
+   ],
+   "spark": "The forecast says somewhere between four and seven hours, and it means it, because the thing doing the work is alive.",
+   "webLeverage": "Temperature streams, time-lapse imagery, and a bounded fermentation model connect recipe choices to outcomes.",
+   "sourceConceptId": "food-fermentation-culinary-theater-sourdough-microbial-sky",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reveal-transform-fly-tower-transformation",
+   "familyId": "reveal-transform",
+   "surface": "experience",
+   "form": "a surface staged so the entire world is rewritten from above, where elements descend into place rather than cutting and the change itself is the event the visitor is meant to watch",
+   "lineage": "Counterweight fly rigging, scenic transformation, and proscenium stagecraft",
+   "tags": [
+    "descend-not-cut",
+    "change-as-event",
+    "trim-position"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Elements are organized by vertical line and depth plane, and the empty stage is the constant beneath every configuration.",
+    "Sequence/attention: Attention is held on the transition itself, since the arrival of a new world is the point rather than the world.",
+    "Controls/state: Fly, hold, trim, and compare, with stored, moving, at-trim, obstructed, and cleared states.",
+    "Adaptation: Scene changes present as deliberate stacked stages with all autonomous movement stopped under reduced motion."
+   ],
+   "spark": "The forest does not cut to the ballroom. It goes up into the dark and the ballroom comes down past it, and you watch both happen.",
+   "webLeverage": "A bounded layer timeline coordinates complex spatial transformation while every element retains an addressable trim.",
+   "sourceConceptId": "stagecraft-theater-lighting-fly-tower-transformation",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reveal-transform-peppers-ghost-table",
+   "familyId": "reveal-transform",
+   "surface": "experience",
+   "form": "a surface staged so two spaces occupy one frame through a registered reflecting plane, where the hidden source and the composite stay separately inspectable and the trick explains itself on request",
+   "lineage": "Pepper's Ghost illusion, angled glass, and Victorian theatrical optics",
+   "tags": [
+    "two-spaces-one-frame",
+    "hidden-source",
+    "explainable-trick"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The visible scene, the hidden chamber, and the glass plane between them stay registered to one another at all times.",
+    "Sequence/attention: Attention accepts the composite first and can then be directed to the source that produces it.",
+    "Controls/state: Illuminate, align, fade, and reveal, with source-hidden, appearing, present, slipping, and absent states.",
+    "Adaptation: A diagram plus explicit source and composite views substitute when the illusion cannot be spatially reproduced."
+   ],
+   "spark": "A figure that is not in the room is sitting at the table, and the chamber producing her is three feet below the floor.",
+   "webLeverage": "Registered reflection layers reveal optical causality while source content stays directly inspectable.",
+   "sourceConceptId": "stagecraft-theater-lighting-peppers-ghost-table",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-space-acoustic-cloister",
+   "familyId": "spatial-navigation",
+   "surface": "experience",
+   "form": "a surface staged as audible territories, where places are distinguished by how sound decays in them rather than by how they look and passages are defined by the transition between two acoustics",
+   "lineage": "Monastic cloisters, courtyard acoustics, and contemplative sound architecture",
+   "tags": [
+    "decay-defines-place",
+    "audible-territory",
+    "transition-passage"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Territories are organized by acoustic behavior and the plan is subordinate to what can be heard from where.",
+    "Sequence/attention: Attention moves between loud, social and quiet rooms by hearing the change before seeing it.",
+    "Controls/state: Place a voice or instrument, change a surface, and compare decay at chosen listening points.",
+    "Adaptation: Phones combine plan, impulse graph and audio samples into a single reading path."
+   ],
+   "spark": "You know you have crossed into the next court before you look up, because your own footsteps stopped coming back to you.",
+   "webLeverage": "Measured impulse responses and user-triggered binaural convolution make acoustic differences genuinely audible.",
+   "sourceConceptId": "architecture-inhabitable-space-acoustic-cloister",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-magnetic-marble-cosmos",
+   "familyId": "interaction-physics",
+   "surface": "experience",
+   "form": "a play surface staged around hidden fields, where paths bend for reasons that are not drawn, every collision leaves a temporary orbit, and any surprising result can be rewound and replayed exactly",
+   "lineage": "Magnetic construction toys, marble runs, and tabletop orbital experiments",
+   "tags": [
+    "hidden-field",
+    "temporary-orbit",
+    "exact-replay"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The playfield is organized by invisible wells rather than visible tracks, so the structure must be inferred from behavior.",
+    "Sequence/attention: Attention follows one launched object and reconstructs the field from how it curved.",
+    "Controls/state: Place poles, set strength, launch, and rewind surprising collisions with deterministic replay.",
+    "Adaptation: The field scales to one-hand play with trajectory ghosts substituting for continuous motion."
+   ],
+   "spark": "The marble curves for no visible reason, and the only way to learn where the poles are is to keep throwing things past them.",
+   "webLeverage": "A deterministic physics engine, touch launch gestures, and replayable seeds make magnetic experiment reproducible.",
+   "sourceConceptId": "games-toys-physics-play-magnetic-marble-cosmos",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reveal-transform-mechanical-puzzle-cutaway",
+   "familyId": "reveal-transform",
+   "surface": "experience",
+   "form": "a surface staged with visible affordances over hidden dependencies, where false moves are reversible, discovery is preserved by default, and internals are revealed only when the visitor asks for them",
+   "lineage": "Japanese puzzle-box joinery, mechanical locks, and sequential-discovery toys",
+   "tags": [
+    "hidden-dependency",
+    "reversible-false-move",
+    "hints-on-demand"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Visible affordances sit over a hidden mechanism, and the cutaway exists but is closed until requested.",
+    "Sequence/attention: Attention explores by touch and sound before sight, so understanding arrives through consequence rather than inspection.",
+    "Controls/state: Push, turn, listen, undo, and request progressively deeper cutaway hints.",
+    "Adaptation: Phones use large tactile gestures and preserve discovery by revealing internals only on demand."
+   ],
+   "spark": "Something moved somewhere inside when you slid that panel, and nothing on the outside tells you what.",
+   "webLeverage": "Constraint-based mechanism simulation, spatial sound cues, and layered hints support physical deduction.",
+   "sourceConceptId": "games-toys-physics-play-mechanical-puzzle-cutaway",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-height-marble-run",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "a surface staged as one causal chain built by many hands, where any junction can divert the whole run, failures are recoverable, and the same seed replays the identical sequence for everyone",
+   "lineage": "Marble-run play, science-museum interactives, and communal chain-reaction building",
+   "tags": [
+    "many-hands",
+    "divertible-junction",
+    "replayable-seed"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The run is one continuous causal chain, and every contributor's segment stays identifiable within it.",
+    "Sequence/attention: Attention follows a single object from source through junctions to finish, with alternate routes visible but unchosen.",
+    "Controls/state: Build, test, divert, catch, and rewind, with untested, armed, moving, jammed, recovered, and completed states.",
+    "Adaptation: Phones present one causal chain at a time without losing the identity of each contributed segment."
+   ],
+   "spark": "Eleven people built this and none of them knows what happens at the third junction until somebody drops one in.",
+   "webLeverage": "Deterministic browser physics, realtime collaborative building, and replayable seeds keep the chain reproducible.",
+   "sourceConceptId": "games-toys-physics-play-room-height-marble-run",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-lantern-river-vows",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "a shared surface staged so private contribution stays private by default, where each entry is composed alone, released only by explicit choice, and can be withdrawn without disturbing the collective current",
+   "lineage": "River-lantern remembrance practice, paper-lantern craft, and communal offering convention",
+   "tags": [
+    "private-by-default",
+    "explicit-release",
+    "withdrawable-trace"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The individual lantern holds the frame and the communal river remains optional and calm behind it.",
+    "Sequence/attention: Attention rests on one's own contribution first, and the collective view is entered deliberately rather than by default.",
+    "Controls/state: Write privately, choose visibility, release, and withdraw a digital trace without altering the physical act.",
+    "Adaptation: One lantern occupies the phone viewport while the communal river stays optional and quiet."
+   ],
+   "spark": "You write it alone, and it stays yours until the moment you decide to let it go downstream with everybody else's.",
+   "webLeverage": "Private local drafting, consented projection, and ephemeral shared events support participation without exposure.",
+   "sourceConceptId": "ritual-ceremony-festival-lantern-river-vows",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reading-rhythm-mask-unveiling-sequence",
+   "familyId": "reading-rhythm",
+   "surface": "experience",
+   "form": "a surface staged as permissioned disclosure, where only the currently sanctioned layer is available, context is narrated alongside it, and returning to concealment is always offered as a normal action",
+   "lineage": "Carved-mask performance scholarship, community-authored context, and permissioned archival practice",
+   "tags": [
+    "permissioned-layer",
+    "narrated-context",
+    "return-to-concealment"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Only the permitted layer is present in the surface at all; restricted material is absent rather than locked and teased.",
+    "Sequence/attention: Attention moves through making, preparation, appearance and withdrawal with context narrated before each stage.",
+    "Controls/state: Reveal only the current permitted layer, hear named context, and return to concealment at any point.",
+    "Adaptation: Phones use discrete stages, and restricted knowledge is never turned into a visual reward for progressing."
+   ],
+   "spark": "Some of it you are simply not shown, and the surface says so plainly rather than dangling it behind a lock.",
+   "webLeverage": "Role-aware access, time-coded media, and community-authored context preserve boundaries while supporting study.",
+   "sourceConceptId": "ritual-ceremony-festival-mask-unveiling-sequence",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-communal-repair-tapestry",
+   "familyId": "collective-fields",
+   "surface": "experience",
+   "form": "a shared surface staged as accumulated mends, where every repair leaves a visible colored stitch, contributions are never ranked against each other, and the fabric only ever gains history",
+   "lineage": "Repair cafes, visible-mending practice, and communal textile storytelling",
+   "tags": [
+    "visible-mend",
+    "unranked-contribution",
+    "accumulating-fabric"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The communal fabric holds the frame and individual objects enter it as mends; no contribution is sized by importance.",
+    "Sequence/attention: Attention reads the accumulated field first, then follows one stitch back to the object and person behind it.",
+    "Controls/state: Offer an object or skill, document a repair, and add its stitch without ranking contribution value.",
+    "Adaptation: Phones use object-to-mend pairs and keep accessible repair instructions beside the visual stories."
+   ],
+   "spark": "Every mend is a different color because nobody tried to hide that it was broken, and the fabric has been getting more interesting for four years.",
+   "webLeverage": "Local matching, repair media, and collaborative textile rendering connect face-to-face making with a shared record.",
+   "sourceConceptId": "social-participatory-public-space-communal-repair-tapestry",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-street-ghost-grid",
+   "familyId": "spatial-navigation",
+   "surface": "read",
+   "form": "a surface staged so the absent is registered at true scale against the present, and documented space is always visually distinguished from inferred space rather than blended into one confident reconstruction",
+   "lineage": "Urban archaeology, cadastral overlay practice, and oral testimony archives",
+   "tags": [
+    "true-scale-absence",
+    "documented-versus-inferred",
+    "threshold-entry"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The present block and the former parcels occupy one registered space, with evidential status marked on every element.",
+    "Sequence/attention: Attention crosses between what is there and what was there, always able to tell which is which.",
+    "Controls/state: Shift date, align evidence, and enter a remembered threshold, distinguishing documented from inferred space.",
+    "Adaptation: Phones pair map, street view and archival section without requiring camera overlays."
+   ],
+   "spark": "The doorway is exactly there, at exactly that height, and the surface is careful to tell you which parts of the room behind it are guesses.",
+   "webLeverage": "Georeferenced plans, optional augmented overlays, and oral testimony reconstruct spatial memory with marked uncertainty.",
+   "sourceConceptId": "memory-palimpsest-ruins-archive-demolished-street-ghost-grid",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "narrative-scroll-floodline-house-memory",
+   "familyId": "narrative-scroll",
+   "surface": "read",
+   "form": "a surface staged room by room against a horizontal mark, where a single measured line reorganizes the meaning of every space it crosses and difficult testimony is offered rather than imposed",
+   "lineage": "Flood-height marking, vernacular repair documentation, and household disaster testimony",
+   "tags": [
+    "single-datum-line",
+    "room-by-room",
+    "optional-testimony"
+   ],
+   "grammar": [
+    "Staging/hierarchy: One horizontal line crosses every room at true elevation and reorganizes each space relative to it.",
+    "Sequence/attention: Attention moves room by room, with the line as the constant and damage and repair read against it.",
+    "Controls/state: Compare events, hear household accounts, and test future water against changed spaces.",
+    "Adaptation: Phones pair each room section with testimony and keep trauma-sensitive content optional throughout."
+   ],
+   "spark": "A pencil line on the doorframe at chest height, and every room in the house has to be read against it.",
+   "webLeverage": "Registered household media, elevation data, and scenario overlays preserve lived memory while supporting planning.",
+   "sourceConceptId": "memory-palimpsest-ruins-archive-floodline-house-memory",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-theater-seat-field",
+   "familyId": "spatial-navigation",
+   "surface": "read",
+   "form": "a surface staged from a single chosen vantage inside a room that no longer exists, where sightline reconstructs what could be seen from there and the gaps in the record are shown rather than filled",
+   "lineage": "Theater archaeology, seat-plan archives, and oral histories of vanished venues",
+   "tags": [
+    "chosen-vantage",
+    "sightline-reconstruction",
+    "shown-gaps"
+   ],
+   "grammar": [
+    "Staging/hierarchy: A numbered seat is the vantage and the absent room is built outward from it; the missing outline stays visible.",
+    "Sequence/attention: Attention starts from one position rather than from a plan, so the space is understood as it was occupied.",
+    "Controls/state: Choose a seat, align memory with evidence, and compare events without pretending full reconstruction.",
+    "Adaptation: Phones present one seat view and the missing room outline together with user-triggered sound."
+   ],
+   "spark": "Row H, seat 14, and from there this is what you could see and this is what nobody wrote down.",
+   "webLeverage": "Archival plans, spatial audio, panoramic reconstruction, and uncertainty layers connect individual memory to evidence.",
+   "sourceConceptId": "memory-palimpsest-ruins-archive-vanished-theater-seat-field",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reveal-transform-comparison-slider-proof",
+   "familyId": "reveal-transform",
+   "surface": "persuade",
+   "form": "a proof surface staged around a draggable divider between two committed states, where the claim proves itself on a single continuous axis and the caption swaps the moment the divider admits which side is showing",
+   "lineage": "before-and-after comparison slider convention in product and editorial pages",
+   "tags": [
+    "draggable-divider",
+    "state-pair",
+    "swapping-caption"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Two states share one frame divided by a hairline and a handle; neither is framed as the default, and no chrome competes with them.",
+    "Sequence/attention: Attention is driven entirely by the divider, so the argument is made by the visitor's own hand rather than by sequence.",
+    "Controls/state: The handle drags and steps by keyboard, the leading side takes its caption, and released positions snap to meaningful stops.",
+    "Adaptation: The frame holds its aspect and the divider goes horizontal or vertical to suit, with motion following the pointer exactly."
+   ],
+   "spark": "Drag the line across and the claim proves itself, with the caption swapping the moment the divider admits which side you are actually looking at.",
+   "webLeverage": "pointer-driven clip-path division with keyboard stepping, snap stops, and caption state bound to divider position",
+   "sourceConceptId": "medium-native-comparison-slider-proof",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "working-surfaces-command-palette-surface",
+   "familyId": "working-surfaces",
+   "surface": "operate",
+   "form": "a working surface organized around a summoned overlay where everything is reachable by name, fuzzy-ranked results grouped by kind with their shortcuts shown inline, and the page beneath dimmed but never dismissed",
+   "lineage": "the command palette interaction school in contemporary editors and tools",
+   "tags": [
+    "summoned-overlay",
+    "fuzzy-groups",
+    "shortcut-hint"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The palette floats over a dimmed but intact page; the underlying context is never replaced, only quieted.",
+    "Sequence/attention: Attention goes to a single input and narrows as it types, so finding is faster than remembering where something lives.",
+    "Controls/state: Result rows take the accent when active and scroll into view; recent commands rank first when the field is empty.",
+    "Adaptation: The panel holds a comfortable maximum width and centers, with a short scale and fade on summon."
+   ],
+   "spark": "Hit the shortcut and everything the application can do is one fuzzy match away, with the page you were on still sitting there behind it.",
+   "webLeverage": "fuzzy ranking over a live command registry, full keyboard control, recency persisted local, and a scale-fade summon",
+   "sourceConceptId": "medium-native-command-palette-surface",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "working-surfaces-results-facet-surface",
+   "familyId": "working-surfaces",
+   "surface": "operate",
+   "form": "a search surface where refinement never leaves the page, applied filters becoming removable chips above the results, the count updating live and an empty result naming the single filter worth dropping",
+   "lineage": "faceted search refinement, removable filter chips and recovery-oriented empty states",
+   "tags": [
+    "removable-chips",
+    "live-count",
+    "recovery-empty-state"
+   ],
+   "grammar": [
+    "Staging/hierarchy: A facet rail sits beside the results with the applied chips above them; the result set is one continuous thing that narrows and widens.",
+    "Sequence/attention: Attention stays on the results while refinement happens in the periphery, so the visitor never loses their place.",
+    "Controls/state: Facets and chips carry the accent when applied, each chip removes itself, and a zero-result state computes which filter caused it.",
+    "Adaptation: The facet rail becomes a sheet on narrow frames while the chip row persists, with a count ticking as results change."
+   ],
+   "spark": "Nothing found, and instead of a shrug it tells you that dropping the price filter would give you back forty-one results.",
+   "webLeverage": "facet state in the url, live result counts, chip-driven filter removal, and an empty state that computes the offending filter",
+   "sourceConceptId": "medium-native-search-results-facet-surface",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reading-rhythm-empty-state-onboarding",
+   "familyId": "reading-rhythm",
+   "surface": "operate",
+   "form": "a surface designed for its first minute, where every empty region carries one sentence and one action, and a dismissible checklist tracks what remains before the workspace becomes real",
+   "lineage": "empty-state and onboarding checklist design in software products",
+   "tags": [
+    "designed-emptiness",
+    "single-next-action",
+    "progress-checklist"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Emptiness is composed rather than left over: each vacant region holds a short heading, one sentence, and exactly one action.",
+    "Sequence/attention: Attention follows whichever region offers the most useful next action, so the product teaches itself in the order the visitor needs.",
+    "Controls/state: Checklist items strike and collapse when complete, and the checklist dismisses permanently once satisfied.",
+    "Adaptation: The checklist becomes a bottom sheet on phones, with a completed item striking through and folding away."
+   ],
+   "spark": "Nothing has happened in this workspace yet and the page still knows exactly what to say, right down to the one button worth pressing.",
+   "webLeverage": "checklist progress persisted local, per-region empty state driven by live data, and a strike-and-collapse completion",
+   "sourceConceptId": "medium-native-empty-state-onboarding",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reading-rhythm-onboarding-tour-spotlight",
+   "familyId": "reading-rhythm",
+   "surface": "operate",
+   "form": "a guided introduction that dims the real interface and cuts a spotlight around one live element at a time, with a small card anchored beside it and the highlighted control staying genuinely usable inside the cutout",
+   "lineage": "product tour spotlight design, dimmed overlays with element cutouts and anchored step cards",
+   "tags": [
+    "element-cutout",
+    "anchored-step-card",
+    "live-inside-cutout"
+   ],
+   "grammar": [
+    "Staging/hierarchy: A scrim covers the real product with a clean cutout; the tour never substitutes a picture of the interface for the interface.",
+    "Sequence/attention: Attention is narrowed to one element per step in a short fixed sequence over the working product.",
+    "Controls/state: The highlighted element stays interactive, and dismissing the tour records it as seen permanently.",
+    "Adaptation: The card repositions to whichever side has room, with the cutout travelling between elements rather than cutting."
+   ],
+   "spark": "Everything goes dim except the one button it wants to show you, and that button still works, which is the difference between a tour and a screenshot.",
+   "webLeverage": "an svg scrim with a live element cutout, anchored positioning that flips to available space, and seen-state persisted local",
+   "sourceConceptId": "medium-native-onboarding-tour-spotlight",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "working-surfaces-first-issue-surface",
+   "familyId": "working-surfaces",
+   "surface": "operate",
+   "form": "a list-driven working surface run almost entirely from the keyboard, single keys acting on the focused row, a peek panel opening beside rather than over, and every change confirming with an undo instead of a dialog",
+   "lineage": "keyboard-first issue tracker design, single-key row actions with peek panels and undoable changes",
+   "tags": [
+    "single-key-actions",
+    "peek-panel",
+    "undo-not-confirm"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The list is the surface and detail opens beside it, so context is never replaced by what you are inspecting.",
+    "Sequence/attention: Attention stays on one focused row while everything acts on it, making the hand rather than the pointer the primary instrument.",
+    "Controls/state: Single keys act immediately on the focused row, and a toast carries the undo for a short window instead of a confirm dialog.",
+    "Adaptation: The peek becomes a sheet on narrow frames, with rows updating in place and never reflowing their neighbours."
+   ],
+   "spark": "You never open anything. You land on a row, press one key, and a small toast in the corner offers to take it back if you were wrong.",
+   "webLeverage": "full keyboard command handling on focused rows, optimistic updates with undo state, and a peek that preserves list position",
+   "sourceConceptId": "medium-native-keyboard-first-issue-surface",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "collective-fields-collaborative-cursor-canvas",
+   "familyId": "collective-fields",
+   "surface": "operate",
+   "form": "a shared surface where other people are present as named coloured cursors, their selections outlined in their own colour, and following someone binds your view to theirs",
+   "lineage": "multiplayer whiteboard and design tool presence, named live cursors and viewport following",
+   "tags": [
+    "named-cursor",
+    "owner-color",
+    "viewport-follow"
+   ],
+   "grammar": [
+    "Staging/hierarchy: An unbounded canvas carries no chrome; presence is the only overlay, one fixed colour per participant across cursor, selection and avatar.",
+    "Sequence/attention: Attention can be handed over rather than directed, since following another participant binds your viewport to theirs.",
+    "Controls/state: Participants can be followed, an idle one fades their cursor without leaving, and selections carry their owner's colour.",
+    "Adaptation: The presence stack collapses to a count on narrow frames, with cursor positions interpolated between updates."
+   ],
+   "spark": "Three other cursors moving around with names attached, and clicking somebody's avatar drags your view along wherever they go.",
+   "webLeverage": "realtime multiplayer cursor sync with interpolation, viewport-follow state, and per-participant colour assignment",
+   "sourceConceptId": "medium-native-collaborative-cursor-canvas",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "narrative-scroll-changelog-release-stream",
+   "familyId": "narrative-scroll",
+   "surface": "read",
+   "form": "a dated stream running newest first down a single spine, each entry a tagged card opening with one illustrated proof, with category chips filtering the stream in place",
+   "lineage": "product changelog design, version-tagged release cards with category chips and illustrated proofs",
+   "tags": [
+    "dated-spine",
+    "version-tag",
+    "illustrated-proof"
+   ],
+   "grammar": [
+    "Staging/hierarchy: One spine orders everything by date; no entry is promoted, and the newest simply sits first.",
+    "Sequence/attention: Attention descends time rather than sections, and each entry leads with a proof before its prose.",
+    "Controls/state: Category chips filter the stream in place, and read entries lose their unread dot.",
+    "Adaptation: Cards go full width and the spine hides on narrow frames, with a gentle stagger as entries enter."
+   ],
+   "spark": "Every release gets a date, a tag, one screenshot that actually proves the thing, and a short paragraph that respects your time.",
+   "webLeverage": "live filtering by category chip, unread state persisted local, deep-linked versions, and staggered entry animation",
+   "sourceConceptId": "medium-native-changelog-release-stream",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "first-viewport-annotated-screenshot-marketing",
+   "familyId": "first-viewport",
+   "surface": "persuade",
+   "form": "an opening surface where one product screenshot is the hero and numbered leaders annotate it, each call-out paired with a short claim in the margin and the region under the pointer magnifying to stay legible",
+   "lineage": "annotated product screenshot marketing, numbered call-outs on leader lines with magnification",
+   "tags": [
+    "annotated-hero",
+    "numbered-callout",
+    "pointer-magnify"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The screenshot owns the upper field and the claims are subordinate marginalia; no illustration competes with the product itself.",
+    "Sequence/attention: Attention follows a numbered leader from the interface into the claim that explains that part, so the proof precedes the assertion.",
+    "Controls/state: The active call-out magnifies its region and highlights its claim, and read ones keep a filled number.",
+    "Adaptation: Call-outs collapse into a numbered list beneath the screenshot on phones, with a magnifier following the pointer."
+   ],
+   "spark": "The whole pitch is one screenshot with seven numbered lines coming out of it, and the bit under your cursor quietly gets bigger so you can read it.",
+   "webLeverage": "pointer-driven magnification over the hero, call-out state highlighting claims, and responsive collapse to a numbered list",
+   "sourceConceptId": "digital-design-canon-annotated-screenshot-marketing",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-listing-split-surface",
+   "familyId": "spatial-navigation",
+   "surface": "operate",
+   "form": "a surface split between a scrolling result list and a live map where the map's visible bounds are the query, and hovering either side lights its partner on the other",
+   "lineage": "map-and-list marketplace interfaces, bidirectional hover linking and bounds-driven filtering",
+   "tags": [
+    "bidirectional-hover",
+    "bounds-filtering",
+    "split-surface"
+   ],
+   "grammar": [
+    "Staging/hierarchy: List and map are co-equal halves; the map is muted so listing content carries the colour, and neither is a subordinate preview.",
+    "Sequence/attention: Attention crosses between the halves constantly, so panning is querying and pointing is cross-referencing.",
+    "Controls/state: Cards and pins link bidirectionally and share one accent, and viewed listings dim their card.",
+    "Adaptation: The map collapses to a toggle above the list on phones, with a pin pulse paired to a card lift."
+   ],
+   "spark": "Move the map and the list rewrites itself; point at a card and the pin it belongs to jumps up out of the cluster.",
+   "webLeverage": "map bounds as live query state, bidirectional hover linking between pins and cards, and viewed state persisted local",
+   "sourceConceptId": "pop-culture-shelf-map-listing-split-surface",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "reveal-transform-trading-card-inspector",
+   "familyId": "reveal-transform",
+   "surface": "experience",
+   "form": "an inspection surface holding one object in the round, tilting under the pointer to catch a raking highlight, with its grade printed on a label above and a reverse face carrying provenance",
+   "lineage": "graded collectible presentation, slab labelling with tilt inspection and provenance reverses",
+   "tags": [
+    "tilt-highlight",
+    "grade-label",
+    "provenance-reverse"
+   ],
+   "grammar": [
+    "Staging/hierarchy: One object owns the frame against a neutral ground, with the grading label docked above it as separate evidence.",
+    "Sequence/attention: Attention is held by the object's response to movement rather than by layout, so inspection replaces reading.",
+    "Controls/state: Tilting sweeps the highlight, flipping reveals provenance, and the grade label never moves.",
+    "Adaptation: The object holds its aspect and scales to fit any frame, with tilt tracking the pointer directly."
+   ],
+   "spark": "Tip it a few degrees and the foil catches, which is the entire reason anybody wanted the shiny one in the first place.",
+   "webLeverage": "pointer-driven 3d tilt with an angle-dependent highlight, flip state revealing provenance, and aspect-preserving scaling",
+   "sourceConceptId": "pop-culture-shelf-trading-card-inspector",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "working-surfaces-audio-waveform-editor",
+   "familyId": "working-surfaces",
+   "surface": "operate",
+   "form": "an editing surface where a waveform is the timeline and every panel shares one time axis at one scale, a selection carrying handles at both edges and reporting its own duration",
+   "lineage": "digital audio editing interfaces, waveform timelines with handled selections and axis-locked panels",
+   "tags": [
+    "waveform-timeline",
+    "handled-selection",
+    "axis-locked-panels"
+   ],
+   "grammar": [
+    "Staging/hierarchy: Time is the only axis and every panel is locked to it, so no panel can disagree about where a moment is.",
+    "Sequence/attention: Attention follows a playhead across a fixed field, with the selection region as the working unit.",
+    "Controls/state: Selection handles drag at both edges, the region reports its duration, and processed regions keep a marked band.",
+    "Adaptation: Panels stack while staying axis-locked, with a playhead advancing in real time against a fixed waveform."
+   ],
+   "spark": "Drag a region and every panel agrees exactly where it starts, because they are all drawing the same seconds at the same scale.",
+   "webLeverage": "canvas waveform rendering with a real-time playhead, axis-locked panel synchronization, and selection duration readout",
+   "sourceConceptId": "signals-instruments-audio-waveform-editor",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "interaction-physics-modular-patch-rack",
+   "familyId": "interaction-physics",
+   "surface": "operate",
+   "form": "a routing surface where every connection is a physical cable you can trace end to end, cable colour coding what flows through it and an unpatched socket visibly doing nothing",
+   "lineage": "modular patch-cable routing, socket-and-cable connection and signal-type colour coding",
+   "tags": [
+    "traceable-cable",
+    "typed-socket",
+    "visible-idle"
+   ],
+   "grammar": [
+    "Staging/hierarchy: The rack is a fixed field of sockets and the cables lie over it; connections are objects rather than list rows.",
+    "Sequence/attention: Attention traces a cable from output to input, so understanding the system means following it physically.",
+    "Controls/state: Patching seats a cable, an incompatible pairing refuses, and an unpatched output shows no activity at all.",
+    "Adaptation: The rack reflows in whole modules with cables re-hanging between them, settling into their curve."
+   ],
+   "spark": "The whole program is visible as cables hanging between sockets, and you can follow any one of them from where the sound starts to where it ends up.",
+   "webLeverage": "svg catenary cables recomputed on module reflow, type-checked connection state, and a settle animation on patch",
+   "sourceConceptId": "signals-instruments-modular-patch-rack",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-sports-broadcast-scorebug",
+   "familyId": "data-dramaturgy",
+   "surface": "read",
+   "form": "a persistent corner overlay carrying only what must never disappear, with a transient band that slides in for detail and retracts without ever disturbing the permanent element",
+   "lineage": "broadcast scorebug design, corner-anchored persistent state with retracting lower thirds",
+   "tags": [
+    "permanent-corner",
+    "transient-band",
+    "never-overlap"
+   ],
+   "grammar": [
+    "Staging/hierarchy: One small element is permanent and everything else is transient; the transient layer is laid out so it can never overlap the permanent one.",
+    "Sequence/attention: Attention rests on the permanent element and is drawn away only when the broadcast chooses to surface detail.",
+    "Controls/state: A value change flashes its own block, and the detail band slides in and retracts on its own schedule.",
+    "Adaptation: The permanent element holds a fixed proportion of frame height, with a horizontal slide and a hard stop."
+   ],
+   "spark": "Three letters, two numbers and a clock in the corner, permanently, and everything else slides in from the bottom and gets out of the way again.",
+   "webLeverage": "live state flashing on change, a slide-in band with layout that never overlaps the anchor, and frame-proportional sizing",
+   "sourceConceptId": "pop-culture-shelf-sports-broadcast-scorebug",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-and-order-summary",
+   "familyId": "data-dramaturgy",
+   "surface": "read",
+   "form": "a narrow monospaced column where items range against right-aligned figures on dotted leaders, subtotals rule off in stages and the final total is set apart by a double rule",
+   "lineage": "point-of-sale receipt and order summary typesetting, staged subtotal rules and leader alignment",
+   "tags": [
+    "narrow-measure",
+    "staged-subtotals",
+    "double-rule-total"
+   ],
+   "grammar": [
+    "Staging/hierarchy: A deliberately narrow measure holds everything, with arithmetic order as the only hierarchy and the total ruled apart.",
+    "Sequence/attention: Attention reads strictly downward toward one number, so the surface is arithmetic rather than editorial.",
+    "Controls/state: An adjusted line shows its prior figure struck beside the new one, and refunds render as negative lines.",
+    "Adaptation: The measure stays narrow at every width rather than stretching, with the total recomputing digit by digit."
+   ],
+   "spark": "Everything lines up on the decimal, the subtotals are ruled off in stages, and the total has two lines above it because it is the only number that matters.",
+   "webLeverage": "tabular figures on a fixed narrow measure, live total recomputation with digit transitions, and struck prior values",
+   "sourceConceptId": "vernacular-ephemera-receipt-and-order-summary",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "spatial-navigation-turn-guidance-surface",
+   "familyId": "spatial-navigation",
+   "surface": "operate",
+   "form": "a guidance surface where the next instruction is sized to be read at a glance, the map beneath oriented to travel rather than north, and the following manoeuvre queued small so nothing arrives unannounced",
+   "lineage": "turn-by-turn navigation design, glance-sized instructions with travel-oriented maps and queued manoeuvres",
+   "tags": [
+    "glance-instruction",
+    "travel-oriented",
+    "queued-next"
+   ],
+   "grammar": [
+    "Staging/hierarchy: A high-contrast instruction band dominates above a muted map; everything not on the active route is desaturated.",
+    "Sequence/attention: Attention needs no search, since the imminent instruction is the largest thing present and the next is already visible.",
+    "Controls/state: The imminent manoeuvre enlarges as distance closes, and a missed turn recalculates without blame.",
+    "Adaptation: The instruction band keeps its glance size at every viewport, with continuous map rotation against a fixed marker."
+   ],
+   "spark": "The only thing you can read at speed is the arrow and the distance, and underneath it in small print is the one after that so nothing surprises you.",
+   "webLeverage": "device heading driving map rotation, distance-driven instruction scaling, and a queued manoeuvre state with recalculation",
+   "sourceConceptId": "maps-journeys-turn-by-turn-guidance-surface",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-report-data-spread",
+   "familyId": "data-dramaturgy",
+   "surface": "read",
+   "form": "a spread that answers exactly one question, a single large chart carrying the page with its axis notes as marginalia and one figure pulled out at display size as the number the page exists to deliver",
+   "lineage": "annual report and investor communication design, single-chart spreads with marginal axis notes and pulled figures",
+   "tags": [
+    "one-question-per-spread",
+    "marginal-axis-note",
+    "pulled-figure"
+   ],
+   "grammar": [
+    "Staging/hierarchy: One chart dominates, the table supports it, and a single figure set at display size outranks both.",
+    "Sequence/attention: Attention lands on the pulled figure first and works backward into the evidence, which is the reverse of how the page was built.",
+    "Controls/state: Series take the data colour when active while the rest fall to neutral, and hovered points expose exact values.",
+    "Adaptation: The chart holds its aspect while the table reflows beneath, with each series drawing in along its own axis."
+   ],
+   "spark": "One chart, one table, and one number set enormous, because that number is the only thing anybody is going to remember from the page.",
+   "webLeverage": "an svg chart with series state and hover value readout, responsive table reflow, and axis-order draw animation",
+   "sourceConceptId": "graphic-worlds-publishing-annual-report-data-spread",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
+  },
+  {
+   "id": "data-dramaturgy-mine-section-drawing",
+   "familyId": "data-dramaturgy",
+   "surface": "read",
+   "form": "a vertical section cut through the ground where every element sits at its true elevation, depth as the only axis and the empty ground between things forming most of the drawing",
+   "lineage": "mine section drawing, true-scale depth plotting against hatched geological columns",
+   "tags": [
+    "true-depth-scale",
+    "depth-is-the-axis",
+    "honest-emptiness"
+   ],
+   "grammar": [
+    "Staging/hierarchy: A true depth scale governs everything, so position on the page is literal elevation and emptiness is data.",
+    "Sequence/attention: Attention descends rather than scans, and the distance between elements is itself the finding.",
+    "Controls/state: A working traces from surface to face when active, and abandoned levels render as a dashed line.",
+    "Adaptation: The depth scale stays true while the section crops laterally, with descent as the only motion."
+   ],
+   "spark": "Everything is drawn at its real depth, so the deepest level sits a metre down the sheet, and the whole page is mostly the ground between things.",
+   "webLeverage": "an svg section with a truthful responsive depth scale, working-trace state from surface to face, and a descent animation",
+   "sourceConceptId": "notation-diagram-systems-mine-section-drawing",
+   "provenanceNote": "migrated from the world catalog: composition-strength entries are stagings"
   }
  ]
 }

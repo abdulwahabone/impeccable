@@ -9,6 +9,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { conceptContentHash } from '../skill/scripts/lib/concept-catalog.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CARD_DIR = join(ROOT, 'site', 'public', 'worlds', 'cards');
@@ -24,13 +25,20 @@ for (const family of catalog.families) {
   for (const concept of family.concepts) {
     const review = reviews[concept.id];
     if (review && review.status !== 'pending') continue;
-    const board = existsSync(join(CARD_DIR, `${concept.id}.webp`));
-    const hero = existsSync(join(CARD_DIR, `${concept.id}-hero.webp`));
+    // Existence alone is not the gate. A reworked concept keeps its old files,
+    // so checking only for a file on disk reports a round as ready while the
+    // cards still show the text that was replaced, and the reviewer judges the
+    // previous version. The manifest hash is what says a card matches its
+    // concept, which is the same test generate-world-cards.mjs renders on.
+    const current = conceptContentHash(concept);
+    const stale = manifest[concept.id]?.hash !== current;
+    const board = existsSync(join(CARD_DIR, `${concept.id}.webp`)) && !stale;
+    const hero = existsSync(join(CARD_DIR, `${concept.id}-hero.webp`)) && !stale;
     rows.push({
       id: concept.id,
       family: family.id,
-      board: board ? 'board' : 'BOARD MISSING',
-      hero: hero ? 'hero' : 'HERO MISSING',
+      board: board ? 'board' : (stale ? 'BOARD STALE' : 'BOARD MISSING'),
+      hero: hero ? 'hero' : (stale ? 'HERO STALE' : 'HERO MISSING'),
       manifest: manifest[concept.id] ? 'manifest' : 'MANIFEST MISSING',
     });
   }
@@ -46,7 +54,7 @@ for (const row of rows) {
   const gate = [row.board, row.hero, row.manifest].join(' · ');
   console.log(`  ${row.id.padEnd(36)} ${row.family.padEnd(28)} ${gate}`);
 }
-const unrendered = rows.filter(row => row.board.includes('MISSING') || row.hero.includes('MISSING'));
+const unrendered = rows.filter(row => row.board !== 'board' || row.hero !== 'hero');
 console.log(unrendered.length > 0
   ? `\n${unrendered.length} entr${unrendered.length === 1 ? 'y' : 'ies'} still need the render gate: rerun \`bun run world-cards\`.`
   : '\nRender gate complete. Review the round in /labs/worlds, then publish cards with `bun run world-cards:publish`.');

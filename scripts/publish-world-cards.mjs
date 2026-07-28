@@ -26,16 +26,30 @@ const BUCKET = 'impeccable-world-cards';
 const CONCURRENCY = 6;
 
 const force = process.argv.includes('--force');
+// The bucket is public, so only reviewed and approved art belongs in it.
+// Rejected concepts are dead veins and pending ones have not been seen yet;
+// pushing either puts unreleased work behind a guessable URL and uploads
+// hundreds of files the roll API will never deal. Pass --all to mirror the
+// whole directory anyway.
+const all = process.argv.includes('--all');
 const manifest = JSON.parse(readFileSync(join(CARD_DIR, 'manifest.json'), 'utf8'));
 const state = existsSync(STATE_PATH) ? JSON.parse(readFileSync(STATE_PATH, 'utf8')) : {};
+const reviews = JSON.parse(readFileSync(join(ROOT, 'catalog', 'concept-reviews.json'), 'utf8')).reviews;
+const compositionReviews = JSON.parse(
+  readFileSync(join(ROOT, 'catalog', 'composition-reviews.json'), 'utf8')
+).reviews;
+const isApproved = id => reviews[id]?.status === 'approved' || compositionReviews[id]?.status === 'approved';
 
 const files = readdirSync(CARD_DIR).filter(file => file.endsWith('.webp'));
 const queue = files.filter(file => {
-  if (force) return true;
   const id = file.replace(/(-hero)?\.webp$/, '');
+  if (!all && !isApproved(id)) return false;
+  if (force) return true;
   const stamp = file.endsWith('-hero.webp') ? manifest[id]?.heroGeneratedAt : manifest[id]?.generatedAt;
   return !stamp || state[file] !== stamp;
 });
+const withheld = all ? 0 : files.filter(file => !isApproved(file.replace(/(-hero)?\.webp$/, ''))).length;
+if (withheld > 0) console.log(`withholding ${withheld} card(s) for unapproved concepts (pass --all to include them)`);
 
 console.log(`publishing ${queue.length} of ${files.length} cards to r2://${BUCKET}`);
 let done = 0;
