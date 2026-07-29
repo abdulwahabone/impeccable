@@ -1,15 +1,28 @@
-// Pure world-roll selection logic, parameterized by catalog data.
+// Catalog merging and response shaping for the roll API.
 //
-// This mirrors the selection mechanics in skill/scripts/concept-seed.mjs
-// exactly (same salts, same sha256 ranking, same rating weights), computed
-// with Web Crypto because Workers have no sync hash. Same key + same pool
-// revision therefore reproduces a roll bit-for-bit.
+// Selection itself is NOT here. It lives in the public repo's
+// skill/scripts/lib/roll-selection.mjs, which concept-seed.mjs drives too.
+// This file used to carry its own copy under a header claiming the two matched
+// "exactly"; they did not, and because the catalog never ships with the skill,
+// every real user rolls through this path and got none of the gates the seeder
+// had. One module, two drivers, no drift.
+//
+// skill/ is materialized from public main before every build (see
+// scripts/fetch-public-skill.mjs), so this import resolves to the released
+// selection logic and never to a local mirror. wrangler bundles it: verified,
+// and an unresolvable path fails the Functions build loudly rather than
+// silently falling back.
 //
 // functions/api/_worldroll.js binds this to the catalog snapshot bundled at
-// deploy time; the dev server middleware and tests bind it to catalog/ on
-// disk. Keeping the logic data-free means both paths run identical code.
+// deploy time; the dev server middleware and tests bind it to catalog/ on disk.
+import {
+  runAsyncSelection,
+  selectApprovedChallengers as selectApprovedChallengersCore,
+  selectApprovedStagings as selectApprovedStagingsCore,
+  WELL_TIERS,
+} from '../../skill/scripts/lib/roll-selection.mjs';
 
-export const WELL_TIERS = ['graphic', 'interaction', 'atmosphere'];
+export { WELL_TIERS };
 export const SEED_MODES = new Set(['persuade', 'operate', 'read', 'experience']);
 
 const encoder = new TextEncoder();
@@ -19,14 +32,11 @@ async function sha256Hex(input) {
   return [...new Uint8Array(digest)].map(byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
-async function deterministicRank(items, input, idFor = item => item.id) {
-  const scored = await Promise.all(items.map(async item => ({
-    item,
-    id: idFor(item),
-    score: await sha256Hex(`${input}:${idFor(item)}`),
-  })));
-  scored.sort((a, b) => b.score.localeCompare(a.score) || a.id.localeCompare(b.id));
-  return scored.map(entry => entry.item);
+// Workers have no synchronous hash, so this side drives the shared generator
+// asynchronously. Node's sync hash and Web Crypto return the same bytes, so a
+// key reproduces the same roll from either driver.
+function driveSelection(generator) {
+  return runAsyncSelection(generator, sha256Hex);
 }
 
 // Concepts carry no display name, so one is derived from the id: strip the
@@ -97,148 +107,14 @@ export async function approvedPoolRevision(concepts) {
   return (await sha256Hex(payload)).slice(0, 12);
 }
 
-export async function selectApprovedChallengers({ scope, key, reroll = 0, rating = null, concepts }) {
-  const approved = concepts.filter(concept => concept.status === 'approved');
-  const wanted = scope === 'direction'
-    ? new Set(['world', 'dual'])
-    : new Set(['composition', 'dual']);
-  const approvedByTier = new Map();
-  for (const concept of approved) {
-    const tier = approvedByTier.get(concept.wellTier) || [];
-    tier.push(concept);
-    approvedByTier.set(concept.wellTier, tier);
-  }
-  if (WELL_TIERS.some(tier => !(approvedByTier.get(tier) || []).length)) {
-    throw new Error('every challenger tier needs at least one approved concept');
-  }
-  // Optional minimum-rating gate. Applied per tier and skipped for any tier
-  // it would empty, so a thin tier degrades to its full approved pool
-  // instead of failing the roll.
-  if (rating) {
-    for (const [tier, pool] of approvedByTier) {
-      const rated = pool.filter(concept => (concept.review?.rating || 0) >= rating);
-      if (rated.length > 0) approvedByTier.set(tier, rated);
-    }
-  }
-  for (const [tier, pool] of approvedByTier) {
-    const matching = pool.filter(concept => wanted.has(concept.strength));
-    if (matching.length > 0) approvedByTier.set(tier, matching);
-  }
-  // Two independent exclusions. Rating grades quality: a 3-star earns a second
-  // ticket, a 1-star marginal keep leaves the pool. Breadth says whether a
-  // world can serve an arbitrary build at all, so a niche world leaves the pool
-  // however good it is, keeping its approval for direct briefs.
-  const ticketsFor = pool => pool.flatMap(concept => {
-    const conceptRating = concept.review?.rating;
-    if (conceptRating === 1 || concept.review?.breadth === 'niche') return [];
-    return conceptRating === 3
-      ? [{ concept, ticket: 0 }, { concept, ticket: 1 }]
-      : [{ concept, ticket: 0 }];
-  });
-  const pickRound = async (round, excluded) => {
-    const salt = round === 0 ? '' : `:reroll-${round}`;
-    const tierOrder = (await deterministicRank(
-      WELL_TIERS.map(id => ({ id })),
-      `${scope}:${key}:tiers${salt}`
-    )).map(item => item.id);
-    const picks = [];
-    for (const [index, tier] of tierOrder.entries()) {
-      let pool = approvedByTier.get(tier).filter(concept => !excluded.has(concept.id));
-      if (pool.length === 0) pool = approvedByTier.get(tier);
-      let tickets = ticketsFor(pool);
-      if (tickets.length === 0) tickets = pool.map(concept => ({ concept, ticket: 0 }));
-      const ranked = await deterministicRank(
-        tickets,
-        `${scope}:${key}:challenger-${index}${salt}`,
-        entry => `${entry.concept.id}#${entry.ticket}`
-      );
-      const order = [];
-      const seen = new Set();
-      for (const entry of ranked) {
-        if (seen.has(entry.concept.id)) continue;
-        seen.add(entry.concept.id);
-        order.push(entry.concept);
-      }
-      const first = order[0];
-      const second = order.find(concept => concept.familyId !== first.familyId)
-        || order.find(concept => concept.id !== first.id);
-      picks.push(...(second ? [first, second] : [first]));
-    }
-    return picks;
-  };
-  const excluded = new Set();
-  let picks = await pickRound(0, excluded);
-  for (let round = 1; round <= reroll; round += 1) {
-    for (const pick of picks) excluded.add(pick.id);
-    picks = await pickRound(round, excluded);
-  }
-  return { approved, picks };
+// The rating query parameter is this API's own feature (a minimum-rating floor
+// on a deal); the shared module calls it minRating.
+export function selectApprovedChallengers({ scope, key, reroll = 0, rating = null, concepts }) {
+  return driveSelection(selectApprovedChallengersCore({ scope, key, reroll, minRating: rating, concepts }));
 }
 
-// Three approved, identity-free staging inputs are rolled deterministically.
-// One input was too weak a counterweight to a model's habitual page skeleton:
-// it became a single optional flourish beside six identity challengers rather
-// than a real search over composition. Prefer distinct staging families so a
-// roll tests materially different hierarchy, sequence, and interaction laws.
-// Cross-mode fallback would make the input misleading, so an absent mode still
-// returns no staging. Re-rolls exclude every earlier set until the pool runs out.
-export async function selectApprovedStagings({ scope, key, reroll = 0, mode = null, compositions, count = 3 }) {
-  // Stagings honour the same breadth gate as worlds: a staging too specific to
-  // serve an arbitrary build stays approved for direct briefs and leaves the
-  // challenger pool. Falls back to the full approved set rather than returning
-  // nothing if every approved staging is marked niche.
-  let approved = compositions.filter(composition => composition.status === 'approved');
-  const broad = approved.filter(composition => composition.review?.breadth !== 'niche');
-  if (broad.length > 0) approved = broad;
-  if (approved.length === 0) return [];
-  if (mode) {
-    const matching = approved.filter(composition => composition.surface === mode);
-    if (matching.length === 0) return [];
-    approved = matching;
-  }
-  // Rating weights the draw exactly as it does for world challengers. This
-  // matters more here than for worlds because the per-surface pools are small,
-  // so an unweighted shuffle repeats a weak staging far more often. Each ticket
-  // carries its index so deterministicRank sees a distinct key per ticket;
-  // ranking bare duplicates would hash identically and the pick loop's
-  // id-dedupe would silently discard the second copy, making weighting a no-op.
-  const ticketsFor = pool => pool.flatMap(composition => {
-    const rating = composition.review?.rating;
-    if (rating === 1) return [];
-    return rating === 3
-      ? [{ composition, ticket: 0 }, { composition, ticket: 1 }]
-      : [{ composition, ticket: 0 }];
-  });
-
-  const prior = new Set();
-  let picks = [];
-  for (let round = 0; round <= reroll; round += 1) {
-    const available = approved.filter(composition => !prior.has(composition.id));
-    const base = available.length >= Math.min(count, approved.length) ? available : approved;
-    let tickets = ticketsFor(base);
-    // A pool of nothing but 1-star keeps still has to yield stagings.
-    if (tickets.length === 0) tickets = base.map(composition => ({ composition, ticket: 0 }));
-    const ranked = (await deterministicRank(
-      tickets,
-      round === 0 ? `${scope}:${key}:staging` : `${scope}:${key}:staging:reroll-${round}`,
-      entry => `${entry.composition.id}#${entry.ticket}`
-    )).map(entry => entry.composition);
-    const families = new Set();
-    picks = [];
-    for (const composition of ranked) {
-      const family = composition.familyId ?? composition.id;
-      if (families.has(family)) continue;
-      picks.push(composition);
-      families.add(family);
-      if (picks.length >= count) break;
-    }
-    for (const composition of ranked) {
-      if (picks.length >= count) break;
-      if (!picks.some(pick => pick.id === composition.id)) picks.push(composition);
-    }
-    if (round < reroll) picks.forEach(composition => prior.add(composition.id));
-  }
-  return picks;
+export function selectApprovedStagings({ scope, key, reroll = 0, mode = null, compositions, count = 3 }) {
+  return driveSelection(selectApprovedStagingsCore({ scope, key, reroll, mode, compositions, count }));
 }
 
 // Compatibility for callers that need a single sample.
