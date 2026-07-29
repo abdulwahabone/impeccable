@@ -142,3 +142,16 @@ tmp/
 # PNGs, the old card backup). The canonical generator is `bun run og-image`
 # (scripts/generate-og-image.js); this dir is throwaway and safe to delete.
 .og-build/
+
+# The skill, the CLI, and the plugin manifest are owned by the public
+# pbakaus/impeccable repo, not this one. `scripts/fetch-public-skill.mjs`
+# materializes them here (from public main by default, or symlinked from a
+# sibling checkout via IMPECCABLE_SKILL_SRC) and records provenance in
+# .skill-source.json. They used to be tracked mirrors, which drifted silently:
+# the roll API dealt one ungated staging for as long as the seeder dealt three
+# gated ones, because the two copies were never compared. Run `bun run
+# skill:refresh` to re-materialize.
+/skill/
+/cli/
+/.claude-plugin/
+.skill-source.json

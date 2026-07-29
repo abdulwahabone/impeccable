@@ -86,4 +86,60 @@ describe('world roll core', () => {
     const overlap = second.challengers.filter(c => firstIds.has(c.id));
     assert.equal(overlap.length, 0, `reroll repeated: ${overlap.map(c => c.id).join(', ')}`);
   });
+
+  // The selection mechanics below existed in concept-seed.mjs but had never been
+  // ported here, and nothing in this suite covered composition selection, so the
+  // API dealt one unfiltered staging to every real user for as long as that gap
+  // stood. These pin the contract so the two implementations cannot drift again.
+  it('deals three stagings, all in the requested mode, from distinct families', async () => {
+    for (const mode of ['persuade', 'operate', 'read', 'experience']) {
+      const roll = await rollSeed({ scope: 'surface', key: `staging-${mode}`, mode, reroll: 0, data });
+      assert.equal(roll.stagings.length, 3, `${mode} dealt ${roll.stagings.length}`);
+      const ids = new Set(roll.stagings.map(s => s.id));
+      assert.equal(ids.size, 3, `${mode} repeated a staging`);
+      for (const staging of roll.stagings) {
+        assert.equal(staging.surface, mode, `${staging.id} is not a ${mode} staging`);
+      }
+    }
+  });
+
+  it('keeps the legacy singular staging field in step with the array', async () => {
+    const roll = await rollSeed({ scope: 'surface', key: 'legacy-shape', mode: 'operate', reroll: 0, data });
+    assert.equal(roll.staging.id, roll.stagings[0].id);
+  });
+
+  it('never deals a niche or marginal world', async () => {
+    const reviews = data.conceptReviews.reviews;
+    const modes = ['persuade', 'operate', 'read', 'experience'];
+    let dealt = 0;
+    for (let n = 0; n < 40; n += 1) {
+      const roll = await rollSeed({ scope: 'direction', key: `gate-${n}`, mode: modes[n % 4], reroll: 0, data });
+      for (const challenger of roll.challengers) {
+        dealt += 1;
+        assert.notEqual(reviews[challenger.id]?.breadth, 'niche', `${challenger.id} is niche`);
+        assert.notEqual(reviews[challenger.id]?.rating, 1, `${challenger.id} is marginal`);
+      }
+    }
+    assert.ok(dealt > 200, `only ${dealt} challengers dealt`);
+  });
+
+  // Driven by a synthetic verdict rather than catalog data: no composition is
+  // marked niche yet, so a data-driven version of this would pass vacuously.
+  it('drops a composition from the deal once it is marked niche', async () => {
+    const mode = 'operate';
+    const before = await rollSeed({ scope: 'surface', key: 'niche-comp', mode, reroll: 0, data });
+    const gated = structuredClone(data);
+    for (const staging of before.stagings) {
+      gated.compositionReviews.reviews[staging.id] = {
+        ...gated.compositionReviews.reviews[staging.id],
+        breadth: 'niche',
+      };
+    }
+    const after = await rollSeed({ scope: 'surface', key: 'niche-comp', mode, reroll: 0, data: gated });
+    const excluded = new Set(before.stagings.map(s => s.id));
+    for (const staging of after.stagings) {
+      assert.ok(!excluded.has(staging.id), `${staging.id} was dealt after being marked niche`);
+    }
+    assert.equal(after.stagings.length, 3);
+  });
 });
