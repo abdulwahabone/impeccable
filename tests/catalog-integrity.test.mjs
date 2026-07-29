@@ -10,7 +10,7 @@
 // family's concepts were correctly migrated into the composition catalog.
 //
 // Skill behaviour is the public repo's to test and it does, with a strict
-// superset of what the fork covered (including the breadth gate, staging rating
+// superset of what the fork covered (including the breadth gate, composition rating
 // weights, and the ticket-dedupe trap). What only this repo can check is whether
 // the private catalog itself is well formed, so that is all this file does.
 // Selection behaviour over the real catalog lives in world-roll-core.test.mjs.
@@ -96,8 +96,9 @@ describe('real world catalog', () => {
       // An empty family is a bug: retirements and migrations remove concepts,
       // and the family should go with the last one. Thinness above zero is a
       // curation matter, not a build gate. The old fork asserted a floor of two
-      // but never reached that line, so `space` and `festivals-public-life` sat
-      // at one concept unnoticed; they are listed by the diagnostic below.
+      // but never reached that line, which is how two families sat at one
+      // concept unnoticed until this suite replaced it. Both were rehomed and
+      // removed; the diagnostic below is what surfaces the next one.
       assert.equal(
         family.concepts.length >= 1,
         true,
