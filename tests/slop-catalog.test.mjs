@@ -38,6 +38,6 @@ test('new detector rules read like catalog entries, not release notes', () => {
   assert.doesNotMatch(source, /latest detector coverage|catalog had fallen behind/i);
 
   const descriptions = [...copyBlock[1].matchAll(/:\s*'([^']+)'/g)].map((match) => match[1]);
-  assert.equal(descriptions.length, 18);
+  assert.equal(descriptions.length, 21);
   assert.ok(descriptions.every((description) => description.length <= 155));
 });

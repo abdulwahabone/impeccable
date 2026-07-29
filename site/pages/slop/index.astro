@@ -11,7 +11,8 @@ const TOTAL_PATTERN_COUNT = DETECTOR_RULE_COUNT + CRITIQUE_ONLY_COUNT;
 const CATALOG_RULE_IDS = {
   designSystem: ['design-system-font', 'design-system-color', 'design-system-radius', 'design-system-font-size'],
   visualDetails: ['codex-grid-background'],
-  colorContrast: ['radial-halo'],
+  typography: ['kicker-above-heading', 'undersized-ui-text'],
+  colorContrast: ['radial-halo', 'radial-spotlight-glow'],
   layoutSpace: ['numbered-section-labels', 'edge-flush-cards', 'text-occlusion', 'first-viewport-column-overflow', 'heading-rhythm'],
   motion: ['pulsing-dot', 'blinking-cursor', 'marquee'],
   copy: ['repeated-container-text'],
@@ -30,6 +31,10 @@ const CATALOG_RULE_LAYERS = {
 };
 
 const CATALOG_RULE_VISUALS = {
+  // Carried over from the retired repeated-section-kickers card. The engine rule
+  // that replaced it bans a kicker whether or not it repeats, so this shows one.
+  'kicker-above-heading': `<div class="catalog-rule-demo" style="font-family:system-ui,sans-serif;color:#111"><div style="font-size:9px;text-transform:uppercase;letter-spacing:.18em;color:#999">Features</div><div style="font-size:15px;font-weight:600;margin-top:3px">What you get</div></div>`,
+  'undersized-ui-text': `<div class="catalog-rule-demo" style="font-family:system-ui,sans-serif;color:#111;display:flex;gap:14px;align-items:baseline"><span style="font-size:8px;color:#666">Terms</span><span style="font-size:8px;color:#666">Privacy</span><span style="font-size:8px;color:#666">Status</span><span style="font-size:15px;color:#111;margin-left:6px">Aa</span></div>`,
   'pulsing-dot': `<div class="catalog-rule-demo catalog-rule-demo--center"><span style="width:12px;height:12px;border-radius:50%;background:#20a37a;box-shadow:0 0 0 7px rgba(32,163,122,.14),0 0 0 14px rgba(32,163,122,.06)"></span><span style="font:600 12px system-ui;color:#222">Systems operational</span></div>`,
   'blinking-cursor': `<div class="catalog-rule-demo catalog-rule-demo--terminal"><span>&gt; Building the future</span><b style="display:inline-block;width:8px;height:18px;background:#d4a72c;margin-left:4px"></b></div>`,
   'shape-assembled-illustration': `<div class="catalog-rule-demo catalog-rule-demo--center"><svg width="150" height="86" viewBox="0 0 150 86" fill="none"><rect x="20" y="38" width="52" height="34" rx="8" fill="#eadfce"/><circle cx="46" cy="32" r="19" fill="#d4a72c"/><path d="M77 71c8-28 23-42 46-42v42H77Z" fill="#5c9b8f"/><circle cx="113" cy="20" r="8" fill="#222"/></svg></div>`,
@@ -69,6 +74,9 @@ const CATALOG_RULE_COPY = {
   'design-system-radius': 'A corner radius falls outside the documented shape scale. Use a token or update the system.',
   'design-system-font-size': 'A font size falls between documented type steps. Use the scale or add a deliberate new step.',
   'codex-grid-background': 'A decorative grid covers a surface without supporting a canvas, map, or measurement task. Use product structure or a plain field.',
+  'radial-spotlight-glow': 'A faint accent haze sits behind a section as a spotlight. Light the composition with real material, or let the surface stand on its own.',
+  'kicker-above-heading': 'A tracked uppercase label above a heading borrows editorial authority it has not earned. Delete it, or work the words into the heading.',
+  'undersized-ui-text': 'Functional text under 11px fails on small and high-density screens. Keep links, labels, and table cells at a readable size.',
 };
 
 const catalogRules = Object.fromEntries(
@@ -421,9 +429,13 @@ const catalogRules = Object.fromEntries(
       <section class="anti-patterns-section" id="section-typography">
         <header class="anti-patterns-section-header">
           <h3 class="anti-patterns-section-title">Typography</h3>
-          <p class="anti-patterns-section-count">10 rules</p>
+          <p class="anti-patterns-section-count">11 rules</p>
         </header>
         <div class="rule-card-grid">
+
+          {catalogRules.typography.map((rule) => (
+            <SlopRuleCard rule={rule} visual={CATALOG_RULE_VISUALS[rule.id]} layer={CATALOG_RULE_LAYERS[rule.id] || 'cli'} description={CATALOG_RULE_COPY[rule.id]} />
+          ))}
 
     <article class="rule-card" id="rule-flat-type-hierarchy" data-layer="cli">
       <div class="rule-card-visual" aria-hidden="true"><div class="rule-card-visual-inner"><div style="font-family: system-ui, sans-serif; color: #111; line-height: 1.3;"><div style="font-size: 17px; font-weight: 600;">Heading</div><div style="font-size: 16px; font-weight: 500; margin: 2px 0;">Subheading</div><div style="font-size: 15px; color: #555;">Body text at almost the same size.</div></div></div></div>
@@ -473,19 +485,6 @@ const catalogRules = Object.fromEntries(
         </div>
         <h3 class="rule-card-name">Hero eyebrow / pill chip</h3>
         <p class="rule-card-desc">A tiny uppercase letter-spaced label sitting immediately above an oversized hero headline, or the same shape rendered as a pill chip, is the default AI SaaS hero. Drop the eyebrow, fold the kicker into the headline, or run it as a breadcrumb instead.</p>
-        <a class="rule-card-skill-link" href="/docs/impeccable#typography">See in /impeccable</a>
-      </div>
-    </article>
-
-    <article class="rule-card" id="rule-repeated-section-kickers" data-layer="cli">
-      <div class="rule-card-visual" aria-hidden="true"><div class="rule-card-visual-inner"><div style="font-family: system-ui, sans-serif; color: #111; display: flex; flex-direction: column; gap: 10px;"><div><div style="font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: #999;">Features</div><div style="font-size: 14px; font-weight: 600;">What you get</div></div><div><div style="font-size: 9px; text-transform: uppercase; letter-spacing: 0.18em; color: #999;">Pricing</div><div style="font-size: 14px; font-weight: 600;">Simple plans</div></div></div></div></div>
-      <div class="rule-card-body">
-        <div class="rule-card-head">
-          <span class="rule-card-category" data-category="slop">AI slop</span>
-          <span class="rule-card-layer" data-layer="cli" title="Deterministic. Runs from `npx impeccable detect` on files, no browser required.">CLI</span>
-        </div>
-        <h3 class="rule-card-name">Repeated section kicker labels</h3>
-        <p class="rule-card-desc">Repeating tiny uppercase tracked labels above section headings turns a brand page into AI editorial scaffolding. Replace them with stronger structure, artifacts, imagery, or a deliberate brand system.</p>
         <a class="rule-card-skill-link" href="/docs/impeccable#typography">See in /impeccable</a>
       </div>
     </article>
@@ -559,7 +558,7 @@ const catalogRules = Object.fromEntries(
       <section class="anti-patterns-section" id="section-color-contrast">
         <header class="anti-patterns-section-header">
           <h3 class="anti-patterns-section-title">Color &amp; Contrast</h3>
-          <p class="anti-patterns-section-count">6 rules</p>
+          <p class="anti-patterns-section-count">7 rules</p>
         </header>
         <div class="rule-card-grid">
 

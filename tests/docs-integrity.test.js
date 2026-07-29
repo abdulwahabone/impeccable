@@ -90,84 +90,19 @@ function routeFromUrl(url) {
 }
 
 describe('docs integrity', () => {
-  test('separates durable world creation from collaborative surface concepts', () => {
-    const init = fs.readFileSync(path.join(ROOT, 'skill/reference/init.md'), 'utf8');
-    const newWork = fs.readFileSync(path.join(ROOT, 'skill/reference/new-work.md'), 'utf8');
-    const shape = fs.readFileSync(path.join(ROOT, 'skill/reference/shape.md'), 'utf8');
-    const craft = fs.readFileSync(path.join(ROOT, 'skill/reference/craft.md'), 'utf8');
-    const skill = fs.readFileSync(path.join(ROOT, 'skill/SKILL.src.md'), 'utf8');
-    const buildFloor = fs.readFileSync(path.join(ROOT, 'skill/reference/build-floor.md'), 'utf8');
-    const document = fs.readFileSync(path.join(ROOT, 'skill/reference/document.md'), 'utf8');
-    const codex = fs.readFileSync(path.join(ROOT, 'skill/reference/codex.md'), 'utf8');
-    const typeset = fs.readFileSync(path.join(ROOT, 'skill/reference/typeset.md'), 'utf8');
-    const context = fs.readFileSync(path.join(ROOT, 'skill/scripts/context.mjs'), 'utf8');
+  // The skill-content test that used to sit here was removed on 2026-07-29.
+  // It read ten files out of skill/, which this repo no longer owns: skill/ is
+  // gitignored and materialized from public main, so a drifted assertion here
+  // could never be fixed from this repo. It was also guarding a superseded
+  // architecture. Measured against public main, 20 of its 62 assertions still
+  // held; 38 had drifted and 4 named files that no longer exist
+  // (reference/build-floor.md, reference/codex.md). The DIRECTION CONTRACT and
+  // bar-raiser vocabulary it asserted on appears nowhere in the skill now.
+  //
+  // Guarantees about skill content belong in the public repo, written against
+  // current file names. Recover the original with:
+  //   git show ed13be7f:tests/docs-integrity.test.js
 
-    expect(init).toContain('durable product truth');
-    expect(init).toContain('does not invent a visual world');
-    expect(init).toContain('does not write DESIGN.md');
-    expect(init).toContain('If the file is absent, init is incomplete');
-    expect(init).not.toContain('## Audience World');
-
-    expect(newWork).toContain('Missing DESIGN.md does not route back to init');
-    expect(newWork).toContain('Shape or select the direction');
-    expect(newWork).toContain('concept-seed.mjs --scope direction --mode');
-    expect(newWork).toContain('concept-seed.mjs --scope surface --mode');
-    expect(newWork).toContain('persuade, operate, read, or experience');
-    expect(skill).toContain('what the visitor\'s success looks like');
-    expect(skill).toContain('a docs index is Read, not Persuade');
-    expect(newWork).toContain('Local extension (B or C): inherit, do not reseed');
-    expect(newWork).toContain('Never run it for a local extension');
-    expect(newWork).toContain('Do not select a new world and its first surface concept in separate tournaments');
-    expect(newWork).toContain('do not reopen either half independently');
-    expect(newWork).toContain("audience's cultural home");
-    expect(newWork).toContain('category default and its predictable contrarian response');
-    expect(newWork).toContain('system leverage, and use of the medium');
-    expect(newWork).toContain('discard the source carrier, materials, and vocabulary unless product evidence earns them');
-    expect(newWork).toContain('.impeccable/surfaces/<target-slug>.md');
-    expect(newWork).toContain('DIRECTION CONTRACT');
-    expect(newWork).toContain('`THESIS`: the product-specific idea');
-    expect(newWork).toContain('`BAR-RAISER`: the product-native use');
-    expect(newWork).toContain('routine functional state alone does not clear the bar');
-    expect(newWork).toContain('non-routine bar-raiser');
-    expect(newWork).toContain('first-surface expression, bar-raiser, cross-surface consequence');
-    expect(newWork).toContain('veto rather than rationalize');
-    expect(newWork).toContain('every relationship it visualizes exists in product truth; resemblance is not evidence');
-    expect(newWork).toContain("removing its bar-raiser materially weakens the surface's central argument or use");
-    expect(newWork).toContain('on the primary device and within the real asset and tool budget');
-    expect(newWork).toContain('not a probable violation of the brief or audience');
-    expect(newWork).toContain('Passing some floors never rescues a failed one');
-    expect(newWork.match(/Apply the candidate floor/g)?.length).toBe(2);
-    expect(newWork).toContain('[codex.md](codex.md)');
-    expect(newWork).toContain('Commit before correcting');
-    expect(newWork).toContain('judge survivors skin-blind');
-    expect(newWork).toContain('Present, visualize, re-roll');
-    expect(newWork).toContain('When the harness can generate images');
-    expect(newWork).toContain('no image persists as a project file');
-    expect(newWork).toContain('eliminates every candidate presented so far');
-    expect(newWork).toContain('optional one-line steer');
-    expect(newWork).toContain('--from <key> --reroll <round>');
-    expect(newWork).toContain('ask what quality is missing before rolling a third time');
-    expect(newWork).not.toContain('palette.mjs');
-
-    expect(shape).toContain('follow [new-work.md](new-work.md)');
-    expect(shape).toContain('Ask two or three related questions per round');
-    expect(shape).toContain('shape never writes code or a direction contract');
-    expect(craft).toContain('deprecated alias');
-    expect(craft).toContain('adds no setup, interview, checkpoint, tool, or quality behavior');
-    expect(skill).toContain('[reference/build-floor.md](reference/build-floor.md) immediately before editing UI');
-    expect(buildFloor).toContain('do not rely on transform/opacity alone');
-    expect(newWork).toContain('The old DESIGN.md and implementation are not authority');
-    expect(newWork).toContain('Do not offer replacement worlds unless the user asked for a redesign');
-    expect(document).toContain('Run **Select one direction**');
-    expect(document).toContain('requires a concrete first surface');
-    expect(codex).toContain('this file must not reopen it');
-    expect(codex).toContain('Do not generate a palette artifact');
-    expect(typeset).toContain('route through [new-work.md](new-work.md)');
-    expect(skill).not.toContain('reference/finish.md');
-    expect(buildFloor).toContain('manual scan only when no automatic detector is active');
-    expect(context).toContain('renderLlmOnlySlopReview');
-    expect(context).toContain('automaticHookMode');
-  });
 
   test('internal docs links point at canonical local routes', () => {
     const routes = knownRoutes();

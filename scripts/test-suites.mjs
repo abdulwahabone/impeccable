@@ -35,7 +35,7 @@ export const SUITES = {
       {
         runner: 'node',
         files: [
-          'tests/concept-seed.test.mjs',
+          'tests/catalog-integrity.test.mjs',
           'tests/live-ui-lab.test.mjs',
           'tests/shiki-theme.test.mjs',
           'tests/slop-catalog.test.mjs',
