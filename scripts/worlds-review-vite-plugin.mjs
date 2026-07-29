@@ -7,9 +7,11 @@ import {
   SYSTEM_PREFIXES,
   validateConceptCatalog,
   validateConceptEntry,
+  SEED_MODES,
   WELL_TIERS,
 } from '../skill/scripts/lib/concept-catalog.mjs';
 import {
+  areasForSurface,
   compositionContentHash,
   validateCompositionCatalog,
 } from '../skill/scripts/lib/composition-catalog.mjs';
@@ -119,8 +121,8 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
   // Composition-catalog reviews share the review mechanics but none of the
   // world catalog's floors or editing; v1 supports the review action only.
   async function mutateComposition(body) {
-    if (!['review', 'breadth', 'rate'].includes(body.action)) {
-      throw new Error('Compositions support the review, breadth, and rate actions only');
+    if (!['review', 'breadth', 'rate', 'area'].includes(body.action)) {
+      throw new Error('Compositions support the review, breadth, rate, and area actions only');
     }
     const catalog = await readJson(compositionCatalogPath);
     const reviewData = await readJson(compositionReviewsPath);
@@ -164,6 +166,31 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       if (rateErrors.length > 0) throw new Error(rateErrors[0]);
       await writeJsonAtomic(compositionReviewsPath, reviewData);
       return { id: body.id, rating: review.rating ?? null, review };
+    }
+
+    // Area of concern, one level under surface. Unlike breadth and rating this
+    // lives on the ingredient rather than the review, because it describes what
+    // the composition is about rather than a verdict on it. Surface alone is too
+    // coarse to deal against: an onboarding flow and a settings page are both
+    // operate and want different compositions.
+    //
+    // Writes the catalog, so it goes out at indent 1 to match the serialization
+    // contract. `area` is not part of compositionContentHash, so no review goes
+    // stale. Unlike the review actions it applies at any status, since a pending
+    // entry can be filed before it is judged.
+    if (body.action === 'area') {
+      const allowed = areasForSurface(entry.surface);
+      if (body.area === null || body.area === '') {
+        delete entry.area;
+      } else if (allowed.includes(body.area)) {
+        entry.area = body.area;
+      } else {
+        throw new Error(`Area must be one of the ${entry.surface} areas: ${allowed.join(', ')}`);
+      }
+      const { errors: areaErrors } = validateCompositionCatalog(catalog, reviewData);
+      if (areaErrors.length > 0) throw new Error(areaErrors[0]);
+      await writeJsonAtomic(compositionCatalogPath, catalog, 1);
+      return { id: body.id, area: entry.area ?? null, areas: allowed };
     }
 
     if (!REVIEW_STATUSES.has(body.status)) throw new Error('Review status is invalid');
@@ -279,6 +306,29 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       assertValidCatalog(catalog, reviewData);
       await writeJsonAtomic(reviewsPath, reviewData);
       return { id: body.id, breadth: review.breadth ?? 'general', review };
+    }
+
+    // Mode eligibility. Worlds used to be dealt with no mode awareness at all, so
+    // a build asking for an app UI could draw six worlds that only work on a
+    // landing page. This lowers a ceiling rather than assigning a category:
+    // absent means eligible everywhere, and listing all four is rejected by the
+    // validator in favour of omitting the field.
+    if (body.action === 'modes') {
+      const review = reviewData.reviews[body.id];
+      if (review?.status !== 'approved') throw new Error('Mode eligibility only applies to approved concepts');
+      const modes = Array.isArray(body.allowedModes) ? [...new Set(body.allowedModes)] : null;
+      if (modes === null || modes.length === 0 || modes.length === SEED_MODES.size) {
+        delete review.allowedModes;
+      } else {
+        if (modes.some(mode => !SEED_MODES.has(mode))) {
+          throw new Error(`Modes may only contain ${[...SEED_MODES].join(', ')}`);
+        }
+        // Stored in a fixed order so the file does not churn on click order.
+        review.allowedModes = [...SEED_MODES].filter(mode => modes.includes(mode));
+      }
+      assertValidCatalog(catalog, reviewData);
+      await writeJsonAtomic(reviewsPath, reviewData);
+      return { id: body.id, allowedModes: review.allowedModes ?? null, review };
     }
 
     if (body.action === 'update') {

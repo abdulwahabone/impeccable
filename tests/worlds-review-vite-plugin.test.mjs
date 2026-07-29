@@ -395,4 +395,47 @@ describe('worlds review dev middleware', () => {
     assert.equal(bland.status, 400);
     assert.match(bland.body.error, /literal software or operations archetype/i);
   });
+
+  // Mode eligibility. Absent means eligible in every mode, so the endpoint
+  // deliberately refuses to store a full list or an empty one: both would mean
+  // the same as omitting the field, and storing them would make the review file
+  // churn without changing a single deal.
+  it('stores a mode subset and clears the field for a full or empty list', async () => {
+    const root = await fixtureRoot();
+    const handler = handlerFor(root);
+    const reviewsPath = path.join(root, 'catalog', 'concept-reviews.json');
+    await request(handler, { action: 'review', id: 'editorial-field-guide', status: 'approved' });
+
+    const scoped = await request(handler, { action: 'modes', id: 'editorial-field-guide', allowedModes: ['read', 'operate'] });
+    assert.equal(scoped.status, 200);
+    let reviews = JSON.parse(await readFile(reviewsPath, 'utf8'));
+    // Stored in the canonical mode order, not the order they were clicked.
+    assert.deepEqual(reviews.reviews['editorial-field-guide'].allowedModes, ['operate', 'read']);
+
+    const all = await request(handler, {
+      action: 'modes', id: 'editorial-field-guide', allowedModes: ['persuade', 'operate', 'read', 'experience'],
+    });
+    assert.equal(all.status, 200);
+    reviews = JSON.parse(await readFile(reviewsPath, 'utf8'));
+    assert.equal(reviews.reviews['editorial-field-guide'].allowedModes, undefined, 'every mode means omit the field');
+
+    await request(handler, { action: 'modes', id: 'editorial-field-guide', allowedModes: ['operate'] });
+    const emptied = await request(handler, { action: 'modes', id: 'editorial-field-guide', allowedModes: [] });
+    assert.equal(emptied.status, 200);
+    reviews = JSON.parse(await readFile(reviewsPath, 'utf8'));
+    assert.equal(reviews.reviews['editorial-field-guide'].allowedModes, undefined, 'an empty list clears rather than starving the pool');
+  });
+
+  it('rejects an unknown mode and refuses eligibility on an unapproved concept', async () => {
+    const root = await fixtureRoot();
+    const handler = handlerFor(root);
+    const unapproved = await request(handler, { action: 'modes', id: 'editorial-field-guide', allowedModes: ['operate'] });
+    assert.equal(unapproved.status, 400);
+    assert.match(unapproved.body.error, /approved/);
+
+    await request(handler, { action: 'review', id: 'editorial-field-guide', status: 'approved' });
+    const bogus = await request(handler, { action: 'modes', id: 'editorial-field-guide', allowedModes: ['landing'] });
+    assert.equal(bogus.status, 400);
+    assert.match(bogus.body.error, /persuade, operate, read, experience/);
+  });
 });

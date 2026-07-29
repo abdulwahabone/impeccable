@@ -1535,3 +1535,69 @@ button kbd {
     flex-direction: column;
   }
 }
+
+/* Mode eligibility (worlds) and area of concern (compositions). Both are
+   secondary axes beside breadth and rating, so they borrow the breadth pill's
+   shape and sit at the same weight rather than competing with the decision
+   buttons. A mode reads as on unless the reviewer turned it off, because an
+   absent allowedModes means eligible everywhere. */
+.worlds-modes {
+  display: flex;
+  gap: 4px;
+}
+
+.worlds-mode-option {
+  min-height: 26px;
+  padding: 0 8px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ks-text-mute-deep);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.worlds-mode-option:hover:not(:disabled) {
+  background: var(--ks-graphite);
+  color: var(--ks-text-muted);
+}
+
+.worlds-mode-option[aria-pressed="true"] {
+  border-color: color-mix(in oklch, var(--ks-champagne), transparent 70%);
+  color: var(--ks-text-muted);
+}
+
+.worlds-mode-option:disabled {
+  cursor: not-allowed;
+}
+
+.worlds-area {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.worlds-area-label {
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.worlds-area select {
+  min-height: 26px;
+  padding: 0 6px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ks-text-muted);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  cursor: pointer;
+}
+
+.worlds-area select:disabled {
+  cursor: not-allowed;
+}

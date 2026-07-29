@@ -109,12 +109,12 @@ export async function approvedPoolRevision(concepts) {
 
 // The rating query parameter is this API's own feature (a minimum-rating floor
 // on a deal); the shared module calls it minRating.
-export function selectApprovedChallengers({ scope, key, reroll = 0, rating = null, concepts }) {
-  return driveSelection(selectApprovedChallengersCore({ scope, key, reroll, minRating: rating, concepts }));
+export function selectApprovedChallengers({ scope, key, reroll = 0, rating = null, mode = null, concepts }) {
+  return driveSelection(selectApprovedChallengersCore({ scope, key, reroll, minRating: rating, mode, concepts }));
 }
 
-export function selectApprovedCompositions({ scope, key, reroll = 0, mode = null, compositions, count = 3 }) {
-  return driveSelection(selectApprovedCompositionsCore({ scope, key, reroll, mode, compositions, count }));
+export function selectApprovedCompositions({ scope, key, reroll = 0, mode = null, area = null, compositions, count = 3 }) {
+  return driveSelection(selectApprovedCompositionsCore({ scope, key, reroll, mode, area, compositions, count }));
 }
 
 // Compatibility for callers that need a single sample.
@@ -145,21 +145,25 @@ const publicComposition = composition => ({
   grammar: composition.grammar,
   webLeverage: composition.webLeverage,
   surface: composition.surface,
+  // Exposed so a client can tell an on-target composition from a top-up when a
+  // thin area was filled out from the rest of the surface.
+  area: composition.area ?? null,
 });
 
-export async function rollSeed({ scope, key, mode, reroll, rating = null, data }) {
+export async function rollSeed({ scope, key, mode, area = null, reroll, rating = null, data }) {
   const concepts = mergeConcepts(data);
   const compositions = mergeCompositions(data);
   const [poolRevision, { approved, picks }, dealt] = await Promise.all([
     approvedPoolRevision(concepts),
-    selectApprovedChallengers({ scope, key, reroll, rating, concepts }),
-    selectApprovedCompositions({ scope, key, reroll, mode, compositions }),
+    selectApprovedChallengers({ scope, key, reroll, rating, mode, concepts }),
+    selectApprovedCompositions({ scope, key, reroll, mode, area, compositions }),
   ]);
   const publicCompositions = dealt.map(publicComposition);
   return {
     key,
     scope,
     mode: mode || null,
+    area: area || null,
     reroll,
     rating: rating || null,
     poolRevision,

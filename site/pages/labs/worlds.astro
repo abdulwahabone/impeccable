@@ -236,6 +236,24 @@ const pageData = JSON.stringify({
                 title="Niche: keep the approval but hold this world out of challenger draws (press N)"
                 aria-keyshortcuts="n"
               >Niche</button>
+              <div
+                class="worlds-modes"
+                role="group"
+                aria-label="Mode eligibility: which registers of work this world can carry"
+                data-modes-group
+                hidden={initialConcept.status !== 'approved'}
+              >
+                {['persuade', 'operate', 'read', 'experience'].map(value => (
+                  <button
+                    type="button"
+                    class="worlds-mode-option"
+                    data-mode-option={value}
+                    aria-pressed="true"
+                    disabled={!import.meta.env.DEV}
+                    title={`Eligible for ${value}. All four on means eligible everywhere, which is the default.`}
+                  >{value}</button>
+                ))}
+              </div>
               <div class="worlds-strength-toggle" role="group" aria-label="Concept strength: what this entry is strong at" data-strength-toggle>
                 {['world', 'composition', 'dual'].map(value => (
                   <button
@@ -468,6 +486,8 @@ const pageData = JSON.stringify({
     const ratingGroup = document.querySelector('[data-rating-group]');
     const ratingButtons = [...document.querySelectorAll('[data-rating-option]')];
     const breadthToggle = document.querySelector('[data-breadth-toggle]');
+    const modesGroup = document.querySelector('[data-modes-group]');
+    const modeOptions = [...document.querySelectorAll('[data-mode-option]')];
     let notedConceptId = '';
     const reviewNoteWrapEl = document.querySelector('[data-concept-review-note-wrap]');
     const reviewNoteEl = document.querySelector('[data-concept-review-note]');
@@ -685,6 +705,12 @@ const pageData = JSON.stringify({
       ratingButtons.forEach(button => {
         button.setAttribute('aria-pressed', String((concept.review?.rating || 0) >= Number(button.dataset.ratingOption)));
       });
+      modesGroup.hidden = concept.status !== 'approved';
+      const allowed = concept.review?.allowedModes;
+      for (const option of modeOptions) {
+        const on = !Array.isArray(allowed) || allowed.length === 0 || allowed.includes(option.dataset.modeOption);
+        option.setAttribute('aria-pressed', String(on));
+      }
       breadthToggle.hidden = concept.status !== 'approved';
       breadthToggle.setAttribute('aria-pressed', String(concept.review?.breadth === 'niche'));
       // The decision-note field mirrors the current concept's saved note.
@@ -883,6 +909,35 @@ const pageData = JSON.stringify({
       }
     }
 
+    // Mode eligibility is a ceiling, not a category. A world with every mode on
+    // is eligible everywhere, which is also what an absent field means, so the
+    // endpoint stores nothing in that case and the buttons simply read as all-on.
+    async function toggleMode(mode) {
+      const concept = currentConcept();
+      if (!canWrite || !concept || concept.status !== 'approved') return;
+      const current = Array.isArray(concept.review?.allowedModes) && concept.review.allowedModes.length > 0
+        ? [...concept.review.allowedModes]
+        : ['persuade', 'operate', 'read', 'experience'];
+      const next = current.includes(mode) ? current.filter(entry => entry !== mode) : [...current, mode];
+      try {
+        const response = await fetch('/__impeccable/worlds', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'modes', id: concept.id, allowedModes: next }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Mode eligibility could not be saved');
+        concept.review = result.result.review;
+        render();
+        const saved = result.result.allowedModes;
+        showToast(saved
+          ? `Eligible for ${saved.join(', ')}: ${concept.form.split(',')[0]}`
+          : `Eligible in every mode: ${concept.form.split(',')[0]}`);
+      } catch (error) {
+        showToast(error instanceof Error ? error.message : String(error), 'error');
+      }
+    }
+
     async function undoLastReview() {
       if (!canWrite || !lastReview) return;
       const review = lastReview;
@@ -1070,6 +1125,9 @@ const pageData = JSON.stringify({
       button.addEventListener('click', () => setRating(Number(button.dataset.ratingOption)));
     });
     breadthToggle.addEventListener('click', () => toggleBreadth());
+    for (const option of modeOptions) {
+      option.addEventListener('click', () => toggleMode(option.dataset.modeOption));
+    }
     document.querySelectorAll('[data-review-status]').forEach(button => {
       button.addEventListener('click', () => review(button.dataset.reviewStatus));
     });
