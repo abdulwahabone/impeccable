@@ -19,7 +19,7 @@ const compositionState = readCompositionCatalog(
 const compositionResult = validateCompositionCatalog(compositionState.catalog, compositionState.reviewData);
 
 // A world-catalog entry at composition strength cannot be approved: the review
-// plugin refuses it outright ("stagings live in the composition catalog"), so
+// plugin refuses it outright ("compositions live in the composition catalog"), so
 // authoring one guarantees a rejection and a wasted pair of renders. The shared
 // validator in skill/ is owned by the public repo and permits it, so this gate
 // lives here, where the authoring round actually runs.
@@ -28,16 +28,16 @@ const compositionResult = validateCompositionCatalog(compositionState.catalog, c
 // waits to be migrated, so failing on those would break the reviewer's own
 // workflow. A pending one is an authoring mistake that costs a guaranteed
 // rejection and a wasted pair of renders.
-const stagingStrength = catalog.families
+const compositionStrength = catalog.families
   .flatMap(family => family.concepts.map(concept => ({ family: family.id, concept })))
   .filter(({ concept }) => concept.strength === 'composition');
-const unrouted = stagingStrength.filter(({ concept }) => (reviewData.reviews?.[concept.id]?.status || 'pending') === 'pending');
+const unrouted = compositionStrength.filter(({ concept }) => (reviewData.reviews?.[concept.id]?.status || 'pending') === 'pending');
 for (const { family, concept } of unrouted) {
   result.errors.push(
     `concept ${concept.id} (${family}) is strength "composition" and still pending: author world-catalog entries as world or dual, since a staging cannot be approved here`
   );
 }
-const miningQueue = stagingStrength.length - unrouted.length;
+const miningQueue = compositionStrength.length - unrouted.length;
 if (miningQueue > 0) {
   process.stdout.write(`concept-catalog: ${miningQueue} rejected staging-strength entr${miningQueue === 1 ? 'y' : 'ies'} awaiting migration to the composition catalog\n`);
 }

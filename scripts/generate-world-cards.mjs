@@ -125,7 +125,10 @@ const MODE_FRAMES = {
   experience: 'an extraordinary portfolio or showcase surface at desktop scale, the work itself owning the frame',
 };
 
-function buildStagingPrompt(composition) {
+// The prompt prose below still says "staging" on purpose. To an image model
+// "composition" means the framing of the picture, so using it here would steer
+// the render toward layout of the frame instead of the interaction idea.
+function buildCompositionPrompt(composition) {
   const modeFrame = MODE_FRAMES[composition.surface] || MODE_FRAMES.persuade;
   const hierarchy = composition.grammar[0].replace(/^Staging\/hierarchy:\s*/, '');
   const sequence = composition.grammar[1].replace(/^Sequence\/attention:\s*/, '');
@@ -140,7 +143,7 @@ function buildStagingPrompt(composition) {
     : 'Invent a plausible product with short realistic English copy (plain punctuation, never an em dash): an invented name, a headline of at most eight words, one supporting line, one committed action.';
   return `${capture} The subject: ${modeFrame}, filling the entire 16:9 frame edge to edge. No browser chrome, no device mockup, no board framing, no caption.
 
-The staging: ${composition.form}
+The composition: ${composition.form}
 What owns the frame: ${hierarchy}
 The motion to make visible: ${sequence}
 One interaction in play: ${controls}. Show exactly one control or element mid-gesture with its state visibly changing: a cursor in contact, a drag mid-flight, a value mid-update. Everything else holds still.
@@ -151,7 +154,7 @@ ${copy} Never transcribe these instructions onto the image. The viewer should ga
 }
 
 function promptFor(concept, kind) {
-  if (kind === 'staging') return buildStagingPrompt(concept);
+  if (kind === 'composition') return buildCompositionPrompt(concept);
   return kind === 'hero' ? buildHeroPrompt(concept) : buildPrompt(concept);
 }
 
@@ -259,18 +262,18 @@ async function main() {
   const limit = args.includes('--limit') ? Number(args[args.indexOf('--limit') + 1]) : Infinity;
   const force = args.includes('--force');
   const kindArg = args.includes('--kind') ? args[args.indexOf('--kind') + 1] : 'both';
-  if (!['board', 'hero', 'both', 'staging'].includes(kindArg)) throw new Error(`unknown --kind ${kindArg}; use board, hero, both, staging`);
+  if (!['board', 'hero', 'both', 'composition'].includes(kindArg)) throw new Error(`unknown --kind ${kindArg}; use board, hero, both, composition`);
   const kinds = kindArg === 'both' ? ['board', 'hero'] : [kindArg];
-  const isStaging = kindArg === 'staging';
+  const isComposition = kindArg === 'composition';
 
   const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_CLOUD_API_KEY;
   if (model.kind === 'gemini' && !geminiKey) throw new Error('set GEMINI_API_KEY or GOOGLE_CLOUD_API_KEY (repo .env)');
   if (model.kind === 'openai' && !process.env.OPENAI_API_KEY) throw new Error('set OPENAI_API_KEY (repo .env)');
   const ai = model.kind === 'gemini' ? new GoogleGenAI({ apiKey: geminiKey }) : null;
 
-  // Staging images render composition-catalog entries; boards and heroes
+  // Composition images render composition-catalog entries; boards and heroes
   // render world-catalog concepts. Both share the manifest and output dir.
-  const concepts = isStaging
+  const concepts = isComposition
     ? readCompositionCatalog(
         join(ROOT, 'catalog', 'composition-ingredients.json'),
         join(ROOT, 'catalog', 'composition-reviews.json')
@@ -279,7 +282,7 @@ async function main() {
         join(ROOT, 'catalog', 'concept-ingredients.json'),
         join(ROOT, 'catalog', 'concept-reviews.json')
       ).concepts;
-  const hashOf = isStaging ? compositionContentHash : conceptContentHash;
+  const hashOf = isComposition ? compositionContentHash : conceptContentHash;
   mkdirSync(outDir, { recursive: true });
   BOARD_REFERENCE_DIR = outDir;
   const manifest = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf8')) : {};
@@ -356,11 +359,11 @@ async function main() {
     join(ROOT, 'catalog', 'concept-ingredients.json'),
     join(ROOT, 'catalog', 'concept-reviews.json')
   ).concepts.map(concept => concept.id);
-  const stagingIds = readCompositionCatalog(
+  const compositionIds = readCompositionCatalog(
     join(ROOT, 'catalog', 'composition-ingredients.json'),
     join(ROOT, 'catalog', 'composition-reviews.json')
   ).compositions.map(composition => composition.id);
-  const liveIds = new Set([...worldIds, ...stagingIds]);
+  const liveIds = new Set([...worldIds, ...compositionIds]);
   for (const id of Object.keys(manifest)) {
     if (!liveIds.has(id)) delete manifest[id];
   }

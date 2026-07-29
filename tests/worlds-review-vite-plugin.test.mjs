@@ -221,7 +221,7 @@ describe('worlds review dev middleware', () => {
     const approved = await request(handler, { action: 'review', id: 'editorial-field-guide', status: 'approved' });
     assert.equal(approved.status, 400);
     assert.match(approved.body.error, /composition catalog/);
-    const rejected = await request(handler, { action: 'review', id: 'editorial-field-guide', status: 'rejected', note: 'staging, mine it' });
+    const rejected = await request(handler, { action: 'review', id: 'editorial-field-guide', status: 'rejected', note: 'composition, mine it' });
     assert.equal(rejected.status, 200);
   });
 

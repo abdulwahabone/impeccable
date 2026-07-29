@@ -18,7 +18,7 @@
 import {
   runAsyncSelection,
   selectApprovedChallengers as selectApprovedChallengersCore,
-  selectApprovedStagings as selectApprovedStagingsCore,
+  selectApprovedCompositions as selectApprovedCompositionsCore,
   WELL_TIERS,
 } from '../../skill/scripts/lib/roll-selection.mjs';
 
@@ -113,13 +113,13 @@ export function selectApprovedChallengers({ scope, key, reroll = 0, rating = nul
   return driveSelection(selectApprovedChallengersCore({ scope, key, reroll, minRating: rating, concepts }));
 }
 
-export function selectApprovedStagings({ scope, key, reroll = 0, mode = null, compositions, count = 3 }) {
-  return driveSelection(selectApprovedStagingsCore({ scope, key, reroll, mode, compositions, count }));
+export function selectApprovedCompositions({ scope, key, reroll = 0, mode = null, compositions, count = 3 }) {
+  return driveSelection(selectApprovedCompositionsCore({ scope, key, reroll, mode, compositions, count }));
 }
 
 // Compatibility for callers that need a single sample.
-export async function selectApprovedStaging(options) {
-  return (await selectApprovedStagings({ ...options, count: 1 }))[0] ?? null;
+export async function selectApprovedComposition(options) {
+  return (await selectApprovedCompositions({ ...options, count: 1 }))[0] ?? null;
 }
 
 const CARD_BASE = 'https://impeccable.style/worlds/cards';
@@ -150,12 +150,12 @@ const publicComposition = composition => ({
 export async function rollSeed({ scope, key, mode, reroll, rating = null, data }) {
   const concepts = mergeConcepts(data);
   const compositions = mergeCompositions(data);
-  const [poolRevision, { approved, picks }, stagings] = await Promise.all([
+  const [poolRevision, { approved, picks }, dealt] = await Promise.all([
     approvedPoolRevision(concepts),
     selectApprovedChallengers({ scope, key, reroll, rating, concepts }),
-    selectApprovedStagings({ scope, key, reroll, mode, compositions }),
+    selectApprovedCompositions({ scope, key, reroll, mode, compositions }),
   ]);
-  const publicStagings = stagings.map(publicComposition);
+  const publicCompositions = dealt.map(publicComposition);
   return {
     key,
     scope,
@@ -166,9 +166,12 @@ export async function rollSeed({ scope, key, mode, reroll, rating = null, data }
     approvedCount: approved.length,
     catalogCount: concepts.length,
     challengers: picks.map(publicConcept),
-    stagings: publicStagings,
-    // Retained for skills installed before the field became an array. Those
-    // clients read `staging` and ignore `stagings`; newer ones prefer the array.
-    staging: publicStagings[0] ?? null,
+    compositions: publicCompositions,
+    // Two generations of installed skills still read the old field names, and
+    // the wire is the one place a rename cannot be coordinated: `stagings` is
+    // what this dealt while they were called stagings, `staging` predates it
+    // dealing three. Newer clients prefer `compositions` and ignore both.
+    stagings: publicCompositions,
+    staging: publicCompositions[0] ?? null,
   };
 }

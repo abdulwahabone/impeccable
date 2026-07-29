@@ -28,18 +28,11 @@
     "node": ">=22.12.0"
   },
   "type": "module",
-  "bin": {
-    "impeccable": "cli/bin/cli.js"
-  },
   "main": "./cli/engine/detect-antipatterns.mjs",
   "exports": {
     ".": "./cli/engine/detect-antipatterns.mjs",
     "./browser": "./cli/engine/detect-antipatterns-browser.js"
   },
-  "files": [
-    "cli/",
-    "LICENSE"
-  ],
   "scripts": {
     "build:skills": "bun run scripts/build.js --skip-root-sync",
     "build:skills:release": "bun run scripts/build.js",
@@ -67,9 +60,6 @@
     "bench:detector:browser": "node scripts/benchmark-detector.mjs --browser",
     "audit": "bun audit --audit-level=moderate",
     "prepublishOnly": "node -e \"console.error('impeccable-site is not the npm package. cli/ here is materialized from public main and this manifest trails it (3.2.1 vs 3.4.0). Publish and tag the CLI from pbakaus/impeccable.'); process.exit(1)\"",
-    "prepack": "cp README.md README.repo.md && cp README.npm.md README.md",
-    "postpack": "cp README.repo.md README.md && rm README.repo.md",
-    "release:skill": "node scripts/release.mjs skill",
     "screenshot": "bun run scripts/screenshot-antipatterns.js",
     "og-image": "bun run scripts/generate-og-image.js",
     "world-cards": "node scripts/generate-world-cards.mjs",

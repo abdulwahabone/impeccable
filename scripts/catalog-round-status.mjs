@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Round status: the authoring loop's exit report. Lists every pending
- * concept and staging with its render-gate state so an authoring round ends
+ * concept and composition with its render-gate state so an authoring round ends
  * with one glanceable table of what awaits review in /labs/worlds.
  *
  * Used standalone or as the tail of `bun run catalog:round`.

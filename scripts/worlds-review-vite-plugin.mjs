@@ -119,20 +119,20 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
   // Composition-catalog reviews share the review mechanics but none of the
   // world catalog's floors or editing; v1 supports the review action only.
   async function mutateComposition(body) {
-    if (body.action !== 'review' && body.action !== 'breadth') {
-      throw new Error('Compositions support the review and breadth actions only');
+    if (!['review', 'breadth', 'rate'].includes(body.action)) {
+      throw new Error('Compositions support the review, breadth, and rate actions only');
     }
     const catalog = await readJson(compositionCatalogPath);
     const reviewData = await readJson(compositionReviewsPath);
     const entry = (catalog.compositions || []).find(composition => composition.id === body.id);
     if (!entry) throw new Error('Composition was not found');
 
-    // Stagings had no gate at all: selectApprovedStagings filtered on approval
-    // and surface only, so a staging too specific to serve an arbitrary build
+    // Compositions had no gate at all: selection filtered on approval
+    // and surface only, so a composition too specific to serve an arbitrary build
     // could not be held out of challenger draws by any means.
     if (body.action === 'breadth') {
       const review = reviewData.reviews[body.id];
-      if (review?.status !== 'approved') throw new Error('Breadth only applies to approved stagings');
+      if (review?.status !== 'approved') throw new Error('Breadth only applies to approved compositions');
       if (body.breadth === 'niche') {
         review.breadth = 'niche';
       } else if (body.breadth === 'general' || body.breadth === null) {
@@ -146,10 +146,31 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       return { id: body.id, breadth: review.breadth ?? 'general', review };
     }
 
+    // Compositions had no quality signal at all: every approved one drew with
+    // equal weight, so a flagship and a marginal keep were indistinguishable to
+    // the seeder. 103 of the approved pool arrived by migration from rejected
+    // world entries and had never been judged as compositions by any measure.
+    if (body.action === 'rate') {
+      const review = reviewData.reviews[body.id];
+      if (review?.status !== 'approved') throw new Error('Rating only applies to approved compositions');
+      if (body.rating === null) {
+        delete review.rating;
+      } else if ([1, 2, 3].includes(body.rating)) {
+        review.rating = body.rating;
+      } else {
+        throw new Error('Rating must be 1, 2, or 3');
+      }
+      const { errors: rateErrors } = validateCompositionCatalog(catalog, reviewData);
+      if (rateErrors.length > 0) throw new Error(rateErrors[0]);
+      await writeJsonAtomic(compositionReviewsPath, reviewData);
+      return { id: body.id, rating: review.rating ?? null, review };
+    }
+
     if (!REVIEW_STATUSES.has(body.status)) throw new Error('Review status is invalid');
     const note = typeof body.note === 'string' ? body.note.trim() : '';
     if (note.length > 500) throw new Error('Review note must be 500 characters or fewer');
     const previousBreadth = reviewData.reviews[body.id]?.breadth;
+    const previousRating = reviewData.reviews[body.id]?.rating;
     if (body.status === 'pending') {
       delete reviewData.reviews[body.id];
     } else {
@@ -159,6 +180,7 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
         reviewedAt: new Date().toISOString(),
         formHash: compositionContentHash(entry),
         ...(note ? { note } : {}),
+        ...(body.status === 'approved' && [1, 2, 3].includes(previousRating) ? { rating: previousRating } : {}),
         ...(body.status === 'approved' && previousBreadth === 'niche' ? { breadth: previousBreadth } : {}),
       };
     }
@@ -180,9 +202,9 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       if (!REVIEW_STATUSES.has(body.status)) throw new Error('Review status is invalid');
       // Composition strength is a routing verdict, not an approvable type:
       // every composition-typed world entry the reviewer processed was
-      // rejected, and approved stagings live in the composition catalog.
+      // rejected, and approved compositions live in the composition catalog.
       if (body.status === 'approved' && match.concept.strength === 'composition') {
-        throw new Error('Stagings live in the composition catalog; reject it here and it joins the mining queue');
+        throw new Error('Compositions live in the composition catalog; reject it here and it joins the mining queue');
       }
       const note = typeof body.note === 'string' ? body.note.trim() : '';
       if (note.length > 500) throw new Error('Review note must be 500 characters or fewer');

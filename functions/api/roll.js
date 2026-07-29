@@ -1,8 +1,8 @@
 // GET /api/roll?scope=direction|surface&mode=<persuade|operate|read|experience>&key=<key>&reroll=<n>&rating=<min>
 //
 // Deals a deterministic concept roll: six challengers (two per translation
-// tier, rating-weighted) plus one mode-matched staging. Same key + same pool
-// revision reproduces the roll. The request itself is the impression record.
+// tier, rating-weighted) plus three mode-matched compositions. Same key and
+// same pool revision reproduces the roll. The request is the impression record.
 // The optional rating param gates challengers to reviews at or above that
 // star rating (rating=3 deals flagships only); omitted, the full approved
 // pool stays in play.
@@ -44,7 +44,12 @@ export async function onRequestGet({ request, env }) {
       mode,
       reroll,
       poolRevision: roll.poolRevision,
-      dealtIds: [...roll.challengers.map(challenger => challenger.id), roll.staging?.id].filter(Boolean),
+      // Every dealt composition, not just the first. This read roll.staging back
+      // when the API dealt one, so two of the three went unrecorded.
+      dealtIds: [
+        ...roll.challengers.map(challenger => challenger.id),
+        ...roll.compositions.map(composition => composition.id),
+      ].filter(Boolean),
     });
     return Response.json(roll, {
       headers: { ...CORS_HEADERS, 'Cache-Control': 'no-store' },

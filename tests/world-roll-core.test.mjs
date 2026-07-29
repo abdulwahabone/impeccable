@@ -89,23 +89,28 @@ describe('world roll core', () => {
 
   // The selection mechanics below existed in concept-seed.mjs but had never been
   // ported here, and nothing in this suite covered composition selection, so the
-  // API dealt one unfiltered staging to every real user for as long as that gap
+  // API dealt one unfiltered composition to every real user for as long as that gap
   // stood. These pin the contract so the two implementations cannot drift again.
-  it('deals three stagings, all in the requested mode, from distinct families', async () => {
+  it('deals three compositions, all in the requested mode, from distinct families', async () => {
     for (const mode of ['persuade', 'operate', 'read', 'experience']) {
-      const roll = await rollSeed({ scope: 'surface', key: `staging-${mode}`, mode, reroll: 0, data });
-      assert.equal(roll.stagings.length, 3, `${mode} dealt ${roll.stagings.length}`);
-      const ids = new Set(roll.stagings.map(s => s.id));
-      assert.equal(ids.size, 3, `${mode} repeated a staging`);
-      for (const staging of roll.stagings) {
-        assert.equal(staging.surface, mode, `${staging.id} is not a ${mode} staging`);
+      const roll = await rollSeed({ scope: 'surface', key: `composition-${mode}`, mode, reroll: 0, data });
+      assert.equal(roll.compositions.length, 3, `${mode} dealt ${roll.compositions.length}`);
+      const ids = new Set(roll.compositions.map(s => s.id));
+      assert.equal(ids.size, 3, `${mode} repeated a composition`);
+      for (const composition of roll.compositions) {
+        assert.equal(composition.surface, mode, `${composition.id} is not a ${mode} composition`);
       }
     }
   });
 
-  it('keeps the legacy singular staging field in step with the array', async () => {
+  // Two generations of installed skills read the old field names off the wire,
+  // and the wire is the one place the rename cannot be coordinated. `stagings`
+  // is what this dealt while they were called stagings; `staging` predates it
+  // dealing three at all.
+  it('keeps both legacy field names in step with compositions', async () => {
     const roll = await rollSeed({ scope: 'surface', key: 'legacy-shape', mode: 'operate', reroll: 0, data });
-    assert.equal(roll.staging.id, roll.stagings[0].id);
+    assert.deepEqual(roll.stagings.map(s => s.id), roll.compositions.map(s => s.id));
+    assert.equal(roll.staging.id, roll.compositions[0].id);
   });
 
   it('never deals a niche or marginal world', async () => {
@@ -129,17 +134,17 @@ describe('world roll core', () => {
     const mode = 'operate';
     const before = await rollSeed({ scope: 'surface', key: 'niche-comp', mode, reroll: 0, data });
     const gated = structuredClone(data);
-    for (const staging of before.stagings) {
-      gated.compositionReviews.reviews[staging.id] = {
-        ...gated.compositionReviews.reviews[staging.id],
+    for (const composition of before.compositions) {
+      gated.compositionReviews.reviews[composition.id] = {
+        ...gated.compositionReviews.reviews[composition.id],
         breadth: 'niche',
       };
     }
     const after = await rollSeed({ scope: 'surface', key: 'niche-comp', mode, reroll: 0, data: gated });
-    const excluded = new Set(before.stagings.map(s => s.id));
-    for (const staging of after.stagings) {
-      assert.ok(!excluded.has(staging.id), `${staging.id} was dealt after being marked niche`);
+    const excluded = new Set(before.compositions.map(s => s.id));
+    for (const composition of after.compositions) {
+      assert.ok(!excluded.has(composition.id), `${composition.id} was dealt after being marked niche`);
     }
-    assert.equal(after.stagings.length, 3);
+    assert.equal(after.compositions.length, 3);
   });
 });

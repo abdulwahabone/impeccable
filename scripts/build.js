@@ -642,7 +642,8 @@ function generateCFConfig(buildDir) {
 /anti-patterns /slop#catalog 301
 /visual-mode /slop#see-it 301
 /worlds /labs/worlds 301
-/worlds/stagings /labs/stagings 301
+/worlds/stagings /labs/compositions 301
+/labs/stagings /labs/compositions 301
 /neon-mirai /neo-mirai/ 301
 /neon-mirai/ /neo-mirai/ 301
 /cases/neon-mirai /cases/neo-mirai 301
