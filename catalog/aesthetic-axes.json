@@ -290,23 +290,26 @@
    "id": "depth",
    "label": "Depth model",
    "rule": "all",
-   "question": "How does the design handle elevation?",
+   "question": "How does the design handle elevation? (Under-authored: see note.)",
    "values": [
     {
      "id": "flat",
      "label": "flat, no elevation",
      "match": [
-      "flat"
+      "no elevation",
+      "without elevation",
+      "single plane"
      ]
     },
     {
      "id": "layered",
      "label": "cast shadow / stacked layers",
      "match": [
-      "shadow",
-      "layered",
-      "stacked",
-      "overlap"
+      "cast shadow",
+      "drop shadow",
+      "elevation",
+      "raised above",
+      "lifted off"
      ]
     },
     {
@@ -314,13 +317,13 @@
      "label": "true depth / parallax / 3d",
      "match": [
       "parallax",
-      "depth",
-      "perspective",
       "volumetric",
+      "z-axis",
       "3d"
      ]
     }
-   ]
+   ],
+   "note": "Was the worst-measured axis here and the numbers were noise. 'shadow' caught worlds saying 'no cast shadow anywhere'; 'perspective' caught 'without perspective or depth' and 'reverse perspective', which is picture plane rather than elevation; 'stacked' caught 'stacked registers', which is layout. Keyword probes work for things the rules name concretely, like pigments and materials, and fail for properties the rules never state. Narrowed to words that can only mean elevation, which leaves it near zero: that is the true reading, and the fix is the axes field on the concept, not more keywords."
   },
   {
    "id": "motion",

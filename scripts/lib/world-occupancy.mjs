@@ -34,6 +34,9 @@ export function mergeWorlds(catalog, reviewData) {
         modes,
         rating: review.rating ?? null,
         system: concept.system || [],
+        // Explicitly recorded axis values, when a wave assigned them rather than
+        // leaving them to be inferred from prose.
+        axes: concept.axes || null,
         haystack: `${concept.form} ${(concept.system || []).join(' ')}`.toLowerCase(),
       });
     }
@@ -58,7 +61,15 @@ function axisText(world, axis) {
 // enumerate pigments rather than naming a colour strategy, so matching on
 // "monochrome" or "full spectrum" placed 9 of 281 worlds, while counting the
 // colours they name places 93% and produces a real distribution.
+// A recorded value is authoritative and a probe is a fallback. Three axes cannot
+// be read from prose at all: depth's keywords matched worlds saying "no cast
+// shadow anywhere", and motion and colour strategy describe properties the system
+// rules never state. Widening keywords there manufactures signal. Recording the
+// value when a wave assigns it is what makes those axes real, and it is why the
+// assignment and the record are the same act.
 function matches(world, axis, value) {
+  const recorded = world.axes?.[axis.id];
+  if (recorded != null) return recorded === value.id;
   const text = axisText(world, axis);
   if (!text) return false;
   if (axis.kind === 'count') {
@@ -78,6 +89,10 @@ export function computeOccupancy(worlds, axesDefinition) {
     // value counts as an opening depends on it. A low number means the values are
     // wrong, or the dimension was never authored, not that the corpus is empty.
     const placed = worlds.filter(world => (axis.values || []).some(value => matches(world, axis, value))).length;
+    const recorded = worlds.filter(world => world.axes?.[axis.id] != null).length;
+    // An axis is trustworthy when it places most of the corpus, however it got
+    // there. Recorded values are exact, so an axis moves from guesswork to fact
+    // as a wave fills them in rather than needing a cleverer probe.
     const trustworthy = placed >= worlds.length * 0.6;
     const values = (axis.values || []).map(value => {
       const hits = worlds.filter(world => matches(world, axis, value));
@@ -105,6 +120,7 @@ export function computeOccupancy(worlds, axesDefinition) {
       rule: axis.rule,
       values,
       placed,
+      recorded,
       unplaced: worlds.length - placed,
       trustworthy,
     };
