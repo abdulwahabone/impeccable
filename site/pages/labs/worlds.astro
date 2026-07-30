@@ -53,6 +53,9 @@ const families = catalog.families.map(family => ({
     familyLabel: family.label,
     wellId: family.well,
     wellLabel: wellsById.get(family.well)?.label || '',
+    // Tier drives the challenger draw and the coverage view's lineage grid, and
+    // was the one well property the payload never carried.
+    wellTier: wellsById.get(family.well)?.tier || null,
     status: reviews[concept.id]?.status || 'pending',
     review: reviews[concept.id] || null,
   })),
@@ -69,10 +72,12 @@ const counts = {
   rejected: concepts.filter(concept => concept.status === 'rejected').length,
 };
 counts.reviewed = counts.approved + counts.rejected;
+const aestheticAxes = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'aesthetic-axes.json'), 'utf8'));
 const pageData = JSON.stringify({
   catalogVersion: catalog.catalogVersion,
   canWrite: import.meta.env.DEV,
   families,
+  aestheticAxes,
 }).replace(/</g, '\\u003c');
 ---
 
@@ -239,6 +244,7 @@ const pageData = JSON.stringify({
                 <div class="worlds-view-toggle" role="group" aria-label="Stage view" data-view-toggle>
                   <button type="button" data-view="detail" aria-pressed="true" title="One concept at a time (press V to switch)" aria-keyshortcuts="v">detail</button>
                   <button type="button" data-view="cards" aria-pressed="false" title="Every filtered concept as a card (press V to switch)" aria-keyshortcuts="v">cards</button>
+                  <button type="button" data-view="coverage" aria-pressed="false" title="Where the catalog is crowded and where it is open">coverage</button>
                 </div>
               <span class="worlds-review-folio">Catalog <strong data-concept-position>{String(concepts.findIndex(concept => concept.id === initialConcept.id) + 1).padStart(3, '0')}</strong> / {counts.total.toLocaleString()}</span>
               <span class={`worlds-status-badge is-${initialConcept.status}`} data-concept-status>{initialConcept.status}</span>
@@ -297,6 +303,8 @@ const pageData = JSON.stringify({
               </div>
             </div>
           </header>
+
+          <div class="worlds-coverage" data-coverage hidden></div>
 
           <div class="worlds-card-grid" data-card-grid hidden>
             <p class="worlds-card-grid-empty" data-card-grid-empty hidden>No concepts match.</p>
@@ -521,6 +529,7 @@ const pageData = JSON.stringify({
     const ratingGroup = document.querySelector('[data-rating-group]');
     const ratingButtons = [...document.querySelectorAll('[data-rating-option]')];
     const breadthToggle = document.querySelector('[data-breadth-toggle]');
+    const coveragePanel = document.querySelector('[data-coverage]');
     const cardGrid = document.querySelector('[data-card-grid]');
     const reviewControls = document.querySelector('.worlds-review-controls');
     const reviewActions = document.querySelector('.worlds-review-actions');
@@ -580,16 +589,92 @@ const pageData = JSON.stringify({
       });
     }
 
+    // Coverage: where the catalog is crowded and where it is open. Computed live
+    // from the same rules scripts/lib/world-occupancy.mjs uses, so the page and
+    // the CLI report never disagree.
+    //
+    // The axis health line is the important part. A value nobody matches reads as
+    // a wide-open opening, and a wave briefed from that would chase a hole that
+    // does not exist, so an axis that places too little of the corpus says so
+    // instead of quietly reporting zeroes.
+    const AXES = payload.aestheticAxes?.axes || [];
+    const DIGITAL_FAMILIES = new Set(['medium-native', 'digital-design-canon']);
+    const MODE_LIST = ['persuade', 'operate', 'read', 'experience'];
+    const TIER_LIST = ['graphic', 'interaction', 'atmosphere'];
+
+    function axisText(concept, axis) {
+      if (axis.rule === 'all') return (concept.form + ' ' + (concept.system || []).join(' ')).toLowerCase();
+      return ((concept.system || []).find(rule => rule.startsWith(axis.rule)) || '').toLowerCase();
+    }
+    function axisMatches(concept, axis, value) {
+      const text = axisText(concept, axis);
+      if (!text) return false;
+      return value.match.some(word => new RegExp('\\b' + word.replace(/[.*+?^${}()|[\]\\]/g, '\\    let cardSignature = null;') + '\\b', 'i').test(text));
+    }
+
+    function renderCoverage() {
+      const showing = state.view === 'coverage';
+      coveragePanel.hidden = !showing;
+      if (!showing) return;
+      const pool = concepts.filter(concept => concept.status === 'approved');
+      const digital = concept => DIGITAL_FAMILIES.has(concept.familyId);
+      const modesOf = concept => {
+        const a = concept.review?.allowedModes;
+        return Array.isArray(a) && a.length ? a : MODE_LIST;
+      };
+      const esc = value => String(value).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+      const parts = [];
+
+      parts.push('<p class="worlds-coverage-lede">' + pool.length + ' approved worlds. Crowded rows are what the catalog already does; thin rows are what a wave is briefed from.</p>');
+
+      parts.push('<h3>Lineage by tier</h3><table class="worlds-coverage-table"><thead><tr><th>lineage</th>'
+        + TIER_LIST.map(t => '<th>' + t + '</th>').join('') + '</tr></thead><tbody>'
+        + [['digital-native', true], ['physical / cultural', false]].map(([label, want]) =>
+            '<tr><th>' + label + '</th>' + TIER_LIST.map(tier => {
+              const n = pool.filter(c => digital(c) === want && c.wellTier === tier).length;
+              return '<td' + (n === 0 ? ' class="is-empty"' : '') + '>' + (n === 0 ? '0' : n) + '</td>';
+            }).join('') + '</tr>').join('')
+        + '</tbody></table>');
+
+      parts.push('<h3>What each mode can draw</h3><table class="worlds-coverage-table"><thead><tr><th>mode</th><th>digital</th><th>physical</th><th>total</th></tr></thead><tbody>'
+        + MODE_LIST.map(mode => {
+            const p2 = pool.filter(c => modesOf(c).includes(mode));
+            return '<tr><th>' + mode + '</th><td>' + p2.filter(digital).length + '</td><td>' + (p2.length - p2.filter(digital).length) + '</td><td>' + p2.length + '</td></tr>';
+          }).join('')
+        + '</tbody></table>');
+
+      for (const axis of AXES) {
+        const placed = pool.filter(c => (axis.values || []).some(v => axisMatches(c, axis, v))).length;
+        const trustworthy = placed >= pool.length * 0.6;
+        parts.push('<h3>' + esc(axis.label) + (axis.question ? ' <small>' + esc(axis.question) + '</small>' : '') + '</h3>');
+        if (!trustworthy) {
+          parts.push('<p class="worlds-coverage-warn">Places only ' + placed + ' of ' + pool.length
+            + ' worlds, so its values need work before a wave is briefed from it. A value nobody matches looks like an opening and is not one.</p>');
+        }
+        parts.push('<table class="worlds-coverage-table"><thead><tr><th>value</th><th>worlds</th><th>share</th><th>digital</th><th>weight</th></tr></thead><tbody>'
+          + (axis.values || []).map(value => {
+              const hits = pool.filter(c => axisMatches(c, axis, value));
+              const share = pool.length ? hits.length / pool.length : 0;
+              const weight = Math.max(1, Math.round((1 - share) * 10));
+              const thin = share < 0.1 && trustworthy;
+              return '<tr' + (thin ? ' class="is-opening"' : '') + '><th>' + esc(value.label) + '</th><td>' + hits.length
+                + '</td><td>' + Math.round(share * 100) + '%</td><td>' + hits.filter(digital).length + '</td><td>' + weight + '</td></tr>';
+            }).join('')
+          + '</tbody></table>');
+      }
+      coveragePanel.innerHTML = parts.join('');
+    }
+
     let cardSignature = null;
     function renderCardGrid() {
       const showing = state.view === 'cards';
       cardGrid.hidden = !showing;
-      conceptBody.hidden = showing;
+      conceptBody.hidden = state.view !== 'detail';
       // Every verdict control acts on the current concept, not on the grid, so
       // showing them beside a wall of cards invites judging the wrong entry.
       // Finding happens here; deciding happens on the detail stage.
-      reviewControls.hidden = showing;
-      reviewActions.hidden = showing;
+      reviewControls.hidden = state.view !== 'detail';
+      reviewActions.hidden = state.view !== 'detail';
       for (const item of document.querySelectorAll('[data-view]')) {
         item.setAttribute('aria-pressed', String(item.dataset.view === state.view));
       }
@@ -896,6 +981,7 @@ const pageData = JSON.stringify({
       renderQueue(rows);
       renderConcept(rows);
       renderCardGrid();
+      renderCoverage();
     }
 
     function move(delta, focusQueue = false) {

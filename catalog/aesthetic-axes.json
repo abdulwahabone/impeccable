@@ -1,0 +1,75 @@
+{
+ "schemaVersion": 1,
+ "note": "Aesthetic axes for world authoring. The axes are fixed by the world schema: every concept carries the same five system rules, so these read those rules rather than inventing a parallel vocabulary. Only the values are authored, and they exist to be drawn from, not to describe. A wave assigns a combination before designing anything, because a generator left to choose its own aesthetic picks the safe one every time; that is the same anti-argmax mechanism the concept seeder uses on candidate order. Occupancy is measured against the approved corpus and the draw is weighted inversely to it, so the catalog acts as an exclusion map rather than a template. Values are matched by word-boundary keyword against the named system rule, which is approximate: trust a near-zero row, treat a mid-range row as a hint.",
+ "axes": [
+  {
+   "id": "ground",
+   "label": "Ground",
+   "rule": "Palette/material:",
+   "question": "What is the surface the design sits on?",
+   "values": [
+    { "id": "dark-nocturnal", "label": "dark / nocturnal", "match": ["dark", "black", "night", "nocturnal", "midnight", "lacquer"] },
+    { "id": "light-paper", "label": "light / paper", "match": ["paper", "cream", "white", "bleached", "unbleached", "daylight", "stock"] },
+    { "id": "inverted-dual", "label": "light and dark as one identity", "match": ["inverted", "dark mode", "light and dark", "both grounds"] }
+   ]
+  },
+  {
+   "id": "chroma",
+   "label": "Chroma",
+   "rule": "Palette/material:",
+   "question": "How much colour, and how is it rationed?",
+   "values": [
+    { "id": "monochrome", "label": "monochrome / duotone", "match": ["monochrome", "duotone", "two-colour", "two-color", "black and white", "grayscale", "greyscale"] },
+    { "id": "signal-colour", "label": "restricted signal colour", "match": ["one signal", "single accent", "lone accent", "signal color", "signal colour", "one accent"] },
+    { "id": "full-spectrum", "label": "full spectrum", "match": ["full spectrum", "polychrome", "rainbow", "saturated field"] }
+   ]
+  },
+  {
+   "id": "material",
+   "label": "Surface material",
+   "rule": "all",
+   "question": "What is the surface made of?",
+   "values": [
+    { "id": "printed-ink", "label": "printed ink on stock", "match": ["ink", "print", "printed", "letterpress", "risograph", "screenprint", "halftone", "newsprint"] },
+    { "id": "grain-noise", "label": "grain / texture / noise", "match": ["grain", "grainy", "noise", "speckle", "tooth", "fibre", "fiber", "stipple"] },
+    { "id": "glass", "label": "glass / translucency", "match": ["glass", "translucent", "frosted", "refract", "prismatic"] },
+    { "id": "emissive", "label": "emissive / backlit / phosphor", "match": ["phosphor", "backlit", "emissive", "glow", "neon", "crt", "luminous"] },
+    { "id": "woven", "label": "woven / fibrous", "match": ["woven", "weave", "fabric", "textile", "thread"] },
+    { "id": "metal", "label": "metal / lacquer / enamel", "match": ["metal", "brass", "steel", "enamel", "chrome", "anodized"] }
+   ]
+  },
+  {
+   "id": "depth",
+   "label": "Depth model",
+   "rule": "all",
+   "question": "How does the design handle elevation?",
+   "values": [
+    { "id": "flat", "label": "flat, no elevation", "match": ["flat"] },
+    { "id": "layered", "label": "cast shadow / stacked layers", "match": ["shadow", "layered", "stacked", "overlap"] },
+    { "id": "true-depth", "label": "true depth / parallax / 3d", "match": ["parallax", "depth", "perspective", "volumetric", "3d"] }
+   ]
+  },
+  {
+   "id": "motion",
+   "label": "Motion law",
+   "rule": "Responsive/motion:",
+   "question": "How does the design move, and under what law?",
+   "values": [
+    { "id": "static", "label": "none / static", "match": ["no motion", "static", "still"] },
+    { "id": "mechanical", "label": "mechanical / snap / step", "match": ["snap", "step", "mechanical", "click", "detent", "flip"] },
+    { "id": "continuous", "label": "continuous / drift / flow", "match": ["drift", "flow", "continuous", "ease", "glide", "float"] },
+    { "id": "simulated", "label": "simulated physics", "match": ["physics", "inertia", "spring", "gravity", "momentum"] }
+   ]
+  },
+  {
+   "id": "computation",
+   "label": "Computation",
+   "rule": "all",
+   "question": "Is the browser doing work that print could not?",
+   "values": [
+    { "id": "procedural", "label": "shader / generative / procedural", "match": ["shader", "generative", "procedural", "webgl", "simulation"] },
+    { "id": "responsive-only", "label": "responsive layout only", "match": ["reflow", "recompose", "breakpoint"] }
+   ]
+  }
+ ]
+}
