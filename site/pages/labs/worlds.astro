@@ -140,6 +140,17 @@ const pageData = JSON.stringify({
         </div>
       </div>
 
+      <div class="worlds-mode-filter">
+        <span class="worlds-mode-filter-label">Eligible for mode</span>
+        <div class="worlds-mode-filter-row" role="group" aria-label="Filter concepts by the mode they can carry">
+          <button type="button" data-mode-filter="all" aria-pressed="true">any</button>
+          {['persuade', 'operate', 'read', 'experience'].map(value => (
+            <button type="button" data-mode-filter={value} aria-pressed="false" title={`Only worlds eligible for ${value}. A world with no restriction is eligible for every mode.`}>{value}</button>
+          ))}
+          <button type="button" data-mode-filter="restricted" aria-pressed="false" title="Only worlds whose eligibility has been narrowed at all">scoped</button>
+        </div>
+      </div>
+
       <label class="worlds-family-search">
         <span>Find a family</span>
         <input type="search" placeholder={`Filter ${catalog.families.length} families`} autocomplete="off" data-family-search>
@@ -216,6 +227,10 @@ const pageData = JSON.stringify({
                 <code data-concept-id>{initialConcept.id}</code>
               </div>
               <div class="worlds-review-glance">
+                <div class="worlds-view-toggle" role="group" aria-label="Stage view" data-view-toggle>
+                  <button type="button" data-view="detail" aria-pressed="true" title="One concept at a time (press V to switch)" aria-keyshortcuts="v">detail</button>
+                  <button type="button" data-view="cards" aria-pressed="false" title="Every filtered concept as a card (press V to switch)" aria-keyshortcuts="v">cards</button>
+                </div>
               <span class="worlds-review-folio">Catalog <strong data-concept-position>{String(concepts.findIndex(concept => concept.id === initialConcept.id) + 1).padStart(3, '0')}</strong> / {counts.total.toLocaleString()}</span>
               <span class={`worlds-status-badge is-${initialConcept.status}`} data-concept-status>{initialConcept.status}</span>
             </div>
@@ -273,6 +288,11 @@ const pageData = JSON.stringify({
               </div>
             </div>
           </header>
+
+          <div class="worlds-card-grid" data-card-grid hidden>
+            <p class="worlds-card-grid-empty" data-card-grid-empty hidden>No concepts match.</p>
+            <div class="worlds-card-grid-items" data-card-grid-items></div>
+          </div>
 
           <div class="worlds-concept-body">
             <div class="worlds-concept-copy">
@@ -454,6 +474,8 @@ const pageData = JSON.stringify({
     const state = {
       status: initialStatus,
       family: 'all',
+      mode: 'all',
+      view: 'detail',
       query: '',
       currentId: initialId,
     };
@@ -490,6 +512,12 @@ const pageData = JSON.stringify({
     const ratingGroup = document.querySelector('[data-rating-group]');
     const ratingButtons = [...document.querySelectorAll('[data-rating-option]')];
     const breadthToggle = document.querySelector('[data-breadth-toggle]');
+    const cardGrid = document.querySelector('[data-card-grid]');
+    const reviewControls = document.querySelector('.worlds-review-controls');
+    const reviewActions = document.querySelector('.worlds-review-actions');
+    const cardGridItems = document.querySelector('[data-card-grid-items]');
+    const cardGridEmpty = document.querySelector('[data-card-grid-empty]');
+    const conceptBody = document.querySelector('.worlds-concept-body');
     const modesGroup = document.querySelector('[data-modes-group]');
     const modeOptions = [...document.querySelectorAll('[data-mode-option]')];
     let notedConceptId = '';
@@ -526,8 +554,76 @@ const pageData = JSON.stringify({
           return false;
         }
         if (state.family !== 'all' && concept.familyId !== state.family) return false;
+        // A world with no allowedModes is eligible everywhere, so it matches every
+        // mode filter. 'scoped' is the inverse view: only worlds someone narrowed.
+        if (state.mode !== 'all') {
+          const allowed = concept.review?.allowedModes;
+          const scoped = Array.isArray(allowed) && allowed.length > 0;
+          if (state.mode === 'restricted') {
+            if (!scoped) return false;
+          } else if (scoped && !allowed.includes(state.mode)) {
+            return false;
+          }
+        }
         return !query || searchableText(concept).includes(query);
       });
+    }
+
+    let cardSignature = null;
+    function renderCardGrid() {
+      const showing = state.view === 'cards';
+      cardGrid.hidden = !showing;
+      conceptBody.hidden = showing;
+      // Every verdict control acts on the current concept, not on the grid, so
+      // showing them beside a wall of cards invites judging the wrong entry.
+      // Finding happens here; deciding happens on the detail stage.
+      reviewControls.hidden = showing;
+      reviewActions.hidden = showing;
+      for (const item of document.querySelectorAll('[data-view]')) {
+        item.setAttribute('aria-pressed', String(item.dataset.view === state.view));
+      }
+      if (!showing) return;
+      const rows = filteredConcepts();
+      // Cheap identity for the current set: rebuilding 500-odd images on every
+      // keystroke of the search box stutters badly.
+      const signature = rows.length + ':' + (rows[0]?.id || '') + ':' + (rows[rows.length - 1]?.id || '');
+      cardGridEmpty.hidden = rows.length > 0;
+      if (signature === cardSignature) return;
+      cardSignature = signature;
+      cardGridItems.replaceChildren(...rows.map(concept => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'worlds-card';
+        button.dataset.cardId = concept.id;
+        button.setAttribute('aria-current', String(concept.id === state.currentId));
+        const figure = document.createElement('span');
+        figure.className = 'worlds-card-thumb';
+        if (concept.card?.src) {
+          const img = document.createElement('img');
+          img.src = concept.card.src;
+          img.alt = '';
+          // Native lazy loading, so a 531-card grid does not fetch everything at once.
+          img.loading = 'lazy';
+          img.decoding = 'async';
+          figure.append(img);
+        } else {
+          figure.classList.add('is-unrendered');
+          figure.textContent = 'no card';
+        }
+        const label = document.createElement('span');
+        label.className = 'worlds-card-label';
+        label.textContent = concept.form.split(',')[0];
+        const meta = document.createElement('span');
+        meta.className = 'worlds-card-meta';
+        meta.dataset.status = concept.status;
+        const rating = concept.review?.rating ? '\u2605'.repeat(concept.review.rating) : '';
+        const scoped = Array.isArray(concept.review?.allowedModes) && concept.review.allowedModes.length > 0
+          ? concept.review.allowedModes.join(' ')
+          : '';
+        meta.textContent = [concept.status, rating, scoped].filter(Boolean).join('  ');
+        button.append(figure, label, meta);
+        return button;
+      }));
     }
 
     function showToast(message, kind = 'success') {
@@ -768,6 +864,7 @@ const pageData = JSON.stringify({
       renderCounts();
       renderQueue(rows);
       renderConcept(rows);
+      renderCardGrid();
     }
 
     function move(delta, focusQueue = false) {
@@ -1068,6 +1165,28 @@ const pageData = JSON.stringify({
       }
     }
 
+    for (const button of document.querySelectorAll('[data-view]')) {
+      button.addEventListener('click', () => {
+        state.view = button.dataset.view;
+        render();
+      });
+    }
+    // Clicking a card opens it, because the grid is for finding one rather than
+    // for judging in place: every decision control lives on the detail stage.
+    cardGridItems.addEventListener('click', event => {
+      const card = event.target.closest('[data-card-id]');
+      if (!card) return;
+      state.currentId = card.dataset.cardId;
+      state.view = 'detail';
+      render();
+    });
+    document.querySelectorAll('[data-mode-filter]').forEach(button => {
+      button.addEventListener('click', () => {
+        state.mode = button.dataset.modeFilter;
+        document.querySelectorAll('[data-mode-filter]').forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+        render();
+      });
+    });
     document.querySelectorAll('[data-status-filter]').forEach(button => {
       button.addEventListener('click', () => {
         state.status = button.dataset.statusFilter;

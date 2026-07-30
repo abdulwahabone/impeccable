@@ -1668,3 +1668,156 @@ button kbd {
     display: none;
   }
 }
+
+/* Mode filter. Sits with the status and family filters rather than the review
+   controls: it narrows the queue, it does not change an entry. A world with no
+   allowedModes is eligible everywhere and so matches every mode here, which is
+   why the default reads "any" rather than naming a mode. */
+.worlds-mode-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 var(--spacing-md);
+}
+
+.worlds-mode-filter-label {
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.worlds-mode-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.worlds-mode-filter-row button {
+  min-height: 24px;
+  padding: 0 8px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ks-text-mute-deep);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.worlds-mode-filter-row button:hover {
+  background: var(--ks-graphite);
+  color: var(--ks-text-muted);
+}
+
+.worlds-mode-filter-row button[aria-pressed="true"] {
+  border-color: color-mix(in oklch, var(--ks-patina), transparent 60%);
+  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
+  color: var(--ks-patina);
+}
+
+/* Card view. An alternative to the one-at-a-time stage for scanning the corpus:
+   531 worlds are hard to hold in a list, and the rendered board is the fastest
+   way to recognise one. No decision controls here on purpose, because judging
+   from a thumbnail is how a catalog drifts; a click opens the full stage. */
+.worlds-view-toggle {
+  display: inline-flex;
+  border: 1px solid var(--ks-rule);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.worlds-view-toggle button {
+  min-height: 24px;
+  padding: 0 9px;
+  border: 0;
+  border-left: 1px solid var(--ks-rule);
+  background: transparent;
+  color: var(--ks-text-mute-deep);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.worlds-view-toggle button:first-child {
+  border-left: 0;
+}
+
+.worlds-view-toggle button[aria-pressed="true"] {
+  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
+  color: var(--ks-patina);
+}
+
+.worlds-card-grid {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--spacing-md);
+}
+
+.worlds-card-grid-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.worlds-card-grid-empty {
+  color: var(--ks-text-faint);
+}
+
+.worlds-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0;
+  border: 1px solid var(--ks-rule);
+  border-radius: 8px;
+  background: transparent;
+  overflow: hidden;
+  text-align: left;
+  cursor: pointer;
+}
+
+.worlds-card:hover,
+.worlds-card:focus-visible {
+  border-color: color-mix(in oklch, var(--ks-champagne), transparent 60%);
+}
+
+.worlds-card[aria-current="true"] {
+  border-color: var(--ks-patina);
+}
+
+.worlds-card-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 9;
+  background: var(--ks-graphite);
+  color: var(--ks-text-mute-deep);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  text-transform: uppercase;
+}
+
+.worlds-card-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.worlds-card-label {
+  padding: 0 10px;
+  color: var(--ks-text-muted);
+  font-size: var(--ks-type-mono-size);
+  line-height: 1.35;
+}
+
+.worlds-card-meta {
+  padding: 0 10px 10px;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1.4 var(--ks-mono);
+  text-transform: uppercase;
+}
+
+.worlds-card-meta[data-status="approved"] { color: var(--ks-patina); }
+.worlds-card-meta[data-status="rejected"] { color: var(--ks-text-mute-deep); }
