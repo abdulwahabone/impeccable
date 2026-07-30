@@ -67,12 +67,13 @@ should not be trusted across correlated pairs until it does.
 
 ### Keep
 
-**Colour.** Merge chroma and colour strategy into one axis, against all three
-reviews, which wanted them merged the other way round. They did not know that
-chroma places 93% and strategy places 7%. Merging into strategy alone discards
-the only working measurement. So: one axis, strategy-shaped values, *recorded*
-on new worlds via the concept `axes` field, and inferred from the colour count
-for the legacy 281.
+**Colour, as two axes.** All three reviews wanted chroma folded into colour
+strategy. They did not know that chroma places 93% of the corpus and strategy
+places 7%, so folding that direction discards the only working measurement. Their
+real objection was proportional, that a six-axis grid spent a third of itself on
+hue, and growing the grid answers that without losing anything: two of nine is a
+reasonable share. Chroma is renamed **palette breadth** and keeps counting.
+Colour strategy stays, recorded going forward rather than probed.
 
 **Surface material.** Unchanged, other than reframing noted below.
 
@@ -111,22 +112,13 @@ Chanel N°5 book, printed entirely blind-embossed with no ink, and Barnbrook's
 generator resolves it as centred hero every time. Enumerating it removes the
 default. Müller-Brockmann against Ed Fella.
 
-**4. One behavioural axis.** The interface review's case is that the catalog
-structurally cannot hold a world whose identity lives in behaviour, and those are
-the interfaces professionals recognise instantly. Bloomberg is not memorable
-because it is amber on black. Candidates, in order of preference:
-
-- **Input primacy**: `pointer` · `keyboard` · `command` · `direct manipulation` ·
-  `conversational`. Changes which components exist, not how they are painted.
-- **Temporality**: `snapshot` · `historical` · `live` · `scrubbable` ·
-  `predictive`. Unlocks playhead, transport, timeline, projection, none of which
-  is reachable from any current combination.
-- **Variance law**: `immutable` · `parametric` · `container` · `generative` ·
-  `curated chaos`. The brand review's top pick, grounded in Nordkyn's
-  weather-driven mark and the Whitney's responsive W.
-
-Adding all three at once would triple the draw space on a corpus that cannot
-measure any of them yet, so pick one to start.
+**4. Variance law.** `immutable` · `parametric` · `container` · `generative` ·
+`curated chaos`. What is allowed to change between two applications of this
+identity, and what drives the change. Grounded in Neue's Visit Nordkyn, whose
+mark is driven by live wind and temperature, and Experimental Jetset's Whitney
+responsive W, against Unimark's NYC Subway manual at the immutable end. Chosen
+over input primacy and temporality because it is the only candidate every
+register can answer: see the decisions section.
 
 **5. Scale dynamic range.** `1:2` · `1:4` · `1:10` · `1:25 or more`. A number, so
 it is mechanically obeyable and instantly legible, and models converge on roughly
@@ -169,11 +161,35 @@ Order of work:
 4. Prohibition and one behavioural axis, recorded only, since neither can be
    inferred from the current corpus at all.
 
-## Open questions
+## Decisions taken
 
-- Which behavioural axis first: input primacy, temporality, or variance law.
-- Whether prohibition is drawn for every world or only for a share of them. Every
-  world refusing something may be too uniform a constraint to stay interesting.
-- Whether the anomaly site is a seventh axis or a property of prohibition.
-- Whether `docs/WORLD-CATALOG-AUTHORING.md` should carry the grid, so authoring
-  and measurement cannot drift apart.
+**Behavioural axis: variance law.** It is the only one of the three candidates
+every register can answer. A landing page has no meaningful input primacy and a
+docs page is always `snapshot`, so on a corpus of 281 persuade-eligible worlds
+against 72 operate, most draws on those axes would come back inert. Every world
+has a contract about what changes between instances. It also targets the largest
+measured hole, and plausibly explains the others: nothing has motion, depth or
+procedural surfaces because those are consequences of a variance law nobody
+named. Input primacy and temporality are worth adding once operate and read are
+thick enough to differentiate.
+
+**Prohibition applies to every world**, not a share of them. A world with no
+refusal has no edges, and since the refusal is drawn from a deck the constraint
+varies even though its presence does not.
+
+**Colour stays two axes rather than merging.** The reviews objected that a
+six-axis grid spent a third of itself on hue. Growing the grid fixes that ratio
+without discarding the only working measurement: two of nine is a reasonable
+share. Palette breadth keeps counting, which works today, and colour strategy is
+recorded going forward.
+
+**The grid lives in the data.** `catalog/aesthetic-axes.json` is the single
+source, and `docs/WORLD-CATALOG-AUTHORING.md` links to it rather than restating
+it, so authoring and measurement cannot drift apart.
+
+## Still open
+
+- Whether the anomaly site is its own axis or a property of prohibition.
+- The screenshot rule is aspirational at this size. Of the nine proposed axes
+  only variance, motion and prohibition are genuinely not verifiable from a
+  still, which is a third rather than half. A second behavioural axis moves it.

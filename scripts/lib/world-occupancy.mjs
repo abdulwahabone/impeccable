@@ -90,10 +90,20 @@ export function computeOccupancy(worlds, axesDefinition) {
     // wrong, or the dimension was never authored, not that the corpus is empty.
     const placed = worlds.filter(world => (axis.values || []).some(value => matches(world, axis, value))).length;
     const recorded = worlds.filter(world => world.axes?.[axis.id] != null).length;
+    // An axis can be recorded-only: prohibition is an absence and variance needs
+    // two instances to see, so neither can be probed from one world's prose. At
+    // zero those are not broken probes waiting to be fixed, they are dimensions
+    // no wave has assigned yet, and reporting them as failures would send someone
+    // hunting for keywords that cannot exist.
+    const recordedOnly = axis.recorded === true;
     // An axis is trustworthy when it places most of the corpus, however it got
     // there. Recorded values are exact, so an axis moves from guesswork to fact
     // as a wave fills them in rather than needing a cleverer probe.
-    const trustworthy = placed >= worlds.length * 0.6;
+    // A recorded-only axis is trusted once most worlds carry a recorded value,
+    // never on the strength of a probe it does not have.
+    const trustworthy = axis.recorded === true
+      ? recorded >= worlds.length * 0.6
+      : placed >= worlds.length * 0.6;
     const values = (axis.values || []).map(value => {
       const hits = worlds.filter(world => matches(world, axis, value));
       const share = hits.length / total;
@@ -121,6 +131,7 @@ export function computeOccupancy(worlds, axesDefinition) {
       values,
       placed,
       recorded,
+      recordedOnly,
       unplaced: worlds.length - placed,
       trustworthy,
     };

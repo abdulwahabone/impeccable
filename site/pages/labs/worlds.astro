@@ -676,10 +676,21 @@ const pageData = JSON.stringify({
 
       for (const axis of AXES) {
         const { placed, unplaced } = axisPlacement(axis, pool);
-        const trustworthy = placed.length >= pool.length * 0.6;
+        // Recorded-only axes (prohibition is an absence, variance needs two
+        // instances) cannot be probed, so zero is "no wave has assigned this yet"
+        // rather than a broken probe someone should go fix.
+        const recordedOnly = axis.recorded === true;
+        const recorded = pool.filter(c => c.axes?.[axis.id] != null).length;
+        const trustworthy = recordedOnly
+          ? recorded >= pool.length * 0.6
+          : placed.length >= pool.length * 0.6;
         parts.push('<h3>' + esc(axis.label) + (axis.question ? ' <small>' + esc(axis.question) + '</small>' : '') + '</h3>');
         if (axis.note) parts.push('<p class="worlds-coverage-note">' + esc(axis.note) + '</p>');
-        if (!trustworthy) {
+        if (!trustworthy && recordedOnly) {
+          parts.push('<p class="worlds-coverage-warn">Recorded only: ' + recorded + ' of ' + pool.length
+            + ' assigned so far. This dimension cannot be read from a world\'s prose, so it fills as waves'
+            + ' assign and record it rather than by finding better keywords.</p>');
+        } else if (!trustworthy) {
           parts.push('<p class="worlds-coverage-warn">Places only ' + placed.length + ' of ' + pool.length
             + '. Either the values are wrong or the dimension was never authored, and until it is one or the other'
             + ' nothing here is an opening: a value nobody matches looks exactly like one.'

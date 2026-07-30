@@ -38,7 +38,11 @@ for (const pool of modePools(worlds)) {
 
 process.stdout.write(`\nAESTHETIC OCCUPANCY   (axes fixed by the world schema, values authored in catalog/aesthetic-axes.json)\n`);
 for (const axis of occupancy.axes) {
-  const health = axis.trustworthy ? '' : `   [UNRELIABLE: places only ${axis.placed}/${occupancy.total}; fix the values before briefing from this axis]`;
+  const health = axis.trustworthy
+    ? ''
+    : axis.recordedOnly
+      ? `   [RECORDED ONLY: ${axis.recorded}/${occupancy.total} assigned so far; cannot be probed, fills as waves record it]`
+      : `   [UNRELIABLE: places only ${axis.placed}/${occupancy.total}; fix the values before briefing from this axis]`;
   process.stdout.write(`\n  ${axis.label}  ${axis.question ? `— ${axis.question}` : ''}${health}\n`);
   for (const value of axis.values) {
     const bar = '#'.repeat(Math.round(value.share * 40));

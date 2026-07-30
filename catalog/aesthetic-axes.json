@@ -1,53 +1,10 @@
 {
  "schemaVersion": 1,
- "note": "Aesthetic axes for world authoring. The axes are fixed by the world schema: every concept carries the same five system rules, so these read those rules rather than inventing a parallel vocabulary. Only the values are authored, and they exist to be drawn from before a design is made, because a generator left to choose its own aesthetic picks the safe one every time; that is the same anti-argmax mechanism the concept seeder uses on candidate order. Occupancy is measured against the approved corpus and the draw is weighted inversely to it, so the catalog acts as an exclusion map rather than a template. Two probe kinds: a keyword axis asks whether a rule says a thing, a count axis asks how many things it names. Prefer counting where the rules enumerate rather than characterise, which is why chroma counts pigments. An axis that places less than 60% of the corpus reports itself unreliable and is excluded from the ranked openings, because a value nobody matches looks exactly like an opening and is not one.",
+ "note": "Aesthetic axes for world authoring. The axes are fixed by the world schema: every concept carries the same five system rules, so these read those rules rather than inventing a parallel vocabulary. Only the values are authored, and they exist to be drawn from before a design is made, because a generator left to choose its own aesthetic picks the safe one every time; that is the same anti-argmax mechanism the concept seeder uses on candidate order. Occupancy is measured against the approved corpus and the draw is weighted inversely to it, so the catalog acts as an exclusion map rather than a template. Axes marked recorded cannot be probed from prose at all and are only exact once a wave assigns and records them on the concept. Two probe kinds: a keyword axis asks whether a rule says a thing, a count axis asks how many things it names. Prefer counting where the rules enumerate rather than characterise, which is why chroma counts pigments. An axis that places less than 60% of the corpus reports itself unreliable and is excluded from the ranked openings, because a value nobody matches looks exactly like an opening and is not one.",
  "axes": [
   {
-   "id": "ground",
-   "label": "Ground",
-   "rule": "Palette/material:",
-   "question": "What is the surface the design sits on?",
-   "values": [
-    {
-     "id": "dark-nocturnal",
-     "label": "dark / nocturnal",
-     "match": [
-      "dark",
-      "black",
-      "night",
-      "nocturnal",
-      "midnight",
-      "lacquer"
-     ]
-    },
-    {
-     "id": "light-paper",
-     "label": "light / paper",
-     "match": [
-      "paper",
-      "cream",
-      "white",
-      "bleached",
-      "unbleached",
-      "daylight",
-      "stock"
-     ]
-    },
-    {
-     "id": "inverted-dual",
-     "label": "light and dark as one identity",
-     "match": [
-      "inverted",
-      "dark mode",
-      "light and dark",
-      "both grounds"
-     ]
-    }
-   ]
-  },
-  {
-   "id": "chroma",
-   "label": "Chroma",
+   "id": "palette-breadth",
+   "label": "Palette breadth",
    "kind": "count",
    "rule": "Palette/material:",
    "question": "How many colours does the palette name?",
@@ -189,7 +146,8 @@
       "wall-to-wall"
      ]
     }
-   ]
+   ],
+   "recorded": true
   },
   {
    "id": "material",
@@ -287,43 +245,263 @@
    ]
   },
   {
-   "id": "depth",
-   "label": "Depth model",
-   "rule": "all",
-   "question": "How does the design handle elevation? (Under-authored: see note.)",
+   "id": "spatial",
+   "label": "Spatial metaphor",
+   "rule": "Topology/navigation:",
+   "question": "What kind of space is this, physically?",
+   "note": "Replaces the depth axis, which measured almost nothing and was derived from material anyway. Reads the topology rule the schema already has, and covers the same intuition with far more range: a sheet and a machine are different spaces before they are different surfaces.",
    "values": [
     {
-     "id": "flat",
-     "label": "flat, no elevation",
+     "id": "sheet",
+     "label": "a sheet",
      "match": [
-      "no elevation",
-      "without elevation",
-      "single plane"
+      "sheet",
+      "page",
+      "plane",
+      "spread",
+      "poster",
+      "broadside"
      ]
     },
     {
-     "id": "layered",
-     "label": "cast shadow / stacked layers",
+     "id": "stack",
+     "label": "a stack of cards",
      "match": [
-      "cast shadow",
-      "drop shadow",
-      "elevation",
-      "raised above",
-      "lifted off"
+      "stack",
+      "deck",
+      "card",
+      "pile",
+      "shuffle",
+      "sheaf"
      ]
     },
     {
-     "id": "true-depth",
-     "label": "true depth / parallax / 3d",
+     "id": "room",
+     "label": "a room",
      "match": [
-      "parallax",
-      "volumetric",
-      "z-axis",
-      "3d"
+      "room",
+      "interior",
+      "chamber",
+      "hall",
+      "stage",
+      "vitrine"
+     ]
+    },
+    {
+     "id": "map",
+     "label": "a map",
+     "match": [
+      "map",
+      "terrain",
+      "atlas",
+      "chart",
+      "territory",
+      "survey"
+     ]
+    },
+    {
+     "id": "machine",
+     "label": "a machine",
+     "match": [
+      "machine",
+      "console",
+      "instrument",
+      "panel",
+      "rig",
+      "apparatus",
+      "bench"
+     ]
+    },
+    {
+     "id": "infinite",
+     "label": "an infinite plane",
+     "match": [
+      "infinite",
+      "endless",
+      "boundless",
+      "unbounded",
+      "continuous field"
      ]
     }
-   ],
-   "note": "Was the worst-measured axis here and the numbers were noise. 'shadow' caught worlds saying 'no cast shadow anywhere'; 'perspective' caught 'without perspective or depth' and 'reverse perspective', which is picture plane rather than elevation; 'stacked' caught 'stacked registers', which is layout. Keyword probes work for things the rules name concretely, like pigments and materials, and fail for properties the rules never state. Narrowed to words that can only mean elevation, which leaves it near zero: that is the true reading, and the fix is the axes field on the concept, not more keywords."
+   ]
+  },
+  {
+   "id": "density",
+   "label": "Density",
+   "rule": "all",
+   "question": "How much lives on one screen, and is emptiness luxury or waste?",
+   "note": "Proposed independently by all three reviews with near-identical values, and argued by each to be the strongest single predictor of not reading as generated.",
+   "values": [
+    {
+     "id": "ceremonial",
+     "label": "ceremonial: one object per screen",
+     "match": [
+      "one object",
+      "single object",
+      "alone on",
+      "solitary",
+      "one at a time"
+     ]
+    },
+    {
+     "id": "calm",
+     "label": "calm: generous and grouped",
+     "match": [
+      "generous",
+      "airy",
+      "breathing",
+      "open field",
+      "ample"
+     ]
+    },
+    {
+     "id": "working",
+     "label": "working: dense but chunked",
+     "match": [
+      "chunked",
+      "grouped",
+      "banded",
+      "sectioned",
+      "compartment"
+     ]
+    },
+    {
+     "id": "packed",
+     "label": "packed: tabular, no idle space",
+     "match": [
+      "tabular",
+      "packed",
+      "tight",
+      "dense",
+      "gridded rows"
+     ]
+    },
+    {
+     "id": "saturated",
+     "label": "saturated: every pixel a datum",
+     "match": [
+      "every pixel",
+      "no whitespace",
+      "edge to edge",
+      "wall-to-wall",
+      "saturated field"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "composition",
+   "label": "Compositional law",
+   "rule": "Type/composition:",
+   "question": "What law places things on the page?",
+   "note": "Type/composition currently bundles placement into one prose sentence, so a generator resolves it as centred hero every time. Enumerating it removes the default. Mueller-Brockmann against Ed Fella.",
+   "values": [
+    {
+     "id": "modular",
+     "label": "rational modular grid",
+     "match": [
+      "modular",
+      "grid",
+      "column grid",
+      "baseline",
+      "gutter",
+      "register"
+     ]
+    },
+    {
+     "id": "axial",
+     "label": "axial symmetry",
+     "match": [
+      "axial",
+      "symmetry",
+      "symmetrical",
+      "centred",
+      "centered",
+      "mirrored"
+     ]
+    },
+    {
+     "id": "asymmetric",
+     "label": "asymmetric tension",
+     "match": [
+      "asymmetric",
+      "asymmetry",
+      "off-centre",
+      "off-center",
+      "tension",
+      "counterweight"
+     ]
+    },
+    {
+     "id": "diagonal",
+     "label": "diagonal or rotated field",
+     "match": [
+      "diagonal",
+      "rotated",
+      "angled",
+      "skew",
+      "canted"
+     ]
+    },
+    {
+     "id": "collage",
+     "label": "anti-grid collage overlap",
+     "match": [
+      "collage",
+      "overlap",
+      "pasted",
+      "montage",
+      "no grid",
+      "scattered"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "scale-range",
+   "label": "Scale dynamic range",
+   "rule": "Type/composition:",
+   "question": "What is the ratio of the largest element to the smallest?",
+   "note": "A number, so it is mechanically obeyable and instantly legible. Models converge on roughly 1:3 because it is always defensible, which is exactly why it must be assigned.",
+   "values": [
+    {
+     "id": "1-2",
+     "label": "1:2, monotone",
+     "match": [
+      "even scale",
+      "uniform size",
+      "one size"
+     ]
+    },
+    {
+     "id": "1-4",
+     "label": "1:4",
+     "match": [
+      "modest contrast",
+      "gentle scale"
+     ]
+    },
+    {
+     "id": "1-10",
+     "label": "1:10",
+     "match": [
+      "dramatic scale",
+      "large contrast",
+      "towering"
+     ]
+    },
+    {
+     "id": "1-25",
+     "label": "1:25 or more, headline cropped by the viewport",
+     "match": [
+      "cropped",
+      "bleeds off",
+      "oversize",
+      "colossal",
+      "fills the frame"
+     ]
+    }
+   ]
   },
   {
    "id": "motion",
@@ -376,7 +554,88 @@
      ]
     }
    ],
-   "note": "Not mis-probed: the corpus does not author motion. Only 28% of Responsive/motion rules mention any motion verb, while 58% describe responsive adaptation and the rest accessibility. That rule is doing reflow-and-access duty, so motion law is effectively unauthored. The fix is to state it explicitly when authoring, not to widen these keywords."
+   "note": "Not mis-probed: the corpus does not author motion. Only 28% of Responsive/motion rules mention any motion verb, while 58% describe responsive adaptation and the rest accessibility. That rule is doing reflow-and-access duty, so motion law is effectively unauthored. The fix is to state it explicitly when authoring, not to widen these keywords.",
+   "recorded": true
+  },
+  {
+   "id": "prohibition",
+   "label": "Prohibition",
+   "rule": "all",
+   "recorded": true,
+   "question": "What does this world refuse to do?",
+   "note": "The one axis that subtracts. Every other axis grants a property, so an agent can satisfy the whole grid by adding one more nice thing; a refusal cannot be satisfied that way. Drawn for every world, because a world with no refusal has no edges. Grounded in Irma Boom's Chanel No 5 book, printed entirely blind-embossed with no ink, and Barnbrook's Blackstar, black on black. Recorded only: an absence cannot be probed for in prose.",
+   "values": [
+    {
+     "id": "no-photography",
+     "label": "no photography",
+     "match": []
+    },
+    {
+     "id": "one-type-size",
+     "label": "no more than one type size",
+     "match": []
+    },
+    {
+     "id": "no-curves",
+     "label": "no radii or curves",
+     "match": []
+    },
+    {
+     "id": "no-dividers",
+     "label": "no rules, dividers or boxes",
+     "match": []
+    },
+    {
+     "id": "no-full-width",
+     "label": "no full-width anything",
+     "match": []
+    },
+    {
+     "id": "no-ink-on-ground",
+     "label": "no ink on the ground plane",
+     "match": []
+    },
+    {
+     "id": "no-colour-on-interactive",
+     "label": "no colour on interactive elements",
+     "match": []
+    }
+   ]
+  },
+  {
+   "id": "variance",
+   "label": "Variance law",
+   "rule": "all",
+   "recorded": true,
+   "question": "What may differ between two applications of this identity, and what drives the difference?",
+   "note": "The largest measured hole: 0 to 1% of the corpus describes variance at all. An identity is a contract about what stays fixed and what is allowed to change, which is what separates Tate and the Whitney from a style. Chosen over input primacy and temporality because every register can answer it, where a landing page has no input primacy and a docs page is always a snapshot. Recorded only: it cannot be seen in one instance.",
+   "values": [
+    {
+     "id": "immutable",
+     "label": "immutable: one lockup, forever",
+     "match": []
+    },
+    {
+     "id": "parametric",
+     "label": "parametric: fixed skeleton, one dimension stretches",
+     "match": []
+    },
+    {
+     "id": "container",
+     "label": "container: frame constant, contents arbitrary",
+     "match": []
+    },
+    {
+     "id": "generative",
+     "label": "generative: form computed from data",
+     "match": []
+    },
+    {
+     "id": "curated-chaos",
+     "label": "curated chaos: each instance redrawn, coherence carried by voice",
+     "match": []
+    }
+   ]
   }
  ]
 }

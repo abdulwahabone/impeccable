@@ -10,6 +10,35 @@ How new concept-world rounds are authored, gated, and reviewed. Distilled from t
 4. **One command closes an authoring round**: `bun run catalog:round` validates the catalog, renders every stale or missing card, and prints the round status table (`catalog:status` runs the table alone). A round is review-ready when the table reports the render gate complete.
 5. The reviewer decides in `/labs/worlds`: approve or reject, star ratings on approvals (3 exceptional, 2 solid, 1 marginal), notes on anything instructive. Ratings feed challenger draws in `concept-seed.mjs` (3-star doubles odds, 1-star sits out). After review, `bun run world-cards:publish` pushes approved cards to R2.
 
+## The assignment grid
+
+The axes live in [`catalog/aesthetic-axes.json`](../catalog/aesthetic-axes.json),
+not here, so authoring and measurement cannot drift apart. Read them with
+`node scripts/world-coverage.mjs`, or in the coverage view of the worlds lab,
+where they are also editable.
+
+Assign a combination **before** designing anything. A generator left to choose
+its own aesthetic picks the safe one every time, which is the same reason the
+concept seeder assigns a candidate index rather than letting the model rank its
+own shortlist. Weight the draw toward values the catalog does not already
+occupy: it is an exclusion map, not a template.
+
+Three things to know before briefing a wave from it:
+
+- **An axis marked recorded cannot be probed.** Prohibition is an absence and
+  variance needs two instances to see, so neither can be read from one world's
+  prose. Assign them, then record them on the concept's `axes` field, or the
+  assignment is lost the moment the world lands.
+- **An axis reporting UNRELIABLE is not reporting an opening.** A value nobody
+  matches looks exactly like a value nobody has used. Fix the values first.
+- **Correlated axes misreport the space.** An empty cell in a correlated pair is
+  often empty because the combination is incoherent rather than unexplored. Check
+  independence before treating a product of axes as a space to fill.
+
+The reasoning behind the current grid, including what three independent design
+reviews found missing, is in
+[docs/WORLD-AXES-PROPOSAL.md](WORLD-AXES-PROPOSAL.md).
+
 ## The first test: distance from the model's defaults
 
 A challenger exists to counteract a model's habitual page skeleton. Its value is therefore its **distance from what the model would produce unprompted**, and that is the gate every candidate passes or fails before any other question is asked.
