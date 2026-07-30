@@ -44,6 +44,23 @@ const DOMAIN = [
   'cache age', 'hazard', 'aftercare', 'invoice', 'ticket', 'patient', 'dosage',
 ];
 
+// Structural lock-in, which the vocabulary check above cannot see. A judged
+// transfer found that the rule breaking a world was "no two entries share a left
+// edge": it contains no domain noun at all, yet it forbids the aligned rows a
+// pricing comparison is made of. Content lock and structural lock are different
+// failures and only the first has words to look for.
+//
+// Honesty about these patterns: they were written after reading the judgement
+// that exposed the gap, and tested against seven worlds. That is fitting to a
+// known case, not validation. Treat a hit as a prompt to look, and expect the
+// list to be wrong in ways only more judged transfers will reveal.
+const STRUCTURAL = [
+  { label: 'forbids shared alignment', re: /no two .{0,30}(share|align)|unaligned|never align|no shared (left )?edge/i },
+  { label: 'forbids a grid', re: /no column guides|no grid\b|off-grid|anti-grid/i },
+  { label: 'binds colour to one semantic', re: /reserved (exclusively )?for|means? legal status|colour is (legal )?state/i },
+  { label: 'assumes one content type', re: /each (term|entry|step|row|parameter|layer|band|plate) (has|is|carries)/i },
+];
+
 const PREFIXES = ['Palette/material:', 'Type/composition:', 'Topology/navigation:', 'Controls/state:', 'Responsive/motion:'];
 
 function checkRule(rule) {
@@ -60,19 +77,30 @@ const scored = entries.map(entry => {
     prefix: PREFIXES[index] || `rule ${index + 1}`,
     hits: checkRule(rule),
   })).filter(row => row.hits.length > 0);
-  return { entry, flagged, locked: flagged.length };
+  const structural = [...new Set(
+    rules.flatMap(rule => STRUCTURAL.filter(pattern => pattern.re.test(rule)).map(pattern => pattern.label))
+  )];
+  return { entry, flagged, locked: flagged.length, structural };
 });
 
 scored.sort((a, b) => b.locked - a.locked);
 
-for (const { entry, flagged, locked } of scored) {
-  const verdict = locked === 0 ? 'clean' : locked >= 3 ? 'LIKELY A PAGE DESIGN' : 'partly content-locked';
+for (const { entry, flagged, locked, structural } of scored) {
+  const verdict = locked >= 3 ? 'LIKELY A PAGE DESIGN'
+    : locked === 0 && structural.length === 0 ? 'clean'
+    : locked === 0 ? 'structurally locked'
+    : 'partly content-locked';
   process.stdout.write(`  ${String(locked)}/5 rules locked  ${verdict.padEnd(22)} ${entry.id}\n`);
   for (const row of flagged) {
     process.stdout.write(`      ${row.prefix.padEnd(22)} ${row.hits.slice(0, 4).join(', ')}\n`);
   }
+  for (const label of structural) {
+    process.stdout.write(`      ${'structural'.padEnd(22)} ${label}\n`);
+  }
 }
 
-const clean = scored.filter(s => s.locked === 0).length;
-process.stdout.write(`\n${clean} of ${entries.length} have no content-locked system rule.\n`);
-process.stdout.write('Those are the ones worth paying to judge properly; the rest need their rules rewritten first.\n');
+const clean = scored.filter(s => s.locked === 0 && s.structural.length === 0).length;
+process.stdout.write(`\n${clean} of ${entries.length} are clean on both checks.\n`);
+process.stdout.write('Neither check decides anything. A judged transfer found a world that passed the\n');
+process.stdout.write('vocabulary check outright and still turned out to be a page design, so these only\n');
+process.stdout.write('say where to look first when the budget for judging is finite.\n');
