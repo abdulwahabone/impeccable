@@ -119,6 +119,7 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
   const reviewsPath = path.join(root, 'catalog', 'concept-reviews.json');
   const compositionCatalogPath = path.join(root, 'catalog', 'composition-ingredients.json');
   const compositionReviewsPath = path.join(root, 'catalog', 'composition-reviews.json');
+  const axesPath = path.join(root, 'catalog', 'aesthetic-axes.json');
   let mutationQueue = Promise.resolve();
 
   // Composition-catalog reviews share the review mechanics but none of the
@@ -233,7 +234,46 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
     return { id: body.id, status: body.status, review: reviewData.reviews[body.id] || null };
   }
 
+  // The axes definition is the third thing this endpoint writes. It is not a
+  // catalog of entries but the vocabulary a wave is briefed from, and it is
+  // edited against live occupancy: you change a keyword, the counts move, and
+  // you can see which worlds a value actually caught. That loop is the whole
+  // reason it is editable here rather than by hand.
+  async function mutateAxes(body) {
+    const doc = body.axes;
+    if (!doc || !Array.isArray(doc.axes)) throw new Error('Expected an axes document');
+    const ids = new Set();
+    for (const axis of doc.axes) {
+      if (!axis.id || !axis.label) throw new Error('Every axis needs an id and a label');
+      if (ids.has(axis.id)) throw new Error(`Duplicate axis id ${axis.id}`);
+      ids.add(axis.id);
+      if (!Array.isArray(axis.values) || axis.values.length === 0) {
+        throw new Error(`Axis ${axis.id} needs at least one value`);
+      }
+      const valueIds = new Set();
+      for (const value of axis.values) {
+        if (!value.id || !value.label) throw new Error(`Axis ${axis.id} has a value without an id or label`);
+        if (valueIds.has(value.id)) throw new Error(`Axis ${axis.id} repeats value id ${value.id}`);
+        valueIds.add(value.id);
+        if (axis.kind === 'count') {
+          if (value.min == null && value.max == null) {
+            throw new Error(`Counting value ${axis.id}/${value.id} needs a min or a max`);
+          }
+        } else if (!Array.isArray(value.match) || value.match.length === 0) {
+          throw new Error(`Value ${axis.id}/${value.id} needs at least one match word`);
+        }
+      }
+      if (axis.kind === 'count' && (!Array.isArray(axis.lexicon) || axis.lexicon.length === 0)) {
+        throw new Error(`Counting axis ${axis.id} needs a lexicon`);
+      }
+    }
+    // Same serialization contract as the ingredient catalogs it sits beside.
+    await writeJsonAtomic(axesPath, doc, 1);
+    return { axes: doc.axes.length };
+  }
+
   async function mutate(body) {
+    if (body.catalog === 'axes') return mutateAxes(body);
     if (body.catalog === 'compositions') return mutateComposition(body);
     const catalog = await readJson(catalogPath);
     const reviewData = await readJson(reviewsPath);

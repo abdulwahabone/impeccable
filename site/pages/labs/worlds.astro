@@ -625,58 +625,119 @@ const pageData = JSON.stringify({
       return (value.match || []).some(says);
     }
 
+    // Coverage: where the catalog is crowded, where it is open, and whether the
+    // measurement can be trusted. Editable, because fixing an axis means changing
+    // a keyword and immediately seeing which worlds it caught; doing that by hand
+    // in JSON and re-running a script loses the loop that makes it work.
+    const coverageState = { open: null, dirty: false };
+
+    function coverageWorlds() {
+      return concepts.filter(concept => concept.status === 'approved');
+    }
+
+    function axisPlacement(axis, pool) {
+      const placed = pool.filter(concept => (axis.values || []).some(value => axisMatches(concept, axis, value)));
+      return { placed, unplaced: pool.filter(concept => !placed.includes(concept)) };
+    }
+
     function renderCoverage() {
       const showing = state.view === 'coverage';
       coveragePanel.hidden = !showing;
       if (!showing) return;
-      const pool = concepts.filter(concept => concept.status === 'approved');
+      const pool = coverageWorlds();
       const digital = concept => DIGITAL_FAMILIES.has(concept.familyId);
       const modesOf = concept => {
-        const a = concept.review?.allowedModes;
-        return Array.isArray(a) && a.length ? a : MODE_LIST;
+        const allowed = concept.review?.allowedModes;
+        return Array.isArray(allowed) && allowed.length ? allowed : MODE_LIST;
       };
       const esc = value => String(value).replace(/[&<>"]/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
       const parts = [];
 
-      parts.push('<p class="worlds-coverage-lede">' + pool.length + ' approved worlds. Crowded rows are what the catalog already does; thin rows are what a wave is briefed from.</p>');
+      parts.push('<p class="worlds-coverage-lede">' + pool.length
+        + ' approved worlds. Crowded rows are what the catalog already does; thin rows on a trusted axis are what a wave is briefed from. Click any value to see what it caught.'
+        + (coverageState.dirty ? ' <strong>Unsaved axis edits.</strong>' : '') + '</p>');
 
       parts.push('<h3>Lineage by tier</h3><table class="worlds-coverage-table"><thead><tr><th>lineage</th>'
         + TIER_LIST.map(t => '<th>' + t + '</th>').join('') + '</tr></thead><tbody>'
         + [['digital-native', true], ['physical / cultural', false]].map(([label, want]) =>
             '<tr><th>' + label + '</th>' + TIER_LIST.map(tier => {
               const n = pool.filter(c => digital(c) === want && c.wellTier === tier).length;
-              return '<td' + (n === 0 ? ' class="is-empty"' : '') + '>' + (n === 0 ? '0' : n) + '</td>';
+              return '<td' + (n === 0 ? ' class="is-empty"' : '') + '>' + n + '</td>';
             }).join('') + '</tr>').join('')
         + '</tbody></table>');
 
       parts.push('<h3>What each mode can draw</h3><table class="worlds-coverage-table"><thead><tr><th>mode</th><th>digital</th><th>physical</th><th>total</th></tr></thead><tbody>'
         + MODE_LIST.map(mode => {
             const p2 = pool.filter(c => modesOf(c).includes(mode));
-            return '<tr><th>' + mode + '</th><td>' + p2.filter(digital).length + '</td><td>' + (p2.length - p2.filter(digital).length) + '</td><td>' + p2.length + '</td></tr>';
+            return '<tr><th>' + mode + '</th><td>' + p2.filter(digital).length + '</td><td>'
+              + (p2.length - p2.filter(digital).length) + '</td><td>' + p2.length + '</td></tr>';
           }).join('')
         + '</tbody></table>');
 
       for (const axis of AXES) {
-        const placed = pool.filter(c => (axis.values || []).some(v => axisMatches(c, axis, v))).length;
-        const trustworthy = placed >= pool.length * 0.6;
+        const { placed, unplaced } = axisPlacement(axis, pool);
+        const trustworthy = placed.length >= pool.length * 0.6;
         parts.push('<h3>' + esc(axis.label) + (axis.question ? ' <small>' + esc(axis.question) + '</small>' : '') + '</h3>');
+        if (axis.note) parts.push('<p class="worlds-coverage-note">' + esc(axis.note) + '</p>');
         if (!trustworthy) {
-          parts.push('<p class="worlds-coverage-warn">Places only ' + placed + ' of ' + pool.length
-            + ' worlds, so its values need work before a wave is briefed from it. A value nobody matches looks like an opening and is not one.</p>');
+          parts.push('<p class="worlds-coverage-warn">Places only ' + placed.length + ' of ' + pool.length
+            + '. Either the values are wrong or the dimension was never authored, and until it is one or the other'
+            + ' nothing here is an opening: a value nobody matches looks exactly like one.'
+            + ' <button type="button" class="worlds-coverage-link" data-unplaced="' + esc(axis.id) + '">read the '
+            + unplaced.length + ' it missed</button></p>');
         }
-        parts.push('<table class="worlds-coverage-table"><thead><tr><th>value</th><th>worlds</th><th>share</th><th>digital</th><th>weight</th></tr></thead><tbody>'
-          + (axis.values || []).map(value => {
-              const hits = pool.filter(c => axisMatches(c, axis, value));
-              const share = pool.length ? hits.length / pool.length : 0;
-              const weight = Math.max(1, Math.round((1 - share) * 10));
-              const thin = share < 0.1 && trustworthy;
-              return '<tr' + (thin ? ' class="is-opening"' : '') + '><th>' + esc(value.label) + '</th><td>' + hits.length
-                + '</td><td>' + Math.round(share * 100) + '%</td><td>' + hits.filter(digital).length + '</td><td>' + weight + '</td></tr>';
-            }).join('')
-          + '</tbody></table>');
+        parts.push('<table class="worlds-coverage-table"><thead><tr><th>value</th><th>worlds</th><th>share</th><th>digital</th><th>weight</th></tr></thead><tbody>');
+        for (const value of (axis.values || [])) {
+          const hits = pool.filter(c => axisMatches(c, axis, value));
+          const share = pool.length ? hits.length / pool.length : 0;
+          const weight = Math.max(1, Math.round((1 - share) * 10));
+          const thin = share < 0.1 && trustworthy;
+          const key = axis.id + '/' + value.id;
+          const open = coverageState.open === key;
+          parts.push('<tr' + (thin ? ' class="is-opening"' : '') + (open ? ' class="is-open"' : '') + '>'
+            + '<th><button type="button" class="worlds-coverage-link" data-value-key="' + esc(key) + '">'
+            + esc(value.label) + '</button></th>'
+            + '<td>' + hits.length + '</td><td>' + Math.round(share * 100) + '%</td>'
+            + '<td>' + hits.filter(digital).length + '</td><td>' + weight + '</td></tr>');
+          if (open) {
+            parts.push('<tr class="worlds-coverage-detail"><td colspan="5">');
+            if (axis.kind === 'count') {
+              parts.push('<p>Counted from the axis lexicon (' + (axis.lexicon || []).length
+                + ' terms) against <code>' + esc(axis.rule) + '</code>, between '
+                + (value.min ?? 'any') + ' and ' + (value.max ?? 'any') + '.</p>');
+            } else {
+              parts.push('<label class="worlds-coverage-edit"><span>match words</span>'
+                + '<input type="text" data-match-key="' + esc(key) + '" value="' + esc((value.match || []).join(', ')) + '"'
+                + (canWrite ? '' : ' disabled') + '></label>'
+                + '<p class="worlds-coverage-hint">Comma separated, matched on word boundaries against <code>'
+                + esc(axis.rule) + '</code>. Edits recount live; nothing is written until you save.</p>');
+            }
+            parts.push('<p class="worlds-coverage-hint">' + hits.length + ' matched:</p><ul class="worlds-coverage-list">'
+              + hits.slice(0, 14).map(c => '<li>' + esc(c.form.split(',')[0].slice(0, 96)) + '</li>').join('')
+              + (hits.length > 14 ? '<li>and ' + (hits.length - 14) + ' more</li>' : '')
+              + (hits.length === 0 ? '<li><em>nothing, which is either an opening or a bad probe</em></li>' : '')
+              + '</ul></td></tr>');
+          }
+        }
+        parts.push('</tbody></table>');
+        if (coverageState.open === 'unplaced/' + axis.id) {
+          parts.push('<div class="worlds-coverage-detail-block"><p class="worlds-coverage-hint">'
+            + unplaced.length + ' worlds no value caught. Read these to invent the missing value, not to widen an existing one:</p>'
+            + '<ul class="worlds-coverage-list">'
+            + unplaced.slice(0, 20).map(c => '<li>' + esc(((c.system || []).find(r => r.startsWith(axis.rule)) || c.form).slice(0, 128)) + '</li>').join('')
+            + (unplaced.length > 20 ? '<li>and ' + (unplaced.length - 20) + ' more</li>' : '')
+            + '</ul></div>');
+        }
+      }
+
+      if (canWrite) {
+        parts.push('<div class="worlds-coverage-actions">'
+          + '<button type="button" class="worlds-coverage-save" data-save-axes' + (coverageState.dirty ? '' : ' disabled') + '>'
+          + (coverageState.dirty ? 'Save axes' : 'No axis changes') + '</button></div>');
       }
       coveragePanel.innerHTML = parts.join('');
     }
+
 
     let cardSignature = null;
     function renderCardGrid() {
@@ -1303,6 +1364,66 @@ const pageData = JSON.stringify({
     }
     // Clicking a card opens it, because the grid is for finding one rather than
     // for judging in place: every decision control lives on the detail stage.
+    // Coverage interactions. Expanding a value is how a real opening is told from
+    // a bad probe: a row at 1% with nothing under it is a hole, a row at 1% whose
+    // matched list is full of the wrong worlds is a keyword problem.
+    coveragePanel.addEventListener('click', event => {
+      const valueButton = event.target.closest('[data-value-key]');
+      if (valueButton) {
+        const key = valueButton.dataset.valueKey;
+        coverageState.open = coverageState.open === key ? null : key;
+        renderCoverage();
+        return;
+      }
+      const unplacedButton = event.target.closest('[data-unplaced]');
+      if (unplacedButton) {
+        const key = 'unplaced/' + unplacedButton.dataset.unplaced;
+        coverageState.open = coverageState.open === key ? null : key;
+        renderCoverage();
+        return;
+      }
+      if (event.target.closest('[data-save-axes]')) saveAxes();
+    });
+
+    // Recount as you type, so a keyword change shows its effect before it is
+    // written. The input keeps focus and the caret, since re-rendering the whole
+    // panel under a typing cursor is otherwise unusable.
+    coveragePanel.addEventListener('input', event => {
+      const input = event.target.closest('[data-match-key]');
+      if (!input) return;
+      const [axisId, valueId] = input.dataset.matchKey.split('/');
+      const axis = AXES.find(a => a.id === axisId);
+      const value = axis?.values?.find(v => v.id === valueId);
+      if (!value) return;
+      value.match = input.value.split(',').map(word => word.trim()).filter(Boolean);
+      coverageState.dirty = true;
+      const caret = input.selectionStart;
+      renderCoverage();
+      const again = coveragePanel.querySelector('[data-match-key="' + input.dataset.matchKey + '"]');
+      if (again) {
+        again.focus();
+        again.setSelectionRange(caret, caret);
+      }
+    });
+
+    async function saveAxes() {
+      if (!canWrite || !coverageState.dirty) return;
+      try {
+        const response = await fetch('/__impeccable/worlds', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ catalog: 'axes', action: 'axes', axes: { ...payload.aestheticAxes, axes: AXES } }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Axes could not be saved');
+        coverageState.dirty = false;
+        renderCoverage();
+        showToast('Axes saved: ' + result.result.axes + ' axes');
+      } catch (error) {
+        showToast(error instanceof Error ? error.message : String(error), 'error');
+      }
+    }
+
     cardGridItems.addEventListener('click', event => {
       const card = event.target.closest('[data-card-id]');
       if (!card) return;

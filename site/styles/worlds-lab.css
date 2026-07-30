@@ -1873,3 +1873,108 @@ button kbd {
 .worlds-coverage-table .is-opening td {
   color: var(--ks-patina);
 }
+
+/* Coverage: the editable parts. A value expands to show what it caught, because
+   a row at 1% is only an opening if the worlds under it are genuinely absent
+   rather than mis-worded. */
+.worlds-coverage-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, currentColor, transparent 65%);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.worlds-coverage-link:hover {
+  color: var(--ks-champagne);
+}
+
+.worlds-coverage-note {
+  max-width: 720px;
+  margin-bottom: 8px;
+  color: var(--ks-text-faint);
+  font-size: var(--ks-type-mono-size);
+  line-height: 1.5;
+}
+
+.worlds-coverage-detail td,
+.worlds-coverage-detail-block {
+  padding: 10px 0 14px;
+  color: var(--ks-text-faint);
+}
+
+.worlds-coverage-detail-block {
+  max-width: 720px;
+}
+
+.worlds-coverage-edit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.worlds-coverage-edit span {
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.worlds-coverage-edit input {
+  flex: 1;
+  min-width: 0;
+  max-width: 560px;
+  min-height: 28px;
+  padding: 0 8px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ks-text-muted);
+  font: 500 var(--ks-type-mono-size)/1 var(--ks-mono);
+}
+
+.worlds-coverage-hint {
+  margin: 4px 0;
+  color: var(--ks-text-mute-deep);
+  font-size: var(--ks-type-mono-size);
+}
+
+.worlds-coverage-list {
+  margin: 4px 0 0;
+  padding-left: 16px;
+  color: var(--ks-text-faint);
+  font-size: var(--ks-type-mono-size);
+  line-height: 1.5;
+}
+
+.worlds-coverage-actions {
+  position: sticky;
+  bottom: 0;
+  padding: var(--spacing-md) 0 0;
+  background: linear-gradient(to top, var(--ks-lacquer) 60%, transparent);
+}
+
+.worlds-coverage-save {
+  min-height: 30px;
+  padding: 0 14px;
+  border: 1px solid var(--ks-kinpaku);
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--ks-kinpaku), transparent 88%);
+  color: var(--ks-kinpaku);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.worlds-coverage-save:disabled {
+  border-color: var(--ks-rule);
+  background: transparent;
+  color: var(--ks-text-mute-deep);
+  cursor: not-allowed;
+}
