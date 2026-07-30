@@ -249,30 +249,32 @@
    "label": "Spatial metaphor",
    "rule": "Topology/navigation:",
    "question": "What kind of space is this, physically?",
-   "note": "Replaces the depth axis, which measured almost nothing and was derived from material anyway. Reads the topology rule the schema already has, and covers the same intuition with far more range: a sheet and a machine are different spaces before they are different surfaces.",
+   "note": "Replaces the depth axis, which measured almost nothing and was derived from material anyway. Reads the topology rule the schema already has, and covers the same intuition with far more range: a sheet and a machine are different spaces before they are different surfaces. Values rebuilt from the nouns and movement verbs the topology rules actually use, rather than guessed.",
    "values": [
     {
      "id": "sheet",
      "label": "a sheet",
      "match": [
-      "sheet",
       "page",
-      "plane",
+      "sheet",
       "spread",
-      "poster",
-      "broadside"
+      "plane",
+      "surface",
+      "leaf",
+      "folio"
      ]
     },
     {
      "id": "stack",
-     "label": "a stack of cards",
+     "label": "a stack of layers",
      "match": [
       "stack",
-      "deck",
-      "card",
-      "pile",
-      "shuffle",
-      "sheaf"
+      "layer",
+      "register",
+      "tier",
+      "pass",
+      "overlay",
+      "hinged"
      ]
     },
     {
@@ -282,34 +284,39 @@
       "room",
       "interior",
       "chamber",
-      "hall",
       "stage",
-      "vitrine"
+      "vitrine",
+      "enter",
+      "step between"
      ]
     },
     {
      "id": "map",
-     "label": "a map",
+     "label": "a map or terrain",
      "match": [
       "map",
+      "route",
+      "path",
       "terrain",
-      "atlas",
-      "chart",
-      "territory",
-      "survey"
+      "field",
+      "track",
+      "circuit",
+      "landmark",
+      "region"
      ]
     },
     {
      "id": "machine",
-     "label": "a machine",
+     "label": "a machine or instrument",
      "match": [
-      "machine",
+      "panel",
+      "board",
       "console",
       "instrument",
-      "panel",
-      "rig",
-      "apparatus",
-      "bench"
+      "rail",
+      "bench",
+      "dial",
+      "apparatus"
      ]
     },
     {
@@ -330,7 +337,7 @@
    "label": "Density",
    "rule": "all",
    "question": "How much lives on one screen, and is emptiness luxury or waste?",
-   "note": "Proposed independently by all three reviews with near-identical values, and argued by each to be the strongest single predictor of not reading as generated.",
+   "note": "Proposed independently by all three reviews with near-identical values, and argued by each to be the strongest single predictor of not reading as generated. Values rebuilt from the density words the corpus actually uses (open, margin, dense, tight, packed). A first attempt matched the bare word 'every', which appears in 129 worlds ('every entry point', 'every meaningful state') and pushed the axis over the trust threshold on its own. An axis can be trusted for the wrong reason, so a value carrying a common English word is worse than no value.",
    "values": [
     {
      "id": "ceremonial",
@@ -340,51 +347,60 @@
       "single object",
       "alone on",
       "solitary",
+      "untitled and dark",
       "one at a time"
      ]
     },
     {
      "id": "calm",
-     "label": "calm: generous and grouped",
+     "label": "calm: generous and open",
      "match": [
       "generous",
-      "airy",
       "breathing",
+      "ample",
+      "wide margin",
+      "airy",
       "open field",
-      "ample"
+      "open ground"
      ]
     },
     {
      "id": "working",
-     "label": "working: dense but chunked",
+     "label": "working: grouped and banded",
      "match": [
-      "chunked",
-      "grouped",
       "banded",
+      "grouped",
       "sectioned",
-      "compartment"
+      "compartment",
+      "chunked",
+      "register"
      ]
     },
     {
      "id": "packed",
-     "label": "packed: tabular, no idle space",
+     "label": "packed: tight and tabular",
      "match": [
-      "tabular",
-      "packed",
-      "tight",
       "dense",
-      "gridded rows"
+      "tight",
+      "packed",
+      "compact",
+      "tabular",
+      "crowded",
+      "rows of",
+      "grid of"
      ]
     },
     {
      "id": "saturated",
-     "label": "saturated: every pixel a datum",
+     "label": "saturated: every part of the ground worked",
      "match": [
-      "every pixel",
-      "no whitespace",
+      "no empty",
       "edge to edge",
       "wall-to-wall",
-      "saturated field"
+      "swarm",
+      "teeming",
+      "every inch",
+      "nothing left bare"
      ]
     }
    ]
@@ -394,42 +410,46 @@
    "label": "Compositional law",
    "rule": "Type/composition:",
    "question": "What law places things on the page?",
-   "note": "Type/composition currently bundles placement into one prose sentence, so a generator resolves it as centred hero every time. Enumerating it removes the default. Mueller-Brockmann against Ed Fella.",
+   "note": "Type/composition currently bundles placement into one prose sentence, so a generator resolves it as centred hero every time. Enumerating it removes the default. Mueller-Brockmann against Ed Fella. Values rebuilt from the placement vocabulary the composition rules actually use.",
    "values": [
     {
      "id": "modular",
      "label": "rational modular grid",
      "match": [
-      "modular",
       "grid",
-      "column grid",
+      "modular",
       "baseline",
       "gutter",
-      "register"
+      "column",
+      "register",
+      "banded",
+      "band"
      ]
     },
     {
      "id": "axial",
      "label": "axial symmetry",
      "match": [
-      "axial",
-      "symmetry",
-      "symmetrical",
+      "symmetr",
       "centred",
       "centered",
-      "mirrored"
+      "axial",
+      "axis",
+      "mirrored",
+      "flush centre"
      ]
     },
     {
      "id": "asymmetric",
      "label": "asymmetric tension",
      "match": [
-      "asymmetric",
-      "asymmetry",
+      "asymmetr",
       "off-centre",
       "off-center",
       "tension",
-      "counterweight"
+      "counterweight",
+      "ragged",
+      "weighted to one"
      ]
     },
     {
@@ -440,7 +460,8 @@
       "rotated",
       "angled",
       "skew",
-      "canted"
+      "canted",
+      "tilt"
      ]
     },
     {
@@ -449,10 +470,11 @@
      "match": [
       "collage",
       "overlap",
-      "pasted",
       "montage",
+      "pasted",
+      "scattered",
       "no grid",
-      "scattered"
+      "cut-up"
      ]
     }
    ]
@@ -461,44 +483,54 @@
    "id": "scale-range",
    "label": "Scale dynamic range",
    "rule": "Type/composition:",
-   "question": "What is the ratio of the largest element to the smallest?",
-   "note": "A number, so it is mechanically obeyable and instantly legible. Models converge on roughly 1:3 because it is always defensible, which is exactly why it must be assigned.",
+   "question": "How far apart are the largest and smallest elements?",
+   "note": "Rules name the poles rather than a ratio: display, headline, caption, small. Values read those, so this measures whether a world states a scale contrast at all and roughly how wide. A ratio would be exact and is worth recording when a wave assigns one.",
    "values": [
     {
-     "id": "1-2",
-     "label": "1:2, monotone",
+     "id": "narrow",
+     "label": "narrow: one size does most of the work",
      "match": [
+      "one size",
+      "single size",
+      "uniform",
       "even scale",
-      "uniform size",
-      "one size"
+      "same size"
      ]
     },
     {
-     "id": "1-4",
-     "label": "1:4",
+     "id": "moderate",
+     "label": "moderate: display against body",
      "match": [
-      "modest contrast",
-      "gentle scale"
+      "display",
+      "headline",
+      "caption",
+      "small-caps",
+      "subhead"
      ]
     },
     {
-     "id": "1-10",
-     "label": "1:10",
+     "id": "wide",
+     "label": "wide: giant against tiny",
      "match": [
-      "dramatic scale",
-      "large contrast",
-      "towering"
-     ]
-    },
-    {
-     "id": "1-25",
-     "label": "1:25 or more, headline cropped by the viewport",
-     "match": [
-      "cropped",
-      "bleeds off",
+      "giant",
+      "towering",
       "oversize",
       "colossal",
-      "fills the frame"
+      "dominant",
+      "outranking",
+      "massive"
+     ]
+    },
+    {
+     "id": "extreme",
+     "label": "extreme: cropped by the frame",
+     "match": [
+      "crop",
+      "cropped",
+      "bleeds",
+      "fills the frame",
+      "runs off",
+      "edge to edge"
      ]
     }
    ]

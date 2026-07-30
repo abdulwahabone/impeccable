@@ -43,7 +43,10 @@ for (const axis of occupancy.axes) {
     : axis.recordedOnly
       ? `   [RECORDED ONLY: ${axis.recorded}/${occupancy.total} assigned so far; cannot be probed, fills as waves record it]`
       : `   [UNRELIABLE: places only ${axis.placed}/${occupancy.total}; fix the values before briefing from this axis]`;
-  process.stdout.write(`\n  ${axis.label}  ${axis.question ? `— ${axis.question}` : ''}${health}\n`);
+  const skew = axis.lopsided
+    ? `   [LOPSIDED: one value carries ${Math.round(axis.topShare * 100)}% of what this axis places; check it is not matching a common word]`
+    : '';
+  process.stdout.write(`\n  ${axis.label}  ${axis.question ? `— ${axis.question}` : ''}${health}${skew}\n`);
   for (const value of axis.values) {
     const bar = '#'.repeat(Math.round(value.share * 40));
     const flag = value.thin ? ' <- opening' : '';

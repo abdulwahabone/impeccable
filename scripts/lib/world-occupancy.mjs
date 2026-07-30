@@ -96,12 +96,9 @@ export function computeOccupancy(worlds, axesDefinition) {
     // no wave has assigned yet, and reporting them as failures would send someone
     // hunting for keywords that cannot exist.
     const recordedOnly = axis.recorded === true;
-    // An axis is trustworthy when it places most of the corpus, however it got
-    // there. Recorded values are exact, so an axis moves from guesswork to fact
-    // as a wave fills them in rather than needing a cleverer probe.
     // A recorded-only axis is trusted once most worlds carry a recorded value,
     // never on the strength of a probe it does not have.
-    const trustworthy = axis.recorded === true
+    const trustworthy = recordedOnly
       ? recorded >= worlds.length * 0.6
       : placed >= worlds.length * 0.6;
     const values = (axis.values || []).map(value => {
@@ -123,6 +120,15 @@ export function computeOccupancy(worlds, axesDefinition) {
         thin: share < 0.1 && trustworthy,
       };
     });
+    // A single value carrying most of an axis is a smell, not a finding. Density
+    // once cleared the trust bar because one value matched the bare word "every",
+    // which appears in 129 worlds. An axis can be trusted for the wrong reason,
+    // so say when one value is doing all the work.
+    const topShare = values.length && placed
+      ? Math.max(...values.map(value => value.count)) / placed
+      : 0;
+    const lopsided = !recordedOnly && placed > 0 && topShare > 0.6;
+
     return {
       id: axis.id,
       label: axis.label,
@@ -132,6 +138,8 @@ export function computeOccupancy(worlds, axesDefinition) {
       placed,
       recorded,
       recordedOnly,
+      lopsided,
+      topShare,
       unplaced: worlds.length - placed,
       trustworthy,
     };

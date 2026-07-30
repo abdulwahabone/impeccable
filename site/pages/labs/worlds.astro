@@ -686,6 +686,14 @@ const pageData = JSON.stringify({
           : placed.length >= pool.length * 0.6;
         parts.push('<h3>' + esc(axis.label) + (axis.question ? ' <small>' + esc(axis.question) + '</small>' : '') + '</h3>');
         if (axis.note) parts.push('<p class="worlds-coverage-note">' + esc(axis.note) + '</p>');
+        // One value carrying most of an axis is a smell: density once cleared the
+        // trust bar on the bare word "every", which 129 worlds contain.
+        const counts = (axis.values || []).map(v => pool.filter(c => axisMatches(c, axis, v)).length);
+        const topShare = placed.length ? Math.max(...counts, 0) / placed.length : 0;
+        if (!recordedOnly && placed.length > 0 && topShare > 0.6) {
+          parts.push('<p class="worlds-coverage-warn">One value carries ' + Math.round(topShare * 100)
+            + '% of what this axis places. Check it is not matching a common word.</p>');
+        }
         if (!trustworthy && recordedOnly) {
           parts.push('<p class="worlds-coverage-warn">Recorded only: ' + recorded + ' of ' + pool.length
             + ' assigned so far. This dimension cannot be read from a world\'s prose, so it fills as waves'
