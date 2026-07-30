@@ -669,5 +669,73 @@
     }
    ]
   }
- ]
+ ],
+ "incompatible": [
+  {
+   "reason": "Ink absorbed into stock cannot also be a lit surface. One is reflective, the other emits.",
+   "pair": [
+    {
+     "axis": "material",
+     "value": "printed-ink"
+    },
+    {
+     "axis": "material",
+     "value": "emissive"
+    }
+   ]
+  },
+  {
+   "reason": "A world that refuses ink on the ground plane cannot be made of printed ink on stock.",
+   "pair": [
+    {
+     "axis": "prohibition",
+     "value": "no-ink-on-ground"
+    },
+    {
+     "axis": "material",
+     "value": "printed-ink"
+    }
+   ]
+  },
+  {
+   "reason": "One type size cannot also be an extreme scale range; the refusal forecloses the axis.",
+   "pair": [
+    {
+     "axis": "prohibition",
+     "value": "one-type-size"
+    },
+    {
+     "axis": "scale-range",
+     "value": "extreme"
+    }
+   ]
+  },
+  {
+   "reason": "A refusal of rules, dividers and boxes cannot coexist with a rational modular grid whose bands and registers are drawn.",
+   "pair": [
+    {
+     "axis": "prohibition",
+     "value": "no-dividers"
+    },
+    {
+     "axis": "composition",
+     "value": "modular"
+    }
+   ]
+  },
+  {
+   "reason": "An immutable identity cannot have form computed from data; generative is variance by definition.",
+   "pair": [
+    {
+     "axis": "variance",
+     "value": "immutable"
+    },
+    {
+     "axis": "motion",
+     "value": "simulated"
+    }
+   ]
+  }
+ ],
+ "incompatibleNote": "Declared contradictions only, deliberately short. These exist because an empty cell in a correlated pair is often empty because the combination cannot exist rather than because nobody tried it, and weighting a draw toward it sends a wave after nonsense. A long invented matrix would do the opposite harm, quietly shrinking the space it claims to protect, so add a pair only when you can state why it cannot exist."
 }
