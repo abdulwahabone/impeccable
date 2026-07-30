@@ -8400,34 +8400,6 @@
    ]
   },
   {
-   "id": "space",
-   "label": "Space",
-   "well": "material-worlds",
-   "description": "Celestial scale, orbital movement, alien distance, deep time, and imagined life beyond Earth.",
-   "concepts": [
-    {
-     "id": "galaxies-nebulae-deep-time-accretion-disk-threshold",
-     "form": "a black-hole accretion disk at the edge of disappearance, with warped horizons, time-dilated rings, and matter crossing an irreversible threshold",
-     "lineage": "relativistic visualization and cinematic scientific simulation; grounded in deep-field astronomy, planetarium-scale science visualization, and immersive cosmic media",
-     "tags": [
-      "threshold",
-      "relativity",
-      "irreversibility"
-     ],
-     "system": [
-      "Palette/material: void black ground, disk light graded blue-white toward approach and ember red in recession, a photon-ring gold arc as the active accent",
-      "Type/composition: hairline technical grotesk with lining numerals bent along concentric ring bands, labels orbiting the rim, the center held as unmarked black",
-      "Topology/navigation: Navigate outer disk, photon ring, horizon, and observer viewpoints through guided anchors.",
-      "Controls/state: Change viewpoint, trace matter, and show orbiting, plunging, redshifted, and lost states.",
-      "Responsive/motion: Replace free orbit with sectional viewpoints on phones"
-     ],
-     "spark": "A bright disk folds over itself while one glowing fragment slows, reddens, and vanishes at the horizon.",
-     "webLeverage": "Relativistic shader approximation bends light and color around an interactive horizon.",
-     "strength": "world"
-    }
-   ]
-  },
-  {
    "id": "earth-water-worlds",
    "label": "Earth & Water Worlds",
    "well": "material-worlds",
@@ -8887,6 +8859,26 @@
      ],
      "spark": "You lie on the concrete floor of a vast hall, haze thick with amber; far above, the mirrored ceiling shows your tiny silhouette waving back beside a hundred strangers, and the half sun on the wall completes itself into a disc.",
      "webLeverage": "backdrop-filter haze over a css scaleY(-1) reflection building the mirrored ceiling, blend mode flattening all color to amber duotone",
+     "strength": "world"
+    },
+    {
+     "id": "galaxies-nebulae-deep-time-accretion-disk-threshold",
+     "form": "a black-hole accretion disk at the edge of disappearance, with warped horizons, time-dilated rings, and matter crossing an irreversible threshold",
+     "lineage": "relativistic visualization and cinematic scientific simulation; grounded in deep-field astronomy, planetarium-scale science visualization, and immersive cosmic media",
+     "tags": [
+      "threshold",
+      "relativity",
+      "irreversibility"
+     ],
+     "system": [
+      "Palette/material: void black ground, disk light graded blue-white toward approach and ember red in recession, a photon-ring gold arc as the active accent",
+      "Type/composition: hairline technical grotesk with lining numerals bent along concentric ring bands, labels orbiting the rim, the center held as unmarked black",
+      "Topology/navigation: Navigate outer disk, photon ring, horizon, and observer viewpoints through guided anchors.",
+      "Controls/state: Change viewpoint, trace matter, and show orbiting, plunging, redshifted, and lost states.",
+      "Responsive/motion: Replace free orbit with sectional viewpoints on phones"
+     ],
+     "spark": "A bright disk folds over itself while one glowing fragment slows, reddens, and vanishes at the horizon.",
+     "webLeverage": "Relativistic shader approximation bends light and color around an interactive horizon.",
      "strength": "world"
     }
    ]
@@ -10677,6 +10669,26 @@
      "spark": "Everything happens at once on one enormous cloth, and it only becomes a story because a man with a stick decides what you look at next.",
      "webLeverage": "a single continuous canvas with pointer-driven episode focus, dimming of unfocused regions, and responsive crop to the active episode",
      "strength": "dual"
+    },
+    {
+     "id": "ritual-ceremony-festival-papel-picado-canopy",
+     "form": "a papel picado canopy strung wall to wall over a fiesta street, chiseled tissue panels of magenta, orange, cyan, and lime whose cut silhouettes throw moving shadow lace on the ground",
+     "lineage": "Mexican papel picado craft, Aguascalientes banner workshops, and Day of the Dead streetscapes.",
+     "tags": [
+      "cut-paper",
+      "banner-row",
+      "shadow-lace"
+     ],
+     "system": [
+      "Palette/material: saturated magenta, orange, cyan, and lime tissue against open sky, cut negative space reading as white light, shadow lace in soft gray as the ground texture",
+      "Type/composition: letterforms chiseled from the paper itself as stencil-cut silhouettes, panels ranked in strung rows, one motif per panel on a repeating banner grid",
+      "Topology/navigation: the strung line is the axis; panels hang in ordered rows overhead and wayfinding means walking the street beneath one banner run at a time",
+      "Controls/state: the active panel pulls taut and brightens while its neighbors tremble, selection punches a new silhouette, tissue tears mark destructive actions",
+      "Responsive/motion: narrow screens stack panels as one vertical string, motion is wind tremble and drifting shadow lace"
+     ],
+     "spark": "Overhead, a hundred chiseled banners tremble in the afternoon wind; a magenta skeleton dances beside a cyan dove, and the whole street floor ripples with their traveling shadow lace.",
+     "webLeverage": "CSS masks and SVG cutwork render true negative-space silhouettes, with blend modes projecting animated shadow lace onto the page ground.",
+     "strength": "world"
     }
    ]
   },
@@ -10855,35 +10867,6 @@
      "strength": "dual"
     }
    ]
-  },
-  {
-   "id": "festivals-public-life",
-   "label": "Festivals & Public Life",
-   "well": "performed-time",
-   "description": "Ceremony, festival, gathering, participation, civic space, shared symbols, and collective experiences people make together.",
-   "concepts": [
-    {
-     "id": "ritual-ceremony-festival-papel-picado-canopy",
-     "form": "a papel picado canopy strung wall to wall over a fiesta street, chiseled tissue panels of magenta, orange, cyan, and lime whose cut silhouettes throw moving shadow lace on the ground",
-     "lineage": "Mexican papel picado craft, Aguascalientes banner workshops, and Day of the Dead streetscapes.",
-     "tags": [
-      "cut-paper",
-      "banner-row",
-      "shadow-lace"
-     ],
-     "system": [
-      "Palette/material: saturated magenta, orange, cyan, and lime tissue against open sky, cut negative space reading as white light, shadow lace in soft gray as the ground texture",
-      "Type/composition: letterforms chiseled from the paper itself as stencil-cut silhouettes, panels ranked in strung rows, one motif per panel on a repeating banner grid",
-      "Topology/navigation: the strung line is the axis; panels hang in ordered rows overhead and wayfinding means walking the street beneath one banner run at a time",
-      "Controls/state: the active panel pulls taut and brightens while its neighbors tremble, selection punches a new silhouette, tissue tears mark destructive actions",
-      "Responsive/motion: narrow screens stack panels as one vertical string, motion is wind tremble and drifting shadow lace"
-     ],
-     "spark": "Overhead, a hundred chiseled banners tremble in the afternoon wind; a magenta skeleton dances beside a cyan dove, and the whole street floor ripples with their traveling shadow lace.",
-     "webLeverage": "CSS masks and SVG cutwork render true negative-space silhouettes, with blend modes projecting animated shadow lace onto the page ground.",
-     "strength": "world"
-    }
-   ],
-   "retired": true
   },
   {
    "id": "memory-ruins",
