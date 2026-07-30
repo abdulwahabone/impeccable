@@ -147,14 +147,24 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions, a
 
         <article id="worlds-review" class="worlds-review-stage" aria-labelledby="current-concept-form" tabindex="-1">
           <header class="worlds-review-head">
-            <div class="worlds-review-path">
-              <span data-concept-family>{initial?.familyLabel}</span>
-              <span aria-hidden="true">/</span>
-              <code data-concept-id>{initial?.id}</code>
+            <div class="worlds-review-context">
+              <div class="worlds-review-path">
+                <span data-concept-family>{initial?.familyLabel}</span>
+                <span aria-hidden="true">/</span>
+                <code data-concept-id>{initial?.id}</code>
+              </div>
+              <div class="worlds-review-glance">
+                <span class="worlds-review-folio">Composition <strong data-concept-position>001</strong> / {counts.total.toLocaleString()}</span>
+                <span class={`worlds-status-badge is-${initial?.status || 'pending'}`} data-concept-status>{initial?.status || 'pending'}</span>
+              </div>
             </div>
-            <div class="worlds-review-meta">
-              <span class="worlds-review-folio">Composition <strong data-concept-position>001</strong> / {counts.total.toLocaleString()}</span>
-              <span class={`worlds-status-badge is-${initial?.status || 'pending'}`} data-concept-status>{initial?.status || 'pending'}</span>
+            <div class="worlds-review-controls">
+              <label class="worlds-area">
+                <span class="worlds-area-label">Area</span>
+                <select data-area-select disabled={!import.meta.env.DEV} title="Area of concern inside this surface. Unset stays eligible for every area.">
+                  <option value="">unset</option>
+                </select>
+              </label>
             </div>
           </header>
 
@@ -212,12 +222,6 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions, a
               <p class="worlds-action-note" data-action-note role="status" aria-live="polite"></p>
             </div>
             <div class="worlds-action-buttons">
-              <label class="worlds-area">
-                <span class="worlds-area-label">Area</span>
-                <select data-area-select disabled={!import.meta.env.DEV} title="Area of concern inside this surface. Unset stays eligible for every area.">
-                  <option value="">unset</option>
-                </select>
-              </label>
               <div class="worlds-rating" role="group" aria-label="Approval rating: how strong this approved composition is" data-rating-group hidden>
                 {[1, 2, 3].map(value => (
                   <button

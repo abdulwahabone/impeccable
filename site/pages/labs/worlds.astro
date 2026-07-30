@@ -207,14 +207,20 @@ const pageData = JSON.stringify({
 
         <article id="worlds-review" class="worlds-review-stage" aria-labelledby="current-concept-form" tabindex="-1">
           <header class="worlds-review-head">
-            <div class="worlds-review-path">
+            <div class="worlds-review-context">
+              <div class="worlds-review-path">
               <span data-concept-well>{initialConcept.wellLabel}</span>
               <span aria-hidden="true">/</span>
               <span data-concept-family>{initialConcept.familyLabel}</span>
               <span aria-hidden="true">/</span>
-              <code data-concept-id>{initialConcept.id}</code>
+                <code data-concept-id>{initialConcept.id}</code>
+              </div>
+              <div class="worlds-review-glance">
+              <span class="worlds-review-folio">Catalog <strong data-concept-position>{String(concepts.findIndex(concept => concept.id === initialConcept.id) + 1).padStart(3, '0')}</strong> / {counts.total.toLocaleString()}</span>
+              <span class={`worlds-status-badge is-${initialConcept.status}`} data-concept-status>{initialConcept.status}</span>
             </div>
-            <div class="worlds-review-meta">
+            </div>
+            <div class="worlds-review-controls">
               <div class="worlds-rating" role="group" aria-label="Approval rating: how strong this approved world is" data-rating-group hidden={initialConcept.status !== 'approved'}>
                 {[1, 2, 3].map(value => (
                   <button
@@ -265,8 +271,6 @@ const pageData = JSON.stringify({
                   >{value}</button>
                 ))}
               </div>
-              <span class="worlds-review-folio">Catalog <strong data-concept-position>{String(concepts.findIndex(concept => concept.id === initialConcept.id) + 1).padStart(3, '0')}</strong> / {counts.total.toLocaleString()}</span>
-              <span class={`worlds-status-badge is-${initialConcept.status}`} data-concept-status>{initialConcept.status}</span>
             </div>
           </header>
 
@@ -685,6 +689,9 @@ const pageData = JSON.stringify({
       wellEl.textContent = concept.wellLabel;
       familyEl.textContent = concept.familyLabel;
       idEl.textContent = concept.id;
+      // Truncated parts keep their full value reachable on hover.
+      familyEl.title = concept.familyLabel;
+      idEl.title = concept.id;
       statusEl.textContent = concept.status;
       statusEl.className = `worlds-status-badge is-${concept.status}`;
       lineageEl.textContent = concept.lineage;

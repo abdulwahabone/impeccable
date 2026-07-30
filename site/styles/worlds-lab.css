@@ -685,23 +685,75 @@ button kbd {
 .worlds-review-head {
   position: relative;
   z-index: 2;
+  container-type: inline-size;
   display: flex;
-  min-height: 58px;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacing-md);
+  flex-direction: column;
+  gap: 8px;
   padding: 10px var(--spacing-md);
   border-bottom: 1px solid var(--ks-rule);
   background: color-mix(in oklch, var(--ks-lacquer), transparent 4%);
 }
 
+/* Line one: context. Read-only, so it yields space rather than taking it. */
+.worlds-review-context {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.worlds-review-glance {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--spacing-sm);
+  white-space: nowrap;
+}
+
+/* Line two: the verdict. Groups never compress internally, so a narrow stage
+   wraps between them instead of squeezing a control to illegibility. */
+.worlds-review-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.worlds-review-controls > * {
+  flex: 0 0 auto;
+}
+
 .worlds-review-path {
   display: flex;
   min-width: 0;
-  align-items: center;
+  align-items: baseline;
   gap: var(--spacing-xs);
+  overflow: hidden;
   color: var(--ks-text-faint);
   font-size: var(--ks-type-mono-size);
+  white-space: nowrap;
+}
+
+.worlds-review-path > span {
+  flex: 0 0 auto;
+}
+
+/* Yields second, and only after the id has given up its space. */
+.worlds-review-path [data-concept-family] {
+  flex: 0 1 auto;
+  min-width: 8ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Yields first: the id is repeated in the editor below, so it is the cheapest
+   thing on this line to lose. */
+.worlds-review-path > code {
+  flex: 0 1 auto;
+  min-width: 6ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .worlds-review-path span:first-child {
@@ -754,12 +806,6 @@ button kbd {
   padding: clamp(24px, 4vh, 48px) clamp(24px, 3vw, 56px);
 }
 
-.worlds-review-meta {
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  gap: var(--spacing-sm);
-}
 
 .worlds-review-folio {
   color: var(--ks-text-faint);
@@ -1542,22 +1588,27 @@ button kbd {
    buttons. A mode reads as on unless the reviewer turned it off, because an
    absent allowedModes means eligible everywhere. */
 .worlds-modes {
-  display: flex;
-  gap: 4px;
+  display: inline-flex;
+  border: 1px solid var(--ks-rule);
+  border-radius: 999px;
+  overflow: hidden;
 }
 
 .worlds-mode-option {
   min-height: 26px;
   padding: 0 8px;
-  border: 1px solid var(--ks-rule);
-  border-radius: 999px;
+  border: 0;
+  border-left: 1px solid var(--ks-rule);
   background: transparent;
   color: var(--ks-text-mute-deep);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
+}
+
+.worlds-mode-option:first-child {
+  border-left: 0;
 }
 
 .worlds-mode-option:hover:not(:disabled) {
@@ -1566,8 +1617,13 @@ button kbd {
 }
 
 .worlds-mode-option[aria-pressed="true"] {
-  border-color: color-mix(in oklch, var(--ks-champagne), transparent 70%);
   color: var(--ks-text-muted);
+}
+
+.worlds-mode-option[aria-pressed="false"] {
+  background: color-mix(in oklch, var(--ks-graphite), transparent 40%);
+  color: var(--ks-text-mute-deep);
+  text-decoration: line-through;
 }
 
 .worlds-mode-option:disabled {
@@ -1600,4 +1656,15 @@ button kbd {
 
 .worlds-area select:disabled {
   cursor: not-allowed;
+}
+
+/* Below this the id had shrunk to a single character sitting next to an orphaned
+   separator, which reads as damage rather than as truncation. It is the one part
+   of the breadcrumb repeated elsewhere on the page, so it leaves entirely and
+   the line degrades to well / family. */
+@container (max-width: 620px) {
+  .worlds-review-path > code,
+  .worlds-review-path > span[aria-hidden="true"]:last-of-type {
+    display: none;
+  }
 }
