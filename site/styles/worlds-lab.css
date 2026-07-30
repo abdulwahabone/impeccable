@@ -1669,52 +1669,23 @@ button kbd {
   }
 }
 
-/* Mode filter. Sits with the status and family filters rather than the review
-   controls: it narrows the queue, it does not change an entry. A world with no
-   allowedModes is eligible everywhere and so matches every mode here, which is
-   why the default reads "any" rather than naming a mode. */
-.worlds-mode-filter {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+/* Filter sections. The status and mode filters share one component because both
+   are small mutually exclusive sets whose counts are worth reading at a glance.
+   The family filter keeps its own search and list because 23 families need one.
+   That is the line between them, rather than three idioms chosen at random. */
+.worlds-filter-section {
+  flex: 0 0 auto;
+  padding: var(--spacing-md) 0 0;
+}
+
+.worlds-filter-heading {
+  display: block;
+  margin-bottom: 6px;
   padding: 0 var(--spacing-md);
-}
-
-.worlds-mode-filter-label {
   color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  letter-spacing: 0.06em;
+  font: 500 var(--ks-type-eyebrow-size)/1.2 var(--ks-mono);
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
-}
-
-.worlds-mode-filter-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.worlds-mode-filter-row button {
-  min-height: 24px;
-  padding: 0 8px;
-  border: 1px solid var(--ks-rule);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--ks-text-mute-deep);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  text-transform: uppercase;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.worlds-mode-filter-row button:hover {
-  background: var(--ks-graphite);
-  color: var(--ks-text-muted);
-}
-
-.worlds-mode-filter-row button[aria-pressed="true"] {
-  border-color: color-mix(in oklch, var(--ks-patina), transparent 60%);
-  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
-  color: var(--ks-patina);
 }
 
 /* Card view. An alternative to the one-at-a-time stage for scanning the corpus:

@@ -140,14 +140,23 @@ const pageData = JSON.stringify({
         </div>
       </div>
 
-      <div class="worlds-mode-filter">
-        <span class="worlds-mode-filter-label">Eligible for mode</span>
-        <div class="worlds-mode-filter-row" role="group" aria-label="Filter concepts by the mode they can carry">
-          <button type="button" data-mode-filter="all" aria-pressed="true">any</button>
+      <div class="worlds-filter-section">
+        <span class="worlds-filter-heading">Eligible for mode</span>
+        <div class="worlds-status-grid" role="group" aria-label="Filter concepts by the mode they can carry">
+          <button type="button" data-mode-filter="all" aria-pressed="true">
+            <span>Any</span><strong data-mode-count="all">0</strong>
+          </button>
+          <button type="button" data-mode-filter="unscoped" aria-pressed="false" title="Worlds nobody has narrowed, so they are eligible in every mode">
+            <span>Every mode</span><strong data-mode-count="unscoped">0</strong>
+          </button>
           {['persuade', 'operate', 'read', 'experience'].map(value => (
-            <button type="button" data-mode-filter={value} aria-pressed="false" title={`Only worlds eligible for ${value}. A world with no restriction is eligible for every mode.`}>{value}</button>
+            <button type="button" data-mode-filter={value} aria-pressed="false" title={`Worlds a ${value} build can draw from, narrowed or not`}>
+              <span>{value.charAt(0).toUpperCase() + value.slice(1)}</span><strong data-mode-count={value}>0</strong>
+            </button>
           ))}
-          <button type="button" data-mode-filter="restricted" aria-pressed="false" title="Only worlds whose eligibility has been narrowed at all">scoped</button>
+          <button type="button" data-mode-filter="scoped" aria-pressed="false" title="Only worlds whose eligibility someone has narrowed">
+            <span>Narrowed</span><strong data-mode-count="scoped">0</strong>
+          </button>
         </div>
       </div>
 
@@ -559,8 +568,10 @@ const pageData = JSON.stringify({
         if (state.mode !== 'all') {
           const allowed = concept.review?.allowedModes;
           const scoped = Array.isArray(allowed) && allowed.length > 0;
-          if (state.mode === 'restricted') {
+          if (state.mode === 'scoped') {
             if (!scoped) return false;
+          } else if (state.mode === 'unscoped') {
+            if (scoped) return false;
           } else if (scoped && !allowed.includes(state.mode)) {
             return false;
           }
@@ -684,6 +695,26 @@ const pageData = JSON.stringify({
       document.querySelector('[data-count-unrated]').textContent = concepts
         .filter(concept => concept.status === 'approved' && !concept.review?.rating).length.toLocaleString();
       document.querySelector('[data-count-total]').textContent = concepts.length.toLocaleString();
+      // Mode counts are scoped to the current status filter, so they answer how
+      // many of what you are looking at each mode can draw from. A world nobody
+      // narrowed is eligible everywhere and counts toward every mode.
+      const inStatus = concepts.filter(concept => {
+        if (state.status === 'unrated') return concept.status === 'approved' && !concept.review?.rating;
+        return state.status === 'all' || concept.status === state.status;
+      });
+      const scopedOf = concept => {
+        const allowed = concept.review?.allowedModes;
+        return Array.isArray(allowed) && allowed.length > 0 ? allowed : null;
+      };
+      const modeCount = key => {
+        if (key === 'all') return inStatus.length;
+        if (key === 'unscoped') return inStatus.filter(c => !scopedOf(c)).length;
+        if (key === 'scoped') return inStatus.filter(c => scopedOf(c)).length;
+        return inStatus.filter(c => { const a = scopedOf(c); return !a || a.includes(key); }).length;
+      };
+      for (const cell of document.querySelectorAll('[data-mode-count]')) {
+        cell.textContent = modeCount(cell.dataset.modeCount).toLocaleString();
+      }
       const reviewed = counts.approved + counts.rejected;
       const percent = Math.round((reviewed / concepts.length) * 100);
       document.querySelector('[data-progress-percent]').textContent = `${percent}%`;
