@@ -609,7 +609,20 @@ const pageData = JSON.stringify({
     function axisMatches(concept, axis, value) {
       const text = axisText(concept, axis);
       if (!text) return false;
-      return value.match.some(word => new RegExp('\\b' + word.replace(/[.*+?^${}()|[\]\\]/g, '\\    let cardSignature = null;') + '\\b', 'i').test(text));
+      // Escaping via a replacer function, not a $& string: a literal $& in a
+      // replacement re-inserts the matched text, which is exactly how this line
+      // got mangled the first time.
+      const says = word => new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, m => '\\' + m)}\\b`, 'i').test(text);
+      // A count axis asks how many things a rule names rather than whether it
+      // says one: palette rules enumerate pigments instead of naming a strategy.
+      if (axis.kind === "count") {
+        const found = new Set((axis.lexicon || []).filter(says));
+        if (found.size === 0) return false;
+        if (value.min != null && found.size < value.min) return false;
+        if (value.max != null && found.size > value.max) return false;
+        return true;
+      }
+      return (value.match || []).some(says);
     }
 
     function renderCoverage() {

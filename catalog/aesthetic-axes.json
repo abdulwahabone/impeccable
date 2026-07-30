@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "note": "Aesthetic axes for world authoring. The axes are fixed by the world schema: every concept carries the same five system rules, so these read those rules rather than inventing a parallel vocabulary. Only the values are authored, and they exist to be drawn from, not to describe. A wave assigns a combination before designing anything, because a generator left to choose its own aesthetic picks the safe one every time; that is the same anti-argmax mechanism the concept seeder uses on candidate order. Occupancy is measured against the approved corpus and the draw is weighted inversely to it, so the catalog acts as an exclusion map rather than a template. Values are matched by word-boundary keyword against the named system rule, which is approximate: trust a near-zero row, treat a mid-range row as a hint.",
+ "note": "Aesthetic axes for world authoring. The axes are fixed by the world schema: every concept carries the same five system rules, so these read those rules rather than inventing a parallel vocabulary. Only the values are authored, and they exist to be drawn from before a design is made, because a generator left to choose its own aesthetic picks the safe one every time; that is the same anti-argmax mechanism the concept seeder uses on candidate order. Occupancy is measured against the approved corpus and the draw is weighted inversely to it, so the catalog acts as an exclusion map rather than a template. Two probe kinds: a keyword axis asks whether a rule says a thing, a count axis asks how many things it names. Prefer counting where the rules enumerate rather than characterise, which is why chroma counts pigments. An axis that places less than 60% of the corpus reports itself unreliable and is excluded from the ranked openings, because a value nobody matches looks exactly like an opening and is not one.",
  "axes": [
   {
    "id": "ground",
@@ -8,20 +8,187 @@
    "rule": "Palette/material:",
    "question": "What is the surface the design sits on?",
    "values": [
-    { "id": "dark-nocturnal", "label": "dark / nocturnal", "match": ["dark", "black", "night", "nocturnal", "midnight", "lacquer"] },
-    { "id": "light-paper", "label": "light / paper", "match": ["paper", "cream", "white", "bleached", "unbleached", "daylight", "stock"] },
-    { "id": "inverted-dual", "label": "light and dark as one identity", "match": ["inverted", "dark mode", "light and dark", "both grounds"] }
+    {
+     "id": "dark-nocturnal",
+     "label": "dark / nocturnal",
+     "match": [
+      "dark",
+      "black",
+      "night",
+      "nocturnal",
+      "midnight",
+      "lacquer"
+     ]
+    },
+    {
+     "id": "light-paper",
+     "label": "light / paper",
+     "match": [
+      "paper",
+      "cream",
+      "white",
+      "bleached",
+      "unbleached",
+      "daylight",
+      "stock"
+     ]
+    },
+    {
+     "id": "inverted-dual",
+     "label": "light and dark as one identity",
+     "match": [
+      "inverted",
+      "dark mode",
+      "light and dark",
+      "both grounds"
+     ]
+    }
    ]
   },
   {
    "id": "chroma",
    "label": "Chroma",
+   "kind": "count",
    "rule": "Palette/material:",
-   "question": "How much colour, and how is it rationed?",
+   "question": "How many colours does the palette name?",
+   "note": "Counted, not keyword-matched. Palette rules enumerate pigments (lapis and vermilion over cream) rather than naming a strategy, so probing for 'monochrome' or 'full spectrum' placed 9 of 281 worlds. Counting the colours a rule names places 93% and shows the real shape: the corpus clusters hard at three or four.",
+   "lexicon": [
+    "black",
+    "white",
+    "cream",
+    "ivory",
+    "bone",
+    "gold",
+    "gilt",
+    "silver",
+    "brass",
+    "copper",
+    "bronze",
+    "blue",
+    "indigo",
+    "lapis",
+    "cyan",
+    "teal",
+    "turquoise",
+    "red",
+    "scarlet",
+    "crimson",
+    "vermilion",
+    "magenta",
+    "pink",
+    "rose",
+    "green",
+    "malachite",
+    "emerald",
+    "olive",
+    "lime",
+    "yellow",
+    "amber",
+    "ochre",
+    "saffron",
+    "orange",
+    "violet",
+    "purple",
+    "lilac",
+    "brown",
+    "sepia",
+    "umber",
+    "tan",
+    "gray",
+    "grey",
+    "graphite",
+    "charcoal",
+    "slate",
+    "beige",
+    "khaki"
+   ],
    "values": [
-    { "id": "monochrome", "label": "monochrome / duotone", "match": ["monochrome", "duotone", "two-colour", "two-color", "black and white", "grayscale", "greyscale"] },
-    { "id": "signal-colour", "label": "restricted signal colour", "match": ["one signal", "single accent", "lone accent", "signal color", "signal colour", "one accent"] },
-    { "id": "full-spectrum", "label": "full spectrum", "match": ["full spectrum", "polychrome", "rainbow", "saturated field"] }
+    {
+     "id": "one",
+     "label": "one colour",
+     "max": 1
+    },
+    {
+     "id": "duotone",
+     "label": "two, duotone",
+     "min": 2,
+     "max": 2
+    },
+    {
+     "id": "restricted",
+     "label": "three or four, restricted",
+     "min": 3,
+     "max": 4
+    },
+    {
+     "id": "broad",
+     "label": "five or six, broad",
+     "min": 5,
+     "max": 6
+    },
+    {
+     "id": "full",
+     "label": "seven or more, full spectrum",
+     "min": 7
+    }
+   ]
+  },
+  {
+   "id": "colour-strategy",
+   "label": "Colour strategy",
+   "rule": "Palette/material:",
+   "question": "How much of the surface does colour occupy?",
+   "note": "The skill's own vocabulary, from reference/new-work.md, so a world authored against it speaks the language the build phase already uses. Distinct from chroma: chroma counts how many colours a palette names, this says how much surface they cover. A two-colour drenched world and a two-colour restrained world are opposite designs. Places only 7% of the corpus, which is a finding rather than a broken probe: these worlds were authored before the vocabulary was applied to them. State it explicitly when authoring rather than widening these keywords.",
+   "values": [
+    {
+     "id": "restrained",
+     "label": "restrained: neutrals plus one accent",
+     "match": [
+      "neutral",
+      "restrained",
+      "one accent",
+      "single accent",
+      "lone accent",
+      "quiet ground",
+      "muted ground"
+     ]
+    },
+    {
+     "id": "committed",
+     "label": "committed: one colour carries 30-60%",
+     "match": [
+      "carries",
+      "dominant",
+      "commands",
+      "one saturated",
+      "signal color",
+      "signal colour"
+     ]
+    },
+    {
+     "id": "full-palette",
+     "label": "full palette: three or four named roles",
+     "match": [
+      "named roles",
+      "four roles",
+      "three roles",
+      "role color",
+      "role colour",
+      "full palette"
+     ]
+    },
+    {
+     "id": "drenched",
+     "label": "drenched: the surface is the colour",
+     "match": [
+      "drenched",
+      "saturated field",
+      "floods",
+      "flooded",
+      "soaked",
+      "wall-to-wall"
+     ]
+    }
    ]
   },
   {
@@ -30,12 +197,93 @@
    "rule": "all",
    "question": "What is the surface made of?",
    "values": [
-    { "id": "printed-ink", "label": "printed ink on stock", "match": ["ink", "print", "printed", "letterpress", "risograph", "screenprint", "halftone", "newsprint"] },
-    { "id": "grain-noise", "label": "grain / texture / noise", "match": ["grain", "grainy", "noise", "speckle", "tooth", "fibre", "fiber", "stipple"] },
-    { "id": "glass", "label": "glass / translucency", "match": ["glass", "translucent", "frosted", "refract", "prismatic"] },
-    { "id": "emissive", "label": "emissive / backlit / phosphor", "match": ["phosphor", "backlit", "emissive", "glow", "neon", "crt", "luminous"] },
-    { "id": "woven", "label": "woven / fibrous", "match": ["woven", "weave", "fabric", "textile", "thread"] },
-    { "id": "metal", "label": "metal / lacquer / enamel", "match": ["metal", "brass", "steel", "enamel", "chrome", "anodized"] }
+    {
+     "id": "printed-ink",
+     "label": "printed ink on stock",
+     "match": [
+      "ink",
+      "print",
+      "printed",
+      "letterpress",
+      "risograph",
+      "screenprint",
+      "halftone",
+      "newsprint"
+     ]
+    },
+    {
+     "id": "grain-noise",
+     "label": "grain / texture / noise",
+     "match": [
+      "grain",
+      "grainy",
+      "noise",
+      "speckle",
+      "tooth",
+      "fibre",
+      "fiber",
+      "stipple"
+     ]
+    },
+    {
+     "id": "glass",
+     "label": "glass / translucency",
+     "match": [
+      "glass",
+      "translucent",
+      "frosted",
+      "refract",
+      "prismatic"
+     ]
+    },
+    {
+     "id": "emissive",
+     "label": "emissive / backlit / phosphor",
+     "match": [
+      "phosphor",
+      "backlit",
+      "emissive",
+      "glow",
+      "neon",
+      "crt",
+      "luminous"
+     ]
+    },
+    {
+     "id": "woven",
+     "label": "woven / fibrous",
+     "match": [
+      "woven",
+      "weave",
+      "fabric",
+      "textile",
+      "thread"
+     ]
+    },
+    {
+     "id": "metal",
+     "label": "metal / lacquer / enamel",
+     "match": [
+      "metal",
+      "brass",
+      "steel",
+      "enamel",
+      "chrome",
+      "anodized"
+     ]
+    },
+    {
+     "id": "procedural",
+     "label": "shader / generative / procedural",
+     "match": [
+      "shader",
+      "generative",
+      "procedural",
+      "webgl",
+      "simulation",
+      "raymarch"
+     ]
+    }
    ]
   },
   {
@@ -44,32 +292,88 @@
    "rule": "all",
    "question": "How does the design handle elevation?",
    "values": [
-    { "id": "flat", "label": "flat, no elevation", "match": ["flat"] },
-    { "id": "layered", "label": "cast shadow / stacked layers", "match": ["shadow", "layered", "stacked", "overlap"] },
-    { "id": "true-depth", "label": "true depth / parallax / 3d", "match": ["parallax", "depth", "perspective", "volumetric", "3d"] }
+    {
+     "id": "flat",
+     "label": "flat, no elevation",
+     "match": [
+      "flat"
+     ]
+    },
+    {
+     "id": "layered",
+     "label": "cast shadow / stacked layers",
+     "match": [
+      "shadow",
+      "layered",
+      "stacked",
+      "overlap"
+     ]
+    },
+    {
+     "id": "true-depth",
+     "label": "true depth / parallax / 3d",
+     "match": [
+      "parallax",
+      "depth",
+      "perspective",
+      "volumetric",
+      "3d"
+     ]
+    }
    ]
   },
   {
    "id": "motion",
    "label": "Motion law",
    "rule": "Responsive/motion:",
-   "question": "How does the design move, and under what law?",
+   "question": "How does the design move, and under what law? (Under-authored: see note.)",
    "values": [
-    { "id": "static", "label": "none / static", "match": ["no motion", "static", "still"] },
-    { "id": "mechanical", "label": "mechanical / snap / step", "match": ["snap", "step", "mechanical", "click", "detent", "flip"] },
-    { "id": "continuous", "label": "continuous / drift / flow", "match": ["drift", "flow", "continuous", "ease", "glide", "float"] },
-    { "id": "simulated", "label": "simulated physics", "match": ["physics", "inertia", "spring", "gravity", "momentum"] }
-   ]
-  },
-  {
-   "id": "computation",
-   "label": "Computation",
-   "rule": "all",
-   "question": "Is the browser doing work that print could not?",
-   "values": [
-    { "id": "procedural", "label": "shader / generative / procedural", "match": ["shader", "generative", "procedural", "webgl", "simulation"] },
-    { "id": "responsive-only", "label": "responsive layout only", "match": ["reflow", "recompose", "breakpoint"] }
-   ]
+    {
+     "id": "static",
+     "label": "none / static",
+     "match": [
+      "no motion",
+      "static",
+      "still"
+     ]
+    },
+    {
+     "id": "mechanical",
+     "label": "mechanical / snap / step",
+     "match": [
+      "snap",
+      "step",
+      "mechanical",
+      "click",
+      "detent",
+      "flip"
+     ]
+    },
+    {
+     "id": "continuous",
+     "label": "continuous / drift / flow",
+     "match": [
+      "drift",
+      "flow",
+      "continuous",
+      "ease",
+      "glide",
+      "float"
+     ]
+    },
+    {
+     "id": "simulated",
+     "label": "simulated physics",
+     "match": [
+      "physics",
+      "inertia",
+      "spring",
+      "gravity",
+      "momentum"
+     ]
+    }
+   ],
+   "note": "Not mis-probed: the corpus does not author motion. Only 28% of Responsive/motion rules mention any motion verb, while 58% describe responsive adaptation and the rest accessibility. That rule is doing reflow-and-access duty, so motion law is effectively unauthored. The fix is to state it explicitly when authoring, not to widen these keywords."
   }
  ]
 }

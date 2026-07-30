@@ -41,21 +41,44 @@ export function mergeWorlds(catalog, reviewData) {
   return worlds;
 }
 
-// Word-boundary matching against one named system rule, or the whole entry when
-// the axis says "all". Anchored because a bare includes() matched "akan" inside
-// "Wakandan" earlier in this catalog's life and reported a franchise world as
-// cultural material.
-function matches(world, axis, value) {
-  const text = axis.rule === 'all'
+// Word-boundary matching, anchored because a bare includes() matched "akan"
+// inside "Wakandan" earlier in this catalog's life and reported a franchise
+// world as cultural material.
+const escapeWord = word => word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const mentions = (text, word) => new RegExp(`\\b${escapeWord(word)}\\b`, 'i').test(text);
+
+function axisText(world, axis) {
+  return axis.rule === 'all'
     ? world.haystack
     : (world.system.find(rule => rule.startsWith(axis.rule)) || '').toLowerCase();
+}
+
+// Two kinds of probe. A keyword axis asks whether a rule says a thing. A count
+// axis asks how many things it names, which is what chroma needed: palette rules
+// enumerate pigments rather than naming a colour strategy, so matching on
+// "monochrome" or "full spectrum" placed 9 of 281 worlds, while counting the
+// colours they name places 93% and produces a real distribution.
+function matches(world, axis, value) {
+  const text = axisText(world, axis);
   if (!text) return false;
-  return value.match.some(word => new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'i').test(text));
+  if (axis.kind === 'count') {
+    const found = new Set((axis.lexicon || []).filter(word => mentions(text, word)));
+    if (found.size === 0) return false;
+    if (value.min != null && found.size < value.min) return false;
+    if (value.max != null && found.size > value.max) return false;
+    return true;
+  }
+  return (value.match || []).some(word => mentions(text, word));
 }
 
 export function computeOccupancy(worlds, axesDefinition) {
   const total = worlds.length || 1;
   const axes = (axesDefinition.axes || []).map(axis => {
+    // How many worlds this axis places at all, computed first because whether a
+    // value counts as an opening depends on it. A low number means the values are
+    // wrong, or the dimension was never authored, not that the corpus is empty.
+    const placed = worlds.filter(world => (axis.values || []).some(value => matches(world, axis, value))).length;
+    const trustworthy = placed >= worlds.length * 0.6;
     const values = (axis.values || []).map(value => {
       const hits = worlds.filter(world => matches(world, axis, value));
       const share = hits.length / total;
@@ -69,13 +92,12 @@ export function computeOccupancy(worlds, axesDefinition) {
         // crowded value never drops out entirely: the goal is a different mix,
         // not a ban.
         weight: Math.max(1, Math.round((1 - share) * 10)),
-        thin: share < 0.1,
+        // Only an opening if the axis can be trusted. On an axis that places
+        // almost nothing every value looks wide open, which is the misreading the
+        // health check exists to prevent, so it must not be marked here either.
+        thin: share < 0.1 && trustworthy,
       };
     });
-    // How many worlds this axis places at all. A low number means the values are
-    // wrong, not that the corpus is empty, and without it a broken probe reads as
-    // a wide-open opening and misdirects the wave written from it.
-    const placed = worlds.filter(world => (axis.values || []).some(value => matches(world, axis, value))).length;
     return {
       id: axis.id,
       label: axis.label,
@@ -84,7 +106,7 @@ export function computeOccupancy(worlds, axesDefinition) {
       values,
       placed,
       unplaced: worlds.length - placed,
-      trustworthy: placed >= worlds.length * 0.6,
+      trustworthy,
     };
   });
   return { total: worlds.length, axes };
