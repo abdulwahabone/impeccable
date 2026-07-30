@@ -6,6 +6,11 @@ import LiveSteeringDemo from '../components/LiveSteeringDemo.astro';
 import SlopPatternPreview from '../components/SlopPatternPreview.astro';
 import WorldsRoll from '../components/WorldsRoll.astro';
 import '../styles/main.css';
+// The build materializes cli/ from the public repo, so this count is the
+// engine's own at build time; a literal here goes stale whenever the public
+// rule set changes and fails the deploy days later on an unrelated push.
+import { ANTIPATTERNS } from '../../cli/engine/registry/antipatterns.mjs';
+const detectionRuleCount = new Set(ANTIPATTERNS.map(rule => rule.id)).size;
 import '../styles/sub-pages.css';
 import '../styles/home-kinpaku.css';
 import '../styles/home-rebuild.css';
@@ -650,7 +655,7 @@ import '../styles/worlds-roll.css';
         </li>
         <li>
           <strong>CLI for CI</strong>
-          <span><code>npx impeccable detect src/</code> in a PR check. 59 deterministic rules. JSON output, exit codes for build gates.</span>
+          <span><code>npx impeccable detect src/</code> in a PR check. {detectionRuleCount} deterministic rules. JSON output, exit codes for build gates.</span>
           <a href="https://www.npmjs.com/package/impeccable" target="_blank" rel="noopener">View on npm →</a>
         </li>
         <li>
