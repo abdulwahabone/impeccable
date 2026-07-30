@@ -14,6 +14,21 @@
 // runs first, because a rule naming firmware and disputed readings will fail
 // that judgement anyway and there is no reason to pay for the answer.
 //
+// Measured predictive record, from three judged transfers where a model built
+// the surfaces for real and reported what broke:
+//
+//   Calibration Binder  vocabulary flagged it, structural did not, judged a page
+//                       design. Vocabulary correct.
+//   Loom Comparator     vocabulary called it clean, structural flagged three
+//                       rules, judged a page design. Vocabulary wrong.
+//   Ledger Sheet        judged a world.
+//
+// So the two probes are complementary rather than redundant: each caught the one
+// the other missed, and neither alone would have caught both. Run both, treat a
+// hit from either as a reason to look, and keep paying for judged transfers,
+// because two of the three worlds tested turned out to be page designs and no
+// keyword check would have been trusted to say so.
+//
 //   node scripts/world-transfer-check.mjs --candidates worlds.json
 
 import { readFileSync } from 'node:fs';
