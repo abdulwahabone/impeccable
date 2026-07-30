@@ -7,7 +7,7 @@ import path from 'node:path';
 import Base from '../../layouts/Base.astro';
 import '../../styles/sub-pages.css';
 import '../../styles/worlds-lab.css';
-import { compositionContentHash, COMPOSITION_AREAS } from '../../../skill/scripts/lib/composition-catalog.mjs';
+import { compositionContentHash, COMPOSITION_GRAINS, COMPOSITION_PLATFORMS } from '../../../skill/scripts/lib/composition-catalog.mjs';
 
 const ROOT = process.cwd();
 const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'composition-ingredients.json'), 'utf8'));
@@ -44,7 +44,7 @@ const counts = {
   rejected: compositions.filter(item => item.status === 'rejected').length,
 };
 const initial = compositions.find(item => item.status === 'pending') || compositions[0] || null;
-const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions, areas: COMPOSITION_AREAS }).replace(/</g, '\\u003c');
+const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions, grains: COMPOSITION_GRAINS, platforms: COMPOSITION_PLATFORMS }).replace(/</g, '\\u003c');
 ---
 
 <!-- DIRECTION CONTRACT: THESIS: A composition catalog reviewed with the same one-judgment loupe as the world catalog; structure is the only star, so the stage shows a neutral demonstration image beside identity-free grammar. OWN-WORLD: Inherits the Worlds lab wholesale: lacquer, kinpaku, patina state, compact Albert Sans UI. STORY: Pick a pending composition, read its mechanism, see it demonstrated in neutral dress, decide, annotate. FIRST VIEWPORT: Compact queue and one review stage with keyboard-visible decisions. BAR-RAISER: Every composition must survive the wireframe test and any-identity dressing before approval. FORM: The Worlds lab's sibling page, narrower by design: no strength toggle, no editor, review only. UNIQUE: Same instrument, second catalog: the queue lists compositions by family and the stage pairs grammar with its neutral-skin demonstration. NOT-TEMPLATE: No card grid, no dashboard; one composition at a time. Seed key: not run; structure inherited from /worlds. -->
@@ -160,11 +160,24 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions, a
             </div>
             <div class="worlds-review-controls">
               <label class="worlds-area">
-                <span class="worlds-area-label">Area</span>
-                <select data-area-select disabled={!import.meta.env.DEV} title="Area of concern inside this surface. Unset stays eligible for every area.">
+                <span class="worlds-area-label">Grain</span>
+                <select data-grain-select disabled={!import.meta.env.DEV} title="How much of the product this composes. Unset stays eligible at every grain.">
                   <option value="">unset</option>
+                  {COMPOSITION_GRAINS.map(value => <option value={value}>{value}</option>)}
                 </select>
               </label>
+              <div class="worlds-modes" role="group" aria-label="Platforms this composition survives" data-platforms-group>
+                {COMPOSITION_PLATFORMS.map(value => (
+                  <button
+                    type="button"
+                    class="worlds-mode-option"
+                    data-platform-option={value}
+                    aria-pressed="true"
+                    disabled={!import.meta.env.DEV}
+                    title={`Survives ${value}. All on means it survives anywhere, which is the default.`}
+                  >{value}</button>
+                ))}
+              </div>
             </div>
           </header>
 
@@ -260,7 +273,7 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions, a
     const payload = JSON.parse(document.getElementById('compositions-data').textContent);
     const canWrite = payload.canWrite;
     const compositions = payload.compositions;
-    const AREAS = payload.areas;
+    const PLATFORMS = payload.platforms;
     const byId = new Map(compositions.map(item => [item.id, item]));
     const initialId = location.hash.startsWith('#composition=') ? decodeURIComponent(location.hash.slice(9)) : '';
     const state = {
@@ -274,7 +287,8 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions, a
     const searchInput = document.querySelector('[data-search]');
     const decisionNoteInput = document.querySelector('[data-decision-note]');
     const breadthToggle = document.querySelector('[data-breadth-toggle]');
-    const areaSelect = document.querySelector('[data-area-select]');
+    const grainSelect = document.querySelector('[data-grain-select]');
+    const platformOptions = [...document.querySelectorAll('[data-platform-option]')];
 
     const ratingGroup = document.querySelector('[data-rating-group]');
     const ratingButtons = [...document.querySelectorAll('[data-rating-option]')];
@@ -400,21 +414,14 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions, a
       }
       breadthToggle.hidden = item.status !== 'approved';
       breadthToggle.setAttribute('aria-pressed', String(item.review?.breadth === 'niche'));
-      // Options depend on the surface, so they are rebuilt per composition. Area
-      // applies at any status: an entry can be filed before it is judged.
-      const areaOptions = AREAS[item.surface] || [];
-      areaSelect.innerHTML = '';
-      const unset = document.createElement('option');
-      unset.value = '';
-      unset.textContent = 'unset';
-      areaSelect.append(unset);
-      for (const value of areaOptions) {
-        const option = document.createElement('option');
-        option.value = value;
-        option.textContent = value;
-        areaSelect.append(option);
+      // Grain values are fixed rather than surface-dependent: how much of the
+      // product is in play is independent of which register of work it is.
+      grainSelect.value = item.grain || '';
+      const only = item.platforms;
+      for (const option of platformOptions) {
+        const on = !Array.isArray(only) || only.length === 0 || only.includes(option.dataset.platformOption);
+        option.setAttribute('aria-pressed', String(on));
       }
-      areaSelect.value = item.area || '';
       ratingGroup.hidden = item.status !== 'approved';
       ratingButtons.forEach(button => {
         button.setAttribute('aria-pressed', String((item.review?.rating || 0) >= Number(button.dataset.ratingOption)));
@@ -495,22 +502,44 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions, a
     // Compositions previously had no gate at all: selectApprovedStagings filtered
     // on approval and surface only, so a composition too specific to serve an
     // arbitrary build could not be held out of challenger draws.
-    // Area is stored on the ingredient rather than the review, because it says
-    // what the composition is about rather than passing judgment on it.
-    async function setArea(value) {
+    // Both live on the ingredient rather than the review: they say what the
+    // composition is and what it survives, not whether it is any good.
+    async function post(action, extra) {
+      const item = currentItem();
+      if (!canWrite || !item) return null;
+      const response = await fetch('/__impeccable/worlds', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ catalog: 'compositions', action, id: item.id, ...extra }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || action + ' could not be saved');
+      return { item, result: result.result };
+    }
+
+    async function setGrain(value) {
+      try {
+        const done = await post('grain', { grain: value || null });
+        if (!done) return;
+        done.item.grain = done.result.grain;
+        render();
+        showToast(done.item.grain ? `Grain: ${done.item.grain}` : 'Grain cleared');
+      } catch (error) {
+        showToast(error instanceof Error ? error.message : String(error), 'error');
+      }
+    }
+
+    async function togglePlatform(name) {
       const item = currentItem();
       if (!canWrite || !item) return;
+      const current = Array.isArray(item.platforms) && item.platforms.length > 0 ? [...item.platforms] : [...PLATFORMS];
+      const next = current.includes(name) ? current.filter(entry => entry !== name) : [...current, name];
       try {
-        const response = await fetch('/__impeccable/worlds', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ catalog: 'compositions', action: 'area', id: item.id, area: value || null }),
-        });
-        const result = await response.json();
-        if (!response.ok) throw new Error(result.error || 'Area could not be saved');
-        item.area = result.result.area;
+        const done = await post('platforms', { platforms: next });
+        if (!done) return;
+        done.item.platforms = done.result.platforms;
         render();
-        showToast(item.area ? `Filed under ${item.area}` : 'Area cleared');
+        showToast(done.result.platforms ? `Survives ${done.result.platforms.join(', ')}` : 'Survives every platform');
       } catch (error) {
         showToast(error instanceof Error ? error.message : String(error), 'error');
       }
@@ -565,7 +594,10 @@ const pageData = JSON.stringify({ canWrite: import.meta.env.DEV, compositions, a
       button.addEventListener('click', () => setRating(Number(button.dataset.ratingOption)));
     });
     breadthToggle.addEventListener('click', () => toggleBreadth());
-    areaSelect.addEventListener('change', () => setArea(areaSelect.value));
+    grainSelect.addEventListener('change', () => setGrain(grainSelect.value));
+    for (const option of platformOptions) {
+      option.addEventListener('click', () => togglePlatform(option.dataset.platformOption));
+    }
     document.querySelectorAll('[data-review-status]').forEach(button => {
       button.addEventListener('click', () => review(button.dataset.reviewStatus));
     });

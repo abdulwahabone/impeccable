@@ -11,8 +11,11 @@ import {
   WELL_TIERS,
 } from '../skill/scripts/lib/concept-catalog.mjs';
 import {
-  areasForSurface,
+  COMPOSITION_GRAINS,
+  COMPOSITION_PLATFORMS,
   compositionContentHash,
+  isGrain,
+  isPlatform,
   validateCompositionCatalog,
 } from '../skill/scripts/lib/composition-catalog.mjs';
 
@@ -121,8 +124,8 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
   // Composition-catalog reviews share the review mechanics but none of the
   // world catalog's floors or editing; v1 supports the review action only.
   async function mutateComposition(body) {
-    if (!['review', 'breadth', 'rate', 'area'].includes(body.action)) {
-      throw new Error('Compositions support the review, breadth, rate, and area actions only');
+    if (!['review', 'breadth', 'rate', 'grain', 'platforms'].includes(body.action)) {
+      throw new Error('Compositions support the review, breadth, rate, grain, and platforms actions only');
     }
     const catalog = await readJson(compositionCatalogPath);
     const reviewData = await readJson(compositionReviewsPath);
@@ -168,29 +171,41 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       return { id: body.id, rating: review.rating ?? null, review };
     }
 
-    // Area of concern, one level under surface. Unlike breadth and rating this
-    // lives on the ingredient rather than the review, because it describes what
-    // the composition is about rather than a verdict on it. Surface alone is too
-    // coarse to deal against: an onboarding flow and a settings page are both
-    // operate and want different compositions.
-    //
-    // Writes the catalog, so it goes out at indent 1 to match the serialization
-    // contract. `area` is not part of compositionContentHash, so no review goes
-    // stale. Unlike the review actions it applies at any status, since a pending
-    // entry can be filed before it is judged.
-    if (body.action === 'area') {
-      const allowed = areasForSurface(entry.surface);
-      if (body.area === null || body.area === '') {
-        delete entry.area;
-      } else if (allowed.includes(body.area)) {
-        entry.area = body.area;
+    // Grain and platforms live on the ingredient rather than the review, because
+    // they describe what the composition is and what it can survive rather than a
+    // verdict on it. Both write the catalog, so they go out at indent 1 to match
+    // the serialization contract, and neither is part of compositionContentHash,
+    // so no review goes stale. Both apply at any status: an entry can be filed
+    // before it is judged.
+    if (body.action === 'grain') {
+      if (body.grain === null || body.grain === '') {
+        delete entry.grain;
+      } else if (isGrain(body.grain)) {
+        entry.grain = body.grain;
       } else {
-        throw new Error(`Area must be one of the ${entry.surface} areas: ${allowed.join(', ')}`);
+        throw new Error(`Grain must be one of ${COMPOSITION_GRAINS.join(', ')}`);
       }
-      const { errors: areaErrors } = validateCompositionCatalog(catalog, reviewData);
-      if (areaErrors.length > 0) throw new Error(areaErrors[0]);
+      const { errors: grainErrors } = validateCompositionCatalog(catalog, reviewData);
+      if (grainErrors.length > 0) throw new Error(grainErrors[0]);
       await writeJsonAtomic(compositionCatalogPath, catalog, 1);
-      return { id: body.id, area: entry.area ?? null, areas: allowed };
+      return { id: body.id, grain: entry.grain ?? null };
+    }
+
+    if (body.action === 'platforms') {
+      const list = Array.isArray(body.platforms) ? [...new Set(body.platforms)] : null;
+      if (list === null || list.length === 0 || list.length === COMPOSITION_PLATFORMS.length) {
+        delete entry.platforms;
+      } else {
+        if (list.some(entry2 => !isPlatform(entry2))) {
+          throw new Error(`Platforms may only contain ${COMPOSITION_PLATFORMS.join(', ')}`);
+        }
+        // Fixed order so the catalog does not churn on click order.
+        entry.platforms = COMPOSITION_PLATFORMS.filter(name => list.includes(name));
+      }
+      const { errors: platformErrors } = validateCompositionCatalog(catalog, reviewData);
+      if (platformErrors.length > 0) throw new Error(platformErrors[0]);
+      await writeJsonAtomic(compositionCatalogPath, catalog, 1);
+      return { id: body.id, platforms: entry.platforms ?? null };
     }
 
     if (!REVIEW_STATUSES.has(body.status)) throw new Error('Review status is invalid');

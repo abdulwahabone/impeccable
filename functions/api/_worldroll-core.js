@@ -113,13 +113,13 @@ export function selectApprovedChallengers({ scope, key, reroll = 0, rating = nul
   return driveSelection(selectApprovedChallengersCore({ scope, key, reroll, minRating: rating, mode, concepts }));
 }
 
-export function selectApprovedCompositions({ scope, key, reroll = 0, mode = null, area = null, compositions, count = 3 }) {
-  return driveSelection(selectApprovedCompositionsCore({ scope, key, reroll, mode, area, compositions, count }));
+export function selectApprovedCompositions({ scope, key, reroll = 0, mode = null, grain = null, platform = null, compositions, count = 3 }) {
+  return driveSelection(selectApprovedCompositionsCore({ scope, key, reroll, mode, grain, platform, compositions, count }));
 }
 
 // Compatibility for callers that need a single sample.
 export async function selectApprovedComposition(options) {
-  return (await selectApprovedCompositions({ ...options, count: 1 }))[0] ?? null;
+  return (await selectApprovedCompositions({ ...options, count: 1 })).picks[0] ?? null;
 }
 
 const CARD_BASE = 'https://impeccable.style/worlds/cards';
@@ -145,25 +145,26 @@ const publicComposition = composition => ({
   grammar: composition.grammar,
   webLeverage: composition.webLeverage,
   surface: composition.surface,
-  // Exposed so a client can tell an on-target composition from a top-up when a
-  // thin area was filled out from the rest of the surface.
-  area: composition.area ?? null,
+  // Exposed so a client can tell an on-target composition from a top-up.
+  grain: composition.grain ?? null,
+  platforms: composition.platforms ?? null,
 });
 
-export async function rollSeed({ scope, key, mode, area = null, reroll, rating = null, data }) {
+export async function rollSeed({ scope, key, mode, grain = null, platform = null, reroll, rating = null, data }) {
   const concepts = mergeConcepts(data);
   const compositions = mergeCompositions(data);
   const [poolRevision, { approved, picks }, dealt] = await Promise.all([
     approvedPoolRevision(concepts),
     selectApprovedChallengers({ scope, key, reroll, rating, mode, concepts }),
-    selectApprovedCompositions({ scope, key, reroll, mode, area, compositions }),
+    selectApprovedCompositions({ scope, key, reroll, mode, grain, platform, compositions }),
   ]);
-  const publicCompositions = dealt.map(publicComposition);
+  const publicCompositions = dealt.picks.map(publicComposition);
   return {
     key,
     scope,
     mode: mode || null,
-    area: area || null,
+    grain: grain || null,
+    platform: platform || null,
     reroll,
     rating: rating || null,
     poolRevision,
@@ -171,6 +172,10 @@ export async function rollSeed({ scope, key, mode, area = null, reroll, rating =
     catalogCount: concepts.length,
     challengers: picks.map(publicConcept),
     compositions: publicCompositions,
+    // How the grain request was answered. A deal of three with none at the
+    // requested grain is a borrowed structure, and a client that cannot tell the
+    // difference will present it as a supplied one.
+    compositionMatch: dealt.match,
     // Two generations of installed skills still read the old field names, and
     // the wire is the one place a rename cannot be coordinated: `stagings` is
     // what this dealt while they were called stagings, `staging` predates it

@@ -1,4 +1,4 @@
-// GET /api/roll?scope=direction|surface&mode=<persuade|operate|read|experience>&area=<area>&key=<key>&reroll=<n>&rating=<min>
+// GET /api/roll?scope=direction|surface&mode=<persuade|operate|read|experience>&grain=<grain>&platform=<platform>&key=<key>&reroll=<n>&rating=<min>
 //
 // Deals a deterministic concept roll: six challengers (two per translation
 // tier, rating-weighted) plus three mode-matched compositions. Same key and
@@ -10,7 +10,7 @@
 import { rollSeed, logEvent, SEED_MODES, CORS_HEADERS } from './_worldroll.js';
 // From the dependency-free selection leaf, not composition-catalog.mjs, which
 // reads the filesystem and must not enter a Worker bundle.
-import { areasForSurface } from '../../skill/scripts/lib/roll-selection.mjs';
+import { COMPOSITION_GRAINS, COMPOSITION_PLATFORMS } from '../../skill/scripts/lib/roll-selection.mjs';
 
 export async function onRequestOptions() {
   return new Response(null, { status: 204, headers: CORS_HEADERS });
@@ -20,7 +20,8 @@ export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
   const scope = url.searchParams.get('scope') || 'surface';
   const mode = url.searchParams.get('mode') || null;
-  const area = url.searchParams.get('area') || null;
+  const grain = url.searchParams.get('grain') || null;
+  const platform = url.searchParams.get('platform') || null;
   const key = url.searchParams.get('key') || crypto.randomUUID().slice(0, 8);
   const reroll = Number(url.searchParams.get('reroll') || 0);
   const rating = url.searchParams.has('rating') ? Number(url.searchParams.get('rating')) : null;
@@ -31,16 +32,13 @@ export async function onRequestGet({ request, env }) {
   if (mode !== null && !SEED_MODES.has(mode)) {
     return Response.json({ error: 'mode must be persuade, operate, read, or experience' }, { status: 400, headers: CORS_HEADERS });
   }
-  // Areas are scoped to a surface, so a bare area cannot be resolved, and a
-  // wrong-surface area would silently match nothing and read as a thin pool.
-  if (area !== null) {
-    if (mode === null) {
-      return Response.json({ error: 'area requires mode' }, { status: 400, headers: CORS_HEADERS });
-    }
-    const allowed = areasForSurface(mode);
-    if (!allowed.includes(area)) {
-      return Response.json({ error: `area must be one of the ${mode} areas: ${allowed.join(', ')}` }, { status: 400, headers: CORS_HEADERS });
-    }
+  // Grain needs no mode: how much of the product is in play is independent of
+  // which register of work it is.
+  if (grain !== null && !COMPOSITION_GRAINS.includes(grain)) {
+    return Response.json({ error: `grain must be one of ${COMPOSITION_GRAINS.join(', ')}` }, { status: 400, headers: CORS_HEADERS });
+  }
+  if (platform !== null && !COMPOSITION_PLATFORMS.includes(platform)) {
+    return Response.json({ error: `platform must be one of ${COMPOSITION_PLATFORMS.join(', ')}` }, { status: 400, headers: CORS_HEADERS });
   }
   if (!Number.isInteger(reroll) || reroll < 0 || reroll > 8) {
     return Response.json({ error: 'reroll must be an integer between 0 and 8' }, { status: 400, headers: CORS_HEADERS });
@@ -53,7 +51,7 @@ export async function onRequestGet({ request, env }) {
   }
 
   try {
-    const roll = await rollSeed({ scope, key, mode, area, reroll, rating });
+    const roll = await rollSeed({ scope, key, mode, grain, platform, reroll, rating });
     logEvent(env, 'roll', {
       scope,
       mode,

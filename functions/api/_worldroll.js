@@ -17,8 +17,8 @@ export { SEED_MODES, WELL_TIERS };
 
 const DATA = { conceptCatalog, conceptReviews, compositionCatalog, compositionReviews };
 
-export function rollSeed({ scope, key, mode, area = null, reroll, rating = null }) {
-  return rollSeedCore({ scope, key, mode, area, reroll, rating, data: DATA });
+export function rollSeed({ scope, key, mode, grain = null, platform = null, reroll, rating = null }) {
+  return rollSeedCore({ scope, key, mode, grain, platform, reroll, rating, data: DATA });
 }
 
 // Impressions and choices land in Workers Analytics Engine when the binding
