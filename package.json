@@ -48,7 +48,7 @@
     "preview": "bun run build && npx astro preview",
     "deploy": "node scripts/fetch-public-skill.mjs --force && node scripts/sync-api-data.mjs && bun run build && node scripts/fetch-public-skill.mjs --assert-public && wrangler pages deploy build/",
     "dev:pro": "cd pro && npx astro dev",
-    "build:pro": "npx astro build --config pro/astro.config.mjs",
+    "build:pro": "node scripts/fetch-public-skill.mjs && npx astro build --config pro/astro.config.mjs",
     "deploy:pro": "bun run build:pro && wrangler pages deploy --cwd pro",
     "d1:pro:schema": "wrangler d1 execute DB -c pro/wrangler.toml --remote --file pro/schema.sql",
     "d1:pro:schema:local": "wrangler d1 execute DB -c pro/wrangler.toml --local --file pro/schema.sql",
