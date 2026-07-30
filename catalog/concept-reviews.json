@@ -19,7 +19,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:48:28.467Z",
       "formHash": "69ed80f9b28f",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "architecture-inhabitable-space-ruin-inhabitation-layers": {
       "status": "rejected",
@@ -33,14 +38,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:07:09.591Z",
       "formHash": "d1a4b4fe0746",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "architecture-places-azulejo-station-hall": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T20:53:12.887Z",
       "formHash": "2e6dc8ff77ee",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "architecture-places-covered-market-hall-order": {
       "status": "rejected",
@@ -66,21 +79,34 @@
       "reviewedAt": "2026-07-26T01:32:09.656Z",
       "formHash": "3827b8807bd3",
       "rating": 1,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "brand-identity-canon-art-paul-magazine-program": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T01:05:04.756Z",
       "formHash": "fd6ed284e196",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "brand-identity-canon-brodovitch-bazaar-spread": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T17:54:19.287Z",
       "formHash": "c6c597e1b6e8",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "brand-identity-canon-channel-junction-ident": {
       "status": "rejected",
@@ -94,7 +120,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T17:54:43.206Z",
       "formHash": "2dc541c5091b",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "brand-identity-canon-generative-grid-identity": {
       "status": "rejected",
@@ -139,7 +169,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T17:56:20.061Z",
       "formHash": "6927cf346107",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "brand-identity-canon-reggae-label-sleeve-system": {
       "status": "rejected",
@@ -160,14 +194,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T17:57:05.514Z",
       "formHash": "f8e89b86e282",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "brand-identity-canon-single-hue-doll-program": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T01:05:58.405Z",
       "formHash": "eceebfb199b7",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "brand-identity-canon-two-tone-label-identity": {
       "status": "rejected",
@@ -186,7 +228,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T01:05:21.303Z",
       "formHash": "b811d627616c",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "brand-identity-canon-y2k-chrome-annual-plate": {
       "status": "rejected",
@@ -199,21 +245,34 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:54:27.158Z",
       "formHash": "0cb3bb9bb40a",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "cinema-cinematography-editing-hand-processed-film-bloom": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T03:07:07.811Z",
       "formHash": "985cf55fa6bb",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "cinema-cinematography-editing-multiplane-cel-dawn": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:05:03.402Z",
       "formHash": "1f9e37608f1f",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "clay-ceramics-fracture-celadon-ice-crackle": {
       "status": "rejected",
@@ -227,14 +286,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:54:15.393Z",
       "formHash": "59ba7a2a1e17",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "clay-ceramics-fracture-glaze-river-shelf": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T03:04:57.012Z",
       "formHash": "f4c6084cbc9d",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "clay-ceramics-fracture-porcelain-lantern-skin": {
       "status": "rejected",
@@ -248,7 +315,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T03:05:02.304Z",
       "formHash": "ec5af4e1fb10",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "clay-ceramics-fracture-saggar-ember-map": {
       "status": "rejected",
@@ -262,7 +333,11 @@
       "reviewedAt": "2026-07-21T01:30:50.765Z",
       "formHash": "b14de730b649",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "clouds-storms-auroras-hurricane-eye-wall": {
       "status": "rejected",
@@ -306,7 +381,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-28T02:23:33.408Z",
       "formHash": "a191440ca269",
-      "rating": 1
+      "rating": 1,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "craft-making-figurative-coffin-workshop": {
       "status": "rejected",
@@ -325,7 +405,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T03:13:24.481Z",
       "formHash": "ff39c0843823",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "craft-making-izimbenge-wire-plate": {
       "status": "rejected",
@@ -339,7 +423,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-28T02:26:24.201Z",
       "formHash": "616e332b547d",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "craft-making-marbled-endpaper-shop": {
       "status": "rejected",
@@ -366,7 +454,11 @@
       "reviewedAt": "2026-07-28T02:24:36.912Z",
       "formHash": "b3164b014556",
       "breadth": "niche",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "craft-making-planished-copper-wall": {
       "status": "rejected",
@@ -387,7 +479,11 @@
       "reviewedAt": "2026-07-28T02:26:37.501Z",
       "formHash": "f8428480378c",
       "breadth": "niche",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "craft-making-scrimshaw-incised-panel": {
       "status": "rejected",
@@ -407,7 +503,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T21:52:16.909Z",
       "formHash": "04a45715b9d5",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-after-hours-galleria": {
       "status": "rejected",
@@ -423,7 +523,11 @@
       "formHash": "f5cccab6ee64",
       "note": "this is pretty cool, the actual concept is meh but i love that it is middle eastern, i'd love some more inspiration from around the world, not just western centric visual systems",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-art-nouveau-metro-threshold": {
       "status": "approved",
@@ -431,21 +535,34 @@
       "reviewedAt": "2026-07-20T00:36:50.522Z",
       "formHash": "c9d127b251b5",
       "rating": 3,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-bauhaus-foundation-workshop": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:36:54.615Z",
       "formHash": "a73dc2846c6b",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "design-canon-blast-manifesto-page": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T00:55:44.913Z",
       "formHash": "be7bd1344481",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-braun-calibration-bench": {
       "status": "rejected",
@@ -458,7 +575,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:21:54.151Z",
       "formHash": "196d0ae46697",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-brutalist-conservatory-terrace": {
       "status": "approved",
@@ -466,7 +587,11 @@
       "reviewedAt": "2026-07-20T20:56:58.341Z",
       "formHash": "67490b9a50cf",
       "rating": 1,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-bwa-plank-mask-registers": {
       "status": "rejected",
@@ -480,14 +605,23 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:49:16.809Z",
       "formHash": "32d737308578",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-creator-hardware-bench": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T20:50:50.882Z",
       "formHash": "05b73d84a82a",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "design-canon-czech-crystalline-ornament": {
       "status": "rejected",
@@ -508,14 +642,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:38:38.339Z",
       "formHash": "a5bd48e45fde",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-decollage-torn-billboard": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T00:58:38.373Z",
       "formHash": "c9b2f3503096",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-egyptomania-commercial-revival": {
       "status": "approved",
@@ -523,21 +665,34 @@
       "reviewedAt": "2026-07-26T01:21:11.237Z",
       "formHash": "d33b02812049",
       "note": "looks cool, but is extremely niche",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ],
+      "breadth": "niche"
     },
     "design-canon-factory-silkscreen-loft": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T20:57:56.845Z",
       "formHash": "8f2773f0899b",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-futurist-bolted-book": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:49:12.615Z",
       "formHash": "fc18058e933b",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-glasgow-four-stencil-rose": {
       "status": "rejected",
@@ -551,7 +706,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:44:46.918Z",
       "formHash": "df7257e6c87e",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-heroic-realist-mural-panel": {
       "status": "rejected",
@@ -565,14 +724,23 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T02:03:20.817Z",
       "formHash": "b146b6b0263d",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ],
+      "breadth": "niche"
     },
     "design-canon-hoffmann-gridsmith-showroom": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:47:39.058Z",
       "formHash": "1324f3010a36",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-insular-carpet-page": {
       "status": "rejected",
@@ -586,7 +754,11 @@
       "reviewedAt": "2026-07-20T00:47:35.740Z",
       "formHash": "8d63cb13d10a",
       "rating": 3,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-manueline-maritime-ornament": {
       "status": "rejected",
@@ -599,21 +771,33 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T20:58:41.495Z",
       "formHash": "3aec0d34dca4",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-merz-collage-page": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T00:56:08.793Z",
       "formHash": "6f2e5cfb37b2",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-mloda-polska-secession-page": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T00:57:59.434Z",
       "formHash": "e31b336ae745",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-modular-exhibition-stand-system": {
       "status": "rejected",
@@ -640,7 +824,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T02:02:38.982Z",
       "formHash": "1afb12852738",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ],
+      "breadth": "niche"
     },
     "design-canon-nineties-whimsy-interior-program": {
       "status": "rejected",
@@ -661,7 +850,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T02:03:44.322Z",
       "formHash": "b8f589914d92",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-photovoltaic-nouveau-plate": {
       "status": "rejected",
@@ -693,7 +886,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:51:34.866Z",
       "formHash": "cceb2528dbff",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-quoted-state-agitprop": {
       "status": "rejected",
@@ -707,21 +904,34 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:45:37.503Z",
       "formHash": "f40bff13d6c8",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "design-canon-rietveld-sliding-house": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:51:36.777Z",
       "formHash": "45e1bcfc8efa",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-riley-moire-gallery": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:49:25.027Z",
       "formHash": "303df6128155",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-shop-sign-fascia-program": {
       "status": "rejected",
@@ -735,7 +945,11 @@
       "reviewedAt": "2026-07-20T21:00:24.038Z",
       "formHash": "7d49056ebc5a",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-sunken-conversation-pit": {
       "status": "approved",
@@ -743,7 +957,11 @@
       "reviewedAt": "2026-07-20T21:01:13.662Z",
       "formHash": "934359ec11ac",
       "rating": 1,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-superflat-motif-program": {
       "status": "rejected",
@@ -768,14 +986,23 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:51:58.760Z",
       "formHash": "057473a2bf3e",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "design-canon-toyism-signed-collective-plate": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:22:22.555Z",
       "formHash": "07d27da6df57",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-vaporwave-mall-atrium": {
       "status": "rejected",
@@ -790,7 +1017,11 @@
       "reviewedAt": "2026-07-20T00:46:01.585Z",
       "formHash": "bdec2a066312",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "design-canon-zenit-balkan-page": {
       "status": "approved",
@@ -798,14 +1029,23 @@
       "reviewedAt": "2026-07-25T00:57:19.338Z",
       "formHash": "09f97e99e7f4",
       "rating": 1,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "digital-design-canon-antialiased-racing-league": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T17:07:28.662Z",
       "formHash": "e83fa3a4d5e1",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "digital-design-canon-aqua-liquid-desktop": {
       "status": "rejected",
@@ -843,7 +1083,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T02:04:19.430Z",
       "formHash": "16c1c1bace11",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "digital-design-canon-clinical-futures-plate": {
       "status": "rejected",
@@ -898,14 +1143,22 @@
       "reviewedAt": "2026-07-25T01:01:24.823Z",
       "formHash": "d9debbcc1747",
       "note": "this is borderline, but the glitch aesthetic i really like, maybe replace this one with a better one",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "digital-design-canon-fansite-shrine-page": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T02:05:15.000Z",
       "formHash": "badfd5a42659",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "digital-design-canon-game-watch-lcd-stage": {
       "status": "rejected",
@@ -919,7 +1172,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T17:51:18.583Z",
       "formHash": "f456e19646e8",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "digital-design-canon-glass-panel-os-surface": {
       "status": "rejected",
@@ -932,14 +1190,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T17:51:24.896Z",
       "formHash": "8bf7f5f6c3de",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "digital-design-canon-grid-horizon-sunset": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T01:03:02.624Z",
       "formHash": "5eedecbe0f01",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "digital-design-canon-gulf-mall-glass-field": {
       "status": "rejected",
@@ -964,14 +1230,23 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T17:51:44.201Z",
       "formHash": "6fe7451d25b9",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "digital-design-canon-mondo-tech-utopian-spread": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T02:21:16.741Z",
       "formHash": "16800a9f90d1",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "digital-design-canon-monochrome-product-marketing": {
       "status": "approved",
@@ -985,7 +1260,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T02:04:07.026Z",
       "formHash": "a3825fa04323",
-      "rating": 1
+      "rating": 1,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "digital-design-canon-oversized-type-landing": {
       "status": "rejected",
@@ -1025,7 +1304,11 @@
       "reviewedAt": "2026-07-25T01:04:17.281Z",
       "formHash": "f561ea9d456f",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "digital-design-canon-recompressed-meme-plate": {
       "status": "rejected",
@@ -1047,7 +1330,11 @@
       "reviewedAt": "2026-07-27T02:06:03.818Z",
       "formHash": "54258918d60e",
       "note": "delightfully weird",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "digital-design-canon-shenzhen-speculative-render": {
       "status": "rejected",
@@ -1061,14 +1348,23 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T17:52:53.316Z",
       "formHash": "5c6b3ecedc91",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "digital-design-canon-teletext-weather-mosaic": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T02:05:01.357Z",
       "formHash": "6ea13c0b9f58",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "digital-design-canon-terminal-native-brand-surface": {
       "status": "rejected",
@@ -1149,7 +1445,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:55:08.139Z",
       "formHash": "7d0a1de7238a",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "dream-surreal-impossible-worlds-luminescent-alien-understory": {
       "status": "approved",
@@ -1157,28 +1458,44 @@
       "reviewedAt": "2026-07-20T22:02:59.667Z",
       "formHash": "07c7b83f92b6",
       "note": "maybe some refining",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "dream-surreal-impossible-worlds-moon-shadow-bazaar": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T03:05:34.272Z",
       "formHash": "9b9db9cef377",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "dream-surreal-impossible-worlds-sleeping-city-fold": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T03:07:52.979Z",
       "formHash": "8d58264e3329",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "dubois-data-portraits": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T20:47:21.621Z",
       "formHash": "d02c397cd7a8",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "earth-water-worlds-banded-agate-slice": {
       "status": "rejected",
@@ -1192,7 +1509,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T21:51:57.757Z",
       "formHash": "38dd6ea70c46",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "editor-theme-brand-surface": {
       "status": "rejected",
@@ -1220,7 +1542,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:49:48.361Z",
       "formHash": "457a6aae320b",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "fashion-folded-worlds-adire-eleko-resist": {
       "status": "rejected",
@@ -1282,7 +1609,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T20:52:56.124Z",
       "formHash": "e956fd382df6",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "fashion-folded-worlds-suzani-many-hands": {
       "status": "rejected",
@@ -1328,7 +1659,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:46:12.363Z",
       "formHash": "b8899682531e",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "food-fermentation-culinary-theater-tea-steeping-color-clock": {
       "status": "rejected",
@@ -1348,14 +1683,23 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T21:31:22.179Z",
       "formHash": "9f145b9da864",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "games-toys-physics-play-brick-build-instructions": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:52:17.304Z",
       "formHash": "917dd5fba436",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "games-toys-physics-play-hanafuda-flower-months": {
       "status": "rejected",
@@ -1369,7 +1713,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T03:07:24.358Z",
       "formHash": "fc5413547cbe",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "generative-parametric-identity": {
       "status": "approved",
@@ -1384,7 +1732,11 @@
       "reviewedAt": "2026-07-20T22:26:08.080Z",
       "formHash": "298672933e14",
       "rating": 1,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "geological-strata-crystals-cave-speleothem-chronicle": {
       "status": "rejected",
@@ -1463,14 +1815,23 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T20:28:46.888Z",
       "formHash": "4a274a9a22bf",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "graphic-worlds-publishing-chaekgeori-reverse-perspective": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-28T02:15:10.626Z",
       "formHash": "6ef241ad20ef",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "graphic-worlds-publishing-esprit-nouveau-plate": {
       "status": "rejected",
@@ -1484,7 +1845,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-28T02:15:24.809Z",
       "formHash": "bb45dac9e2f5",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "graphic-worlds-publishing-fore-edge-hidden-painting": {
       "status": "rejected",
@@ -1522,7 +1888,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-28T02:16:25.763Z",
       "formHash": "dfb33cf6f663",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "graphic-worlds-publishing-soyombo-constructed-emblem": {
       "status": "rejected",
@@ -1535,28 +1906,45 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T00:34:52.965Z",
       "formHash": "ed635b3d74f1",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "growth-metamorphosis-branching-ikebana-ma-arrangement": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:56:38.852Z",
       "formHash": "db14b6c4d9d5",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "hand-drawn-zine-explainer": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:23:23.267Z",
       "formHash": "b093dca167b1",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "highlife-sleeve": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T02:20:03.186Z",
       "formHash": "802dd1c85508",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "ikeda-datamatics": {
       "status": "approved",
@@ -1576,7 +1964,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:36:01.279Z",
       "formHash": "69d7f5e61f7b",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "ink-pigment-printmaking-handscroll-and-seal": {
       "status": "rejected",
@@ -1590,7 +1982,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:36:06.739Z",
       "formHash": "2ab0422e5e71",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "ink-pigment-printmaking-persian-miniature-page": {
       "status": "approved",
@@ -1598,14 +1994,22 @@
       "reviewedAt": "2026-07-21T01:15:11.814Z",
       "formHash": "9ae736765f05",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "ink-pigment-printmaking-screenprint-transparent-overlap": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:35:20.019Z",
       "formHash": "3ef512775a5c",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "isotype-quantity-atlas": {
       "status": "rejected",
@@ -1625,14 +2029,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:22:08.434Z",
       "formHash": "47cbf6886ff9",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "kinetic-sculpture-automata-crank-paper-menagerie": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:53:55.163Z",
       "formHash": "c655bbc9672a",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "kinetic-sculpture-automata-endless-column-rhythm": {
       "status": "rejected",
@@ -1670,21 +2082,34 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:20:48.619Z",
       "formHash": "1fc3f97ceaa5",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "light-shadow-caustics-indoor-weather-sun": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:34:33.172Z",
       "formHash": "453a8ed9e1ef",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "light-shadow-caustics-rain-night-cityscape": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:32:57.742Z",
       "formHash": "2bfda34b228a",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "light-shadow-caustics-skyspace-aperture-threshold": {
       "status": "rejected",
@@ -1703,14 +2128,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:21:25.142Z",
       "formHash": "47e581bfa1fa",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "magnetism-electricity-plasma-hand-bent-neon-circuit": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:33:46.463Z",
       "formHash": "6deca9771768",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "magnetism-electricity-plasma-magnetic-tape-memory-landscape": {
       "status": "rejected",
@@ -1735,35 +2168,57 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T20:45:59.415Z",
       "formHash": "2dcdc9eb7664",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "medium-native-algorave-source-floor": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:16:05.853Z",
       "formHash": "57329a80a72d",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "medium-native-ansi-bbs-nightboard": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:57:21.479Z",
       "formHash": "c4874503c74e",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "medium-native-ascii-live-scene-render": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:57:29.043Z",
       "formHash": "919c25d1c180",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "medium-native-crt-arcade-pixel-glow": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:52:24.494Z",
       "formHash": "cf23e6b68424",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "medium-native-demo-copper-scroller": {
       "status": "rejected",
@@ -1790,7 +2245,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-28T02:22:56.287Z",
       "formHash": "1323c0224ca8",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "medium-native-editorial-longread-web": {
       "status": "rejected",
@@ -1803,7 +2262,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T21:27:07.215Z",
       "formHash": "9b2c65da871e",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "medium-native-form-validation-surface": {
       "status": "rejected",
@@ -1817,14 +2280,24 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:57:54.525Z",
       "formHash": "d545776af055",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "medium-native-one-bit-desktop": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:24:57.715Z",
       "formHash": "078f9be8645a",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "medium-native-pricing-comparison-surface": {
       "status": "rejected",
@@ -1846,7 +2319,11 @@
       "reviewedAt": "2026-07-20T22:16:42.525Z",
       "formHash": "b0c156291a7c",
       "rating": 3,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "memory-palimpsest-ruins-archive-fire-damaged-film-recovery": {
       "status": "rejected",
@@ -1860,14 +2337,22 @@
       "reviewedAt": "2026-07-20T22:54:19.413Z",
       "formHash": "f5b5c659b8e1",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "metal-forging-patina-blacksmith-scale-shower": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:38:05.136Z",
       "formHash": "31e86e3d626f",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "metal-forging-patina-copper-lantern-souk": {
       "status": "approved",
@@ -1875,7 +2360,11 @@
       "reviewedAt": "2026-07-21T01:31:35.660Z",
       "formHash": "8a2a8cf7e1a0",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "metal-forging-patina-hammered-copper-vessel": {
       "status": "rejected",
@@ -1935,7 +2424,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T02:20:16.571Z",
       "formHash": "48655a1e4c9e",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "nier-bone-console": {
       "status": "rejected",
@@ -2006,7 +2499,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T20:47:00.437Z",
       "formHash": "5457d8e09516",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "notation-diagram-systems-quipu-knot-ledger": {
       "status": "rejected",
@@ -2053,14 +2551,23 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:44:09.147Z",
       "formHash": "35e43f8ace43",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "paper-folds-pleats-deployable-curved-crease-shell": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:39:42.524Z",
       "formHash": "f1dfd589d9ee",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "paper-folds-pleats-deployable-miura-orbit-sheet": {
       "status": "approved",
@@ -2107,28 +2614,45 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:17:00.644Z",
       "formHash": "2f15dbd0a4ae",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "pop-culture-shelf-arcade-marquee-row": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:17:17.653Z",
       "formHash": "be3834a2a3a5",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-bebop-title-card": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:17:34.812Z",
       "formHash": "9b9dca89c000",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-benday-comic-page": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:17:51.297Z",
       "formHash": "d13bd725fde8",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-blister-card-wall": {
       "status": "rejected",
@@ -2142,7 +2666,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T01:23:05.779Z",
       "formHash": "e73b32786cb1",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-camcorder-overlay": {
       "status": "rejected",
@@ -2156,70 +2684,114 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T01:23:51.902Z",
       "formHash": "9d931778e58b",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "pop-culture-shelf-cereal-box-aisle": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:19:26.344Z",
       "formHash": "b277206f13be",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-character-goods-catalog": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:34:00.350Z",
       "formHash": "cfa239a26ec2",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "pop-culture-shelf-city-pop-airbrush": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:19:42.911Z",
       "formHash": "0351a5c2ef86",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-code-cascade-terminal": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:20:12.516Z",
       "formHash": "78aa9e470149",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-couture-doll-atelier": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T03:11:09.587Z",
       "formHash": "55c635457cf6",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-devianart-character-sheet": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T20:04:35.310Z",
       "formHash": "d3d3fe7ad8e8",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-doujin-event-catalog": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T20:04:30.361Z",
       "formHash": "e929affa8814",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "pop-culture-shelf-elbow-panel-console": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:20:21.387Z",
       "formHash": "c03295e94c55",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "pop-culture-shelf-endurance-livery-garage": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:20:45.808Z",
       "formHash": "e2cf5e645c37",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-eurostile-panel-computer": {
       "status": "rejected",
@@ -2247,14 +2819,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:21:18.086Z",
       "formHash": "90223a8dae2c",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-gothic-lolita-mook": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T20:03:36.998Z",
       "formHash": "3c616458c753",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-grand-tour-jersey-road": {
       "status": "rejected",
@@ -2268,7 +2848,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T01:12:39.339Z",
       "formHash": "c1d3655e6ae4",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-indigenous-futurism-plate": {
       "status": "rejected",
@@ -2282,21 +2866,34 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:21:29.922Z",
       "formHash": "80d9f60e4933",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "pop-culture-shelf-insert-card-numbered-series": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-28T02:22:34.908Z",
       "formHash": "30f63df4e83b",
-      "rating": 1
+      "rating": 1,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-itasha-vinyl-wrap": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:34:28.504Z",
       "formHash": "771525a7ff62",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-jeepney-chrome-and-flank": {
       "status": "rejected",
@@ -2310,14 +2907,22 @@
       "reviewedAt": "2026-07-21T01:20:18.580Z",
       "formHash": "17deb25a8a66",
       "rating": 3,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-kaiju-broadcast-alert": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:22:14.420Z",
       "formHash": "e30d52565f93",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-kustom-pinstripe-panel": {
       "status": "rejected",
@@ -2330,14 +2935,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T20:51:52.681Z",
       "formHash": "ffa5a3a5ddb8",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-lowbrow-gallery-panel": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T20:04:19.098Z",
       "formHash": "25e44cc83e70",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-lucha-mask-and-bill": {
       "status": "rejected",
@@ -2351,7 +2964,11 @@
       "reviewedAt": "2026-07-21T01:25:38.839Z",
       "formHash": "15ea1694c0e4",
       "rating": 3,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-magnetic-weather-board": {
       "status": "rejected",
@@ -2364,14 +2981,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:22:32.172Z",
       "formHash": "19b561ab581f",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-menhera-pastel-grimness": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T20:03:50.282Z",
       "formHash": "c0606e7e7cfc",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-model-kit-box-art": {
       "status": "rejected",
@@ -2385,7 +3010,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:22:48.505Z",
       "formHash": "3042a0e8d90e",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-pastel-fancy-shop-wall": {
       "status": "rejected",
@@ -2400,7 +3029,11 @@
       "reviewedAt": "2026-07-20T22:23:06.085Z",
       "formHash": "6de4cba7b3ec",
       "rating": 3,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-pinball-instruction-card": {
       "status": "rejected",
@@ -2413,21 +3046,33 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:34:17.420Z",
       "formHash": "4e39ba3cafd5",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-pulp-rocketship-plate": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:33:00.874Z",
       "formHash": "86ef95a72659",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-rebel-menu-interface": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:23:13.149Z",
       "formHash": "a5dc48c6da3d",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-rpg-dialog-window": {
       "status": "approved",
@@ -2435,28 +3080,45 @@
       "reviewedAt": "2026-07-20T22:23:28.000Z",
       "formHash": "4aa26d6b57dd",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "pop-culture-shelf-rubber-hose-cel": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T01:16:36.314Z",
       "formHash": "d8c9010fd140",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-sapeur-portrait-plate": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T20:04:05.934Z",
       "formHash": "7a884f619a4a",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-saturday-title-card": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:23:43.773Z",
       "formHash": "fe429d29ebac",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-shaw-brothers-freeze-title": {
       "status": "rejected",
@@ -2470,21 +3132,33 @@
       "reviewedAt": "2026-07-28T02:22:12.819Z",
       "formHash": "c76ae11cbaa1",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-skate-deck-wall": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:23:53.620Z",
       "formHash": "18be148b0a44",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-spy-dossier-title-sequence": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:33:51.368Z",
       "formHash": "d84c2b9abf44",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-starship-readout-grid": {
       "status": "rejected",
@@ -2498,7 +3172,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T21:46:49.719Z",
       "formHash": "4441cc7ac927",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-sticker-sheet-decoden": {
       "status": "approved",
@@ -2506,21 +3184,34 @@
       "reviewedAt": "2026-07-21T01:25:51.181Z",
       "formHash": "487db979de97",
       "rating": 3,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-streaming-title-card-wall": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T23:04:44.169Z",
       "formHash": "36475b0bb1e9",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "pop-culture-shelf-sukeban-long-skirt-code": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:34:48.604Z",
       "formHash": "ee62a62812a8",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-taisho-roman-cover": {
       "status": "approved",
@@ -2528,7 +3219,11 @@
       "reviewedAt": "2026-07-25T01:10:54.269Z",
       "formHash": "c3ffb65a7d04",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-tcg-card-frame": {
       "status": "rejected",
@@ -2542,7 +3237,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T01:30:22.781Z",
       "formHash": "20789c603f03",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-terrace-card-mosaic": {
       "status": "rejected",
@@ -2561,35 +3260,57 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T23:04:55.802Z",
       "formHash": "a442e9a868ef",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "pop-culture-shelf-viewfinder-bracket-hud": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T03:12:33.210Z",
       "formHash": "13e8f4ae3510",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "pop-culture-shelf-wax-pack-card": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:24:43.351Z",
       "formHash": "9680eedcf515",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "pop-culture-shelf-window-box-toy-shelf": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T03:11:17.580Z",
       "formHash": "a5e4ba3c67c4",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-angura-theatre-poster": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:11:35.526Z",
       "formHash": "4f186732dfba",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-ballad-sheet-tune-name": {
       "status": "approved",
@@ -2597,14 +3318,23 @@
       "reviewedAt": "2026-07-28T02:17:32.334Z",
       "formHash": "b09d08c00287",
       "breadth": "niche",
-      "rating": 1
+      "rating": 1,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-blue-note-session-sleeve": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T02:01:37.931Z",
       "formHash": "3a1bf30ce14c",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-casas-catalan-poster": {
       "status": "rejected",
@@ -2618,7 +3348,11 @@
       "reviewedAt": "2026-07-25T00:53:55.484Z",
       "formHash": "92ea5dc378d1",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-chrome-diamond-rap-cover": {
       "status": "rejected",
@@ -2643,14 +3377,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-28T02:17:18.746Z",
       "formHash": "f351281938cd",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-dungeon-tape-jcard": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T00:54:45.679Z",
       "formHash": "75baeabbc2d1",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-ecm-sleeve": {
       "status": "approved",
@@ -2665,7 +3407,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T00:36:41.940Z",
       "formHash": "7311960d0008",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-festival-lineup-poster": {
       "status": "approved",
@@ -2679,7 +3426,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:35:42.649Z",
       "formHash": "4cf1b66a6930",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-fillmore-handbill": {
       "status": "approved",
@@ -2687,7 +3439,11 @@
       "reviewedAt": "2026-07-20T00:35:48.300Z",
       "formHash": "7217ee73fe84",
       "rating": 3,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-flash-scrawl-club-sleeve": {
       "status": "rejected",
@@ -2701,7 +3457,11 @@
       "reviewedAt": "2026-07-27T02:01:47.090Z",
       "formHash": "d28ebcaeedd8",
       "rating": 1,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-hardcore-rave-artwork": {
       "status": "rejected",
@@ -2714,7 +3474,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:35:54.877Z",
       "formHash": "152569058e20",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-hauntology-library-sleeve": {
       "status": "rejected",
@@ -2753,7 +3517,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:16:02.325Z",
       "formHash": "7518ec097303",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-museum-exhibition-identity": {
       "status": "rejected",
@@ -2767,7 +3535,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:11:55.666Z",
       "formHash": "bcf4db29e322",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-occult-glyph-sleeve": {
       "status": "rejected",
@@ -2781,14 +3554,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:37:06.182Z",
       "formHash": "210f6b2d2081",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-pachuco-zoot-handbill": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T01:54:42.784Z",
       "formHash": "c25d6c1c179f",
-      "rating": 1
+      "rating": 1,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-paperback-series-spine-run": {
       "status": "rejected",
@@ -2820,42 +3601,68 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:36:01.378Z",
       "formHash": "351b708d3267",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-posada-calavera-broadside": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T00:36:32.393Z",
       "formHash": "91ab385d21ff",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-pulp-rack": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:37:09.361Z",
       "formHash": "d36814466051",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-risograph-zine-cover": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T02:01:14.784Z",
       "formHash": "9bd6ad82da44",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-saul-bass-title": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:36:08.012Z",
       "formHash": "9e078b9bd4b0",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-shibuya-boutique-sleeve": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T02:20:31.388Z",
       "formHash": "050683ca635b",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-silent-intertitle-card": {
       "status": "rejected",
@@ -2877,49 +3684,77 @@
       "reviewedAt": "2026-07-21T20:46:15.005Z",
       "formHash": "d942c5c0785e",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-soundsystem-dance-poster": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:11:42.701Z",
       "formHash": "6ca00d616db5",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-stenberg-poster": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T01:00:36.161Z",
       "formHash": "7f0a3281c9d9",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-taller-grafica-linocut": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T00:36:48.301Z",
       "formHash": "2c7fc7296e97",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-torn-flyer-photocopy-wall": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T02:01:06.244Z",
       "formHash": "3e0176f8be05",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-tropicalia-sleeve-collage": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T01:52:58.209Z",
       "formHash": "8a0c827c365e",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-weimar-cabaret-bill": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-26T01:17:16.012Z",
       "formHash": "87d832390cf3",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-wpa-park-poster": {
       "status": "approved",
@@ -2933,7 +3768,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T00:55:02.897Z",
       "formHash": "6d6a7f4a22f6",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "posters-covers-sleeves-yeye-pop-sleeve": {
       "status": "approved",
@@ -2947,14 +3786,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:30:37.209Z",
       "formHash": "2b2c2823f0e6",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "reefs-bioluminescent-nocturnal-plankton-wake-stars": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:56:44.958Z",
       "formHash": "a75c2ffad668",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "reference-taxonomy-biodiversity-tree-of-life": {
       "status": "rejected",
@@ -2967,7 +3814,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:23:31.706Z",
       "formHash": "68e24a2e339e",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "ritual-ceremony-festival-papel-picado-canopy": {
       "status": "approved",
@@ -2975,7 +3826,11 @@
       "reviewedAt": "2026-07-20T22:52:52.366Z",
       "formHash": "90ac1a8624bf",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "ritual-ceremony-festival-yggdrasil-nine-realms": {
       "status": "approved",
@@ -2983,7 +3838,11 @@
       "reviewedAt": "2026-07-20T00:55:03.699Z",
       "formHash": "ecf31e685e00",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "rivers-tides-ocean-depths-hydrothermal-vent-oasis": {
       "status": "approved",
@@ -2991,7 +3850,11 @@
       "reviewedAt": "2026-07-20T22:28:05.207Z",
       "formHash": "5916befa86d3",
       "rating": 1,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "rivers-tides-ocean-depths-mesophotic-deep-dive": {
       "status": "approved",
@@ -3005,14 +3868,23 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:54:31.683Z",
       "formHash": "e4176f6a5f24",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "scientific-notation-particle-detector-event-display": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:54:34.409Z",
       "formHash": "38af570c03fd",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "scrollytelling-sticky-graphic": {
       "status": "rejected",
@@ -3025,14 +3897,24 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T21:14:30.006Z",
       "formHash": "66ba8bf2ca20",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "signals-instruments-drum-machine-step-row": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T04:19:25.554Z",
       "formHash": "d3903436b74c",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "signals-instruments-election-night-big-board": {
       "status": "rejected",
@@ -3045,14 +3927,24 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T21:15:04.865Z",
       "formHash": "75224c47c879",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "signals-instruments-nixie-laboratory-counter": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T21:15:16.002Z",
       "formHash": "e2207f89124f",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "signals-instruments-organ-book-punched-music": {
       "status": "rejected",
@@ -3065,7 +3957,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:55:02.528Z",
       "formHash": "79c30264dac8",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "signals-instruments-pinball-backglass": {
       "status": "approved",
@@ -3073,7 +3970,11 @@
       "reviewedAt": "2026-07-20T21:15:45.914Z",
       "formHash": "7826eb4258fc",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "signals-instruments-radar-scope-watch": {
       "status": "rejected",
@@ -3087,14 +3988,24 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T21:18:06.179Z",
       "formHash": "6f36e22e535b",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "signals-instruments-split-flap-concourse": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:24:52.128Z",
       "formHash": "fc15f90782d4",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "signals-instruments-telegraph-key-sounder": {
       "status": "approved",
@@ -3102,7 +4013,11 @@
       "reviewedAt": "2026-07-20T21:18:18.727Z",
       "formHash": "0cb00b347bf9",
       "rating": 1,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "signals-instruments-telemetry-ward-monitor": {
       "status": "rejected",
@@ -3122,7 +4037,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T21:18:26.849Z",
       "formHash": "dcdffbc4daa9",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "stagecraft-theater-lighting-cyclorama-dawn": {
       "status": "approved",
@@ -3148,14 +4067,24 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T20:46:23.518Z",
       "formHash": "4d96ce3dc15f",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "tdr-info-noise-sleeve": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T21:50:43.930Z",
       "formHash": "c29b91469a74",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "textiles-weave-drape-fashion-bias-cut-gravity-line": {
       "status": "rejected",
@@ -3189,7 +4118,11 @@
       "reviewedAt": "2026-07-20T22:42:03.950Z",
       "formHash": "26c0fa28e252",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "textiles-weave-drape-fashion-industrial-quote-grammar": {
       "status": "approved",
@@ -3203,7 +4136,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:42:12.837Z",
       "formHash": "984370c38326",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "textiles-weave-drape-fashion-lace-negative-cathedral": {
       "status": "rejected",
@@ -3224,7 +4161,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:42:54.980Z",
       "formHash": "7dabca7ef289",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "textiles-weave-drape-fashion-shibori-resist-topography": {
       "status": "rejected",
@@ -3252,7 +4193,11 @@
       "reviewedAt": "2026-07-21T01:31:46.211Z",
       "formHash": "968869f074ad",
       "rating": 3,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "typography-calligraphy-writing-copperplate-pressure-ribbon": {
       "status": "rejected",
@@ -3265,7 +4210,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T02:36:35.891Z",
       "formHash": "772e2bf27f04",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "typography-calligraphy-writing-zoomorphic-calligram": {
       "status": "approved",
@@ -3273,28 +4222,47 @@
       "reviewedAt": "2026-07-21T01:15:48.907Z",
       "formHash": "742df15b0fec",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "underground-resistance": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:20:38.952Z",
       "formHash": "85ab43db5d6b",
-      "rating": 1
+      "rating": 1,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ],
+      "breadth": "niche"
     },
     "variable-font-specimen": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:22:26.246Z",
       "formHash": "11ff6958996f",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "variety-telop-caption-field": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T21:52:09.600Z",
       "formHash": "03ef7ce6e03a",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "vernacular-ephemera-apothecary-tin-wall": {
       "status": "rejected",
@@ -3309,7 +4277,11 @@
       "reviewedAt": "2026-07-20T02:52:13.019Z",
       "formHash": "aea8aae5bb94",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-blank-tape-brand-wall": {
       "status": "rejected",
@@ -3330,7 +4302,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T23:04:05.873Z",
       "formHash": "7902ba2ceccc",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "vernacular-ephemera-calendar-pinup-pad": {
       "status": "rejected",
@@ -3344,7 +4321,11 @@
       "reviewedAt": "2026-07-20T00:47:56.997Z",
       "formHash": "a73fa1e1f5bf",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-carnival-prize-wall": {
       "status": "rejected",
@@ -3391,7 +4372,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T01:09:03.313Z",
       "formHash": "d8e14a4b40f5",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-eastern-product-graphics": {
       "status": "rejected",
@@ -3404,7 +4389,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T04:16:59.438Z",
       "formHash": "1a5796f8c16a",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-enamel-street-plaque": {
       "status": "rejected",
@@ -3424,7 +4413,11 @@
       "reviewedAt": "2026-07-27T20:03:06.310Z",
       "formHash": "647443381249",
       "rating": 1,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-fruit-wrapper-tissue": {
       "status": "rejected",
@@ -3451,7 +4444,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:49:00.941Z",
       "formHash": "49a84562c50e",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "vernacular-ephemera-layered-sticker-accretion": {
       "status": "rejected",
@@ -3466,14 +4464,23 @@
       "reviewedAt": "2026-07-20T21:09:16.630Z",
       "formHash": "67d38ca64155",
       "rating": 2,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ]
     },
     "vernacular-ephemera-loteria-tabla-night": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T04:17:13.551Z",
       "formHash": "40df848ca763",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-luzzu-prow-eye": {
       "status": "rejected",
@@ -3487,7 +4494,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T21:09:29.515Z",
       "formHash": "851e96a0930a",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-narrowboat-roses-castles": {
       "status": "approved",
@@ -3495,7 +4506,11 @@
       "reviewedAt": "2026-07-28T02:22:03.502Z",
       "formHash": "67d053c4298b",
       "breadth": "niche",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-pilgrim-badge-tray": {
       "status": "rejected",
@@ -3509,7 +4524,11 @@
       "reviewedAt": "2026-07-20T02:53:15.625Z",
       "formHash": "422395b9cb23",
       "rating": 1,
-      "breadth": "niche"
+      "breadth": "niche",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-rationing-coupon-book": {
       "status": "rejected",
@@ -3528,28 +4547,44 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T21:10:39.408Z",
       "formHash": "5461262e266b",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-signboard-canyon-midnight": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T21:11:04.361Z",
       "formHash": "c9bf0f00aeef",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-socialist-kiosk-print": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T01:10:39.194Z",
       "formHash": "f7fe7f9d8d1e",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-vhs-rental-wall": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T00:48:47.540Z",
       "formHash": "4068e0586ee7",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-well-traveled-passport": {
       "status": "approved",
@@ -3557,14 +4592,22 @@
       "reviewedAt": "2026-07-20T21:12:33.476Z",
       "formHash": "8c2835c91e3a",
       "note": "borderline overall",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-wildstyle-blackbook-page": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-25T01:34:49.891Z",
       "formHash": "a82abfefb8e0",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "vernacular-ephemera-worn-playing-card-deck": {
       "status": "rejected",
@@ -3603,14 +4646,23 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T20:38:17.861Z",
       "formHash": "11599cf43054",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     },
     "wayfinding-cartography-signage-salt-stiffened-treasure-map": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T01:01:33.273Z",
       "formHash": "c3a4d2653604",
-      "rating": 3
+      "rating": 3,
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ]
     },
     "wayfinding-cartography-signage-terminal-yellow-wayfinding": {
       "status": "approved",
@@ -3624,7 +4676,11 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:23:14.175Z",
       "formHash": "978837754074",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ]
     }
   }
 }

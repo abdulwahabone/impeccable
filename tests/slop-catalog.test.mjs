@@ -6,6 +6,10 @@ import { ANTIPATTERNS } from '../cli/engine/registry/antipatterns.mjs';
 
 const CRITIQUE_ONLY_RULES = new Set([
   'glassmorphism',
+  // Retired from the deterministic engine but still documented on the slop page:
+  // pairing a display face with a body face is a judgment call, not something a
+  // regex can decide without flagging deliberate single-face systems.
+  'single-font',
   'over-round',
   'sketchy-svg',
   'hero-metric-layout',
