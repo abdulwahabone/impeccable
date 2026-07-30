@@ -1,0 +1,100 @@
+{
+ "schemaVersion": 1,
+ "note": "The company half of a wave brief. It exists because a pilot proved it had to: six worlds drawn against six different aesthetic assignments produced six genuinely unrelated surfaces and six nearly identical companies. Every one was hardware-attached measurement with an offline or regulatory constraint, two of them Rotterdam firms shipping lab instruments. The cause was the prompt, which asked for a hard constraint and then listed examples (regulated, offline-first, hardware-attached), so the examples became the answer. A generator supplied with examples will return those examples, which is the same argmax the aesthetic draw exists to break. So the company is drawn too, from enumerated values, and the wave never sees a list of suggestions. Values are drawn uniformly: unlike the aesthetic axes there is no occupancy to weight against, because the catalog records worlds rather than the companies they were designed for.",
+ "axes": [
+  {
+   "id": "sector",
+   "label": "Sector",
+   "note": "Deliberately wide and deliberately not instrument-heavy, which is the bias the pilot exposed. If a wave starts producing one kind of company again, look here first.",
+   "values": [
+    "municipal water utility", "independent bookshop chain", "commercial fishing cooperative",
+    "youth football league", "funeral services group", "seed bank and germplasm archive",
+    "regional airline", "textile mill", "public library system", "livestock auction house",
+    "dance company", "wildfire insurance underwriter", "container port authority",
+    "community solar cooperative", "podcast network", "prosthetics workshop",
+    "vineyard and wine estate", "school meals supplier", "tattoo studio group",
+    "ferry operator", "commercial bakery", "translation agency", "mountain rescue service",
+    "toy manufacturer", "recycling and materials recovery", "veterinary practice group",
+    "concert promoter", "flood defence engineering", "specialty coffee roaster",
+    "genealogy archive", "esports organisation", "modular housing builder",
+    "beekeeping supply company", "film post-production house", "waste-heat recovery startup",
+    "language school network", "sailmaker", "clinical trial recruiter", "map publisher",
+    "urban farming operator"
+   ]
+  },
+  {
+   "id": "stage",
+   "label": "Stage and size",
+   "values": [
+    "two founders, pre-revenue, no product yet",
+    "eleven people, first paying customers",
+    "forty people, growing fast and breaking things",
+    "two hundred people, professionalising",
+    "eleven hundred people, publicly listed",
+    "a century old, family owned, fourth generation",
+    "a cooperative owned by its members",
+    "a two-person team inside a much larger parent",
+    "post-acquisition, being absorbed",
+    "in managed decline, maintaining a legacy product"
+   ]
+  },
+  {
+   "id": "reader",
+   "label": "Who reads the docs",
+   "note": "The reader shapes the surface more than the sector does. A regulator and a hobbyist want opposite pages from the same company.",
+   "values": [
+    "a customer who did not want to be here and wants to leave",
+    "an integration engineer at a partner company",
+    "a regulator building a case",
+    "a volunteer with no training and no time",
+    "a rival evaluating whether to copy this",
+    "an internal team member on their second day",
+    "a hobbyist doing this for love at 2am",
+    "a procurement officer comparing three vendors",
+    "a journalist checking a claim",
+    "a support agent with the customer on the line",
+    "a translator localising the product",
+    "someone's parent, following instructions over the phone"
+   ]
+  },
+  {
+   "id": "constraint",
+   "label": "The hard constraint",
+   "note": "Deliberately mixed: commercial, social and temporal constraints alongside technical ones. The pilot's prompt listed only technical constraints and got only technical companies.",
+   "values": [
+    "the business is entirely seasonal, dead for eight months",
+    "two sided marketplace, neither side trusts the other",
+    "every customer is contractually unique",
+    "the product is legally required and nobody wants it",
+    "sold through franchises the company does not control",
+    "the audience does not read the company's language",
+    "most usage happens with no network",
+    "the product can kill someone if it is wrong",
+    "the company competes against a free government service",
+    "revenue comes from advertisers, not from readers",
+    "the thing being documented changes weekly",
+    "the thing being documented has not changed in thirty years",
+    "users are anonymous by design and cannot be contacted",
+    "the buyer and the user are different people who disagree",
+    "adoption depends on a community that distrusts the company"
+   ]
+  },
+  {
+   "id": "surface",
+   "label": "The documentation surface",
+   "note": "Docs is not one thing. The pilot converged on dense technical reference partly because nothing said otherwise.",
+   "values": [
+    "a getting-started path for someone in a hurry",
+    "an exhaustive reference nobody reads end to end",
+    "a troubleshooting surface reached in a bad moment",
+    "a conceptual explainer arguing for a way of thinking",
+    "a changelog that has to carry consequence, not just diffs",
+    "a policy and compliance surface with legal weight",
+    "a tutorial that has to survive being followed literally",
+    "an API reference where the examples matter more than the prose",
+    "a glossary that settles arguments",
+    "a migration guide for people who did not want to migrate"
+   ]
+  }
+ ]
+}

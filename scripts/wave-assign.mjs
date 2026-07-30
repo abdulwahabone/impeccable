@@ -46,6 +46,15 @@ const asJson = args.includes('--json');
 
 const worlds = mergeWorlds(read('concept-ingredients.json'), read('concept-reviews.json'));
 const axesDefinition = read('aesthetic-axes.json');
+// The company half. Drawn for the same reason the aesthetic is: a pilot without
+// it produced six unrelated surfaces for six nearly identical companies, because
+// the prompt listed example constraints and the examples became the answer.
+let companyDeck = null;
+try {
+  companyDeck = read('company-deck.json');
+} catch {
+  companyDeck = null;
+}
 const occupancy = computeOccupancy(worlds, axesDefinition);
 const incompatible = axesDefinition.incompatible || [];
 
@@ -78,6 +87,17 @@ function conflicts(chosen, axisId, valueId) {
   });
 }
 
+function drawCompany(index) {
+  if (!companyDeck) return null;
+  // Uniform: unlike the aesthetic axes there is no occupancy to weight against,
+  // because the catalog records worlds rather than the companies they were for.
+  return (companyDeck.axes || []).map(axis => ({
+    axis: axis.id,
+    label: axis.label,
+    value: axis.values[Math.floor(unit(key, index, 'company', axis.id) * axis.values.length) % axis.values.length],
+  }));
+}
+
 function assign(index) {
   const chosen = {};
   const notes = [];
@@ -107,7 +127,7 @@ function assign(index) {
             : `uniform: axis places ${axis.placed}/${occupancy.total}, too little to weight against`,
     });
   }
-  return { index, chosen, notes };
+  return { index, chosen, notes, company: drawCompany(index) };
 }
 
 const briefs = Array.from({ length: count }, (_, index) => assign(index));
@@ -121,6 +141,10 @@ if (asJson) {
   process.stdout.write(`${trusted} of ${occupancy.axes.length} axes are weighted; the rest are drawn uniformly and say so\n`);
   for (const brief of briefs) {
     process.stdout.write(`\n  ${String(brief.index + 1).padStart(2, '0')}\n`);
+    for (const line of brief.company || []) {
+      process.stdout.write(`     ${line.label.padEnd(20)} ${line.value}\n`);
+    }
+    if (brief.company) process.stdout.write(`     ${''.padEnd(20)} ---\n`);
     for (const note of brief.notes) {
       process.stdout.write(`     ${note.label.padEnd(20)} ${note.valueLabel}\n`);
       process.stdout.write(`     ${''.padEnd(20)} ${note.basis}\n`);
