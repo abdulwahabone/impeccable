@@ -6,11 +6,17 @@
 // survived into the next one. That is the "undisciplined one-off waves" problem
 // by its mechanism: not a shortage of ideas, a prompt with no memory.
 //
-// The transfer contract below is the memory. Three judged transfers, where a
-// model built two unrelated surfaces under each identity and reported what
-// broke, returned two page designs and one world. Every prohibition here cites
-// the rule that earned it, so a later reader can overturn one on evidence rather
-// than taste.
+// The transfer contract below is the memory. It is written from nine judged
+// transfers, where a model built two unrelated surfaces under each identity and
+// reported what actually broke. The first three, authored before the contract
+// existed, returned two page designs and one world. The six authored under it
+// returned one page design and five worlds.
+//
+// Every prohibition cites the rule that earned it, so a later reader can
+// overturn one on evidence rather than taste. The two required clauses and the
+// two set-level checks came from the second round: they are absences and
+// interactions, which no prohibition can catch, and they were invisible until
+// the prohibitions stopped the more obvious failures from happening first.
 //
 //   node scripts/wave-brief.mjs --key spring-docs --index 0
 //   node scripts/wave-brief.mjs --key spring-docs --count 6 --out briefs/
@@ -36,15 +42,16 @@ const { axesDefinition, companyDeck, occupancy } = loadWaveInputs();
 // evidence is just a preference and the next author will reasonably ignore it.
 const CONTRACT = `## The transfer contract
 
-A world is not a page design. The difference is testable, and two of the three
-worlds tested so far failed the test, so treat this section as the brief rather
-than as boilerplate.
+A world is not a page design. The difference is testable, and it has been
+tested: nine identities were handed to a model that built two unrelated surfaces
+under each and reported what broke. Three of the nine were page designs. Treat
+this section as the brief rather than as boilerplate.
 
 The test: this identity will be applied to two surfaces it was not designed for,
 by someone who cannot ask you what you meant. A rule that only works on the
 surface you had in mind is not a system rule, it is a description of one page.
 
-### Three prohibitions, each from a world that broke
+### Four prohibitions, each from a world that broke
 
 **1. No rule may presume a data model.**
 
@@ -89,11 +96,34 @@ State each quantity for a page that is 80% photographs the identity did not
 choose. If it cannot hold there, express it as a relationship or a floor rather
 than a fixed share of the surface.
 
+**4. No rule may depend on the reading conditions of a documentation page.**
+
+This one is the hardest to see, because the surface you are designing for is
+documentation, and a rule that quietly assumes its conditions looks fine right
+up until it does not. Four separate judged transfers named it:
+
+  "invisible on documentation, which is single-column, narrow-measure, and read
+   at one width by someone who already wants to be there"
+  "a documentation assumption wearing physics clothes: docs are reference
+   material where a reader tolerates scrubbing"
+  "cannot surface on a documentation page, which has short uniform copy and
+   almost no controls. It surfaces on the first Buy button"
+  the end of a documentation page is a footer, so a rule driving something to a
+   limit at the end of a surface is harmless there and detonates on a landing
+   page, where the end is the sale
+
+So: a documentation reader is already persuaded, reads one column at one width,
+tolerates scrolling and scrubbing, meets few controls, and stops at a footer
+nobody looks at. If a rule is only safe under those conditions, it is not a
+system rule. State it for a reader who has to be convinced, on a wall-sized
+display, with a purchase at the end.
+
 ### The positive bar: a world generates
 
-The one identity that passed did so because it threw off features nobody asked
+The identities that passed did so because they threw off features nobody asked
 for: signup became a ledger entry, a transcript inked green as the playhead
-struck it. The two that failed could only be applied. As the judgement put it,
+struck it, an empty search became a bare rail with the floor showing. The ones
+that failed could only be applied. As the judgement put it,
 what travelled was "a style you could apply to anything, not a world that
 generates anything".
 
@@ -101,13 +131,52 @@ So before returning, name two features this identity produces that this brief
 did not ask for, on two surfaces it was not designed for. If you cannot, the
 identity is a style and it will not survive review.
 
+### Two things every identity must state
+
+The prohibitions above only remove. Six judged transfers found the same two
+defects to be absences, which no prohibition can catch, so state both explicitly
+in your rules.
+
+**An emphasis mechanism.** Every one of the six identities tested could not make
+one thing outrank the things around it. "Nothing can emphasize the plan you want
+sold." "All persuasion runs at 12px." "No hero is possible." "Rank collapsed."
+The cause is structural: documentation hierarchy is sequence and heading, while
+persuasion needs one element to dominate its neighbours, and the drawn
+prohibitions routinely remove the usual tools by forbidding colour-as-state,
+capping type sizes, or banning scale. Name the mechanism that survives your own
+prohibitions, and check it works in every material your palette rule allows. One
+identity made rank the size of a cleared cavity and it was invisible in two of
+its three materials, which turned that world into a page design.
+
+**A legibility contract for body prose over your own ground.** Four transfers
+measured this failing: body text at 77% ink coverage, a control label at 1.13:1
+against its own state colour, two adjacent products at 1.31:1, captions at
+2.4:1. Persuasion is prose, and a drenched or textured ground has no obligation
+to carry it unless you write one. Say how running copy stays readable on the
+worst ground your own rules can produce.
+
+### Two checks to run on the five rules together
+
+**Do any two rules contradict each other?** Three transfers broke here rather
+than on any single rule: an ink-doubling emphasis remedy made inert by a
+one-colour palette rule, a responsive clause promising a cure its own
+crop-not-scale mandate forbids, a topology rule banning off-screen arrival while
+also mandating a clear margin, leaving nowhere legal for navigation. Read the
+five as a set and look for a rule whose remedy another rule removes.
+
+**Does any rule name foreign media?** The clause that repeatedly produced the
+strongest rule in a world was an explicit statement about media the identity did
+not choose. Three transfers named Palette/material as the rule that travelled
+best, every time for that reason: "it is the only rule written with foreign
+content in mind, and it paid off twice."
+
 ### Where the failures cluster
 
-Across the judged transfers, Controls/state travelled every time and was twice
-named the strongest rule, because printed marks and binary-state mechanisms are
-indifferent to content. The material layer travelled too. Both failures came
-from Type/composition and Topology/navigation. Give those two slots the hardest
-version of the three tests above.`;
+Controls/state was named the strongest rule in four of seven judged transfers,
+because printed marks and binary-state mechanisms are indifferent to content.
+That is the plurality, not a law: the other three named Topology and
+Palette/material. Failures cluster in Type/composition and Topology/navigation,
+so give those two slots the hardest version of every test above.`;
 
 const OUTPUT_SHAPE = `## What to return
 

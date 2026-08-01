@@ -57,17 +57,23 @@ behind rounds that lead nowhere.
 Both draws are deterministic from `--key`, so a round is reproducible and a
 prompt change can be measured against a fixed set of assignments.
 
-## What a world is, and how two of three failed to be one
+## What a world is, and how three of nine failed to be one
 
 A world is a durable visual identity. A page design is one surface wearing a
-system's clothes. The distinction sounds academic until it is measured, and when
-it was, **two of the first three worlds put through a judged transfer turned out
-to be page designs**: a model applied each identity to two surfaces it was not
-designed for and reported what broke.
+system's clothes. The distinction sounds academic until it is measured, and it
+has been: nine identities were handed to a model that built two unrelated
+surfaces under each, at three viewport widths, and reported what actually broke.
+
+The contract was written after the first three, of which two were page designs.
+The six authored under it returned **one page design and five worlds**, and every
+author's report names a rule the contract caught mid-draft. Small samples on both
+sides, and the baseline is not perfectly matched, but the mechanism is visible in
+the reports rather than inferred from the ratio.
 
 The contract in `wave-brief.mjs` encodes what that measurement found, and every
 prohibition cites the rule that earned it so a later reader can overturn one on
-evidence rather than taste. Three ways a rule fails to travel:
+evidence rather than taste. Four ways a rule fails to travel, the first three
+from the opening round:
 
 - **It presumes a data model.** "The current revision is the top sheet and each
   prior revision is an offset sheet behind it" presumes revisions exist. "Layer
@@ -81,15 +87,49 @@ evidence rather than taste. Three ways a rule fails to travel:
   45 percent of the surface as the one committed colour" cannot hold on a page
   that is mostly photographs the identity did not choose.
 
-The positive bar is generativity. The identity that passed threw off features
-nobody asked for: signup became a ledger entry, a transcript inked green as the
-playhead struck it. A style is applied; a world generates.
+A fourth prohibition came out of the second round, and it is the hardest to see
+because documentation is the surface being designed for: **no rule may depend on
+the reading conditions of a documentation page.** A documentation reader is
+already persuaded, reads one column at one width, tolerates scrubbing, meets few
+controls, and stops at a footer nobody looks at. Four transfers broke on rules
+that were safe only under those conditions, most vividly a rule driving the
+ground to its highest step at the end of a surface: harmless where the end is a
+footer, and on a landing page it dissolved the buy button.
 
-Where the failures cluster is itself a finding. Controls/state travelled every
-time and was twice named the strongest rule, because printed marks and
-binary-state mechanisms are indifferent to content. The material layer travelled
-too. Both failures came from Type/composition and Topology/navigation, so those
-two slots deserve the hardest version of the tests.
+The positive bar is generativity. The identities that passed threw off features
+nobody asked for: signup became a ledger entry, a transcript inked green as the
+playhead struck it, an empty search became a bare rail with the floor showing. A
+style is applied; a world generates.
+
+**Two defects are absences, so no prohibition can catch them.** Both were
+invisible until the prohibitions stopped the louder failures from happening
+first, and both are now required clauses in the brief:
+
+- **An emphasis mechanism.** All six identities in the second round failed to
+  make one thing outrank its neighbours. Documentation hierarchy is sequence and
+  heading; persuasion needs dominance, and the drawn prohibitions routinely
+  remove the usual tools by forbidding colour-as-state, capping type sizes, or
+  banning scale. This is the corpus's most systematic gap, and it matters because
+  persuade is one of the four modes the catalog serves.
+- **A legibility contract for body prose over the identity's own ground.**
+  Measured failures: body copy at 77% ink coverage, a control label at 1.13:1
+  against its own state colour, two adjacent products at 1.31:1. Persuasion is
+  prose, and a drenched ground carries none of it unless a rule says how.
+
+**Read the five rules as a set, too.** Three transfers broke on rules that
+contradict each other rather than on any single rule: an emphasis remedy made
+inert by a one-colour palette rule, a responsive clause promising a cure its own
+crop-not-scale mandate forbids, a topology rule banning off-screen arrival while
+mandating a clear margin, which leaves nowhere legal for navigation.
+
+Where the failures cluster is itself a finding. Controls/state was named the
+strongest rule in four of the nine transfers, because printed marks and
+binary-state mechanisms are indifferent to content. That is the plurality and not
+a law: the rest named Topology or Palette/material. What repeatedly made
+Palette/material the winner is worth copying, since it was the same clause every
+time, an explicit statement about media the identity did not choose. Failures
+cluster in Type/composition and Topology/navigation, so those two slots deserve
+the hardest version of the tests.
 
 **One caution about the screen.** `world-transfer-check.mjs` runs two probes and
 neither is sufficient. On the three judged worlds the vocabulary probe was right
