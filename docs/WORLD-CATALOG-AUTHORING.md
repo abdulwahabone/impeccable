@@ -39,6 +39,64 @@ The reasoning behind the current grid, including what three independent design
 reviews found missing, is in
 [docs/WORLD-AXES-PROPOSAL.md](WORLD-AXES-PROPOSAL.md).
 
+## The wave pipeline, and never briefing one by hand
+
+A wave runs through five scripts. Use them in order rather than composing a
+brief yourself: the prompt is where every round's findings accumulate, and a
+hand-written brief starts from zero every time. That is the actual mechanism
+behind rounds that lead nowhere.
+
+| step | command | what it decides |
+|---|---|---|
+| assign | `node scripts/wave-assign.mjs --key <k> --count <n>` | the company and the aesthetic, drawn before anything is designed |
+| brief | `node scripts/wave-brief.mjs --key <k> --count <n> --out <dir>` | the authoring prompt, carrying the transfer contract |
+| screen | `node scripts/world-transfer-check.mjs --candidates <f>` | which candidates are worth a judged transfer |
+| dedup | `node scripts/world-dedup.mjs --candidates <f>` | which candidates repeat the catalog or each other |
+| render | `bun run catalog:round` | the specimen board and hero, once the above are clean |
+
+Both draws are deterministic from `--key`, so a round is reproducible and a
+prompt change can be measured against a fixed set of assignments.
+
+## What a world is, and how two of three failed to be one
+
+A world is a durable visual identity. A page design is one surface wearing a
+system's clothes. The distinction sounds academic until it is measured, and when
+it was, **two of the first three worlds put through a judged transfer turned out
+to be page designs**: a model applied each identity to two surfaces it was not
+designed for and reported what broke.
+
+The contract in `wave-brief.mjs` encodes what that measurement found, and every
+prohibition cites the rule that earned it so a later reader can overturn one on
+evidence rather than taste. Three ways a rule fails to travel:
+
+- **It presumes a data model.** "The current revision is the top sheet and each
+  prior revision is an offset sheet behind it" presumes revisions exist. "Layer
+  0 through layer 5" presumes six layers of something.
+- **It dictates the shape of the content.** "Axial symmetry absolute with tables
+  mirrored" demands content arrive in matched pairs. Note that "no two entries
+  share a left edge" contains no product vocabulary at all and still locks the
+  identity to one content shape, which is why a keyword scan cannot be the whole
+  screen.
+- **It states a quantity a hosted surface cannot satisfy.** "The ground carries
+  45 percent of the surface as the one committed colour" cannot hold on a page
+  that is mostly photographs the identity did not choose.
+
+The positive bar is generativity. The identity that passed threw off features
+nobody asked for: signup became a ledger entry, a transcript inked green as the
+playhead struck it. A style is applied; a world generates.
+
+Where the failures cluster is itself a finding. Controls/state travelled every
+time and was twice named the strongest rule, because printed marks and
+binary-state mechanisms are indifferent to content. The material layer travelled
+too. Both failures came from Type/composition and Topology/navigation, so those
+two slots deserve the hardest version of the tests.
+
+**One caution about the screen.** `world-transfer-check.mjs` runs two probes and
+neither is sufficient. On the three judged worlds the vocabulary probe was right
+once and wrong once, the structural probe caught exactly the case the vocabulary
+probe missed, and only running both would have flagged both failures. A clean
+screen is a reason to proceed, never a verdict.
+
 ## The first test: distance from the model's defaults
 
 A challenger exists to counteract a model's habitual page skeleton. Its value is therefore its **distance from what the model would produce unprompted**, and that is the gate every candidate passes or fails before any other question is asked.
