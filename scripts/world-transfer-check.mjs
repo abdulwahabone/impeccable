@@ -80,7 +80,13 @@ const STRUCTURAL = [
   { label: 'forbids shared alignment', re: /no two .{0,30}(share|align)|unaligned|never align|no shared (left )?edge/i },
   { label: 'forbids a grid', re: /no column guides|no grid\b|off-grid|anti-grid/i },
   { label: 'binds colour to one semantic', re: /reserved (exclusively )?for|means? legal status|colour is (legal )?state/i },
-  { label: 'assumes one content type', re: /each (term|entry|step|row|parameter|layer|band|plate) (has|is|carries)/i },
+  // Active possession plus a determiner. The looser first version allowed bare
+  // "is", which made it match the passive "how much ground each step is given",
+  // a sentence about layout proportion with no content assumption in it at all.
+  // What this is meant to catch is an item owning a component: "each term has a
+  // shuttle toggle". Requiring has/carries plus an article keeps that and drops
+  // the passive.
+  { label: 'assumes one content type', re: /\beach (term|entry|step|row|parameter|layer|band|plate) (has|carries) (a|an|its|one|the)\b/i },
 ];
 
 const PREFIXES = ['Palette/material:', 'Type/composition:', 'Topology/navigation:', 'Controls/state:', 'Responsive/motion:'];

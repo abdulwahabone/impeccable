@@ -27,6 +27,7 @@
 //   node scripts/world-dedup.mjs                       audit the catalog itself
 //   node scripts/world-dedup.mjs --threshold 0.09      loosen or tighten
 //   node scripts/world-dedup.mjs --candidates new.json score new entries first
+//   node scripts/world-dedup.mjs --candidates new.json --batch-ratio 1.3
 
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -40,6 +41,24 @@ const flag = (name, fallback) => {
   return index === -1 ? fallback : args[index + 1];
 };
 const threshold = Number(flag('threshold', 0.12));
+// Two candidates from the same wave cannot be judged on the catalog's scale, and
+// the reason is worth stating because it is not obvious and it cost a wrong fix.
+//
+// Measured on the first wave authored under the transfer contract: the four
+// candidates scored 0.080 to 0.119 against each other, median 0.087, while the
+// closest catalog match for any of them was 0.054. Every within-batch pair sat
+// above every candidate-to-catalog pair. That is not four worlds converging. It
+// is four authors reading one brief and inheriting its vocabulary, so the batch
+// starts with a raised floor by construction, and the floor rises further as the
+// brief grows.
+//
+// So an absolute bar is the wrong instrument here: set at the catalog's p99.9 it
+// flagged all six pairs, which is the same useless answer as the original 0.28
+// threshold that flagged none. What carries signal is how far a pair sits above
+// its own batch's median. The 0.119 pair, the one that looked like convergence
+// because both worlds happen to be terrain, is only 1.37 times the median and
+// shares exactly one substantive word.
+const batchRatio = Number(flag('batch-ratio', 1.5));
 const candidatesPath = flag('candidates', null);
 const limit = Number(flag('limit', 20));
 
@@ -106,10 +125,10 @@ const idf = idfMap(corpus);
 
 const pairs = [];
 if (candidates) {
-  // Each candidate against the catalog and against its own batch. Both matter: a
-  // wave repeating itself is as wasteful as a wave repeating the catalog.
+  // Candidates against the catalog. Candidates against each other are scored
+  // further down on their own scale, for the reason given at the top.
   for (let i = 0; i < candidates.length; i += 1) {
-    for (const other of [...existing, ...candidates.slice(i + 1)]) {
+    for (const other of existing) {
       const score = similarity(candidates[i], other, idf);
       if (score >= threshold) pairs.push({ a: candidates[i], b: other, score });
     }
@@ -147,6 +166,31 @@ for (const pair of pairs.slice(0, limit)) {
   process.stdout.write(`         shared: ${sharedTerms(pair.a, pair.b, idf).join(', ')}\n\n`);
 }
 if (pairs.length > limit) process.stdout.write(`  ...and ${pairs.length - limit} more\n`);
+
+if (candidates && candidates.length > 2) {
+  const within = [];
+  for (let i = 0; i < candidates.length; i += 1) {
+    for (let j = i + 1; j < candidates.length; j += 1) {
+      within.push({ a: candidates[i], b: candidates[j], score: similarity(candidates[i], candidates[j], idf) });
+    }
+  }
+  within.sort((x, y) => y.score - x.score);
+  const median = within[Math.floor(within.length / 2)].score || 1;
+  process.stdout.write(`\nwithin this wave: ${within.length} pairs, median ${median.toFixed(3)}\n`);
+  process.stdout.write('Judged against the batch median rather than the catalog threshold, because one\n');
+  process.stdout.write('brief read by every author raises the whole batch and an absolute bar just\n');
+  process.stdout.write('flags all of it. Ratio is what carries signal.\n\n');
+  for (const pair of within.slice(0, 3)) {
+    const ratio = pair.score / median;
+    const mark = ratio >= batchRatio ? 'CONVERGED' : 'ok';
+    process.stdout.write(`  ${pair.score.toFixed(3)}  ${ratio.toFixed(2)}x median  ${mark.padEnd(10)} ${pair.a.id}\n`);
+    process.stdout.write(`         ${''.padEnd(18)} ${pair.b.id}\n`);
+    process.stdout.write(`         shared: ${sharedTerms(pair.a, pair.b, idf).join(', ')}\n`);
+  }
+  const converged = within.filter(p => p.score / median >= batchRatio).length;
+  process.stdout.write(`\n${converged} pair(s) at or above ${batchRatio}x the batch median.\n`);
+  if (converged === 0) process.stdout.write('The wave separated. Shared words in the top pair are mostly brief vocabulary.\n');
+}
 
 if (candidates) {
   const blocked = new Set(pairs.filter(p => p.a.isNew).map(p => p.a.id));
