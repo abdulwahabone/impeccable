@@ -51,8 +51,15 @@ const entries = JSON.parse(readFileSync(path.isAbsolute(file) ? file : path.join
 // or behavioural property. A world may mention these in its form, spark and
 // lineage, which are allowed to be about something. Its system rules may not,
 // because those are what get applied to a different surface.
+// Bare "reading" is deliberately absent. It was here for a sensor reading and it
+// matched "a set label and a reading size", which is ordinary typographic
+// vocabulary, so it flagged a Type/composition rule that was doing nothing
+// wrong. The plural stays: "readings" is instrument language almost every time,
+// while the singular collides with how designers talk about type. Third time
+// this corpus has punished an over-broad match, after "every" in the density
+// probe and "akan" inside "Wakandan".
 const DOMAIN = [
-  'firmware', 'calibration', 'calibrat', 'sensor', 'telemetry', 'reading', 'readings',
+  'firmware', 'calibration', 'calibrat', 'sensor', 'telemetry', 'readings',
   'dispute', 'disputed', 'deposit', 'refund', 'claim', 'tolerance', 'citation',
   'regulation', 'regulatory', 'compliance', 'audit', 'lot number', 'serial',
   'procedure', 'parameter', 'revision', 'jurisdiction', 'spectrum', 'vial',
