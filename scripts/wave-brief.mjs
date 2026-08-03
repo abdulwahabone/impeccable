@@ -194,6 +194,10 @@ One JSON object. No prose around it.
                   Controls/state:
                   Responsive/motion:
   webLeverage   a buildable commitment, the technique a build must implement
+  strength      "world" or "dual". Never "composition": the review tool refuses
+                to approve a world-catalog entry at composition strength, and
+                every entry left there in one round was rejected. "dual" claims
+                the idea also works as a staging, so earn it or say "world".
   tags          three or four
   axes          the drawn axis values below, verbatim, as an object
 
