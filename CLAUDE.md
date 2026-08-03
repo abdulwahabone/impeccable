@@ -210,6 +210,10 @@ The card is referenced as a **sitewide default** in `site/layouts/Base.astro` (e
 
 ## Build System
 
+### Materialized from the public repo (do not edit here)
+
+`skill/`, `cli/`, `.claude-plugin/`, and the shared bundle builder under `scripts/lib/` (`transformers/`, `assets/`, `utils.js`, `zip.js`, `openai-plugin.js`, `codex-plugin.js`, `validate-plugin-versions.js`, `skill-categories.js`) are **owned by the public pbakaus/impeccable repo** and gitignored here. `scripts/fetch-public-skill.mjs` materializes them (from public main by default, or symlinked from a sibling checkout via `IMPECCABLE_SKILL_SRC`); provenance lands in `.skill-source.json`. Run `bun run skill:refresh` to re-materialize. Edits to any of these belong in the public repo, not this one. `scripts/build.js` and the site-only libs (`api-data.js`, `sub-pages-data.js`) stay tracked and site-owned.
+
 The build system compiles the impeccable skill from `skill/` to provider-specific formats in `dist/`. The default build is source-first and does not sync tracked root harness folders; the release build performs the tracked distribution sync:
 
 ```bash
@@ -224,7 +228,7 @@ Source files use placeholders that get replaced per-provider:
 - `{{config_file}}` — Config file name (CLAUDE.md, .cursorrules, etc.)
 - `{{ask_instruction}}` — How to ask user questions
 - `{{command_prefix}}` — `/` or `$` depending on provider
-- `{{available_commands}}` — auto-populated list of commands (from `IMPECCABLE_SUB_COMMANDS` in `scripts/lib/utils.js`)
+- `{{available_commands}}` — auto-populated list of commands (from `IMPECCABLE_SUB_COMMANDS` in `scripts/lib/utils.js`, materialized from the public repo — see below)
 - `{{scripts_path}}` — provider-aware path to the skill's scripts directory
 
 ### Generated provider output policy
@@ -261,7 +265,7 @@ bun run test:skill-behavior   # Opt-in: LLM-backed checks that the skill text ac
 
 Unit tests (build orchestration, detector logic) run via `bun test`. Fixture tests (jsdom-based HTML detection) run via `node --test` because bun is too slow with jsdom. The `test` script handles this split automatically.
 
-**Important:** `tests/build.test.js` uses `spyOn(transformers, 'transformCursor')` with the named exports from `scripts/lib/transformers/index.js`. Those named exports (`transformCursor`, `transformClaudeCode`, etc.) are kept specifically for test spying, even though `build.js` itself uses `createTransformer + PROVIDERS` directly. **Do not delete them as "dead code"** — I made that mistake once and broke 8 tests.
+**Important:** `tests/build.test.js` uses `spyOn(transformers, 'transformCursor')` with the named exports from `scripts/lib/transformers/index.js` (materialized from the public repo). Those named exports (`transformCursor`, `transformClaudeCode`, etc.) are kept specifically for test spying, even though `build.js` itself uses `createTransformer + PROVIDERS` directly. **Do not delete them as "dead code"** — that lives in pbakaus/impeccable now, and deleting them there broke 8 tests here once.
 
 ### Live-mode E2E
 
@@ -394,10 +398,10 @@ All commands live under `/impeccable`. To add a new one:
 1. Create `skill/reference/<command>.md` with the command's instructions (this is what the LLM loads when the command is invoked)
 2. Add a row to the **Sub-command reference table** in `skill/SKILL.src.md`
 3. Add an entry to the **Command menu** section in the same file
-4. Add the command name to `IMPECCABLE_SUB_COMMANDS` in `scripts/lib/utils.js`
+4. Add the command name to `IMPECCABLE_SUB_COMMANDS` in `scripts/lib/utils.js` (in the public pbakaus/impeccable repo; the copy here is materialized)
 5. Add it to `VALID_COMMANDS` in `skill/scripts/pin.mjs`
 6. Add its metadata (description + argumentHint) to `skill/scripts/command-metadata.json`
-7. Add its category to `SKILL_CATEGORIES` in `scripts/lib/sub-pages-data.js`
+7. Add its category to `SKILL_CATEGORIES` in **both** `scripts/lib/skill-categories.js` (public repo, drives the generated `argument-hint`) and `scripts/lib/sub-pages-data.js` (site-owned, drives the docs pages; has a missing-entries guard)
 8. Add its relationships (leadsTo / pairs / combinesWith) to `COMMAND_RELATIONSHIPS` in the same file
 9. Add the same category entry to `site/scripts/data.js` `commandCategories` and `commandProcessSteps` (for the homepage carousel)
 10. Add symbol + number to `commandSymbols` and `commandNumbers` in `site/scripts/components/framework-viz.js` (periodic table)

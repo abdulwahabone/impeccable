@@ -1,9 +1,12 @@
 #!/usr/bin/env node
-// Materializes the public impeccable repo's skill/, cli/, and .claude-plugin/
-// into this checkout. Those directories are gitignored here: this repo owns the
-// catalog, the site, and the API, and the public repo owns the skill. Keeping a
-// tracked mirror meant the two drifted silently, which is how the roll API ended
-// up dealing one unfiltered staging while the seeder dealt three gated ones.
+// Materializes the public impeccable repo's skill/, cli/, .claude-plugin/, and
+// the shared bundle-builder files under scripts/lib/ into this checkout. Those
+// paths are gitignored here: this repo owns the catalog, the site, and the API,
+// and the public repo owns the skill and its builder. Keeping tracked mirrors
+// meant the two drifted silently, which is how the roll API ended up dealing
+// one unfiltered staging while the seeder dealt three gated ones, and how the
+// served bundles were compiled by a builder frozen at the July 2026 repo split
+// (pbakaus/impeccable#475).
 //
 // Sources, in precedence order:
 //   --force                  always the public main tarball, ignoring any
@@ -26,7 +29,26 @@ import { join, resolve } from 'node:path';
 const TARBALL = 'https://github.com/pbakaus/impeccable/archive/refs/heads/main.tar.gz';
 // .claude-plugin carries the released version the build stamps into every
 // SKILL.md and version.json; without it the bundle keeps a stale number.
-const OVERLAY_DIRS = ['skill', 'cli', '.claude-plugin'];
+// The scripts/lib entries are the shared bundle builder (transformers plus
+// the helpers they and build.js import). They used to be tracked copies,
+// frozen at the July 2026 repo split, so the served bundles were compiled
+// with a builder that predated reference/degraded/ generation and shipped
+// dangling links (pbakaus/impeccable#475). Sourcing them from the same
+// tarball as skill/ makes that drift impossible. scripts/build.js itself
+// stays site-owned: its validation scope and redirects are deliberate forks.
+const OVERLAY_PATHS = [
+  'skill',
+  'cli',
+  '.claude-plugin',
+  'scripts/lib/transformers',
+  'scripts/lib/assets',
+  'scripts/lib/utils.js',
+  'scripts/lib/zip.js',
+  'scripts/lib/openai-plugin.js',
+  'scripts/lib/codex-plugin.js',
+  'scripts/lib/validate-plugin-versions.js',
+  'scripts/lib/skill-categories.js',
+];
 const STAMP = '.skill-source.json';
 
 const force = process.argv.includes('--force');
@@ -56,7 +78,7 @@ if (process.argv.includes('--assert-public')) {
   process.exit(0);
 }
 
-const materialized = OVERLAY_DIRS.every(dir => existsSync(dir));
+const materialized = OVERLAY_PATHS.every(p => existsSync(p));
 const stamp = readStamp();
 if (materialized && stamp && !force && !refresh) {
   process.stdout.write(`fetch-public-skill: already materialized from ${stamp.source}, skipping\n`);
@@ -66,10 +88,10 @@ if (materialized && stamp && !force && !refresh) {
 function clearTargets() {
   // lstat, not exists: an override leaves symlinks behind, and rmSync must
   // remove the link rather than recurse into the sibling checkout and delete it.
-  for (const dir of OVERLAY_DIRS) {
+  for (const p of OVERLAY_PATHS) {
     try {
-      lstatSync(dir);
-      rmSync(dir, { recursive: true, force: true });
+      lstatSync(p);
+      rmSync(p, { recursive: true, force: true });
     } catch {
       // nothing there yet
     }
@@ -78,16 +100,19 @@ function clearTargets() {
 
 function materializeFromLocal(src) {
   const root = resolve(src);
-  for (const dir of OVERLAY_DIRS) {
-    if (!existsSync(join(root, dir))) {
-      process.stderr.write(`fetch-public-skill: ${root} has no ${dir}/ (is IMPECCABLE_SKILL_SRC pointing at the impeccable repo?)\n`);
+  for (const p of OVERLAY_PATHS) {
+    if (!existsSync(join(root, p))) {
+      process.stderr.write(`fetch-public-skill: ${root} has no ${p} (is IMPECCABLE_SKILL_SRC pointing at the impeccable repo?)\n`);
       process.exit(1);
     }
   }
   clearTargets();
   // Symlinks, not copies: the point of the override is that edits in the
   // sibling checkout are visible here immediately, with no re-sync step.
-  for (const dir of OVERLAY_DIRS) symlinkSync(join(root, dir), dir, 'dir');
+  for (const p of OVERLAY_PATHS) {
+    const type = lstatSync(join(root, p)).isDirectory() ? 'dir' : 'file';
+    symlinkSync(join(root, p), p, type);
+  }
   let head = 'unknown';
   let dirty = false;
   try {
@@ -109,7 +134,7 @@ async function materializeFromPublic() {
     execFileSync('tar', ['-xzf', tarPath, '-C', work]);
     const extracted = join(work, 'impeccable-main');
     clearTargets();
-    for (const dir of OVERLAY_DIRS) cpSync(join(extracted, dir), dir, { recursive: true });
+    for (const p of OVERLAY_PATHS) cpSync(join(extracted, p), p, { recursive: true });
     return { source: 'public-main', head: 'unknown', dirty: false, linked: false };
   } finally {
     rmSync(work, { recursive: true, force: true });
@@ -123,10 +148,10 @@ const provenance = (!force && override)
 
 writeFileSync(STAMP, `${JSON.stringify({
   ...provenance,
-  dirs: OVERLAY_DIRS,
+  paths: OVERLAY_PATHS,
   materializedAt: new Date().toISOString(),
 }, null, 2)}\n`);
 
 const how = provenance.linked ? 'symlinked' : 'copied';
 const note = provenance.dirty ? ' (sibling checkout has uncommitted changes)' : '';
-process.stdout.write(`fetch-public-skill: ${how} ${OVERLAY_DIRS.join(', ')} from ${provenance.source}${note}\n`);
+process.stdout.write(`fetch-public-skill: ${how} ${OVERLAY_PATHS.join(', ')} from ${provenance.source}${note}\n`);
