@@ -32,33 +32,51 @@ still be nothing in particular, which is exactly what happened.
 
 ## The change
 
-**One new field, `mechanic`.** A single sentence naming the one device this
-world owns, stated so a reader can check whether it appeared. Not a mood, not a
-palette, not a list. The result-code gutter read down one column. The revision
-bleed on rows that changed. Untethered means unavailable. The cavity dug into
-the field, held open while in use, closed by the material falling back in.
+**Reviewer challenge, tested 2026-08-04: how is this different from `form`?**
+It largely is not, and the catalog data agrees. The validator already demands
+that `form` name "a form and inherited structure after a comma", and the worlds
+rejected as boring all did: waxed galleys overlapping while the reverse of the
+sheet ghosts through, any line printed latent in the matte, a redrawn figure
+cropped hard by the trim. Those are devices. They did not discriminate, because
+the approved worlds in the same wave have them too.
 
-**One requirement in every mode bar.** The mechanic must be visible on all three
-rendered surfaces, and it must survive the world's own prohibitions in every
-material the palette rule allows. One world in a judged transfer made rank the
-size of a cleared cavity, and the cavity was invisible in two of its three
-materials. That world became a page design, and a stated mechanic plus this
-check would have caught it at authoring time rather than after a render.
+So the field is dropped. Two things survive, and only one of them is new.
 
-**One new field, `avoid`.** Two or three negations specific to this world: the
-slop it is personally at risk of. A world built from posters is at risk of
-shouting; a world built from instruments is at risk of dead greys. The global
-detector cannot know which, and the author does.
+**Singularity, which is guidance on `form` rather than a field.** The broadsheet
+names three devices in one sentence, one type size and overlapping galleys and a
+verso ghost, and singles out none of them. The comparison catalog names exactly
+one per entry. Ask for one and let the rest be consequences of it.
+
+**Falsifiability, which is the real idea and is a review check, not a schema
+change.** The question is not "does this world name a device" but "can you point
+at the device in this render". A sentence can promise something that never
+survives to the image, and that is exactly what happened: the feelie handbook's
+latent ink is a genuine mechanism on paper and invisible in a rendered docs page.
+Every other gate we own reads the text. This one reads the artifact, which is
+the only evidence that has been reliable.
+
+Concretely that is a question in the review UI beside the render, answered from
+the image alone:
+
+  Point at this world's one device. If you cannot find it, the world is
+  competent and anonymous, which is the rejection we have no vocabulary for.
+
+**`avoid` stands, unchanged.** Two or three negations specific to this world,
+the slop it is personally at risk of. A world built from posters risks shouting;
+a world built from instruments risks dead greys. The global detector cannot know
+which, and the author does. This one is a genuine schema addition and the
+cheapest part of the proposal.
 
 ## What it costs
 
-- A schema addition in `concept-catalog.mjs`, and therefore a validator change
-  in the public repo.
-- A line in each of the four mode bars.
-- Backfill for 541 existing entries, which is the real cost. Most of them
-  arguably have a mechanic already, unstated, recoverable from `form` plus
-  `system[3]`. That is a batch job, not hand work, but it is not free and it
-  should be checked rather than trusted.
+Much less than the first draft, now that the field is gone.
+
+- `avoid` is a schema addition in `concept-catalog.mjs`, and therefore a
+  validator change in the public repo. Optional rather than required, so no
+  backfill: 541 entries without it stay valid.
+- The point-at-the-device question is a line in the review UI and a line in each
+  mode bar. No schema, no backfill.
+- Tightening `form` to one device is guidance only, and applies to new entries.
 
 ## Why it is worth it
 
@@ -82,7 +100,9 @@ needs an argument, it is not a mechanic.
 
 ## Open question for the reviewer
 
-Does a mechanic belong to the world, or to the world plus the mode? A revision
-bleed is a mechanic for operate and probably meaningless on a landing page. If
-mechanics turn out to be mode-specific, the field wants to be a small map rather
-than a sentence, and that is a bigger change than this proposal describes.
+Whether the point-at-the-device question is asked per mode. A revision bleed
+reads on an operating surface and probably means nothing on a landing page, so a
+world may own a device that is only findable in one of its three renders. If so
+the question is asked against the render for the mode being judged, not against
+all three, and a world that shows its device in one render out of three is
+telling you which modes it belongs to.
