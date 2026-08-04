@@ -25,6 +25,20 @@ const STATE_PATH = join(CARD_DIR, '.published.json');
 const BUCKET = 'impeccable-world-cards';
 const CONCURRENCY = 6;
 
+// Reject anything unrecognised rather than ignoring it. This script uploads to a
+// public bucket, and a flag that looks like a safety and silently is not is
+// worse than no flag: `--dry-run` was passed once, ignored, and a real publish
+// of 299 cards was attempted. It failed only because the wrangler spawn did not
+// resolve, which is luck rather than a guard.
+const KNOWN_FLAGS = new Set(['--force', '--all', '--dry-run']);
+const unknown = process.argv.slice(2).filter(arg => !KNOWN_FLAGS.has(arg));
+if (unknown.length > 0) {
+  console.error(`unknown flag(s): ${unknown.join(', ')}`);
+  console.error(`known: ${[...KNOWN_FLAGS].join(', ')}`);
+  process.exit(1);
+}
+
+const dryRun = process.argv.includes('--dry-run');
 const force = process.argv.includes('--force');
 // The bucket is public, so only reviewed and approved art belongs in it.
 // Rejected concepts are dead veins and pending ones have not been seen yet;
@@ -53,7 +67,13 @@ const queue = files.filter(file => {
 const withheld = all ? 0 : files.filter(file => !isApproved(file.replace(/(-hero|-docs)?\.webp$/, ''))).length;
 if (withheld > 0) console.log(`withholding ${withheld} card(s) for unapproved concepts (pass --all to include them)`);
 
-console.log(`publishing ${queue.length} of ${files.length} cards to r2://${BUCKET}`);
+console.log(`${dryRun ? 'would publish' : 'publishing'} ${queue.length} of ${files.length} cards to r2://${BUCKET}`);
+if (dryRun) {
+  for (const file of queue.slice(0, 20)) console.log(`  ${file}`);
+  if (queue.length > 20) console.log(`  ...and ${queue.length - 20} more`);
+  console.log('\nNothing uploaded. Drop --dry-run to publish.');
+  process.exit(0);
+}
 let done = 0;
 let failed = 0;
 
