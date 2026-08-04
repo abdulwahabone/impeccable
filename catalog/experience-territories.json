@@ -1,0 +1,67 @@
+{
+ "schemaVersion": 1,
+ "mode": "experience",
+ "note": "Traditions built to be moved through rather than read or operated: sequences, thresholds, rooms and reveals. For portfolios, showcases, story surfaces and anything whose job is to be an occasion. It shares the persuade deck's property, that the catalog's flagships are beloved things carrying a time of day and a place you can stand in, and differs in what it asks of them: persuade needs one moment to dominate, experience needs an order that rewards going through it.",
+ "axes": [
+  {
+   "id": "territory",
+   "label": "Sequence tradition",
+   "note": "Practices with a deliberate order and a threshold. The canonical peak of a specific dated practice, never the genre.",
+   "values": [
+    "a magic lantern lecture's dissolving views",
+    "a Victorian phantasmagoria's approach and retreat",
+    "a peep show box's forced perspective",
+    "a diorama rotunda's painted horizon",
+    "a planetarium's dome programme",
+    "a natural history habitat group behind glass",
+    "a wunderkammer's ordered drawers",
+    "a Japanese scroll painting unrolled at reading speed",
+    "an emakimono's right-to-left continuous narrative",
+    "a Noh stage's bridgeway entrance",
+    "a tea house's crawl-through entrance and prepared path",
+    "a Zen dry garden viewed from one fixed position",
+    "an English landscape garden's designed sequence of views",
+    "a pilgrimage route's waymarks and stations",
+    "a cathedral's processional axis and rood screen",
+    "a Wagnerian darkened auditorium and sunken pit",
+    "a ghost train's staged encounters",
+    "a haunted attraction's queue as first act",
+    "a dark ride's omnimover and forced sightlines",
+    "a world's fair pavilion's one-way circulation",
+    "a museum blockbuster's timed-entry sequence",
+    "a son et lumiere on a building facade",
+    "an ice rink or velodrome's lit interior at night",
+    "a drive-in cinema at dusk",
+    "a Cinerama or IMAX curved-screen premiere",
+    "a 1970s hi-fi listening room with a single sweet spot",
+    "a nightclub's cloakroom, corridor and floor",
+    "an after-hours warehouse party's found architecture",
+    "a Kubrick one-point-perspective corridor",
+    "a Powell and Pressburger Technicolor stairway",
+    "a Czech laterna magika stage",
+    "an Expo film in the round",
+    "a demoscene demo's timed sequence",
+    "a laserdisc arcade game's cut scenes",
+    "an early CD-ROM's rendered navigable space",
+    "a text adventure's rooms and exits"
+   ]
+  },
+  {
+   "id": "surface",
+   "label": "The experience surface to design",
+   "values": [
+    "a studio or designer portfolio",
+    "a single project case study",
+    "an annual report as a story",
+    "a scrollytelling feature with data",
+    "an album or film release site",
+    "an exhibition or festival microsite",
+    "a brand manifesto that has to be felt",
+    "an interactive archive with no obvious entry point",
+    "a personal site that is its own argument",
+    "a product story told before any product is shown"
+   ]
+  }
+ ],
+ "bar": "## The experience bar, which is not the bar for other modes\n\nThis world will be dealt to portfolios, case studies and story surfaces. Its\njob is to be an occasion, which makes it the mode most likely to produce\nsomething beautiful and most likely to produce something empty.\n\n**Name the order.** An experience world has a first thing, a threshold and a\nreward. Say what the surface does before anything is understood, what marks\nthe crossing, and what going further buys. A world that is only an atmosphere\nhas no order, and the catalog's record on that is unambiguous: the atmosphere\ntier converts at 12% against 37% for interaction, and every rejection that read\n\"too abstract\" or \"doesn't translate\" was a mood without a sequence.\n\n**Motion is allowed to matter here.** In the other modes motion is trim. Here\nit can be the mechanism, but state it as a law rather than a flourish: what\nmoves, against what, and what it costs a reader who arrives with motion\nreduced. A world whose whole idea disappears under a reduced-motion setting has\none idea and no system.\n\n**It still has to be a system.** The temptation in this mode is a single\nunrepeatable set piece. Your five rules must dress a second page, an index, an\nabout page, a 404. The judged transfers were emphatic on this: a style is\napplied, a world generates. Name what your identity does on a surface it was\nnever designed for and did not want.\n\n**What earns a flagship here.** The same property as persuade, since these two\nmodes are what the catalog's 102 three-star worlds are mostly made of: a time\nof day, a place you can stand in, and a subculture that loved it. Put that in\nthe spark and let it drive the material."
+}

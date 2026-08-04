@@ -21,7 +21,7 @@
 //   node scripts/wave-brief.mjs --key spring-docs --index 0
 //   node scripts/wave-brief.mjs --key spring-docs --count 6 --out briefs/
 
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { drawBrief, loadWaveInputs, unit } from './lib/wave-draw.mjs';
 
@@ -41,45 +41,35 @@ const outDir = flag('out', null);
 const mode = flag('mode', null);
 
 const { axesDefinition, companyDeck, occupancy } = loadWaveInputs();
+// A mode is a deck file, not a branch. Adding one means adding
+// catalog/<mode>-territories.json with its own axes and its own bar; nothing
+// here needs to know the mode exists.
 let modeDeck = null;
-if (mode === 'read') {
-  modeDeck = JSON.parse(readFileSync(path.join(process.cwd(), 'catalog', 'read-territories.json'), 'utf8'));
+if (mode) {
+  const deckPath = path.join(process.cwd(), 'catalog', `${mode}-territories.json`);
+  if (!existsSync(deckPath)) {
+    process.stderr.write(`no deck for mode "${mode}". Expected ${path.relative(process.cwd(), deckPath)}\n`);
+    process.exit(1);
+  }
+  modeDeck = JSON.parse(readFileSync(deckPath, 'utf8'));
 }
 
-const READ_BAR = `## The read bar, which is not the bar for other modes
+// One clause for every mode, because it is the failure that shows up in all of
+// them and it is checkable before a render. The authoring guide already says
+// why: low-contrast, desaturated and single-hue palettes fail at the render gate
+// no matter how sound the world is. A reading brief is not a licence for
+// restraint.
+const PALETTE_CLAUSE = `## One clause that applies whatever the mode
 
-This world will be dealt to documentation, essays, and long-form reading. Two
-things fail a read world, they pull against each other, and clearing both at
-once is the whole difficulty.
+Commit the palette. A world whose render could be mistaken for a default
+template has failed even when every rule is sound, and the way that happens is
+almost always one hue on a near-neutral ground. Name the committed colours and
+the material, and make them visible in the furniture: the rules, the margins,
+the controls, the ground itself.
 
-**Unreadable.** The tradition has only a display voice, so body copy inherits
-poster lettering. One audited world set its hierarchy by size alone and rendered
-four paragraphs of running text in all caps. The reviewer's rule, and it is
-checkable from your Type/composition rule before anything is drawn:
-
-  a world can serve read only if its system contains a BODY FACE,
-  not only a display voice.
-
-Name both faces, or name one face and the two sizes it works at, and state the
-measure. If your tradition never set a paragraph, it cannot supply one.
-
-**Generic.** Perfectly readable and something a model produces unprompted. Every
-entry mined from contemporary web practice failed here: the reviewer's note on
-two of them was "super boring, an llm produces this on its own". Do not reach for
-a modern documentation site, a neutral greyscale product surface, or a dark
-developer console. Those are the default, which is what a challenger exists to
-displace.
-
-Your assigned tradition clears the second by being specific and dated, and
-clears the first by having had running text as its actual job. Keep both
-properties. The failure to avoid is taking the display side of a reading
-tradition: the catalog already holds a Pelican jacket and no Pelican page, a
-cover where the interior typography was the point.
-
-**Reading is the job.** Hierarchy serves comprehension, not impact. The surface
-may be distinctive in its furniture, its rules, its margins, its ornament and its
-colour, and it may not buy that distinctiveness out of the legibility of running
-prose.`;
+The opposite failure is real and rarer: a world so insistent it can only ever
+dress one kind of site. The target is a world you recognise at a glance and can
+still wear on an arbitrary build.`;
 
 // The contract every candidate is written against. Each entry names the rule
 // from a judged transfer that produced it, because a prohibition without its
@@ -323,7 +313,9 @@ function renderBrief(brief) {
   }
   lines.push('');
   lines.push(CONTRACT);
-  if (modeDeck) { lines.push(''); lines.push(READ_BAR); }
+  lines.push('');
+  lines.push(PALETTE_CLAUSE);
+  if (modeDeck?.bar) { lines.push(''); lines.push(modeDeck.bar); }
   lines.push('');
   lines.push(OUTPUT_SHAPE);
   lines.push('');

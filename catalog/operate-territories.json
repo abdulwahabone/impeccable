@@ -1,0 +1,67 @@
+{
+ "schemaVersion": 1,
+ "mode": "operate",
+ "note": "Traditions of instruments and controls, for app UI, admin, dashboards and tools. This is where a wave buys the most: the interaction tier converts at 37%, the best of the three, and holds only 43 entries, the smallest, while signals-instruments converts at 39% from 18 entries. The trap is specific and already documented. Contemporary product surfaces, a neutral greyscale marketing page, a dark developer console, are what a model produces unprompted, and two such entries were rejected with the note \"super boring, an llm produces this on its own\". So the deck reaches for instruments that were built to be operated by hand under real consequence, never for software that already looks like software.",
+ "axes": [
+  {
+   "id": "territory",
+   "label": "Instrument tradition",
+   "note": "Panels, desks and consoles that someone worked at. Each had to survive being used for hours by a person who could not afford to misread it, which is where an operate world's state vocabulary comes from.",
+   "values": [
+    "an analogue recording desk's channel strip",
+    "a modular synthesiser patchbay in mid-session",
+    "a broadcast vision-mixing gallery under tally light",
+    "a film editing Steenbeck at the bench",
+    "a darkroom enlarger timer and safelight bench",
+    "a telephone exchange cord switchboard",
+    "a railway signal box's lever frame and track diagram",
+    "a ship's bridge engine order telegraph and chart table",
+    "a submarine's trim and ballast control panel",
+    "an airliner flight engineer's overhead panel",
+    "a glider cockpit's minimal instrument stack",
+    "a lighthouse keeper's watch room",
+    "a power station control room's mimic board",
+    "a water treatment works' pipe schematic panel",
+    "a brewery's temperature and gravity control board",
+    "a Linotype operator's keyboard and magazine",
+    "a letterpress compositor's type case and galley",
+    "a weaving mill's jacquard control deck",
+    "a lathe and mill machinist's dial and vernier",
+    "a watchmaker's bench with loupe and movement holder",
+    "a chemistry fume hood's rack and burette board",
+    "a hospital anaesthetic machine's flowmeter bank",
+    "a dialysis or perfusion console",
+    "a seismograph station's drum recorder",
+    "a weather station's barograph and instrument screen",
+    "an observatory's setting circles and plate archive",
+    "a HAM radio shack's rack and log",
+    "a Teletype and paper tape station",
+    "a nixie-tube laboratory counter",
+    "an oscilloscope on a signal bench",
+    "a mainframe operator's console and tape library",
+    "a Xerox Star or Alto desktop before conventions settled",
+    "a synthesiser sequencer's step grid from the hardware era",
+    "a pinball machine's backbox scoring logic",
+    "an arcade cabinet's service menu and dip switches",
+    "a stage lighting board's preset scene faders"
+   ]
+  },
+  {
+   "id": "surface",
+   "label": "The operating surface to design",
+   "values": [
+    "a dashboard read at a glance many times a day",
+    "an admin table with bulk actions and destructive edges",
+    "a settings surface with dependent and unavailable options",
+    "a queue or inbox worked through under time pressure",
+    "a monitoring surface where something is currently wrong",
+    "a multi-step configuration wizard that must be resumable",
+    "a scheduling or calendar surface with conflicts",
+    "an editor with a canvas, a tool palette and inspectors",
+    "a permissions or access-control surface with real consequence",
+    "a data entry form used hundreds of times a day"
+   ]
+  }
+ ],
+ "bar": "## The operate bar, which is not the bar for other modes\n\nThis world will be dealt to app UI, admin and tools. The register here is\nearned familiarity rather than distinctiveness for its own sake: a fluent user\nof Linear, Figma or Stripe should trust it on sight. That does not mean looking\nlike them.\n\n**State is the whole job.** An operating surface is mostly states: selected,\ndisabled, pending, failed, stale, destructive, unavailable-because-of-something\nelse. Name a state vocabulary that reads without colour, because colour is the\nfirst thing a theme, a projector or a colourblind user takes away. The rules\nthat travelled best across nine judged transfers were exactly this kind: state\nas physical position, a printed mark, a struck line, a die-cut hole. Your\nassigned instrument had to solve this under real consequence, so take its\nanswer rather than inventing one.\n\n**It has to survive repetition.** This surface is used for hours, every day, by\nsomeone who is not admiring it. A device that delights once and grates on the\nfortieth pass is a persuade device in the wrong mode. Say what the world does\nat rest, because at rest is where it mostly lives.\n\n**Density is not the enemy.** Operating surfaces carry a lot and generous\nemptiness often reads as an unfinished tool. Say how the world stays legible\nwhen packed, and prefer rules, hairlines and grouping over space.\n\n**The failure to avoid.** Do not author a contemporary product surface. A\nneutral greyscale application, a soft-cornered card on a warm tint, a dark\ndeveloper console: the catalog holds all three, they are what a model produces\nunprompted, and two were rejected as boring on exactly that ground. Your\ntradition is an instrument someone worked at, not software that already looks\nlike software."
+}

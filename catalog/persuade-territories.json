@@ -1,0 +1,67 @@
+{
+ "schemaVersion": 1,
+ "mode": "persuade",
+ "note": "Traditions whose job was to make you want something. This deck is stocked on a different property from the read deck, and the difference is measured rather than assumed: an analysis of all 102 three-star worlds found them overwhelmingly beloved, reproduced graphics with a time of day, a place you can stand in, and a subculture that loved them. A dial-up bulletin board at 2 a.m., a printing darkroom under amber safelight, a rail concourse split-flap board at rush hour. That property predicts a flagship here and anti-predicted in the read wave, which is the clearest evidence the two modes want different things.",
+ "axes": [
+  {
+   "id": "territory",
+   "label": "Persuading tradition",
+   "note": "Always the canonical peak of a specific dated practice, never the genre. A record sleeve is a genre; a Blue Note session sleeve is a world. Prefer traditions people collected, queued for, or kept.",
+   "values": [
+    "a Blue Note session sleeve from the Reid Miles years",
+    "a Polish film poster from the Cybis and Swierzy school",
+    "a Cuban ICAIC silkscreen film poster",
+    "a Ghanaian mobile-cinema hand-painted film banner",
+    "a Bollywood hand-painted showcard from the Nadiadwala era",
+    "a Japanese pachinko parlour facade at dusk",
+    "a Hong Kong neon shopfront sign in its last working year",
+    "a Blackpool illuminations frontage",
+    "a fairground waltzer's airbrushed panelling",
+    "a wrestling territory's arena poster",
+    "a soundsystem dance flyer from Kingston",
+    "a Chicago house record label's sleeve system",
+    "a Detroit techno twelve-inch label",
+    "a rave flyer from the Fantazia and Dreamscape years",
+    "a Memphis Milano furniture catalogue",
+    "a Braun product catalogue under Rams",
+    "an Olivetti campaign under Pintori",
+    "a Container Corporation of America institutional ad",
+    "a Pan Am jet-age brochure",
+    "a Cunard or Normandie crossing brochure",
+    "a Wiener Werkstatte postcard series",
+    "a Soviet constructivist advertising kiosk",
+    "an Italian futurist manifesto broadside",
+    "a Mexican lucha libre cartel",
+    "a Day-Glo psychedelic Fillmore handbill",
+    "a Push Pin Studios promotional keepsake",
+    "a Saul Bass title sequence's key art",
+    "a Hatch Show Print letterpress show poster",
+    "a Wild West travelling circus route book",
+    "a Victorian playbill in eleven competing faces",
+    "a French Belle Epoque affiche by Cheret or Mucha",
+    "a wartime home-front information campaign",
+    "an Art Deco travel poster for a night train",
+    "a Bauhaus exhibition announcement",
+    "a Fluxus event score card",
+    "a mail-order catalogue's dream spread from the Sears era"
+   ]
+  },
+  {
+   "id": "surface",
+   "label": "The persuading surface to design",
+   "values": [
+    "a landing page that has to close a sale in one screen",
+    "a pricing page where one plan must obviously win",
+    "a campaign microsite with a deadline",
+    "a product launch announcement",
+    "a fundraising or membership appeal",
+    "a conference or festival programme site",
+    "an app store listing that has to beat nine others",
+    "a recruiting page selling a hard job",
+    "a manifesto page arguing for a change of practice",
+    "a comparison page against a named competitor"
+   ]
+  }
+ ],
+ "bar": "## The persuade bar, which is not the bar for other modes\n\nThis world will be dealt to landing pages, pricing, and campaigns. It has one\nrequirement the other modes do not, and it is the single most reliable failure\nthe catalog has measured.\n\n**It must be able to make one thing dominate.** Every one of six worlds in an\nearlier wave failed here, and they failed in the same words: \"nothing can\nemphasize the plan you want sold\", \"all persuasion runs at 12px\", \"no hero is\npossible\", \"rank collapsed\". Documentation hierarchy is sequence and heading;\npersuasion needs one element to outrank everything near it, and the aesthetic\nprohibitions routinely remove the usual tools by forbidding colour-as-state,\ncapping type sizes, or banning scale.\n\nSo name the emphasis mechanism explicitly, in the rules, and check it survives\nyour own prohibitions. One world made rank the size of a cleared cavity and the\ncavity was invisible in two of its three materials, which turned it into a page\ndesign. Check yours in every material your palette rule allows, at a wall size\nand on a phone, and in greyscale.\n\n**And it must be able to carry prose.** Persuasion is sentences, and a\ndrenched or textured ground has no obligation to carry them unless you say how.\nFour transfers measured this failing: body text at 77% ink coverage, a control\nlabel at 1.13:1 against its own state colour, two adjacent prices at 1.31:1.\n\n**What earns a flagship here.** The catalog's three-star worlds are\noverwhelmingly beloved things: they carry a time of day, a place you can stand\nin, and a subculture that loved them. Your assigned tradition has that in it\nalready. Put it in the spark and let it drive the material, rather than\ndescribing a graphic style with the affection removed."
+}
