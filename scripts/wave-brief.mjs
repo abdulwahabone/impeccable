@@ -231,7 +231,14 @@ One JSON object. No prose around it.
   form          one sentence naming the artifact and its structural signature
   lineage       the real tradition it inherits from, named and dated
   spark         one concrete image, a thing you could photograph
-  system        exactly five strings, prefixed in this order:
+  system        exactly five strings, EACH AT MOST 180 CHARACTERS, prefixed in
+                this order. The limit is enforced by the catalog validator and
+                it is not negotiable: across the existing 531 worlds the median
+                rule is 138 characters. A rule is a law, not an essay, and these
+                strings are injected verbatim into image prompts, so a paragraph
+                swamps the prompt it is meant to steer. Say the mechanism and
+                stop. Your reasoning, your legibility numbers, your emphasis
+                argument and your cross-checks go in your REPORT, not in here.
                   Palette/material:
                   Type/composition:
                   Topology/navigation:
@@ -242,7 +249,8 @@ One JSON object. No prose around it.
                 to approve a world-catalog entry at composition strength, and
                 every entry left there in one round was rejected. "dual" claims
                 the idea also works as a staging, so earn it or say "world".
-  tags          three or four
+  tags          EXACTLY three structural tags. The validator enforces three,
+                not two and not four.
   axes          the drawn axis values below, verbatim, as an object
 
 The axes field is not optional. An assignment that is not recorded is lost the

@@ -639,6 +639,198 @@
      "spark": "The alphabet at the top is careful and even, and by the bottom of the cloth the stitches have gone loose and confident, and she signed it aged nine.",
      "webLeverage": "whole-row responsive bands with progressive looseness rendered per row, technique state per band, and sequential stitch animation",
      "strength": "dual"
+    },
+    {
+     "id": "rw-boxed-manual-colour-tab-page",
+     "form": "a printed software-manual page from a boxed product: a serif prose column banded off by nickel hairlines beside a redrawn figure cropped hard by the trim, the whole sheet ruled symmetrically about its binding spine and indexed by one colour tab that sticks out past the edge",
+     "lineage": "the boxed-software printed manual at its peak, 1985 to 1993: Apple Macintosh manuals, Aldus and Adobe documentation in Sumner Stone's 1987 ITC Stone superfamily, and WordPerfect colour tabs",
+     "spark": "A wire-bound manual open under a desk lamp, the vermilion tab of the section you are in sticking out past the trim, one keycap redrawn at eight times life size and running off the page edge, and nine lines of Stone Serif underneath explaining what the key does.",
+     "system": [
+      "Palette/material: bone stock on signal-grey enamel, nickel hairlines. Nine index inks, one per surface as accent, the rest as fingernail tabs; accent fills, never type.",
+      "Type/composition: ITC Stone Serif 17/28 on a 62 to 70 measure, sole face under 24px; Stone Sans Semibold above, one element at 8x body cropped by trim. Ruled bands, one spine.",
+      "Topology/navigation: each surface belongs to one tab of the colour index. Only the tab rail breaks the trim; the current tab protrudes furthest and alone carries its ink.",
+      "Controls/state: one element per surface takes rank: hairline arm from the spine, display numeral, accent bar. Controls are struck plates: proud, flush pressed, engraved when off.",
+      "Responsive/motion: stepped registration onto detents, two or three frames of 90ms, nothing eased. Prose reflows to measure; figures crop, then drop to a numbered caption."
+     ],
+     "webLeverage": "one --tab-ink property per section drives every accent; transitions run on steps(), no easing; the callout arm is an SVG path solved spine to element and re-solved on resize; figures crop with object-fit to a legibility floor",
+     "strength": "dual",
+     "tags": [
+      "colour-tab-index",
+      "spine-axis",
+      "cropped-figure"
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "restrained",
+      "material": "metal",
+      "spatial": "sheet",
+      "density": "working",
+      "composition": "axial",
+      "scale-range": "extreme",
+      "motion": "mechanical",
+      "prohibition": "no-photography",
+      "variance": "curated-chaos"
+     }
+    },
+    {
+     "id": "rw-centre-rail-reference-setting",
+     "form": "a reference-setting page drawn by a ruling engine, two short-measure text columns twinned around a fixed centre rail of keys, the whole block held small inside a wide annotation margin where the apparatus hangs and overlaps the block's edge",
+     "lineage": "the centre-column reference setting perfected by the Oxford and Cambridge presses and by Bagster, 1810s to 1900s, and the same apparatus in wide-margin study editions and annotated statute books",
+     "spark": "A wide-margin edition open under a lamp: two dense columns of small roman, a hairline channel of vermilion letter-keys running down between them, and four inches of bare paper all around where a previous reader has ruled one note and bracketed it back into the line it belongs to.",
+     "system": [
+      "Palette/material: iron-black ink and one rubric vermilion on unbleached bone, three values only. A ruling engine draws every rule, bracket and detent at one device pixel.",
+      "Type/composition: Brevier body is Miller Text 17 to 19px on 1.5 leading, two columns of 34 to 40 characters round a 6 to 9 character rail. Pearl 11px small caps sets apparatus.",
+      "Topology/navigation: the centre rail is the one moving part, carrying keys and square detents cut wherever the flow changes footing. Global nav is a keyed list in the margin.",
+      "Controls/state: states are printed marks. A detent is hairline at rest, filled pressed, run through when disabled, bracketed on focus; spent is a struck bar. No radius anywhere.",
+      "Responsive/motion: the block holds its measure and the annotation margin absorbs width; under two columns the rail goes outboard. Motion is a damped single axis, no overshoot."
+     ],
+     "webLeverage": "The ruling engine is real: a canvas or SVG layer reads live layout boxes and draws every hairline, detent and bracket at one device pixel, re-solving on resize and zoom. The lift relocates in-flow when the margin cannot hold it.",
+     "strength": "dual",
+     "tags": [
+      "centre-rail",
+      "annotation-margin",
+      "ruling-engine"
+     ],
+     "axes": {
+      "palette-breadth": "duotone",
+      "colour-strategy": "restrained",
+      "material": "procedural",
+      "spatial": "machine",
+      "density": "calm",
+      "composition": "collage",
+      "scale-range": "wide",
+      "motion": "simulated",
+      "prohibition": "no-curves",
+      "variance": "container"
+     }
+    },
+    {
+     "id": "rw-botteghe-quarterly-interior",
+     "form": "a literary quarterly's plain interior taken off the press and laid on a lit desk: cream laid leaves squared to the frame on a deep oltremare ground, one raking light throwing every shadow parallel, and a vermilion titling numeral forty times body size printed on the ground beneath them and running off the frame",
+     "lineage": "Botteghe Oscure, Rome 1948 to 1960, Caetani's quarterly that set each contributor in their own language named in the margin, and Monotype's 1929 Bembo after Griffo's De Aetna roman",
+     "spark": "an uncut signature of a quarterly lying on a blue-washed table under a low lamp, deckle showing along one edge, its shadow falling across a vermilion numeral printed on the table itself that runs off the table's edge",
+     "system": [
+      "Palette/material: four colours only, deep oltremare ground, cream laid leaves, near-black ink, vermilion apparatus. The ground is procedural, chain and laid lines from a seed.",
+      "Type/composition: Bembo alone. Body 10.5/14 at 62 to 68 characters, justified; titling capitals from 8pt small caps to ground numerals at 40x. Examples set as verse, ranged left.",
+      "Topology/navigation: nothing touches the frame. Every element is a leaf on the ground, which shows on all four sides, and navigation lives in that margin in small caps.",
+      "Controls/state: a leaf turns in place to its verso; face down, blank back showing, means gone. Rank lifts a leaf: wider ground reserve, longer shadow, one vermilion rule beneath.",
+      "Responsive/motion: the measure is fixed, so width re-lays the leaves and the ground absorbs it. One drift: the wash migrates, the raking light swings every shadow off one angle."
+     ],
+     "webLeverage": "One fragment shader draws the ground: laid mould, chain lines, deckle and pigment wash from a seed, on a clock publishing two custom properties, rake angle and shadow length, that every leaf's box-shadow reads.",
+     "strength": "world",
+     "tags": [
+      "quarterly interior",
+      "laid paper",
+      "raking light"
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "committed",
+      "material": "procedural",
+      "spatial": "room",
+      "density": "calm",
+      "composition": "diagonal",
+      "scale-range": "extreme",
+      "motion": "continuous",
+      "prohibition": "no-full-width",
+      "variance": "curated-chaos"
+     }
+    },
+    {
+     "id": "rw-manual-acetate-tab-board",
+     "form": "a boxed-software reference manual lying open at a tabbed section, where the coloured divider board carries no mark at all and every paragraph, figure and keystroke sits on a punched acetate leaf hinged a millimetre above it, the whole book's extent drawn as a stepped tab rail down the fore edge",
+     "lineage": "printed software reference manuals of the boxed era, 1984 to 1995: thumb-indexed ring-bound sets in the Adobe, Aldus and Lotus school, colour divider boards and bound-in acetate overlay plates",
+     "spark": "A clear die-cut keyboard template lies across an open manual; its printed legends float above the chrome-yellow divider page beneath, two punch holes at its bound edge and one short hard shadow along its cut side.",
+     "system": [
+      "Palette/material: milk acetate over a board of one section hue at full strength: oxide orange, chrome yellow, grass, teal, ultramarine, violet, sienna; vermilion held out.",
+      "Type/composition: one size does the work: Sabon 17/26 at a 62-character measure; Univers heads hang in the fifth margin column of a four-column grid, machine voice in mono.",
+      "Topology/navigation: a stepped tab rail down the fore edge, one tab per division, height proportional to extent, hue from the wheel; the current tab extends and is the board.",
+      "Controls/state: ply is the only rank, and only a top-ply leaf may be clear. Selected is a punched hole, disabled face-down, pending half-hinged, error a vermilion errata slip.",
+      "Responsive/motion: nothing eases or fades; every change is a 90ms two-frame step hinged at the punched edge. Width deals fewer leaves, four columns to two to one."
+     ],
+     "webLeverage": "Solve leaf alpha at runtime: binary search sRGB source-over compositing against the board hue until the reading field lands in a fixed luminance band, then publish as a custom property. Hinges are steps(2) at 90ms; no easing curve anywhere.",
+     "strength": "dual",
+     "tags": [
+      "acetate-overlay",
+      "thumb-index",
+      "colour-divider-board"
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "committed",
+      "material": "glass",
+      "spatial": "map",
+      "density": "saturated",
+      "composition": "modular",
+      "scale-range": "narrow",
+      "motion": "mechanical",
+      "prohibition": "no-ink-on-ground",
+      "variance": "generative"
+     }
+    },
+    {
+     "id": "rw-lexicon-shoulder-and-plate",
+     "form": "a nineteenth-century lexicon page, black text set to a fixed measure with a shoulder margin down the outside, entries ranked by how much apparatus each one is granted rather than by size, guide words at the head naming the span you are inside, and every colour in the system quarantined inside a bordered plate",
+     "lineage": "the scholarly nineteenth-century encyclopaedia: Meyers Konversations-Lexikon, Leipzig 1885 to 1890, and Britannica ninth, Edinburgh 1875 to 1889, chromolithographic plates among Scotch Roman text",
+     "spark": "A lexicon lying open at a spread where a chromolithographed mineral plate in seven inks faces a column of black text set so tight that two entries touch, and two words at the top of the page name the first and the last thing you can reach without turning it.",
+     "system": [
+      "Palette/material: engraving black on warm uncoated cream stock; colour only inside a bordered plate: vermilion, chrome yellow, emerald, ultramarine, madder rose, sepia, violet.",
+      "Type/composition: Miller Text at three sizes: body 16-17px on a 55-72 character measure, display 1.6 body, small 0.78. Twelve-unit module, two of shoulder, columns of five.",
+      "Topology/navigation: a head rule carries two guide words, the first and last item in view, recomputed as content passes; the shoulder a thumb index, current range struck through.",
+      "Controls/state: every control is a printed mark: a link closes in a solid arrow, pressed turns it down, visited takes a shoulder tick; rank is a hanging head plus a full rule.",
+      "Responsive/motion: columns are whole 55-72 character measures; extra width goes to the shoulder and the plates, never the line. Motion is a page passing, never a fade."
+     ],
+     "webLeverage": "Guide words recomputed from the first and last entry in the viewport, column count derived from a character measure not breakpoints, plates as bordered figures for any foreign media, and a struck-and-replaced correction primitive.",
+     "strength": "world",
+     "tags": [
+      "ranked-entry",
+      "guide-words",
+      "shoulder-margin"
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "full-palette",
+      "material": "printed-ink",
+      "spatial": "room",
+      "density": "packed",
+      "composition": "modular",
+      "scale-range": "moderate",
+      "motion": "continuous",
+      "prohibition": "no-colour-on-interactive",
+      "variance": "immutable"
+     }
+    },
+    {
+     "id": "rw-broadsheet-leader-flat",
+     "form": "a broadsheet's leader page as it stood on the paste-up flat, one type size from folio to standing head, waxed galleys overlapping on an endless press web while the reverse of the sheet ghosts through the stock under every one of them",
+     "lineage": "the leader page of a Morison-era British broadsheet, The Times 1932 to 1966, set in the Linotype Legibility Group faces and composed on the wax paste-up flat",
+     "spark": "A galley of the leading article lifted half off the flat under the bench lamp, wax still tacky along its edge, the reverse page reading backwards through the sheet in pale ink while a spot-blue rule runs on underneath it.",
+     "system": [
+      "Palette/material: One press blue spot ink over a black key plate and warm newsprint; overlaps multiply and darken, a verso ghost runs beneath at five to eight percent ink",
+      "Type/composition: One size everywhere: Excelsior sets prose single column at 62 to 72, a tracked small-cap grotesque sets furniture, galleys overlap at small offsets",
+      "Topology/navigation: One endless press web, no page boundary, divided by rules; a standing rail at its leading edge carries the folio and small-cap marks, and moves are cuts",
+      "Controls/state: State is a proof mark, a small-cap slug in a hairline box that floods blue and reverses when set; emphasis widens the measure, floods, and tops the paste-up stack",
+      "Responsive/motion: Nothing scales, narrow viewports reflow and drop furniture columns; movement steps in whole baselines, a hard cut or a two-step stagger at 90ms, no easing"
+     ],
+     "webLeverage": "A verso layer renders the plane's reverse mirrored beneath every block at five to eight percent ink under mix-blend-mode multiply, masked to zero inside prose wells and foreign-media boxes, with scroll-snap set to the baseline unit.",
+     "strength": "dual",
+     "tags": [
+      "leader-page",
+      "verso-show-through",
+      "one-type-size"
+     ],
+     "axes": {
+      "palette-breadth": "one",
+      "colour-strategy": "committed",
+      "material": "glass",
+      "spatial": "infinite",
+      "density": "saturated",
+      "composition": "collage",
+      "scale-range": "wide",
+      "motion": "mechanical",
+      "prohibition": "one-type-size",
+      "variance": "container"
+     }
     }
    ]
   },
@@ -2115,6 +2307,70 @@
      "spark": "Three little grids around the edges, and the big one in the middle is not drawn at all, it is what those three make happen when the loom runs.",
      "webLeverage": "a live drawdown computed from threading, tie-up and treadling state, with cell-by-cell recompute animation and a fixed corner layout",
      "strength": "dual"
+    },
+    {
+     "id": "rw-timetable-slide-rack",
+     "form": "a pocket airline timetable read as a raked rack of tinted glass slides lying on a lit goldenrod bed, where every column, code strip, heading and paragraph is set at one single type size so rank has to be carried by weight, case, reversal and rule instead",
+     "lineage": "the interior pages of airline pocket timetables and the Official Airline Guide, 1958 to 1978, including the general information pages where that tradition set its running paragraphs",
+     "spark": "A 1971 pocket timetable lying open flat on a light table, a scratched acetate ruler laid across the departure columns at a slight lean, the rules printed on the reverse of the sheet glowing up through the goldenrod stock.",
+     "system": [
+      "Palette/material: Lit goldenrod bed under slate tinted glass, in carbon, bible ivory, vermilion and bottle green, accent set per block id, prose panes opaque ivory",
+      "Type/composition: One size only: Bell Gothic prose at 58 to 66, Trade Gothic Condensed No. 18 labels; rank is weight and case, containers rake 11 degrees, baselines flat",
+      "Topology/navigation: One continuous rack of slides along the rake, each restating its own heading; travel is lateral, a tick rail shows position and extent at every width",
+      "Controls/state: State is a mark in a fixed cell, filled holds, hollow does not, vermilion strikes, green confirms; one element per screen goes to an opaque reversed plate",
+      "Responsive/motion: One light travels the bed along the rake, never crossing a prose pane; slides move on that axis only, reduced motion parks it, width never scales type"
+     ],
+     "webLeverage": "CSS parallelogram containers driven by one --rake property with counter sheared inner blocks, the single type size as a token no component may override, code strips computed at build time, and the light as one composited gradient layer.",
+     "strength": "dual",
+     "tags": [
+      "raked-slide-rack",
+      "one-type-size",
+      "computed-code-strip"
+     ],
+     "axes": {
+      "palette-breadth": "broad",
+      "colour-strategy": "committed",
+      "material": "glass",
+      "spatial": "machine",
+      "density": "calm",
+      "composition": "diagonal",
+      "scale-range": "wide",
+      "motion": "continuous",
+      "prohibition": "one-type-size",
+      "variance": "generative"
+     }
+    },
+    {
+     "id": "rw-stitch-grammar-terrain",
+     "form": "a knitting pattern leaflet's instruction page, where every term the page defines appears forever after as a small-cap token from the key at the head, every block closes with the count you should be holding in parentheses, and the whole thing is set on the flat wrong side of a fabric that is knitted everywhere the text is not",
+     "lineage": "British and American knitting pattern publishing, Weldon's Practical Needlework from 1886 through the Patons and Baldwins leaflet era, and the Craft Yarn Council abbreviations fixed in 1997",
+     "spark": "A folded leaflet held open under one thumb, the row line running k1, ssk, yo, k1, yo, k2tog, rep from star to last st, and ending in a number in brackets, with a soft pencil tick in the margin against every row already worked.",
+     "system": [
+      "Palette/material: Two yarns, a saturated ground and a contrast, knitted procedurally across the field; foreign media enters untinted, fenced by a one stitch contrast selvedge",
+      "Type/composition: Monotype Plantin sets prose small with true small caps at a 48 to 60 measure, Monotype Grotesque Condensed for labels; prose sets on wrong side plates",
+      "Topology/navigation: One continuous cloth that never re-grounds; each text block carries a margin coordinate and closes on its count in parentheses, tokens expand in place",
+      "Controls/state: Marks printed on the cloth, a contrast yarn notch in a block's selvedge, worked blocks retiring toward the ground; rank is one struck swatch, yarns swapped",
+      "Responsive/motion: Nothing animates, every change is an instant restrike, an expanding token holds its top edge; a stitch is fixed in device pixels, so width buys more cloth"
+     ],
+     "webLeverage": "A WebGL knit field in two yarn colours with stitch size fixed in device pixels rather than uv, text on wrong-side plates punched by a stencil mask, tokens expanding inline with no transition, and one struck swatch in view at a time.",
+     "strength": "world",
+     "tags": [
+      "abbreviation-grammar",
+      "stitch-count-checksum",
+      "wrong-side-plate"
+     ],
+     "axes": {
+      "palette-breadth": "duotone",
+      "colour-strategy": "drenched",
+      "material": "procedural",
+      "spatial": "map",
+      "density": "calm",
+      "composition": "collage",
+      "scale-range": "narrow",
+      "motion": "static",
+      "prohibition": "no-photography",
+      "variance": "immutable"
+     }
     }
    ]
   },
@@ -6053,6 +6309,38 @@
      "spark": "Everybody painted the same roses and the same castle, on the boat, the water can and the stool, and the only thing that ever changed was whose hand did it.",
      "webLeverage": "a fixed motif repertoire rescaling across object types, per-hand style variation state, and a single-stroke paint animation",
      "strength": "world"
+    },
+    {
+     "id": "rw-copy-shop-zine-interior",
+     "form": "the interior page of a photocopied zine, one typed column of argument running down a sheet of coloured copy-shop stock under the same typing enlarged on the platen until its letters break up and the last word runs off the edge of the paper",
+     "lineage": "the typed-and-photocopied fanzine interior, 1977 to 1995, from Sniffin' Glue through the Maximum Rocknroll and Factsheet Five column era and the copy-shop coloured-stock years",
+     "spark": "A goldenrod sheet still warm from the copier, a single typed column running its full length, the heading enlarged until the counters have filled in and the last word is cut clean off by the edge of the paper.",
+     "system": [
+      "Palette/material: colour is the sheet, never the mark. One stock per sheet: bond, goldenrod, cherry, orbit orange, solar yellow, terra green, lunar blue, gamma violet, grey pulp.",
+      "Type/composition: Letter Gothic at 16-17px on 1.7 leading, fixed 65-character measure; display is the same face in caps, platen-enlarged to 200 or 400 percent until counters fill.",
+      "Topology/navigation: one sheet is square to the frame at full size, its neighbours present only as an 8-12mm strip of their stock at the edge. Stock maps territory, never state.",
+      "Controls/state: unset is the typed cell [ ], set it overstruck with an X, chosen a hand-ink stamp out of register; rank is copier magnification, 100 percent against 74 or 64.",
+      "Responsive/motion: motion is paper feed and platen scan at a constant sheet per second, linear, never a curve or a fade. Width shows more sheet edges, never a wider column."
+     ],
+     "webLeverage": "A real copy-generation filter: feTurbulence displacement, a dilate, and a discrete feComponentTransfer threshold, exposed as generations 0-3 on a data attribute and seeded from element position, over a fibre ground tiled from turbulence.",
+     "strength": "world",
+     "tags": [
+      "coloured-copy-stock",
+      "typed-column",
+      "platen-magnification"
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "full-palette",
+      "material": "woven",
+      "spatial": "map",
+      "density": "ceremonial",
+      "composition": "asymmetric",
+      "scale-range": "extreme",
+      "motion": "continuous",
+      "prohibition": "no-curves",
+      "variance": "curated-chaos"
+     }
     }
    ]
   },
@@ -8396,6 +8684,38 @@
      "spark": "Every drop pushes the last one into a ring, and you comb through the whole thing with a single hair before laying a sheet down once and lifting the only copy there will ever be.",
      "webLeverage": "a fluid-displacement canvas simulation with stylus interaction, irreversible stroke state, and a one-shot lift transition",
      "strength": "dual"
+    },
+    {
+     "id": "rw-feelie-handbook-lightplate",
+     "form": "the in-world handbook packed with a boxed adventure game, read as a wall of backlit plates where a saturated matte surrounds a dark schoolbook type well, and any line may be printed latent in the matte's own hue until the reader strikes it into bone",
+     "lineage": "Infocom's grey-box era in-world documentation booklets and their InvisiClues hint books, Cambridge Massachusetts 1984 to 1987, with the packaging and print program by Giardini/Russell",
+     "spark": "A stapled handbook page lies on a light table in an unlit room: its margin burns sulphur yellow, the paragraph inside sits bone on near-black, and under the numbered question three answers are still invisible in the yellow until a marker drags across the first one and it comes up.",
+     "system": [
+      "Palette/material: bone type and box black over eight lamps (alarm red, amber, sulphur, dial green, aqua, ink blue, plum, magenta rose), each on a four-step OKLCH luminance ladder.",
+      "Type/composition: Century Schoolbook at 17px on 1.62 leading, measure held at 62-68 characters; Trade Gothic Bold Condensed caps at 2.2 body on the header band; mono for codes.",
+      "Topology/navigation: nothing touches the viewport edge; plates are inset by a gutter, so the outermost thing is always black field. Navigation is the numbered plate index.",
+      "Controls/state: any line may be printed latent in its matte's hue until struck into bone; one plate is up, the rest held one step down. Struck bullets fill, latent stay hollow.",
+      "Responsive/motion: nothing eases; a state change is a lamp switch in one frame. Prose stays in the dark type well while the matte absorbs the width, then plates gain columns."
+     ],
+     "webLeverage": "Each plate declares one --lamp hue and derives its four steps (latent, held, struck, up) in OKLCH at fixed offsets, so the contrast floor is structural. State is two attributes; media rides the ladder through one brightness filter.",
+     "strength": "world",
+     "tags": [
+      "feelie-handbook",
+      "backlit-plate",
+      "latent-ink"
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "drenched",
+      "material": "emissive",
+      "spatial": "room",
+      "density": "packed",
+      "composition": "axial",
+      "scale-range": "moderate",
+      "motion": "static",
+      "prohibition": "no-full-width",
+      "variance": "parametric"
+     }
     }
    ]
   },

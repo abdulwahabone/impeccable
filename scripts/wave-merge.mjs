@@ -42,8 +42,13 @@ const catalog = JSON.parse(readFileSync(catalogPath, 'utf8'));
 const candidates = JSON.parse(readFileSync(
   path.isAbsolute(candidatesPath) ? candidatesPath : path.join(ROOT, candidatesPath), 'utf8'));
 
-const PREFIXES = ['Palette/material:', 'Type/composition:', 'Topology/navigation:', 'Controls/state:', 'Responsive/motion:'];
-const REQUIRED = ['id', 'form', 'lineage', 'tags', 'spark', 'system', 'webLeverage'];
+// The catalog's own validator, imported rather than reimplemented. Hand-copying
+// its bounds into this file went wrong twice in one session: the rule limit was
+// missed entirely so a wave merged ten worlds with 1500-character rules, and
+// then the form bound was copied as 240 when it is 360, which flagged worlds
+// that were fine. A merge gate that disagrees with the validator is worse than
+// no gate, because it fails at a different time and for different reasons.
+import { validateConceptEntry } from '../skill/scripts/lib/concept-catalog.mjs';
 
 const families = new Map((catalog.families || []).map(family => [family.id, family]));
 const existingIds = new Set();
@@ -62,37 +67,27 @@ const seenInBatch = new Set();
 
 for (const [index, entry] of candidates.entries()) {
   const where = entry.id || `candidate ${index + 1}`;
+  const before = problems.length;
   const fail = message => problems.push(`${where}: ${message}`);
 
-  for (const field of REQUIRED) {
-    if (entry[field] == null || entry[field] === '') fail(`missing ${field}`);
-  }
+  // Everything the catalog itself will check, checked here first.
+  for (const error of validateConceptEntry(entry, { existingForms })) problems.push(error);
+
+  // Then the things only a merge can know.
   if (!families.has(entry.familyId)) fail(`unknown familyId "${entry.familyId}"`);
   if (existingIds.has(entry.id)) fail('id already in the catalog');
   if (seenInBatch.has(entry.id)) fail('id repeated inside this wave');
   seenInBatch.add(entry.id);
 
-  const duplicateOf = existingForms.get(normalise(entry.form));
-  if (duplicateOf) fail(`form duplicates ${duplicateOf}`);
-
-  const rules = entry.system || [];
-  if (rules.length !== 5) fail(`${rules.length} system rules, expected 5`);
-  rules.forEach((rule, slot) => {
-    if (PREFIXES[slot] && !rule.startsWith(PREFIXES[slot])) {
-      fail(`rule ${slot + 1} should start with "${PREFIXES[slot]}"`);
-    }
-  });
-
   // The assignment is the whole point of drawing one, and it cannot be
   // recovered later: the coverage map falls back to guessing from prose, which
   // is exactly what the recorded axes exist to replace.
   if (!entry.axes || Object.keys(entry.axes).length === 0) fail('no axes recorded');
-
   if (entry.strength === 'composition') {
     fail('strength "composition" cannot be approved in this catalog, use world or dual');
   }
 
-  if (problems.length === 0 || !problems.some(p => p.startsWith(`${where}:`))) ready.push(entry);
+  if (problems.length === before) ready.push(entry);
 }
 
 // A missing strength defaults to the weaker claim. "dual" asserts the idea also
