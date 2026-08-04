@@ -54,6 +54,13 @@ const force = process.argv.includes('--force');
 // hundreds of files the roll API will never deal. Pass --all to mirror the
 // whole directory anyway.
 const all = process.argv.includes('--all');
+// One place where a file maps to its manifest stamp, used by both the queue
+// filter and the state write. They were separate expressions and drifted the
+// moment a third card kind arrived.
+const stampFor = (file, id) => (file.endsWith('-hero.webp') ? manifest[id]?.heroGeneratedAt
+  : file.endsWith('-docs.webp') ? manifest[id]?.docsGeneratedAt
+  : manifest[id]?.generatedAt);
+
 const manifest = JSON.parse(readFileSync(join(CARD_DIR, 'manifest.json'), 'utf8'));
 const state = existsSync(STATE_PATH) ? JSON.parse(readFileSync(STATE_PATH, 'utf8')) : {};
 const reviews = JSON.parse(readFileSync(join(ROOT, 'catalog', 'concept-reviews.json'), 'utf8')).reviews;
@@ -67,9 +74,7 @@ const queue = files.filter(file => {
   const id = file.replace(/(-hero|-docs)?\.webp$/, '');
   if (!all && !isApproved(id)) return false;
   if (force) return true;
-  const stamp = file.endsWith('-hero.webp') ? manifest[id]?.heroGeneratedAt
-    : file.endsWith('-docs.webp') ? manifest[id]?.docsGeneratedAt
-    : manifest[id]?.generatedAt;
+  const stamp = stampFor(file, id);
   return !stamp || state[file] !== stamp;
 });
 const withheld = all ? 0 : files.filter(file => !isApproved(file.replace(/(-hero|-docs)?\.webp$/, ''))).length;
@@ -101,7 +106,10 @@ const worker = async () => {
     try {
       await upload(file);
       const id = file.replace(/(-hero|-docs)?\.webp$/, '');
-      state[file] = (file.endsWith('-hero.webp') ? manifest[id]?.heroGeneratedAt : manifest[id]?.generatedAt) || new Date().toISOString();
+      // Must mirror the queue filter above exactly. It did not: docs files were
+      // stamped with the board's generatedAt, never matched their own
+      // docsGeneratedAt, and so re-uploaded on every run forever.
+      state[file] = stampFor(file, id) || new Date().toISOString();
       writeFileSync(STATE_PATH, `${JSON.stringify(state, null, 2)}\n`);
       done += 1;
       if (done % 25 === 0 || queue.length === 0) console.log(`  ${done} uploaded, ${queue.length} remaining`);
@@ -114,7 +122,7 @@ const worker = async () => {
 await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
 try {
-  await run('wrangler', [
+  await run(WRANGLER, [
     'r2', 'object', 'put', `${BUCKET}/manifest.json`,
     '--file', join(CARD_DIR, 'manifest.json'),
     '--content-type', 'application/json',
