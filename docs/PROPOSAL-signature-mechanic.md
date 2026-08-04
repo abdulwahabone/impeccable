@@ -45,10 +45,20 @@ the approved worlds in the same wave have them too.
 
 So the field is dropped. Two things survive, and only one of them is new.
 
-**Singularity, which is guidance on `form` rather than a field.** The broadsheet
-names three devices in one sentence, one type size and overlapping galleys and a
-verso ghost, and singles out none of them. The comparison catalog names exactly
-one per entry. Ask for one and let the rest be consequences of it.
+**Singularity is dropped too, and it was the more dangerous half.** Second
+reviewer challenge, same day: asking for one device selects for the failure we
+reject most often. The review record is explicit about it, on a world rejected
+from an earlier wave: "almost like a feature, I would say, not a world, and it
+is very gimmicky." A feature is exactly one device. The knitting world went the
+same way, "too gimmicky, too extreme, I cannot imagine many sites wanting a
+knitted skeuomorphic look entirely."
+
+The comparison catalog can ask for one device because it sits on top of a full
+declared token system and the device is the signature over that system. Asking
+our authors for one device invites them to design the device instead of the
+world, which is the gimmick failure with a rule behind it. A world is the five
+rules cohering; its recognisable consequence should fall out of that, not stand
+in for it.
 
 **Falsifiability, which is the real idea and is a review check, not a schema
 change.** The question is not "does this world name a device" but "can you point
@@ -58,11 +68,17 @@ latent ink is a genuine mechanism on paper and invisible in a rendered docs page
 Every other gate we own reads the text. This one reads the artifact, which is
 the only evidence that has been reliable.
 
-Concretely that is a question in the review UI beside the render, answered from
-the image alone:
+And the question must be asked about the world rather than about a device, for
+the reason above. Not "point at the one thing", which rewards a schtick, but:
 
-  Point at this world's one device. If you cannot find it, the world is
-  competent and anonymous, which is the rejection we have no vocabulary for.
+  Shown this render with the label removed, could you tell which world it is?
+
+That tests the system for recognisability without asking any single element to
+carry it. It catches the anonymous end of the band, the four worlds that worked
+and were boring. The gimmick end is already covered and needs nothing new:
+`breadth: niche` removes a world that can only ever dress one kind of site, and
+it exists precisely so a reviewer does not have to express "too narrow" as a low
+rating.
 
 **`avoid` stands, unchanged.** Two or three negations specific to this world,
 the slop it is personally at risk of. A world built from posters risks shouting;
@@ -79,7 +95,8 @@ Much less than the first draft, now that the field is gone.
   backfill: 541 entries without it stay valid.
 - The point-at-the-device question is a line in the review UI and a line in each
   mode bar. No schema, no backfill.
-- Tightening `form` to one device is guidance only, and applies to new entries.
+- Nothing is asked of `form`. The first draft wanted one device per form line
+  and the second reviewer challenge killed it.
 
 ## Why it is worth it
 
@@ -97,9 +114,11 @@ than only added to, and it has produced **22 unresolved name collisions**,
 including one name used four times. If we take the mechanic idea we should not
 also take typed descent without deciding how identity is kept unique.
 
-And a mechanic must not become a fifth prohibition wearing a positive name. The
-test is whether a reviewer can look at a render and say yes or no. If the answer
-needs an argument, it is not a mechanic.
+And the target is a band, not a maximum. A world has to be recognisable at a
+glance and still wearable on an arbitrary build. Push only on recognisability
+and you get a schtick; push only on wearability and you get the four boring
+worlds. Both ends already have a name in the review: anonymous is what the
+recognition question catches, and `breadth: niche` is the other.
 
 ## Open question for the reviewer
 
