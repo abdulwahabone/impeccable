@@ -113,19 +113,31 @@ describe('world roll core', () => {
     assert.equal(roll.staging.id, roll.compositions[0].id);
   });
 
-  it('never deals a niche or marginal world', async () => {
+  it('never deals a niche world, and deals a marginal one sparingly', async () => {
     const reviews = data.conceptReviews.reviews;
     const modes = ['persuade', 'operate', 'read', 'experience'];
     let dealt = 0;
+    let marginal = 0;
     for (let n = 0; n < 40; n += 1) {
       const roll = await rollSeed({ scope: 'direction', key: `gate-${n}`, mode: modes[n % 4], reroll: 0, data });
       for (const challenger of roll.challengers) {
         dealt += 1;
+        // Breadth is the real exclusion: a niche world cannot challenge an
+        // arbitrary build however good it is, so it never deals.
         assert.notEqual(reviews[challenger.id]?.breadth, 'niche', `${challenger.id} is niche`);
-        assert.notEqual(reviews[challenger.id]?.rating, 1, `${challenger.id} is marginal`);
+        if (reviews[challenger.id]?.rating === 1) marginal += 1;
       }
     }
     assert.ok(dealt > 200, `only ${dealt} challengers dealt`);
+    // A 1-star draws at half weight rather than not at all. Excluding it made a
+    // rating do the job breadth already does, and a marginal keep records
+    // "unexceptional" rather than "wrong". It should therefore appear, and
+    // appear well below its share of the pool.
+    const marginalShare = marginal / dealt;
+    const poolShare = Object.values(reviews)
+      .filter(review => review.status === 'approved' && review.rating === 1 && review.breadth !== 'niche').length
+      / Object.values(reviews).filter(review => review.status === 'approved' && review.breadth !== 'niche').length;
+    assert.ok(marginalShare < poolShare, `marginal share ${marginalShare.toFixed(3)} should sit below pool share ${poolShare.toFixed(3)}`);
   });
 
   // Driven by a synthetic verdict rather than catalog data: no composition is
