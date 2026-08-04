@@ -3410,16 +3410,22 @@
       "rating": 3,
       "allowedModes": [
         "persuade",
-        "read",
         "experience"
-      ]
+      ],
+      "readAuditNote": "too gimmicky for read, works really well as persuade"
     },
     "posters-covers-sleeves-festival-lineup-poster": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T22:55:20.711Z",
       "formHash": "28661f2469ea",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ],
+      "readAuditNote": "all-caps body does not work at length"
     },
     "posters-covers-sleeves-fight-poster": {
       "status": "approved",
@@ -3429,9 +3435,9 @@
       "rating": 2,
       "allowedModes": [
         "persuade",
-        "read",
         "experience"
-      ]
+      ],
+      "readAuditNote": "borderline, cut from read"
     },
     "posters-covers-sleeves-fillmore-handbill": {
       "status": "approved",
@@ -4660,9 +4666,9 @@
       "rating": 3,
       "allowedModes": [
         "persuade",
-        "read",
         "experience"
-      ]
+      ],
+      "readAuditNote": "reads as a document but not for more than a few minutes"
     },
     "wayfinding-cartography-signage-terminal-yellow-wayfinding": {
       "status": "approved",

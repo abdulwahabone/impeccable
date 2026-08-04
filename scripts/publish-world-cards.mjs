@@ -42,13 +42,15 @@ const isApproved = id => reviews[id]?.status === 'approved' || compositionReview
 
 const files = readdirSync(CARD_DIR).filter(file => file.endsWith('.webp'));
 const queue = files.filter(file => {
-  const id = file.replace(/(-hero)?\.webp$/, '');
+  const id = file.replace(/(-hero|-docs)?\.webp$/, '');
   if (!all && !isApproved(id)) return false;
   if (force) return true;
-  const stamp = file.endsWith('-hero.webp') ? manifest[id]?.heroGeneratedAt : manifest[id]?.generatedAt;
+  const stamp = file.endsWith('-hero.webp') ? manifest[id]?.heroGeneratedAt
+    : file.endsWith('-docs.webp') ? manifest[id]?.docsGeneratedAt
+    : manifest[id]?.generatedAt;
   return !stamp || state[file] !== stamp;
 });
-const withheld = all ? 0 : files.filter(file => !isApproved(file.replace(/(-hero)?\.webp$/, ''))).length;
+const withheld = all ? 0 : files.filter(file => !isApproved(file.replace(/(-hero|-docs)?\.webp$/, ''))).length;
 if (withheld > 0) console.log(`withholding ${withheld} card(s) for unapproved concepts (pass --all to include them)`);
 
 console.log(`publishing ${queue.length} of ${files.length} cards to r2://${BUCKET}`);
@@ -70,7 +72,7 @@ const worker = async () => {
     const file = queue.shift();
     try {
       await upload(file);
-      const id = file.replace(/(-hero)?\.webp$/, '');
+      const id = file.replace(/(-hero|-docs)?\.webp$/, '');
       state[file] = (file.endsWith('-hero.webp') ? manifest[id]?.heroGeneratedAt : manifest[id]?.generatedAt) || new Date().toISOString();
       writeFileSync(STATE_PATH, `${JSON.stringify(state, null, 2)}\n`);
       done += 1;

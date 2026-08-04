@@ -988,6 +988,18 @@ button kbd {
   display: block;
 }
 
+/* The hero is a landing page and the docs render is a reference page. Reviewing
+   a world for read mode off the hero alone is judging it on the wrong job, so
+   the docs render is labelled rather than left to be guessed at. */
+.worlds-concept-card-label {
+  padding: var(--spacing-xs);
+  border-bottom: 1px solid var(--ks-rule);
+  color: var(--ks-text-faint);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .worlds-concept-card img {
   display: block;
   width: 100%;

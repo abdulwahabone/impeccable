@@ -13,6 +13,12 @@
  * content hash (same fingerprint reviews pin), so an edited concept marks its
  * card stale and a rerun regenerates only what changed.
  *
+ * Three image kinds per concept. The docs render exists because the hero is a
+ * landing page, so a world reviewed only on its hero is judged on how well it
+ * persuades and then dealt to read builds nobody ever saw it serve. A 54-world
+ * audit of the read pool found four worlds that had to be cut, and the four
+ * were invisible from the hero and the form line alike.
+ *
  * Two image kinds per concept:
  *   board (<id>.webp): the design-system specimen sheet (palette, type,
  *     components, phone composition).
@@ -86,6 +92,27 @@ The world must live in the interface itself, not only in imagery: the navigation
 Craft rules, all mandatory: every piece of interface copy is English, even when the world is Japanese, Arabic, or otherwise non-Latin in origin; at most one small non-Latin glyph may appear as a decorative motif, never in the wordmark, navigation, headlines, or body text, and when in doubt use none. Rendered materials must read premium and physically plausible: real metal, wood, paper, and glass with honest light, never plasticky gradient fakes of them. Game and HUD grammar is welcome whenever the world carries it: meters, maps, status readouts, and menu language are legitimate interface material when art-directed to contemporary award standard. The failure is cheap dated chrome, the 2000s-MMORPG stone-and-rivet kind that no web design could wear; when the world is screen- or game-born, render its grammar with the same craft a premium product site would get. Vary the composition beyond the world's single most famous motif and refuse AI-cliche renderings of it (Matrix-style glyph rain, red recording dots); use the world's wider grammar.`;
 }
 
+function buildDocsPrompt(concept) {
+  const palette = concept.system[0].replace(/^Palette\/material:\s*/, '');
+  const type = concept.system[1].replace(/^Type\/composition:\s*/, '');
+  return `A complete desktop DOCUMENTATION page filling the entire 16:9 frame edge to edge, as if screenshotted at 1440 pixels wide. No browser chrome, no device mockup, no specimen board, no caption: the page itself is the whole image.
+
+This is a technical reference page someone has to actually read for twenty minutes, not a marketing page. It must contain, all clearly legible:
+1. A persistent left sidebar of nested navigation links, one section expanded, one item marked current.
+2. A main article column with an H1, at least two H2 subheadings, and FOUR OR MORE full paragraphs of real running body prose. The paragraphs are the point of the image: they must be long enough and set at a size and measure a person would genuinely read at length.
+3. One monospaced code block with three to six lines and subtle syntax differentiation.
+4. One small table or parameter list with a header row and three or four rows.
+5. A right-hand on-this-page contents rail, or a prev/next pair at the article foot.
+
+The page is designed wholly inside this visual world: ${concept.form}.
+Palette and materials: ${palette}
+Typography and composition: ${type}
+
+The world must be legible in the interface itself, in the sidebar, the rules, the code block, the table, the link and heading treatments. But this is a reading surface first: body prose stays comfortably readable, the measure stays sane, and hierarchy serves comprehension rather than impact. If the world's laws and long-form legibility genuinely conflict, show that conflict honestly rather than quietly abandoning the world or quietly fixing the text. Do not turn this into a poster, a hero section, or an art piece.
+
+Invent a plausible fictional technical product and write short realistic English copy for it, plain punctuation, never an em dash, reusing no brand, designer, or place name from the world description. Interface copy is always English. Never transcribe any sentence of these instructions onto the page.`;
+}
+
 function buildPrompt(concept) {
   const palette = concept.system[0].replace(/^Palette\/material:\s*/, '');
   const type = concept.system[1].replace(/^Type\/composition:\s*/, '');
@@ -155,6 +182,7 @@ ${copy} Never transcribe these instructions onto the image. The viewer should ga
 
 function promptFor(concept, kind) {
   if (kind === 'composition') return buildCompositionPrompt(concept);
+  if (kind === 'docs') return buildDocsPrompt(concept);
   return kind === 'hero' ? buildHeroPrompt(concept) : buildPrompt(concept);
 }
 
@@ -180,7 +208,7 @@ let BOARD_REFERENCE_DIR = null;
 async function generateOpenAI(model, concept, kind) {
   // Heroes are generated from the specimen board when it exists: the edits
   // endpoint takes the board as reference so both images share one system.
-  if (kind === 'hero' && BOARD_REFERENCE_DIR) {
+  if ((kind === 'hero' || kind === 'docs') && BOARD_REFERENCE_DIR) {
     const boardPath = join(BOARD_REFERENCE_DIR, `${concept.id}.webp`);
     if (existsSync(boardPath)) {
       try {
@@ -262,8 +290,8 @@ async function main() {
   const limit = args.includes('--limit') ? Number(args[args.indexOf('--limit') + 1]) : Infinity;
   const force = args.includes('--force');
   const kindArg = args.includes('--kind') ? args[args.indexOf('--kind') + 1] : 'both';
-  if (!['board', 'hero', 'both', 'composition'].includes(kindArg)) throw new Error(`unknown --kind ${kindArg}; use board, hero, both, composition`);
-  const kinds = kindArg === 'both' ? ['board', 'hero'] : [kindArg];
+  if (!['board', 'hero', 'docs', 'both', 'all', 'composition'].includes(kindArg)) throw new Error(`unknown --kind ${kindArg}; use board, hero, docs, both, all, composition`);
+  const kinds = kindArg === 'both' ? ['board', 'hero'] : kindArg === 'all' ? ['board', 'hero', 'docs'] : [kindArg];
   const isComposition = kindArg === 'composition';
 
   const geminiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_CLOUD_API_KEY;
@@ -291,8 +319,10 @@ async function main() {
     `${JSON.stringify(Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b))), null, 2)}\n`
   );
 
-  const fileFor = (concept, kind) => join(outDir, `${concept.id}${kind === 'hero' ? '-hero' : ''}.webp`);
-  const stampKey = kind => (kind === 'hero' ? 'heroGeneratedAt' : 'generatedAt');
+  const SUFFIX = { hero: '-hero', docs: '-docs' };
+  const fileFor = (concept, kind) => join(outDir, `${concept.id}${SUFFIX[kind] || ''}.webp`);
+  const STAMP = { hero: 'heroGeneratedAt', docs: 'docsGeneratedAt' };
+  const stampKey = kind => STAMP[kind] || 'generatedAt';
   // One queue entry per concept, holding its jobs in kind order, because the
   // hero takes the board off disk as binding style reference. Queuing board and
   // hero as independent jobs lets a worker start the hero first: on a new

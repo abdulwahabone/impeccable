@@ -31,7 +31,14 @@ const cardFor = concept => {
   const base = localExists ? '/worlds/cards' : PROD_CARDS_BASE;
   const heroLocal = fs.existsSync(path.join(CARD_DIR, `${concept.id}-hero.webp`));
   const heroGenerated = Date.parse(row?.heroGeneratedAt || 0) || 0;
+  // The docs render answers a question the hero cannot: the hero is a landing
+  // page, so a world judged only on it is judged on how well it persuades.
+  const docsLocal = fs.existsSync(path.join(CARD_DIR, `${concept.id}-docs.webp`));
+  const docsGenerated = Date.parse(row?.docsGeneratedAt || 0) || 0;
   return {
+    docsSrc: (docsLocal || row?.docsGeneratedAt)
+      ? `${docsLocal ? '/worlds/cards' : PROD_CARDS_BASE}/${concept.id}-docs.webp?v=${docsGenerated.toString(36)}`
+      : null,
     src: `${base}/${concept.id}.webp?v=${generated.toString(36)}`,
     heroSrc: (heroLocal || row?.heroGeneratedAt)
       ? `${heroLocal ? '/worlds/cards' : PROD_CARDS_BASE}/${concept.id}-hero.webp?v=${heroGenerated.toString(36)}`
@@ -353,6 +360,20 @@ const pageData = JSON.stringify({
                   >
                 </a>
               </figure>
+              <figure class="worlds-concept-card" data-concept-docs-wrap hidden={!initialConcept.card?.docsSrc}>
+                <figcaption class="worlds-concept-card-label">as a documentation page</figcaption>
+                <a data-concept-docs-link href={initialConcept.card?.docsSrc} target="_blank" rel="noopener">
+                  <img
+                    data-concept-docs
+                    src={initialConcept.card?.docsSrc}
+                    alt={initialConcept.card?.docsSrc ? `Documentation page composed in the world of ${initialConcept.form}` : ''}
+                    width="2048"
+                    height="1152"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                </a>
+              </figure>
               <figure class="worlds-concept-card" data-concept-card-wrap hidden={!initialConcept.card}>
                 <a data-concept-card-link href={initialConcept.card?.src} target="_blank" rel="noopener">
                   <img
@@ -518,6 +539,9 @@ const pageData = JSON.stringify({
     const heroWrapEl = document.querySelector('[data-concept-hero-wrap]');
     const heroImgEl = document.querySelector('[data-concept-hero]');
     const heroLinkEl = document.querySelector('[data-concept-hero-link]');
+    const docsWrapEl = document.querySelector('[data-concept-docs-wrap]');
+    const docsImgEl = document.querySelector('[data-concept-docs]');
+    const docsLinkEl = document.querySelector('[data-concept-docs-link]');
     const webLeverageEl = document.querySelector('[data-concept-web-leverage]');
     const positionEl = document.querySelector('[data-concept-position]');
     const editForm = document.querySelector('[data-edit-form]');
@@ -982,6 +1006,9 @@ const pageData = JSON.stringify({
         heroWrapEl.hidden = true;
         heroImgEl.removeAttribute('src');
         heroLinkEl.removeAttribute('href');
+        docsWrapEl.hidden = true;
+        docsImgEl.removeAttribute('src');
+        docsLinkEl.removeAttribute('href');
         reviewNoteWrapEl.hidden = true;
         reviewNoteEl.textContent = '';
         decisionNoteInput.value = '';
@@ -1051,6 +1078,16 @@ const pageData = JSON.stringify({
         heroWrapEl.hidden = true;
         heroImgEl.removeAttribute('src');
         heroLinkEl.removeAttribute('href');
+      }
+      if (concept.card?.docsSrc) {
+        docsWrapEl.hidden = false;
+        docsImgEl.src = concept.card.docsSrc;
+        docsImgEl.alt = `Documentation page composed in the world of ${concept.form}`;
+        docsLinkEl.href = concept.card.docsSrc;
+      } else {
+        docsWrapEl.hidden = true;
+        docsImgEl.removeAttribute('src');
+        docsLinkEl.removeAttribute('href');
       }
       positionEl.textContent = String(globalIndex + 1).padStart(3, '0');
       tagsEl.replaceChildren(...concept.tags.map(tag => {
