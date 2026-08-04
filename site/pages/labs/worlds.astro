@@ -347,6 +347,7 @@ const pageData = JSON.stringify({
               </div>
             </div>
             <div class="worlds-concept-evidence">
+              <p class="worlds-concept-ask">With the label covered, could you tell which world this is?</p>
               <figure class="worlds-concept-card" data-concept-hero-wrap hidden={!initialConcept.card?.heroSrc}>
                 <a data-concept-hero-link href={initialConcept.card?.heroSrc} target="_blank" rel="noopener">
                   <img
@@ -398,6 +399,12 @@ const pageData = JSON.stringify({
                 <section>
                   <p>Web leverage</p>
                   <strong data-concept-web-leverage>{initialConcept.webLeverage}</strong>
+                </section>
+                <section data-concept-avoid-wrap hidden={!initialConcept.avoid?.length}>
+                  <p>Avoids</p>
+                  <ul class="worlds-concept-avoid" data-concept-avoid>
+                    {(initialConcept.avoid || []).map(item => <li>{item}</li>)}
+                  </ul>
                 </section>
               </div>
             </div>
@@ -543,6 +550,8 @@ const pageData = JSON.stringify({
     const docsImgEl = document.querySelector('[data-concept-docs]');
     const docsLinkEl = document.querySelector('[data-concept-docs-link]');
     const webLeverageEl = document.querySelector('[data-concept-web-leverage]');
+    const avoidWrapEl = document.querySelector('[data-concept-avoid-wrap]');
+    const avoidEl = document.querySelector('[data-concept-avoid]');
     const positionEl = document.querySelector('[data-concept-position]');
     const editForm = document.querySelector('[data-edit-form]');
     const toast = document.querySelector('[data-toast]');
@@ -1000,6 +1009,8 @@ const pageData = JSON.stringify({
         systemEl.replaceChildren();
         sparkEl.textContent = '';
         webLeverageEl.textContent = '';
+        avoidWrapEl.hidden = true;
+        avoidEl.replaceChildren();
         cardWrapEl.hidden = true;
         cardImgEl.removeAttribute('src');
         cardLinkEl.removeAttribute('href');
@@ -1034,6 +1045,12 @@ const pageData = JSON.stringify({
       }));
       sparkEl.textContent = concept.spark;
       webLeverageEl.textContent = concept.webLeverage;
+      avoidWrapEl.hidden = !concept.avoid?.length;
+      avoidEl.replaceChildren(...(concept.avoid || []).map(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        return li;
+      }));
       const reviewNote = concept.review?.note || '';
       reviewNoteWrapEl.hidden = !reviewNote;
       reviewNoteEl.textContent = reviewNote;

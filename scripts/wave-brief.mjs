@@ -241,6 +241,12 @@ One JSON object. No prose around it.
                 the idea also works as a staging, so earn it or say "world".
   tags          EXACTLY three structural tags. The validator enforces three,
                 not two and not four.
+  avoid         two or three negations, each under 160 characters, naming the
+                slop THIS world is at risk of. Not general design advice, which
+                a global detector already carries. A world built from posters is
+                at risk of shouting; one built from instruments is at risk of
+                dead greys. Write the ones a careful builder of this particular
+                world would still get wrong.
   axes          the drawn axis values below, verbatim, as an object
 
 The axes field is not optional. An assignment that is not recorded is lost the

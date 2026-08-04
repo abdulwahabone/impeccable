@@ -86,7 +86,7 @@ const anthropic = new Anthropic();
 
 const SCHEMA = {
   type: 'object',
-  required: ['id', 'familyId', 'form', 'lineage', 'spark', 'system', 'webLeverage', 'strength', 'tags', 'axes'],
+  required: ['id', 'familyId', 'form', 'lineage', 'spark', 'system', 'webLeverage', 'strength', 'tags', 'axes', 'avoid'],
   additionalProperties: false,
   properties: {
     id: { type: 'string', pattern: '^[a-z0-9-]+$' },
@@ -103,6 +103,7 @@ const SCHEMA = {
     webLeverage: { type: 'string', minLength: 20, maxLength: 240 },
     strength: { type: 'string', enum: ['world', 'dual'] },
     tags: { type: 'array', items: { type: 'string' } },
+    avoid: { type: 'array', items: { type: 'string', minLength: 12, maxLength: 160 } },
     // Enumerated rather than open, because the API rejects a map-shaped object.
     // The keys are the aesthetic axes the brief drew, so listing them here also
     // stops a world recording an axis the coverage map cannot read.

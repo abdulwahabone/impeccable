@@ -1,7 +1,7 @@
 ---
 import '../styles/live-ui-gallery.css';
 import { LIVE_COMMANDS } from '../../skill/scripts/live/vocabulary.mjs';
-import { LIVE_UI_SURFACES } from '../../skill/scripts/live/ui-core.mjs';
+import { readLiveUiSurfaces } from '../../scripts/lib/live-ui-surfaces.mjs';
 
 const STATE_GROUPS = [
   {
@@ -66,6 +66,7 @@ const STRUCTURAL_SURFACES = new Set(['css-isolation-boundary']);
 const coveredSurfaces = new Set(
   STATE_GROUPS.flatMap((group) => group.states.map(([, , surface]) => surface)),
 );
+const LIVE_UI_SURFACES = readLiveUiSurfaces();
 const visualSurfaces = LIVE_UI_SURFACES.filter((surface) => !STRUCTURAL_SURFACES.has(surface.key));
 const uncoveredSurfaces = visualSurfaces.filter((surface) => !coveredSurfaces.has(surface.key));
 if (uncoveredSurfaces.length > 0) {

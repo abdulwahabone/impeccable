@@ -991,6 +991,35 @@ button kbd {
 /* The hero is a landing page and the docs render is a reference page. Reviewing
    a world for read mode off the hero alone is judging it on the wrong job, so
    the docs render is labelled rather than left to be guessed at. */
+/* The question a reviewer answers from the render, not from the text. Every
+   other gate in the pipeline reads what a world claims; this one reads what it
+   produced, which is the only evidence that has held up. It catches the
+   anonymous end of the band; breadth:niche catches the other. */
+.worlds-concept-ask {
+  margin: 0 0 var(--spacing-xs);
+  color: var(--ks-text-muted);
+  font-size: 0.8125rem;
+  font-style: italic;
+}
+
+.worlds-concept-avoid {
+  margin: 0;
+  padding-left: 1.1em;
+  list-style: none;
+}
+
+.worlds-concept-avoid li {
+  position: relative;
+  margin-bottom: 0.2em;
+}
+
+.worlds-concept-avoid li::before {
+  content: "\00d7";
+  position: absolute;
+  left: -1.1em;
+  color: var(--ks-text-faint);
+}
+
 .worlds-concept-card-label {
   padding: var(--spacing-xs);
   border-bottom: 1px solid var(--ks-rule);
