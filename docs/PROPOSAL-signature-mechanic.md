@@ -1,6 +1,9 @@
-# Proposal: give every world one named mechanic, and make it falsifiable
+# Proposal: make a world's device findable in its render, and let it say what it risks
 
-Status: proposal, nothing implemented.
+Status: proposal, nothing implemented. Revised 2026-08-04 after a reviewer
+challenge dropped the field this document originally proposed; the section
+below keeps the challenge and what survived it, because the reasoning is the
+useful part.
 
 ## The problem it solves
 
