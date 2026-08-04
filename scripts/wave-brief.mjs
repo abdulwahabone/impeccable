@@ -249,6 +249,22 @@ The axes field is not optional. An assignment that is not recorded is lost the
 moment the world lands, and the coverage map silently reverts to guessing from
 prose.`;
 
+// Without replacement, deliberately. Drawing each brief's tradition independently
+// put two boxed-software manuals in one wave of ten, and both reached for a
+// colour tab rail. With 36 traditions and 10 draws a collision is the likely
+// outcome rather than bad luck, which is the birthday problem and not a reason
+// to reroll the key. A wave shuffles the deck once and deals off the top, so two
+// briefs in a wave can never share a tradition.
+function pickModeValue(axis, index) {
+  const values = [...axis.values];
+  // Fisher-Yates, seeded from the wave key so the shuffle is reproducible.
+  for (let i = values.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(unit(key, 'shuffle', axis.id, i) * (i + 1)) % (i + 1);
+    [values[i], values[j]] = [values[j], values[i]];
+  }
+  return values[index % values.length];
+}
+
 function renderBrief(brief) {
   const lines = [];
   lines.push(`# Wave "${key}", assignment ${String(brief.index + 1).padStart(2, '0')}`);
@@ -282,9 +298,7 @@ function renderBrief(brief) {
     lines.push('');
     const mpad = Math.max(...modeDeck.axes.map(axis => axis.label.length));
     for (const axis of modeDeck.axes) {
-      const values = axis.values;
-      const picked = values[Math.floor(unit(key, brief.index, 'mode', axis.id) * values.length) % values.length];
-      lines.push(`  ${axis.label.padEnd(mpad)}  ${picked}`);
+      lines.push(`  ${axis.label.padEnd(mpad)}  ${pickModeValue(axis, brief.index)}`);
     }
     lines.push('');
   }
