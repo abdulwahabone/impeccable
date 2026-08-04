@@ -59,6 +59,11 @@ const threshold = Number(flag('threshold', 0.12));
 // because both worlds happen to be terrain, is only 1.37 times the median and
 // shares exactly one substantive word.
 const batchRatio = Number(flag('batch-ratio', 1.5));
+// Emit the ids to cut as JSON instead of making a caller scrape the report. The
+// wave runner regex-matched the human output, could not tell a CONVERGED pair
+// from an "ok" one shown for context, and cut worlds that had passed.
+const asJson = args.includes('--json');
+const say = text => { if (!asJson) process.stdout.write(text); };
 const candidatesPath = flag('candidates', null);
 const limit = Number(flag('limit', 20));
 
@@ -143,9 +148,15 @@ if (candidates) {
 }
 pairs.sort((x, y) => y.score - x.score);
 
+// Ids this run says to drop, for a caller that needs a decision rather than a
+// report. Two independent reasons: too close to something already in the
+// catalog, or one half of a within-batch pair that converged.
+const cut = new Set();
+for (const pair of pairs) if (pair.a.isNew) cut.add(pair.a.id);
+
 const scope = candidates ? `${candidates.length} candidates against ${existing.length} existing` : `${existing.length} catalog entries against each other`;
-process.stdout.write(`near-duplicate audit: ${scope}, threshold ${threshold}\n`);
-process.stdout.write(`${pairs.length} pairs at or above threshold\n`);
+say(`near-duplicate audit: ${scope}, threshold ${threshold}\n`);
+say(`${pairs.length} pairs at or above threshold\n`);
 // Context, so a reader does not mistake a small number for a weak signal.
 const sample = [];
 for (let i = 0; i < Math.min(existing.length, 260); i += 1) {
@@ -154,18 +165,18 @@ for (let i = 0; i < Math.min(existing.length, 260); i += 1) {
 sample.sort((a, b) => a - b);
 if (sample.length) {
   const at = p => sample[Math.floor(sample.length * p)].toFixed(3);
-  process.stdout.write(`for scale: median ${at(0.5)}, p99 ${at(0.99)}, max ${sample[sample.length - 1].toFixed(3)}\n`);
+  say(`for scale: median ${at(0.5)}, p99 ${at(0.99)}, max ${sample[sample.length - 1].toFixed(3)}\n`);
 }
-process.stdout.write('\n');
+say('\n');
 
 for (const pair of pairs.slice(0, limit)) {
-  process.stdout.write(`  ${pair.score.toFixed(3)}  ${pair.a.id}\n`);
-  process.stdout.write(`         ${pair.b.id}\n`);
-  process.stdout.write(`         ${pair.a.form.split(',')[0].slice(0, 82)}\n`);
-  process.stdout.write(`         ${pair.b.form.split(',')[0].slice(0, 82)}\n`);
-  process.stdout.write(`         shared: ${sharedTerms(pair.a, pair.b, idf).join(', ')}\n\n`);
+  say(`  ${pair.score.toFixed(3)}  ${pair.a.id}\n`);
+  say(`         ${pair.b.id}\n`);
+  say(`         ${pair.a.form.split(',')[0].slice(0, 82)}\n`);
+  say(`         ${pair.b.form.split(',')[0].slice(0, 82)}\n`);
+  say(`         shared: ${sharedTerms(pair.a, pair.b, idf).join(', ')}\n\n`);
 }
-if (pairs.length > limit) process.stdout.write(`  ...and ${pairs.length - limit} more\n`);
+if (pairs.length > limit) say(`  ...and ${pairs.length - limit} more\n`);
 
 if (candidates && candidates.length > 2) {
   const within = [];
@@ -176,24 +187,32 @@ if (candidates && candidates.length > 2) {
   }
   within.sort((x, y) => y.score - x.score);
   const median = within[Math.floor(within.length / 2)].score || 1;
-  process.stdout.write(`\nwithin this wave: ${within.length} pairs, median ${median.toFixed(3)}\n`);
-  process.stdout.write('Judged against the batch median rather than the catalog threshold, because one\n');
-  process.stdout.write('brief read by every author raises the whole batch and an absolute bar just\n');
-  process.stdout.write('flags all of it. Ratio is what carries signal.\n\n');
+  say(`\nwithin this wave: ${within.length} pairs, median ${median.toFixed(3)}\n`);
+  say('Judged against the batch median rather than the catalog threshold, because one\n');
+  say('brief read by every author raises the whole batch and an absolute bar just\n');
+  say('flags all of it. Ratio is what carries signal.\n\n');
   for (const pair of within.slice(0, 3)) {
     const ratio = pair.score / median;
     const mark = ratio >= batchRatio ? 'CONVERGED' : 'ok';
-    process.stdout.write(`  ${pair.score.toFixed(3)}  ${ratio.toFixed(2)}x median  ${mark.padEnd(10)} ${pair.a.id}\n`);
-    process.stdout.write(`         ${''.padEnd(18)} ${pair.b.id}\n`);
-    process.stdout.write(`         shared: ${sharedTerms(pair.a, pair.b, idf).join(', ')}\n`);
+    say(`  ${pair.score.toFixed(3)}  ${ratio.toFixed(2)}x median  ${mark.padEnd(10)} ${pair.a.id}\n`);
+    say(`         ${''.padEnd(18)} ${pair.b.id}\n`);
+    say(`         shared: ${sharedTerms(pair.a, pair.b, idf).join(', ')}\n`);
   }
-  const converged = within.filter(p => p.score / median >= batchRatio).length;
-  process.stdout.write(`\n${converged} pair(s) at or above ${batchRatio}x the batch median.\n`);
-  if (converged === 0) process.stdout.write('The wave separated. Shared words in the top pair are mostly brief vocabulary.\n');
+  const convergedPairs = within.filter(p => p.score / median >= batchRatio);
+  const converged = convergedPairs.length;
+  // One of each converged pair leaves, arbitrarily the first. A reviewer would
+  // pick the better one; an unattended step cannot, and keeping both is worse.
+  for (const pair of convergedPairs) cut.add(pair.a.id);
+  say(`\n${converged} pair(s) at or above ${batchRatio}x the batch median.\n`);
+  if (converged === 0) say('The wave separated. Shared words in the top pair are mostly brief vocabulary.\n');
 }
 
 if (candidates) {
   const blocked = new Set(pairs.filter(p => p.a.isNew).map(p => p.a.id));
-  process.stdout.write(`\n${blocked.size} of ${candidates.length} candidates are too close to something that already exists.\n`);
-  process.stdout.write('Cut those before rendering: renders are the expensive step and a near-duplicate spends the budget twice.\n');
+  say(`\n${blocked.size} of ${candidates.length} candidates are too close to something that already exists.\n`);
+  say('Cut those before rendering: renders are the expensive step and a near-duplicate spends the budget twice.\n');
+}
+
+if (asJson) {
+  process.stdout.write(`${JSON.stringify({ cut: [...cut] }, null, 1)}\n`);
 }

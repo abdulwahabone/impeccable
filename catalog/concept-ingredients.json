@@ -8938,6 +8938,228 @@
       "prohibition": "no-dividers",
       "variance": "parametric"
      }
+    },
+    {
+     "id": "operate-b-exposure-record-zone-sheets",
+     "form": "A working field built as a darkroom printer's exposure record: overlapping translucent sheets over a backlit eleven-step zone ramp, where any region carries a hatch density and a stop-delta, and two hatches crossing at ninety degrees mark a conflict.",
+     "lineage": "Photographic printers' exposure record cards and f-stop dodge-and-burn maps, 1940s-1980s darkrooms, over Adams and Archer's 1940 eleven-zone tonal scale.",
+     "spark": "A taped record card under the enlarger's glow: ruled boxes of seconds and M-filtration numbers, and a tracing-paper overlay askew on top where one region is hatched +1 1/3 and a corner is outlined to be held back.",
+     "system": [
+      "Palette/material: Backlit neutrals snapped to an eleven-step zone ramp; one glowing dichroic magenta marks filtration only; hosted images sit in a two-step mask, never hatched.",
+      "Type/composition: Legends in tracked condensed caps, quantities in tabular mono with 1/3 and 2/3 fractions; prose sits only on cleared light zones, hatching halting a line short.",
+      "Topology/navigation: Stacked translucent sheets overlap at slight angles, each squared internally; navigating slides a sheet aside instead of replacing the field beneath.",
+      "Controls/state: dotted outline is held back, deepest zone is selected, a struck rule is disabled, hatch density is load; two hatches crossing at ninety degrees is a conflict.",
+      "Responsive/motion: Sheets carry mass, sliding with slight overshoot before settling; narrow widths stack them one per column with the zone wedge repeating at each band head."
+     ],
+     "webLeverage": "An eleven-step zone ramp as the only tonal tokens, plus a hatch layer where any region takes a numeric weight and a stop-delta, and overlapping regions cross-hatch so conflict renders without colour.",
+     "strength": "world",
+     "tags": [
+      "stepped-tonal-ramp",
+      "hatch-overlay",
+      "layered-sheets"
+     ],
+     "avoid": [
+      "No darkroom props: no enlargers, safelight bulbs, tongs, trays or curling prints; this world is sheets, ramps, hatching and numbers only.",
+      "No photographs, negatives, contact sheets or grain texture standing in for content; a subject appears only as its exposure terrain.",
+      "Do not let the ramp settle into flat dead grey: the wedge must reach true black and bare white, and the magenta must actually emit."
+     ],
+     "axes": {
+      "palette-breadth": "one",
+      "colour-strategy": "restrained",
+      "material": "emissive",
+      "spatial": "map",
+      "density": "working",
+      "composition": "collage",
+      "scale-range": "moderate",
+      "motion": "simulated",
+      "prohibition": "no-photography",
+      "variance": "curated-chaos"
+     }
+    },
+    {
+     "id": "operate-b-die-struck-enamel-plate",
+     "form": "A working plane built as a die-struck enamel plate: irregular fired colour cells drench the ground and run off the frame, while every control sits above them in bare nickel, raised where you may act and sunk to an empty well where you may type, so no hue ever touches a thing you can press.",
+     "lineage": "Die-struck soft-enamel badge and champleve plate artwork: the colour-separation proof sheets of Japanese and American trading-pin makers, 1964 onward.",
+     "spark": "A pin-maker's proof plate under a bench lamp: lapis, chrome yellow and sang cells fired hard against die-struck nickel walls, one cell left sandblasted and empty where the enamel never went in, and a struck legend so large it runs straight off the edge of the metal.",
+     "system": [
+      "Palette/material: ground is fired enamel in lapis, turquoise, sang, chrome yellow, orange, grass, aubergine, ivory; furniture is bare satin nickel; foreign media gets a nickel mat.",
+      "Type/composition: legends are die-struck condensed grotesk reversed from their cell at 4.5:1; running prose sits only in inset nickel troughs; one legend runs off the frame.",
+      "Topology/navigation: enamel cells tessellate and run off every edge; nickel furniture floats over them on one shared baseline rail that carries navigation, so rows stay aligned.",
+      "Controls/state: raised = actionable, inset well = editable, flush shadowless = disabled, knurled = pending, chisel-crossed = failed, drilled through = gone; rank is relief height.",
+      "Responsive/motion: relief changes in one 90ms step between three fixed shadow lengths, never a fade; the cell field stretches on its long axis and nothing reflows."
+     ],
+     "webLeverage": "Ship three relief tokens (flat, 2px, 6px hard shadows, no blur ramp, no easing, switched in one step) plus a build-time gate that refuses any enamel hue on a focusable element, so colour is generated for ground only.",
+     "strength": "world",
+     "tags": [
+      "relief-state",
+      "enamel-cells",
+      "colourless-controls"
+     ],
+     "avoid": [
+      "No pins, clutches, domed glaze or badges on fabric: this is a fired plate read flat on, never an object photographed.",
+      "No brushed-metal bezels, screws, rivets or gloss reflections; relief is geometry plus one hard shadow, not chrome rendering.",
+      "Cells must not settle into equal rounded rectangles on a grid, and no hue may leak onto a button, tab, field or focus ring."
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "drenched",
+      "material": "metal",
+      "spatial": "room",
+      "density": "saturated",
+      "composition": "collage",
+      "scale-range": "extreme",
+      "motion": "mechanical",
+      "prohibition": "no-colour-on-interactive",
+      "variance": "parametric"
+     }
+    },
+    {
+     "id": "operate-b-caret-chart-queue",
+     "form": "A worked queue rebuilt as a chart plate: one raked five-unit ruling carries each item as a column of small coloured carets, the live item lifted onto a frosted glass leaf while the rest compress to thin mark columns behind it.",
+     "lineage": "The printed anaesthesia record, mid-century North American hospital forms c.1935-1965: five-minute rulings, caret and circle plotting symbols, drug bars, inked event stiles.",
+     "spark": "A finished record sheet on a lit glass viewer: pale green rulings, a sawtooth of oxblood and prussian carets marching across it, one hatched bar running under three columns, and a single vertical stile inked where something happened at 10:42.",
+     "system": [
+      "Palette/material: frosted and slate glass on bone stock, grid ruled ozone green; seven mark inks, oxblood to graphite; only vermilion fills area; foreign images sit behind glass.",
+      "Type/composition: ruled terrain rakes at one fixed shallow diagonal; all type stays level; running prose sits on milk-frosted glass with the rulings suppressed beneath it.",
+      "Topology/navigation: one plate holds the front leaf, its caret column drawn four times larger; the rest sit compressed behind glass; no plate reaches the frame edge.",
+      "Controls/state: state is a plotted mark: caret down pending, caret up done, hatched bar running, struck stile failed, ringed mark confirmed, a row ruled through is void.",
+      "Responsive/motion: marks land one grid column at a time, never tweened; the terrain steps in whole five-unit jumps; narrow widths drop rake columns, never rescale marks."
+     ],
+     "webLeverage": "Every row renders as an SVG caret column computed from its own values on one shared raked ruling; selection promotes a row to a 4x plate on a frosted layer, and state changes snap to whole grid columns.",
+     "strength": "world",
+     "tags": [
+      "caret-plot",
+      "raked-time-ruling",
+      "glass-leaf-stack"
+     ],
+     "avoid": [
+      "No hospital dressing: no patient names, vital-sign drama, clipboards, monitors, ECG traces or medical iconography. Take the marking system only.",
+      "Do not let the seven mark inks spread into fills or gradients; they stay hairline carets and circles on neutral glass, vermilion excepted.",
+      "No smooth scrolling terrain, no bevelled chrome, lens flare or glossy 3D glass; the leaves read as flat frosted sheets."
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "restrained",
+      "material": "glass",
+      "spatial": "map",
+      "density": "ceremonial",
+      "composition": "diagonal",
+      "scale-range": "wide",
+      "motion": "mechanical",
+      "prohibition": "no-full-width",
+      "variance": "generative"
+     }
+    },
+    {
+     "id": "operate-b-bridge-watch-log-monitor",
+     "form": "A monitoring surface built from a bridge watch log's printed form: a sticky stub column of ruled index cells, horizontal watch bands in log-blue, and a wrong value left in place, struck once, with the correction inked above it and initials in a narrow box beside.",
+     "lineage": "Merchant-marine bell books, engine order logs and Admiralty deck log forms, roughly 1900-1975, with Admiralty chart ink conventions where cautionary matter prints magenta.",
+     "spark": "A watch log open under a chart-table lamp at 03:40: one figure struck through by a single ruled line, the corrected figure inked above it, two initials in the narrow box at the margin, and a magenta legend stamped hard across the blue watch band.",
+     "system": [
+      "Palette/material: Buff litho tooth; log-blue owns ruling, stubs, bands; legends in black, red, magenta, green, ochre, yellow; foreign media becomes a ruled exhibit.",
+      "Type/composition: Modular column grid, tabular mono entries, condensed caps legends; prose in cleared buff lanes. One legend per view runs at band height, frame-cropped.",
+      "Topology/navigation: A sticky stub column at left is the whole navigation; the field beside it is banded, each band closed by a double rule and a carry-forward mark.",
+      "Controls/state: A superseded value is struck once, corrected above, initialed beside; a diagonal cancels, a bracket pends, a doubled box selects; rank is rule weight.",
+      "Responsive/motion: Values settle like a damped pointer, overshooting once; the field advances by whole ruled lines, never fading. Narrow widths drop right columns, not the stub."
+     ],
+     "webLeverage": "Corrections are append-only in the DOM: a changed value keeps its old glyphs under a one-pixel ruled strike with an initial box appended; band row heights compute from the content's own counts; numbers settle on a damped spring.",
+     "strength": "world",
+     "tags": [
+      "struck-not-erased",
+      "banded-stub-ledger",
+      "rule-weight-hierarchy"
+     ],
+     "avoid": [
+      "No brass telegraph dials, ship's wheels, portholes, rope or bezels; take the form's ruling, legends and stamps, never the bridge itself.",
+      "No tea-stained parchment, deckled edges, compass roses or cursive script used as texture; every entry is a legible printed or inked mark.",
+      "No sepia retreat into greys: the legend inks must appear and log-blue must stay saturated rather than drifting to slate."
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "committed",
+      "material": "grain-noise",
+      "spatial": "machine",
+      "density": "working",
+      "composition": "modular",
+      "scale-range": "extreme",
+      "motion": "simulated",
+      "prohibition": "no-photography",
+      "variance": "generative"
+     }
+    },
+    {
+     "id": "operate-b-struck-cathode-gauze",
+     "form": "An access-control surface built as a cathode numeral stack: every possible value present at once as a dark ghost behind a fine bronze anode gauze, one struck forward in glowing orange, with no box, rule or divider anywhere on a plane that runs past every edge.",
+     "lineage": "Cold-cathode nixie readouts of Burroughs and Rodan decade counters, 1955 to 1972, and the anode-gauze faces of laboratory scaler panels.",
+     "spark": "A decade counter at 2am: the numeral 4 blazing orange while nine unlit sisters hang behind it in the same glass, faint wire outlines crossed by the mesh of the anode gauze, the tube stack throwing warm light onto blue-black bench felt.",
+     "system": [
+      "Palette/material: two hues, ink-blue black and cathode orange, on fine bronze wire gauze; roles: ground, gauze, ghost, glow. Imported photos stay untinted under a gauze veil.",
+      "Type/composition: one condensed numeral-derived display face against bone-white body prose; labels may align, but the ghost layer behind them overlaps freely at differing depths.",
+      "Topology/navigation: the gauze plane runs past every edge unframed; no rules, boxes or dividers, grouping is gauze density and depth; prose columns clear the mesh entirely.",
+      "Controls/state: all options sit present as unlit ghosts behind the gauze; the chosen one is struck forward, crisp and haloed; stale keeps a decayed afterglow; refused stays dark.",
+      "Responsive/motion: values snap, never tween; the old glow decays over one beat as the new strikes. Width adds ghost depth to the stack, never new columns or framing."
+     ],
+     "webLeverage": "Render every alternative in the DOM at once: unlit states as low-opacity ghost text staggered in depth behind a repeating SVG mesh, the active one promoted by a hard opacity and blur step with no transition.",
+     "strength": "world",
+     "tags": [
+      "all-states-present",
+      "glow-versus-ghost",
+      "unframed-plane"
+     ],
+     "avoid": [
+      "No glass tube, socket, bezel or brushed metal; the gauze and the glow are graphic layers, never a photographed instrument.",
+      "No dead greys or sooty near-black wash; the ground stays a saturated ink blue and the struck glow a true hot orange.",
+      "No glyph rain, no seven-segment forms, no orange running copy; body prose is bone-white on the darkest ground."
+     ],
+     "axes": {
+      "palette-breadth": "duotone",
+      "colour-strategy": "full-palette",
+      "material": "woven",
+      "spatial": "infinite",
+      "density": "calm",
+      "composition": "collage",
+      "scale-range": "moderate",
+      "motion": "mechanical",
+      "prohibition": "no-dividers",
+      "variance": "parametric"
+     }
+    },
+    {
+     "id": "operate-b-normalled-jackfield",
+     "form": "A resumable configuration surface drawn as a jackfield normalling schedule: numbered lanes on unlit black glass where every item is tied to its default by an amber link line that is unbroken, cross-ticked, gapped, doubled or ended in an open ring.",
+     "lineage": "Studio and broadcast patchbay normalling schedules: ADC and Bantam TT jackfield legend strips and BBC Designs Department wiring charts, 1968-1985",
+     "spark": "A backlit schedule taped inside a machine-room door: amber lanes numbered 01 to 48 on black glass, a solid tie line running to each default, and one line interrupted by a neat hand-inked gap where the operator broke the normal and left it broken.",
+     "system": [
+      "Palette/material: black glass ground, one signal amber for every mark; foreign photos keep their own colour inside an amber hairline frame with a filled amber caption bar.",
+      "Type/composition: one condensed grotesque: small-cap legends, upright prose. Rank is inversion, the dominant block knocked dark out of a solid amber plate, one per screen.",
+      "Topology/navigation: an endless lane grid drifts under a fixed left legend strip; dark gutters at both edges mean nothing spans full width, and panels snap to numbered lanes.",
+      "Controls/state: each item carries a link line: unbroken is live, one cross-tick held, a clean gap disabled, doubled selected, open ring end destructive; no colour carries state.",
+      "Responsive/motion: lanes drift one hairline per second under static type; narrow widths drop lanes, never the edge gutters, and a broken link line never animates closed."
+     ],
+     "webLeverage": "Every row owns an SVG link rail whose state is drawn by stroke pattern rather than hue: unbroken, cross-tick, gap, doubled, open ring. Lane numbers are durable anchors, so any surface can be re-entered where it broke.",
+     "strength": "world",
+     "tags": [
+      "link-line-state",
+      "lane-grid",
+      "amber-emissive"
+     ],
+     "avoid": [
+      "No drawn patchbay: no jacks, bezels, screws, brushed metal or looping cables; the chart exists, the machine does not.",
+      "No CRT bloom, scanlines or phosphor decay; the amber is flat emitted light, not a simulated tube.",
+      "No second hue smuggled in for warnings or success; a warning is a broken line, never a red one."
+     ],
+     "axes": {
+      "palette-breadth": "one",
+      "colour-strategy": "committed",
+      "material": "emissive",
+      "spatial": "infinite",
+      "density": "ceremonial",
+      "composition": "modular",
+      "scale-range": "moderate",
+      "motion": "continuous",
+      "prohibition": "no-full-width",
+      "variance": "immutable"
+     }
     }
    ]
   },

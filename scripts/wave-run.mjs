@@ -190,14 +190,14 @@ log('');
 // everything anyway, which made it decoration: a run once merged six candidates
 // it had just called too close to existing worlds. The whole reason this step
 // sits before the render is that a near-duplicate spends the image budget twice.
-const dedupOut = run('node', ['scripts/world-dedup.mjs', '--candidates', bundlePath]);
-process.stdout.write(dedupOut.split('\n')
-  .filter(l => /CONVERGED|too close|separated/.test(l)).map(l => `  ${l.trim()}`).join('\n'));
+// The report for a human, then the decision as data. Scraping the report was a
+// mistake: the regex could not tell a CONVERGED pair from an "ok" one printed
+// for context, so it cut worlds that had passed.
+process.stdout.write(run('node', ['scripts/world-dedup.mjs', '--candidates', bundlePath])
+  .split('\n').filter(l => /CONVERGED|too close|separated/.test(l)).map(l => `  ${l.trim()}`).join('\n'));
 log('');
-const tooClose = new Set(dedupOut.split('\n')
-  .filter(line => /^\s+\d\.\d{3}\s/.test(line))
-  .map(line => line.trim().split(/\s+/).pop())
-  .filter(id => authored.some(concept => concept.id === id)));
+const { cut } = JSON.parse(run('node', ['scripts/world-dedup.mjs', '--candidates', bundlePath, '--json']));
+const tooClose = new Set(cut);
 const kept = authored.filter(concept => !tooClose.has(concept.id));
 if (tooClose.size > 0) {
   log(`\ncutting ${tooClose.size} near-duplicate(s) before the render:`);
