@@ -21,9 +21,9 @@
 //   node scripts/wave-brief.mjs --key spring-docs --index 0
 //   node scripts/wave-brief.mjs --key spring-docs --count 6 --out briefs/
 
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { drawBrief, loadWaveInputs } from './lib/wave-draw.mjs';
+import { drawBrief, loadWaveInputs, unit } from './lib/wave-draw.mjs';
 
 const args = process.argv.slice(2);
 const flag = (name, fallback) => {
@@ -34,8 +34,52 @@ const key = flag('key', 'wave');
 const count = flag('count', null);
 const only = flag('index', null);
 const outDir = flag('out', null);
+// Read mode gets its own territory draw and its own bar. The wave pipeline used
+// to brief documentation surfaces for every mode and leave the source tradition
+// to the authoring agent, which is how it produced worlds built from traditions
+// of display and then graded them on a landing page.
+const mode = flag('mode', null);
 
 const { axesDefinition, companyDeck, occupancy } = loadWaveInputs();
+let modeDeck = null;
+if (mode === 'read') {
+  modeDeck = JSON.parse(readFileSync(path.join(process.cwd(), 'catalog', 'read-territories.json'), 'utf8'));
+}
+
+const READ_BAR = `## The read bar, which is not the bar for other modes
+
+This world will be dealt to documentation, essays, and long-form reading. Two
+things fail a read world, they pull against each other, and clearing both at
+once is the whole difficulty.
+
+**Unreadable.** The tradition has only a display voice, so body copy inherits
+poster lettering. One audited world set its hierarchy by size alone and rendered
+four paragraphs of running text in all caps. The reviewer's rule, and it is
+checkable from your Type/composition rule before anything is drawn:
+
+  a world can serve read only if its system contains a BODY FACE,
+  not only a display voice.
+
+Name both faces, or name one face and the two sizes it works at, and state the
+measure. If your tradition never set a paragraph, it cannot supply one.
+
+**Generic.** Perfectly readable and something a model produces unprompted. Every
+entry mined from contemporary web practice failed here: the reviewer's note on
+two of them was "super boring, an llm produces this on its own". Do not reach for
+a modern documentation site, a neutral greyscale product surface, or a dark
+developer console. Those are the default, which is what a challenger exists to
+displace.
+
+Your assigned tradition clears the second by being specific and dated, and
+clears the first by having had running text as its actual job. Keep both
+properties. The failure to avoid is taking the display side of a reading
+tradition: the catalog already holds a Pelican jacket and no Pelican page, a
+cover where the interior typography was the point.
+
+**Reading is the job.** Hierarchy serves comprehension, not impact. The surface
+may be distinctive in its furniture, its rules, its margins, its ornament and its
+colour, and it may not buy that distinctiveness out of the legibility of running
+prose.`;
 
 // The contract every candidate is written against. Each entry names the rule
 // from a judged transfer that produced it, because a prohibition without its
@@ -220,13 +264,30 @@ function renderBrief(brief) {
     lines.push('');
     lines.push('Drawn uniformly. It is not negotiable and it is not a suggestion to improve on.');
     lines.push('');
-    const pad = Math.max(...brief.company.map(line => line.label.length));
-    for (const line of brief.company) {
+    // A mode deck supplies its own surface, so the company deck's would be a
+    // second, conflicting answer to the same question.
+    const company = modeDeck ? brief.company.filter(line => line.axis !== 'surface') : brief.company;
+    const pad = Math.max(...company.map(line => line.label.length));
+    for (const line of company) {
       lines.push(`  ${line.label.padEnd(pad)}  ${line.value}`);
     }
     lines.push('');
   }
 
+  if (modeDeck) {
+    lines.push('## The reading tradition');
+    lines.push('');
+    lines.push('Drawn, not chosen. Author this tradition at its canonical peak, and author the');
+    lines.push('page rather than the cover.');
+    lines.push('');
+    const mpad = Math.max(...modeDeck.axes.map(axis => axis.label.length));
+    for (const axis of modeDeck.axes) {
+      const values = axis.values;
+      const picked = values[Math.floor(unit(key, brief.index, 'mode', axis.id) * values.length) % values.length];
+      lines.push(`  ${axis.label.padEnd(mpad)}  ${picked}`);
+    }
+    lines.push('');
+  }
   lines.push('## The aesthetic');
   lines.push('');
   lines.push('Weighted against what the catalog already occupies, so a thin value is an');
@@ -240,6 +301,7 @@ function renderBrief(brief) {
   }
   lines.push('');
   lines.push(CONTRACT);
+  if (modeDeck) { lines.push(''); lines.push(READ_BAR); }
   lines.push('');
   lines.push(OUTPUT_SHAPE);
   lines.push('');

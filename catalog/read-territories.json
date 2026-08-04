@@ -1,0 +1,68 @@
+{
+ "schemaVersion": 1,
+ "mode": "read",
+ "note": "Named traditions of typeset running text, for authoring read-mode worlds. It exists because a 54-world audit of the read pool found the pool could serve reading but was built almost entirely from traditions of display, and because the two ways a read world fails pull against each other. A world can be unreadable, where the tradition has only a display voice so body copy inherits poster lettering and arrives as four paragraphs of all caps. Or it can be generic, perfectly readable and something a model produces unprompted, which is what happened to every entry mined from contemporary web practice. Clearing both at once is what makes read the hardest of the four modes, and what these traditions are chosen for: each one is specific enough and dated enough to be distinctive, and each one had running text as its actual job, so it already contains a body face.",
+ "rule": "The reviewer's criterion, from the audit: a world can serve read only if its system contains a body face and not only a display voice. A tradition whose artifacts carry no paragraph of running text cannot supply one.",
+ "axes": [
+  {
+   "id": "territory",
+   "label": "Reading tradition",
+   "note": "The canonical peak of each, never the category. Author the specific dated practice, not the genre it belongs to. Note the catalog already holds several of these traditions from their display side only, a Pelican jacket rather than a Pelican page, which is the exact substitution to avoid.",
+   "values": [
+    "Tschichold's Penguin Composition Rules applied to a paperback interior",
+    "the Whole Earth Catalog's dense multi-column page",
+    "an O'Reilly technical manual interior with its running heads and code",
+    "Bradbury Thompson's Westvaco Inspirations spreads",
+    "Karel Martens' Oase journal typography",
+    "a Dutch Total Design annual report interior",
+    "an early WIRED feature spread, the Carson-adjacent but readable years",
+    "a Swiss Neue Grafik journal page with its parallel language columns",
+    "Aldus Manutius' octavo and its invention of portable reading",
+    "a Baskerville-era English quarto's generous margins and long lines",
+    "a Bible's double-column setting with centre-column references",
+    "a legal statute book with marginal notes and clause numbering",
+    "a scholarly critical edition with an apparatus criticus at the foot",
+    "a Loeb Classical Library facing-page bilingual setting",
+    "a nineteenth-century encyclopaedia's ranked entry hierarchy",
+    "an almanac's compressed tabular year",
+    "a Michelin or Baedeker guide's compressed symbol-dense entries",
+    "an airline timetable booklet's tabular density",
+    "a knitting or crochet pattern's abbreviation grammar",
+    "a Haynes workshop manual's numbered procedure and exploded plate",
+    "a pharmacopoeia monograph's fixed field order",
+    "a field guide's plate-and-key facing pages",
+    "a broadsheet newspaper's leader page",
+    "a Sunday supplement's long-read feature opening",
+    "a literary quarterly's plain interior",
+    "an academic journal's two-column IEEE setting",
+    "a mimeographed samizdat text passed hand to hand",
+    "a zine's typewriter-and-photocopier interior",
+    "a Unix man page and its terse sectioned grammar",
+    "an Infocom or Zork feelie booklet's in-world documentation",
+    "a Nintendo or Sega manual interior from the cartridge era",
+    "a hypercard stack's linked card reading",
+    "a Gopher or early web textual document before layout",
+    "a Usenet FAQ's numbered question hierarchy",
+    "a printed software manual from the boxed-software era",
+    "a telephone directory's compressed alphabetical column"
+   ]
+  },
+  {
+   "id": "surface",
+   "label": "The read surface to design",
+   "note": "Read is not one thing either. The wave pipeline previously drew only documentation surfaces, which is part of why it produced only documentation-shaped worlds.",
+   "values": [
+    "an API reference where the examples matter more than the prose",
+    "a long essay that has to hold attention for four thousand words",
+    "a conceptual explainer arguing for a way of thinking",
+    "a troubleshooting surface reached in a bad moment",
+    "a tutorial that has to survive being followed literally",
+    "a glossary that settles arguments",
+    "a changelog that has to carry consequence",
+    "a research paper or technical report with figures and citations",
+    "a knowledge base a support agent reads with a customer waiting",
+    "a personal blog archive spanning fifteen years"
+   ]
+  }
+ ]
+}
