@@ -1093,53 +1093,83 @@ describe('renderTemplate()', () => {
     const text = renderTemplate(findings, '/x/Card.tsx', DEFAULT_CONFIG, { cwd: '/x' });
     assert.ok(text.startsWith(`${ENVELOPE_PREFIX} Design hook findings requiring review in Card.tsx (12 issue(s)):`));
     assert.match(text, /\.\.\. and 7 more \(see \/impeccable audit\)\./);
-    // Exactly 5 finding lines.
-    const lines = text.split('\n').filter((l) => l.startsWith('- '));
+    // Exactly 5 finding lines. The footer's triage bullets also start with
+    // "- ", so count only lines carrying a rule id.
+    const lines = text.split('\n').filter((l) => /^- L\d+ \[/.test(l));
     assert.equal(lines.length, 5);
     assert.ok(text.length <= DEFAULT_CONFIG.limits.maxChars);
   });
 
-  it('emits a directive footer (imperative + judgment clause + confirmed ignore guidance)', () => {
-    // Steers the model: imperative "handle", explicit context judgment
-    // before editing, and "acknowledge" so the user sees the resolution
-    // in the chat reply. See `directiveFooter()` in hook-lib.mjs for
-    // the rationale.
+  it('emits a directive footer (triage branches + executable self-serve ignore + honest provenance)', () => {
+    // Steers the model: imperative triage into fix / suppress-and-disclose /
+    // ask, a runnable hook-admin.mjs path for the self-served ignore, and the
+    // provenance rule for --reason. See `directiveFooter()` in hook-lib.mjs
+    // for the rationale.
     const text = renderTemplate(
       [finding('side-tab', 1, { name: 'X' })],
       '/x/Card.tsx', DEFAULT_CONFIG, { cwd: '/x' }
     );
-    assert.match(text, /Handle these before finalizing/);
-    assert.match(text, /fix findings that are real design problems/);
-    assert.match(text, /classify contextually intentional findings as false positives/);
-    assert.match(text, /Use context judgment before editing/);
-    assert.match(text, /not automatically a defect/);
+    assert.match(text, /Triage each finding/);
+    assert.match(text, /what you fixed, what you suppressed, and what you left standing/);
+    assert.match(text, /Real design problem: fix it\. Keep intentional design as designed\./);
+    assert.match(text, /Confident false positive or sanctioned exception/);
     assert.match(text, /literal or domain-appropriate motion/);
-    assert.match(text, /Do not change intentional design just to satisfy the hook/);
-    assert.match(text, /Suppress a finding only after the user explicitly confirms it is intentional/);
-    assert.match(text, /do not silence a real finding with an inline ignore comment/);
-    assert.match(text, /inline `impeccable-disable <rule>` comment only when the waiver must travel with a file/);
-    assert.match(text, /ignore-value \.\.\. --shared/);
-    assert.match(text, /ignore-rule overused-font --all-values/);
-    assert.match(text, /\/impeccable hooks ignore-file Card\.tsx/);
-    assert.match(text, /ignore-rule <id>/);
-    assert.match(text, /\/impeccable audit/);
+    assert.match(text, /persist the narrowest ignore yourself and disclose it/);
+    assert.match(text, /hook-admin\.mjs" ignore-value <rule> "<value>" --reason "<who decided: evidence>"/);
+    assert.match(text, /Write "user confirmed" in a reason only when the user did/);
+    assert.match(text, /Unsure: leave it as is and ask the user in one line/);
+    assert.match(text, /Self-serve ends at ignore-value/);
+    assert.match(text, /never add an ignore to push a blocked write through/);
+    assert.match(text, /Full suppression ladder: \/impeccable hooks/);
   });
 
-  it('shows the exact value-specific command for overused-font findings', () => {
+  it('renders the one-line short footer when opts.footer is "short"', () => {
+    const text = renderTemplate(
+      [finding('side-tab', 1, { name: 'X' })],
+      '/x/Card.tsx', DEFAULT_CONFIG, { cwd: '/x', footer: 'short' }
+    );
+    assert.match(text, /Triage per the session policy/);
+    // The short form names the tool without the absolute path; the runnable
+    // invocation lives only in the session's first (full) footer.
+    assert.match(text, /`hook-admin\.mjs ignore-value`/);
+    assert.doesNotMatch(text, /node "/);
+    assert.match(text, /unsure, ask in one line/);
+    assert.doesNotMatch(text, /Triage each finding/);
+    assert.doesNotMatch(text, /Self-serve ends at ignore-value/);
+  });
+
+  it('dedupes rule descriptions within one emission, keeping per-line ignore hints', () => {
+    const desc = 'Long registry description that should appear once.';
+    const text = renderTemplate(
+      [
+        finding('overused-font', 2, { name: 'Overused font', description: desc, snippet: 'font-family: "Roboto"' }),
+        finding('overused-font', 9, { name: 'Overused font', description: desc, snippet: 'font-family: "Inter"' }),
+      ],
+      '/x/fonts.css', DEFAULT_CONFIG, { cwd: '/x' }
+    );
+    const occurrences = text.split(desc).length - 1;
+    assert.equal(occurrences, 1);
+    // The repeat keeps the rule id, name, and its own value-specific hint.
+    assert.match(text, /- L9 \[overused-font\] Overused font\. If intentional: `ignore-value overused-font Inter`\./);
+    assert.match(text, /`ignore-value overused-font Roboto`/);
+  });
+
+  it('shows the value-specific ignore hint for overused-font findings', () => {
     const text = renderTemplate(
       [finding('overused-font', 1, { name: 'Overused font', snippet: 'body { font-family: "Roboto", sans-serif; }' })],
       '/x/fonts.css', DEFAULT_CONFIG, { cwd: '/x' }
     );
-    assert.match(text, /\/impeccable hooks ignore-value overused-font Roboto --shared/);
-    assert.match(text, /ignore-rule overused-font --all-values/);
+    // The line carries just the rule/value pair; the runnable hook-admin.mjs
+    // prefix and the --reason contract are stated once in the footer.
+    assert.match(text, /If intentional: `ignore-value overused-font Roboto`\./);
   });
 
-  it('shows the exact value-specific command for bounce-easing findings', () => {
+  it('shows the value-specific ignore hint for bounce-easing findings', () => {
     const text = renderTemplate(
       [finding('bounce-easing', 1, { name: 'Bounce or elastic easing', snippet: 'animation: bounce-ball' })],
       '/x/main.css', DEFAULT_CONFIG, { cwd: '/x' }
     );
-    assert.match(text, /\/impeccable hooks ignore-value bounce-easing bounce-ball --shared/);
+    assert.match(text, /If intentional: `ignore-value bounce-easing bounce-ball`\./);
   });
 
   it('drops the L<line> prefix when line is 0', () => {
@@ -1573,7 +1603,7 @@ rounded:
     });
     assert.match(withDesign.stdout, /Design hook findings requiring review/);
     assert.match(withDesign.stdout, /design-system-font/);
-    assert.match(withDesign.stdout, /ignore-value design-system-font Poppins --shared/);
+    assert.match(withDesign.stdout, /If intentional: `ignore-value design-system-font Poppins`/);
   });
 
   it('respects detector.designSystem.enabled=false', async () => {
@@ -2154,6 +2184,57 @@ describe('runHook() — the session cache tracks the current scan', () => {
     const r2 = await run(file, det);
     assert.equal(r2.audit.kind, 'pending');
     assert.match(r2.stdout, /Still has 1 finding\(s\)/);
+  });
+});
+
+describe('runHook() — session-scoped notices', () => {
+  let cwd;
+  beforeEach(() => {
+    cwd = mkTmp();
+    fs.mkdirSync(path.join(cwd, '.impeccable'), { recursive: true });
+  });
+  afterEach(() => fs.rmSync(cwd, { recursive: true, force: true }));
+
+  const event = (file, sessionId = 'sid-1') => JSON.stringify({
+    session_id: sessionId, cwd, hook_event_name: 'PostToolUse',
+    tool_name: 'Edit', tool_input: { file_path: file },
+  });
+
+  it('emits the full directive footer once per session, then the short reminder', async () => {
+    const a = path.join(cwd, 'a.css');
+    const b = path.join(cwd, 'b.css');
+    fs.writeFileSync(a, 'noop');
+    fs.writeFileSync(b, 'noop');
+    const det = fakeDetector([finding('tiny-text', 1, { name: 'Tiny text' })]);
+
+    const r1 = await runHook({ stdinJson: event(a), env: {}, cwd, detector: det });
+    assert.match(r1.stdout, /Triage each finding/, 'first fresh emission carries the full policy');
+
+    const r2 = await runHook({ stdinJson: event(b), env: {}, cwd, detector: det });
+    assert.match(r2.stdout, /Triage per the session policy/);
+    assert.doesNotMatch(r2.stdout, /Triage each finding/, 'repeat emissions carry the short reminder');
+
+    // A new session pays the full policy again.
+    const r3 = await runHook({ stdinJson: event(a, 'sid-2'), env: {}, cwd, detector: det });
+    assert.match(r3.stdout, /Triage each finding/);
+  });
+
+  it('mentions the DESIGN.md staleness note once per session', async () => {
+    const a = path.join(cwd, 'a.css');
+    const b = path.join(cwd, 'b.css');
+    fs.writeFileSync(a, 'noop');
+    fs.writeFileSync(b, 'noop');
+    const det = {
+      ...fakeDetector([finding('tiny-text', 1, { name: 'Tiny text' })]),
+      loadDesignSystemForCwd: () => ({ present: true, mdNewerThanJson: true }),
+    };
+
+    const r1 = await runHook({ stdinJson: event(a), env: {}, cwd, detector: det });
+    assert.match(r1.stdout, /DESIGN\.md is newer than \.impeccable\/design\.json/);
+
+    const r2 = await runHook({ stdinJson: event(b), env: {}, cwd, detector: det });
+    assert.ok(r2.audit.emitted, 'second file still emits findings');
+    assert.doesNotMatch(r2.stdout, /DESIGN\.md is newer/, 'the staleness note does not repeat within a session');
   });
 });
 
@@ -2962,7 +3043,7 @@ describe('Cursor hook scripts', () => {
     assert.equal(payload.permission, 'deny');
     assert.match(payload.user_message, /blocked this write/);
     assert.match(payload.user_message, /side-tab/);
-    assert.match(payload.agent_message, /Handle these before finalizing/);
+    assert.match(payload.agent_message, /Triage each finding/);
 
     const entries = fs.readFileSync(logPath, 'utf-8').trim().split('\n').map((line) => JSON.parse(line));
     assert.equal(entries[0].event, 'preToolUse');

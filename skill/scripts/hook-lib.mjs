@@ -22,6 +22,8 @@
  *   dedupeAgainstCache(findings, cache, sessionId, filePath)
  *   renderTemplate(findings, filePath, config, opts)
  *   renderCleanAck(filePath, opts) / renderPendingAck(filePath, known, opts)
+ *   appendDesignSystemNote(text, scanOptions) / appendDesignSystemNoteOnce(text, scanOptions, cache, sessionId)
+ *   footerModeForSession(cache, sessionId)
  *   shouldEmitAckForFile(filePath, config?)
  *   writeAuditLog(env, entry)
  *   loadDetector() -> Promise<{ detectText, detectHtml }>
@@ -979,11 +981,12 @@ export function renderTemplate(findings, filePath, config, opts = {}) {
   const remaining = total - shown.length;
 
   const header = `${ENVELOPE_PREFIX} Design hook findings requiring review in ${display} (${total} issue(s)):`;
-  const lines = shown.map((f) => formatFindingLine(f));
+  const seenRules = new Set();
+  const lines = shown.map((f) => formatDedupedFindingLine(f, seenRules));
   const more = remaining > 0
     ? `... and ${remaining} more (see ${IMPECCABLE_COMMAND} audit).`
     : null;
-  const footer = directiveFooter(display);
+  const footer = directiveFooter({ mode: opts.footer });
 
   const blocks = [header, ...lines];
   if (more) blocks.push(more);
@@ -1013,6 +1016,9 @@ function renderGroupedTemplate(groups, config, opts = {}) {
   const header = `${ENVELOPE_PREFIX} Design hook findings requiring review across ${realGroups.length} files (${total} issue(s)):`;
   const lines = [];
   let shownCount = 0;
+  // One seen-set across all groups: a rule already described under one file
+  // is not re-described under the next.
+  const seenRules = new Set();
 
   for (const group of realGroups) {
     const display = relativize(group.filePath, cwd);
@@ -1020,7 +1026,7 @@ function renderGroupedTemplate(groups, config, opts = {}) {
     const remainingCap = Math.max(0, cap - shownCount);
     const shown = group.findings.slice(0, remainingCap);
     for (const finding of shown) {
-      lines.push(formatFindingLine(finding));
+      lines.push(formatDedupedFindingLine(finding, seenRules));
     }
     shownCount += shown.length;
     const hidden = group.findings.length - shown.length;
@@ -1029,7 +1035,7 @@ function renderGroupedTemplate(groups, config, opts = {}) {
     }
   }
 
-  const footer = directiveFooter('the affected files', { grouped: true });
+  const footer = directiveFooter({ mode: opts.footer });
   let text = [header, ...lines, '', footer].join('\n');
   if (text.length > maxChars) {
     text = clampGroupedToBudget(header, lines, footer, maxChars);
@@ -1083,30 +1089,45 @@ function clampToBudget(header, lines, more, footer, maxChars) {
   return assembled;
 }
 
-function formatFindingLine(f) {
+// `compact` drops the registry description: within one emission the first
+// occurrence of a rule carries the full description and repeats keep only the
+// rule id, name, and their own ignore hint (values differ per line, so the
+// hint must survive the dedupe).
+function formatFindingLine(f, opts = {}) {
   const prefix = f.line && f.line > 0 ? `- L${f.line}` : '-';
-  const desc = (f.description || '').trim();
+  const desc = opts.compact ? '' : (f.description || '').trim();
   const name = (f.name || '').trim();
   // Description from the registry already ends in punctuation; join with a
   // single space. `name` may have a trailing period already, keep it clean.
   const nameSegment = name ? `${name.replace(/\.+\s*$/, '')}.` : '';
-  const ignoreCommand = formatFindingIgnoreCommand(f);
-  const ignoreSegment = ignoreCommand
-    ? ` If the user explicitly confirms this value is intentional: \`${ignoreCommand}\`.`
-    : '';
+  const ignoreHint = formatFindingIgnoreHint(f);
+  const ignoreSegment = ignoreHint ? ` If intentional: \`${ignoreHint}\`.` : '';
   return `${prefix} [${f.antipattern}] ${nameSegment} ${desc}${ignoreSegment}`.replace(/\s+/g, ' ').trim();
 }
 
-function formatFindingIgnoreCommand(finding) {
+// Dedupe applied in shown-line order, so the first rendered occurrence of a
+// rule always carries the description. The budget clamps pop lines from the
+// end, which can never orphan a compact repeat before its described first
+// occurrence.
+function formatDedupedFindingLine(finding, seenRules) {
+  const rule = normalizeIgnoreRule(finding?.antipattern);
+  const compact = rule ? seenRules.has(rule) : false;
+  if (rule) seenRules.add(rule);
+  return formatFindingLine(finding, { compact });
+}
+
+// The rule/value pair the footer's `hook-admin.mjs ignore-value` command
+// takes. Deliberately just the args: the executable prefix, the --reason
+// contract, and the disclosure rule live in the directive footer, stated once
+// instead of per line.
+function formatFindingIgnoreHint(finding) {
   if (!finding || typeof finding !== 'object') return '';
   const rule = normalizeIgnoreRule(finding.antipattern);
   if (!rule) return '';
   const normalizedValue = extractFindingIgnoreValue(finding);
   if (!normalizedValue) return '';
-  const value = extractFindingIgnoreValueRaw(finding);
-  const valueArg = quoteCommandArg(value);
-  const reason = quoteCommandArg(`User confirmed ${value} is intentional`);
-  return `${IMPECCABLE_COMMAND} hooks ignore-value ${rule} ${valueArg} --shared --reason ${reason}`;
+  const valueArg = quoteCommandArg(extractFindingIgnoreValueRaw(finding));
+  return `ignore-value ${rule} ${valueArg}`;
 }
 
 function quoteCommandArg(value) {
@@ -1599,31 +1620,69 @@ export function appendDesignSystemNote(text, scanOptions) {
   return `${text}\n\n${ENVELOPE_PREFIX} DESIGN.md is newer than .impeccable/design.json. Run ${IMPECCABLE_COMMAND} document to refresh the design-system sidecar.`;
 }
 
+// Session-scoped once-only gate for repeat-prone message parts. Returns true
+// the first time a flag is consumed in a session and false after, mirroring
+// the `cleanAcked` mechanic: the mtime skew (and the policy footer) do not
+// change between edits, so re-stating them on every emission spends context
+// to say nothing new. Callers must persist the cache for the flag to stick.
+function consumeSessionNoticeFlag(cache, sessionId, flag) {
+  const session = ensureSession(cache, sessionId);
+  if (session[flag]) return false;
+  session[flag] = true;
+  session.updatedAt = Date.now();
+  return true;
+}
+
+// Once-per-session variant of appendDesignSystemNote for the emission paths
+// that have cache access. The staleness note names standing project state,
+// not new information, so one mention per session is enough.
+export function appendDesignSystemNoteOnce(text, scanOptions, cache, sessionId) {
+  if (!text || !scanOptions?.designSystem?.mdNewerThanJson) return text;
+  if (!consumeSessionNoticeFlag(cache, sessionId, 'designNoteShown')) return text;
+  return appendDesignSystemNote(text, scanOptions);
+}
+
+// Full directive footer once per session, the short reminder after. Fresh
+// emissions and Cursor denials share the session flag (`footerShown`), so a
+// session pays the full policy exactly once however it first fires.
+export function footerModeForSession(cache, sessionId) {
+  return consumeSessionNoticeFlag(cache, sessionId, 'footerShown') ? 'full' : 'short';
+}
+
+const HOOK_ADMIN_COMMAND = `node ${quoteCommandArg(path.join(__dirname, 'hook-admin.mjs'))}`;
+
 // The directive footer is the part of the hook output that steers model
-// behavior. Three intentional moves:
-//   1. **Imperative, not advisory.** "Handle these..." beats "Consider
-//      revising..." which the model treats as a soft suggestion it can
-//      override when the user asked for any kind of throwaway / demo UI.
-//   2. **Explicit judgment clause.** Without it, the model will try to
-//      "fix" intentional motion, bad fixtures, anti-pattern examples in
-//      docs, or test cases. Naming the judgment inline beats hoping the
-//      model infers it from context.
-//   3. **Acknowledgement instruction.** Hook output is injected as
-//      developer-role context, not a chat turn, so the user never sees the
-//      raw envelope. Asking the model to surface the resolution in its
-//      reply is the cheapest way to make the feedback loop visible.
-function directiveFooter(display, opts = {}) {
-  // Offer the rule-scoped-to-file form first. `ignore-file` silences every rule
-  // for the path forever, which is far more than one noisy rule on a real UI
-  // surface justifies, and it was previously the only option named here.
-  const target = opts.grouped ? '<path>' : quoteCommandArg(display);
-  const fileIgnoreGuidance = `run \`${IMPECCABLE_COMMAND} hooks ignore-value <id> "*" --file ${target}\` to scope just that rule to the file, or \`${IMPECCABLE_COMMAND} hooks ignore-file ${target}\` only when the whole file is out of scope for design review (a fixture, a generated artifact, a deliberate demo)`;
+// behavior. Intentional moves, in order:
+//   1. **Imperative, not advisory.** "Triage each finding..." beats
+//      "Consider revising...", which the model treats as a soft suggestion.
+//   2. **Positive triage branches.** Fix / suppress-and-disclose / ask. The
+//      suppress branch names the calibration examples (demo, fixture,
+//      documented bad design, user-confirmed choice) because the agent now
+//      acts on its own confidence and needs the bar stated.
+//   3. **Executable ignore path.** The old footer named only the slash
+//      command, which an agent reacting to hook output cannot run; the
+//      hook-admin.mjs invocation is runnable as-is and keeps agents out of
+//      hand-editing config.json.
+//   4. **Honest provenance.** The --reason is the audit trail; "user
+//      confirmed" appears only when the user actually did.
+//   5. **Acknowledgement instruction.** Hook output is injected as
+//      developer-role context, so the reply is where the user sees the
+//      resolution, including any ignore the agent persisted.
+//   6. **Once per session.** The full policy emits on the session's first
+//      fire; later emissions carry the one-line short form (mode 'short').
+function directiveFooter(opts = {}) {
+  if (opts.mode === 'short') {
+    // No command path here: the session's first emission already gave the
+    // runnable hook-admin.mjs invocation, and restating ~70 chars of absolute
+    // path on every repeat is the duplication this mode exists to cut.
+    return 'Triage per the session policy: fix real problems; persist confident false-positive or sanctioned-exception ignores via `hook-admin.mjs ignore-value` and disclose them in your reply; unsure, ask in one line.';
+  }
   return [
-    'Handle these before finalizing: fix findings that are real design problems, or explicitly classify contextually intentional findings as false positives. Acknowledge what you changed or why you are leaving a finding unchanged.',
-    '',
-    'Use context judgment before editing. A finding is not automatically a defect; literal or domain-appropriate motion, intentional demos or fixtures, documentation of bad design, and user-confirmed choices can be valid as-is.',
-    '',
-    `Do not change intentional design just to satisfy the hook, and do not silence a real finding with an inline ignore comment to skip fixing it. Suppress a finding only after the user explicitly confirms it is intentional. Prefer a config ignore (one reviewable place, the commands below); reach for an inline \`impeccable-disable <rule>\` comment only when the waiver must travel with a file that leaves the repo, such as an exported or standalone document. Prefer the narrowest persisted exception: run the exact \`${IMPECCABLE_COMMAND} hooks ignore-value ... --shared\` command shown next to a value-specific finding. For \`overused-font\`, use \`ignore-value\` for a specific font and use \`${IMPECCABLE_COMMAND} hooks ignore-rule overused-font --all-values\` only when the user asks to ignore overused fonts generally. For a finding whose line shows no exact ignore-value command, such as \`side-tab\`, ${fileIgnoreGuidance}; use \`${IMPECCABLE_COMMAND} hooks ignore-rule <id>\` only when the user asks to suppress the whole non-value-specific rule. Run ${IMPECCABLE_COMMAND} audit for the full pass.`,
+    'Triage each finding, then state in your reply what you fixed, what you suppressed, and what you left standing:',
+    '- Real design problem: fix it. Keep intentional design as designed.',
+    `- Confident false positive or sanctioned exception (an intentional demo or fixture, documentation of bad design, literal or domain-appropriate motion, a choice the user confirmed): persist the narrowest ignore yourself and disclose it. Run \`${HOOK_ADMIN_COMMAND} ignore-value <rule> "<value>" --reason "<who decided: evidence>"\` with the pair shown on the finding line, or value "*" plus \`--file <path>\` when the line shows none. Write "user confirmed" in a reason only when the user did.`,
+    '- Unsure: leave it as is and ask the user in one line.',
+    `Self-serve ends at ignore-value: \`ignore-file\` and \`ignore-rule\` need the user's explicit approval, and never add an ignore to push a blocked write through. Full suppression ladder: ${IMPECCABLE_COMMAND} hooks.`,
   ].join('\n');
 }
 
@@ -1845,20 +1904,18 @@ export async function runHook({ stdinJson, env = {}, cwd = process.cwd(), now = 
       }
     }
 
-    // Persist only when the write is earned: fresh findings justify creating
-    // `.impeccable/` (dedup and suppression need it), deferred findings do
-    // too (the Stop deep pass needs the touched-file list to surface them),
-    // and an already-present `.impeccable/` dir marks a project that opted
-    // in. A non-UI edit, or a clean UI edit in a project with no Impeccable
-    // footprint, must be a no-op on disk (issues #344, #305).
-    if (freshGroups.length > 0 || deferredTotal > 0
-      || (cacheDirty && fs.existsSync(path.join(projectCwd, '.impeccable')))) {
-      persistCache(projectCwd, cache);
-    }
-
+    // Consuming a session notice flag mutates the cache, so both must happen
+    // before the persist that makes the flag stick across events.
     if (freshGroups.length > 0) {
       const firstGroup = freshGroups[0];
-      const text = appendDesignSystemNote(renderGroupedTemplate(freshGroups, config, { cwd: projectCwd }), scanOptions);
+      const footerMode = footerModeForSession(cache, sessionId);
+      const text = appendDesignSystemNoteOnce(
+        renderGroupedTemplate(freshGroups, config, { cwd: projectCwd, footer: footerMode }),
+        scanOptions, cache, sessionId,
+      );
+      // Fresh findings always earn the cache write, including creating
+      // `.impeccable/`: dedup, suppression, and the notice flags need it.
+      persistCache(projectCwd, cache);
       const allFindings = freshGroups.flatMap((group) => group.findings);
       return {
         exitCode: 0,
@@ -1881,6 +1938,33 @@ export async function runHook({ stdinJson, env = {}, cwd = process.cwd(), now = 
       };
     }
 
+    // Resolve the ack emission before the persist below: appendDesignSystem-
+    // NoteOnce consumes a session flag, and the flag only sticks when the
+    // write happens after it. Quiet mode emits nothing, so it consumes
+    // nothing. The clean arm mirrors the branch order further down: pending
+    // outranks suppression, suppression outranks clean.
+    let ack = null;
+    if (!quietMode && pendingWinner && shouldEmitAckForFile(pendingWinner.filePath, config)) {
+      ack = {
+        kind: 'pending',
+        text: appendDesignSystemNoteOnce(renderPendingAck(pendingWinner.filePath, pendingWinner.known, { cwd: projectCwd }), scanOptions, cache, sessionId),
+      };
+    } else if (!quietMode && !suppressionWinner && cleanWinner && !cleanAckDeduped && shouldEmitAckForFile(cleanWinner.filePath, config)) {
+      ack = {
+        kind: 'clean',
+        text: appendDesignSystemNoteOnce(renderCleanAck(cleanWinner.filePath, { cwd: projectCwd }), scanOptions, cache, sessionId),
+      };
+    }
+
+    // Persist only when the write is earned: deferred findings need the
+    // touched-file list for the Stop deep pass, and an already-present
+    // `.impeccable/` dir marks a project that opted in. A non-UI edit, or a
+    // clean UI edit in a project with no Impeccable footprint, must be a
+    // no-op on disk (issues #344, #305).
+    if (deferredTotal > 0 || (cacheDirty && fs.existsSync(path.join(projectCwd, '.impeccable')))) {
+      persistCache(projectCwd, cache);
+    }
+
     if (detectorThrewAny && !pendingWinner && !cleanWinner) {
       return result({ emitted: false, error: 'detector-threw', durationMs: Date.now() - started });
     }
@@ -1889,8 +1973,8 @@ export async function runHook({ stdinJson, env = {}, cwd = process.cwd(), now = 
       return result({ emitted: false, quiet: true, durationMs: Date.now() - started });
     }
 
-    if (pendingWinner && shouldEmitAckForFile(pendingWinner.filePath, config)) {
-      const text = appendDesignSystemNote(renderPendingAck(pendingWinner.filePath, pendingWinner.known, { cwd: projectCwd }), scanOptions);
+    if (ack?.kind === 'pending') {
+      const text = ack.text;
       return {
         exitCode: 0,
         stdout: payload(text, 'PostToolUse', harness),
@@ -1923,8 +2007,8 @@ export async function runHook({ stdinJson, env = {}, cwd = process.cwd(), now = 
       };
     }
 
-    if (cleanWinner && !cleanAckDeduped && shouldEmitAckForFile(cleanWinner.filePath, config)) {
-      const text = appendDesignSystemNote(renderCleanAck(cleanWinner.filePath, { cwd: projectCwd }), scanOptions);
+    if (ack?.kind === 'clean') {
+      const text = ack.text;
       return {
         exitCode: 0,
         stdout: payload(text, 'PostToolUse', harness),
@@ -2108,11 +2192,17 @@ export async function runStopHook({ stdinJson, env = {}, cwd = process.cwd(), no
       return result({ emitted: false, skipped: 'stop-clean', durationMs: Date.now() - started });
     }
 
-    // Fresh findings earn the cache write so the next Stop fire is silent
-    // unless new issues appear.
-    persistCache(projectCwd, cache);
+    // A per-edit fire earlier in this session already consumed the footer
+    // flag, so the Stop wall of text carries the one-line short footer.
+    const footerMode = footerModeForSession(cache, sessionId);
+    const text = appendDesignSystemNoteOnce(
+      renderGroupedTemplate(freshGroups, config, { cwd: projectCwd, footer: footerMode }),
+      scanOptions, cache, sessionId,
+    );
 
-    const text = appendDesignSystemNote(renderGroupedTemplate(freshGroups, config, { cwd: projectCwd }), scanOptions);
+    // Fresh findings earn the cache write so the next Stop fire is silent
+    // unless new issues appear; the notice flags ride along.
+    persistCache(projectCwd, cache);
     return {
       exitCode: 0,
       stdout: payload(text, 'Stop', harness),
