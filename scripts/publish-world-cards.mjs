@@ -25,6 +25,14 @@ const STATE_PATH = join(CARD_DIR, '.published.json');
 const BUCKET = 'impeccable-world-cards';
 const CONCURRENCY = 6;
 
+// Resolve wrangler from this repo rather than from PATH. execFile does not go
+// through a shell, so a shell alias is invisible to it: on one machine
+// `wrangler` was aliased to another repo's copy, `command -v` reported it
+// present, and every upload failed with ENOENT. The local binary is also the
+// version this repo pins, which is what should be talking to the bucket.
+const LOCAL_WRANGLER = join(ROOT, 'node_modules', '.bin', 'wrangler');
+const WRANGLER = existsSync(LOCAL_WRANGLER) ? LOCAL_WRANGLER : 'wrangler';
+
 // Reject anything unrecognised rather than ignoring it. This script uploads to a
 // public bucket, and a flag that looks like a safety and silently is not is
 // worse than no flag: `--dry-run` was passed once, ignored, and a real publish
@@ -79,7 +87,7 @@ let failed = 0;
 
 async function upload(file) {
   const contentType = 'image/webp';
-  await run('wrangler', [
+  await run(WRANGLER, [
     'r2', 'object', 'put', `${BUCKET}/${file}`,
     '--file', join(CARD_DIR, file),
     '--content-type', contentType,
