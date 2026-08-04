@@ -248,6 +248,31 @@ A candidate that takes a **transferable structural principle** rather than a sur
 
 Skip living sacred, ceremonial, or community-owned traditions without an established commercial graphic lineage; skip highly religious material outright. Traditions enter cleanly when they already have a commercial or civic design history the way adinkra printing, thangka-informed diagram craft, hanafuda (a published card game), or azulejo (civic architecture) do. When in doubt, leave it out.
 
+## Territory found by inventorying another catalog (2026-08-04)
+
+An external catalog of 248 design languages was read in full and checked entry
+by entry against all 541 of ours. Most apparent gaps were not: sashiko charts,
+redaction dossiers, radar PPI, wheatpaste, risograph and five ceramic entries
+are all already held at system level, and on ceramics we are ahead with seven
+worlds. Twelve territories were genuinely absent and are now in the mode decks.
+
+Two things about the result are worth keeping:
+
+- **Nine of the twelve serve operate**, which is independent agreement with the
+  conversion rates: interaction is the smallest pool and the best converting.
+  Two methods pointing at one territory is the strongest signal available.
+- **Every space world we hold is fictional.** HAL, Nostromo, LCARS, MAGI, Silent
+  Running, and no real flight operations at all, despite DSKY verb-noun capsules
+  and cuff checklists being a complete interface grammar. A family can look mined
+  and hold a hole that size.
+
+Their taxonomy beats ours in two ways worth taking seriously, written up in
+[docs/PROPOSAL-signature-mechanic.md](PROPOSAL-signature-mechanic.md): every
+entry names one load-bearing device and asserts it must recur, and every entry
+carries its own anti-patterns rather than delegating to a global detector. They
+are weaker where we are strong, with no mode or register taxonomy at all, and
+their typed-descent graph has produced 22 unresolved name collisions.
+
 ## Territory map (unmined as of 2026-07-21)
 
 One candidate per territory, always the territory's canonical peak:
