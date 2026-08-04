@@ -2540,6 +2540,48 @@
       "formHash": "59a78bf5fef7",
       "note": "we have a route map already somewhere"
     },
+    "operate-a-calibre-interchange-sheet": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:25:40.294Z",
+      "formHash": "84bf2661c509",
+      "note": "imo, we have a  lot of similar worlds that look a bit like tinted paper with some double lines or something like that segmenting them. there's nothing that makes this one particularly interesting."
+    },
+    "operate-a-cutting-bench-select-rail": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:26:34.145Z",
+      "formHash": "df92a7c50295",
+      "rating": 2
+    },
+    "operate-a-insert-lamp-ladder": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:28:41.783Z",
+      "formHash": "ad82a3be276d",
+      "note": "some of the design language is neat, but it's way too heavily influenced by specific objects that must be on screen"
+    },
+    "operate-a-jacquard-card-chain-deck": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:26:14.165Z",
+      "formHash": "ce8a1ff9c9c9",
+      "note": "this is way too extremely skeuomorphic"
+    },
+    "operate-a-mimic-fascia": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:28:03.926Z",
+      "formHash": "223172fbb1ce",
+      "note": "this is just too strange, all over the place"
+    },
+    "operate-a-tally-bus-gallery": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:27:32.324Z",
+      "formHash": "b5044f3c8f0e",
+      "note": "gpt-image-2 loves screws to begin with, and imo more screws will not help. the rest is pretty good"
+    },
     "painted-ledger-dialogue": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
