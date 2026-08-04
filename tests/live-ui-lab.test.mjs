@@ -3,9 +3,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { readLiveUiSurfaces } from '../scripts/lib/live-ui-surfaces.mjs';
-
-const LIVE_UI_SURFACES = readLiveUiSurfaces();
+// The public repo's canonical Live chrome inventory, imported rather than
+// copied: the coverage check below is only a check while it reads Live's real
+// list. See skill/scripts/live/ui-surfaces.mjs, which exists because of this.
+import { LIVE_UI_SURFACES } from '../skill/scripts/live/ui-surfaces.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = (file) => fs.readFileSync(path.join(ROOT, file), 'utf8');

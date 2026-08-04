@@ -1,7 +1,7 @@
 ---
 import '../styles/live-ui-gallery.css';
 import { LIVE_COMMANDS } from '../../skill/scripts/live/vocabulary.mjs';
-import { readLiveUiSurfaces } from '../../scripts/lib/live-ui-surfaces.mjs';
+import { LIVE_UI_SURFACES } from '../../skill/scripts/live/ui-surfaces.mjs';
 
 const STATE_GROUPS = [
   {
@@ -61,12 +61,16 @@ const STATE_GROUPS = [
 
 // Keep the catalog honest as Live grows. CSS isolation is a structural mount
 // contract rather than a visible state; every other surface must own at least
-// one snapshot here or the site build fails with the missing surface name.
+// one snapshot here.
+//
+// This throw only fires where the component renders, which is dev: /labs/live-ui
+// early-returns a redirect outside DEV, so a production `bun run build` never
+// evaluates this frontmatter. The check that runs everywhere is the matching one
+// in tests/live-ui-lab.test.mjs, which reads the same imported LIVE_UI_SURFACES.
 const STRUCTURAL_SURFACES = new Set(['css-isolation-boundary']);
 const coveredSurfaces = new Set(
   STATE_GROUPS.flatMap((group) => group.states.map(([, , surface]) => surface)),
 );
-const LIVE_UI_SURFACES = readLiveUiSurfaces();
 const visualSurfaces = LIVE_UI_SURFACES.filter((surface) => !STRUCTURAL_SURFACES.has(surface.key));
 const uncoveredSurfaces = visualSurfaces.filter((surface) => !coveredSurfaces.has(surface.key));
 if (uncoveredSurfaces.length > 0) {
@@ -96,7 +100,7 @@ const groupsJson = JSON.stringify(groupPayload).replace(/</g, '\\u003c');
 <!--
   Dev-only state harness for Impeccable Live. The chrome mirrors:
   - skill/scripts/live-browser.js (standalone browser UI and exact wording)
-  - skill/scripts/live/ui-core.mjs (surface/state inventory)
+  - skill/scripts/live/ui-surfaces.mjs (surface inventory, imported above)
   - skill/scripts/live/vocabulary.mjs (canonical command labels and SVGs)
 
   Production Live deliberately uses the same dark Neo Kinpaku chrome on light
