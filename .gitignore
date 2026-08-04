@@ -166,3 +166,4 @@ tmp/
 /scripts/lib/validate-plugin-versions.js
 /scripts/lib/skill-categories.js
 .skill-source.json
+.waves/

@@ -65,7 +65,8 @@
     "world-cards": "node scripts/generate-world-cards.mjs",
     "world-cards:publish": "node scripts/publish-world-cards.mjs",
     "catalog:round": "npm run validate:catalog && npm run world-cards && npm run catalog:status",
-    "catalog:status": "node scripts/catalog-round-status.mjs"
+    "catalog:status": "node scripts/catalog-round-status.mjs",
+    "wave": "node scripts/wave-run.mjs"
   },
   "dependencies": {
     "css-select": "^7.0.0",

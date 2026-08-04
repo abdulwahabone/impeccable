@@ -3869,6 +3869,75 @@
       "formHash": "4f4fc26744fe",
       "rating": 2
     },
+    "rw-botteghe-quarterly-interior": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:13:54.137Z",
+      "formHash": "9edd90c01e2f",
+      "allowedModes": [
+        "read"
+      ],
+      "rating": 2
+    },
+    "rw-boxed-manual-colour-tab-page": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:16:03.941Z",
+      "formHash": "92ab730aac52"
+    },
+    "rw-broadsheet-leader-flat": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:14:31.824Z",
+      "formHash": "d769cbd17269"
+    },
+    "rw-centre-rail-reference-setting": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:13:41.023Z",
+      "formHash": "d03be6dd119c",
+      "rating": 2
+    },
+    "rw-copy-shop-zine-interior": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:15:37.254Z",
+      "formHash": "e12c683b8870",
+      "rating": 1
+    },
+    "rw-feelie-handbook-lightplate": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:15:51.986Z",
+      "formHash": "042d5a6ef757"
+    },
+    "rw-lexicon-shoulder-and-plate": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:14:19.840Z",
+      "formHash": "9572496a209a",
+      "rating": 1
+    },
+    "rw-manual-acetate-tab-board": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:14:05.267Z",
+      "formHash": "b8202ad4fb6a",
+      "rating": 2
+    },
+    "rw-stitch-grammar-terrain": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:15:08.200Z",
+      "formHash": "fcbbeb558a70"
+    },
+    "rw-timetable-slide-rack": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:14:52.653Z",
+      "formHash": "1e0e01d66ccc",
+      "rating": 2
+    },
     "scientific-notation-oscilloscope-signal-bench": {
       "status": "approved",
       "reviewedBy": "pbakaus",
