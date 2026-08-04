@@ -120,9 +120,17 @@ async function author(brief, index) {
   let feedback = '';
   for (let attempt = 1; attempt <= 3; attempt += 1) {
     try {
-      const response = await anthropic.messages.create({
+      // Streamed, not because the tokens are wanted incrementally but because the
+      // SDK refuses a non-streaming request whose max_tokens implies more than
+      // ten minutes of work. finalMessage() gives back the same shape create()
+      // would have returned.
+      const response = await anthropic.messages.stream({
         model,
-        max_tokens: 8000,
+        // Thinking tokens count against max_tokens, so a budget sized for the
+        // JSON alone truncates the JSON. At 8000 the first operate wave lost
+        // three of ten worlds to "Unexpected end of JSON input", which is a
+        // parse error reporting a budget problem.
+        max_tokens: 32000,
         thinking: { type: 'adaptive' },
         output_config: { format: { type: 'json_schema', schema: SCHEMA } },
         system: `You author world concepts for the impeccable catalog. Return one JSON object and nothing else.
@@ -133,7 +141,13 @@ ${guide}
 WHAT THE CATALOG ALREADY HOLDS, by family. Do not repeat any of these at system level, meaning palette plus type voice, not merely by name.
 ${shelf}`,
         messages: [{ role: 'user', content: `${brief}\n\nid prefix: ${key}-\n${feedback}` }],
-      });
+      }).finalMessage();
+      // Say what actually happened. A truncated response fails in JSON.parse and
+      // reads like the model returned nonsense, which sends you to the prompt
+      // rather than to the budget.
+      if (response.stop_reason === 'max_tokens') {
+        throw new Error(`response hit max_tokens (${response.usage?.output_tokens} out), so the JSON is truncated`);
+      }
       const text = response.content.filter(b => b.type === 'text').map(b => b.text).join('');
       const concept = JSON.parse(text);
       const errors = validateConceptEntry(concept, {});
@@ -171,8 +185,26 @@ log(`\nscreening ${authored.length}`);
 process.stdout.write(run('node', ['scripts/world-transfer-check.mjs', '--candidates', bundlePath])
   .split('\n').filter(l => /rules locked|clean on both/.test(l)).map(l => `  ${l.trim()}`).join('\n'));
 log('');
-process.stdout.write(run('node', ['scripts/world-dedup.mjs', '--candidates', bundlePath])
-  .split('\n').filter(l => /CONVERGED|too close|separated/.test(l)).map(l => `  ${l.trim()}`).join('\n'));
+
+// Dedup gates rather than reports. It used to print its verdict and merge
+// everything anyway, which made it decoration: a run once merged six candidates
+// it had just called too close to existing worlds. The whole reason this step
+// sits before the render is that a near-duplicate spends the image budget twice.
+const dedupOut = run('node', ['scripts/world-dedup.mjs', '--candidates', bundlePath]);
+process.stdout.write(dedupOut.split('\n')
+  .filter(l => /CONVERGED|too close|separated/.test(l)).map(l => `  ${l.trim()}`).join('\n'));
+log('');
+const tooClose = new Set(dedupOut.split('\n')
+  .filter(line => /^\s+\d\.\d{3}\s/.test(line))
+  .map(line => line.trim().split(/\s+/).pop())
+  .filter(id => authored.some(concept => concept.id === id)));
+const kept = authored.filter(concept => !tooClose.has(concept.id));
+if (tooClose.size > 0) {
+  log(`\ncutting ${tooClose.size} near-duplicate(s) before the render:`);
+  for (const id of tooClose) log(`  ${id}`);
+}
+if (kept.length === 0) { log('\nEverything was a near-duplicate. Nothing merged.'); process.exit(1); }
+writeFileSync(bundlePath, JSON.stringify(kept, null, 1));
 
 // ---------------------------------------------------------------- 4. merge
 log('\nmerging');
@@ -191,5 +223,5 @@ if (!noRender) {
   }
 }
 
-log(`\n${authored.length} pending. Review at http://localhost:4321/labs/worlds`);
+log(`\n${kept.length} pending. Review at http://localhost:4321/labs/worlds`);
 log('Approve, rate, and set modes there. Nothing here decides anything for you.');

@@ -2371,6 +2371,43 @@
       "prohibition": "no-photography",
       "variance": "immutable"
      }
+    },
+    {
+     "id": "operate-a-calibre-interchange-sheet",
+     "form": "A watch-material interchangeability sheet where a giant calibre number and a tipped-in exploded plate sit under pasted supplement slips, all of it packed into tables of five-point figures between hairlines and held clear of every edge by a buff rail.",
+     "lineage": "Swiss and American watch-material catalogues: Bestfit Encyclopedia of Watch Material (1936-1960s) and Flume Werksucher calibre sheets (1950s)",
+     "spark": "A buff catalogue leaf on a bench mat under a loupe: a cinnabar-numbered supplement slip pasted over half a movement plate, the superseded part numbers struck through in black, forty screw-slot circles marching down a hairline-ruled column.",
+     "system": [
+      "Palette/material: buff catalogue stock, dense black, one cinnabar overprint, steel-grey halftone; foreign photos tip in as cornered slips with hairline keylines, never bleeding.",
+      "Type/composition: tight tabular grotesque, tiny figures between hairlines; prose only on reserved buff panels; one item per surface enlarged tenfold as a double-ruled loupe plate.",
+      "Topology/navigation: nothing touches an edge; an unbroken buff rail two slot-widths wide frames every surface and carries numbered stub tabs that overlap the block they open.",
+      "Controls/state: state is a printed screw-slot circle: slot upright means set, canted means pending, unslotted means absent, struck through means superseded. Colour adds nothing.",
+      "Responsive/motion: everything snaps: slots detent in forty-five degree steps, slips advance one row-height, panels restack against the rail. No fades, no easing, no bleed."
+     ],
+     "webLeverage": "One SVG slot-mark whose rotation in 45 degree detents is the only state channel, plus a tipped-in slip component with printed corner mounts and a keyline, and a persistent buff rail no element may cross.",
+     "strength": "world",
+     "tags": [
+      "tabular-hairline-density",
+      "overlapping-tipped-slips",
+      "rotating-slot-state-marks"
+     ],
+     "avoid": [
+      "No dead instrument greys or brushed-brass chrome: the ground is printed buff stock, and the second ink must actually print.",
+      "No luxury watch marketing: no wristshots, no gold serif logotype, no polished case renders, no crown-and-shield crests.",
+      "No decorative gear or cog ornament, and no exploded plate used as wallpaper behind running copy."
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "full-palette",
+      "material": "printed-ink",
+      "spatial": "sheet",
+      "density": "packed",
+      "composition": "collage",
+      "scale-range": "wide",
+      "motion": "mechanical",
+      "prohibition": "no-full-width",
+      "variance": "container"
+     }
     }
    ]
   },
@@ -8176,6 +8213,117 @@
      "spark": "The music is not written down anywhere; it is a stack of cardboard with holes in it, and if the card tears the tune is wrong from then on.",
      "webLeverage": "a track-based punched score read at fixed rate, damage state that persists per slot, and a fold-through reading animation",
      "strength": "dual"
+    },
+    {
+     "id": "operate-a-jacquard-card-chain-deck",
+     "form": "A mill's jacquard control deck rebuilt as a scheduling surface: a laced chain of manila punched cards hanging off one heavy selvedge rail over a procedurally woven iron-green ground, where every value, label and conflict is punch geometry read on a lifted card rather than ink laid on the cloth.",
+     "lineage": "Lyon and Bradford jacquard weaving mills, 1840s to 1960s: laced card chains, lifting-hook harness rows, Verdol punched paper, oiled cast-iron frames.",
+     "spark": "A card chain hanging in a lit mill aisle, one manila card pulled proud on its hook so its punched holes throw a longer shadow than its neighbours, oiled iron frame behind, spools of madder and indigo racked above.",
+     "system": [
+      "Palette/material: ground is a procedurally woven iron-green twill; all marks ride manila cards, madder rails, indigo plates or sulphur tags above it; foreign media pins to manila.",
+      "Type/composition: stencil condensed caps for labels; running prose only on manila plates in plain grotesque; columns hang from one heavy left selvedge, weight massed off-centre.",
+      "Topology/navigation: a chain of punched cards runs down one edge as the only index; the current card hangs proud of the chain, the rest recede in an even overlap.",
+      "Controls/state: state is punch geometry: open hole live, blind boss disabled, struck bar blocked, doubled hole conflicting; rank is a card lifted proud casting a longer shadow.",
+      "Responsive/motion: cards hang on cords and settle with weighted swing after a pull, never idling; narrow widths drop cards from the chain rather than shrinking the punch grid."
+     ],
+     "webLeverage": "Build the ground as a procedural twill on canvas or WebGL, cards as SVG punch masks on manila plates with spring-damped settle on interaction, and every state as hole, boss or struck bar before colour.",
+     "strength": "dual",
+     "tags": [
+      "punch-geometry-state",
+      "hanging-card-chain",
+      "woven-procedural-ground"
+     ],
+     "avoid": [
+      "Dead mill greys: the iron-green ground must sit against live madder, indigo and sulphur, never a monochrome machine-shop wash.",
+      "Ink printed straight onto the woven ground; text without a manila or plate carrier under it is off-system and illegible.",
+      "Skeuomorphic brass hooks, rivet bevels and leather straps rendered as chrome; the hardware reads as flat cut shapes and shadow only."
+     ],
+     "axes": {
+      "palette-breadth": "broad",
+      "colour-strategy": "full-palette",
+      "material": "procedural",
+      "spatial": "room",
+      "density": "packed",
+      "composition": "asymmetric",
+      "scale-range": "extreme",
+      "motion": "simulated",
+      "prohibition": "no-ink-on-ground",
+      "variance": "curated-chaos"
+     }
+    },
+    {
+     "id": "operate-a-cutting-bench-select-rail",
+     "form": "A film cutting bench flattened into a sheet: a perforated select rail crossing a grain-orange field, each step a punched frame held between two pins, the place you stopped marked by a folded tape flag, and everything set aside still hanging on pins below the rail.",
+     "lineage": "The mid-century cutting room, 1950s to 1980s: Moviola and Steenbeck benches, edge-coded work prints, trim bins, grease pencil and paper tape flags.",
+     "spark": "A work print strung between two pins under a bench lamp, white grease crosses struck across three frames, a folded orange tape flag doubled over the perforation where the editor stopped, and a dozen trims hanging on pins in the bin below.",
+     "system": [
+      "Palette/material: one ink, flag orange in coarse film grain on true black; orange holds a third of any screen. Running copy and foreign images sit only in punched white windows.",
+      "Type/composition: one size of condensed grotesk throughout, caps for labels; rank is cell count not size, a window may span twelve frame cells while edge ticks stay hairline.",
+      "Topology/navigation: a perforated rail crosses every sheet at a fixed height; sections string along it as frames, and anything set aside hangs below on pins in an open bin.",
+      "Controls/state: state is a mark, not a hue: grease cross done, punched corner unavailable, tape band committed, folded flag where you stopped, hung on a pin deferred.",
+      "Responsive/motion: the strip scrubs with inertia and settles on perforation pitch, never between frames; hung trims swing and damp. Narrow screens drop frame count, not size."
+     ],
+     "webLeverage": "The rail is one virtual strip whose scrub snaps to a fixed frame pitch; the frame you left is persisted and re-flagged on return, and every discarded frame stays reachable on a pin below the rail.",
+     "strength": "world",
+     "tags": [
+      "perforated-select-rail",
+      "printed-state-marks",
+      "single-type-size"
+     ],
+     "avoid": [
+      "No rainbow of coloured tapes: the flags are one ink and rank comes from the mark and the cell count, never from a second hue.",
+      "No sepia nostalgia wash, no projector flicker, no vignette; the grain is sharp, the black is true and the windows are paper white.",
+      "No cinema mascots: clapperboards, film reels and countdown leader are decoration, and a rail with nothing hung under it is a border."
+     ],
+     "axes": {
+      "palette-breadth": "one",
+      "colour-strategy": "committed",
+      "material": "grain-noise",
+      "spatial": "sheet",
+      "density": "working",
+      "composition": "modular",
+      "scale-range": "wide",
+      "motion": "simulated",
+      "prohibition": "one-type-size",
+      "variance": "generative"
+     }
+    },
+    {
+     "id": "operate-a-tally-bus-gallery",
+     "form": "A monitoring wall staged as a vision-mixing gallery: a brushed anodised panel carrying screwed-on black enamel plates arranged as a plan of the plant, the one live source standing proud under a lacquer tally ring while dead sources are struck through with an engraved line.",
+     "lineage": "Broadcast production galleries and their tally systems, roughly 1965 to 1985: engraved source plates, cue-light bays and lever-key vision-mixer panels.",
+     "spark": "A dim gallery at 2am: forty engraved source plates screwed in rows to a scuffed grey panel, one lifted proud with a red lacquer ring burning around it, one plate scored through by a fresh engraved line, faders resting mid-throw and the room otherwise unlit.",
+     "system": [
+      "Palette/material: brushed anodised ground, black enamel plates engraved white, one hue only: tally red as lacquer, filament and oxblood. Foreign images recess behind a chamfer.",
+      "Type/composition: no ink touches the ground; every word rides an engraved plate on a modular bay grid, white in black enamel. One condensed gothic, one size; size never ranks.",
+      "Topology/navigation: the surface reads as a plan, items plotted where they stand, bays divided by milled channels rather than gaps; a numbered rail holds one edge at every width.",
+      "Controls/state: state is elevation and strike. Live sits proud under a lacquer bezel ring, one proud plate per view; held is flush, dead struck through with an engraved line.",
+      "Responsive/motion: plates and faders travel with weight and settle with one overshoot; nothing cross-fades. Narrow widths drop bays out of the plan, never shrink a plate."
+     ],
+     "webLeverage": "Labels are plate elements with real elevation: state is z-position plus an engraved strike rule, never colour alone; foreign media mounts in an inset chamfered aperture; exactly one proud plate per view is enforced in code.",
+     "strength": "world",
+     "tags": [
+      "engraved-plates",
+      "state-by-elevation",
+      "single-hue-tally"
+     ],
+     "avoid": [
+      "No dead battleship-grey mush: the anodised ground must keep a directional brush and a warm graphite value under raking light.",
+      "No brass, rivets or glassy chrome gradients; plates are matte enamel screwed flat, not beveled toolbar buttons.",
+      "Do not flood the wall in red or scatter blinking lamps; one thing is live at a time and the ground itself never takes ink."
+     ],
+     "axes": {
+      "palette-breadth": "one",
+      "colour-strategy": "full-palette",
+      "material": "metal",
+      "spatial": "map",
+      "density": "calm",
+      "composition": "modular",
+      "scale-range": "narrow",
+      "motion": "simulated",
+      "prohibition": "no-ink-on-ground",
+      "variance": "curated-chaos"
+     }
     }
    ]
   },
@@ -8714,6 +8862,80 @@
       "scale-range": "moderate",
       "motion": "static",
       "prohibition": "no-full-width",
+      "variance": "parametric"
+     }
+    },
+    {
+     "id": "operate-a-mimic-fascia",
+     "form": "A single vacuum-formed, screen-printed control fascia where a whole plant flow diagram is printed edge to edge across one unbroken plane, action keys pillowed proud of it and entry fields debossed into shallow chalk trays sunk beneath the printed terrain.",
+     "lineage": "Pillow-embossed screen-printed membrane fascias and mimic-diagram control panels of 1970s-80s municipal waterworks, dairy and pumping-station process rooms.",
+     "spark": "A dairy plant fascia at shift change: one putty plane, teal process line running wall to wall through pillow-raised orange keys, each shallow chalk tray filled in pencil, sulphur tick scales down both margins, a debossed plate number in the corner.",
+     "system": [
+      "Palette/material: ink on one putty thermoform plane: navy, process teal, signal orange, sulphur, chalk. Foreign images seat in debossed chalk trays; printed lines stop at the rim.",
+      "Type/composition: one size only, tracked caps for labels, navy prose only inside chalk trays; rank by weight and keyline count. Everything lands on the 8mm key module.",
+      "Topology/navigation: one 6px process line enters at the left margin and threads every group at 0, 45 or 90 degrees; stations hang off it in order, and it switchbacks when narrow.",
+      "Controls/state: raised = actionable, inset = editable, flush with a dotted keyline = unavailable; hatched face = pending, struck corner to corner = failed, 30% dot screen = stale.",
+      "Responsive/motion: dashes on every line drift one way at a constant 8px per second and freeze dead on failure; presses change relief only, and panels reflow by key module."
+     ],
+     "webLeverage": "Two shadow recipes on one ground token: raised is a 1px light edge top-left plus a 3px flat shelf lower-right, inset is the reverse, and every control is one of the two. Routes are SVG paths with dashoffset drifting at a fixed 8px/s.",
+     "strength": "world",
+     "tags": [
+      "soft-relief",
+      "mimic-diagram",
+      "one-type-size"
+     ],
+     "avoid": [
+      "No neumorphism: relief is a hard printed highlight and a flat shadow shelf on committed colour, never blurred grey on grey.",
+      "No brushed metal, chrome bezels or glossy plastic highlights; the plane is matt printed stock throughout.",
+      "No hazard chevrons, stencil warning slabs or industrial-hazard cosplay; this is a civic waterworks fascia and copy stays plain."
+     ],
+     "axes": {
+      "palette-breadth": "broad",
+      "colour-strategy": "full-palette",
+      "material": "printed-ink",
+      "spatial": "map",
+      "density": "saturated",
+      "composition": "modular",
+      "scale-range": "wide",
+      "motion": "continuous",
+      "prohibition": "one-type-size",
+      "variance": "immutable"
+     }
+    },
+    {
+     "id": "operate-a-insert-lamp-ladder",
+     "form": "An admin table built as a solid-state pinball backbox: rows are painted legends on a speckled black board lit from beneath by an insert-lamp matrix, grouped by raked lanes of coloured light, with a giant bonus-multiplier ladder standing where a totals row would be.",
+     "lineage": "Solid-state pinball backbox and playfield logic, Bally and Williams 1977-1991: insert-lamp matrices, drop-target banks, and bonus multiplier ladders.",
+     "spark": "A backbox opened at its hinge under shop light: a packed grid of translucent plastic inserts, half lit amber and cobalt through speckled paint, one dropped target leaving a black hole, and a multiplier ladder glowing at the top rung.",
+     "system": [
+      "Palette/material: speckled black lacquer board drenched in lamp light: amber, cherry, green, cobalt, violet, warm white, ply cream; at least two lit; foreign images stay untinted.",
+      "Type/composition: stencil-edged condensed caps, horizontal on a packed grid; lit lanes rake diagonally across the rows; one giant tally per view against tiny legends.",
+      "Topology/navigation: three stacked layers: painted board, lamps beneath, scratched glass above; regions are lit lanes, never boxes; the current lane stays lit edge to edge.",
+      "Controls/state: unlit legend reads as dry relief, lit as a halo bleed, done rows carry a struck bar, removed rows leave a black cavity, blocked rows read TILT struck across.",
+      "Responsive/motion: no fades or travel; every change is a one-step jump between two lit levels; narrow views shed lanes, keep the tally; only the ladder stretches."
+     ],
+     "webLeverage": "Grouping carried by raked radial lamp-glow gradients behind rows instead of dividers, plus a token system where every state also carries a non-colour mark: dry relief, struck bar, or punched black cavity.",
+     "strength": "world",
+     "tags": [
+      "insert-lamp-state",
+      "raked-light-lanes",
+      "layered-board"
+     ],
+     "avoid": [
+      "No painted backglass pin-up art, no chrome plungers, flipper bats or ball-bearing gloss anywhere in the furniture.",
+      "No attract-mode flashing, chasing or pulsing; lamps hold a single level at rest and jump only when state does.",
+      "No dead grey rows: an unlit row still shows the board's colour wash, speckled grain and relief legend."
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "drenched",
+      "material": "grain-noise",
+      "spatial": "stack",
+      "density": "packed",
+      "composition": "diagonal",
+      "scale-range": "wide",
+      "motion": "static",
+      "prohibition": "no-dividers",
       "variance": "parametric"
      }
     }
