@@ -194,6 +194,45 @@ Two properties are what keep this safe, and both are covered by `tests/waitlist-
 
 The row is deleted rather than flagged: there is no reason to keep an address that asked to be gone, and a later signup by the same person is theirs to make. If the secret is unset when mail goes out, the send falls back to a `mailto:` unsubscribe rather than shipping a message with no way out, since the signup form promises one.
 
+## World catalog: read docs/WORLD-CATALOG-AUTHORING.md before touching `catalog/`
+
+The world catalog is the challenger corpus: 500+ visual worlds under
+`catalog/concept-ingredients.json`, reviewed in `/labs/worlds`, dealt to builds
+by the roll API. **`docs/WORLD-CATALOG-AUTHORING.md` is the source of truth** for
+how a world is authored, gated and reviewed. Read it before adding entries,
+changing the brief, or touching the draw.
+
+The short version:
+
+```bash
+bun run wave --mode read --count 10     # read | persuade | operate | experience
+```
+
+One command per round: draw, author, screen, dedupe, merge as pending, render
+board and hero and docs. It approves nothing; a round ends at the review queue.
+
+Four things that are easy to get wrong:
+
+- **A mode is a file.** `catalog/<mode>-territories.json` carries its own
+  traditions and its own bar. Adding a mode is adding a file; no script needs to
+  know it exists. An unknown mode refuses rather than falling back to
+  documentation surfaces, which was the original bug.
+- **Serialization differs by file.** Ingredient catalogs serialize at indent 1,
+  review files at indent 2, both with a trailing newline. Writing one at the
+  other's indent reformats every entry and buries the round's additive diff.
+- **The merge gate imports the validator.** `wave-merge` calls
+  `validateConceptEntry` from `skill/scripts/lib/concept-catalog.mjs` rather than
+  reimplementing its bounds. Do not copy those bounds anywhere; a gate that
+  disagrees with the validator fails later and differently.
+- **Card kinds are board, hero and docs.** The hero is a landing page, so a
+  world reviewed only on it is judged on how well it persuades and then dealt to
+  read and operate builds nobody saw it serve. `--kind all` renders all three.
+
+The draw itself lives in the **public** repo
+(`skill/scripts/lib/roll-selection.mjs`), which is materialized here and
+gitignored. Changes to ticket weighting go to `~/code/impeccable` and only reach
+this site once pushed.
+
 ## Social sharing image (OG card)
 
 The OG / Twitter card is generated, not hand-drawn. To regenerate after a brand or copy change:

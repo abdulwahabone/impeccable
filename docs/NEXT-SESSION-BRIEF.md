@@ -18,7 +18,7 @@ A highly expressive, animated section demonstrating the visual worlds impeccable
 
 Restyle `~/code/impeccable-evals/dice-lessons.html` as a public page in this site's kinpaku theme, e.g. `/research` (pick the route; add redirects if needed). It is public marketing: no dev gating.
 
-- Update the seven lessons with everything since: world/composition/dual strength taxonomy, mode-aligned stagings (persuade/operate/read/experience), six challengers + rating-weighted draws (3-star doubles odds, 1-star sits out), re-roll chains, the render gate (boards + hero-from-board reference generation), the proven-seams saturation finding (depth round 3/12 vs breadth strategy), and the roll API + anonymous choice telemetry. Source of truth: `docs/WORLD-CATALOG-AUTHORING.md` in this repo and `catalog/`.
+- Update the seven lessons with everything since: world/composition/dual strength taxonomy, mode-aligned stagings (persuade/operate/read/experience), six challengers + rating-weighted draws (3-star level with 2-star, 1-star at half, breadth:niche excluded), re-roll chains, the render gate (boards + hero-from-board reference generation), the proven-seams saturation finding (depth round 3/12 vs breadth strategy), and the roll API + anonymous choice telemetry. Source of truth: `docs/WORLD-CATALOG-AUTHORING.md` in this repo and `catalog/`.
 - Link the hero's research sentence ("dice the model cannot roll itself" lineage) to this page once it exists.
 - Do not reveal catalog entry content wholesale; cite examples the way the API exposes them (a handful of named worlds is fine, the full list is not).
 

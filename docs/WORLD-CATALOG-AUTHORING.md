@@ -4,11 +4,87 @@ How new concept-world rounds are authored, gated, and reviewed. Distilled from t
 
 ## The pipeline
 
-1. An authoring agent receives the generated authoring context, and never a hand-built excerpt: `node scripts/catalog-authoring-context.mjs` emits the shelf map (entries grouped by family, so redundancy is visible at a glance) plus the full `qualityBar` verbatim. The 2026-07-21 digital round proved the failure mode: a hand-built corpus export dropped `provenSeams` and 8 of 15 entries landed in declared-saturated seams. Dedup happens at shelf level; candidates name their seam, and "nearest existing entry" framing is banned because it selects for near-neighbors. Three-star approvals are positive exemplars; rejection and rating notes are negative space.
-2. New entries merge as `pending`. Nothing ships without human review. Serialization is `JSON.stringify(catalog, indent 1)` plus a trailing newline, which round-trips byte-identical, so an authoring diff is purely additive. Write `webLeverage` as a buildable commitment, not decoration: the skill now instructs builds to implement the named technique rather than a static imitation of it.
-3. The render gate runs before review: specimen board first, then the desktop hero generated with the board attached as binding reference (`scripts/generate-world-cards.mjs`; the images/edits path keeps both images one system). The card manifest is content-hash keyed, so a bare run renders exactly the new or edited entries and nothing else.
-4. **One command closes an authoring round**: `bun run catalog:round` validates the catalog, renders every stale or missing card, and prints the round status table (`catalog:status` runs the table alone). A round is review-ready when the table reports the render gate complete.
-5. The reviewer decides in `/labs/worlds`: approve or reject, star ratings on approvals (3 exceptional, 2 solid, 1 marginal), notes on anything instructive. Ratings feed challenger draws in `concept-seed.mjs` (3-star doubles odds, 1-star sits out). After review, `bun run world-cards:publish` pushes approved cards to R2.
+One command runs a whole round. Use it rather than driving the steps by hand:
+the brief is where every round's findings accumulate, and a hand-written brief
+starts from zero every time. That is the actual mechanism behind rounds that
+lead nowhere.
+
+```bash
+bun run wave --mode read --count 10        # or persuade, operate, experience
+bun run wave --mode operate --count 6 --dry     # draw and print briefs only
+bun run wave --mode persuade --count 10 --no-render
+```
+
+It draws the briefs, authors against them concurrently through the API, screens
+with both transfer probes, checks the batch against the catalog and against
+itself, merges the survivors as pending, and renders board, hero and docs. It
+approves nothing. A round ends at the review queue because the judgement is the
+part a human owns.
+
+What each step guarantees:
+
+1. **Draw before design.** `wave-assign` fixes the company and the aesthetic, and
+   the mode deck fixes the tradition, before anything is designed. A generator
+   left to choose picks the safe answer every time. Both draws are deterministic
+   from `--key`, so a round is reproducible and a prompt change can be measured
+   against a fixed set of assignments.
+2. **Merge as pending, additively.** Serialization is `JSON.stringify(catalog,
+   indent 1)` plus a trailing newline, which round-trips byte-identical, so an
+   authoring diff contains only the round. A concept is pending precisely when no
+   review names it, so nothing is written to `concept-reviews.json`. `wave-merge`
+   imports `validateConceptEntry` rather than reimplementing its bounds: a gate
+   that disagrees with the validator is worse than no gate, since it fails later
+   and differently.
+3. **Render before review.** Specimen board first, then the hero and the docs
+   page, both generated with the board attached as binding reference so all three
+   read as one system. The manifest is content-hash keyed, so a bare run renders
+   exactly the new or edited entries.
+4. **The reviewer decides in `/labs/worlds`**: approve or reject, star ratings on
+   approvals (3 exceptional, 2 solid, 1 marginal), `breadth` for niche worlds,
+   allowed modes, and notes on anything instructive. Ratings feed challenger
+   draws in `roll-selection.mjs`: a 3-star draws level with a 2-star, a 1-star at
+   half, and a world marked niche leaves the pool entirely however good it is.
+   After review, `bun run world-cards:publish` pushes approved cards to R2.
+
+**Write rejection notes.** They are the only calibration the next round gets, and
+a round without them teaches nothing. "Worked but boring" and "too gimmicky"
+each changed the brief; a bare rejection would not have.
+
+**Authoring by hand** is still supported and is the right call when you want to
+supervise a single entry: `node scripts/catalog-authoring-context.mjs` emits the
+shelf map plus the full `qualityBar` verbatim. Never hand-build a corpus excerpt.
+The 2026-07-21 digital round proved the failure mode: a hand-built export dropped
+`provenSeams` and 8 of 15 entries landed in declared-saturated seams.
+
+## Modes, and why each has its own deck
+
+A world is dealt to one of four modes, and the modes want measurably different
+things. A mode is a file: `catalog/<mode>-territories.json` carries its own
+traditions and its own bar, and `wave-brief` loads it by name. Adding a mode
+means adding a file. An unknown mode refuses rather than falling back.
+
+| mode | stocked with | the bar's hard requirement |
+|---|---|---|
+| read | traditions of typeset running text | must contain a body face, not only a display voice |
+| persuade | beloved things with a time of day and a subculture | must be able to make one thing dominate |
+| operate | instruments someone worked at under consequence | a state vocabulary that reads without colour |
+| experience | sequences with a threshold and a reward | must name an order, not an atmosphere |
+
+Every requirement is a measured failure. All six worlds in one wave could not
+build emphasis, which is why persuade demands it. The read pool was built from
+traditions of display, so body copy inherited poster lettering. Atmosphere
+converts at 12% against interaction's 37%, which is what experience's order
+requirement guards against.
+
+**One clause applies to every mode: commit the palette.** A world whose render
+could be mistaken for a default template has failed even when every rule is
+sound, and the way that happens is one hue on a near-neutral ground. This is the
+same finding as "low-contrast, desaturated or single-hue palettes fail at the
+render gate" below, moved forward into the brief where it can prevent the spend.
+
+**Where a wave buys the most.** Interaction converts at 37% from 43 entries,
+the best rate and the smallest pool; `signals-instruments` converts at 39% from
+18. Atmosphere converts at 12% from 121. Aim waves accordingly.
 
 ## The assignment grid
 
@@ -38,24 +114,6 @@ Three things to know before briefing a wave from it:
 The reasoning behind the current grid, including what three independent design
 reviews found missing, is in
 [docs/WORLD-AXES-PROPOSAL.md](WORLD-AXES-PROPOSAL.md).
-
-## The wave pipeline, and never briefing one by hand
-
-A wave runs through five scripts. Use them in order rather than composing a
-brief yourself: the prompt is where every round's findings accumulate, and a
-hand-written brief starts from zero every time. That is the actual mechanism
-behind rounds that lead nowhere.
-
-| step | command | what it decides |
-|---|---|---|
-| assign | `node scripts/wave-assign.mjs --key <k> --count <n>` | the company and the aesthetic, drawn before anything is designed |
-| brief | `node scripts/wave-brief.mjs --key <k> --count <n> --out <dir>` | the authoring prompt, carrying the transfer contract |
-| screen | `node scripts/world-transfer-check.mjs --candidates <f>` | which candidates are worth a judged transfer |
-| dedup | `node scripts/world-dedup.mjs --candidates <f>` | which candidates repeat the catalog or each other |
-| render | `bun run catalog:round` | the specimen board and hero, once the above are clean |
-
-Both draws are deterministic from `--key`, so a round is reproducible and a
-prompt change can be measured against a fixed set of assignments.
 
 ## What a world is, and how three of nine failed to be one
 
@@ -205,7 +263,7 @@ Mark territories off as rounds mine them; a mined territory moves to the saturat
 
 ## The breadth gate, and why approval count lies
 
-A one-star approval is not a weak world. It is a world too narrow to serve as a challenger for an arbitrary build, and `concept-seed.mjs` already acts on that: `ticketsFor` gives a one-star entry no tickets, so it keeps its approval for direct briefs and leaves the challenger pool entirely. Reviewer notes on those entries say so plainly ("looks cool, but is extremely niche", "delightfully weird").
+A one-star approval is not a weak world. It records "unexceptional", and it used to leave the challenger pool entirely. It no longer does: rating and breadth were doing the same job badly, so `breadth: niche` now removes a world from the pool however good it is, which is the honest way to say "too narrow to challenge an arbitrary build", while a one-star draws at half weight. Reviewer notes on the narrow ones say so plainly ("looks cool, but is extremely niche", "delightfully weird"), and those are the entries that want `breadth`, not a low rating.
 
 The consequence is that **approval count overstates a round**. Measure usable challenger yield, meaning two-star and three-star approvals only:
 
