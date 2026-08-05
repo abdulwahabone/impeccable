@@ -83,7 +83,11 @@ await browser.close();
 // the subject, and what not to, which is everything else.
 const prompt = `The attached images are screenshots of one website. Study them as a visual system: its exact palette, its shape language and corner radii, its illustration idiom and how figures are drawn, its type voice and weight, its spacing, and how areas of colour relate to each other.
 
-Now design a COMPLETELY DIFFERENT product's landing page in that same visual world${subject ? `: ${subject}` : ''}. Same palette, same shape language, same illustration idiom drawn in the same manner, same type voice. Different subject, different copy, different composition, different imagery content.
+Now design a COMPLETELY DIFFERENT product's landing page in that same visual world${subject ? `: ${subject}` : ''}. Different subject, different copy, different composition, different imagery content.
+
+Keep these, and they are the parts that go missing if you are not told: the exact hues, sampled rather than approximated, with no colour introduced that is not already in the source. The illustration idiom in full, meaning the drawing hand AND its energy: if the source's figures are mid-action with exaggerated proportions and are cropped by the frame, yours are too, and if its props are scattered at several scales, yours are. Match how many figures appear and what they are doing. Match the density of loose elements around them. A single tidy centred vignette is a failure when the source is an ensemble in motion.
+
+Also keep the type voice and weight, the corner radii, the way areas of colour meet, and the exact chrome grammar of nav, buttons and chips.
 
 A person who knows the source should recognise the family immediately and never mistake this for the same site. Do not reuse its wordmark, its brand name, its copy, or its specific illustrations; invent new ones drawn in the same hand.
 

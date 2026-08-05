@@ -105,16 +105,36 @@ Do not describe the subject matter. A world is a system, not a page about seeds.
 Record the aesthetic axes you can see, choosing from:
 ${axisMenu}
 
-Also give two or three "avoid" lines: the slop this world in particular is at risk of. Not general advice.`;
+Also give two or three "avoid" lines: the slop this world in particular is at risk of. Not general advice.
 
-const content = [
-  { type: 'text', text: 'This is the world. Describe the system it embodies.' },
-  block(worldImage),
-];
+EXACT COUNTS, all enforced and all rejected if wrong. The schema cannot express
+these, so they are on you:
+  system: EXACTLY 5 strings, in the prefix order above. HARD LIMIT 180 characters
+          each, and aim for 130 to 160. Runs at this task consistently land near
+          200 and get rejected, so write short and stop. A rule is a law, not a
+          paragraph: name the values and the mechanism, drop the justification.
+  tags:   EXACTLY 3 short kebab-case strings
+  avoid:  2 or 3 strings, each 12 to 160 characters
+  form:   40 to 360 characters and must contain a comma
+  lineage: 12 to 200    spark: 80 to 320    webLeverage: 20 to 240
+
+Count them before you answer. Five rules, three tags. Not four rules, not four
+tags.`;
+
+// The source screenshots come first and are the authority on values. Deriving
+// hues from our own generated image bakes its drift in as truth: one run read
+// #82CC5C off an approximation of a page whose ground is #8ED462, and every
+// render from that entry would have inherited the error with nothing pointing
+// back at the original.
+const content = [];
 if (refs.length) {
-  content.push({ type: 'text', text: 'These are the source screenshots it was derived from, for context on the same system. Describe the world above, not these.' });
+  content.push({ type: 'text', text: 'These are screenshots of the REAL SOURCE PAGE. They are authoritative for every value you name: hues, type, weights, radii, spacing. Sample from these.' });
   for (const ref of refs) content.push(pngBlock(ref));
+  content.push({ type: 'text', text: 'This is the world derived from that source, and it is what the entry describes. Take its subject and composition from here, and its values from the screenshots above. Where the two disagree on a colour, the source is correct.' });
+} else {
+  content.push({ type: 'text', text: 'This is the world. Describe the system it embodies.' });
 }
+content.push(block(worldImage));
 content.push({ type: 'text', text: `Use id "${id}" and familyId "${family}".${source ? ` Lineage should credit: ${source}` : ''}
 ${notes ? `\nObserved on the live source, which a screenshot cannot show. Use this for Responsive/motion:\n${notes}` : '\nNo motion was observed. Keep Responsive/motion to what the image implies and do not invent specifics.'}` });
 
@@ -129,17 +149,29 @@ for (let attempt = 1; attempt <= 3 && !concept; attempt += 1) {
     system: SYSTEM,
     messages: [{ role: 'user', content: feedback ? [...content, { type: 'text', text: feedback }] : content }],
   }).finalMessage();
-  if (response.stop_reason === 'max_tokens') { feedback = '\nYour last reply was truncated. Be more concise.'; continue; }
+  if (response.stop_reason === 'max_tokens') {
+    feedback = '\nYour last reply was truncated. Be more concise.';
+    process.stderr.write(`  attempt ${attempt}: truncated at max_tokens\n`);
+    continue;
+  }
   const text = response.content.filter(b => b.type === 'text').map(b => b.text).join('');
   try {
     const parsed = JSON.parse(text);
     const errors = validateConceptEntry(parsed, {});
-    if (errors.length) { feedback = `\nFix exactly these and return the whole object again:\n${errors.join('\n')}`; continue; }
+    if (errors.length) {
+      // The validator's message for the rules is generic. Say which rule and how
+      // long it actually is, because "exactly five rules of 12 to 180" does not
+      // tell a model that its third rule is 214 characters.
+      const detail = (parsed.system || []).map((rule, i) => `rule ${i + 1} is ${rule.length} chars`).join(', ');
+      feedback = `\nFix exactly these and return the whole object again:\n${errors.join('\n')}\nFor reference, your rules were: ${detail}. The limit is 180 each and there must be exactly 5.`;
+      process.stderr.write(`  attempt ${attempt}: ${errors.length} problem(s); ${detail}\n`);
+      continue;
+    }
     concept = parsed;
   } catch (error) {
     feedback = `\nThat was not valid JSON: ${error.message}`;
+    process.stderr.write(`  attempt ${attempt}: ${error.message.slice(0, 200)}\n`);
   }
-  if (feedback) process.stderr.write(`  attempt ${attempt}: ${feedback.trim().slice(0, 220)}\n`);
 }
 
 if (!concept) { process.stderr.write('could not produce a valid entry after 3 attempts\n'); process.exit(1); }

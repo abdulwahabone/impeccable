@@ -5022,6 +5022,43 @@
       "prohibition": "no-photography",
       "variance": "container"
      }
+    },
+    {
+     "id": "sd-lobed-field-cast",
+     "form": "A saturated green field page with a floating white capsule nav, oversized grotesk headline, and a flat vector crowd bleeding off the lower edge, handing over to a bone-cream slab of icon-chip rows.",
+     "lineage": "mindmarket.com, Awwwards Site of the Day 2026",
+     "spark": "One loud green does all the work: it is the ground, the button fill, the icon disc, and the only thing the eye needs to track. Everything else floats on it as white capsules, and a crowd of flat characters spills past the fold like they walked in from outside.",
+     "system": [
+      "Palette/material: Field #8CD35F, ink #33352F, white capsules #FFFFFF, lower slab #F1EDE1. Flat vector accents: #E8604D, #3B8EF5, #F5D400, #C9A6F5. No gradients, no shadow.",
+      "Type/composition: One grotesk (Poppins-like) at 500/600. Headline 92px, -2% tracking, 1.05 leading; body 20px/1.5. Left rail at 8%; art bleeds off the right and bottom.",
+      "Topology/navigation: Nav is a detached white capsule, radius 24px, floating 32px above content; CTA sits as a second capsule outside it. Sections meet on a 48px top-radius slab.",
+      "Controls/state: Buttons are white pills with a solid #8CD35F 44px disc holding the arrow. Icons ride 72px green discs. Hover shifts the disc, never the pill colour.",
+      "Responsive/motion: Scroll swells the green lobe into frame; a round chip crosses its capsule trailing to leading on hover, 0.4s overshoot then settle."
+     ],
+     "webLeverage": "Detached capsule chrome, edge-bleeding SVG casts, and a radius-topped section slab are all cheap in CSS and read as a designed brand rather than a template.",
+     "strength": "dual",
+     "tags": [
+      "green-field",
+      "capsule-chrome",
+      "flat-cast"
+     ],
+     "avoid": [
+      "Softening the green with tints or gradients; it must stay one flat #8CD35F field.",
+      "Generic stock 'corporate Memphis' figures with no edge bleed or overlap.",
+      "Adding drop shadows to the white capsules; they float by contrast alone."
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "drenched",
+      "material": "procedural",
+      "spatial": "sheet",
+      "density": "calm",
+      "composition": "asymmetric",
+      "scale-range": "wide",
+      "motion": "simulated",
+      "prohibition": "no-photography",
+      "variance": "container"
+     }
     }
    ]
   },
