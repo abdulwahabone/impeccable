@@ -95,9 +95,24 @@ centred headline with a subhead. Ask where imagery belongs in this world before
 placing any, and whether this world would have a button at all before drawing
 one. A page that could be reskinned into any other world here has failed.
 
+Show ABOUT ONE SCREEN. Whatever this world's first view is, plus at most a hint
+of what follows below it. Three or four stacked bands of content is a whole page
+rather than a first view, and it reads as clutter however good each band is. This
+is a limit on how much you draw, not on how you arrange it: a dense world should
+still be dense, it should simply be dense within one screen.
+
+And obey the density the world's own rules describe. If they describe a calm or
+ceremonial surface, leave the emptiness in; the temptation is to fill a frame
+because a frame is there. If they describe a packed or working surface, pack it.
+Read this off the five rules rather than splitting the difference: only 31 of 562
+concepts carry a recorded density axis, so for almost every world the rules are
+the only statement of it there is.
+
 The page is designed wholly inside this visual world: ${concept.form}.
 Palette and materials: ${palette}
 Typography and composition: ${type}
+Organisation and navigation: ${concept.system[2].replace(/^Topology\/navigation:\s*/, '')}
+Density and behaviour: ${concept.system[4].replace(/^Responsive\/motion:\s*/, '')}
 Atmosphere, never written on the page but carried into it: ${concept.spark}
 Light the page like the world: its hour, light quality, and mood shape the page ground, surfaces, and imagery, not just the accent color. Take the page ground from the palette above rather than from atmosphere: a world of cream stock, daylight, paper, or bright ink produces a genuinely light page, and only a world that is actually nocturnal or interior produces a dark one. Do not darken a page whose palette is light.
 
