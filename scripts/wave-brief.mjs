@@ -39,6 +39,16 @@ const outDir = flag('out', null);
 // to the authoring agent, which is how it produced worlds built from traditions
 // of display and then graded them on a landing page.
 const mode = flag('mode', null);
+// Authoring from a live site the author has actually used. The aesthetic is then
+// observed rather than drawn, and drawing it anyway is destructive: the first
+// run of this handed an author "no radii or curves", grain-noise material and a
+// room-shaped space while pointing it at a site made of flat digital curves on
+// an infinite plane. It threw away everything that made the site worth looking
+// at and rebuilt an abstract mechanic in an unrelated register.
+//
+// The draw exists to stop a generator defaulting when nothing anchors it. A real
+// page anchors it, so the draw has no job here.
+const fromSite = args.includes('--from-site');
 
 const { axesDefinition, companyDeck, occupancy } = loadWaveInputs();
 // A mode is a deck file, not a branch. Adding one means adding
@@ -306,7 +316,36 @@ function renderBrief(brief) {
     }
     lines.push('');
   }
-  lines.push('## The aesthetic');
+  if (fromSite) {
+    lines.push('## The aesthetic comes from the page, not from a draw');
+    lines.push('');
+    lines.push('You have used a real site. Its palette, material, type voice, spatial model,');
+    lines.push('density and motion are observations, not choices, and they are the reason it');
+    lines.push('was worth looking at. Take them.');
+    lines.push('');
+    lines.push('Sample real values. Name the hues you actually measured, the faces and weights');
+    lines.push('actually used, the measure, the radii, the timing. A world that keeps a page\'s');
+    lines.push('mechanic and discards its palette and shapes has not been derived from it.');
+    lines.push('');
+    lines.push('Then record what you observed in the axes field, using these keys:');
+    lines.push('');
+    for (const axis of occupancy.axes) {
+      lines.push(`  ${axis.id.padEnd(18)} ${(axis.values || []).map(v => v.id).join(' | ')}`);
+    }
+    lines.push('');
+    lines.push('Pick the value that describes the page you saw. Do not pick for novelty; the');
+    lines.push('coverage map is a record of what exists, and a wrong value corrupts it.');
+    lines.push('');
+    lines.push('## What you may change, and what you may not');
+    lines.push('');
+    lines.push('You are extracting a system, not cloning a page. Change the subject, the copy,');
+    lines.push('the illustration content and the specific arrangement. Keep the palette, the');
+    lines.push('shape language, the type voice, the motion law and the signature mechanic. If a');
+    lines.push('reader who knows the source would not recognise the family resemblance, you have');
+    lines.push('gone too far; if they would call it a copy, not far enough.');
+    lines.push('');
+  } else {
+    lines.push('## The aesthetic');
   lines.push('');
   lines.push('Weighted against what the catalog already occupies, so a thin value is an');
   lines.push('opening rather than an accident. The basis line says why each came up.');
@@ -317,7 +356,8 @@ function renderBrief(brief) {
     lines.push(`    => ${note.valueLabel}`);
     lines.push(`       ${note.basis}`);
   }
-  lines.push('');
+    lines.push('');
+  }
   lines.push(CONTRACT);
   lines.push('');
   lines.push(PALETTE_CLAUSE);
