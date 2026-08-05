@@ -79,6 +79,27 @@ const families = (catalog.families || []).map(f => f.id);
 const shelf = (catalog.families || []).map(f =>
   `${f.id}: ${(f.concepts || []).map(c => c.form.split(',')[0]).slice(0, 40).join(' | ')}`).join('\n');
 
+// The worlds that earned three stars, for the mode being authored. The shelf map
+// above says what to avoid repeating; this says what good looks like here, which
+// is a different job and the catalog was never being asked for it.
+//
+// Flattened to the form line and the lineage on purpose. That is the cheap
+// pattern to extend, and sending five rules each would bury the exemplars in
+// grammar the author is already given.
+const reviews = JSON.parse(readFileSync(path.join(ROOT, 'catalog', 'concept-reviews.json'), 'utf8')).reviews;
+const ALL_MODES = ['persuade', 'operate', 'read', 'experience'];
+const exemplars = [];
+for (const family of catalog.families || []) {
+  for (const concept of family.concepts || []) {
+    const review = reviews[concept.id];
+    if (review?.status !== 'approved' || review.rating !== 3) continue;
+    const allowed = (Array.isArray(review.allowedModes) && review.allowedModes.length)
+      ? review.allowedModes : ALL_MODES;
+    if (mode && !allowed.includes(mode)) continue;
+    exemplars.push(`${concept.form.split(/[:,]/)[0]}  <- ${concept.lineage.split(/[,;]/)[0]}`);
+  }
+}
+
 const axisIds = (JSON.parse(readFileSync(path.join(ROOT, 'catalog', 'aesthetic-axes.json'), 'utf8')).axes || [])
   .map(axis => axis.id);
 
@@ -139,7 +160,10 @@ THE QUALITY BAR
 ${guide}
 
 WHAT THE CATALOG ALREADY HOLDS, by family. Do not repeat any of these at system level, meaning palette plus type voice, not merely by name.
-${shelf}`,
+${shelf}
+
+${exemplars.length ? `WORLDS THAT EARNED THREE STARS${mode ? ` AND ARE DEALT TO ${mode.toUpperCase()}` : ''}, as form and lineage. This is what the reviewer rates highest. Extend the pattern rather than copying any single one, and note what they have in common that a merely competent world does not.
+${exemplars.join('\n')}` : ''}`,
         messages: [{ role: 'user', content: `${brief}\n\nid prefix: ${key}-\n${feedback}` }],
       }).finalMessage();
       // Say what actually happened. A truncated response fails in JSON.parse and
