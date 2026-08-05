@@ -2556,6 +2556,43 @@
      "spark": "A single line walked across the desert for four kilometres that turns out, from high enough up, to be one wing of a bird nobody on the ground has ever seen.",
      "webLeverage": "an svg aerial plan with segment bearing readouts, a ground-to-plan camera transition, and a responsive reflowing measurement table",
      "strength": "dual"
+    },
+    {
+     "id": "aww-pavilion-route-band",
+     "form": "a fair-pavilion interior threaded by one unbroken mitred band of ink silkscreened along the wall at hand height, where every bay of content exists only because the band doubles back and pens it in, and each place the band crosses itself prints one step darker",
+     "lineage": "postwar world's-fair pavilion circulation graphics, Brussels 1958 to Osaka 1970: silkscreened route bands and their folded companion guides; read against mindmarket.com, Awwwards Site of the Day 2026",
+     "spark": "Ten at night in a half-lit fair pavilion, cleaners gone, a four-inch orange band running the wall at hand height, doubling back to pen in a bay of pinned photographs, the crossing printed a shade darker where the squeegee passed twice.",
+     "system": [
+      "Palette/material: seven zone inks screened on grey-tan uncoated board, tooth showing. Live zone floods 30-60%. Foreign media takes a butted band of that ink, never a tint over it.",
+      "Type/composition: one condensed grotesque, two sizes, flush to a band edge. Prose sits only on bare board at 7:1; rank is the band swelling to a solid plate around one element.",
+      "Topology/navigation: one unbroken band enters at one edge and leaves by another; regions exist only where it doubles back and encloses them. Stations are notches in its outer edge.",
+      "Controls/state: state is ink passes, not hue. Off knocks out to bare board, available is one pass, active overprints two a step darker, disabled leaves the outline alone.",
+      "Responsive/motion: the band prints once, entrance to exit, at a constant rate no scroll can scrub or reverse. Narrow, it folds to a vertical spine. Reduced motion arrives printed."
+     ],
+     "webLeverage": "one SVG polyline whose vertices are computed from the content, drawn once by stroke-dashoffset at a constant rate independent of scroll; its self-intersections solve to clipPaths that become the bays, and state is multiply overprint",
+     "strength": "dual",
+     "tags": [
+      "mitred-route-band",
+      "enclosed-bay",
+      "overprint-state"
+     ],
+     "avoid": [
+      "Not a curved ribbon: every turn is a mitre and every corner square, or this collapses into the flowing-blob brand site the mechanic was extracted from.",
+      "Seven inks are not confetti: one zone ink dominates a surface and the other six appear only at notches, crossings and the far edge.",
+      "The grain is press tooth, not a noise overlay; no drop shadows, no soft gradients, nothing implying the band is lit or floating."
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "committed",
+      "material": "grain-noise",
+      "spatial": "room",
+      "density": "working",
+      "composition": "collage",
+      "scale-range": "moderate",
+      "motion": "continuous",
+      "prohibition": "no-curves",
+      "variance": "generative"
+     }
     }
    ]
   },
