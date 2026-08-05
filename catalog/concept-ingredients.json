@@ -2593,6 +2593,43 @@
       "prohibition": "no-curves",
       "variance": "generative"
      }
+    },
+    {
+     "id": "aww2-zoo-gardens-guide-map",
+     "form": "a zoo and gardens guide map, where every area is a swelling lobe of flat colour and the coastline between lobes does all the dividing, and where a lobe can open in its middle so the page ground shows through it as water",
+     "lineage": "American pictorial map illustration, 1930s-1970s: the folded zoo, park and campus guide maps handed out by the thousand at the gate",
+     "spark": "A summer opening-morning guide map creased into eight panels: an apple-green headland swelling across the fold, a coral flamingo standing right on its edge with one foot out over the cream, and a yellow capsule pinned to the coastline reading GATE.",
+     "system": [
+      "Palette/material: Flat unmodulated colour, no grain: green #8ED462 land on cream #F5F1E4 water, ink #2C2E2A. Photographs keep their own colour, cropped to a lobe, never tinted.",
+      "Type/composition: One grotesk at one weight; display at 0.95 leading, -0.06em. Prose is ink on cream, white, green or yellow; coral and blue carry labels only.",
+      "Topology/navigation: One lobe dominates each screen, swelling until its coast leaves the frame on two sides; a lobe may open in its middle and let the ground through as water.",
+      "Controls/state: Controls are capsules in yellow #F5E211, coral #FF705D, blue #2BA0FF, lilac #EBC1FF; a round chip rides its trailing edge and crosses to the leading edge when live.",
+      "Responsive/motion: Everything that moves takes 0.4s and overshoots before settling. Scroll redraws the coastline continuously; at narrow widths the coast runs down the frame."
+     ],
+     "webLeverage": "Every area is one SVG path; scroll advances a single timeline that morphs the coastline, and the same path clips the illustration and the type, so one geometry drives layout, art and state together.",
+     "strength": "dual",
+     "tags": [
+      "swelling-coastline",
+      "flat-fill",
+      "capsule-chip"
+     ],
+     "avoid": [
+      "Do not let the lobes settle into equal sizes at even spacing; a coastline that never pinches or swells is wallpaper, not a map.",
+      "Keep the drawn cast few and specific. A character posted on every lobe turns a guide map into a sticker sheet.",
+      "No paper grain, fold shadows or halftone. The colour is flat and unmodulated, and a printed texture drags this world grey."
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "drenched",
+      "material": "emissive",
+      "spatial": "map",
+      "density": "calm",
+      "composition": "asymmetric",
+      "scale-range": "wide",
+      "motion": "continuous",
+      "prohibition": "no-dividers",
+      "variance": "container"
+     }
     }
    ]
   },

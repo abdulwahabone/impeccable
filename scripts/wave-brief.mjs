@@ -372,9 +372,19 @@ function renderBrief(brief) {
   lines.push('cultural care rule. Read it. The transfer contract above is additional to it,');
   lines.push('not a replacement for it.');
   lines.push('');
-  lines.push('Record these axis values verbatim in the axes field:');
-  lines.push('');
-  lines.push(`  ${JSON.stringify(brief.chosen)}`);
+  // Never print the drawn axes in from-site mode. The body of that brief says the
+  // aesthetic is observed, and this block used to contradict it three paragraphs
+  // later with grain-noise and no-photography against a flat digital site. The
+  // author caught it and followed the body; the next one might follow the block.
+  if (!fromSite) {
+    lines.push('Record these axis values verbatim in the axes field:');
+    lines.push('');
+    lines.push(`  ${JSON.stringify(brief.chosen)}`);
+  } else {
+    lines.push('Record the axis values you OBSERVED in the axes field. Nothing here was');
+    lines.push('drawn for you, because a real page is the anchor a draw exists to substitute');
+    lines.push('for.');
+  }
   return `${lines.join('\n')}\n`;
 }
 

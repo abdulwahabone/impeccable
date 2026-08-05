@@ -61,6 +61,13 @@
       "reviewedAt": "2026-07-27T23:10:31.145Z",
       "formHash": "cea4f5770bb5"
     },
+    "aww-pavilion-route-band": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T21:19:33.677Z",
+      "formHash": "e40c0a89ea4f",
+      "note": "it's a complete failure. it looks absolutely nothing like the inspiration.  I expected a bubbly aesthetic close to the original (while not being an exact copy, of course), with interesting characters that are animated, a continous scroll path of sorts, rounded friendly shapes, colorful, etc... i got none of that."
+    },
     "black-gold-augmentation": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -764,7 +771,9 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-05T01:57:48.545Z",
-      "formHash": "2a918023b840"
+      "formHash": "2a918023b840",
+      "breadth": "niche",
+      "rating": 2
     },
     "design-canon-memphis-showroom-morning": {
       "status": "approved",
@@ -879,7 +888,12 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-05T01:57:30.319Z",
-      "formHash": "efee7909282c"
+      "formHash": "efee7909282c",
+      "allowedModes": [
+        "operate",
+        "read"
+      ],
+      "rating": 1
     },
     "design-canon-punk-pasteup-table": {
       "status": "approved",
@@ -1107,7 +1121,8 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-05T01:58:34.513Z",
-      "formHash": "6364dec2bc9e"
+      "formHash": "6364dec2bc9e",
+      "rating": 2
     },
     "digital-design-canon-dark-first-developer-console": {
       "status": "approved",
@@ -3575,7 +3590,8 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-05T01:52:58.736Z",
-      "formHash": "c86f7eca7d10"
+      "formHash": "c86f7eca7d10",
+      "rating": 1
     },
     "posters-covers-sleeves-hand-painted-ghana-film-poster": {
       "status": "approved",
@@ -3654,7 +3670,12 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-05T01:53:35.448Z",
       "formHash": "e85e93773d64",
-      "note": "a bit too simple, the models would get there on their own"
+      "note": "a bit too simple, the models would get there on their own",
+      "allowedModes": [
+        "read",
+        "experience"
+      ],
+      "rating": 1
     },
     "posters-covers-sleeves-noir-one-sheet-duotone": {
       "status": "approved",
@@ -3720,7 +3741,11 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-05T01:52:40.494Z",
-      "formHash": "f6bed52b6ae3"
+      "formHash": "f6bed52b6ae3",
+      "allowedModes": [
+        "read"
+      ],
+      "rating": 1
     },
     "posters-covers-sleeves-polish-film-poster": {
       "status": "approved",
@@ -4249,7 +4274,8 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-05T02:01:19.063Z",
-      "formHash": "ab066d6d28da"
+      "formHash": "ab066d6d28da",
+      "rating": 2
     },
     "tabular-fintech-typographic": {
       "status": "rejected",
@@ -4508,7 +4534,8 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-05T02:02:15.952Z",
-      "formHash": "10b61d8874f1"
+      "formHash": "10b61d8874f1",
+      "rating": 1
     },
     "vernacular-ephemera-cancellation-stamp-album": {
       "status": "approved",
@@ -4651,7 +4678,13 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-05T02:02:50.721Z",
       "formHash": "6c6d8ba7ef8b",
-      "note": "too busy / confusing"
+      "note": "too busy / confusing",
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ],
+      "rating": 2
     },
     "vernacular-ephemera-library-due-date-card": {
       "status": "approved",
