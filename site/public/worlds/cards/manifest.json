@@ -861,9 +861,9 @@
   "design-canon-blast-manifesto-page": {
     "hash": "be7bd1344481",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:23:05.936Z",
     "generatedAt": "2026-07-25T00:39:44.464Z",
-    "docsGeneratedAt": "2026-08-04T02:57:32.047Z"
+    "docsGeneratedAt": "2026-08-04T02:57:32.047Z",
+    "heroGeneratedAt": "2026-08-05T23:05:11.831Z"
   },
   "design-canon-braun-calibration-bench": {
     "hash": "7453eccbdb22",
@@ -1212,8 +1212,8 @@
     "hash": "bdec2a066312",
     "model": "gpt",
     "generatedAt": "2026-07-20T03:34:41.751Z",
-    "heroGeneratedAt": "2026-07-20T16:59:58.765Z",
-    "docsGeneratedAt": "2026-08-04T02:55:14.941Z"
+    "docsGeneratedAt": "2026-08-04T02:55:14.941Z",
+    "heroGeneratedAt": "2026-08-05T23:05:13.910Z"
   },
   "design-canon-zenit-balkan-page": {
     "hash": "09f97e99e7f4",
@@ -2027,8 +2027,8 @@
     "hash": "4a274a9a22bf",
     "model": "gpt",
     "generatedAt": "2026-07-21T04:58:25.507Z",
-    "heroGeneratedAt": "2026-07-21T05:02:33.225Z",
-    "docsGeneratedAt": "2026-08-04T02:10:45.780Z"
+    "docsGeneratedAt": "2026-08-04T02:10:45.780Z",
+    "heroGeneratedAt": "2026-08-05T23:05:21.007Z"
   },
   "graphic-worlds-publishing-chaekgeori-reverse-perspective": {
     "hash": "6ef241ad20ef",
@@ -3706,8 +3706,8 @@
     "hash": "c9511fd3b44f",
     "model": "gpt",
     "generatedAt": "2026-07-20T03:13:01.267Z",
-    "heroGeneratedAt": "2026-07-20T16:37:06.634Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "docsGeneratedAt": "2026-08-03T18:00:00.000Z",
+    "heroGeneratedAt": "2026-08-05T23:05:07.824Z"
   },
   "posters-covers-sleeves-exploitation-combo-sheet": {
     "hash": "7311960d0008",
@@ -4484,8 +4484,8 @@
     "docsGeneratedAt": "2026-08-04T04:29:10.691Z"
   },
   "sd-lobed-field-cast": {
-    "heroGeneratedAt": "2026-08-05T13:00:00.000Z",
-    "heroSource": "site-to-world-image, derived from a live page rather than from the concept text",
+    "heroGeneratedAt": "2026-08-05T14:00:00.000Z",
+    "heroSource": "site-to-world-image run 3, composition taken from the reference rather than prescribed",
     "hash": "85015a351357",
     "model": "gpt",
     "generatedAt": "2026-08-05T22:35:56.263Z",
