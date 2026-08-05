@@ -9160,6 +9160,191 @@
       "prohibition": "no-full-width",
       "variance": "immutable"
      }
+    },
+    {
+     "id": "operate-c-selection-strip-rack",
+     "form": "A late-hour selection rack: courses of typed ivory title strips seated in a channel behind smoked glass, each opening with a boxed letter-number address, riding proud of the glass when live and lapping over its neighbour only where two claims land on the same address.",
+     "lineage": "Seeburg and Wurlitzer title-strip selection panels and diner wallboxes, 1948-1962, and the narrow title-strip typewriter that set their two-line paper slips.",
+     "spark": "At 2 a.m. the rack glows amber through smoked glass: forty typed ivory strips in courses, one pasted over with a dated correction slip, two lapping over each other at K-7 with the overlap seam lit bright.",
+     "system": [
+      "Palette/material: amber light-well under glass; all copy rides on opaque ivory paper in graphite; coded ruby, tangerine, jade, cobalt, violet bands. Foreign media mounts as strips.",
+      "Type/composition: condensed gothic caps for the title line, italic for any second line, a boxed letter-number slug at each strip's left; courses stop short of both margins.",
+      "Topology/navigation: two lit colour pilasters bracket every surface, so nothing bleeds to an edge; everything is addressed by a letter-number pair and reached by stepping courses.",
+      "Controls/state: flush at rest, proud with shadow when actionable, inset when editable, struck with typed slashes when dead, pasted slip when superseded; rank doubles strip height.",
+      "Responsive/motion: courses advance a whole strip at a time, nothing eases; light steps one stop brighter behind a proud strip; two claims on one address overlap with a lit seam."
+     ],
+     "webLeverage": "Every addressable item carries a stable boxed letter-number address; two items claiming one address render as overlapped strips with a lit overlap seam instead of a warning banner, computed from the data.",
+     "strength": "world",
+     "tags": [
+      "coordinate-addressing",
+      "relief-state",
+      "backlit-strip-rack"
+     ],
+     "avoid": [
+      "No jukebox object: no chrome bezel, arched cabinet, bubble tubes or visible mechanism. This is the marking system, not the machine.",
+      "No diner nostalgia: no checkerboard floor, cherry vinyl, script neon or fifties pin-up lettering anywhere in the furniture.",
+      "Coded edge bands must code something legible; scattered rainbow edges with no legend read as decoration and drop the rack to dead grey."
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "committed",
+      "material": "glass",
+      "spatial": "map",
+      "density": "packed",
+      "composition": "collage",
+      "scale-range": "moderate",
+      "motion": "mechanical",
+      "prohibition": "no-full-width",
+      "variance": "generative"
+     }
+    },
+    {
+     "id": "operate-c-greenbar-result-rail",
+     "form": "An admin sheet printed as a continuous chain-printer listing: one drenched bar-green ground generated per line, black impact ink for every mark and control, a two-character result-code rail down each panel edge, and overlapping fold panels where a promoted item is restated as a banner word built from its own repeated glyphs.",
+     "lineage": "Chain-printer output on 14 7/8-inch fanfold greenbar, 1959-1985: banner separator pages, carriage-control channels, overstrike, and condition codes read down the listing gutter.",
+     "spark": "A night-run listing fanned open on a lit glass table at 4 a.m., the bars glowing green from beneath, one fold carrying the word HOLD two hands high and made of thousands of tiny letter H's, the code rail down its edge reading 00, 00, 12.",
+     "system": [
+      "Palette/material: One hue: lit bar green #6FB894 drenched edge to edge, glowing from behind; all marks matte black ink. Supplied images sit on unprinted white, never overprinted.",
+      "Type/composition: One monospace at three sizes, black on green at a 66-character measure; rank is a banner word built of its own repeated glyphs. Panels overlap; rows align.",
+      "Topology/navigation: One continuous sheet; nav lives in a top gutter strip and a code rail down one edge, both always present. Moving steps the sheet by whole folds, never slides.",
+      "Controls/state: State is ink weight, not hue. Selected reverses the band to solid ink, text knockout; pending half-strike; disabled a carbon ghost; failed overstruck with its code.",
+      "Responsive/motion: All motion snaps in whole line pitches, no easing. Destructive controls sit past a punched perforation and take a tear. Narrow widths raise bar pitch, not type."
+     ],
+     "webLeverage": "Bar bands are computed from line-height, not imagery: a repeating gradient locked to the line box so every row lands in a band, selection fills its band and knocks the text out, scroll snaps to line pitch, bar pitch is one variable.",
+     "strength": "world",
+     "tags": [
+      "banner-mosaic-emphasis",
+      "ink-weight-state",
+      "fanfold-panel-collage"
+     ],
+     "avoid": [
+      "No drawn printer, tractor sprockets, torn perf confetti, coffee rings or nostalgia dust; the sheet is a generated ground, not a photographed relic.",
+      "Not phosphor: this is black ink on lit green paper, never green glyphs on black, and never glyph rain or ASCII art used as decoration.",
+      "Do not let the green go olive or the ink go grey; bar green stays bright and ink stays full black or the sheet reads as a beige template."
+     ],
+     "axes": {
+      "palette-breadth": "one",
+      "colour-strategy": "drenched",
+      "material": "procedural",
+      "spatial": "sheet",
+      "density": "calm",
+      "composition": "collage",
+      "scale-range": "wide",
+      "motion": "mechanical",
+      "prohibition": "no-colour-on-interactive",
+      "variance": "parametric"
+     }
+    },
+    {
+     "id": "operate-c-cracktro-scroller-queue",
+     "form": "A worked queue built from a cracktro title screen: one bitmap face riding baselines over an emissive black void, where rank is depth, fields of grey dust drift behind the work at layered speeds, and nothing is ever enclosed by a rule or a box.",
+     "lineage": "Amiga and PC demoscene cracktro and intro screens, roughly 1987 to 1995: sine scrollers, parallax starfields and bitmap fonts on black.",
+     "spark": "At 2am one ivory line of bitmap text sits dead still on a black screen while three fields of grey pinpricks drift behind it at different speeds, and a single amber caret blinks at the head of the line.",
+     "system": [
+      "Palette/material: emissive black void, four dust neutrals ash to ivory, one signal amber; prose is ivory on void only; foreign images sit unretouched on the void, never tinted.",
+      "Type/composition: one bitmap face at two sizes; all text rides baselines on a single unit; overlap allowed, enclosure never; no rules, boxes or dividers.",
+      "Topology/navigation: layers stacked front to back; every baseline continues past both screen edges, so nothing is contained; navigating means pulling a layer forward.",
+      "Controls/state: state is depth: brightness step plus letterspacing plus drift rate; the frontmost brightest widest item outranks all; a reversed glyph cell marks failure.",
+      "Responsive/motion: only rear layers drift, one slow rate halved per step forward; the front plane holds still while read; narrow widths drop depth steps, not brightness steps."
+     ],
+     "webLeverage": "Every element declares an integer depth; one stylesheet maps depth to brightness step, letterspacing and drift rate off a single shared clock, and focus freezes the front plane to full stillness.",
+     "strength": "world",
+     "tags": [
+      "depth-as-rank",
+      "emissive-void",
+      "continuous-drift"
+     ],
+     "avoid": [
+      "No Matrix glyph rain, green phosphor or falling katakana; the void carries drifting one-pixel dust, not code.",
+      "No chrome-bevelled logos, copper raster bars, metallic gradient wordmarks or scene-group greetz slang in rendered copy.",
+      "No nebula or space photography; stars are dust at four brightness steps, not astronomy."
+     ],
+     "axes": {
+      "palette-breadth": "broad",
+      "colour-strategy": "restrained",
+      "material": "emissive",
+      "spatial": "stack",
+      "density": "calm",
+      "composition": "collage",
+      "scale-range": "moderate",
+      "motion": "continuous",
+      "prohibition": "no-dividers",
+      "variance": "parametric"
+     }
+    },
+    {
+     "id": "operate-c-depot-blind-courses",
+     "form": "A monitoring surface built as a depot destination blind: bias-cut courses of dyed duck cloth stacked in a roll stepping under one fixed window, where anything wrong is the course stopped mid-step, showing two half-legends meeting across a single seam.",
+     "lineage": "Linen and Tyvek roller destination blinds of British and German bus and tram depots, 1930s-1980s, and the Solari flap indicator, Udine 1956.",
+     "spark": "A blind lifted onto the depot bench at 4:40 a.m. and lit from behind: green duck cloth halted between two courses, the top half of one destination and the bottom half of the next meeting at one seam, every thread glowing through the chrome-yellow letters.",
+     "system": [
+      "Palette/material: three dyes only: bottle-green duck cloth drenched, chrome-yellow legends, bleached calico carries all prose; foreign images are matted on cloth and never tinted.",
+      "Type/composition: one condensed grotesque, caps, one size; panels cut on a 12-degree bias, type level inside; rank is inversion: the lead panel alone prints dark on pale cloth.",
+      "Topology/navigation: content rides a roll of stacked cloth courses that step under one fixed window inset from the trim; a punched eyelet tape down one edge is the index.",
+      "Controls/state: controls take no dye, only stitch, punch and relief; a fault stops its row mid-step, showing two half-legends over one seam; stale wears thin, dead bares the weave.",
+      "Responsive/motion: nothing glides; every change snaps one course, overshoots, settles; narrow screens drop courses, never shrink type; lit from behind so the weave stays visible."
+     ],
+     "webLeverage": "Build the step for real: any changing cell is a strip translated in whole line-heights with a one-step overshoot, and a stalled half-step showing two clipped legends across a seam is the only error state.",
+     "strength": "world",
+     "tags": [
+      "stepped-course-state",
+      "woven-drenched-ground",
+      "reversed-legend-inversion"
+     ],
+     "avoid": [
+      "No depicted blind box, roller drum, screws or brushed bezels; the cloth is the surface, not a machine drawn on it.",
+      "No airport flap board in black and white with yellow accents; the ground stays a dyed, drenched green everywhere.",
+      "No burlap photo overlay or wrinkled fabric imagery; the weave is printed structure at one consistent scale."
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "drenched",
+      "material": "woven",
+      "spatial": "stack",
+      "density": "saturated",
+      "composition": "diagonal",
+      "scale-range": "narrow",
+      "motion": "mechanical",
+      "prohibition": "no-colour-on-interactive",
+      "variance": "curated-chaos"
+     }
+    },
+    {
+     "id": "operate-c-emission-line-rail",
+     "form": "A working plate where every element registers against one off-centre calibrated rail, colour survives only as hairline emission lines of seven wavelengths standing on a procedurally banded charcoal continuum, and state is carried in line height, dash and doubling rather than hue.",
+     "lineage": "Photographic emission-line spectrograms and comparison-arc plates from observatory and analytical spectroscopy, roughly 1890 to 1960, and their printed wavelength tables.",
+     "spark": "A glass spectrogram lying on a low viewing box at three in the morning: a grey continuum crossed by needle-thin bright lines, every legend at the same tiny size, one sodium pair doubled and standing brighter than anything near it.",
+     "system": [
+      "Palette/material: procedural charcoal continuum with bone legends; colour only as hairlines at 405/436/486/546/589/615/656nm; foreign images mat into graphite, edged by one line.",
+      "Type/composition: one grotesque at a single size, ranked by tracking and ink; all matter hangs off one off-centre rail, and prose only ever sits in bone on flat ash plates.",
+      "Topology/navigation: every destination is a tick on the rail; the open one blooms into a giant plate above it, the rest stay hairline stubs, and nothing ever leaves the rail.",
+      "Controls/state: state is line form, not hue: full-height solid live, dashed pending, half-height stale, struck disabled; a doubled line, sodium yellow, outranks its neighbours.",
+      "Responsive/motion: a landing line slides to its position and damps with one overshoot; narrow widths shorten the band shown, never the type; sheets behind the top one dim a step."
+     ],
+     "webLeverage": "Build the rail as one custom property mapping any value to an x position; every mark is a 1px absolutely placed line whose state is height, dash pattern and doubling, settled by a spring, never by colour.",
+     "strength": "world",
+     "tags": [
+      "hairline-spectrum",
+      "state-as-line-form",
+      "calibrated-rail"
+     ],
+     "avoid": [
+      "No depicted spectrometer, prism, brass tube or optical bench; take the plate's marking system, never the instrument.",
+      "No rainbow gradients or full-spectrum washes; the seven hues exist only as hairlines against worked grey.",
+      "No dead all-grey render either: every one of the seven line hues must be present and distinguishable at a glance."
+     ],
+     "axes": {
+      "palette-breadth": "full",
+      "colour-strategy": "restrained",
+      "material": "procedural",
+      "spatial": "stack",
+      "density": "saturated",
+      "composition": "asymmetric",
+      "scale-range": "wide",
+      "motion": "simulated",
+      "prohibition": "one-type-size",
+      "variance": "parametric"
+     }
     }
    ]
   },

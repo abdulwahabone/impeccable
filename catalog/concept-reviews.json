@@ -2625,6 +2625,41 @@
       "formHash": "74c5b49fd47a",
       "rating": 1
     },
+    "operate-c-cracktro-scroller-queue": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T01:24:42.008Z",
+      "formHash": "8f3f1f607926",
+      "rating": 2
+    },
+    "operate-c-depot-blind-courses": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T01:24:57.459Z",
+      "formHash": "a753552e3525",
+      "rating": 1
+    },
+    "operate-c-emission-line-rail": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T01:25:09.039Z",
+      "formHash": "d4f4c0dd718c",
+      "rating": 1
+    },
+    "operate-c-greenbar-result-rail": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T01:24:31.966Z",
+      "formHash": "e9c505d167a1",
+      "note": "this looks pretty clean, but it's just way too monocolored"
+    },
+    "operate-c-selection-strip-rack": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T01:23:59.289Z",
+      "formHash": "11c5a259bf3e",
+      "note": "doesn't quite come together as a world"
+    },
     "painted-ledger-dialogue": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
