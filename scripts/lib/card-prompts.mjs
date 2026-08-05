@@ -31,11 +31,14 @@ centred headline with a subhead. Ask where imagery belongs in this world before
 placing any, and whether this world would have a button at all before drawing
 one. A page that could be reskinned into any other world here has failed.
 
-Show ABOUT ONE SCREEN. Whatever this world's first view is, plus at most a hint
-of what follows below it. Three or four stacked bands of content is a whole page
-rather than a first view, and it reads as clutter however good each band is. This
-is a limit on how much you draw, not on how you arrange it: a dense world should
-still be dense, it should simply be dense within one screen.
+This image is the FIRST VIEWPORT of a much longer page, not the whole page. It is
+the top of something that continues well below the fold. So: no footer, no
+closing section, no full site map, no complete feature set. Whatever sits at the
+bottom edge should be cut off mid-element, the way a real screenshot of a page
+top is cut off, because more of it exists below.
+
+That is a limit on how much you draw, not on how you arrange it: a dense world
+should still be dense, it should simply be dense within one screen.
 
 And obey the density the world's own rules describe. If they describe a calm or
 ceremonial surface, leave the emptiness in; the temptation is to fill a frame

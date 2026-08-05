@@ -33,6 +33,14 @@ const outDir = flag('out', path.join(ROOT, '.waves', 'prompt-lab'));
 
 // Each variant is a paragraph appended to the shipped prompt. They are separate
 // rather than combined so a result can be attributed to one sentence.
+// Tested 2026-08-05 across three worlds, one sample each. Only "viewport"
+// improved all three and it has shipped, so baseline now contains it.
+//
+// Dropped, and worth not retrying blind: "focus" (one thing must dominate) and
+// "audience" (design at a specific reader) changed nothing in any of the three.
+// "align" (hold the shared edges) made two of three stranger and more crowded.
+// "air" and "scene" were ambiguous, good on one world and odd on another, which
+// one sample per cell cannot resolve; run them at n=3 before believing either.
 const VARIANTS = {
   baseline: '',
 
