@@ -77,7 +77,23 @@ function boardTitle(concept) {
 function buildHeroPrompt(concept) {
   const palette = concept.system[0].replace(/^Palette\/material:\s*/, '');
   const type = concept.system[1].replace(/^Type\/composition:\s*/, '');
-  return `A complete desktop landing page filling the entire 16:9 frame edge to edge, as if screenshotted at 1440 pixels wide: a slim top navigation with a wordmark and a few links, a hero section with a large headline, one supporting line, and a primary call-to-action button, and the top of the next content section just visible at the bottom edge. No browser chrome, no device mockup, no specimen-board framing, no caption: the page itself is the entire image.
+  return `A complete desktop landing page filling the entire 16:9 frame edge to edge, as if screenshotted at 1440 pixels wide. No browser chrome, no device mockup, no specimen-board framing, no caption: the page itself is the entire image.
+
+The composition comes from the world, not from a template. This prompt used to
+specify the furniture, a slim top nav, a large headline, one supporting line, a
+call-to-action button, and the next section peeking in at the bottom, and every
+world in the catalog was rendered into that same skeleton. That is the default
+landing page a model produces unprompted, which is precisely what a challenger
+exists to displace.
+
+So decide the arrangement from the world's own laws below. Its topology rule says
+how a surface is organised and navigated; obey that rather than adding a top
+navigation bar because pages have one. Its type rule says what scale and
+alignment it works at; if that means one monumental line filling the viewport, or
+a dense tabular field, or text ranged against an edge, do that instead of a
+centred headline with a subhead. Ask where imagery belongs in this world before
+placing any, and whether this world would have a button at all before drawing
+one. A page that could be reskinned into any other world here has failed.
 
 The page is designed wholly inside this visual world: ${concept.form}.
 Palette and materials: ${palette}

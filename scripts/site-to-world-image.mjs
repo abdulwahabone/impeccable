@@ -78,9 +78,16 @@ for (let i = 0; i < scrolls; i += 1) {
 await browser.close();
 
 // ---------------------------------------------------------------- reimagine
-// The reference images carry the palette, the shape language, the type voice and
-// the illustration idiom. The prompt only has to say what to change, which is
-// the subject, and what not to, which is everything else.
+// The reference images carry the palette, the shape language, the type voice, the
+// illustration idiom and the composition. The prompt only has to say what to
+// change, which is the subject, and what not to, which is everything else.
+//
+// It used to also describe a hero: navigation, a headline, a call to action, the
+// next section peeking in. That sentence came from the text-derived path, where
+// nothing else specifies a layout, and here it overrode the references and
+// produced a standard left-column-plus-right-picture hero against a source that
+// fills its viewport with one monumental centred line. Prose beat the images
+// because prose was the only thing making a claim about arrangement.
 const prompt = `The attached images are screenshots of one website. Study them as a visual system: its exact palette, its shape language and corner radii, its illustration idiom and how figures are drawn, its type voice and weight, its spacing, and how areas of colour relate to each other.
 
 Now design a COMPLETELY DIFFERENT product's landing page in that same visual world${subject ? `: ${subject}` : ''}. Different subject, different copy, different composition, different imagery content.
@@ -89,9 +96,18 @@ Keep these, and they are the parts that go missing if you are not told: the exac
 
 Also keep the type voice and weight, the corner radii, the way areas of colour meet, and the exact chrome grammar of nav, buttons and chips.
 
+KEEP THE COMPOSITION. This is the one most easily lost, because a landing page has
+a default shape and it is not this one. Read off the reference: is the headline
+centred or ranged left? How much of the frame does it occupy? Does imagery sit
+beside the text in a column, or enter from an edge behind and beneath it? Is there
+a left text column at all? Reproduce that arrangement with your own content. If
+the source fills the viewport with one monumental centred line and lets the
+artwork rise from the bottom, do that. Do not produce a text column on the left
+with a picture on the right unless the reference does.
+
 A person who knows the source should recognise the family immediately and never mistake this for the same site. Do not reuse its wordmark, its brand name, its copy, or its specific illustrations; invent new ones drawn in the same hand.
 
-Render as a complete desktop landing page filling the whole 16:9 frame, as if screenshotted at 1440 wide: navigation, a hero with a headline and a call to action, and the top of the next section visible at the bottom edge. No browser chrome, no device mockup. Interface copy in English, plain punctuation, never an em dash.`;
+Render as a complete desktop page filling the whole 16:9 frame, as if screenshotted at 1440 wide, showing the same part of the page the first reference shows and composed the same way. No browser chrome, no device mockup. Interface copy in English, plain punctuation, never an em dash.`;
 
 process.stdout.write('\nreimagining\n');
 const form = new FormData();
