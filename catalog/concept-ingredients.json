@@ -4985,6 +4985,43 @@
      "spark": "Panels floating over a wallpaper with just enough blur to see the color underneath, and the one you are using is the only one that looks awake.",
      "webLeverage": "backdrop-filter panels with focus-driven chrome state, draggable stacking order, and a scale-toward-dock minimize",
      "strength": "world"
+    },
+    {
+     "id": "sd-seedbed-lobes",
+     "form": "A saturated green field with a floating white capsule bar riding above it, an oversized grotesque headline set flush-left, and a flat vector cast spilling across the lower right. Below, a huge cream panel rises with a 48px top radius, carrying green circular icon wells.",
+     "lineage": "After mindmarket.com — floating-pill navigation, drenched brand ground, flat character illustration in the Alegria vein",
+     "spark": "One colour owns the whole viewport, and the interface floats on top of it as detached white lozenges. Nothing is inset; everything is a pill or a rounded slab hovering over the green, so the page reads as objects on a lawn rather than boxes in a grid.",
+     "system": [
+      "Palette/material: Ground #82CC5C; ink #2F3130 (never #000); white #FFFFFF capsules; cream panel #F2EFE3; accent tomato #F0574C, cobalt #1B8FF5, yellow #F5D42B.",
+      "Type/composition: One grotesque (Poppins/Inter-like) at two weights: 500 nav, 600 display 88px/0.95 with tight -2% tracking; body 22px/1.45; flush-left, no centring.",
+      "Topology/navigation: Floating capsule bar at 24px inset, 999px radius, split into a nav pill plus a detached CTA pill; content panels are full-bleed slabs with 48px top corners.",
+      "Controls/state: Buttons are white pills with a 40px green disc holding a chevron; hamburger is a green circle; avatar a blue circle. Colour lives in the disc, never the label.",
+      "Responsive/motion: Scroll swells a green lobe; chip crosses its capsule on hover; 0.4s overshoot."
+     ],
+     "webLeverage": "Pill navigation detaches from the page edge; scroll-linked blob scaling and hover chip travel inside a capsule are cheap in CSS and impossible in print.",
+     "strength": "dual",
+     "tags": [
+      "floating-capsule-nav",
+      "drenched-ground",
+      "rounded-slab-panels"
+     ],
+     "avoid": [
+      "Placing photography on the green — the flat vector cast and the drenched field cannot absorb a photo edge.",
+      "Letting the accent hues (tomato, cobalt, yellow) leak out of illustration into UI chrome or body text.",
+      "Softening the green toward mint or sage; the field must stay a committed #82CC5C, not a tint."
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "drenched",
+      "material": "printed-ink",
+      "spatial": "sheet",
+      "density": "calm",
+      "composition": "asymmetric",
+      "scale-range": "wide",
+      "motion": "simulated",
+      "prohibition": "no-photography",
+      "variance": "container"
+     }
     }
    ]
   },

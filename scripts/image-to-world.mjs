@@ -1,0 +1,154 @@
+#!/usr/bin/env node
+// Derives a catalog entry from a generated world image.
+//
+// For a site-derived world the image is the artifact and the prose is a
+// description of it, which is the opposite of every other path here. That order
+// matters: two attempts to write rules first and render from them produced
+// designs that looked nothing like the page they came from, because a palette
+// and a shape language do not survive being described.
+//
+// The rules still have to exist. The challenger draw deals worlds into builds as
+// text, so a world with no rules cannot be used, however good its picture is.
+//
+//   node scripts/image-to-world.mjs --name mindmarket --id seed-library
+//   node scripts/image-to-world.mjs --name mindmarket --id x --notes "scroll swells the green lobe; chip crosses its capsule on hover"
+//
+// Pass --notes with whatever the observation pass found. A screenshot is silent
+// about motion, so Responsive/motion is the one rule the image cannot supply and
+// the one most likely to be invented if nothing is given.
+
+import Anthropic from '@anthropic-ai/sdk';
+import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
+import path from 'node:path';
+import { validateConceptEntry } from '../skill/scripts/lib/concept-catalog.mjs';
+
+const ROOT = process.cwd();
+for (const line of readFileSync(path.join(ROOT, '.env'), 'utf8').split('\n')) {
+  const m = line.match(/^([A-Z_]+)=(.*)$/);
+  if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^"|"$/g, '');
+}
+
+const args = process.argv.slice(2);
+const flag = (name, fallback) => {
+  const i = args.indexOf(`--${name}`);
+  return i === -1 ? fallback : args[i + 1];
+};
+const name = flag('name', null);
+const id = flag('id', null);
+const notes = flag('notes', '');
+const family = flag('family', 'digital-design-canon');
+const source = flag('source', '');
+const model = flag('model', 'claude-opus-5');
+const dir = flag('dir', path.join(ROOT, '.waves', 'site-worlds'));
+
+if (!name || !id) {
+  process.stderr.write('usage: image-to-world.mjs --name <slug> --id <concept-id> [--notes "..."] [--source <url>]\n');
+  process.exit(1);
+}
+
+const worldImage = path.join(dir, name, 'world.webp');
+if (!existsSync(worldImage)) {
+  process.stderr.write(`no image at ${path.relative(ROOT, worldImage)}. Run site-to-world-image.mjs first.\n`);
+  process.exit(1);
+}
+const refs = readdirSync(path.join(dir, name)).filter(f => f.startsWith('ref-')).slice(0, 2)
+  .map(f => path.join(dir, name, f));
+
+const catalog = JSON.parse(readFileSync(path.join(ROOT, 'catalog', 'concept-ingredients.json'), 'utf8'));
+const families = (catalog.families || []).map(f => f.id);
+const axes = JSON.parse(readFileSync(path.join(ROOT, 'catalog', 'aesthetic-axes.json'), 'utf8'));
+const axisMenu = (axes.axes || []).map(a => `  ${a.id}: ${(a.values || []).map(v => v.id).join(' | ')}`).join('\n');
+
+const SCHEMA = {
+  type: 'object',
+  required: ['id', 'familyId', 'form', 'lineage', 'spark', 'system', 'webLeverage', 'strength', 'tags', 'axes', 'avoid'],
+  additionalProperties: false,
+  properties: {
+    id: { type: 'string' },
+    familyId: { type: 'string', enum: families },
+    form: { type: 'string', minLength: 40, maxLength: 360 },
+    lineage: { type: 'string', minLength: 12, maxLength: 200 },
+    spark: { type: 'string', minLength: 80, maxLength: 320 },
+    system: { type: 'array', items: { type: 'string', minLength: 12, maxLength: 180 } },
+    webLeverage: { type: 'string', minLength: 20, maxLength: 240 },
+    strength: { type: 'string', enum: ['world', 'dual'] },
+    tags: { type: 'array', items: { type: 'string' } },
+    avoid: { type: 'array', items: { type: 'string', minLength: 12, maxLength: 160 } },
+    axes: {
+      type: 'object',
+      additionalProperties: false,
+      properties: Object.fromEntries((axes.axes || []).map(a => [a.id, { type: 'string' }])),
+    },
+  },
+};
+
+const block = file => ({
+  type: 'image',
+  source: { type: 'base64', media_type: 'image/webp', data: readFileSync(file).toString('base64') },
+});
+const pngBlock = file => ({
+  type: 'image',
+  source: { type: 'base64', media_type: 'image/png', data: readFileSync(file).toString('base64') },
+});
+
+const anthropic = new Anthropic();
+
+const SYSTEM = `You write catalog entries for a library of visual worlds. You are given an image of a design and you describe the system it embodies. The image is authoritative: every rule must be true of what you can see in it.
+
+The five system rules are laws a builder applies to a different surface, each at most 180 characters, prefixed exactly:
+  Palette/material:  Type/composition:  Topology/navigation:  Controls/state:  Responsive/motion:
+
+Name real values. Read the hues off the image and give hex. Name the type voice, the weights actually used, the radii, the spacing. A rule that says "a warm palette" is worthless; a rule that says "#8ED462 land on #F5F1E4 ground, ink #2C2E2A, never pure black" can be built from.
+
+Do not describe the subject matter. A world is a system, not a page about seeds. The entry must dress a completely different product.
+
+Record the aesthetic axes you can see, choosing from:
+${axisMenu}
+
+Also give two or three "avoid" lines: the slop this world in particular is at risk of. Not general advice.`;
+
+const content = [
+  { type: 'text', text: 'This is the world. Describe the system it embodies.' },
+  block(worldImage),
+];
+if (refs.length) {
+  content.push({ type: 'text', text: 'These are the source screenshots it was derived from, for context on the same system. Describe the world above, not these.' });
+  for (const ref of refs) content.push(pngBlock(ref));
+}
+content.push({ type: 'text', text: `Use id "${id}" and familyId "${family}".${source ? ` Lineage should credit: ${source}` : ''}
+${notes ? `\nObserved on the live source, which a screenshot cannot show. Use this for Responsive/motion:\n${notes}` : '\nNo motion was observed. Keep Responsive/motion to what the image implies and do not invent specifics.'}` });
+
+let feedback = '';
+let concept = null;
+for (let attempt = 1; attempt <= 3 && !concept; attempt += 1) {
+  const response = await anthropic.messages.stream({
+    model,
+    max_tokens: 16000,
+    thinking: { type: 'adaptive' },
+    output_config: { format: { type: 'json_schema', schema: SCHEMA } },
+    system: SYSTEM,
+    messages: [{ role: 'user', content: feedback ? [...content, { type: 'text', text: feedback }] : content }],
+  }).finalMessage();
+  if (response.stop_reason === 'max_tokens') { feedback = '\nYour last reply was truncated. Be more concise.'; continue; }
+  const text = response.content.filter(b => b.type === 'text').map(b => b.text).join('');
+  try {
+    const parsed = JSON.parse(text);
+    const errors = validateConceptEntry(parsed, {});
+    if (errors.length) { feedback = `\nFix exactly these and return the whole object again:\n${errors.join('\n')}`; continue; }
+    concept = parsed;
+  } catch (error) {
+    feedback = `\nThat was not valid JSON: ${error.message}`;
+  }
+  if (feedback) process.stderr.write(`  attempt ${attempt}: ${feedback.trim().slice(0, 220)}\n`);
+}
+
+if (!concept) { process.stderr.write('could not produce a valid entry after 3 attempts\n'); process.exit(1); }
+
+const out = path.join(dir, name, 'concept.json');
+writeFileSync(out, `${JSON.stringify([concept], null, 1)}\n`);
+process.stdout.write(`${concept.form.split(/[:,]/)[0]}\n\n`);
+for (const rule of concept.system) process.stdout.write(`  ${rule}\n`);
+process.stdout.write(`\naxes: ${JSON.stringify(concept.axes)}\n`);
+process.stdout.write(`\n${path.relative(ROOT, out)}\n`);
+process.stdout.write('Merge with: node scripts/wave-merge.mjs --candidates <that file> --write\n');
+process.stdout.write('Then install the generated image as the hero rather than re-rendering it.\n');
