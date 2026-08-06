@@ -43,8 +43,15 @@ const samples = Number(flag('samples', 1));
 // Dropped, and worth not retrying blind: "focus" (one thing must dominate) and
 // "audience" (design at a specific reader) changed nothing in any of the three.
 // "align" (hold the shared edges) made two of three stranger and more crowded.
-// "air" and "scene" were ambiguous, good on one world and odd on another, which
-// one sample per cell cannot resolve; run them at n=3 before believing either.
+// "air" and "scene" were then run at n=3 on the same three worlds, eighteen
+// renders, and neither survived. The reviewer's verdict: no big effects, scene
+// very occasionally works and the effect is lumpy at best. So neither ships.
+//
+// The wider result is that prompt tuning here is close to exhausted. One sentence
+// mattered, six did not, and the six included every plausible idea about focus,
+// audience, spacing, alignment and grid avoidance. An instruction whose benefit
+// needs many samples to detect would not reliably improve any single card either,
+// so the next gain is unlikely to come from another paragraph.
 const VARIANTS = {
   baseline: '',
 
