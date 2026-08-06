@@ -55,7 +55,12 @@ const MODELS = {
   gpt: { kind: 'openai', id: 'gpt-image-2', size: '2048x1152', quality: 'high' },
 };
 const DEFAULT_MODEL = 'gpt';
-const CONCURRENCY = 6;
+// Twelve rather than six because a full variant run is 2727 images and a single
+// image takes about two minutes, which is fifteen hours at six and eight at
+// twelve. Concepts run concurrently while the triple inside a concept stays
+// ordered, so raising this widens the run without breaking board-before-hero.
+// The four-attempt retry absorbs the occasional rate-limit refusal.
+const CONCURRENCY = 12;
 const MAX_ATTEMPTS = 4;
 
 function loadEnv() {
@@ -234,7 +239,7 @@ async function main() {
   if (!model) throw new Error(`unknown --model ${modelKey}; use ${Object.keys(MODELS).join(', ')}`);
   const outDir = args.includes('--out') ? args[args.indexOf('--out') + 1] : CARD_DIR;
   const manifestPath = join(outDir, 'manifest.json');
-  const only = args.includes('--only') ? args[args.indexOf('--only') + 1].split(',').filter(Boolean) : null;
+  let only = args.includes('--only') ? args[args.indexOf('--only') + 1].split(',').filter(Boolean) : null;
   const limit = args.includes('--limit') ? Number(args[args.indexOf('--limit') + 1]) : Infinity;
   const force = args.includes('--force');
   // How many differently-contexted takes of each kind. One keeps the old
@@ -270,6 +275,13 @@ async function main() {
     manifestPath,
     `${JSON.stringify(Object.fromEntries(Object.entries(manifest).sort(([a], [b]) => a.localeCompare(b))), null, 2)}\n`
   );
+
+  // Approved worlds are the ones that get dealt, so they are the ones worth
+  // rendering variants for. Passing 300 ids on a command line is not a plan.
+  if (args.includes('--approved')) {
+    const reviews = JSON.parse(readFileSync(join(ROOT, 'catalog', 'concept-reviews.json'), 'utf8')).reviews;
+    only = concepts.filter(c => reviews[c.id]?.status === 'approved').map(c => c.id);
+  }
 
   const SUFFIX = { hero: '-hero', docs: '-docs' };
   // The winner keeps the canonical filename, so R2, the roll API, the pro site
@@ -313,10 +325,13 @@ async function main() {
     if (jobs.length > 0) queue.push(jobs);
   }
 
+  // Catch a mistyped id, which is what this is for. It used to check the queue
+  // instead of the catalog, so any id that was already rendered or trimmed by
+  // --limit read as a typo: --approved with a limit reported 300 of them.
   if (only) {
-    const found = new Set(queue.flat().map(job => job.concept.id));
-    const missing = only.filter(id => !found.has(id));
-    if (missing.length) throw new Error(`concept not found: ${missing.join(', ')}`);
+    const known = new Set(concepts.map(concept => concept.id));
+    const missing = only.filter(id => !known.has(id));
+    if (missing.length) throw new Error(`concept not found: ${missing.slice(0, 8).join(', ')}${missing.length > 8 ? ` and ${missing.length - 8} more` : ''}`);
   }
   process.stdout.write(`generating ${queued} images (${kinds.join('+')}) across ${concepts.length} concepts with ${modelKey} -> ${outDir}\n`);
 
