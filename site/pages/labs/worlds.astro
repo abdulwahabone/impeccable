@@ -291,6 +291,9 @@ const pageData = JSON.stringify({
               <div class="worlds-review-glance">
               <span class="worlds-review-folio">Catalog <strong data-concept-position>{String(concepts.findIndex(concept => concept.id === initialConcept.id) + 1).padStart(3, '0')}</strong> / {counts.total.toLocaleString()}</span>
               <span class={`worlds-status-badge is-${initialConcept.status}`} data-concept-status>{initialConcept.status}</span>
+              <button type="button" class="worlds-edit-button" data-edit-toggle disabled={!import.meta.env.DEV} title="Edit this concept's source">
+                Edit <kbd>E</kbd>
+              </button>
             </div>
             </div>
             <div class="worlds-review-controls">
@@ -376,9 +379,6 @@ const pageData = JSON.stringify({
                 </div>
                 <div class="worlds-concept-meta-row">
                   <span>Catalog version <em data-catalog-version>{catalog.catalogVersion}</em></span>
-                  <button type="button" data-edit-toggle disabled={!import.meta.env.DEV}>
-                    Edit concept <kbd>E</kbd>
-                  </button>
                 </div>
               </div>
             </div>

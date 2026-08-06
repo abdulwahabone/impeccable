@@ -1898,6 +1898,35 @@ button kbd {
 /* flex: 0 0 auto because the search beside it asks for min(680px, 100%), and in
    a flex row that lets a shrinkable sibling collapse toward zero. The toggle
    moved into this toolbar and promptly became unclickable. */
+/* Beside the status badge, so it sits in the same place on every concept. It
+   used to live at the foot of the metadata column, which moved with the length
+   of the concept's own text. */
+.worlds-edit-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: 22px;
+  padding: 0 8px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--ks-text-muted);
+  font: 500 0.625rem/1 var(--ks-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.worlds-edit-button:hover:not(:disabled) {
+  border-color: var(--ks-kinpaku);
+  color: var(--ks-champagne);
+}
+
+.worlds-edit-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .worlds-queue-head-tools {
   display: flex;
   align-items: center;

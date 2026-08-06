@@ -7736,12 +7736,13 @@
     "hash": "03ef7ce6e03a",
     "model": "gpt",
     "heroGeneratedAt": "2026-08-06T21:44:13.295Z",
-    "generatedAt": "2026-08-06T21:42:23.393Z",
+    "generatedAt": "2026-08-06T21:47:39.917Z",
     "docsGeneratedAt": "2026-08-06T21:45:55.597Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
@@ -7814,17 +7815,19 @@
   "vernacular-ephemera-calendar-pinup-pad": {
     "hash": "10b61d8874f1",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:41:45.580Z",
-    "heroGeneratedAt": "2026-08-06T21:43:32.959Z",
+    "generatedAt": "2026-08-06T21:46:56.169Z",
+    "heroGeneratedAt": "2026-08-06T21:48:42.025Z",
     "docsGeneratedAt": "2026-08-06T21:45:18.007Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
@@ -7929,7 +7932,7 @@
     "model": "gpt",
     "generatedAt": "2026-08-06T21:43:53.067Z",
     "heroGeneratedAt": "2026-08-06T21:45:45.040Z",
-    "docsGeneratedAt": "2026-08-06T21:42:07.889Z",
+    "docsGeneratedAt": "2026-08-06T21:47:28.025Z",
     "variants": {
       "board": [
         "v1",
@@ -7940,7 +7943,8 @@
         "v2"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2"
       ]
     },
     "boardWinner": "v1",
@@ -7957,13 +7961,14 @@
   "vernacular-ephemera-ekiben-wrapper-kiosk": {
     "hash": "1a5796f8c16a",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:42:21.538Z",
+    "generatedAt": "2026-08-06T21:47:25.640Z",
     "heroGeneratedAt": "2026-08-06T21:44:01.639Z",
     "docsGeneratedAt": "2026-08-06T21:45:43.700Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
@@ -8084,17 +8089,19 @@
   "vernacular-ephemera-loteria-tabla-night": {
     "hash": "40df848ca763",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:41:55.830Z",
-    "heroGeneratedAt": "2026-08-06T21:43:36.601Z",
+    "generatedAt": "2026-08-06T21:47:02.287Z",
+    "heroGeneratedAt": "2026-08-06T21:48:42.406Z",
     "docsGeneratedAt": "2026-08-06T21:45:18.682Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
@@ -8158,7 +8165,7 @@
     "model": "gpt",
     "generatedAt": "2026-08-06T21:43:03.640Z",
     "heroGeneratedAt": "2026-08-06T21:45:27.126Z",
-    "docsGeneratedAt": "2026-08-06T21:41:21.558Z",
+    "docsGeneratedAt": "2026-08-06T21:47:05.749Z",
     "variants": {
       "board": [
         "v1",
@@ -8172,7 +8179,8 @@
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -8198,7 +8206,7 @@
     "model": "gpt",
     "generatedAt": "2026-08-06T21:44:30.053Z",
     "heroGeneratedAt": "2026-08-06T21:46:06.112Z",
-    "docsGeneratedAt": "2026-08-06T21:42:46.389Z",
+    "docsGeneratedAt": "2026-08-06T21:47:43.666Z",
     "variants": {
       "board": [
         "v1",
@@ -8212,7 +8220,8 @@
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -8224,7 +8233,7 @@
     "model": "gpt",
     "generatedAt": "2026-08-06T21:44:16.954Z",
     "heroGeneratedAt": "2026-08-06T21:46:02.425Z",
-    "docsGeneratedAt": "2026-08-06T21:42:23.546Z",
+    "docsGeneratedAt": "2026-08-06T21:47:37.318Z",
     "variants": {
       "board": [
         "v1",
@@ -8238,7 +8247,8 @@
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -8248,20 +8258,31 @@
   "vernacular-ephemera-socialist-kiosk-print": {
     "hash": "f7fe7f9d8d1e",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:18:11.710Z",
-    "generatedAt": "2026-07-25T00:57:34.486Z",
-    "docsGeneratedAt": "2026-08-04T03:45:28.999Z"
+    "heroGeneratedAt": "2026-08-06T21:48:11.269Z",
+    "generatedAt": "2026-08-06T21:46:31.136Z",
+    "docsGeneratedAt": "2026-08-04T03:45:28.999Z",
+    "variants": {
+      "board": [
+        "v1"
+      ],
+      "hero": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1"
   },
   "vernacular-ephemera-vhs-rental-wall": {
     "hash": "4068e0586ee7",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:42:44.020Z",
+    "generatedAt": "2026-08-06T21:47:57.703Z",
     "heroGeneratedAt": "2026-08-06T21:44:30.095Z",
     "docsGeneratedAt": "2026-08-06T21:46:13.942Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
@@ -8280,8 +8301,8 @@
     "hash": "8c2835c91e3a",
     "model": "gpt",
     "generatedAt": "2026-08-06T21:45:04.496Z",
-    "heroGeneratedAt": "2026-08-06T21:41:30.748Z",
-    "docsGeneratedAt": "2026-08-06T21:43:18.111Z",
+    "heroGeneratedAt": "2026-08-06T21:46:50.054Z",
+    "docsGeneratedAt": "2026-08-06T21:48:28.708Z",
     "variants": {
       "board": [
         "v1",
@@ -8290,11 +8311,13 @@
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -8305,12 +8328,13 @@
     "hash": "a82abfefb8e0",
     "model": "gpt",
     "heroGeneratedAt": "2026-08-06T21:44:19.310Z",
-    "generatedAt": "2026-08-06T21:42:40.112Z",
+    "generatedAt": "2026-08-06T21:47:58.242Z",
     "docsGeneratedAt": "2026-08-06T21:46:07.325Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
