@@ -93,9 +93,26 @@
   "brand-identity-canon-brodovitch-bazaar-spread": {
     "hash": "c6c597e1b6e8",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:07:20.621Z",
-    "heroGeneratedAt": "2026-07-20T17:04:19.195Z",
-    "docsGeneratedAt": "2026-08-04T03:27:30.958Z"
+    "generatedAt": "2026-08-06T21:08:54.516Z",
+    "heroGeneratedAt": "2026-08-06T21:10:28.113Z",
+    "docsGeneratedAt": "2026-08-06T21:12:08.139Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "brand-identity-canon-channel-junction-ident": {
     "hash": "5d4973946ca1",
@@ -107,9 +124,26 @@
   "brand-identity-canon-fletcher-wit-poster": {
     "hash": "2dc541c5091b",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:07:22.547Z",
-    "heroGeneratedAt": "2026-07-20T17:05:19.119Z",
-    "docsGeneratedAt": "2026-08-04T03:27:44.298Z"
+    "generatedAt": "2026-08-06T21:09:22.711Z",
+    "heroGeneratedAt": "2026-08-06T21:11:01.590Z",
+    "docsGeneratedAt": "2026-08-06T21:12:40.992Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "brand-identity-canon-generative-grid-identity": {
     "hash": "1449a946839a",
@@ -156,9 +190,25 @@
   "brand-identity-canon-push-pin-poster": {
     "hash": "6927cf346107",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:09:24.328Z",
-    "heroGeneratedAt": "2026-07-20T17:06:10.356Z",
-    "docsGeneratedAt": "2026-08-04T03:28:16.208Z"
+    "generatedAt": "2026-08-06T21:10:20.350Z",
+    "heroGeneratedAt": "2026-08-06T21:12:09.907Z",
+    "docsGeneratedAt": "2026-08-06T21:08:36.369Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "brand-identity-canon-reggae-label-sleeve-system": {
     "hash": "e3c8df24a16d",
@@ -170,16 +220,48 @@
   "brand-identity-canon-saville-catalog-sleeve": {
     "hash": "eb6ddaa651a2",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:09:08.501Z",
-    "heroGeneratedAt": "2026-07-20T17:07:00.078Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T21:10:32.220Z",
+    "heroGeneratedAt": "2026-08-06T21:12:09.806Z",
+    "docsGeneratedAt": "2026-08-06T21:08:52.414Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "brand-identity-canon-scher-street-typography": {
     "hash": "f8e89b86e282",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:09:29.929Z",
-    "heroGeneratedAt": "2026-07-20T17:07:33.182Z",
-    "docsGeneratedAt": "2026-08-04T03:29:15.523Z"
+    "generatedAt": "2026-08-06T21:10:36.452Z",
+    "heroGeneratedAt": "2026-08-06T21:12:14.635Z",
+    "docsGeneratedAt": "2026-08-06T21:08:48.849Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "brand-identity-canon-single-hue-doll-program": {
     "hash": "eceebfb199b7",
@@ -1987,18 +2069,24 @@
   "digital-design-canon-cdrom-chrome-navigation": {
     "hash": "16c1c1bace11",
     "model": "gpt",
-    "generatedAt": "2026-08-06T20:50:43.047Z",
-    "heroGeneratedAt": "2026-08-06T20:52:31.913Z",
-    "docsGeneratedAt": "2026-08-06T20:54:14.167Z",
+    "generatedAt": "2026-08-06T21:01:17.482Z",
+    "heroGeneratedAt": "2026-08-06T21:03:00.522Z",
+    "docsGeneratedAt": "2026-08-06T21:04:44.471Z",
     "variants": {
       "board": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "hero": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2049,9 +2137,26 @@
   "digital-design-canon-dark-first-developer-console": {
     "hash": "06ec2f591e0e",
     "model": "gpt",
-    "generatedAt": "2026-07-27T22:20:16.338Z",
-    "heroGeneratedAt": "2026-07-27T22:22:04.152Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T21:09:06.119Z",
+    "heroGeneratedAt": "2026-08-06T21:10:49.392Z",
+    "docsGeneratedAt": "2026-08-06T21:12:31.688Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-dense-data-console-surface": {
     "hash": "b52057fed670",
@@ -2077,19 +2182,24 @@
   "digital-design-canon-emergency-signal-degradation": {
     "hash": "d9debbcc1747",
     "model": "gpt",
-    "heroGeneratedAt": "2026-08-06T20:50:07.390Z",
-    "generatedAt": "2026-08-06T20:53:35.424Z",
-    "docsGeneratedAt": "2026-08-06T20:51:49.556Z",
+    "heroGeneratedAt": "2026-08-06T21:00:31.767Z",
+    "generatedAt": "2026-08-06T20:58:48.292Z",
+    "docsGeneratedAt": "2026-08-06T21:02:17.577Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2099,9 +2209,27 @@
   "digital-design-canon-fansite-shrine-page": {
     "hash": "badfd5a42659",
     "model": "gpt",
-    "generatedAt": "2026-07-27T02:02:08.964Z",
-    "heroGeneratedAt": "2026-07-27T02:04:19.624Z",
-    "docsGeneratedAt": "2026-08-04T03:23:34.471Z"
+    "generatedAt": "2026-08-06T21:12:50.269Z",
+    "heroGeneratedAt": "2026-08-06T21:08:19.707Z",
+    "docsGeneratedAt": "2026-08-06T21:10:12.384Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-game-watch-lcd-stage": {
     "hash": "17aab748b0c9",
@@ -2174,19 +2302,24 @@
   "digital-design-canon-grid-horizon-sunset": {
     "hash": "5eedecbe0f01",
     "model": "gpt",
-    "heroGeneratedAt": "2026-08-06T20:50:21.514Z",
-    "generatedAt": "2026-08-06T20:53:50.352Z",
-    "docsGeneratedAt": "2026-08-06T20:52:04.239Z",
+    "heroGeneratedAt": "2026-08-06T21:00:45.153Z",
+    "generatedAt": "2026-08-06T20:59:07.569Z",
+    "docsGeneratedAt": "2026-08-06T21:02:34.687Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2244,19 +2377,24 @@
   "digital-design-canon-mondo-tech-utopian-spread": {
     "hash": "16800a9f90d1",
     "model": "gpt",
-    "heroGeneratedAt": "2026-08-06T20:50:17.907Z",
-    "generatedAt": "2026-08-06T20:54:03.558Z",
-    "docsGeneratedAt": "2026-08-06T20:52:10.144Z",
+    "heroGeneratedAt": "2026-08-06T21:01:34.236Z",
+    "generatedAt": "2026-08-06T20:59:41.447Z",
+    "docsGeneratedAt": "2026-08-06T21:03:26.778Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2266,25 +2404,49 @@
   "digital-design-canon-monochrome-product-marketing": {
     "hash": "19036f6e3a2b",
     "model": "gpt",
-    "generatedAt": "2026-07-27T22:16:50.685Z",
-    "heroGeneratedAt": "2026-07-27T22:18:32.449Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T21:13:11.189Z",
+    "heroGeneratedAt": "2026-08-06T21:09:50.402Z",
+    "docsGeneratedAt": "2026-08-06T21:11:23.148Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-otome-choice-frame": {
     "hash": "a3825fa04323",
     "model": "gpt",
-    "generatedAt": "2026-08-06T20:49:16.458Z",
-    "heroGeneratedAt": "2026-08-06T20:51:02.194Z",
-    "docsGeneratedAt": "2026-08-06T20:52:58.232Z",
+    "generatedAt": "2026-08-06T21:00:01.837Z",
+    "heroGeneratedAt": "2026-08-06T21:01:44.121Z",
+    "docsGeneratedAt": "2026-08-06T21:03:37.539Z",
     "variants": {
       "board": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "hero": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2301,19 +2463,24 @@
   "digital-design-canon-pc98-sixteen-color-field": {
     "hash": "63c2fa3a83b5",
     "model": "gpt",
-    "generatedAt": "2026-08-06T20:53:43.822Z",
-    "heroGeneratedAt": "2026-08-06T20:49:57.496Z",
-    "docsGeneratedAt": "2026-08-06T20:51:44.830Z",
+    "generatedAt": "2026-08-06T20:59:07.332Z",
+    "heroGeneratedAt": "2026-08-06T21:01:02.902Z",
+    "docsGeneratedAt": "2026-08-06T21:02:47.107Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2344,19 +2511,24 @@
   "digital-design-canon-profile-page-customization": {
     "hash": "f561ea9d456f",
     "model": "gpt",
-    "heroGeneratedAt": "2026-08-06T20:51:02.220Z",
-    "generatedAt": "2026-08-06T20:54:28.671Z",
-    "docsGeneratedAt": "2026-08-06T20:52:47.202Z",
+    "heroGeneratedAt": "2026-08-06T21:02:02.341Z",
+    "generatedAt": "2026-08-06T21:00:06.590Z",
+    "docsGeneratedAt": "2026-08-06T21:03:45.029Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2380,9 +2552,28 @@
   "digital-design-canon-shareware-installer-screens": {
     "hash": "54258918d60e",
     "model": "gpt",
-    "generatedAt": "2026-07-27T02:02:02.567Z",
-    "heroGeneratedAt": "2026-07-27T02:03:57.127Z",
-    "docsGeneratedAt": "2026-08-04T03:23:28.242Z"
+    "generatedAt": "2026-08-06T21:11:13.235Z",
+    "heroGeneratedAt": "2026-08-06T21:13:08.692Z",
+    "docsGeneratedAt": "2026-08-06T21:09:35.971Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-shenzhen-speculative-render": {
     "hash": "ae527723907f",
@@ -2421,18 +2612,24 @@
   "digital-design-canon-teletext-weather-mosaic": {
     "hash": "6ea13c0b9f58",
     "model": "gpt",
-    "generatedAt": "2026-08-06T20:50:53.242Z",
-    "heroGeneratedAt": "2026-08-06T20:52:36.149Z",
-    "docsGeneratedAt": "2026-08-06T20:54:20.865Z",
+    "generatedAt": "2026-08-06T21:01:45.467Z",
+    "heroGeneratedAt": "2026-08-06T21:03:38.808Z",
+    "docsGeneratedAt": "2026-08-06T21:05:31.856Z",
     "variants": {
       "board": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "hero": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2484,9 +2681,27 @@
   "digital-design-canon-warm-consumer-app-surface": {
     "hash": "67a6b09a9ad8",
     "model": "gpt",
-    "generatedAt": "2026-07-27T22:16:52.436Z",
-    "heroGeneratedAt": "2026-07-27T22:18:30.892Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T21:13:19.974Z",
+    "heroGeneratedAt": "2026-08-06T21:10:01.017Z",
+    "docsGeneratedAt": "2026-08-06T21:11:38.419Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-winamp-skin-bazaar": {
     "hash": "1a7a968532c0",
@@ -2581,20 +2796,24 @@
   "eboy-pixorama-metropolis": {
     "hash": "38dd6ea70c46",
     "model": "gpt",
-    "generatedAt": "2026-08-06T20:52:10.840Z",
-    "heroGeneratedAt": "2026-08-06T20:54:01.692Z",
-    "docsGeneratedAt": "2026-08-06T20:50:17.755Z",
+    "generatedAt": "2026-08-06T20:57:46.660Z",
+    "heroGeneratedAt": "2026-08-06T20:59:40.696Z",
+    "docsGeneratedAt": "2026-08-06T21:01:34.308Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2777,21 +2996,24 @@
   "feltron-personal-annual": {
     "hash": "b30ca219f1c6",
     "model": "gpt",
-    "generatedAt": "2026-08-06T20:50:21.805Z",
-    "heroGeneratedAt": "2026-08-06T20:52:00.927Z",
-    "docsGeneratedAt": "2026-08-06T20:53:47.783Z",
+    "generatedAt": "2026-08-06T20:55:30.033Z",
+    "heroGeneratedAt": "2026-08-06T20:57:12.099Z",
+    "docsGeneratedAt": "2026-08-06T20:58:56.470Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -3577,19 +3799,24 @@
   "japanese-high-density-web": {
     "hash": "eeb63a014ce6",
     "model": "gpt",
-    "generatedAt": "2026-08-06T20:53:14.191Z",
-    "heroGeneratedAt": "2026-08-06T20:49:43.429Z",
-    "docsGeneratedAt": "2026-08-06T20:51:24.250Z",
+    "generatedAt": "2026-08-06T20:58:33.962Z",
+    "heroGeneratedAt": "2026-08-06T21:00:23.204Z",
+    "docsGeneratedAt": "2026-08-06T21:02:01.446Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -3648,9 +3875,24 @@
   "kraftwerk-man-machine": {
     "hash": "1fc3f97ceaa5",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-21T22:22:49.224Z",
-    "generatedAt": "2026-07-21T22:23:01.576Z",
-    "docsGeneratedAt": "2026-08-04T03:30:33.548Z"
+    "heroGeneratedAt": "2026-08-06T21:09:01.896Z",
+    "generatedAt": "2026-08-06T21:12:35.789Z",
+    "docsGeneratedAt": "2026-08-06T21:10:55.577Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "light-shadow-caustics-indoor-weather-sun": {
     "hash": "453a8ed9e1ef",
@@ -4116,20 +4358,24 @@
   "neubrutalist-award-grade": {
     "hash": "48655a1e4c9e",
     "model": "gpt",
-    "heroGeneratedAt": "2026-08-06T20:53:11.895Z",
-    "generatedAt": "2026-08-06T20:51:32.902Z",
-    "docsGeneratedAt": "2026-08-06T20:49:53.639Z",
+    "heroGeneratedAt": "2026-08-06T20:58:02.787Z",
+    "generatedAt": "2026-08-06T20:56:27.162Z",
+    "docsGeneratedAt": "2026-08-06T20:59:47.016Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -7282,9 +7528,25 @@
   "underground-resistance": {
     "hash": "85ab43db5d6b",
     "model": "gpt",
-    "generatedAt": "2026-07-21T22:21:11.085Z",
-    "heroGeneratedAt": "2026-07-21T22:21:14.294Z",
-    "docsGeneratedAt": "2026-08-04T03:30:02.854Z"
+    "generatedAt": "2026-08-06T21:11:41.069Z",
+    "heroGeneratedAt": "2026-08-06T21:13:22.037Z",
+    "docsGeneratedAt": "2026-08-06T21:09:56.009Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "variable-font-specimen": {
     "hash": "11ff6958996f",

@@ -182,12 +182,18 @@
   background: var(--ks-patina);
 }
 
+/* One treatment wherever this grid appears. It is used twice, once inside the
+   rail head which is padded and once in a filter section which was not, so the
+   same component read as inset in one place and full-bleed in the other. A
+   closed box also gives the outer cells an edge to meet, which two horizontal
+   rules did not. */
 .worlds-status-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: var(--spacing-sm);
-  border-top: 1px solid var(--ks-rule);
-  border-bottom: 1px solid var(--ks-rule);
+  border: 1px solid var(--ks-rule);
+  border-radius: 3px;
+  overflow: hidden;
 }
 
 .worlds-status-grid button:last-child:nth-child(odd) {
@@ -838,10 +844,15 @@ button kbd {
   white-space: nowrap;
 }
 
-.worlds-strength-toggle {
+/* Squared, because this sets a value on the world rather than navigating. The
+   rounded pill is reserved for switching what the page shows, and using one
+   shape for both made a control look like a tab. */
+.worlds-strength-toggle,
+.worlds-mode-toggle {
   display: inline-flex;
   border: 1px solid var(--ks-rule);
-  border-radius: 999px;
+  border-radius: 3px;
+  background: var(--ks-lacquer-raised);
   overflow: hidden;
 }
 
@@ -1189,16 +1200,13 @@ button kbd {
   text-transform: uppercase;
 }
 
-.worlds-card-pair button {
+.worlds-card-pair a {
   display: block;
-  width: 100%;
-  padding: 0;
   border: 1px solid var(--ks-rule);
   background: var(--ks-lacquer-raised);
-  cursor: pointer;
 }
 
-.worlds-card-pair button:hover {
+.worlds-card-pair a:hover {
   border-color: var(--ks-kinpaku);
 }
 
@@ -1871,13 +1879,12 @@ button kbd {
    That is the line between them, rather than three idioms chosen at random. */
 .worlds-filter-section {
   flex: 0 0 auto;
-  padding: var(--spacing-md) 0 0;
+  padding: var(--spacing-md) var(--spacing-md) 0;
 }
 
 .worlds-filter-heading {
   display: block;
   margin-bottom: 6px;
-  padding: 0 var(--spacing-md);
   color: var(--ks-text-faint);
   font: 500 var(--ks-type-eyebrow-size)/1.2 var(--ks-mono);
   letter-spacing: var(--ks-type-eyebrow-track);

@@ -549,10 +549,13 @@ const pageData = JSON.stringify({
     // reviewer is judging the world for: a read world stands or falls on its
     // documentation page, an operate world on its component sheet, and the rest
     // on the landing page.
-    const LEAD_FOR_MODE = { read: 'docs', operate: 'board', persuade: 'hero', experience: 'hero' };
+    // Mode alone decides which card leads. There was a promote-on-click as well,
+    // which meant opening one of the small cards full size took two clicks: one
+    // to move it up, another to open it. Now the small ones are plain links.
+    const LEAD_FOR_MODE = { persuade: 'hero', experience: 'hero', read: 'docs', operate: 'board' };
+    const DEFAULT_LEAD = 'board';
     const KIND_LABEL = { board: 'Component sheet', hero: 'Landing page', docs: 'Documentation page' };
     const KIND_SRC = { board: 'src', hero: 'heroSrc', docs: 'docsSrc' };
-    let leadOverride = null;
 
     function renderEvidence(concept) {
       const card = concept.card;
@@ -562,7 +565,7 @@ const pageData = JSON.stringify({
         cardPairEl.replaceChildren();
         return;
       }
-      const preferred = leadOverride || LEAD_FOR_MODE[state.mode] || 'hero';
+      const preferred = LEAD_FOR_MODE[state.mode] || DEFAULT_LEAD;
       const order = ['board', 'hero', 'docs'];
       const present = order.filter(kind => card[KIND_SRC[kind]]);
       const lead = present.includes(preferred) ? preferred : present[0];
@@ -601,16 +604,17 @@ const pageData = JSON.stringify({
         const figure = document.createElement('figure');
         const caption = document.createElement('figcaption');
         caption.textContent = KIND_LABEL[kind];
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.title = `Show the ${KIND_LABEL[kind].toLowerCase()} large`;
+        const link = document.createElement('a');
+        link.href = card[KIND_SRC[kind]];
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.title = `Open the ${KIND_LABEL[kind].toLowerCase()} full size`;
         const img = document.createElement('img');
         img.src = card[KIND_SRC[kind]];
         img.alt = `${KIND_LABEL[kind]} composed in the world of ${concept.form}`;
         img.loading = 'lazy';
-        button.append(img);
-        button.addEventListener('click', () => { leadOverride = kind; renderEvidence(concept); });
-        figure.append(caption, button);
+        link.append(img);
+        figure.append(caption, link);
         return figure;
       }));
     }
