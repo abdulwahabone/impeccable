@@ -1638,9 +1638,26 @@
   "editorial-sequence-montage-botanical-folio-season": {
     "hash": "dd5d4dc258f9",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:07:09.343Z",
-    "heroGeneratedAt": "2026-07-20T16:33:07.715Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T18:29:29.890Z",
+    "heroGeneratedAt": "2026-08-06T18:31:13.347Z",
+    "docsGeneratedAt": "2026-08-06T18:32:49.422Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "emigre-bitmap-specimen": {
     "hash": "e250abc806af",
@@ -2026,16 +2043,48 @@
   "graphic-worlds-publishing-busytown-cross-section": {
     "hash": "4a274a9a22bf",
     "model": "gpt",
-    "generatedAt": "2026-07-21T04:58:25.507Z",
-    "docsGeneratedAt": "2026-08-04T02:10:45.780Z",
-    "heroGeneratedAt": "2026-08-05T23:05:21.007Z"
+    "generatedAt": "2026-08-06T18:29:47.409Z",
+    "docsGeneratedAt": "2026-08-06T18:27:57.679Z",
+    "heroGeneratedAt": "2026-08-06T18:31:47.735Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "graphic-worlds-publishing-chaekgeori-reverse-perspective": {
     "hash": "6ef241ad20ef",
     "model": "gpt",
-    "generatedAt": "2026-07-27T23:36:11.726Z",
-    "heroGeneratedAt": "2026-07-27T23:37:52.929Z",
-    "docsGeneratedAt": "2026-08-04T02:14:54.025Z"
+    "generatedAt": "2026-08-06T18:29:38.855Z",
+    "heroGeneratedAt": "2026-08-06T18:31:23.386Z",
+    "docsGeneratedAt": "2026-08-06T18:27:55.477Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "graphic-worlds-publishing-esprit-nouveau-plate": {
     "hash": "7c094cee8683",
@@ -2047,9 +2096,25 @@
   "graphic-worlds-publishing-expedition-ice-press": {
     "hash": "bb45dac9e2f5",
     "model": "gpt",
-    "generatedAt": "2026-07-27T23:36:18.485Z",
-    "heroGeneratedAt": "2026-07-27T23:38:02.298Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T18:30:33.560Z",
+    "heroGeneratedAt": "2026-08-06T18:32:34.508Z",
+    "docsGeneratedAt": "2026-08-06T18:28:20.470Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "graphic-worlds-publishing-fore-edge-hidden-painting": {
     "hash": "b447581e6826",
@@ -2103,9 +2168,25 @@
   "graphic-worlds-publishing-ukiyoe-block-registration": {
     "hash": "ed635b3d74f1",
     "model": "gpt",
-    "generatedAt": "2026-07-25T00:33:58.667Z",
-    "heroGeneratedAt": "2026-07-25T01:21:17.759Z",
-    "docsGeneratedAt": "2026-08-04T02:10:53.126Z"
+    "generatedAt": "2026-08-06T18:29:31.165Z",
+    "heroGeneratedAt": "2026-08-06T18:31:23.703Z",
+    "docsGeneratedAt": "2026-08-06T18:27:41.935Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "growth-metamorphosis-branching-ikebana-ma-arrangement": {
     "hash": "db14b6c4d9d5",
@@ -2145,9 +2226,25 @@
   "ink-pigment-printmaking-drybrush-reed-storm": {
     "hash": "69d7f5e61f7b",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:07:03.308Z",
-    "heroGeneratedAt": "2026-07-20T16:33:18.316Z",
-    "docsGeneratedAt": "2026-08-04T02:08:29.639Z"
+    "generatedAt": "2026-08-06T18:29:34.098Z",
+    "heroGeneratedAt": "2026-08-06T18:31:29.811Z",
+    "docsGeneratedAt": "2026-08-06T18:27:48.722Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "ink-pigment-printmaking-handscroll-and-seal": {
     "hash": "e5e915df4c93",
@@ -2159,23 +2256,72 @@
   "ink-pigment-printmaking-mezzotint-velvet-night": {
     "hash": "2ab0422e5e71",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:09:26.667Z",
-    "heroGeneratedAt": "2026-07-20T16:34:56.385Z",
-    "docsGeneratedAt": "2026-08-04T02:08:16.925Z"
+    "generatedAt": "2026-08-06T18:29:32.807Z",
+    "heroGeneratedAt": "2026-08-06T18:31:03.685Z",
+    "docsGeneratedAt": "2026-08-06T18:32:40.181Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "ink-pigment-printmaking-persian-miniature-page": {
     "hash": "9ae736765f05",
     "model": "gpt",
-    "generatedAt": "2026-07-21T00:26:05.371Z",
-    "docsGeneratedAt": "2026-08-04T02:10:33.156Z",
-    "heroGeneratedAt": "2026-08-05T23:18:56.172Z"
+    "generatedAt": "2026-08-06T18:30:08.129Z",
+    "docsGeneratedAt": "2026-08-06T18:28:06.863Z",
+    "heroGeneratedAt": "2026-08-06T18:31:58.297Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "ink-pigment-printmaking-screenprint-transparent-overlap": {
     "hash": "3ef512775a5c",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:09:23.550Z",
-    "heroGeneratedAt": "2026-07-20T16:35:09.987Z",
-    "docsGeneratedAt": "2026-08-04T02:08:35.922Z"
+    "generatedAt": "2026-08-06T18:29:57.376Z",
+    "heroGeneratedAt": "2026-08-06T18:31:48.327Z",
+    "docsGeneratedAt": "2026-08-06T18:28:00.813Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "interaction-physics-beam-board": {
     "hash": "859b4bb34f8a",
@@ -2473,9 +2619,26 @@
   "massin-stage-page": {
     "hash": "2dcdc9eb7664",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-21T20:32:56.381Z",
-    "generatedAt": "2026-07-21T20:33:07.297Z",
-    "docsGeneratedAt": "2026-08-04T02:10:44.255Z"
+    "heroGeneratedAt": "2026-08-06T18:31:13.637Z",
+    "generatedAt": "2026-08-06T18:29:30.796Z",
+    "docsGeneratedAt": "2026-08-06T18:33:01.877Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "medium-native-algorave-source-floor": {
     "hash": "57329a80a72d",
@@ -4458,23 +4621,20 @@
   "rw-timetable-slide-rack": {
     "hash": "1e0e01d66ccc",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:26:50.801Z",
-    "heroGeneratedAt": "2026-08-06T18:28:37.429Z",
-    "docsGeneratedAt": "2026-08-06T18:23:45.114Z",
+    "generatedAt": "2026-08-06T18:20:20.233Z",
+    "heroGeneratedAt": "2026-08-06T18:22:00.054Z",
+    "docsGeneratedAt": "2026-08-06T18:18:29.868Z",
     "variants": {
       "board": [
         "v1",
-        "v2",
-        "v3"
+        "v2"
       ],
       "hero": [
         "v1",
-        "v2",
-        "v3"
+        "v2"
       ],
       "docs": [
-        "v1",
-        "v2"
+        "v1"
       ]
     },
     "boardWinner": "v1",
@@ -5026,16 +5186,49 @@
   "typography-calligraphy-writing-illuminated-initial-vine": {
     "hash": "772e2bf27f04",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:11:27.581Z",
-    "heroGeneratedAt": "2026-07-20T16:36:57.944Z",
-    "docsGeneratedAt": "2026-08-04T02:08:28.132Z"
+    "generatedAt": "2026-08-06T18:30:01.856Z",
+    "heroGeneratedAt": "2026-08-06T18:31:57.503Z",
+    "docsGeneratedAt": "2026-08-06T18:28:08.882Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "typography-calligraphy-writing-zoomorphic-calligram": {
     "hash": "742df15b0fec",
     "model": "gpt",
-    "generatedAt": "2026-07-21T00:23:30.802Z",
-    "docsGeneratedAt": "2026-08-04T02:10:39.421Z",
-    "heroGeneratedAt": "2026-08-05T23:18:45.290Z"
+    "generatedAt": "2026-08-06T18:29:28.726Z",
+    "docsGeneratedAt": "2026-08-06T18:32:57.413Z",
+    "heroGeneratedAt": "2026-08-06T18:31:12.371Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "underground-resistance": {
     "hash": "85ab43db5d6b",

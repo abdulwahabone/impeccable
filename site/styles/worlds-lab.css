@@ -1087,6 +1087,20 @@ button kbd {
   margin-bottom: 5px;
 }
 
+/* The folio is orientation, not identity: it says where you are in a queue, and
+   the id beside it is the real name. It was set at the same weight as the
+   status badge and taking a third of the header. */
+.worlds-review-folio {
+  color: var(--ks-text-faint);
+  font-size: 0.625rem;
+  letter-spacing: 0.06em;
+}
+
+.worlds-review-folio strong {
+  color: var(--ks-text-muted);
+  font-weight: 500;
+}
+
 .worlds-lead-card {
   margin: 0;
   border: 1px solid var(--ks-rule);

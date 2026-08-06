@@ -220,11 +220,22 @@ const pageData = JSON.stringify({
           <input id="worlds-search" type="search" aria-label="Search concepts" placeholder="Search forms, systems, lineage, or IDs" autocomplete="off" data-search>
           <kbd>/</kbd>
         </label>
-        <div class="worlds-runtime-state">
-          <span class:list={{ 'is-live': import.meta.env.DEV }} aria-hidden="true"></span>
+        <!-- Page-level views, so they sit in page-level chrome. They used to
+             live in the concept header beside its breadcrumb and ID, which read
+             as belonging to the world rather than switching what the page is. -->
+        <div class="worlds-view-toggle" role="group" aria-label="What this page shows" data-view-toggle>
+          <button type="button" data-view="detail" aria-pressed="true" title="One concept at a time (press V to switch)" aria-keyshortcuts="v">Review</button>
+          <button type="button" data-view="cards" aria-pressed="false" title="Every filtered concept as a card (press V to switch)" aria-keyshortcuts="v">Contact sheet</button>
+          <button type="button" data-view="coverage" aria-pressed="false" title="Where the catalog is crowded and where it is open">Coverage</button>
+        </div>
+        <!-- Only shown when it says something a reader cannot already infer.
+             In dev the whole point of the page is that it writes, so a permanent
+             badge announcing it is noise; read-only is worth saying. -->
+        <div class="worlds-runtime-state" hidden={import.meta.env.DEV}>
+          <span aria-hidden="true"></span>
           <div>
-            <strong>{import.meta.env.DEV ? 'Source writing active' : 'Read-only catalog'}</strong>
-            <small>{import.meta.env.DEV ? 'Changes persist to skill/scripts' : 'Run bun run dev to review'}</small>
+            <strong>Read-only catalog</strong>
+            <small>Run bun run dev to review</small>
           </div>
         </div>
       </header>
@@ -259,11 +270,6 @@ const pageData = JSON.stringify({
                 <code data-concept-id>{initialConcept.id}</code>
               </div>
               <div class="worlds-review-glance">
-                <div class="worlds-view-toggle" role="group" aria-label="Stage view" data-view-toggle>
-                  <button type="button" data-view="detail" aria-pressed="true" title="One concept at a time (press V to switch)" aria-keyshortcuts="v">detail</button>
-                  <button type="button" data-view="cards" aria-pressed="false" title="Every filtered concept as a card (press V to switch)" aria-keyshortcuts="v">cards</button>
-                  <button type="button" data-view="coverage" aria-pressed="false" title="Where the catalog is crowded and where it is open">coverage</button>
-                </div>
               <span class="worlds-review-folio">Catalog <strong data-concept-position>{String(concepts.findIndex(concept => concept.id === initialConcept.id) + 1).padStart(3, '0')}</strong> / {counts.total.toLocaleString()}</span>
               <span class={`worlds-status-badge is-${initialConcept.status}`} data-concept-status>{initialConcept.status}</span>
             </div>
@@ -1650,6 +1656,13 @@ const pageData = JSON.stringify({
         if (event.code === 'KeyU') { event.preventDefault(); review('pending'); return; }
       }
       if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement || target.isContentEditable) {
+        return;
+      }
+      // The search field has always shown a "/" hint and nothing was bound to
+      // it, so the label was teaching a shortcut that did not exist.
+      if (event.key === '/') {
+        event.preventDefault();
+        document.querySelector('[data-search]')?.focus();
         return;
       }
       if (event.key === '/') {
