@@ -1,0 +1,84 @@
+# Deploys a Cloudflare Pages preview for every PR and records it as a GitHub
+# deployment with an environment_url. The pristine review App subscribes to
+# deployment_status events: its visual tier screenshots this URL and runs the
+# browser-side design checks against it.
+#
+# Uses the same repository secrets as deploy-pro.yml:
+#   CLOUDFLARE_API_TOKEN   Cloudflare Pages: Edit on the account
+#   CLOUDFLARE_ACCOUNT_ID
+
+name: PR preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+concurrency:
+  group: preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  preview:
+    # Drafts wait; fork PRs have no secrets and would fail at the deploy step.
+    if: >
+      github.event.pull_request.draft == false &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Build the site
+        run: bun run build
+
+      - name: Deploy preview to Cloudflare Pages
+        id: deploy
+        run: |
+          bunx wrangler pages deploy build/ --branch "pr-${{ github.event.pull_request.number }}" 2>&1 | tee deploy.log
+          url=$(grep -oE 'https://[a-zA-Z0-9.-]+\.pages\.dev' deploy.log | head -1)
+          if [ -z "$url" ]; then
+            echo "Could not extract a preview URL from wrangler output" >&2
+            exit 1
+          fi
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      # The deployment record is the machine-readable contract: pristine (and
+      # anything else) learns the preview URL from the deployment_status event
+      # rather than by scraping comments.
+      - name: Record GitHub deployment
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const sha = context.payload.pull_request.head.sha;
+            const { data: deployment } = await github.rest.repos.createDeployment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: sha,
+              environment: 'preview',
+              auto_merge: false,
+              required_contexts: [],
+              transient_environment: true,
+              description: `PR #${context.payload.pull_request.number} preview`,
+            });
+            await github.rest.repos.createDeploymentStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              deployment_id: deployment.id,
+              state: 'success',
+              environment_url: '${{ steps.deploy.outputs.url }}',
+              description: 'Cloudflare Pages preview',
+            });
