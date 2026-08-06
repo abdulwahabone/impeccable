@@ -30,6 +30,10 @@ const flag = (name, fallback) => {
 const conceptArg = flag('concept', null);
 const only = (flag('variants', '') || '').split(',').filter(Boolean);
 const outDir = flag('out', path.join(ROOT, '.waves', 'prompt-lab'));
+// One sample per cell can only detect an effect large enough to survive a single
+// draw. "viewport" was that large and shipped; "air" and "scene" were good on one
+// world and odd on another, which is exactly what noise looks like.
+const samples = Number(flag('samples', 1));
 
 // Each variant is a paragraph appended to the shipped prompt. They are separate
 // rather than combined so a result can be attributed to one sentence.
@@ -96,9 +100,11 @@ const boardPath = path.join(ROOT, 'site', 'public', 'worlds', 'cards', `${concep
 
 process.stdout.write(`${concept.form.split(/[:,]/)[0]}\n${names.length} variants\n\n`);
 
-async function render(variant) {
-  const target = path.join(dir, `${variant}.webp`);
-  if (existsSync(target)) { process.stdout.write(`  cached  ${variant}\n`); return; }
+async function render(job) {
+  const { variant, sample } = job;
+  const suffix = samples > 1 ? `-${sample + 1}` : '';
+  const target = path.join(dir, `${variant}${suffix}.webp`);
+  if (existsSync(target)) { process.stdout.write(`  cached  ${variant}${suffix}\n`); return; }
   const prompt = basePrompt + (VARIANTS[variant] || '');
   const form = new FormData();
   form.append('model', 'gpt-image-2');
@@ -114,19 +120,19 @@ async function render(variant) {
     method: 'POST', headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` }, body: form,
   });
   const json = await response.json();
-  if (!response.ok) { process.stdout.write(`  FAILED  ${variant}: ${(json.error?.message || '').slice(0, 80)}\n`); return; }
+  if (!response.ok) { process.stdout.write(`  FAILED  ${variant}${suffix}: ${(json.error?.message || '').slice(0, 80)}\n`); return; }
   const b64 = json.data?.[0]?.b64_json;
-  if (!b64) { process.stdout.write(`  FAILED  ${variant}: no image\n`); return; }
+  if (!b64) { process.stdout.write(`  FAILED  ${variant}${suffix}: no image\n`); return; }
   writeFileSync(target, await sharp(Buffer.from(b64, 'base64')).webp({ quality: 90 }).toBuffer());
-  process.stdout.write(`  ok      ${variant}\n`);
+  process.stdout.write(`  ok      ${variant}${suffix}\n`);
 }
 
-const queue = [...names];
+const queue = names.flatMap(variant => Array.from({ length: samples }, (_, sample) => ({ variant, sample })));
 await Promise.all(Array.from({ length: 3 }, async () => {
   while (queue.length) await render(queue.shift());
 }));
 
 writeFileSync(path.join(dir, 'meta.json'), `${JSON.stringify({
-  id: concept.id, form: concept.form, topology: concept.system[2], variants: names,
+  id: concept.id, form: concept.form, topology: concept.system[2], variants: names, samples,
 }, null, 1)}\n`);
 process.stdout.write(`\n${path.relative(ROOT, dir)}\n`);
