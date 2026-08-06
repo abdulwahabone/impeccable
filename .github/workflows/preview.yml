@@ -9,12 +9,19 @@
 
 name: PR preview
 
+# push is the primary trigger: pull_request-event dispatch never fired in this
+# repo (0 runs despite an active registered workflow; push workflows dispatch
+# fine). Branch pushes coincide with PR synchronize, and pristine matches
+# previews by commit sha, so nothing downstream cares which event built it.
 on:
+  push:
+    branches-ignore: [main]
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
+  workflow_dispatch:
 
 concurrency:
-  group: preview-${{ github.event.pull_request.number }}
+  group: preview-${{ github.event.pull_request.number || github.ref_name }}
   cancel-in-progress: true
 
 permissions:
@@ -25,8 +32,9 @@ jobs:
   preview:
     # Drafts wait; fork PRs have no secrets and would fail at the deploy step.
     if: >
-      github.event.pull_request.draft == false &&
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.event_name != 'pull_request' ||
+      (github.event.pull_request.draft == false &&
+       github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
@@ -45,7 +53,7 @@ jobs:
       - name: Deploy preview to Cloudflare Pages
         id: deploy
         run: |
-          bunx wrangler pages deploy build/ --branch "pr-${{ github.event.pull_request.number }}" 2>&1 | tee deploy.log
+          bunx wrangler pages deploy build/ --branch "pr-${{ github.event.pull_request.number || github.ref_name }}" 2>&1 | tee deploy.log
           url=$(grep -oE 'https://[a-zA-Z0-9.-]+\.pages\.dev' deploy.log | head -1)
           if [ -z "$url" ]; then
             echo "Could not extract a preview URL from wrangler output" >&2
@@ -63,7 +71,7 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            const sha = context.payload.pull_request.head.sha;
+            const sha = context.payload.pull_request?.head?.sha ?? context.sha;
             const { data: deployment } = await github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -72,7 +80,7 @@ jobs:
               auto_merge: false,
               required_contexts: [],
               transient_environment: true,
-              description: `PR #${context.payload.pull_request.number} preview`,
+              description: `Preview for ${context.ref ?? 'push'}`,
             });
             await github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
