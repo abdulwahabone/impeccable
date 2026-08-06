@@ -50,6 +50,7 @@ import {
   coLocatedStylesheets,
   runHook,
   runStopHook,
+  commitFooterShown,
   IMMEDIATE_TIER_RULES,
   splitFindingsByTier,
   perEditTieringActive,
@@ -2305,6 +2306,22 @@ describe('runHook() — session-scoped notices', () => {
     const cache = readCache(cwd);
     assert.ok(!cache.sessions['sid-1'].footerShown, 'a downgraded footer does not spend the session flag');
   });
+
+  it('commits the footer flag only for the complete full policy, not its opening words', () => {
+    const cache = { version: 1, sessions: {} };
+    const full = renderTemplate(
+      [finding('tiny-text', 1, { name: 'Tiny text' })],
+      '/x/a.css', DEFAULT_CONFIG, { cwd: '/x' },
+    );
+
+    // A tail truncation can spare "Triage each finding" while cutting the
+    // policy body. That must not count as delivered.
+    commitFooterShown(cache, 'sid-1', full.slice(0, full.length - 40));
+    assert.ok(!cache.sessions['sid-1']?.footerShown, 'a truncated policy must not spend the flag');
+
+    commitFooterShown(cache, 'sid-1', full);
+    assert.ok(cache.sessions['sid-1'].footerShown, 'the intact policy commits the flag');
+  });
 });
 
 describe('runHook() — clean-ack noise', () => {
@@ -3113,6 +3130,8 @@ describe('Cursor hook scripts', () => {
     assert.match(payload.user_message, /blocked this write/);
     assert.match(payload.user_message, /side-tab/);
     assert.match(payload.agent_message, /Triage each finding/);
+    assert.match(payload.agent_message, /Full suppression ladder/, 'the deny message carries the complete policy, not a truncated head');
+    assert.ok(payload.agent_message.length <= 4000, 'the deny message respects the Cursor cap');
 
     const entries = fs.readFileSync(logPath, 'utf-8').trim().split('\n').map((line) => JSON.parse(line));
     assert.equal(entries[0].event, 'preToolUse');

@@ -16,6 +16,7 @@ import path from 'node:path';
 
 import {
   ALLOWED_EXTS,
+  DEFAULT_CONFIG,
   EDIT_COUNT_THRESHOLD,
   GENERATED_PATH,
   SENSITIVE_PATH,
@@ -348,13 +349,26 @@ async function detectProposedHtml(detector, content, filePath, scanOptions) {
   }
 }
 
+// Cursor caps deny messages around 4000 chars. The cap feeds through the
+// renderer's clamp, which preserves the policy footer, rather than tail-
+// slicing the rendered text, which cut the footer off any message the
+// default 8000-char budget let past 4000.
+const CURSOR_DENY_LIMIT = 4000;
+const BLOCK_PREFIX = 'Impeccable design hook blocked this write before it landed. ';
+
 function cursorBlockMessage(findings, filePath, config, cwd, footerMode, reserveChars) {
-  const rendered = renderTemplate(findings, filePath, config, { cwd, footer: footerMode, reserveChars });
-  const blocked = rendered.replace(
-    '[impeccable@1] Design hook findings requiring review',
-    '[impeccable@1] Impeccable design hook blocked this write before it landed. Design hook findings requiring review',
+  const limits = config?.limits || DEFAULT_CONFIG.limits;
+  const budget = Math.min(
+    limits.maxChars || DEFAULT_CONFIG.limits.maxChars,
+    CURSOR_DENY_LIMIT - BLOCK_PREFIX.length,
   );
-  return blocked.length > 4000 ? `${blocked.slice(0, 3984)}\n...(truncated)` : blocked;
+  const rendered = renderTemplate(findings, filePath,
+    { ...config, limits: { ...limits, maxChars: budget } },
+    { cwd, footer: footerMode, reserveChars });
+  return rendered.replace(
+    '[impeccable@1] Design hook findings requiring review',
+    `[impeccable@1] ${BLOCK_PREFIX}Design hook findings requiring review`,
+  );
 }
 
 function findingSignature(findings) {

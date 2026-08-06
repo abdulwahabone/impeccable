@@ -1702,14 +1702,15 @@ export function designNoteReserve(scanOptions, cache, sessionId) {
 // emissions and Cursor denials share the session flag (`footerShown`), so a
 // session pays the full policy exactly once however it first fires. The mode
 // is a peek: the clamp can downgrade a requested full footer under a tight
-// budget, so the flag commits only when the full policy actually reached the
-// output (commitFooterShown, matched on the footer's opening words).
+// budget, so the flag commits only when the complete full policy actually
+// reached the output. Matching the whole footer text (not a sentinel) keeps
+// the flag honest against any truncation that spares the opening words.
 export function footerModeForSession(cache, sessionId) {
   return ensureSession(cache, sessionId).footerShown ? 'short' : 'full';
 }
 
 export function commitFooterShown(cache, sessionId, text) {
-  if (!text || !text.includes(FULL_FOOTER_SENTINEL)) return;
+  if (!text || !text.includes(directiveFooter())) return;
   const session = ensureSession(cache, sessionId);
   if (session.footerShown) return;
   session.footerShown = true;
@@ -1717,10 +1718,6 @@ export function commitFooterShown(cache, sessionId, text) {
 }
 
 const HOOK_ADMIN_COMMAND = `node ${quoteCommandArg(path.join(__dirname, 'hook-admin.mjs'))}`;
-
-// Opening words of the full footer; commitFooterShown matches on it to tell
-// whether the full policy survived the clamp.
-const FULL_FOOTER_SENTINEL = 'Triage each finding';
 
 // The directive footer is the part of the hook output that steers model
 // behavior. Intentional moves, in order:
@@ -1749,7 +1746,7 @@ function directiveFooter(opts = {}) {
     return 'Triage per the session policy: fix real problems; persist confident false-positive or sanctioned-exception ignores via `hook-admin.mjs ignore-value` and disclose them in your reply; unsure, ask in one line.';
   }
   return [
-    `${FULL_FOOTER_SENTINEL}, then state in your reply what you fixed, what you suppressed, and what you left standing:`,
+    'Triage each finding, then state in your reply what you fixed, what you suppressed, and what you left standing:',
     '- Real design problem: fix it. Keep intentional design as designed.',
     `- Confident false positive or sanctioned exception (an intentional demo or fixture, documentation of bad design, literal or domain-appropriate motion, a choice the user confirmed): persist the narrowest ignore yourself and disclose it. Run \`${HOOK_ADMIN_COMMAND} ignore-value <rule> "<value>" --reason "<who decided: evidence>"\` with the pair shown on the finding line, or value "*" plus \`--file <path>\` when the line shows none. Write "user confirmed" in a reason only when the user did.`,
     '- Unsure: leave it as is and ask the user in one line.',
