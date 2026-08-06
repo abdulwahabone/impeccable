@@ -426,7 +426,9 @@
 .worlds-search {
   position: relative;
   display: flex;
-  width: min(680px, 100%);
+  flex: 1 1 auto;
+  width: auto;
+  max-width: 680px;
   align-items: center;
 }
 
@@ -1231,51 +1233,24 @@ button kbd {
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
 }
 
+/* The container's rule is the separator from the cards above it, so it needs
+   space beneath it before the first label. This block and the one earlier in the
+   file both styled these sections; the earlier one zeroed the first section's
+   padding, which dropped the line straight onto "System grammar". */
 .worlds-system-contract {
   display: grid;
   grid-template-columns: 1fr;
   margin-top: var(--spacing-md);
-  border-top: 1px solid var(--ks-rule);
-  border-bottom: 1px solid var(--ks-rule);
-}
-
-.worlds-system-contract section {
-  padding: var(--spacing-sm) 0;
-}
-
-.worlds-system-contract section + section {
+  padding-top: var(--spacing-sm);
   border-top: 1px solid var(--ks-rule);
 }
 
-.worlds-system-contract p {
-  color: var(--ks-kinpaku);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.worlds-system-contract ol {
-  display: grid;
-  gap: 7px;
-  margin: 12px 0 0;
-  padding-left: 20px;
-  color: var(--ks-text-muted);
-  font-size: var(--ks-type-mono-size);
-  line-height: 1.55;
-}
-
+/* Only the marker stays here; the list and the strong are styled once, above,
+   with the rest of the contract. Restating them later meant the later block won
+   and the single treatment never actually applied. */
 .worlds-system-contract li::marker {
   color: var(--ks-patina);
   font-family: var(--ks-mono);
-}
-
-.worlds-system-contract strong {
-  display: block;
-  margin-top: 12px;
-  color: var(--ks-text);
-  font-size: var(--ks-type-mono-size);
-  font-weight: 500;
-  line-height: 1.55;
 }
 
 .worlds-concept-meta {
@@ -1904,8 +1879,12 @@ button kbd {
    531 worlds are hard to hold in a list, and the rendered board is the fastest
    way to recognise one. No decision controls here on purpose, because judging
    from a thumbnail is how a catalog drifts; a click opens the full stage. */
+/* flex: 0 0 auto because the search beside it asks for min(680px, 100%), and in
+   a flex row that lets a shrinkable sibling collapse toward zero. The toggle
+   moved into this toolbar and promptly became unclickable. */
 .worlds-view-toggle {
   display: inline-flex;
+  flex: 0 0 auto;
   border: 1px solid var(--ks-rule);
   border-radius: 999px;
   overflow: hidden;
