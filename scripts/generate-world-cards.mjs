@@ -148,7 +148,16 @@ async function generateOpenAI(model, concept, kind, variant) {
   // Heroes are generated from the specimen board when it exists: the edits
   // endpoint takes the board as reference so both images share one system.
   if ((kind === 'hero' || kind === 'docs') && BOARD_REFERENCE_DIR) {
-    const boardPath = join(BOARD_REFERENCE_DIR, `${concept.id}.webp`);
+    // Its own variant's board, falling back to the canonical one. Referencing
+    // the canonical board for every variant would art-direct hero v2 from board
+    // v1, so a chosen "variant B" would be B's hero over A's board showing a
+    // different invented product from B's docs.
+    const variantBoard = variant && variant !== 'v1'
+      ? join(BOARD_REFERENCE_DIR, `${concept.id}-${variant}.webp`)
+      : null;
+    const boardPath = variantBoard && existsSync(variantBoard)
+      ? variantBoard
+      : join(BOARD_REFERENCE_DIR, `${concept.id}.webp`);
     if (existsSync(boardPath)) {
       try {
         const form = new FormData();
@@ -286,8 +295,10 @@ async function main() {
     const hash = hashOf(concept);
     const row = manifest[concept.id];
     const jobs = [];
-    for (const kind of kinds) {
-      for (const variant of variantIds) {
+    // Ordered by variant then kind, so each triple completes before the next
+    // starts and every hero and docs finds its own board already on disk.
+    for (const variant of variantIds) {
+      for (const kind of kinds) {
         const target = variantIds.length === 1 ? fileFor(concept, kind) : variantFileFor(concept, kind, variant);
         const needed = force
           || !existsSync(target)
