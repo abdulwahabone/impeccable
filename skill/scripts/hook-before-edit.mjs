@@ -476,7 +476,7 @@ async function main() {
   const footerMode = footerModeForSession(cache, sessionId);
   const message = appendDesignSystemNoteOnce(
     cursorBlockMessage(filtered, filePath, config, cwd, footerMode),
-    scanOptions, cache, sessionId,
+    scanOptions, cache, sessionId, config,
   );
   const denial = bumpCursorDenial(cache, sessionId, filePath, filtered);
   persistCache(cwd, cache);

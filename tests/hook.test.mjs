@@ -1199,6 +1199,20 @@ describe('renderTemplate()', () => {
       { cwd: '/x' });
     assert.ok(text.length <= 500);
   });
+
+  it('keeps a policy footer when the clamp cuts down to one finding line', () => {
+    // At the minimum budget the full footer cannot fit beside a long finding,
+    // so the clamp clips the finding line and downgrades to the short policy
+    // instead of slicing the footer off the tail.
+    const huge = [finding('side-tab', 1, { name: 'X', description: 'y'.repeat(2000) })];
+    const text = renderTemplate(huge, '/x/a.tsx',
+      { ...DEFAULT_CONFIG, limits: { maxFindings: 5, maxChars: 500 } },
+      { cwd: '/x' });
+    assert.ok(text.length <= 500);
+    assert.match(text, /\[side-tab\]/, 'the finding is still identified');
+    assert.match(text, /Triage per the session policy/, 'a clamped emission still carries the policy');
+  });
+
 });
 
 describe('writeAuditLog()', () => {
@@ -2235,6 +2249,32 @@ describe('runHook() — session-scoped notices', () => {
     const r2 = await runHook({ stdinJson: event(b), env: {}, cwd, detector: det });
     assert.ok(r2.audit.emitted, 'second file still emits findings');
     assert.doesNotMatch(r2.stdout, /DESIGN\.md is newer/, 'the staleness note does not repeat within a session');
+  });
+
+  it('defers the staleness note past an emission it would push over budget', async () => {
+    fs.writeFileSync(getConfigPath(cwd), JSON.stringify({
+      hook: { limits: { maxChars: 500 } },
+    }));
+    const a = path.join(cwd, 'a.css');
+    fs.writeFileSync(a, 'noop');
+    let current = [finding('tiny-text', 1, { name: 'Tiny text', description: 'y'.repeat(600) })];
+    const det = {
+      detectText: () => current.slice(),
+      detectHtml: () => current.slice(),
+      loadDesignSystemForCwd: () => ({ present: true, mdNewerThanJson: true }),
+    };
+
+    // The fresh emission fills the whole budget; appending the note here
+    // would bust maxChars, so it must wait without burning the session flag.
+    const r1 = await runHook({ stdinJson: event(a), env: {}, cwd, detector: det });
+    const ctx1 = JSON.parse(r1.stdout).hookSpecificOutput.additionalContext;
+    assert.ok(ctx1.length <= 500, `final emission honors maxChars (got ${ctx1.length})`);
+    assert.doesNotMatch(ctx1, /DESIGN\.md is newer/);
+
+    // The next emission is a small clean ack with room to spare.
+    current = [];
+    const r2 = await runHook({ stdinJson: event(a), env: {}, cwd, detector: det });
+    assert.match(r2.stdout, /DESIGN\.md is newer/, 'the deferred note lands on the next emission with room');
   });
 });
 
@@ -3589,6 +3629,25 @@ describe('runStopHook()', () => {
     assert.match(out.hookSpecificOutput.additionalContext, /side-tab/);
     assert.doesNotMatch(out.hookSpecificOutput.additionalContext, /dark-glow/);
     assert.equal(stop.emission.kind, 'stop-deep-pass');
+  });
+
+  it('keeps a policy footer when the grouped Stop render is clamped to the minimum budget', async () => {
+    const sid = 'stop-clamp';
+    fs.mkdirSync(path.join(cwd, '.impeccable'), { recursive: true });
+    fs.writeFileSync(getConfigPath(cwd), JSON.stringify({ hook: { limits: { maxChars: 500 } } }));
+    const a = write('src/A.tsx', 'noop');
+    const b = write('src/B.tsx', 'noop');
+    const det = fakeDetector([finding('side-tab', 1, { name: 'X', description: 'y'.repeat(2000) })]);
+
+    // Two touched files with deferred findings so the Stop pass groups them.
+    await runHook({ stdinJson: JSON.stringify(editEvent(a, sid)), env: {}, cwd, detector: det });
+    await runHook({ stdinJson: JSON.stringify(editEvent(b, sid)), env: {}, cwd, detector: det });
+
+    const stop = await runStopHook({ stdinJson: JSON.stringify(stopEvent(sid)), env: {}, cwd, detector: det });
+    assert.equal(stop.audit.emitted, true);
+    const ctx = JSON.parse(stop.stdout).hookSpecificOutput.additionalContext;
+    assert.ok(ctx.length <= 500, `grouped emission honors maxChars (got ${ctx.length})`);
+    assert.match(ctx, /Triage per the session policy/, 'a clamped grouped emission still carries the policy');
   });
 
   it('exits silent and fast when the session touched no UI files', async () => {

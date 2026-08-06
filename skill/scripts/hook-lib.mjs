@@ -22,7 +22,7 @@
  *   dedupeAgainstCache(findings, cache, sessionId, filePath)
  *   renderTemplate(findings, filePath, config, opts)
  *   renderCleanAck(filePath, opts) / renderPendingAck(filePath, known, opts)
- *   appendDesignSystemNote(text, scanOptions) / appendDesignSystemNoteOnce(text, scanOptions, cache, sessionId)
+ *   appendDesignSystemNote(text, scanOptions) / appendDesignSystemNoteOnce(text, scanOptions, cache, sessionId, config)
  *   footerModeForSession(cache, sessionId)
  *   shouldEmitAckForFile(filePath, config?)
  *   writeAuditLog(env, entry)
@@ -1044,49 +1044,68 @@ function renderGroupedTemplate(groups, config, opts = {}) {
 }
 
 function clampGroupedToBudget(header, lines, footer, maxChars) {
-  const assemble = (linesArr, omitted) => [
+  const assemble = (linesArr, omitted, footerText) => [
     header,
     ...linesArr,
     ...(omitted ? [`... and more (see ${IMPECCABLE_COMMAND} audit).`] : []),
     '',
-    footer,
+    footerText,
   ].join('\n');
 
   let working = lines.slice();
   let omitted = false;
-  let assembled = assemble(working, omitted);
+  let assembled = assemble(working, omitted, footer);
   while (assembled.length > maxChars && working.length > 1) {
     working.pop();
     omitted = true;
-    assembled = assemble(working, omitted);
+    assembled = assemble(working, omitted, footer);
   }
-  if (assembled.length > maxChars) {
-    assembled = `${assembled.slice(0, maxChars - 1)}…`;
-  }
-  return assembled;
+  if (assembled.length <= maxChars) return assembled;
+  return clampLastLine((linesArr, footerText) => assemble(linesArr, true, footerText), working[0], footer, maxChars);
 }
 
 function clampToBudget(header, lines, more, footer, maxChars) {
-  const assemble = (linesArr, moreText) => {
+  const assemble = (linesArr, moreText, footerText) => {
     const blocks = [header, ...linesArr];
     if (moreText) blocks.push(moreText);
     blocks.push('');
-    blocks.push(footer);
+    blocks.push(footerText);
     return blocks.join('\n');
   };
 
   let working = lines.slice();
   let moreText = more;
-  let assembled = assemble(working, moreText);
+  let assembled = assemble(working, moreText, footer);
   while (assembled.length > maxChars && working.length > 1) {
     working.pop();
     moreText = `... and more (see ${IMPECCABLE_COMMAND} audit).`;
-    assembled = assemble(working, moreText);
+    assembled = assemble(working, moreText, footer);
   }
-  if (assembled.length > maxChars) {
-    assembled = `${assembled.slice(0, maxChars - 1)}…`;
+  if (assembled.length <= maxChars) return assembled;
+  return clampLastLine((linesArr, footerText) => assemble(linesArr, moreText, footerText), working[0], footer, maxChars);
+}
+
+// Last resort when a single finding line still busts the budget. The footer
+// is policy, not detail, so it survives every clamp: give it the budget
+// first, clip the finding line to what remains, and when the full policy is
+// itself what does not fit, downgrade to the short form rather than emit
+// findings with no policy at all. The old tail-slice cut whatever happened
+// to be last, which was always the footer.
+function clampLastLine(build, line, footer, maxChars) {
+  const footerCandidates = footer === directiveFooter({ mode: 'short' })
+    ? [footer]
+    : [footer, directiveFooter({ mode: 'short' })];
+  for (const footerText of footerCandidates) {
+    // +1 for the newline the line itself brings when it joins the blocks.
+    const room = maxChars - build([], footerText).length - 1;
+    if (room >= 24) {
+      const clipped = line.length > room ? `${line.slice(0, room - 1)}…` : line;
+      return build([clipped], footerText);
+    }
   }
-  return assembled;
+  // maxChars is floored at 500 and header + short footer fit well inside
+  // that, so this is unreachable; keep the hard slice as the safety net.
+  return `${build([line], footer).slice(0, maxChars - 1)}…`;
 }
 
 // `compact` drops the registry description: within one emission the first
@@ -1615,9 +1634,11 @@ export function designSystemOptions(config, detector, projectCwd) {
   }
 }
 
+const DESIGN_STALE_NOTE = `${ENVELOPE_PREFIX} DESIGN.md is newer than .impeccable/design.json. Run ${IMPECCABLE_COMMAND} document to refresh the design-system sidecar.`;
+
 export function appendDesignSystemNote(text, scanOptions) {
   if (!text || !scanOptions?.designSystem?.mdNewerThanJson) return text;
-  return `${text}\n\n${ENVELOPE_PREFIX} DESIGN.md is newer than .impeccable/design.json. Run ${IMPECCABLE_COMMAND} document to refresh the design-system sidecar.`;
+  return `${text}\n\n${DESIGN_STALE_NOTE}`;
 }
 
 // Session-scoped once-only gate for repeat-prone message parts. Returns true
@@ -1635,9 +1656,14 @@ function consumeSessionNoticeFlag(cache, sessionId, flag) {
 
 // Once-per-session variant of appendDesignSystemNote for the emission paths
 // that have cache access. The staleness note names standing project state,
-// not new information, so one mention per session is enough.
-export function appendDesignSystemNoteOnce(text, scanOptions, cache, sessionId) {
+// not new information, so one mention per session is enough. The note is
+// appended after the renderer has clamped to the configured budget, so when
+// it would push the emission past maxChars, defer it (without consuming the
+// flag) to a later, smaller emission in the session.
+export function appendDesignSystemNoteOnce(text, scanOptions, cache, sessionId, config) {
   if (!text || !scanOptions?.designSystem?.mdNewerThanJson) return text;
+  const maxChars = Math.max(500, config?.limits?.maxChars || DEFAULT_CONFIG.limits.maxChars);
+  if (text.length + DESIGN_STALE_NOTE.length + 2 > maxChars) return text;
   if (!consumeSessionNoticeFlag(cache, sessionId, 'designNoteShown')) return text;
   return appendDesignSystemNote(text, scanOptions);
 }
@@ -1911,7 +1937,7 @@ export async function runHook({ stdinJson, env = {}, cwd = process.cwd(), now = 
       const footerMode = footerModeForSession(cache, sessionId);
       const text = appendDesignSystemNoteOnce(
         renderGroupedTemplate(freshGroups, config, { cwd: projectCwd, footer: footerMode }),
-        scanOptions, cache, sessionId,
+        scanOptions, cache, sessionId, config,
       );
       // Fresh findings always earn the cache write, including creating
       // `.impeccable/`: dedup, suppression, and the notice flags need it.
@@ -1947,12 +1973,12 @@ export async function runHook({ stdinJson, env = {}, cwd = process.cwd(), now = 
     if (!quietMode && pendingWinner && shouldEmitAckForFile(pendingWinner.filePath, config)) {
       ack = {
         kind: 'pending',
-        text: appendDesignSystemNoteOnce(renderPendingAck(pendingWinner.filePath, pendingWinner.known, { cwd: projectCwd }), scanOptions, cache, sessionId),
+        text: appendDesignSystemNoteOnce(renderPendingAck(pendingWinner.filePath, pendingWinner.known, { cwd: projectCwd }), scanOptions, cache, sessionId, config),
       };
     } else if (!quietMode && !suppressionWinner && cleanWinner && !cleanAckDeduped && shouldEmitAckForFile(cleanWinner.filePath, config)) {
       ack = {
         kind: 'clean',
-        text: appendDesignSystemNoteOnce(renderCleanAck(cleanWinner.filePath, { cwd: projectCwd }), scanOptions, cache, sessionId),
+        text: appendDesignSystemNoteOnce(renderCleanAck(cleanWinner.filePath, { cwd: projectCwd }), scanOptions, cache, sessionId, config),
       };
     }
 
@@ -2197,7 +2223,7 @@ export async function runStopHook({ stdinJson, env = {}, cwd = process.cwd(), no
     const footerMode = footerModeForSession(cache, sessionId);
     const text = appendDesignSystemNoteOnce(
       renderGroupedTemplate(freshGroups, config, { cwd: projectCwd, footer: footerMode }),
-      scanOptions, cache, sessionId,
+      scanOptions, cache, sessionId, config,
     );
 
     // Fresh findings earn the cache write so the next Stop fire is silent
