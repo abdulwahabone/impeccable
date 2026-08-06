@@ -224,8 +224,7 @@ const pageData = JSON.stringify({
              live in the concept header beside its breadcrumb and ID, which read
              as belonging to the world rather than switching what the page is. -->
         <div class="worlds-view-toggle" role="group" aria-label="What this page shows" data-view-toggle>
-          <button type="button" data-view="detail" aria-pressed="true" title="One concept at a time (press V to switch)" aria-keyshortcuts="v">Review</button>
-          <button type="button" data-view="cards" aria-pressed="false" title="Every filtered concept as a card (press V to switch)" aria-keyshortcuts="v">Contact sheet</button>
+          <button type="button" data-view="detail" aria-pressed="true" title="Review the catalog">Review</button>
           <button type="button" data-view="coverage" aria-pressed="false" title="Where the catalog is crowded and where it is open">Coverage</button>
         </div>
         <!-- Only shown when it says something a reader cannot already infer.
@@ -247,7 +246,27 @@ const pageData = JSON.stringify({
               <p>Review queue</p>
               <strong data-queue-title>Backlog</strong>
             </div>
-            <span data-result-count>{counts.pending.toLocaleString()}</span>
+            <div class="worlds-queue-head-tools">
+              <span data-result-count>{counts.pending.toLocaleString()}</span>
+              <!-- These present the queue, so they live on the queue. As a
+                   page-level tab row they read as switching what the page is,
+                   which is why "cards" seemed to throw the detail view away. -->
+              <div class="worlds-queue-view" role="group" aria-label="How the queue is shown">
+                <button type="button" data-view="detail" aria-pressed="true" title="One at a time, with the full stage (V)" aria-keyshortcuts="v">
+                  <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M2 4h12M2 8h12M2 12h8"></path>
+                  </svg>
+                  <span class="worlds-sr">List</span>
+                </button>
+                <button type="button" data-view="cards" aria-pressed="false" title="Every filtered concept as a contact sheet (V)" aria-keyshortcuts="v">
+                  <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="2" y="2" width="5" height="5"></rect><rect x="9" y="2" width="5" height="5"></rect>
+                    <rect x="2" y="9" width="5" height="5"></rect><rect x="9" y="9" width="5" height="5"></rect>
+                  </svg>
+                  <span class="worlds-sr">Contact sheet</span>
+                </button>
+              </div>
+            </div>
           </header>
           <div class="worlds-queue-list" data-queue-list></div>
           <footer class="worlds-queue-foot">
@@ -894,7 +913,12 @@ const pageData = JSON.stringify({
       reviewControls.hidden = state.view !== 'detail';
       reviewActions.hidden = state.view !== 'detail';
       for (const item of document.querySelectorAll('[data-view]')) {
-        item.setAttribute('aria-pressed', String(item.dataset.view === state.view));
+        // The toolbar's Review covers both queue presentations, because a
+        // contact sheet is still reviewing; only Coverage is a different place.
+        const active = item.dataset.view === 'detail' && item.closest('.worlds-view-toggle')
+          ? state.view !== 'coverage'
+          : item.dataset.view === state.view;
+        item.setAttribute('aria-pressed', String(active));
       }
       if (!showing) return;
       const rows = filteredConcepts();
@@ -1069,10 +1093,16 @@ const pageData = JSON.stringify({
           const form = document.createElement('strong');
           form.textContent = concept.form.split(',')[0];
           copy.append(family, form);
-          const status = document.createElement('i');
-          status.className = `is-${concept.status}`;
-          status.setAttribute('aria-label', concept.status);
-          button.append(index, copy, status);
+          button.append(index, copy);
+          // Only where statuses mix. Filtered to backlog every row is pending,
+          // so a dot per row said nothing and read as an unexplained marker.
+          if (state.status === 'all') {
+            const status = document.createElement('i');
+            status.className = `is-${concept.status}`;
+            status.title = concept.status;
+            status.setAttribute('aria-label', concept.status);
+            button.append(status);
+          }
           queueList.append(button);
         }
         queueList.querySelector('[aria-pressed="true"]')?.scrollIntoView({ block: 'nearest' });

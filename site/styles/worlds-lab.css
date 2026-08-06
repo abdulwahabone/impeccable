@@ -1898,6 +1898,59 @@ button kbd {
 /* flex: 0 0 auto because the search beside it asks for min(680px, 100%), and in
    a flex row that lets a shrinkable sibling collapse toward zero. The toggle
    moved into this toolbar and promptly became unclickable. */
+.worlds-queue-head-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+/* Icons rather than words, because they sit in a 292px rail beside a count and
+   a title that already say what the queue is. */
+.worlds-queue-view {
+  display: inline-flex;
+  border: 1px solid var(--ks-rule);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.worlds-queue-view button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid var(--ks-rule);
+  background: transparent;
+  color: var(--ks-text-mute-deep);
+  cursor: pointer;
+}
+
+.worlds-queue-view button:first-child {
+  border-left: 0;
+}
+
+.worlds-queue-view button svg {
+  width: 13px;
+  height: 13px;
+}
+
+.worlds-queue-view button[aria-pressed="true"] {
+  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
+  color: var(--ks-patina);
+}
+
+.worlds-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .worlds-view-toggle {
   display: inline-flex;
   flex: 0 0 auto;

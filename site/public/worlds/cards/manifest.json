@@ -79,35 +79,78 @@
   "brand-identity-canon-antipodean-commercial-print": {
     "hash": "3827b8807bd3",
     "model": "gpt",
-    "generatedAt": "2026-07-25T02:12:30.359Z",
-    "heroGeneratedAt": "2026-07-25T02:12:30.724Z",
-    "docsGeneratedAt": "2026-08-04T03:34:13.233Z"
+    "generatedAt": "2026-08-06T21:29:59.610Z",
+    "heroGeneratedAt": "2026-08-06T21:31:46.562Z",
+    "docsGeneratedAt": "2026-08-06T21:33:31.735Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "brand-identity-canon-art-paul-magazine-program": {
     "hash": "fd6ed284e196",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:26:07.264Z",
-    "generatedAt": "2026-07-25T00:52:13.736Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "heroGeneratedAt": "2026-08-06T21:28:54.776Z",
+    "generatedAt": "2026-08-06T21:27:22.133Z",
+    "docsGeneratedAt": "2026-08-06T21:30:25.354Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "brand-identity-canon-brodovitch-bazaar-spread": {
     "hash": "c6c597e1b6e8",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:08:54.516Z",
-    "heroGeneratedAt": "2026-08-06T21:10:28.113Z",
-    "docsGeneratedAt": "2026-08-06T21:12:08.139Z",
+    "generatedAt": "2026-08-06T21:13:45.076Z",
+    "heroGeneratedAt": "2026-08-06T21:15:25.501Z",
+    "docsGeneratedAt": "2026-08-06T21:17:00.760Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -124,21 +167,24 @@
   "brand-identity-canon-fletcher-wit-poster": {
     "hash": "2dc541c5091b",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:09:22.711Z",
-    "heroGeneratedAt": "2026-08-06T21:11:01.590Z",
-    "docsGeneratedAt": "2026-08-06T21:12:40.992Z",
+    "generatedAt": "2026-08-06T21:14:18.814Z",
+    "heroGeneratedAt": "2026-08-06T21:15:51.744Z",
+    "docsGeneratedAt": "2026-08-06T21:17:31.288Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -190,20 +236,24 @@
   "brand-identity-canon-push-pin-poster": {
     "hash": "6927cf346107",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:10:20.350Z",
-    "heroGeneratedAt": "2026-08-06T21:12:09.907Z",
-    "docsGeneratedAt": "2026-08-06T21:08:36.369Z",
+    "generatedAt": "2026-08-06T21:15:44.456Z",
+    "heroGeneratedAt": "2026-08-06T21:17:37.907Z",
+    "docsGeneratedAt": "2026-08-06T21:19:19.400Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -220,20 +270,24 @@
   "brand-identity-canon-saville-catalog-sleeve": {
     "hash": "eb6ddaa651a2",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:10:32.220Z",
-    "heroGeneratedAt": "2026-08-06T21:12:09.806Z",
-    "docsGeneratedAt": "2026-08-06T21:08:52.414Z",
+    "generatedAt": "2026-08-06T21:15:33.544Z",
+    "heroGeneratedAt": "2026-08-06T21:17:11.072Z",
+    "docsGeneratedAt": "2026-08-06T21:18:49.436Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -243,20 +297,24 @@
   "brand-identity-canon-scher-street-typography": {
     "hash": "f8e89b86e282",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:10:36.452Z",
-    "heroGeneratedAt": "2026-08-06T21:12:14.635Z",
-    "docsGeneratedAt": "2026-08-06T21:08:48.849Z",
+    "generatedAt": "2026-08-06T21:15:44.840Z",
+    "heroGeneratedAt": "2026-08-06T21:17:18.405Z",
+    "docsGeneratedAt": "2026-08-06T21:19:02.537Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -266,9 +324,29 @@
   "brand-identity-canon-single-hue-doll-program": {
     "hash": "eceebfb199b7",
     "model": "gpt",
-    "generatedAt": "2026-07-25T00:53:52.750Z",
-    "heroGeneratedAt": "2026-07-25T00:53:54.173Z",
-    "docsGeneratedAt": "2026-08-04T03:31:55.487Z"
+    "generatedAt": "2026-08-06T21:29:08.377Z",
+    "heroGeneratedAt": "2026-08-06T21:30:39.688Z",
+    "docsGeneratedAt": "2026-08-06T21:32:22.257Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "brand-identity-canon-two-tone-label-identity": {
     "hash": "f22248490f96",
@@ -287,9 +365,29 @@
   "brand-identity-canon-village-coffeehouse-identity": {
     "hash": "b811d627616c",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:26:30.893Z",
-    "generatedAt": "2026-07-25T00:52:29.212Z",
-    "docsGeneratedAt": "2026-08-04T03:32:04.414Z"
+    "heroGeneratedAt": "2026-08-06T21:30:22.521Z",
+    "generatedAt": "2026-08-06T21:28:47.532Z",
+    "docsGeneratedAt": "2026-08-06T21:32:12.662Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "brand-identity-canon-y2k-chrome-annual-plate": {
     "hash": "32a07c3e2195",
@@ -2137,21 +2235,24 @@
   "digital-design-canon-dark-first-developer-console": {
     "hash": "06ec2f591e0e",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:09:06.119Z",
-    "heroGeneratedAt": "2026-08-06T21:10:49.392Z",
-    "docsGeneratedAt": "2026-08-06T21:12:31.688Z",
+    "generatedAt": "2026-08-06T21:14:14.081Z",
+    "heroGeneratedAt": "2026-08-06T21:16:00.959Z",
+    "docsGeneratedAt": "2026-08-06T21:17:42.752Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2210,8 +2311,8 @@
     "hash": "badfd5a42659",
     "model": "gpt",
     "generatedAt": "2026-08-06T21:12:50.269Z",
-    "heroGeneratedAt": "2026-08-06T21:08:19.707Z",
-    "docsGeneratedAt": "2026-08-06T21:10:12.384Z",
+    "heroGeneratedAt": "2026-08-06T21:14:36.564Z",
+    "docsGeneratedAt": "2026-08-06T21:16:27.882Z",
     "variants": {
       "board": [
         "v1",
@@ -2220,11 +2321,13 @@
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2405,8 +2508,8 @@
     "hash": "19036f6e3a2b",
     "model": "gpt",
     "generatedAt": "2026-08-06T21:13:11.189Z",
-    "heroGeneratedAt": "2026-08-06T21:09:50.402Z",
-    "docsGeneratedAt": "2026-08-06T21:11:23.148Z",
+    "heroGeneratedAt": "2026-08-06T21:14:47.688Z",
+    "docsGeneratedAt": "2026-08-06T21:16:24.515Z",
     "variants": {
       "board": [
         "v1",
@@ -2415,11 +2518,13 @@
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2554,7 +2659,7 @@
     "model": "gpt",
     "generatedAt": "2026-08-06T21:11:13.235Z",
     "heroGeneratedAt": "2026-08-06T21:13:08.692Z",
-    "docsGeneratedAt": "2026-08-06T21:09:35.971Z",
+    "docsGeneratedAt": "2026-08-06T21:14:42.258Z",
     "variants": {
       "board": [
         "v1",
@@ -2568,7 +2673,8 @@
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2682,8 +2788,8 @@
     "hash": "67a6b09a9ad8",
     "model": "gpt",
     "generatedAt": "2026-08-06T21:13:19.974Z",
-    "heroGeneratedAt": "2026-08-06T21:10:01.017Z",
-    "docsGeneratedAt": "2026-08-06T21:11:38.419Z",
+    "heroGeneratedAt": "2026-08-06T21:14:55.215Z",
+    "docsGeneratedAt": "2026-08-06T21:16:30.062Z",
     "variants": {
       "board": [
         "v1",
@@ -2692,11 +2798,13 @@
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -3187,9 +3295,29 @@
   "generative-parametric-identity": {
     "hash": "0854d1c8696e",
     "model": "gpt",
-    "generatedAt": "2026-07-21T22:24:15.283Z",
-    "heroGeneratedAt": "2026-07-21T22:24:26.691Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T21:28:09.607Z",
+    "heroGeneratedAt": "2026-08-06T21:29:50.765Z",
+    "docsGeneratedAt": "2026-08-06T21:31:30.330Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "geological-strata-crystals-basalt-column-organ": {
     "hash": "298672933e14",
@@ -3875,19 +4003,24 @@
   "kraftwerk-man-machine": {
     "hash": "1fc3f97ceaa5",
     "model": "gpt",
-    "heroGeneratedAt": "2026-08-06T21:09:01.896Z",
-    "generatedAt": "2026-08-06T21:12:35.789Z",
-    "docsGeneratedAt": "2026-08-06T21:10:55.577Z",
+    "heroGeneratedAt": "2026-08-06T21:19:30.463Z",
+    "generatedAt": "2026-08-06T21:17:51.627Z",
+    "docsGeneratedAt": "2026-08-06T21:21:16.501Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -3925,9 +4058,29 @@
   "luxury-fashion-flagship": {
     "hash": "47e581bfa1fa",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-21T22:22:35.965Z",
-    "generatedAt": "2026-07-21T22:23:04.697Z",
-    "docsGeneratedAt": "2026-08-04T03:31:32.924Z"
+    "heroGeneratedAt": "2026-08-06T21:28:39.116Z",
+    "generatedAt": "2026-08-06T21:27:15.634Z",
+    "docsGeneratedAt": "2026-08-06T21:30:13.366Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "magnetism-electricity-plasma-hand-bent-neon-circuit": {
     "hash": "6deca9771768",
@@ -7301,9 +7454,29 @@
   "studio-dumbar-identity": {
     "hash": "ab066d6d28da",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-21T22:22:57.487Z",
-    "generatedAt": "2026-07-21T22:23:01.737Z",
-    "docsGeneratedAt": "2026-08-04T03:31:33.794Z"
+    "heroGeneratedAt": "2026-08-06T21:28:02.673Z",
+    "generatedAt": "2026-08-06T21:26:16.563Z",
+    "docsGeneratedAt": "2026-08-06T21:29:35.691Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "tabular-fintech-typographic": {
     "hash": "a9c8739046ec",
@@ -7528,20 +7701,24 @@
   "underground-resistance": {
     "hash": "85ab43db5d6b",
     "model": "gpt",
-    "generatedAt": "2026-08-06T21:11:41.069Z",
-    "heroGeneratedAt": "2026-08-06T21:13:22.037Z",
-    "docsGeneratedAt": "2026-08-06T21:09:56.009Z",
+    "generatedAt": "2026-08-06T21:16:47.600Z",
+    "heroGeneratedAt": "2026-08-06T21:18:28.416Z",
+    "docsGeneratedAt": "2026-08-06T21:20:09.699Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -7558,9 +7735,26 @@
   "variety-telop-caption-field": {
     "hash": "03ef7ce6e03a",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-21T21:36:02.705Z",
-    "generatedAt": "2026-07-21T21:36:15.445Z",
-    "docsGeneratedAt": "2026-08-04T03:43:45.655Z"
+    "heroGeneratedAt": "2026-08-06T21:44:13.295Z",
+    "generatedAt": "2026-08-06T21:42:23.393Z",
+    "docsGeneratedAt": "2026-08-06T21:45:55.597Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-apothecary-tin-wall": {
     "hash": "5e2cc839b554",
@@ -7572,9 +7766,29 @@
   "vernacular-ephemera-banknote-proof-table": {
     "hash": "aea8aae5bb94",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:36:12.393Z",
-    "heroGeneratedAt": "2026-07-20T17:07:52.689Z",
-    "docsGeneratedAt": "2026-08-04T03:36:39.391Z"
+    "generatedAt": "2026-08-06T21:31:10.236Z",
+    "heroGeneratedAt": "2026-08-06T21:33:07.858Z",
+    "docsGeneratedAt": "2026-08-06T21:34:57.059Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-blank-tape-brand-wall": {
     "hash": "11d66074f3d2",
@@ -7600,16 +7814,53 @@
   "vernacular-ephemera-calendar-pinup-pad": {
     "hash": "10b61d8874f1",
     "model": "gpt",
-    "generatedAt": "2026-07-25T00:54:16.550Z",
-    "heroGeneratedAt": "2026-07-25T01:26:30.656Z",
-    "docsGeneratedAt": "2026-08-04T03:44:03.850Z"
+    "generatedAt": "2026-08-06T21:41:45.580Z",
+    "heroGeneratedAt": "2026-08-06T21:43:32.959Z",
+    "docsGeneratedAt": "2026-08-06T21:45:18.007Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-cancellation-stamp-album": {
     "hash": "a73fa1e1f5bf",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:36:39.086Z",
-    "heroGeneratedAt": "2026-07-20T17:08:59.323Z",
-    "docsGeneratedAt": "2026-08-04T03:37:42.939Z"
+    "generatedAt": "2026-08-06T21:31:15.084Z",
+    "heroGeneratedAt": "2026-08-06T21:33:02.577Z",
+    "docsGeneratedAt": "2026-08-06T21:34:51.975Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-carnival-prize-wall": {
     "hash": "986719675439",
@@ -7621,9 +7872,29 @@
   "vernacular-ephemera-cassette-j-card": {
     "hash": "416a7f16afa9",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:36:46.103Z",
-    "heroGeneratedAt": "2026-07-20T17:09:25.866Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T21:31:20.038Z",
+    "heroGeneratedAt": "2026-08-06T21:32:56.991Z",
+    "docsGeneratedAt": "2026-08-06T21:34:48.653Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-chromo-trade-card-album": {
     "hash": "e2078d4989c5",
@@ -7656,9 +7927,25 @@
   "vernacular-ephemera-desert-neon-sign-program": {
     "hash": "d8e14a4b40f5",
     "model": "gpt",
-    "generatedAt": "2026-07-25T00:56:15.992Z",
-    "heroGeneratedAt": "2026-07-25T00:56:16.729Z",
-    "docsGeneratedAt": "2026-08-04T03:45:31.826Z"
+    "generatedAt": "2026-08-06T21:43:53.067Z",
+    "heroGeneratedAt": "2026-08-06T21:45:45.040Z",
+    "docsGeneratedAt": "2026-08-06T21:42:07.889Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-eastern-product-graphics": {
     "hash": "ec3cc4220fcf",
@@ -7670,9 +7957,26 @@
   "vernacular-ephemera-ekiben-wrapper-kiosk": {
     "hash": "1a5796f8c16a",
     "model": "gpt",
-    "generatedAt": "2026-07-21T03:57:18.586Z",
-    "heroGeneratedAt": "2026-07-21T04:01:44.054Z",
-    "docsGeneratedAt": "2026-08-04T03:42:39.140Z"
+    "generatedAt": "2026-08-06T21:42:21.538Z",
+    "heroGeneratedAt": "2026-08-06T21:44:01.639Z",
+    "docsGeneratedAt": "2026-08-06T21:45:43.700Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-enamel-street-plaque": {
     "hash": "40923101c18a",
@@ -7719,9 +8023,29 @@
   "vernacular-ephemera-jet-age-ticket-wallet": {
     "hash": "49a84562c50e",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:39:09.292Z",
-    "heroGeneratedAt": "2026-07-20T17:11:43.333Z",
-    "docsGeneratedAt": "2026-08-04T03:38:36.297Z"
+    "generatedAt": "2026-08-06T21:32:10.088Z",
+    "heroGeneratedAt": "2026-08-06T21:34:01.317Z",
+    "docsGeneratedAt": "2026-08-06T21:35:43.589Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-layered-sticker-accretion": {
     "hash": "6c6d8ba7ef8b",
@@ -7733,16 +8057,53 @@
   "vernacular-ephemera-library-due-date-card": {
     "hash": "67d38ca64155",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:40:26.065Z",
-    "heroGeneratedAt": "2026-07-21T03:11:54.038Z",
-    "docsGeneratedAt": "2026-08-04T03:38:52.961Z"
+    "generatedAt": "2026-08-06T21:33:22.202Z",
+    "heroGeneratedAt": "2026-08-06T21:35:01.871Z",
+    "docsGeneratedAt": "2026-08-06T21:36:42.258Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-loteria-tabla-night": {
     "hash": "40df848ca763",
     "model": "gpt",
-    "generatedAt": "2026-07-21T03:57:21.625Z",
-    "heroGeneratedAt": "2026-07-21T04:02:30.344Z",
-    "docsGeneratedAt": "2026-08-04T03:43:06.687Z"
+    "generatedAt": "2026-08-06T21:41:55.830Z",
+    "heroGeneratedAt": "2026-08-06T21:43:36.601Z",
+    "docsGeneratedAt": "2026-08-06T21:45:18.682Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-luzzu-prow-eye": {
     "hash": "ae943c667513",
@@ -7754,9 +8115,29 @@
   "vernacular-ephemera-matchbook-drawer": {
     "hash": "851e96a0930a",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:40:35.341Z",
-    "heroGeneratedAt": "2026-07-21T03:11:52.551Z",
-    "docsGeneratedAt": "2026-08-04T03:39:08.643Z"
+    "generatedAt": "2026-08-06T21:41:31.057Z",
+    "heroGeneratedAt": "2026-08-06T21:43:08.472Z",
+    "docsGeneratedAt": "2026-08-06T21:44:53.866Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-narrowboat-roses-castles": {
     "hash": "67d053c4298b",
@@ -7775,9 +8156,28 @@
   "vernacular-ephemera-racing-form-betting-slip": {
     "hash": "422395b9cb23",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:42:26.936Z",
-    "heroGeneratedAt": "2026-07-20T17:14:07.085Z",
-    "docsGeneratedAt": "2026-08-04T03:39:26.774Z"
+    "generatedAt": "2026-08-06T21:43:03.640Z",
+    "heroGeneratedAt": "2026-08-06T21:45:27.126Z",
+    "docsGeneratedAt": "2026-08-06T21:41:21.558Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-rationing-coupon-book": {
     "hash": "f26bb705aab6",
@@ -7796,16 +8196,54 @@
   "vernacular-ephemera-seed-packet-rack": {
     "hash": "5461262e266b",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:42:44.021Z",
-    "heroGeneratedAt": "2026-07-21T03:12:04.661Z",
-    "docsGeneratedAt": "2026-08-04T03:40:10.776Z"
+    "generatedAt": "2026-08-06T21:44:30.053Z",
+    "heroGeneratedAt": "2026-08-06T21:46:06.112Z",
+    "docsGeneratedAt": "2026-08-06T21:42:46.389Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-signboard-canyon-midnight": {
     "hash": "c9bf0f00aeef",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:42:47.416Z",
-    "heroGeneratedAt": "2026-07-21T03:12:08.658Z",
-    "docsGeneratedAt": "2026-08-04T03:40:22.472Z"
+    "generatedAt": "2026-08-06T21:44:16.954Z",
+    "heroGeneratedAt": "2026-08-06T21:46:02.425Z",
+    "docsGeneratedAt": "2026-08-06T21:42:23.546Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-socialist-kiosk-print": {
     "hash": "f7fe7f9d8d1e",
@@ -7817,23 +8255,75 @@
   "vernacular-ephemera-vhs-rental-wall": {
     "hash": "4068e0586ee7",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:44:30.186Z",
-    "heroGeneratedAt": "2026-07-20T17:16:12.557Z",
-    "docsGeneratedAt": "2026-08-04T03:40:55.064Z"
+    "generatedAt": "2026-08-06T21:42:44.020Z",
+    "heroGeneratedAt": "2026-08-06T21:44:30.095Z",
+    "docsGeneratedAt": "2026-08-06T21:46:13.942Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-well-traveled-passport": {
     "hash": "8c2835c91e3a",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:44:54.008Z",
-    "heroGeneratedAt": "2026-07-21T03:12:16.911Z",
-    "docsGeneratedAt": "2026-08-04T03:41:07.448Z"
+    "generatedAt": "2026-08-06T21:45:04.496Z",
+    "heroGeneratedAt": "2026-08-06T21:41:30.748Z",
+    "docsGeneratedAt": "2026-08-06T21:43:18.111Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-wildstyle-blackbook-page": {
     "hash": "a82abfefb8e0",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:26:47.496Z",
-    "generatedAt": "2026-07-25T00:55:44.997Z",
-    "docsGeneratedAt": "2026-08-04T03:44:55.192Z"
+    "heroGeneratedAt": "2026-08-06T21:44:19.310Z",
+    "generatedAt": "2026-08-06T21:42:40.112Z",
+    "docsGeneratedAt": "2026-08-06T21:46:07.325Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "vernacular-ephemera-worn-playing-card-deck": {
     "hash": "070266e5177e",
