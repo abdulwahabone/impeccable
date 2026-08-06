@@ -1195,11 +1195,23 @@ button kbd {
 }
 
 .worlds-card-pair figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xs);
+  min-height: 22px;
   margin-bottom: 4px;
   color: var(--ks-text-faint);
   font-size: 0.625rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+/* The pair is half the width of the lead, so its chips lose the padding rather
+   than the label, and stay the same shape as the lead's. */
+.worlds-card-pair figcaption .worlds-lead-variants button {
+  min-width: 24px;
+  padding: 3px 4px;
 }
 
 .worlds-card-pair a {

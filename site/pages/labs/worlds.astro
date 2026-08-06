@@ -609,24 +609,13 @@ const pageData = JSON.stringify({
       // throw landed here, and the pair below never rendered.
       if (cardStaleEl) cardStaleEl.hidden = !(lead === 'board' && card.stale);
 
-      // Variant chips only appear when there is a choice to make.
-      const variants = card.variants?.[lead] || [];
-      leadVariantsEl.replaceChildren(...(variants.length > 1 ? variants.map(entry => {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.textContent = entry.variant.toUpperCase();
-        button.className = entry.current ? 'is-current' : '';
-        button.title = entry.current ? 'The card everything else uses' : 'Make this the card everything else uses';
-        button.addEventListener('click', () => chooseVariant(concept.id, lead, entry.variant));
-        button.addEventListener('mouseenter', () => { leadImgEl.src = entry.src; });
-        button.addEventListener('mouseleave', () => { leadImgEl.src = card[KIND_SRC[lead]]; });
-        return button;
-      }) : []));
+      leadVariantsEl.replaceChildren(...variantChips(concept, card, lead, leadImgEl));
 
       cardPairEl.replaceChildren(...present.filter(kind => kind !== lead).map(kind => {
         const figure = document.createElement('figure');
         const caption = document.createElement('figcaption');
-        caption.textContent = KIND_LABEL[kind];
+        const name = document.createElement('span');
+        name.textContent = KIND_LABEL[kind];
         const link = document.createElement('a');
         link.href = card[KIND_SRC[kind]];
         link.target = '_blank';
@@ -637,9 +626,36 @@ const pageData = JSON.stringify({
         img.alt = `${KIND_LABEL[kind]} composed in the world of ${concept.form}`;
         img.loading = 'lazy';
         link.append(img);
+        // The pair needs its own chips or two thirds of the run is unpickable:
+        // the lead kind is fixed by mode, so without these the only way to
+        // choose a landing page was to review the world under another mode.
+        const chips = document.createElement('span');
+        chips.className = 'worlds-lead-variants';
+        chips.replaceChildren(...variantChips(concept, card, kind, img));
+        caption.append(name, chips);
         figure.append(caption, link);
         return figure;
       }));
+    }
+
+    // One builder for both the lead and the pair. Chips appear only where there
+    // is a choice to make; hovering previews in place and clicking commits.
+    function variantChips(concept, card, kind, imgEl) {
+      const variants = card.variants?.[kind] || [];
+      if (variants.length < 2) return [];
+      return variants.map(entry => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = entry.variant.toUpperCase();
+        button.className = entry.current ? 'is-current' : '';
+        button.title = entry.current
+          ? `The ${KIND_LABEL[kind].toLowerCase()} everything else uses`
+          : `Make this the ${KIND_LABEL[kind].toLowerCase()} everything else uses`;
+        button.addEventListener('click', () => chooseVariant(concept.id, kind, entry.variant));
+        button.addEventListener('mouseenter', () => { imgEl.src = entry.src; });
+        button.addEventListener('mouseleave', () => { imgEl.src = card[KIND_SRC[kind]]; });
+        return button;
+      });
     }
 
     async function chooseVariant(id, kind, variant) {
