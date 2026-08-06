@@ -362,13 +362,21 @@ const pageData = JSON.stringify({
                    reviewer is judging one thing at a time. Which one leads
                    follows the mode filter: a read world is judged on its
                    documentation page, an operate world on its component sheet. -->
-              <figure class="worlds-lead-card" data-lead-wrap>
+              <figure class="worlds-lead-card" data-lead-wrap hidden={!initialConcept.card?.heroSrc}>
                 <figcaption>
                   <span data-lead-label>Landing page</span>
                   <span class="worlds-lead-variants" data-lead-variants></span>
                 </figcaption>
-                <a data-lead-link target="_blank" rel="noopener">
-                  <img data-lead-img width="2048" height="1152" loading="lazy" decoding="async" alt="">
+                <a data-lead-link href={initialConcept.card?.heroSrc} target="_blank" rel="noopener">
+                  <img
+                    data-lead-img
+                    src={initialConcept.card?.heroSrc}
+                    alt={initialConcept.card?.heroSrc ? `Landing page composed in the world of ${initialConcept.form}` : ''}
+                    width="2048"
+                    height="1152"
+                    loading="lazy"
+                    decoding="async"
+                  >
                 </a>
               </figure>
               <div class="worlds-card-pair" data-card-pair></div>
