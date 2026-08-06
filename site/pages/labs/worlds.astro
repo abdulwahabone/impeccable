@@ -35,7 +35,19 @@ const cardFor = concept => {
   // page, so a world judged only on it is judged on how well it persuades.
   const docsLocal = fs.existsSync(path.join(CARD_DIR, `${concept.id}-docs.webp`));
   const docsGenerated = Date.parse(row?.docsGeneratedAt || 0) || 0;
+  // Variants and which of them is current. The winner already lives at the
+  // canonical filename, so the three sources below are the alternatives a
+  // reviewer chooses between rather than a separate set to keep in sync.
+  const variantsFor = kind => {
+    const suffix = { board: '', hero: '-hero', docs: '-docs' }[kind];
+    return (row?.variants?.[kind] || []).map(variant => ({
+      variant,
+      src: `${localExists ? '/worlds/cards' : PROD_CARDS_BASE}/${concept.id}${suffix}-${variant}.webp?v=${generated.toString(36)}`,
+      current: row?.[`${kind}Winner`] === variant,
+    }));
+  };
   return {
+    variants: { board: variantsFor('board'), hero: variantsFor('hero'), docs: variantsFor('docs') },
     docsSrc: (docsLocal || row?.docsGeneratedAt)
       ? `${docsLocal ? '/worlds/cards' : PROD_CARDS_BASE}/${concept.id}-docs.webp?v=${docsGenerated.toString(36)}`
       : null,
@@ -345,49 +357,21 @@ const pageData = JSON.stringify({
                 </div>
               </div>
             </div>
-            <div class="worlds-concept-evidence">
-              <p class="worlds-concept-ask">With the label covered, could you tell which world this is?</p>
-              <figure class="worlds-concept-card" data-concept-hero-wrap hidden={!initialConcept.card?.heroSrc}>
-                <a data-concept-hero-link href={initialConcept.card?.heroSrc} target="_blank" rel="noopener">
-                  <img
-                    data-concept-hero
-                    src={initialConcept.card?.heroSrc}
-                    alt={initialConcept.card?.heroSrc ? `Landing page composed in the world of ${initialConcept.form}` : ''}
-                    width="2048"
-                    height="1152"
-                    loading="lazy"
-                    decoding="async"
-                  >
+            <div class="worlds-concept-evidence" data-evidence>
+              <!-- One card leads and the other two sit under it, because a
+                   reviewer is judging one thing at a time. Which one leads
+                   follows the mode filter: a read world is judged on its
+                   documentation page, an operate world on its component sheet. -->
+              <figure class="worlds-lead-card" data-lead-wrap>
+                <figcaption>
+                  <span data-lead-label>Landing page</span>
+                  <span class="worlds-lead-variants" data-lead-variants></span>
+                </figcaption>
+                <a data-lead-link target="_blank" rel="noopener">
+                  <img data-lead-img width="2048" height="1152" loading="lazy" decoding="async" alt="">
                 </a>
               </figure>
-              <figure class="worlds-concept-card" data-concept-docs-wrap hidden={!initialConcept.card?.docsSrc}>
-                <figcaption class="worlds-concept-card-label">as a documentation page</figcaption>
-                <a data-concept-docs-link href={initialConcept.card?.docsSrc} target="_blank" rel="noopener">
-                  <img
-                    data-concept-docs
-                    src={initialConcept.card?.docsSrc}
-                    alt={initialConcept.card?.docsSrc ? `Documentation page composed in the world of ${initialConcept.form}` : ''}
-                    width="2048"
-                    height="1152"
-                    loading="lazy"
-                    decoding="async"
-                  >
-                </a>
-              </figure>
-              <figure class="worlds-concept-card" data-concept-card-wrap hidden={!initialConcept.card}>
-                <a data-concept-card-link href={initialConcept.card?.src} target="_blank" rel="noopener">
-                  <img
-                    data-concept-card
-                    src={initialConcept.card?.src}
-                    alt={initialConcept.card ? `Design-system translation of ${initialConcept.form}` : ''}
-                    width="2048"
-                    height="1152"
-                    loading="lazy"
-                    decoding="async"
-                  >
-                </a>
-                <figcaption data-concept-card-stale hidden={!initialConcept.card?.stale}>Card predates the latest edit of this concept</figcaption>
-              </figure>
+              <div class="worlds-card-pair" data-card-pair></div>
               <div class="worlds-system-contract">
                 <section>
                   <p>System grammar</p>
@@ -538,16 +522,103 @@ const pageData = JSON.stringify({
     const tagsEl = document.querySelector('[data-concept-tags]');
     const systemEl = document.querySelector('[data-concept-system]');
     const sparkEl = document.querySelector('[data-concept-spark]');
-    const cardWrapEl = document.querySelector('[data-concept-card-wrap]');
-    const cardImgEl = document.querySelector('[data-concept-card]');
-    const cardLinkEl = document.querySelector('[data-concept-card-link]');
+    const leadWrapEl = document.querySelector('[data-lead-wrap]');
+    const leadImgEl = document.querySelector('[data-lead-img]');
+    const leadLinkEl = document.querySelector('[data-lead-link]');
+    const leadLabelEl = document.querySelector('[data-lead-label]');
+    const leadVariantsEl = document.querySelector('[data-lead-variants]');
+    const cardPairEl = document.querySelector('[data-card-pair]');
     const cardStaleEl = document.querySelector('[data-concept-card-stale]');
-    const heroWrapEl = document.querySelector('[data-concept-hero-wrap]');
-    const heroImgEl = document.querySelector('[data-concept-hero]');
-    const heroLinkEl = document.querySelector('[data-concept-hero-link]');
-    const docsWrapEl = document.querySelector('[data-concept-docs-wrap]');
-    const docsImgEl = document.querySelector('[data-concept-docs]');
-    const docsLinkEl = document.querySelector('[data-concept-docs-link]');
+
+    // Which card leads follows the mode filter, because that is the surface the
+    // reviewer is judging the world for: a read world stands or falls on its
+    // documentation page, an operate world on its component sheet, and the rest
+    // on the landing page.
+    const LEAD_FOR_MODE = { read: 'docs', operate: 'board', persuade: 'hero', experience: 'hero' };
+    const KIND_LABEL = { board: 'Component sheet', hero: 'Landing page', docs: 'Documentation page' };
+    const KIND_SRC = { board: 'src', hero: 'heroSrc', docs: 'docsSrc' };
+    let leadOverride = null;
+
+    function renderEvidence(concept) {
+      const card = concept.card;
+      if (!card) {
+        leadWrapEl.hidden = true;
+        leadImgEl.removeAttribute('src');
+        cardPairEl.replaceChildren();
+        return;
+      }
+      const preferred = leadOverride || LEAD_FOR_MODE[state.mode] || 'hero';
+      const order = ['board', 'hero', 'docs'];
+      const present = order.filter(kind => card[KIND_SRC[kind]]);
+      const lead = present.includes(preferred) ? preferred : present[0];
+      if (!lead) {
+        leadWrapEl.hidden = true;
+        leadImgEl.removeAttribute('src');
+        cardPairEl.replaceChildren();
+        return;
+      }
+
+      leadWrapEl.hidden = false;
+      leadImgEl.src = card[KIND_SRC[lead]];
+      leadImgEl.alt = `${KIND_LABEL[lead]} composed in the world of ${concept.form}`;
+      leadLinkEl.href = card[KIND_SRC[lead]];
+      leadLabelEl.textContent = KIND_LABEL[lead];
+      cardStaleEl.hidden = !(lead === 'board' && card.stale);
+
+      // Variant chips only appear when there is a choice to make.
+      const variants = card.variants?.[lead] || [];
+      leadVariantsEl.replaceChildren(...(variants.length > 1 ? variants.map(entry => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = entry.variant.toUpperCase();
+        button.className = entry.current ? 'is-current' : '';
+        button.title = entry.current ? 'The card everything else uses' : 'Make this the card everything else uses';
+        button.addEventListener('click', () => chooseVariant(concept.id, lead, entry.variant));
+        button.addEventListener('mouseenter', () => { leadImgEl.src = entry.src; });
+        button.addEventListener('mouseleave', () => { leadImgEl.src = card[KIND_SRC[lead]]; });
+        return button;
+      }) : []));
+
+      cardPairEl.replaceChildren(...present.filter(kind => kind !== lead).map(kind => {
+        const figure = document.createElement('figure');
+        const caption = document.createElement('figcaption');
+        caption.textContent = KIND_LABEL[kind];
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.title = `Show the ${KIND_LABEL[kind].toLowerCase()} large`;
+        const img = document.createElement('img');
+        img.src = card[KIND_SRC[kind]];
+        img.alt = `${KIND_LABEL[kind]} composed in the world of ${concept.form}`;
+        img.loading = 'lazy';
+        button.append(img);
+        button.addEventListener('click', () => { leadOverride = kind; renderEvidence(concept); });
+        figure.append(caption, button);
+        return figure;
+      }));
+    }
+
+    async function chooseVariant(id, kind, variant) {
+      try {
+        const response = await fetch('/__impeccable/worlds', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ action: 'cardWinner', id, kind, variant }),
+        });
+        if (!response.ok) throw new Error(await response.text());
+        // The winner now sits at the canonical filename, so the cache buster has
+        // to move or the browser keeps showing the previous choice.
+        const concept = conceptMap.get(id);
+        const bust = `?v=${Date.now().toString(36)}`;
+        const base = concept.card[KIND_SRC[kind]].split('?')[0];
+        concept.card[KIND_SRC[kind]] = base + bust;
+        for (const entry of concept.card.variants[kind]) entry.current = entry.variant === variant;
+        renderEvidence(concept);
+      } catch (error) {
+        console.error('could not set the winner', error);
+      }
+    }
+
+
     const webLeverageEl = document.querySelector('[data-concept-web-leverage]');
     const avoidWrapEl = document.querySelector('[data-concept-avoid-wrap]');
     const avoidEl = document.querySelector('[data-concept-avoid]');
@@ -1010,15 +1081,9 @@ const pageData = JSON.stringify({
         webLeverageEl.textContent = '';
         avoidWrapEl.hidden = true;
         avoidEl.replaceChildren();
-        cardWrapEl.hidden = true;
-        cardImgEl.removeAttribute('src');
-        cardLinkEl.removeAttribute('href');
-        heroWrapEl.hidden = true;
-        heroImgEl.removeAttribute('src');
-        heroLinkEl.removeAttribute('href');
-        docsWrapEl.hidden = true;
-        docsImgEl.removeAttribute('src');
-        docsLinkEl.removeAttribute('href');
+        leadWrapEl.hidden = true;
+        leadImgEl.removeAttribute('src');
+        cardPairEl.replaceChildren();
         reviewNoteWrapEl.hidden = true;
         reviewNoteEl.textContent = '';
         decisionNoteInput.value = '';
@@ -1074,37 +1139,7 @@ const pageData = JSON.stringify({
         decisionNoteInput.value = reviewNote;
         notedConceptId = concept.id;
       }
-      if (concept.card) {
-        cardWrapEl.hidden = false;
-        cardImgEl.src = concept.card.src;
-        cardImgEl.alt = `Design-system translation of ${concept.form}`;
-        cardLinkEl.href = concept.card.src;
-        cardStaleEl.hidden = !concept.card.stale;
-      } else {
-        cardWrapEl.hidden = true;
-        cardImgEl.removeAttribute('src');
-        cardLinkEl.removeAttribute('href');
-      }
-      if (concept.card?.heroSrc) {
-        heroWrapEl.hidden = false;
-        heroImgEl.src = concept.card.heroSrc;
-        heroImgEl.alt = `Landing page composed in the world of ${concept.form}`;
-        heroLinkEl.href = concept.card.heroSrc;
-      } else {
-        heroWrapEl.hidden = true;
-        heroImgEl.removeAttribute('src');
-        heroLinkEl.removeAttribute('href');
-      }
-      if (concept.card?.docsSrc) {
-        docsWrapEl.hidden = false;
-        docsImgEl.src = concept.card.docsSrc;
-        docsImgEl.alt = `Documentation page composed in the world of ${concept.form}`;
-        docsLinkEl.href = concept.card.docsSrc;
-      } else {
-        docsWrapEl.hidden = true;
-        docsImgEl.removeAttribute('src');
-        docsLinkEl.removeAttribute('href');
-      }
+      renderEvidence(concept);
       positionEl.textContent = String(globalIndex + 1).padStart(3, '0');
       tagsEl.replaceChildren(...concept.tags.map(tag => {
         const span = document.createElement('span');

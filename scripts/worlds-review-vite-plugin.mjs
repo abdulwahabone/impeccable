@@ -1,4 +1,4 @@
-import { readFile, rename, writeFile } from 'node:fs/promises';
+import { copyFile, readFile, rename, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import {
   conceptContentHash,
@@ -311,6 +311,31 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       assertValidCatalog(catalog, reviewData);
       await writeJsonAtomic(reviewsPath, reviewData);
       return { id: body.id, status: body.status, review: reviewData.reviews[body.id] || null };
+    }
+
+    if (body.action === 'cardWinner') {
+      // Choosing which of a card's variants is the one everything else uses. The
+      // winner is copied over the canonical filename rather than pointed at, so
+      // R2, the roll API, the pro site and every existing reader keep working
+      // without knowing variants exist. The losing variants stay on disk, so
+      // changing a mind costs a copy rather than a regeneration.
+      const KINDS = { board: '', hero: '-hero', docs: '-docs' };
+      if (!(body.kind in KINDS)) throw new Error('kind must be board, hero, or docs');
+      if (!/^v[1-9]$/.test(body.variant || '')) throw new Error('variant must look like v1');
+      const cardsDir = path.join(root, 'site', 'public', 'worlds', 'cards');
+      const from = path.join(cardsDir, `${body.id}${KINDS[body.kind]}-${body.variant}.webp`);
+      const to = path.join(cardsDir, `${body.id}${KINDS[body.kind]}.webp`);
+      await copyFile(from, to);
+      const manifestPath = path.join(cardsDir, 'manifest.json');
+      const manifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+      manifest[body.id] = manifest[body.id] || {};
+      manifest[body.id][`${body.kind}Winner`] = body.variant;
+      // The canonical file just changed, so its stamp has to move or publish
+      // will skip it and R2 will keep serving the previous choice.
+      const STAMP = { board: 'generatedAt', hero: 'heroGeneratedAt', docs: 'docsGeneratedAt' };
+      manifest[body.id][STAMP[body.kind]] = new Date().toISOString();
+      await writeJsonAtomic(manifestPath, manifest, 1);
+      return { id: body.id, kind: body.kind, variant: body.variant };
     }
 
     if (body.action === 'strength') {

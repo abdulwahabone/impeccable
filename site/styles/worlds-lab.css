@@ -1041,6 +1041,142 @@ button kbd {
   color: var(--ks-text-faint);
 }
 
+/* One card leads at full width and the other two sit beneath it as a pair. The
+   three used to stack at equal size, which made a reviewer scroll past two
+   irrelevant renders to reach the one the mode filter says they are judging. */
+/* System grammar, web leverage and avoids were three sections at three sizes in
+   three treatments, which made a reader work out the hierarchy each time. One
+   label style, one body size, one rhythm; the content differs, the frame does
+   not. */
+.worlds-system-contract > section > p {
+  margin: 0 0 6px;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1.2 var(--ks-mono);
+  letter-spacing: var(--ks-type-eyebrow-track);
+  text-transform: uppercase;
+}
+
+.worlds-system-contract > section {
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--ks-rule);
+}
+
+.worlds-system-contract > section:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.worlds-system-contract ol,
+.worlds-system-contract ul,
+.worlds-system-contract strong {
+  display: block;
+  margin: 0;
+  color: var(--ks-text);
+  font-size: var(--ks-type-mono-size);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.worlds-system-contract ol {
+  padding-left: 1.2em;
+}
+
+.worlds-system-contract ol li {
+  margin-bottom: 5px;
+}
+
+.worlds-lead-card {
+  margin: 0;
+  border: 1px solid var(--ks-rule);
+  background: var(--ks-lacquer-raised);
+}
+
+.worlds-lead-card figcaption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs);
+  border-bottom: 1px solid var(--ks-rule);
+  color: var(--ks-text-faint);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.worlds-lead-card img,
+.worlds-card-pair img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+}
+
+/* Variant chips appear only when there is a choice. Hovering previews, clicking
+   commits, and the current one is marked because the winner is what every other
+   surface already uses. */
+.worlds-lead-variants {
+  display: flex;
+  gap: 3px;
+}
+
+.worlds-lead-variants button {
+  min-width: 30px;
+  padding: 3px 7px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ks-text-faint);
+  font: 500 0.625rem/1 var(--ks-mono);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+
+.worlds-lead-variants button:hover {
+  border-color: var(--ks-kinpaku);
+  color: var(--ks-champagne);
+}
+
+.worlds-lead-variants button.is-current {
+  border-color: var(--ks-kinpaku);
+  background: color-mix(in oklch, var(--ks-kinpaku), transparent 82%);
+  color: var(--ks-champagne);
+}
+
+.worlds-card-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.worlds-card-pair figure {
+  margin: 0;
+}
+
+.worlds-card-pair figcaption {
+  margin-bottom: 4px;
+  color: var(--ks-text-faint);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.worlds-card-pair button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid var(--ks-rule);
+  background: var(--ks-lacquer-raised);
+  cursor: pointer;
+}
+
+.worlds-card-pair button:hover {
+  border-color: var(--ks-kinpaku);
+}
+
 .worlds-concept-card-label {
   padding: var(--spacing-xs);
   border-bottom: 1px solid var(--ks-rule);
