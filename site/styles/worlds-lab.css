@@ -549,6 +549,8 @@
   min-height: 0;
   overflow: auto;
   flex: 1 1 auto;
+  /* Matches the grid it swaps with, so the rail does not shift width on V. */
+  scrollbar-width: thin;
   scrollbar-color: var(--ks-graphite-2) transparent;
 }
 
@@ -2017,7 +2019,14 @@ button kbd {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
-  padding: 10px;
+  /* Side padding is light because the reserved gutters already stand the cards
+     off both edges; 10px on top of them would waste a fifth of the rail. */
+  padding: 10px 5px;
+  /* A classic scrollbar sits outside the padding box, so 10px of padding reads
+     as 10 on the left and 25 on the right. both-edges reserves the same gutter
+     on each side, and thin keeps what it reserves down to a few pixels. */
+  scrollbar-gutter: stable both-edges;
+  scrollbar-width: thin;
   scrollbar-color: var(--ks-graphite-2) transparent;
 }
 
@@ -2039,7 +2048,7 @@ button kbd {
      boxes are still laid out and painted, so skip the ones nobody can see.
      The intrinsic size holds the scrollbar steady while they are skipped. */
   content-visibility: auto;
-  contain-intrinsic-size: auto 138px;
+  contain-intrinsic-size: auto 115px;
   padding: 0;
   border: 1px solid var(--ks-rule);
   border-radius: 8px;
@@ -2059,6 +2068,7 @@ button kbd {
 }
 
 .worlds-card-thumb {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2090,15 +2100,34 @@ button kbd {
   line-height: 1.3;
 }
 
-.worlds-card-meta {
-  padding: 0 7px 7px;
-  color: var(--ks-text-faint);
-  font: 500 9px/1.4 var(--ks-mono);
-  text-transform: uppercase;
+/* Verdict and rating, worn on the picture. A dot carries the status by colour
+   and the stars sit beside it when there are any, so an unrated approval and a
+   rejection still read apart at a glance without costing the card a line. */
+.worlds-card-mark {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 5px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--ks-lacquer), transparent 15%);
+  color: var(--ks-champagne);
+  font: 500 8px/1 var(--ks-mono);
+  letter-spacing: 0.06em;
 }
 
-.worlds-card-meta[data-status="approved"] { color: var(--ks-patina); }
-.worlds-card-meta[data-status="rejected"] { color: var(--ks-text-mute-deep); }
+.worlds-card-mark::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.worlds-card-mark[data-status="approved"] { color: var(--ks-patina); }
+.worlds-card-mark[data-status="rejected"] { color: var(--ks-text-mute-deep); }
 
 /* Coverage view. A read-only map of where the catalog is crowded and where it is
    open, so a wave has a target before it has content. Tables rather than charts:

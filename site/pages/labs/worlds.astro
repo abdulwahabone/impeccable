@@ -963,18 +963,29 @@ const pageData = JSON.stringify({
           figure.classList.add('is-unrendered');
           figure.textContent = 'no card';
         }
+        // Status and rating ride on the picture rather than taking a line of
+        // their own: at two columns that line was a third of the card's height
+        // to say what a dot can. The mode subset comes off entirely, because a
+        // list of mode names is read, not scanned, and the stage carries it.
+        const rating = Number(concept.review?.rating) || 0;
+        const mark = document.createElement('span');
+        mark.className = 'worlds-card-mark';
+        mark.dataset.status = concept.status;
+        mark.textContent = rating ? '\u2605'.repeat(rating) : '';
+        figure.append(mark);
+
         const label = document.createElement('span');
         label.className = 'worlds-card-label';
         label.textContent = concept.form.split(',')[0];
-        const meta = document.createElement('span');
-        meta.className = 'worlds-card-meta';
-        meta.dataset.status = concept.status;
-        const rating = concept.review?.rating ? '\u2605'.repeat(concept.review.rating) : '';
+
+        // Everything the card stopped showing is still one hover away.
         const scoped = Array.isArray(concept.review?.allowedModes) && concept.review.allowedModes.length > 0
-          ? concept.review.allowedModes.join(' ')
+          ? concept.review.allowedModes.join(', ')
           : '';
-        meta.textContent = [concept.status, rating, scoped].filter(Boolean).join('  ');
-        button.append(figure, label, meta);
+        button.title = [concept.form.split(',')[0], concept.status, rating ? `${rating} star` : '', scoped]
+          .filter(Boolean).join(' \u00b7 ');
+
+        button.append(figure, label);
         return button;
       }));
       keepCurrentCardInSight();
