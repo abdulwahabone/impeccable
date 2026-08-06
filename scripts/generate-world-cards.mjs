@@ -41,7 +41,7 @@ import { mkdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
-import { buildDocsPrompt, buildHeroPrompt, buildPrompt } from './lib/card-prompts.mjs';
+import { buildDocsPrompt, buildHeroPrompt, buildPrompt, VARIANT_CONTEXTS } from './lib/card-prompts.mjs';
 import { conceptContentHash, readConceptCatalog } from '../skill/scripts/lib/concept-catalog.mjs';
 import { compositionContentHash, readCompositionCatalog } from '../skill/scripts/lib/composition-catalog.mjs';
 
@@ -118,16 +118,17 @@ This must read as interactive, dynamic, fully realized web design that raises th
 ${copy} Never transcribe these instructions onto the image. The viewer should gasp at the design first, then understand the mechanism from what the frame implies.`;
 }
 
-function promptFor(concept, kind) {
+function promptFor(concept, kind, variant) {
   if (kind === 'composition') return buildCompositionPrompt(concept);
-  if (kind === 'docs') return buildDocsPrompt(concept);
-  return kind === 'hero' ? buildHeroPrompt(concept) : buildPrompt(concept);
+  const context = VARIANT_CONTEXTS[variant] || '';
+  if (kind === 'docs') return buildDocsPrompt(concept) + context;
+  return (kind === 'hero' ? buildHeroPrompt(concept) : buildPrompt(concept)) + context;
 }
 
-async function generateGemini(ai, model, concept, kind) {
+async function generateGemini(ai, model, concept, kind, variant) {
   const interaction = await ai.interactions.create({
     model: model.id,
-    input: promptFor(concept, kind),
+    input: promptFor(concept, kind, variant),
     generation_config: {
       temperature: 1,
       top_p: 0.95,
@@ -143,7 +144,7 @@ async function generateGemini(ai, model, concept, kind) {
 // binding style reference (the board/hero pair must read as one system).
 let BOARD_REFERENCE_DIR = null;
 
-async function generateOpenAI(model, concept, kind) {
+async function generateOpenAI(model, concept, kind, variant) {
   // Heroes are generated from the specimen board when it exists: the edits
   // endpoint takes the board as reference so both images share one system.
   if ((kind === 'hero' || kind === 'docs') && BOARD_REFERENCE_DIR) {
@@ -153,7 +154,7 @@ async function generateOpenAI(model, concept, kind) {
         const form = new FormData();
         form.append('model', model.id);
         form.append('image[]', new Blob([readFileSync(boardPath)], { type: 'image/webp' }), `${concept.id}.webp`);
-        form.append('prompt', `The attached image is this world's design-system specimen board. Treat its palette, materials, type voices, and component grammar as binding reference; the page you render must read as the same system. ${promptFor(concept, kind)}`);
+        form.append('prompt', `The attached image is this world's design-system specimen board. Treat its palette, materials, type voices, and component grammar as binding reference; the page you render must read as the same system. ${promptFor(concept, kind, variant)}`);
         form.append('size', model.size);
         form.append('quality', model.quality);
         const response = await fetch('https://api.openai.com/v1/images/edits', {
@@ -178,7 +179,7 @@ async function generateOpenAI(model, concept, kind) {
     },
     body: JSON.stringify({
       model: model.id,
-      prompt: promptFor(concept, kind),
+      prompt: promptFor(concept, kind, variant),
       size: model.size,
       quality: model.quality,
     }),
@@ -189,13 +190,13 @@ async function generateOpenAI(model, concept, kind) {
   return b64 ? Buffer.from(b64, 'base64') : null;
 }
 
-async function generateCard(ai, model, concept, kind) {
+async function generateCard(ai, model, concept, kind, variant) {
   let lastError;
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt += 1) {
     try {
       const raw = model.kind === 'openai'
-        ? await generateOpenAI(model, concept, kind)
-        : await generateGemini(ai, model, concept, kind);
+        ? await generateOpenAI(model, concept, kind, variant)
+        : await generateGemini(ai, model, concept, kind, variant);
       if (!raw) throw new Error('no image part in response');
       const webp = await sharp(raw).webp({ quality: 90 }).toBuffer();
       // A moderated request can come back as a valid, correctly sized, entirely
@@ -227,6 +228,10 @@ async function main() {
   const only = args.includes('--only') ? args[args.indexOf('--only') + 1].split(',').filter(Boolean) : null;
   const limit = args.includes('--limit') ? Number(args[args.indexOf('--limit') + 1]) : Infinity;
   const force = args.includes('--force');
+  // How many differently-contexted takes of each kind. One keeps the old
+  // behaviour exactly; three is what a review round wants.
+  const variantCount = args.includes('--variants') ? Number(args[args.indexOf('--variants') + 1]) : 1;
+  const variantIds = ['v1', 'v2', 'v3'].slice(0, Math.max(1, Math.min(3, variantCount)));
   const kindArg = args.includes('--kind') ? args[args.indexOf('--kind') + 1] : 'both';
   if (!['board', 'hero', 'docs', 'both', 'all', 'composition'].includes(kindArg)) throw new Error(`unknown --kind ${kindArg}; use board, hero, docs, both, all, composition`);
   const kinds = kindArg === 'both' ? ['board', 'hero'] : kindArg === 'all' ? ['board', 'hero', 'docs'] : [kindArg];
@@ -258,9 +263,15 @@ async function main() {
   );
 
   const SUFFIX = { hero: '-hero', docs: '-docs' };
+  // The winner keeps the canonical filename, so R2, the roll API, the pro site
+  // and every existing reader carry on unchanged. Variants sit beside it and
+  // choosing a different one is a copy plus a manifest note.
   const fileFor = (concept, kind) => join(outDir, `${concept.id}${SUFFIX[kind] || ''}.webp`);
+  const variantFileFor = (concept, kind, variant) =>
+    join(outDir, `${concept.id}${SUFFIX[kind] || ''}-${variant}.webp`);
   const STAMP = { hero: 'heroGeneratedAt', docs: 'docsGeneratedAt' };
   const stampKey = kind => STAMP[kind] || 'generatedAt';
+  const winnerKey = kind => `${kind}Winner`;
   // One queue entry per concept, holding its jobs in kind order, because the
   // hero takes the board off disk as binding style reference. Queuing board and
   // hero as independent jobs lets a worker start the hero first: on a new
@@ -276,13 +287,16 @@ async function main() {
     const row = manifest[concept.id];
     const jobs = [];
     for (const kind of kinds) {
-      const needed = force
-        || !existsSync(fileFor(concept, kind))
-        || row?.hash !== hash
-        || !row?.[stampKey(kind)];
-      if ((needed || only) && queued < limit) {
-        jobs.push({ concept, kind });
-        queued += 1;
+      for (const variant of variantIds) {
+        const target = variantIds.length === 1 ? fileFor(concept, kind) : variantFileFor(concept, kind, variant);
+        const needed = force
+          || !existsSync(target)
+          || row?.hash !== hash
+          || !row?.[stampKey(kind)];
+        if ((needed || only) && queued < limit) {
+          jobs.push({ concept, kind, variant });
+          queued += 1;
+        }
       }
     }
     if (jobs.length > 0) queue.push(jobs);
@@ -300,18 +314,29 @@ async function main() {
   const worker = async () => {
     while (queue.length > 0) {
       const jobs = queue.shift();
-      for (const { concept, kind } of jobs) {
+      for (const { concept, kind, variant } of jobs) {
         try {
-          const webp = await generateCard(ai, model, concept, kind);
-          writeFileSync(fileFor(concept, kind), webp);
+          const webp = await generateCard(ai, model, concept, kind, variant);
+          const single = variantIds.length === 1;
+          writeFileSync(single ? fileFor(concept, kind) : variantFileFor(concept, kind, variant), webp);
           const row = manifest[concept.id] || {};
           row.hash = hashOf(concept);
           row.model = modelKey;
           row[stampKey(kind)] = new Date().toISOString();
+          if (!single) {
+            row.variants = row.variants || {};
+            row.variants[kind] = [...new Set([...(row.variants[kind] || []), variant])].sort();
+            // v1 is the provisional winner so the canonical filename is never
+            // missing; a reviewer's choice overwrites it.
+            if (!row[winnerKey(kind)]) {
+              row[winnerKey(kind)] = variant;
+              writeFileSync(fileFor(concept, kind), webp);
+            }
+          }
           manifest[concept.id] = row;
           writeManifest();
           done += 1;
-          process.stdout.write(`  [${done}] ${concept.id} ${kind} (${Math.round(webp.length / 1024)}KB)\n`);
+          process.stdout.write(`  [${done}] ${concept.id} ${kind}${variant && variantIds.length > 1 ? ' ' + variant : ''} (${Math.round(webp.length / 1024)}KB)\n`);
         } catch (error) {
           failed += 1;
           process.stderr.write(`  FAILED ${concept.id} ${kind}: ${error.message}\n`);

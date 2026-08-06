@@ -75,23 +75,26 @@
   text-decoration: none;
 }
 
+/* The brand reads as a kicker over the catalog name rather than competing with
+   it: this page is the world catalog, and Impeccable is where it lives. */
 .worlds-home-link .ks-mark {
-  width: 30px;
-  height: 30px;
+  width: 22px;
+  height: 22px;
 }
 
 .worlds-home-link .ks-mark svg {
-  width: 26px;
-  height: 26px;
+  width: 19px;
+  height: 19px;
 }
 
 .worlds-home-link .ks-wordmark {
-  font-size: var(--ks-type-wordmark-size);
-  letter-spacing: 0.16em;
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  color: var(--ks-text-faint);
 }
 
 .worlds-title-lockup {
-  margin-top: var(--spacing-md);
+  margin-top: var(--spacing-xs);
 }
 
 .worlds-title-lockup p,
@@ -205,12 +208,22 @@
   cursor: pointer;
 }
 
-.worlds-status-grid button:nth-child(2n) {
+/* Every cell rules its own right and bottom edge, so a row of one and a row of
+   two are both closed. The previous version ruled only the first two buttons,
+   which left the third row open and the full-width cell floating. */
+.worlds-status-grid button {
+  border-right: 1px solid var(--ks-rule);
+  border-bottom: 1px solid var(--ks-rule);
+}
+
+.worlds-status-grid button:nth-child(2n),
+.worlds-status-grid button:last-child:nth-child(odd) {
   border-right: 0;
 }
 
-.worlds-status-grid button:nth-child(-n + 2) {
-  border-bottom: 1px solid var(--ks-rule);
+.worlds-status-grid button:last-child,
+.worlds-status-grid button:nth-last-child(2):nth-child(odd) {
+  border-bottom: 0;
 }
 
 .worlds-status-grid button span {
@@ -305,8 +318,7 @@
 .worlds-family-search {
   display: block;
   flex: 0 0 auto;
-  padding: var(--spacing-sm);
-  border-bottom: 1px solid var(--ks-rule);
+  padding: var(--spacing-sm) var(--spacing-sm) var(--spacing-xs);
 }
 
 .worlds-family-search span {
@@ -610,8 +622,12 @@
   line-height: var(--ks-type-body-line);
 }
 
+/* The footer is a count and two steppers. It was taking 50px of a rail whose
+   whole job is the queue above it, with two 44px boxed buttons for a keyboard
+   shortcut the label already teaches. Quieter and half the height; the hit area
+   stays large enough to click. */
 .worlds-queue-foot {
-  min-height: 50px;
+  min-height: 34px;
   border-top: 1px solid var(--ks-rule);
   border-bottom: 0;
   color: var(--ks-text-faint);
@@ -621,7 +637,7 @@
 
 .worlds-queue-foot div {
   display: flex;
-  gap: 4px;
+  gap: 2px;
 }
 
 .worlds-queue-foot button {
@@ -629,14 +645,19 @@
   align-items: center;
   justify-content: center;
   gap: 4px;
-  min-width: 44px;
-  height: 44px;
-  padding: 0 8px;
-  border: 1px solid var(--ks-rule);
-  border-radius: 3px;
-  background: var(--ks-graphite);
-  color: var(--ks-text);
+  min-width: 30px;
+  height: 30px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ks-text-muted);
   cursor: pointer;
+}
+
+.worlds-queue-foot button:hover:not(:disabled) {
+  background: var(--ks-graphite);
+  color: var(--ks-champagne);
 }
 
 .worlds-queue-foot button:disabled {

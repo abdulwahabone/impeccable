@@ -100,3 +100,21 @@ Board sections, left to right:
 The board ground and dividers take their tone from the world's palette. Precise, crisp, flat graphic rendering like a printed specimen sheet; not a photograph or illustration of the world itself, only the interface system it yields. The only text on the board is the title, short section labels, and brief invented specimen words; never transcribe any sentence from these instructions onto the board.`;
 }
 
+// Three variants per card, each given a different invented context so the set is
+// genuinely varied rather than three renders of one idea. The reviewer picks a
+// winner and the others are kept, both so a choice can be revisited and because
+// a later version of impeccable may offer all three as starting points.
+//
+// The seeds steer only the SUBJECT. Every visual law still comes from the world,
+// which is the point: three unrelated products in one identity prove the world
+// travels, where three renders of the same product only prove the renderer is
+// consistent.
+export const VARIANT_CONTEXTS = {
+  v1: '',
+  v2: `
+
+For this variant, invent a product from a DIFFERENT domain than the obvious one for this world. If the world suggests something cultural, make it practical; if it suggests something technical, make it domestic. The visual system does not change at all, only what is being sold.`,
+  v3: `
+
+For this variant, invent a product unlike either an obvious choice or a merely adjacent one: a service, a piece of hardware, a place, an institution, or a tool, whichever this world has not yet been asked to dress. Choose a different audience too. Every visual law stays exactly as specified; only the subject and its copy change.`,
+};
