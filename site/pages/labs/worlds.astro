@@ -269,6 +269,15 @@ const pageData = JSON.stringify({
             </div>
           </header>
           <div class="worlds-queue-list" data-queue-list></div>
+          <!-- The grid is a second presentation of this same rail, so it lives
+               inside it and swaps with the list. It used to sit in the stage,
+               where choosing it replaced the world under review with a wall of
+               five hundred thumbnails: the control said "how the queue is
+               shown" and then changed what the page was about. -->
+          <div class="worlds-card-grid" data-card-grid hidden>
+            <p class="worlds-card-grid-empty" data-card-grid-empty hidden>No concepts match.</p>
+            <div class="worlds-card-grid-items" data-card-grid-items></div>
+          </div>
           <footer class="worlds-queue-foot">
             <span data-window-label>Loading catalog…</span>
             <div>
@@ -351,11 +360,6 @@ const pageData = JSON.stringify({
           </header>
 
           <div class="worlds-coverage" data-coverage hidden></div>
-
-          <div class="worlds-card-grid" data-card-grid hidden>
-            <p class="worlds-card-grid-empty" data-card-grid-empty hidden>No concepts match.</p>
-            <div class="worlds-card-grid-items" data-card-grid-items></div>
-          </div>
 
           <div class="worlds-concept-body">
             <div class="worlds-concept-copy">
@@ -905,13 +909,15 @@ const pageData = JSON.stringify({
     let cardSignature = null;
     function renderCardGrid() {
       const showing = state.view === 'cards';
+      // List and grid are two ways of drawing the queue, so they swap with each
+      // other inside the rail. The stage is unaffected: whichever concept is
+      // current stays under review, and its verdict controls stay live, because
+      // picking a thumbnail is the same act as picking a row.
       cardGrid.hidden = !showing;
-      conceptBody.hidden = state.view !== 'detail';
-      // Every verdict control acts on the current concept, not on the grid, so
-      // showing them beside a wall of cards invites judging the wrong entry.
-      // Finding happens here; deciding happens on the detail stage.
-      reviewControls.hidden = state.view !== 'detail';
-      reviewActions.hidden = state.view !== 'detail';
+      queueList.hidden = showing;
+      conceptBody.hidden = state.view === 'coverage';
+      reviewControls.hidden = state.view === 'coverage';
+      reviewActions.hidden = state.view === 'coverage';
       for (const item of document.querySelectorAll('[data-view]')) {
         // The toolbar's Review covers both queue presentations, because a
         // contact sheet is still reviewing; only Coverage is a different place.
@@ -926,7 +932,16 @@ const pageData = JSON.stringify({
       // keystroke of the search box stutters badly.
       const signature = rows.length + ':' + (rows[0]?.id || '') + ':' + (rows[rows.length - 1]?.id || '');
       cardGridEmpty.hidden = rows.length > 0;
-      if (signature === cardSignature) return;
+      if (signature === cardSignature) {
+        // The set is unchanged but the selection may not be, and the grid now
+        // stays up while concepts are picked through it. Move the marker without
+        // rebuilding five hundred images to do it.
+        for (const card of cardGridItems.children) {
+          card.setAttribute('aria-current', String(card.dataset.cardId === state.currentId));
+        }
+        keepCurrentCardInSight();
+        return;
+      }
       cardSignature = signature;
       cardGridItems.replaceChildren(...rows.map(concept => {
         const button = document.createElement('button');
@@ -962,6 +977,13 @@ const pageData = JSON.stringify({
         button.append(figure, label, meta);
         return button;
       }));
+      keepCurrentCardInSight();
+    }
+
+    // J/K walk the queue in either presentation, and the grid is the taller of
+    // the two, so the current card can leave the viewport without this.
+    function keepCurrentCardInSight() {
+      cardGridItems.querySelector('[aria-current="true"]')?.scrollIntoView({ block: 'nearest' });
     }
 
     function showToast(message, kind = 'success') {
@@ -1586,8 +1608,10 @@ const pageData = JSON.stringify({
     cardGridItems.addEventListener('click', event => {
       const card = event.target.closest('[data-card-id]');
       if (!card) return;
+      // Stay in the grid. Clicking a thumbnail loads it on the stage beside the
+      // grid, so a run of thumbnails can be judged without the view flipping
+      // back and losing your place in five hundred of them.
       state.currentId = card.dataset.cardId;
-      state.view = 'detail';
       render();
     });
     document.querySelectorAll('[data-mode-filter]').forEach(button => {
@@ -1728,6 +1752,11 @@ const pageData = JSON.stringify({
       } else if (event.altKey && event.key.toLowerCase() === 'z') {
         event.preventDefault();
         undoLastReview();
+      } else if (event.key.toLowerCase() === 'v' && !event.altKey && !event.metaKey && !event.ctrlKey) {
+        // Both queue buttons have advertised this in their title and their
+        // aria-keyshortcuts since they were added, and nothing was listening.
+        state.view = state.view === 'cards' ? 'detail' : 'cards';
+        render();
       } else if (event.key.toLowerCase() === 'e') {
         openEditor();
       } else if (['1', '2', '3'].includes(event.key) && !event.altKey && !event.metaKey && !event.ctrlKey) {

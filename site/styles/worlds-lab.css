@@ -2009,17 +2009,22 @@ button kbd {
   color: var(--ks-patina);
 }
 
+/* The contact sheet is the queue rail drawn as thumbnails, not a page of its
+   own, so it is sized for the rail's width and swaps with the list in place.
+   Two columns at the rail's 292px: wide enough that a world is recognisable
+   from its card, narrow enough that the stage keeps the room. */
 .worlds-card-grid {
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
-  padding: var(--spacing-md);
+  padding: 10px;
+  scrollbar-color: var(--ks-graphite-2) transparent;
 }
 
 .worlds-card-grid-items {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-  gap: var(--spacing-md);
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 8px;
 }
 
 .worlds-card-grid-empty {
@@ -2030,6 +2035,11 @@ button kbd {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  /* 562 cards of full-size art. Lazy loading keeps the fetches down but the
+     boxes are still laid out and painted, so skip the ones nobody can see.
+     The intrinsic size holds the scrollbar steady while they are skipped. */
+  content-visibility: auto;
+  contain-intrinsic-size: auto 138px;
   padding: 0;
   border: 1px solid var(--ks-rule);
   border-radius: 8px;
@@ -2065,17 +2075,25 @@ button kbd {
   object-fit: cover;
 }
 
+/* At this width the form line cannot be read in full, and letting it run to
+   eight lines makes the cards ragged and the sheet unscannable. Two lines names
+   the world; the stage carries the rest the moment one is picked. */
 .worlds-card-label {
-  padding: 0 10px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  padding: 0 7px;
   color: var(--ks-text-muted);
-  font-size: var(--ks-type-mono-size);
-  line-height: 1.35;
+  font-size: 11px;
+  line-height: 1.3;
 }
 
 .worlds-card-meta {
-  padding: 0 10px 10px;
+  padding: 0 7px 7px;
   color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1.4 var(--ks-mono);
+  font: 500 9px/1.4 var(--ks-mono);
   text-transform: uppercase;
 }
 
