@@ -371,6 +371,7 @@ const pageData = JSON.stringify({
               <figure class="worlds-lead-card" data-lead-wrap hidden={!initialConcept.card?.heroSrc}>
                 <figcaption>
                   <span data-lead-label>Landing page</span>
+                  <span class="worlds-card-stale" data-concept-card-stale hidden>stale</span>
                   <span class="worlds-lead-variants" data-lead-variants></span>
                 </figcaption>
                 <a data-lead-link href={initialConcept.card?.heroSrc} target="_blank" rel="noopener">
@@ -577,7 +578,10 @@ const pageData = JSON.stringify({
       leadImgEl.alt = `${KIND_LABEL[lead]} composed in the world of ${concept.form}`;
       leadLinkEl.href = card[KIND_SRC[lead]];
       leadLabelEl.textContent = KIND_LABEL[lead];
-      cardStaleEl.hidden = !(lead === 'board' && card.stale);
+      // Guarded because this element has been deleted once already, and losing
+      // it silently killed the rest of the panel: the lead image was set, the
+      // throw landed here, and the pair below never rendered.
+      if (cardStaleEl) cardStaleEl.hidden = !(lead === 'board' && card.stale);
 
       // Variant chips only appear when there is a choice to make.
       const variants = card.variants?.[lead] || [];

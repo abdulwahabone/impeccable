@@ -584,9 +584,29 @@
   "crouwel-grid-specimen": {
     "hash": "60a8b308e161",
     "model": "gpt",
-    "generatedAt": "2026-07-21T20:35:05.442Z",
-    "heroGeneratedAt": "2026-07-21T20:35:22.730Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T20:26:28.146Z",
+    "heroGeneratedAt": "2026-08-06T20:28:23.629Z",
+    "docsGeneratedAt": "2026-08-06T20:30:10.972Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "cyworld-minihompy-room": {
     "hash": "04a45715b9d5",
@@ -840,30 +860,110 @@
   "design-canon-alhambra-zellige-court": {
     "hash": "f5cccab6ee64",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:34:41.883Z",
-    "heroGeneratedAt": "2026-07-20T16:59:59.538Z",
-    "docsGeneratedAt": "2026-08-04T02:55:36.140Z"
+    "generatedAt": "2026-08-06T20:26:19.009Z",
+    "heroGeneratedAt": "2026-08-06T20:28:07.668Z",
+    "docsGeneratedAt": "2026-08-06T20:29:59.953Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-art-nouveau-metro-threshold": {
     "hash": "c9d127b251b5",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:24:18.154Z",
-    "heroGeneratedAt": "2026-07-20T16:50:20.057Z",
-    "docsGeneratedAt": "2026-08-04T02:46:49.042Z"
+    "generatedAt": "2026-08-06T19:56:26.359Z",
+    "heroGeneratedAt": "2026-08-06T19:58:13.512Z",
+    "docsGeneratedAt": "2026-08-06T19:59:56.501Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-bauhaus-foundation-workshop": {
     "hash": "a73dc2846c6b",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:25:32.193Z",
-    "heroGeneratedAt": "2026-07-20T16:50:14.452Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:55:06.408Z",
+    "heroGeneratedAt": "2026-08-06T19:56:36.281Z",
+    "docsGeneratedAt": "2026-08-06T19:58:15.061Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-blast-manifesto-page": {
     "hash": "be7bd1344481",
     "model": "gpt",
-    "generatedAt": "2026-07-25T00:39:44.464Z",
-    "docsGeneratedAt": "2026-08-04T02:57:32.047Z",
-    "heroGeneratedAt": "2026-08-05T23:05:11.831Z"
+    "generatedAt": "2026-08-06T20:26:42.851Z",
+    "docsGeneratedAt": "2026-08-06T20:30:15.286Z",
+    "heroGeneratedAt": "2026-08-06T20:28:24.610Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-braun-calibration-bench": {
     "hash": "7453eccbdb22",
@@ -875,16 +975,56 @@
   "design-canon-breton-ornament-program": {
     "hash": "196d0ae46697",
     "model": "gpt",
-    "generatedAt": "2026-07-25T02:01:05.363Z",
-    "heroGeneratedAt": "2026-07-25T02:01:10.769Z",
-    "docsGeneratedAt": "2026-08-04T03:02:04.282Z"
+    "generatedAt": "2026-08-06T20:29:46.084Z",
+    "heroGeneratedAt": "2026-08-06T20:31:28.267Z",
+    "docsGeneratedAt": "2026-08-06T20:33:11.632Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-brutalist-conservatory-terrace": {
     "hash": "67490b9a50cf",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:25:56.108Z",
-    "heroGeneratedAt": "2026-07-21T03:09:55.949Z",
-    "docsGeneratedAt": "2026-08-04T02:48:07.554Z"
+    "generatedAt": "2026-08-06T19:56:01.877Z",
+    "heroGeneratedAt": "2026-08-06T19:57:48.249Z",
+    "docsGeneratedAt": "2026-08-06T19:59:30.748Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-bwa-plank-mask-registers": {
     "hash": "11d3bd575e72",
@@ -896,16 +1036,56 @@
   "design-canon-constructivist-agit-train": {
     "hash": "32d737308578",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:25:56.657Z",
-    "heroGeneratedAt": "2026-07-20T16:51:23.481Z",
-    "docsGeneratedAt": "2026-08-04T02:48:24.280Z"
+    "generatedAt": "2026-08-06T19:57:54.059Z",
+    "heroGeneratedAt": "2026-08-06T19:59:43.077Z",
+    "docsGeneratedAt": "2026-08-06T20:01:32.729Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-creator-hardware-bench": {
     "hash": "05b73d84a82a",
     "model": "gpt",
-    "generatedAt": "2026-07-20T18:37:35.963Z",
-    "heroGeneratedAt": "2026-07-21T03:09:54.653Z",
-    "docsGeneratedAt": "2026-08-04T02:56:27.117Z"
+    "generatedAt": "2026-08-06T20:26:03.875Z",
+    "heroGeneratedAt": "2026-08-06T20:27:52.624Z",
+    "docsGeneratedAt": "2026-08-06T20:29:41.972Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-czech-crystalline-ornament": {
     "hash": "ccef7abc3939",
@@ -924,37 +1104,137 @@
   "design-canon-deco-cinema-lobby": {
     "hash": "a5bd48e45fde",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:26:05.816Z",
-    "heroGeneratedAt": "2026-07-20T16:51:43.775Z",
-    "docsGeneratedAt": "2026-08-04T02:49:02.585Z"
+    "generatedAt": "2026-08-06T19:58:02.325Z",
+    "heroGeneratedAt": "2026-08-06T20:00:13.333Z",
+    "docsGeneratedAt": "2026-08-06T20:02:16.490Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-decollage-torn-billboard": {
     "hash": "c9b2f3503096",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:24:35.847Z",
-    "generatedAt": "2026-07-25T00:45:08.786Z",
-    "docsGeneratedAt": "2026-08-04T03:00:14.388Z"
+    "heroGeneratedAt": "2026-08-06T20:29:20.741Z",
+    "generatedAt": "2026-08-06T20:27:38.435Z",
+    "docsGeneratedAt": "2026-08-06T20:31:17.483Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-egyptomania-commercial-revival": {
     "hash": "d33b02812049",
     "model": "gpt",
-    "generatedAt": "2026-07-25T02:00:30.182Z",
-    "heroGeneratedAt": "2026-07-25T02:00:38.435Z",
-    "docsGeneratedAt": "2026-08-04T03:01:38.890Z"
+    "generatedAt": "2026-08-06T20:29:16.960Z",
+    "heroGeneratedAt": "2026-08-06T20:31:03.970Z",
+    "docsGeneratedAt": "2026-08-06T20:33:00.292Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-factory-silkscreen-loft": {
     "hash": "8f2773f0899b",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:27:44.383Z",
-    "heroGeneratedAt": "2026-07-21T03:10:03.616Z",
-    "docsGeneratedAt": "2026-08-04T02:50:20.928Z"
+    "generatedAt": "2026-08-06T19:58:07.895Z",
+    "heroGeneratedAt": "2026-08-06T20:00:00.206Z",
+    "docsGeneratedAt": "2026-08-06T20:02:03.736Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-futurist-bolted-book": {
     "hash": "fc18058e933b",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:27:45.865Z",
-    "heroGeneratedAt": "2026-07-20T16:52:47.782Z",
-    "docsGeneratedAt": "2026-08-04T02:50:29.277Z"
+    "generatedAt": "2026-08-06T20:08:11.563Z",
+    "heroGeneratedAt": "2026-08-06T20:10:04.799Z",
+    "docsGeneratedAt": "2026-08-06T20:11:55.842Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-glasgow-four-stencil-rose": {
     "hash": "a35680253e52",
@@ -966,9 +1246,29 @@
   "design-canon-googie-starburst-diner": {
     "hash": "df7257e6c87e",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:28:08.756Z",
-    "heroGeneratedAt": "2026-07-20T16:53:04.631Z",
-    "docsGeneratedAt": "2026-08-04T02:50:36.739Z"
+    "generatedAt": "2026-08-06T20:09:51.363Z",
+    "heroGeneratedAt": "2026-08-06T20:11:40.366Z",
+    "docsGeneratedAt": "2026-08-06T20:13:30.849Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-heroic-realist-mural-panel": {
     "hash": "2575ef54d200",
@@ -980,16 +1280,56 @@
   "design-canon-highland-ornament-program": {
     "hash": "b146b6b0263d",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:57:46.749Z",
-    "heroGeneratedAt": "2026-07-27T01:59:44.318Z",
-    "docsGeneratedAt": "2026-08-04T03:05:44.349Z"
+    "generatedAt": "2026-08-06T20:43:04.974Z",
+    "heroGeneratedAt": "2026-08-06T20:44:58.434Z",
+    "docsGeneratedAt": "2026-08-06T20:46:56.652Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-hoffmann-gridsmith-showroom": {
     "hash": "1324f3010a36",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:28:00.787Z",
-    "heroGeneratedAt": "2026-07-20T16:53:17.020Z",
-    "docsGeneratedAt": "2026-08-04T02:50:32.329Z"
+    "generatedAt": "2026-08-06T20:10:12.765Z",
+    "heroGeneratedAt": "2026-08-06T20:11:56.578Z",
+    "docsGeneratedAt": "2026-08-06T20:13:39.838Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-insular-carpet-page": {
     "hash": "74c38c5aa894",
@@ -1001,37 +1341,137 @@
   "design-canon-liquid-light-ballroom": {
     "hash": "8d63cb13d10a",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:28:22.762Z",
-    "heroGeneratedAt": "2026-07-20T16:53:50.023Z",
-    "docsGeneratedAt": "2026-08-04T02:51:24.913Z"
+    "generatedAt": "2026-08-06T20:10:51.298Z",
+    "heroGeneratedAt": "2026-08-06T20:12:46.239Z",
+    "docsGeneratedAt": "2026-08-06T20:14:37.673Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-manueline-maritime-ornament": {
     "hash": "2a918023b840",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:57:47.117Z",
-    "heroGeneratedAt": "2026-07-27T01:59:51.733Z",
-    "docsGeneratedAt": "2026-08-04T03:05:01.435Z"
+    "generatedAt": "2026-08-06T20:42:40.288Z",
+    "heroGeneratedAt": "2026-08-06T20:44:18.215Z",
+    "docsGeneratedAt": "2026-08-06T20:46:02.976Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-memphis-showroom-morning": {
     "hash": "3aec0d34dca4",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:28:28.738Z",
-    "heroGeneratedAt": "2026-07-21T03:10:01.981Z",
-    "docsGeneratedAt": "2026-08-04T02:51:09.075Z"
+    "generatedAt": "2026-08-06T20:10:48.491Z",
+    "heroGeneratedAt": "2026-08-06T20:12:32.349Z",
+    "docsGeneratedAt": "2026-08-06T20:14:19.700Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-merz-collage-page": {
     "hash": "6f2e5cfb37b2",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:23:05.235Z",
-    "generatedAt": "2026-07-25T00:41:28.132Z",
-    "docsGeneratedAt": "2026-08-04T02:58:05.737Z"
+    "heroGeneratedAt": "2026-08-06T20:29:22.392Z",
+    "generatedAt": "2026-08-06T20:27:33.815Z",
+    "docsGeneratedAt": "2026-08-06T20:31:08.716Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-mloda-polska-secession-page": {
     "hash": "e31b336ae745",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T00:43:08.861Z",
-    "generatedAt": "2026-07-25T00:43:29.584Z",
-    "docsGeneratedAt": "2026-08-04T02:59:49.524Z"
+    "heroGeneratedAt": "2026-08-06T20:29:20.470Z",
+    "generatedAt": "2026-08-06T20:27:32.292Z",
+    "docsGeneratedAt": "2026-08-06T20:31:16.186Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-modular-exhibition-stand-system": {
     "hash": "57a84bb102ec",
@@ -1057,9 +1497,29 @@
   "design-canon-new-primitive-broadcast-graphic": {
     "hash": "1afb12852738",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:54:12.450Z",
-    "heroGeneratedAt": "2026-07-27T01:56:10.951Z",
-    "docsGeneratedAt": "2026-08-04T03:03:48.523Z"
+    "generatedAt": "2026-08-06T20:40:13.076Z",
+    "heroGeneratedAt": "2026-08-06T20:41:56.657Z",
+    "docsGeneratedAt": "2026-08-06T20:43:39.774Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-nineties-whimsy-interior-program": {
     "hash": "5c47a8b3bf8d",
@@ -1078,9 +1538,29 @@
   "design-canon-op-art-textile-repeat": {
     "hash": "b8f589914d92",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:58:18.325Z",
-    "heroGeneratedAt": "2026-07-27T02:00:06.525Z",
-    "docsGeneratedAt": "2026-08-04T03:06:08.300Z"
+    "generatedAt": "2026-08-06T20:41:42.096Z",
+    "heroGeneratedAt": "2026-08-06T20:43:16.208Z",
+    "docsGeneratedAt": "2026-08-06T20:44:56.989Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-photovoltaic-nouveau-plate": {
     "hash": "0bc30645005f",
@@ -1106,16 +1586,56 @@
   "design-canon-precisionist-industrial-plate": {
     "hash": "efee7909282c",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:57:15.133Z",
-    "heroGeneratedAt": "2026-07-27T01:59:08.606Z",
-    "docsGeneratedAt": "2026-08-04T03:04:11.161Z"
+    "generatedAt": "2026-08-06T20:41:19.616Z",
+    "heroGeneratedAt": "2026-08-06T20:42:58.443Z",
+    "docsGeneratedAt": "2026-08-06T20:44:45.099Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-punk-pasteup-table": {
     "hash": "cceb2528dbff",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:30:29.310Z",
-    "heroGeneratedAt": "2026-07-20T16:55:51.456Z",
-    "docsGeneratedAt": "2026-08-04T02:52:55.448Z"
+    "generatedAt": "2026-08-06T20:11:10.661Z",
+    "heroGeneratedAt": "2026-08-06T20:12:53.831Z",
+    "docsGeneratedAt": "2026-08-06T20:14:40.164Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-quoted-state-agitprop": {
     "hash": "b9688060ef3f",
@@ -1127,23 +1647,83 @@
   "design-canon-raygun-layout-desk": {
     "hash": "f40bff13d6c8",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:30:35.347Z",
-    "heroGeneratedAt": "2026-07-20T16:56:30.497Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T20:11:52.105Z",
+    "heroGeneratedAt": "2026-08-06T20:13:36.745Z",
+    "docsGeneratedAt": "2026-08-06T20:15:21.137Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-rietveld-sliding-house": {
     "hash": "45e1bcfc8efa",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:31:52.949Z",
-    "heroGeneratedAt": "2026-07-20T16:56:10.174Z",
-    "docsGeneratedAt": "2026-08-04T02:52:55.297Z"
+    "generatedAt": "2026-08-06T20:10:59.664Z",
+    "heroGeneratedAt": "2026-08-06T20:12:43.290Z",
+    "docsGeneratedAt": "2026-08-06T20:14:19.708Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-riley-moire-gallery": {
     "hash": "303df6128155",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:32:04.739Z",
-    "heroGeneratedAt": "2026-07-20T16:56:35.408Z",
-    "docsGeneratedAt": "2026-08-04T02:53:20.349Z"
+    "generatedAt": "2026-08-06T20:11:30.249Z",
+    "heroGeneratedAt": "2026-08-06T20:13:01.775Z",
+    "docsGeneratedAt": "2026-08-06T20:14:35.551Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-shop-sign-fascia-program": {
     "hash": "52ca98f1e434",
@@ -1155,16 +1735,56 @@
   "design-canon-streamliner-observation-lounge": {
     "hash": "7d49056ebc5a",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:32:16.969Z",
-    "heroGeneratedAt": "2026-07-21T03:09:47.120Z",
-    "docsGeneratedAt": "2026-08-04T02:53:42.428Z"
+    "generatedAt": "2026-08-06T20:13:42.949Z",
+    "heroGeneratedAt": "2026-08-06T20:15:22.532Z",
+    "docsGeneratedAt": "2026-08-06T20:17:10.249Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-sunken-conversation-pit": {
     "hash": "934359ec11ac",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:32:26.327Z",
-    "heroGeneratedAt": "2026-07-21T03:09:54.012Z",
-    "docsGeneratedAt": "2026-08-04T02:54:53.041Z"
+    "generatedAt": "2026-08-06T20:13:20.750Z",
+    "heroGeneratedAt": "2026-08-06T20:14:54.915Z",
+    "docsGeneratedAt": "2026-08-06T20:16:32.900Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-superflat-motif-program": {
     "hash": "b6692dfdd0d0",
@@ -1190,16 +1810,56 @@
   "design-canon-swiss-grid-poster-wall": {
     "hash": "057473a2bf3e",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:34:00.918Z",
-    "heroGeneratedAt": "2026-07-20T16:58:16.689Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T20:13:37.308Z",
+    "heroGeneratedAt": "2026-08-06T20:15:13.846Z",
+    "docsGeneratedAt": "2026-08-06T20:16:53.636Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-toyism-signed-collective-plate": {
     "hash": "07d27da6df57",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T02:02:14.815Z",
-    "generatedAt": "2026-07-25T02:02:25.085Z",
-    "docsGeneratedAt": "2026-08-04T03:02:37.149Z"
+    "heroGeneratedAt": "2026-08-06T20:30:40.083Z",
+    "generatedAt": "2026-08-06T20:29:00.254Z",
+    "docsGeneratedAt": "2026-08-06T20:32:25.066Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-vaporwave-mall-atrium": {
     "hash": "2013eab6fdea",
@@ -1211,23 +1871,83 @@
   "design-canon-y2k-translucent-lounge": {
     "hash": "bdec2a066312",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:34:41.751Z",
-    "docsGeneratedAt": "2026-08-04T02:55:14.941Z",
-    "heroGeneratedAt": "2026-08-05T23:10:36.261Z"
+    "generatedAt": "2026-08-06T20:24:08.978Z",
+    "docsGeneratedAt": "2026-08-06T20:27:45.588Z",
+    "heroGeneratedAt": "2026-08-06T20:25:57.725Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "design-canon-zenit-balkan-page": {
     "hash": "09f97e99e7f4",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:23:18.888Z",
-    "generatedAt": "2026-07-25T00:43:27.519Z",
-    "docsGeneratedAt": "2026-08-04T02:59:16.529Z"
+    "heroGeneratedAt": "2026-08-06T20:28:34.383Z",
+    "generatedAt": "2026-08-06T20:26:51.817Z",
+    "docsGeneratedAt": "2026-08-06T20:30:26.933Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-antialiased-racing-league": {
     "hash": "e83fa3a4d5e1",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:03:42.200Z",
-    "heroGeneratedAt": "2026-07-20T17:00:19.668Z",
-    "docsGeneratedAt": "2026-08-04T03:08:03.605Z"
+    "generatedAt": "2026-08-06T20:42:55.482Z",
+    "heroGeneratedAt": "2026-08-06T20:44:39.891Z",
+    "docsGeneratedAt": "2026-08-06T20:46:19.416Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-aqua-liquid-desktop": {
     "hash": "9555a2fa7a92",
@@ -1267,9 +1987,23 @@
   "digital-design-canon-cdrom-chrome-navigation": {
     "hash": "16c1c1bace11",
     "model": "gpt",
-    "generatedAt": "2026-07-27T02:01:48.524Z",
-    "heroGeneratedAt": "2026-07-27T02:03:47.277Z",
-    "docsGeneratedAt": "2026-08-04T03:22:36.763Z"
+    "generatedAt": "2026-08-06T20:50:43.047Z",
+    "heroGeneratedAt": "2026-08-06T20:52:31.913Z",
+    "docsGeneratedAt": "2026-08-06T20:54:14.167Z",
+    "variants": {
+      "board": [
+        "v1"
+      ],
+      "hero": [
+        "v1"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-clinical-futures-plate": {
     "hash": "cfbb8428ba11",
@@ -1288,9 +2022,29 @@
   "digital-design-canon-console-dashboard-atmosphere": {
     "hash": "6364dec2bc9e",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:03:31.877Z",
-    "heroGeneratedAt": "2026-07-20T17:01:05.638Z",
-    "docsGeneratedAt": "2026-08-04T03:08:28.590Z"
+    "generatedAt": "2026-08-06T20:43:12.609Z",
+    "heroGeneratedAt": "2026-08-06T20:44:47.194Z",
+    "docsGeneratedAt": "2026-08-06T20:46:32.444Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-dark-first-developer-console": {
     "hash": "06ec2f591e0e",
@@ -1323,9 +2077,24 @@
   "digital-design-canon-emergency-signal-degradation": {
     "hash": "d9debbcc1747",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T00:46:57.969Z",
-    "generatedAt": "2026-07-25T00:47:07.536Z",
-    "docsGeneratedAt": "2026-08-04T03:15:47.334Z"
+    "heroGeneratedAt": "2026-08-06T20:50:07.390Z",
+    "generatedAt": "2026-08-06T20:53:35.424Z",
+    "docsGeneratedAt": "2026-08-06T20:51:49.556Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-fansite-shrine-page": {
     "hash": "badfd5a42659",
@@ -1344,9 +2113,29 @@
   "digital-design-canon-gameboy-four-shade-field": {
     "hash": "f456e19646e8",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:03:33.804Z",
-    "heroGeneratedAt": "2026-07-20T17:02:10.329Z",
-    "docsGeneratedAt": "2026-08-04T03:09:00.054Z"
+    "generatedAt": "2026-08-06T20:43:14.216Z",
+    "heroGeneratedAt": "2026-08-06T20:44:54.258Z",
+    "docsGeneratedAt": "2026-08-06T20:46:34.591Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-glass-panel-os-surface": {
     "hash": "915fea719aba",
@@ -1358,16 +2147,51 @@
   "digital-design-canon-greiman-hybrid-collage": {
     "hash": "8bf7f5f6c3de",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:05:30.367Z",
-    "heroGeneratedAt": "2026-07-20T17:02:16.594Z",
-    "docsGeneratedAt": "2026-08-04T03:09:37.555Z"
+    "generatedAt": "2026-08-06T20:43:56.419Z",
+    "heroGeneratedAt": "2026-08-06T20:45:41.520Z",
+    "docsGeneratedAt": "2026-08-06T20:47:28.659Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-grid-horizon-sunset": {
     "hash": "5eedecbe0f01",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:24:52.936Z",
-    "generatedAt": "2026-07-25T00:50:13.672Z",
-    "docsGeneratedAt": "2026-08-04T03:16:55.514Z"
+    "heroGeneratedAt": "2026-08-06T20:50:21.514Z",
+    "generatedAt": "2026-08-06T20:53:50.352Z",
+    "docsGeneratedAt": "2026-08-06T20:52:04.239Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-gulf-mall-glass-field": {
     "hash": "3e71cb02a654",
@@ -1393,16 +2217,51 @@
   "digital-design-canon-metro-typographic-tiles": {
     "hash": "6fe7451d25b9",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:05:15.428Z",
-    "heroGeneratedAt": "2026-07-20T16:21:21.559Z",
-    "docsGeneratedAt": "2026-08-04T03:10:13.056Z"
+    "generatedAt": "2026-08-06T20:43:57.580Z",
+    "heroGeneratedAt": "2026-08-06T20:45:48.942Z",
+    "docsGeneratedAt": "2026-08-06T20:47:29.744Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-mondo-tech-utopian-spread": {
     "hash": "16800a9f90d1",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-26T02:19:58.403Z",
-    "generatedAt": "2026-07-26T01:59:21.553Z",
-    "docsGeneratedAt": "2026-08-04T03:16:27.174Z"
+    "heroGeneratedAt": "2026-08-06T20:50:17.907Z",
+    "generatedAt": "2026-08-06T20:54:03.558Z",
+    "docsGeneratedAt": "2026-08-06T20:52:10.144Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-monochrome-product-marketing": {
     "hash": "19036f6e3a2b",
@@ -1414,9 +2273,23 @@
   "digital-design-canon-otome-choice-frame": {
     "hash": "a3825fa04323",
     "model": "gpt",
-    "generatedAt": "2026-07-27T02:01:18.087Z",
-    "heroGeneratedAt": "2026-07-27T02:03:19.492Z",
-    "docsGeneratedAt": "2026-08-04T03:21:38.491Z"
+    "generatedAt": "2026-08-06T20:49:16.458Z",
+    "heroGeneratedAt": "2026-08-06T20:51:02.194Z",
+    "docsGeneratedAt": "2026-08-06T20:52:58.232Z",
+    "variants": {
+      "board": [
+        "v1"
+      ],
+      "hero": [
+        "v1"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-oversized-type-landing": {
     "hash": "8653914cc657",
@@ -1428,9 +2301,24 @@
   "digital-design-canon-pc98-sixteen-color-field": {
     "hash": "63c2fa3a83b5",
     "model": "gpt",
-    "generatedAt": "2026-07-25T00:46:57.505Z",
-    "heroGeneratedAt": "2026-07-25T01:24:47.218Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T20:53:43.822Z",
+    "heroGeneratedAt": "2026-08-06T20:49:57.496Z",
+    "docsGeneratedAt": "2026-08-06T20:51:44.830Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-phosphor-line-atelier": {
     "hash": "c3da2d5da335",
@@ -1456,9 +2344,24 @@
   "digital-design-canon-profile-page-customization": {
     "hash": "f561ea9d456f",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:26:29.628Z",
-    "generatedAt": "2026-07-25T00:52:07.700Z",
-    "docsGeneratedAt": "2026-08-04T03:18:38.847Z"
+    "heroGeneratedAt": "2026-08-06T20:51:02.220Z",
+    "generatedAt": "2026-08-06T20:54:28.671Z",
+    "docsGeneratedAt": "2026-08-06T20:52:47.202Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-recompressed-meme-plate": {
     "hash": "4da47128ebae",
@@ -1491,16 +2394,50 @@
   "digital-design-canon-skeuomorph-leather-studio": {
     "hash": "5c6b3ecedc91",
     "model": "gpt",
-    "generatedAt": "2026-07-20T05:05:38.224Z",
-    "heroGeneratedAt": "2026-07-20T17:03:01.905Z",
-    "docsGeneratedAt": "2026-08-04T03:10:08.081Z"
+    "generatedAt": "2026-08-06T20:45:26.060Z",
+    "heroGeneratedAt": "2026-08-06T20:47:06.009Z",
+    "docsGeneratedAt": "2026-08-06T20:49:00.129Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-teletext-weather-mosaic": {
     "hash": "6ea13c0b9f58",
     "model": "gpt",
-    "generatedAt": "2026-07-27T02:01:57.087Z",
-    "heroGeneratedAt": "2026-07-27T02:03:59.846Z",
-    "docsGeneratedAt": "2026-08-04T03:23:23.803Z"
+    "generatedAt": "2026-08-06T20:50:53.242Z",
+    "heroGeneratedAt": "2026-08-06T20:52:36.149Z",
+    "docsGeneratedAt": "2026-08-06T20:54:20.865Z",
+    "variants": {
+      "board": [
+        "v1"
+      ],
+      "hero": [
+        "v1"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "digital-design-canon-terminal-native-brand-surface": {
     "hash": "7c65687097bb",
@@ -1610,9 +2547,29 @@
   "dubois-data-portraits": {
     "hash": "d02c397cd7a8",
     "model": "gpt",
-    "generatedAt": "2026-07-21T20:34:44.390Z",
-    "heroGeneratedAt": "2026-07-21T20:35:08.439Z",
-    "docsGeneratedAt": "2026-08-04T02:42:09.929Z"
+    "generatedAt": "2026-08-06T19:52:35.853Z",
+    "heroGeneratedAt": "2026-08-06T19:54:17.220Z",
+    "docsGeneratedAt": "2026-08-06T19:56:06.645Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "earth-water-worlds-banded-agate-slice": {
     "hash": "c1a0cec8ab14",
@@ -1624,9 +2581,25 @@
   "eboy-pixorama-metropolis": {
     "hash": "38dd6ea70c46",
     "model": "gpt",
-    "generatedAt": "2026-07-21T21:32:39.786Z",
-    "heroGeneratedAt": "2026-07-21T21:32:45.314Z",
-    "docsGeneratedAt": "2026-08-04T03:14:40.917Z"
+    "generatedAt": "2026-08-06T20:52:10.840Z",
+    "heroGeneratedAt": "2026-08-06T20:54:01.692Z",
+    "docsGeneratedAt": "2026-08-06T20:50:17.755Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "editor-theme-brand-surface": {
     "hash": "14349d7e6900",
@@ -1638,21 +2611,24 @@
   "editorial-sequence-montage-botanical-folio-season": {
     "hash": "dd5d4dc258f9",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:29:29.890Z",
-    "heroGeneratedAt": "2026-08-06T18:31:13.347Z",
-    "docsGeneratedAt": "2026-08-06T18:32:49.422Z",
+    "generatedAt": "2026-08-06T18:34:40.210Z",
+    "heroGeneratedAt": "2026-08-06T18:36:22.524Z",
+    "docsGeneratedAt": "2026-08-06T18:38:05.852Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -1662,9 +2638,29 @@
   "emigre-bitmap-specimen": {
     "hash": "e250abc806af",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-21T20:36:53.695Z",
-    "generatedAt": "2026-07-21T20:36:54.734Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "heroGeneratedAt": "2026-08-06T20:47:21.797Z",
+    "generatedAt": "2026-08-06T20:45:43.709Z",
+    "docsGeneratedAt": "2026-08-06T20:49:07.401Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "exhibition-museum-curation-provenance-ribbon": {
     "hash": "457a6aae320b",
@@ -1781,9 +2777,26 @@
   "feltron-personal-annual": {
     "hash": "b30ca219f1c6",
     "model": "gpt",
-    "generatedAt": "2026-07-21T20:36:43.665Z",
-    "heroGeneratedAt": "2026-07-21T20:36:45.595Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T20:50:21.805Z",
+    "heroGeneratedAt": "2026-08-06T20:52:00.927Z",
+    "docsGeneratedAt": "2026-08-06T20:53:47.783Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1",
+        "v2"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "first-viewport-annotated-screenshot-marketing": {
     "hash": "86c511970088",
@@ -2043,20 +3056,24 @@
   "graphic-worlds-publishing-busytown-cross-section": {
     "hash": "4a274a9a22bf",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:29:47.409Z",
-    "docsGeneratedAt": "2026-08-06T18:27:57.679Z",
-    "heroGeneratedAt": "2026-08-06T18:31:47.735Z",
+    "generatedAt": "2026-08-06T18:35:15.909Z",
+    "docsGeneratedAt": "2026-08-06T18:38:54.829Z",
+    "heroGeneratedAt": "2026-08-06T18:37:08.698Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2066,20 +3083,24 @@
   "graphic-worlds-publishing-chaekgeori-reverse-perspective": {
     "hash": "6ef241ad20ef",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:29:38.855Z",
-    "heroGeneratedAt": "2026-08-06T18:31:23.386Z",
-    "docsGeneratedAt": "2026-08-06T18:27:55.477Z",
+    "generatedAt": "2026-08-06T18:35:12.099Z",
+    "heroGeneratedAt": "2026-08-06T18:36:58.538Z",
+    "docsGeneratedAt": "2026-08-06T18:38:42.398Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2096,20 +3117,24 @@
   "graphic-worlds-publishing-expedition-ice-press": {
     "hash": "bb45dac9e2f5",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:30:33.560Z",
-    "heroGeneratedAt": "2026-08-06T18:32:34.508Z",
-    "docsGeneratedAt": "2026-08-06T18:28:20.470Z",
+    "generatedAt": "2026-08-06T18:36:12.538Z",
+    "heroGeneratedAt": "2026-08-06T18:38:02.164Z",
+    "docsGeneratedAt": "2026-08-06T18:39:51.146Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2154,9 +3179,29 @@
   "graphic-worlds-publishing-sampler-alphabet-proof": {
     "hash": "dfb33cf6f663",
     "model": "gpt",
-    "generatedAt": "2026-07-27T23:39:53.823Z",
-    "heroGeneratedAt": "2026-07-27T23:41:56.790Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T18:51:11.977Z",
+    "heroGeneratedAt": "2026-08-06T18:52:57.663Z",
+    "docsGeneratedAt": "2026-08-06T18:54:48.251Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "graphic-worlds-publishing-soyombo-constructed-emblem": {
     "hash": "94ecdd088162",
@@ -2168,20 +3213,24 @@
   "graphic-worlds-publishing-ukiyoe-block-registration": {
     "hash": "ed635b3d74f1",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:29:31.165Z",
-    "heroGeneratedAt": "2026-08-06T18:31:23.703Z",
-    "docsGeneratedAt": "2026-08-06T18:27:41.935Z",
+    "generatedAt": "2026-08-06T18:34:54.185Z",
+    "heroGeneratedAt": "2026-08-06T18:36:44.508Z",
+    "docsGeneratedAt": "2026-08-06T18:38:36.187Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2205,9 +3254,29 @@
   "highlife-sleeve": {
     "hash": "802dd1c85508",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-21T22:19:16.794Z",
-    "generatedAt": "2026-07-21T22:19:32.198Z",
-    "docsGeneratedAt": "2026-08-04T02:25:52.986Z"
+    "heroGeneratedAt": "2026-08-06T19:09:39.290Z",
+    "generatedAt": "2026-08-06T19:07:57.252Z",
+    "docsGeneratedAt": "2026-08-06T19:11:33.676Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "ikeda-datamatics": {
     "hash": "34005ff821ef",
@@ -2226,20 +3295,24 @@
   "ink-pigment-printmaking-drybrush-reed-storm": {
     "hash": "69d7f5e61f7b",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:29:34.098Z",
-    "heroGeneratedAt": "2026-08-06T18:31:29.811Z",
-    "docsGeneratedAt": "2026-08-06T18:27:48.722Z",
+    "generatedAt": "2026-08-06T18:34:57.250Z",
+    "heroGeneratedAt": "2026-08-06T18:36:40.715Z",
+    "docsGeneratedAt": "2026-08-06T18:38:26.576Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2256,21 +3329,24 @@
   "ink-pigment-printmaking-mezzotint-velvet-night": {
     "hash": "2ab0422e5e71",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:29:32.807Z",
-    "heroGeneratedAt": "2026-08-06T18:31:03.685Z",
-    "docsGeneratedAt": "2026-08-06T18:32:40.181Z",
+    "generatedAt": "2026-08-06T18:34:27.274Z",
+    "heroGeneratedAt": "2026-08-06T18:36:01.885Z",
+    "docsGeneratedAt": "2026-08-06T18:37:50.071Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2280,20 +3356,24 @@
   "ink-pigment-printmaking-persian-miniature-page": {
     "hash": "9ae736765f05",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:30:08.129Z",
-    "docsGeneratedAt": "2026-08-06T18:28:06.863Z",
-    "heroGeneratedAt": "2026-08-06T18:31:58.297Z",
+    "generatedAt": "2026-08-06T18:35:36.016Z",
+    "docsGeneratedAt": "2026-08-06T18:39:12.810Z",
+    "heroGeneratedAt": "2026-08-06T18:37:22.374Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2303,20 +3383,24 @@
   "ink-pigment-printmaking-screenprint-transparent-overlap": {
     "hash": "3ef512775a5c",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:29:57.376Z",
-    "heroGeneratedAt": "2026-08-06T18:31:48.327Z",
-    "docsGeneratedAt": "2026-08-06T18:28:00.813Z",
+    "generatedAt": "2026-08-06T18:35:34.735Z",
+    "heroGeneratedAt": "2026-08-06T18:37:22.407Z",
+    "docsGeneratedAt": "2026-08-06T18:39:10.985Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -2493,9 +3577,24 @@
   "japanese-high-density-web": {
     "hash": "eeb63a014ce6",
     "model": "gpt",
-    "generatedAt": "2026-07-21T22:19:29.755Z",
-    "heroGeneratedAt": "2026-07-21T22:19:32.161Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T20:53:14.191Z",
+    "heroGeneratedAt": "2026-08-06T20:49:43.429Z",
+    "docsGeneratedAt": "2026-08-06T20:51:24.250Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "kinetic-sand-glyphs": {
     "hash": "47cbf6886ff9",
@@ -2619,21 +3718,24 @@
   "massin-stage-page": {
     "hash": "2dcdc9eb7664",
     "model": "gpt",
-    "heroGeneratedAt": "2026-08-06T18:31:13.637Z",
-    "generatedAt": "2026-08-06T18:29:30.796Z",
-    "docsGeneratedAt": "2026-08-06T18:33:01.877Z",
+    "heroGeneratedAt": "2026-08-06T18:36:31.780Z",
+    "generatedAt": "2026-08-06T18:34:51.611Z",
+    "docsGeneratedAt": "2026-08-06T18:38:15.100Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -3014,9 +4116,25 @@
   "neubrutalist-award-grade": {
     "hash": "48655a1e4c9e",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-21T22:19:03.516Z",
-    "generatedAt": "2026-07-21T22:19:23.524Z",
-    "docsGeneratedAt": "2026-08-04T03:14:34.022Z"
+    "heroGeneratedAt": "2026-08-06T20:53:11.895Z",
+    "generatedAt": "2026-08-06T20:51:32.902Z",
+    "docsGeneratedAt": "2026-08-06T20:49:53.639Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2"
+      ],
+      "hero": [
+        "v1",
+        "v2"
+      ],
+      "docs": [
+        "v1"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "nier-bone-console": {
     "hash": "7ef21bacd221",
@@ -3070,9 +4188,29 @@
   "notation-diagram-systems-labanotation": {
     "hash": "93db538ae6b9",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:19:38.823Z",
-    "heroGeneratedAt": "2026-07-20T16:44:44.823Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:39:39.680Z",
+    "heroGeneratedAt": "2026-08-06T19:41:14.909Z",
+    "docsGeneratedAt": "2026-08-06T19:42:50.800Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "notation-diagram-systems-loom-draft-notation": {
     "hash": "e4e1778af996",
@@ -3084,16 +4222,56 @@
   "notation-diagram-systems-orienteering-map": {
     "hash": "d58c56e54f3a",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:19:44.391Z",
-    "heroGeneratedAt": "2026-07-20T16:45:18.914Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:41:54.801Z",
+    "heroGeneratedAt": "2026-08-06T19:43:45.946Z",
+    "docsGeneratedAt": "2026-08-06T19:45:31.818Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "notation-diagram-systems-patent-drawing-sheet": {
     "hash": "5457d8e09516",
     "model": "gpt",
-    "generatedAt": "2026-07-21T04:58:32.441Z",
-    "heroGeneratedAt": "2026-07-21T05:02:30.930Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:42:01.645Z",
+    "heroGeneratedAt": "2026-08-06T19:43:46.767Z",
+    "docsGeneratedAt": "2026-08-06T19:45:32.776Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "notation-diagram-systems-quipu-knot-ledger": {
     "hash": "b3f82031da10",
@@ -3105,9 +4283,29 @@
   "notation-diagram-systems-star-atlas": {
     "hash": "44c55b723e8c",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:19:56.268Z",
-    "heroGeneratedAt": "2026-07-20T16:46:19.308Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:42:15.884Z",
+    "heroGeneratedAt": "2026-08-06T19:44:02.523Z",
+    "docsGeneratedAt": "2026-08-06T19:45:51.807Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "notation-diagram-systems-synoptic-map": {
     "hash": "d923fa33ac7a",
@@ -3798,23 +4996,83 @@
   "posters-covers-sleeves-angura-theatre-poster": {
     "hash": "4f186732dfba",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:51:44.677Z",
-    "generatedAt": "2026-07-25T01:51:59.844Z",
-    "docsGeneratedAt": "2026-08-04T02:30:06.587Z"
+    "heroGeneratedAt": "2026-08-06T19:24:52.855Z",
+    "generatedAt": "2026-08-06T19:22:58.360Z",
+    "docsGeneratedAt": "2026-08-06T19:26:46.403Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-ballad-sheet-tune-name": {
     "hash": "b09d08c00287",
     "model": "gpt",
-    "generatedAt": "2026-07-27T23:40:00.355Z",
-    "heroGeneratedAt": "2026-07-27T23:41:42.926Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:40:03.827Z",
+    "heroGeneratedAt": "2026-08-06T19:41:49.577Z",
+    "docsGeneratedAt": "2026-08-06T19:43:38.208Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-blue-note-session-sleeve": {
     "hash": "3a1bf30ce14c",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:53:39.846Z",
-    "heroGeneratedAt": "2026-07-27T01:55:21.710Z",
-    "docsGeneratedAt": "2026-08-04T02:35:35.024Z"
+    "generatedAt": "2026-08-06T19:38:17.151Z",
+    "heroGeneratedAt": "2026-08-06T19:39:54.106Z",
+    "docsGeneratedAt": "2026-08-06T19:41:37.948Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-casas-catalan-poster": {
     "hash": "a366ddbd95e0",
@@ -3826,9 +5084,29 @@
   "posters-covers-sleeves-chicha-fluorescent-bill": {
     "hash": "92ea5dc378d1",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T00:37:38.597Z",
-    "generatedAt": "2026-07-25T00:37:41.729Z",
-    "docsGeneratedAt": "2026-08-04T02:28:02.341Z"
+    "heroGeneratedAt": "2026-08-06T19:11:31.562Z",
+    "generatedAt": "2026-08-06T19:09:40.889Z",
+    "docsGeneratedAt": "2026-08-06T19:13:21.963Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-chrome-diamond-rap-cover": {
     "hash": "b74b7c1d599f",
@@ -3854,65 +5132,245 @@
   "posters-covers-sleeves-dong-ho-shell-ground": {
     "hash": "f351281938cd",
     "model": "gpt",
-    "generatedAt": "2026-07-27T23:40:13.787Z",
-    "heroGeneratedAt": "2026-07-27T23:41:59.645Z",
-    "docsGeneratedAt": "2026-08-04T02:39:16.540Z"
+    "generatedAt": "2026-08-06T19:40:16.891Z",
+    "heroGeneratedAt": "2026-08-06T19:42:03.166Z",
+    "docsGeneratedAt": "2026-08-06T19:43:50.702Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-dungeon-tape-jcard": {
     "hash": "75baeabbc2d1",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:21:09.012Z",
-    "generatedAt": "2026-07-25T00:37:46.975Z",
-    "docsGeneratedAt": "2026-08-04T02:28:11.876Z"
+    "heroGeneratedAt": "2026-08-06T19:22:38.612Z",
+    "generatedAt": "2026-08-06T19:20:51.053Z",
+    "docsGeneratedAt": "2026-08-06T19:24:30.576Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-ecm-sleeve": {
     "hash": "c9511fd3b44f",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:13:01.267Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z",
-    "heroGeneratedAt": "2026-08-05T23:10:07.505Z"
+    "generatedAt": "2026-08-06T18:50:01.432Z",
+    "docsGeneratedAt": "2026-08-06T18:53:18.318Z",
+    "heroGeneratedAt": "2026-08-06T18:51:34.099Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-exploitation-combo-sheet": {
     "hash": "7311960d0008",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:21:19.501Z",
-    "generatedAt": "2026-07-25T00:36:03.308Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "heroGeneratedAt": "2026-08-06T19:11:19.629Z",
+    "generatedAt": "2026-08-06T19:09:28.406Z",
+    "docsGeneratedAt": "2026-08-06T19:13:23.396Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-festival-lineup-poster": {
     "hash": "28661f2469ea",
     "model": "gpt",
-    "generatedAt": "2026-07-27T22:13:22.178Z",
-    "heroGeneratedAt": "2026-07-27T22:14:54.517Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:40:09.879Z",
+    "heroGeneratedAt": "2026-08-06T19:41:51.218Z",
+    "docsGeneratedAt": "2026-08-06T19:43:39.486Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-fight-poster": {
     "hash": "4cf1b66a6930",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:13:06.877Z",
-    "heroGeneratedAt": "2026-07-20T16:38:42.067Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T18:51:39.583Z",
+    "heroGeneratedAt": "2026-08-06T18:53:24.858Z",
+    "docsGeneratedAt": "2026-08-06T18:55:09.616Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-fillmore-handbill": {
     "hash": "7217ee73fe84",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:13:38.117Z",
-    "heroGeneratedAt": "2026-07-20T16:39:13.276Z",
-    "docsGeneratedAt": "2026-08-04T02:21:22.407Z"
+    "generatedAt": "2026-08-06T18:52:26.098Z",
+    "heroGeneratedAt": "2026-08-06T18:54:21.745Z",
+    "docsGeneratedAt": "2026-08-06T18:56:20.853Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-flash-scrawl-club-sleeve": {
     "hash": "c86f7eca7d10",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:53:55.427Z",
-    "generatedAt": "2026-07-25T01:54:19.846Z",
-    "docsGeneratedAt": "2026-08-04T02:30:33.999Z"
+    "heroGeneratedAt": "2026-08-06T19:25:58.610Z",
+    "generatedAt": "2026-08-06T19:24:12.867Z",
+    "docsGeneratedAt": "2026-08-06T19:27:44.790Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-hand-painted-ghana-film-poster": {
     "hash": "d28ebcaeedd8",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:53:53.755Z",
-    "heroGeneratedAt": "2026-07-27T01:55:48.211Z",
-    "docsGeneratedAt": "2026-08-04T02:37:03.404Z"
+    "generatedAt": "2026-08-06T19:39:29.928Z",
+    "heroGeneratedAt": "2026-08-06T19:41:15.730Z",
+    "docsGeneratedAt": "2026-08-06T19:43:01.800Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-hardcore-rave-artwork": {
     "hash": "15138b4b6bc2",
@@ -3924,9 +5382,29 @@
   "posters-covers-sleeves-hatch-show-print": {
     "hash": "152569058e20",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:13:43.033Z",
-    "heroGeneratedAt": "2026-07-20T16:38:47.560Z",
-    "docsGeneratedAt": "2026-08-04T02:23:29.541Z"
+    "generatedAt": "2026-08-06T18:51:49.044Z",
+    "heroGeneratedAt": "2026-08-06T18:53:37.773Z",
+    "docsGeneratedAt": "2026-08-06T18:55:28.417Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-hauntology-library-sleeve": {
     "hash": "1e4f185b1bd4",
@@ -3966,23 +5444,83 @@
   "posters-covers-sleeves-movida-scene-magazine": {
     "hash": "7518ec097303",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-26T01:15:04.264Z",
-    "generatedAt": "2026-07-25T01:53:49.434Z",
-    "docsGeneratedAt": "2026-08-04T02:30:43.269Z"
+    "heroGeneratedAt": "2026-08-06T19:25:39.641Z",
+    "generatedAt": "2026-08-06T19:24:01.756Z",
+    "docsGeneratedAt": "2026-08-06T19:27:30.077Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-museum-exhibition-identity": {
     "hash": "e85e93773d64",
     "model": "gpt",
-    "generatedAt": "2026-07-27T22:13:20.892Z",
-    "heroGeneratedAt": "2026-07-27T22:14:59.898Z",
-    "docsGeneratedAt": "2026-08-04T02:37:18.055Z"
+    "generatedAt": "2026-08-06T19:39:17.754Z",
+    "heroGeneratedAt": "2026-08-06T19:40:47.764Z",
+    "docsGeneratedAt": "2026-08-06T19:42:32.026Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-noir-one-sheet-duotone": {
     "hash": "bcf4db29e322",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:53:13.039Z",
-    "generatedAt": "2026-07-25T01:53:23.955Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "heroGeneratedAt": "2026-08-06T19:25:24.513Z",
+    "generatedAt": "2026-08-06T19:23:42.345Z",
+    "docsGeneratedAt": "2026-08-06T19:27:07.635Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-occult-glyph-sleeve": {
     "hash": "84fe8281575d",
@@ -3994,16 +5532,56 @@
   "posters-covers-sleeves-ospaaal-poster": {
     "hash": "210f6b2d2081",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:13:29.472Z",
-    "heroGeneratedAt": "2026-07-20T16:39:02.333Z",
-    "docsGeneratedAt": "2026-08-04T02:23:41.986Z"
+    "generatedAt": "2026-08-06T18:52:34.163Z",
+    "heroGeneratedAt": "2026-08-06T18:54:18.092Z",
+    "docsGeneratedAt": "2026-08-06T18:56:06.720Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-pachuco-zoot-handbill": {
     "hash": "c25d6c1c179f",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:49:52.037Z",
-    "heroGeneratedAt": "2026-07-27T01:51:29.650Z",
-    "docsGeneratedAt": "2026-08-04T02:35:03.274Z"
+    "generatedAt": "2026-08-06T19:26:02.768Z",
+    "heroGeneratedAt": "2026-08-06T19:27:41.475Z",
+    "docsGeneratedAt": "2026-08-06T19:29:42.330Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-paperback-series-spine-run": {
     "hash": "9450754dd863",
@@ -4029,51 +5607,191 @@
   "posters-covers-sleeves-plakatstil-object-poster": {
     "hash": "f6bed52b6ae3",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-26T02:18:06.307Z",
-    "generatedAt": "2026-07-26T01:55:43.634Z",
-    "docsGeneratedAt": "2026-08-04T02:26:12.213Z"
+    "heroGeneratedAt": "2026-08-06T19:09:57.180Z",
+    "generatedAt": "2026-08-06T19:08:13.448Z",
+    "docsGeneratedAt": "2026-08-06T19:11:45.042Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-polish-film-poster": {
     "hash": "351b708d3267",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:15:08.991Z",
-    "heroGeneratedAt": "2026-07-20T16:39:27.946Z",
-    "docsGeneratedAt": "2026-08-04T02:23:49.336Z"
+    "generatedAt": "2026-08-06T18:52:16.753Z",
+    "heroGeneratedAt": "2026-08-06T18:54:12.463Z",
+    "docsGeneratedAt": "2026-08-06T18:55:59.162Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-posada-calavera-broadside": {
     "hash": "91ab385d21ff",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T00:35:44.490Z",
-    "generatedAt": "2026-07-25T00:35:46.548Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "heroGeneratedAt": "2026-08-06T19:11:24.788Z",
+    "generatedAt": "2026-08-06T19:09:26.897Z",
+    "docsGeneratedAt": "2026-08-06T19:13:21.733Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-pulp-rack": {
     "hash": "d36814466051",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:15:28.403Z",
-    "heroGeneratedAt": "2026-07-20T16:40:54.920Z",
-    "docsGeneratedAt": "2026-08-04T02:23:33.393Z"
+    "generatedAt": "2026-08-06T18:53:01.822Z",
+    "heroGeneratedAt": "2026-08-06T18:54:52.154Z",
+    "docsGeneratedAt": "2026-08-06T18:56:32.603Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-risograph-zine-cover": {
     "hash": "9bd6ad82da44",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:53:41.793Z",
-    "heroGeneratedAt": "2026-07-27T01:55:33.891Z",
-    "docsGeneratedAt": "2026-08-04T02:35:09.882Z"
+    "generatedAt": "2026-08-06T19:38:43.299Z",
+    "heroGeneratedAt": "2026-08-06T19:40:25.293Z",
+    "docsGeneratedAt": "2026-08-06T19:42:17.948Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-saul-bass-title": {
     "hash": "9e078b9bd4b0",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:15:27.075Z",
-    "heroGeneratedAt": "2026-07-20T16:40:28.716Z",
-    "docsGeneratedAt": "2026-08-04T02:23:58.672Z"
+    "generatedAt": "2026-08-06T19:05:25.447Z",
+    "heroGeneratedAt": "2026-08-06T19:06:58.964Z",
+    "docsGeneratedAt": "2026-08-06T19:08:40.308Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-shibuya-boutique-sleeve": {
     "hash": "050683ca635b",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-26T02:18:10.221Z",
-    "generatedAt": "2026-07-26T01:57:50.848Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "heroGeneratedAt": "2026-08-06T19:27:29.896Z",
+    "generatedAt": "2026-08-06T19:25:47.031Z",
+    "docsGeneratedAt": "2026-08-06T19:29:09.568Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-silent-intertitle-card": {
     "hash": "80d26387896d",
@@ -4092,72 +5810,272 @@
   "posters-covers-sleeves-sonidero-dayglo-poster": {
     "hash": "d942c5c0785e",
     "model": "gpt",
-    "generatedAt": "2026-07-21T04:58:37.587Z",
-    "heroGeneratedAt": "2026-07-21T05:02:42.343Z",
-    "docsGeneratedAt": "2026-08-04T02:25:56.254Z"
+    "generatedAt": "2026-08-06T19:07:23.554Z",
+    "heroGeneratedAt": "2026-08-06T19:09:30.944Z",
+    "docsGeneratedAt": "2026-08-06T19:11:22.029Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-soundsystem-dance-poster": {
     "hash": "6ca00d616db5",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:51:53.783Z",
-    "generatedAt": "2026-07-25T01:51:55.854Z",
-    "docsGeneratedAt": "2026-08-04T02:30:09.108Z"
+    "heroGeneratedAt": "2026-08-06T19:24:32.040Z",
+    "generatedAt": "2026-08-06T19:22:45.685Z",
+    "docsGeneratedAt": "2026-08-06T19:26:16.794Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-stenberg-poster": {
     "hash": "7f0a3281c9d9",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:15:41.099Z",
-    "heroGeneratedAt": "2026-07-20T16:40:59.053Z",
-    "docsGeneratedAt": "2026-08-04T02:25:24.141Z"
+    "generatedAt": "2026-08-06T19:06:37.208Z",
+    "heroGeneratedAt": "2026-08-06T19:08:27.210Z",
+    "docsGeneratedAt": "2026-08-06T19:10:16.163Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-taller-grafica-linocut": {
     "hash": "2c7fc7296e97",
     "model": "gpt",
-    "generatedAt": "2026-07-25T00:35:59.649Z",
-    "heroGeneratedAt": "2026-07-25T01:21:08.674Z",
-    "docsGeneratedAt": "2026-08-04T02:27:46.120Z"
+    "generatedAt": "2026-08-06T19:08:45.993Z",
+    "heroGeneratedAt": "2026-08-06T19:10:32.832Z",
+    "docsGeneratedAt": "2026-08-06T19:12:17.175Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-torn-flyer-photocopy-wall": {
     "hash": "3e0176f8be05",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:53:33.294Z",
-    "heroGeneratedAt": "2026-07-27T01:55:23.837Z",
-    "docsGeneratedAt": "2026-08-04T02:35:12.088Z"
+    "generatedAt": "2026-08-06T19:36:59.608Z",
+    "heroGeneratedAt": "2026-08-06T19:38:39.917Z",
+    "docsGeneratedAt": "2026-08-06T19:40:32.983Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-tropicalia-sleeve-collage": {
     "hash": "8a0c827c365e",
     "model": "gpt",
-    "generatedAt": "2026-07-27T01:49:46.514Z",
-    "heroGeneratedAt": "2026-07-27T01:51:54.269Z",
-    "docsGeneratedAt": "2026-08-04T02:32:52.826Z"
+    "generatedAt": "2026-08-06T19:26:13.530Z",
+    "heroGeneratedAt": "2026-08-06T19:28:00.515Z",
+    "docsGeneratedAt": "2026-08-06T19:29:51.621Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-weimar-cabaret-bill": {
     "hash": "87d832390cf3",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:56:03.686Z",
-    "generatedAt": "2026-07-25T01:56:14.317Z",
-    "docsGeneratedAt": "2026-08-04T02:32:19.045Z"
+    "heroGeneratedAt": "2026-08-06T19:26:02.030Z",
+    "generatedAt": "2026-08-06T19:24:24.996Z",
+    "docsGeneratedAt": "2026-08-06T19:27:48.031Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-wpa-park-poster": {
     "hash": "dfd4045a4484",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:15:33.218Z",
-    "heroGeneratedAt": "2026-07-20T16:40:56.993Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:06:13.406Z",
+    "heroGeneratedAt": "2026-08-06T19:07:57.955Z",
+    "docsGeneratedAt": "2026-08-06T19:09:45.569Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-wuxia-painted-hoarding": {
     "hash": "6d6a7f4a22f6",
     "model": "gpt",
-    "generatedAt": "2026-07-25T00:39:32.871Z",
-    "heroGeneratedAt": "2026-07-25T01:22:52.060Z",
-    "docsGeneratedAt": "2026-08-04T02:28:26.882Z"
+    "generatedAt": "2026-08-06T19:22:27.055Z",
+    "heroGeneratedAt": "2026-08-06T19:24:11.734Z",
+    "docsGeneratedAt": "2026-08-06T19:26:05.449Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "posters-covers-sleeves-yeye-pop-sleeve": {
     "hash": "a3ddf4d902ed",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-25T01:56:40.614Z",
-    "generatedAt": "2026-07-25T01:56:54.357Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "heroGeneratedAt": "2026-08-06T19:25:51.656Z",
+    "generatedAt": "2026-08-06T19:24:15.932Z",
+    "docsGeneratedAt": "2026-08-06T19:27:38.201Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "reading-rhythm-airline-safety-card": {
     "hash": "10ff4bb73216",
@@ -4558,9 +6476,29 @@
   "rw-botteghe-quarterly-interior": {
     "hash": "9edd90c01e2f",
     "model": "gpt",
-    "generatedAt": "2026-08-04T02:17:07.249Z",
-    "heroGeneratedAt": "2026-08-04T02:19:10.162Z",
-    "docsGeneratedAt": "2026-08-04T02:21:16.577Z"
+    "generatedAt": "2026-08-06T18:50:48.793Z",
+    "heroGeneratedAt": "2026-08-06T18:52:33.884Z",
+    "docsGeneratedAt": "2026-08-06T18:54:20.912Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "rw-boxed-manual-colour-tab-page": {
     "hash": "92ab730aac52",
@@ -4579,9 +6517,29 @@
   "rw-centre-rail-reference-setting": {
     "hash": "d03be6dd119c",
     "model": "gpt",
-    "generatedAt": "2026-08-04T02:17:03.696Z",
-    "heroGeneratedAt": "2026-08-04T02:19:02.479Z",
-    "docsGeneratedAt": "2026-08-04T02:21:15.107Z"
+    "generatedAt": "2026-08-06T18:50:42.312Z",
+    "heroGeneratedAt": "2026-08-06T18:52:36.967Z",
+    "docsGeneratedAt": "2026-08-06T18:54:20.703Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "rw-copy-shop-zine-interior": {
     "hash": "e12c683b8870",
@@ -4600,16 +6558,56 @@
   "rw-lexicon-shoulder-and-plate": {
     "hash": "9572496a209a",
     "model": "gpt",
-    "generatedAt": "2026-08-04T02:17:12.433Z",
-    "heroGeneratedAt": "2026-08-04T02:19:11.525Z",
-    "docsGeneratedAt": "2026-08-04T02:21:21.857Z"
+    "generatedAt": "2026-08-06T18:50:42.433Z",
+    "heroGeneratedAt": "2026-08-06T18:52:26.073Z",
+    "docsGeneratedAt": "2026-08-06T18:54:07.846Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "rw-manual-acetate-tab-board": {
     "hash": "b8202ad4fb6a",
     "model": "gpt",
-    "generatedAt": "2026-08-04T02:17:08.882Z",
-    "heroGeneratedAt": "2026-08-04T02:19:10.757Z",
-    "docsGeneratedAt": "2026-08-04T02:21:18.283Z"
+    "generatedAt": "2026-08-06T18:50:30.393Z",
+    "heroGeneratedAt": "2026-08-06T18:52:22.944Z",
+    "docsGeneratedAt": "2026-08-06T18:54:13.755Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "rw-stitch-grammar-terrain": {
     "hash": "fcbbeb558a70",
@@ -4621,20 +6619,24 @@
   "rw-timetable-slide-rack": {
     "hash": "1e0e01d66ccc",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:20:20.233Z",
-    "heroGeneratedAt": "2026-08-06T18:22:00.054Z",
-    "docsGeneratedAt": "2026-08-06T18:18:29.868Z",
+    "generatedAt": "2026-08-06T19:53:42.480Z",
+    "heroGeneratedAt": "2026-08-06T19:55:25.889Z",
+    "docsGeneratedAt": "2026-08-06T19:57:05.082Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -5067,16 +7069,56 @@
   "tanaka-plane-portrait": {
     "hash": "4d96ce3dc15f",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-21T20:32:41.437Z",
-    "generatedAt": "2026-07-21T20:33:03.118Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "heroGeneratedAt": "2026-08-06T19:07:36.827Z",
+    "generatedAt": "2026-08-06T19:06:02.544Z",
+    "docsGeneratedAt": "2026-08-06T19:09:18.761Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "tdr-info-noise-sleeve": {
     "hash": "c29b91469a74",
     "model": "gpt",
-    "heroGeneratedAt": "2026-07-21T21:28:29.486Z",
-    "generatedAt": "2026-07-21T21:28:53.190Z",
-    "docsGeneratedAt": "2026-08-04T02:26:32.139Z"
+    "heroGeneratedAt": "2026-08-06T19:10:04.861Z",
+    "generatedAt": "2026-08-06T19:08:10.707Z",
+    "docsGeneratedAt": "2026-08-06T19:11:56.799Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "textiles-weave-drape-fashion-bias-cut-gravity-line": {
     "hash": "33d4077f2207",
@@ -5186,20 +7228,24 @@
   "typography-calligraphy-writing-illuminated-initial-vine": {
     "hash": "772e2bf27f04",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:30:01.856Z",
-    "heroGeneratedAt": "2026-08-06T18:31:57.503Z",
-    "docsGeneratedAt": "2026-08-06T18:28:08.882Z",
+    "generatedAt": "2026-08-06T18:35:48.831Z",
+    "heroGeneratedAt": "2026-08-06T18:37:40.362Z",
+    "docsGeneratedAt": "2026-08-06T18:39:33.610Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
-        "v1"
+        "v1",
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -5209,21 +7255,24 @@
   "typography-calligraphy-writing-zoomorphic-calligram": {
     "hash": "742df15b0fec",
     "model": "gpt",
-    "generatedAt": "2026-08-06T18:29:28.726Z",
-    "docsGeneratedAt": "2026-08-06T18:32:57.413Z",
-    "heroGeneratedAt": "2026-08-06T18:31:12.371Z",
+    "generatedAt": "2026-08-06T18:34:46.858Z",
+    "docsGeneratedAt": "2026-08-06T18:38:16.497Z",
+    "heroGeneratedAt": "2026-08-06T18:36:26.613Z",
     "variants": {
       "board": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "hero": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ],
       "docs": [
         "v1",
-        "v2"
+        "v2",
+        "v3"
       ]
     },
     "boardWinner": "v1",
@@ -5555,30 +7604,110 @@
   "wayfinding-cartography-signage-midnight-transit-diagram": {
     "hash": "5fafe9dc951a",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:23:30.412Z",
-    "heroGeneratedAt": "2026-07-20T16:48:30.004Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:54:35.927Z",
+    "heroGeneratedAt": "2026-08-06T19:56:17.269Z",
+    "docsGeneratedAt": "2026-08-06T19:58:05.323Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "wayfinding-cartography-signage-night-market-sign-river": {
     "hash": "11599cf43054",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:23:53.250Z",
-    "heroGeneratedAt": "2026-07-20T20:32:10.297Z",
-    "docsGeneratedAt": "2026-08-04T02:45:43.573Z"
+    "generatedAt": "2026-08-06T19:54:55.611Z",
+    "heroGeneratedAt": "2026-08-06T19:56:44.749Z",
+    "docsGeneratedAt": "2026-08-06T19:58:34.551Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "wayfinding-cartography-signage-salt-stiffened-treasure-map": {
     "hash": "c3a4d2653604",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:23:57.810Z",
-    "heroGeneratedAt": "2026-07-20T16:49:17.412Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:56:11.738Z",
+    "heroGeneratedAt": "2026-08-06T19:57:59.183Z",
+    "docsGeneratedAt": "2026-08-06T19:59:51.800Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "wayfinding-cartography-signage-terminal-yellow-wayfinding": {
     "hash": "66509a5e8866",
     "model": "gpt",
-    "generatedAt": "2026-07-20T03:23:44.775Z",
-    "heroGeneratedAt": "2026-07-20T16:49:40.852Z",
-    "docsGeneratedAt": "2026-08-03T18:00:00.000Z"
+    "generatedAt": "2026-08-06T19:54:33.775Z",
+    "heroGeneratedAt": "2026-08-06T19:56:11.213Z",
+    "docsGeneratedAt": "2026-08-06T19:57:53.499Z",
+    "variants": {
+      "board": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "hero": [
+        "v1",
+        "v2",
+        "v3"
+      ],
+      "docs": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "boardWinner": "v1",
+    "heroWinner": "v1",
+    "docsWinner": "v1"
   },
   "webgl-shader-portal": {
     "hash": "978837754074",
