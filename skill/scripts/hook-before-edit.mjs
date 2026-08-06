@@ -20,6 +20,8 @@ import {
   GENERATED_PATH,
   SENSITIVE_PATH,
   appendDesignSystemNoteOnce,
+  commitFooterShown,
+  designNoteReserve,
   designSystemOptions,
   footerModeForSession,
   filterFindings,
@@ -346,8 +348,8 @@ async function detectProposedHtml(detector, content, filePath, scanOptions) {
   }
 }
 
-function cursorBlockMessage(findings, filePath, config, cwd, footerMode) {
-  const rendered = renderTemplate(findings, filePath, config, { cwd, footer: footerMode });
+function cursorBlockMessage(findings, filePath, config, cwd, footerMode, reserveChars) {
+  const rendered = renderTemplate(findings, filePath, config, { cwd, footer: footerMode, reserveChars });
   const blocked = rendered.replace(
     '[impeccable@1] Design hook findings requiring review',
     '[impeccable@1] Impeccable design hook blocked this write before it landed. Design hook findings requiring review',
@@ -475,9 +477,10 @@ async function main() {
   // policy: the full footer emits once per session, the short form after.
   const footerMode = footerModeForSession(cache, sessionId);
   const message = appendDesignSystemNoteOnce(
-    cursorBlockMessage(filtered, filePath, config, cwd, footerMode),
+    cursorBlockMessage(filtered, filePath, config, cwd, footerMode, designNoteReserve(scanOptions, cache, sessionId)),
     scanOptions, cache, sessionId, config,
   );
+  commitFooterShown(cache, sessionId, message);
   const denial = bumpCursorDenial(cache, sessionId, filePath, filtered);
   persistCache(cwd, cache);
   if (denial.count > EDIT_COUNT_THRESHOLD) {

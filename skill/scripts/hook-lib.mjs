@@ -23,7 +23,8 @@
  *   renderTemplate(findings, filePath, config, opts)
  *   renderCleanAck(filePath, opts) / renderPendingAck(filePath, known, opts)
  *   appendDesignSystemNote(text, scanOptions) / appendDesignSystemNoteOnce(text, scanOptions, cache, sessionId, config)
- *   footerModeForSession(cache, sessionId)
+ *   designNoteReserve(scanOptions, cache, sessionId)
+ *   footerModeForSession(cache, sessionId) / commitFooterShown(cache, sessionId, text)
  *   shouldEmitAckForFile(filePath, config?)
  *   writeAuditLog(env, entry)
  *   loadDetector() -> Promise<{ detectText, detectHtml }>
@@ -972,7 +973,10 @@ export function renderTemplate(findings, filePath, config, opts = {}) {
   if (!Array.isArray(findings) || findings.length === 0) return '';
   const limits = config?.limits || DEFAULT_CONFIG.limits;
   const cap = Math.max(1, limits.maxFindings || DEFAULT_CONFIG.limits.maxFindings);
-  const maxChars = Math.max(500, limits.maxChars || DEFAULT_CONFIG.limits.maxChars);
+  // reserveChars holds back room for a note the caller appends after render
+  // (the DESIGN.md staleness note), so the final payload stays inside the
+  // configured budget.
+  const maxChars = Math.max(500, limits.maxChars || DEFAULT_CONFIG.limits.maxChars) - (opts.reserveChars || 0);
 
   const cwd = opts.cwd || process.cwd();
   const display = relativize(filePath, cwd);
@@ -1010,7 +1014,7 @@ function renderGroupedTemplate(groups, config, opts = {}) {
 
   const limits = config?.limits || DEFAULT_CONFIG.limits;
   const cap = Math.max(1, limits.maxFindings || DEFAULT_CONFIG.limits.maxFindings);
-  const maxChars = Math.max(500, limits.maxChars || DEFAULT_CONFIG.limits.maxChars);
+  const maxChars = Math.max(500, limits.maxChars || DEFAULT_CONFIG.limits.maxChars) - (opts.reserveChars || 0);
   const cwd = opts.cwd || process.cwd();
   const total = realGroups.reduce((sum, group) => sum + group.findings.length, 0);
   const header = `${ENVELOPE_PREFIX} Design hook findings requiring review across ${realGroups.length} files (${total} issue(s)):`;
@@ -1043,6 +1047,19 @@ function renderGroupedTemplate(groups, config, opts = {}) {
   return text;
 }
 
+// The clamp contract, shared by both budget functions: the footer is policy,
+// not detail, so it survives every clamp. Try the requested footer first;
+// when it cannot fit even after dropping finding lines, retry with the short
+// policy rather than sacrifice findings that fit beside it. A result that
+// dropped every finding line (a grouped render can fit a bare file header)
+// does not count as a fit: findings are why the emission exists.
+const isFindingLine = (line) => line.startsWith('- ');
+
+function footerFallbacks(footer) {
+  const short = directiveFooter({ mode: 'short' });
+  return footer === short ? [footer] : [footer, short];
+}
+
 function clampGroupedToBudget(header, lines, footer, maxChars) {
   const assemble = (linesArr, omitted, footerText) => [
     header,
@@ -1052,16 +1069,19 @@ function clampGroupedToBudget(header, lines, footer, maxChars) {
     footerText,
   ].join('\n');
 
-  let working = lines.slice();
-  let omitted = false;
-  let assembled = assemble(working, omitted, footer);
-  while (assembled.length > maxChars && working.length > 1) {
-    working.pop();
-    omitted = true;
-    assembled = assemble(working, omitted, footer);
+  for (const footerText of footerFallbacks(footer)) {
+    let working = lines.slice();
+    let omitted = false;
+    let assembled = assemble(working, omitted, footerText);
+    while (assembled.length > maxChars && working.length > 1) {
+      working.pop();
+      omitted = true;
+      assembled = assemble(working, omitted, footerText);
+    }
+    if (assembled.length <= maxChars && working.some(isFindingLine)) return assembled;
   }
-  if (assembled.length <= maxChars) return assembled;
-  return clampLastLine((linesArr, footerText) => assemble(linesArr, true, footerText), working[0], footer, maxChars);
+  return clampLastLine((linesArr, footerText) => assemble(linesArr, true, footerText),
+    lines.find(isFindingLine) || lines[0], maxChars);
 }
 
 function clampToBudget(header, lines, more, footer, maxChars) {
@@ -1073,39 +1093,37 @@ function clampToBudget(header, lines, more, footer, maxChars) {
     return blocks.join('\n');
   };
 
-  let working = lines.slice();
-  let moreText = more;
-  let assembled = assemble(working, moreText, footer);
-  while (assembled.length > maxChars && working.length > 1) {
-    working.pop();
-    moreText = `... and more (see ${IMPECCABLE_COMMAND} audit).`;
-    assembled = assemble(working, moreText, footer);
+  let lastMore = more;
+  for (const footerText of footerFallbacks(footer)) {
+    let working = lines.slice();
+    let moreText = more;
+    let assembled = assemble(working, moreText, footerText);
+    while (assembled.length > maxChars && working.length > 1) {
+      working.pop();
+      moreText = `... and more (see ${IMPECCABLE_COMMAND} audit).`;
+      assembled = assemble(working, moreText, footerText);
+    }
+    lastMore = moreText;
+    if (assembled.length <= maxChars) return assembled;
   }
-  if (assembled.length <= maxChars) return assembled;
-  return clampLastLine((linesArr, footerText) => assemble(linesArr, moreText, footerText), working[0], footer, maxChars);
+  return clampLastLine((linesArr, footerText) => assemble(linesArr, lastMore, footerText),
+    lines.find(isFindingLine) || lines[0], maxChars);
 }
 
-// Last resort when a single finding line still busts the budget. The footer
-// is policy, not detail, so it survives every clamp: give it the budget
-// first, clip the finding line to what remains, and when the full policy is
-// itself what does not fit, downgrade to the short form rather than emit
-// findings with no policy at all. The old tail-slice cut whatever happened
-// to be last, which was always the footer.
-function clampLastLine(build, line, footer, maxChars) {
-  const footerCandidates = footer === directiveFooter({ mode: 'short' })
-    ? [footer]
-    : [footer, directiveFooter({ mode: 'short' })];
-  for (const footerText of footerCandidates) {
-    // +1 for the newline the line itself brings when it joins the blocks.
-    const room = maxChars - build([], footerText).length - 1;
-    if (room >= 24) {
-      const clipped = line.length > room ? `${line.slice(0, room - 1)}…` : line;
-      return build([clipped], footerText);
-    }
+// Last resort with one finding line left: the short policy gets the budget
+// first, the line is clipped to what remains. The pre-fix tail-slice cut
+// whatever happened to be last, which was always the footer.
+function clampLastLine(build, line, maxChars) {
+  const footerText = directiveFooter({ mode: 'short' });
+  // +1 for the newline the line itself brings when it joins the blocks.
+  const room = maxChars - build([], footerText).length - 1;
+  if (room >= 24) {
+    const clipped = line.length > room ? `${line.slice(0, room - 1)}…` : line;
+    return build([clipped], footerText);
   }
   // maxChars is floored at 500 and header + short footer fit well inside
   // that, so this is unreachable; keep the hard slice as the safety net.
-  return `${build([line], footer).slice(0, maxChars - 1)}…`;
+  return `${build([line], footerText).slice(0, maxChars - 1)}…`;
 }
 
 // `compact` drops the registry description: within one emission the first
@@ -1657,9 +1675,10 @@ function consumeSessionNoticeFlag(cache, sessionId, flag) {
 // Once-per-session variant of appendDesignSystemNote for the emission paths
 // that have cache access. The staleness note names standing project state,
 // not new information, so one mention per session is enough. The note is
-// appended after the renderer has clamped to the configured budget, so when
-// it would push the emission past maxChars, defer it (without consuming the
-// flag) to a later, smaller emission in the session.
+// appended after the renderer has clamped to the configured budget: render
+// paths reserve room for it via designNoteReserve, and the size check here
+// is the safety net for the ack paths, deferring (without consuming the
+// flag) to a later emission rather than busting maxChars.
 export function appendDesignSystemNoteOnce(text, scanOptions, cache, sessionId, config) {
   if (!text || !scanOptions?.designSystem?.mdNewerThanJson) return text;
   const maxChars = Math.max(500, config?.limits?.maxChars || DEFAULT_CONFIG.limits.maxChars);
@@ -1668,14 +1687,40 @@ export function appendDesignSystemNoteOnce(text, scanOptions, cache, sessionId, 
   return appendDesignSystemNote(text, scanOptions);
 }
 
+// Render-time reservation for the note above: how many characters the
+// renderer must hold back so a pending staleness note still fits inside the
+// configured budget. Zero once the session has seen the note. Without the
+// reservation, a session whose every emission fills the budget would defer
+// the note forever.
+export function designNoteReserve(scanOptions, cache, sessionId) {
+  if (!scanOptions?.designSystem?.mdNewerThanJson) return 0;
+  if (ensureSession(cache, sessionId).designNoteShown) return 0;
+  return DESIGN_STALE_NOTE.length + 2;
+}
+
 // Full directive footer once per session, the short reminder after. Fresh
 // emissions and Cursor denials share the session flag (`footerShown`), so a
-// session pays the full policy exactly once however it first fires.
+// session pays the full policy exactly once however it first fires. The mode
+// is a peek: the clamp can downgrade a requested full footer under a tight
+// budget, so the flag commits only when the full policy actually reached the
+// output (commitFooterShown, matched on the footer's opening words).
 export function footerModeForSession(cache, sessionId) {
-  return consumeSessionNoticeFlag(cache, sessionId, 'footerShown') ? 'full' : 'short';
+  return ensureSession(cache, sessionId).footerShown ? 'short' : 'full';
+}
+
+export function commitFooterShown(cache, sessionId, text) {
+  if (!text || !text.includes(FULL_FOOTER_SENTINEL)) return;
+  const session = ensureSession(cache, sessionId);
+  if (session.footerShown) return;
+  session.footerShown = true;
+  session.updatedAt = Date.now();
 }
 
 const HOOK_ADMIN_COMMAND = `node ${quoteCommandArg(path.join(__dirname, 'hook-admin.mjs'))}`;
+
+// Opening words of the full footer; commitFooterShown matches on it to tell
+// whether the full policy survived the clamp.
+const FULL_FOOTER_SENTINEL = 'Triage each finding';
 
 // The directive footer is the part of the hook output that steers model
 // behavior. Intentional moves, in order:
@@ -1704,7 +1749,7 @@ function directiveFooter(opts = {}) {
     return 'Triage per the session policy: fix real problems; persist confident false-positive or sanctioned-exception ignores via `hook-admin.mjs ignore-value` and disclose them in your reply; unsure, ask in one line.';
   }
   return [
-    'Triage each finding, then state in your reply what you fixed, what you suppressed, and what you left standing:',
+    `${FULL_FOOTER_SENTINEL}, then state in your reply what you fixed, what you suppressed, and what you left standing:`,
     '- Real design problem: fix it. Keep intentional design as designed.',
     `- Confident false positive or sanctioned exception (an intentional demo or fixture, documentation of bad design, literal or domain-appropriate motion, a choice the user confirmed): persist the narrowest ignore yourself and disclose it. Run \`${HOOK_ADMIN_COMMAND} ignore-value <rule> "<value>" --reason "<who decided: evidence>"\` with the pair shown on the finding line, or value "*" plus \`--file <path>\` when the line shows none. Write "user confirmed" in a reason only when the user did.`,
     '- Unsure: leave it as is and ask the user in one line.',
@@ -1930,15 +1975,20 @@ export async function runHook({ stdinJson, env = {}, cwd = process.cwd(), now = 
       }
     }
 
-    // Consuming a session notice flag mutates the cache, so both must happen
-    // before the persist that makes the flag stick across events.
+    // The session notice flags mutate the cache, so they must settle before
+    // the persist that makes them stick across events.
     if (freshGroups.length > 0) {
       const firstGroup = freshGroups[0];
       const footerMode = footerModeForSession(cache, sessionId);
       const text = appendDesignSystemNoteOnce(
-        renderGroupedTemplate(freshGroups, config, { cwd: projectCwd, footer: footerMode }),
+        renderGroupedTemplate(freshGroups, config, {
+          cwd: projectCwd,
+          footer: footerMode,
+          reserveChars: designNoteReserve(scanOptions, cache, sessionId),
+        }),
         scanOptions, cache, sessionId, config,
       );
+      commitFooterShown(cache, sessionId, text);
       // Fresh findings always earn the cache write, including creating
       // `.impeccable/`: dedup, suppression, and the notice flags need it.
       persistCache(projectCwd, cache);
@@ -2222,9 +2272,14 @@ export async function runStopHook({ stdinJson, env = {}, cwd = process.cwd(), no
     // flag, so the Stop wall of text carries the one-line short footer.
     const footerMode = footerModeForSession(cache, sessionId);
     const text = appendDesignSystemNoteOnce(
-      renderGroupedTemplate(freshGroups, config, { cwd: projectCwd, footer: footerMode }),
+      renderGroupedTemplate(freshGroups, config, {
+        cwd: projectCwd,
+        footer: footerMode,
+        reserveChars: designNoteReserve(scanOptions, cache, sessionId),
+      }),
       scanOptions, cache, sessionId, config,
     );
+    commitFooterShown(cache, sessionId, text);
 
     // Fresh findings earn the cache write so the next Stop fire is silent
     // unless new issues appear; the notice flags ride along.

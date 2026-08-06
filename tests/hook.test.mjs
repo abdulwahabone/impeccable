@@ -1213,6 +1213,18 @@ describe('renderTemplate()', () => {
     assert.match(text, /Triage per the session policy/, 'a clamped emission still carries the policy');
   });
 
+  it('keeps findings that fit beside the short policy instead of dropping them for the full one', () => {
+    const findings = [1, 2, 3].map((line) =>
+      finding('side-tab', line, { name: 'X', description: 'short issue' }));
+    const text = renderTemplate(findings, '/x/a.tsx',
+      { ...DEFAULT_CONFIG, limits: { maxFindings: 5, maxChars: 500 } },
+      { cwd: '/x' });
+    assert.ok(text.length <= 500);
+    assert.match(text, /- L1 /);
+    assert.match(text, /- L2 /);
+    assert.match(text, /- L3 /, 'all findings survive; the clamp must not drop lines chasing the full policy');
+    assert.match(text, /Triage per the session policy/);
+  });
 });
 
 describe('writeAuditLog()', () => {
@@ -2251,30 +2263,47 @@ describe('runHook() — session-scoped notices', () => {
     assert.doesNotMatch(r2.stdout, /DESIGN\.md is newer/, 'the staleness note does not repeat within a session');
   });
 
-  it('defers the staleness note past an emission it would push over budget', async () => {
+  it('delivers the staleness note inside the budget on a full first emission', async () => {
+    fs.writeFileSync(getConfigPath(cwd), JSON.stringify({
+      hook: { limits: { maxChars: 500 } },
+    }));
+    const a = path.join(cwd, 'a.css');
+    const b = path.join(cwd, 'b.css');
+    fs.writeFileSync(a, 'noop');
+    fs.writeFileSync(b, 'noop');
+    const det = {
+      ...fakeDetector([finding('tiny-text', 1, { name: 'Tiny text', description: 'y'.repeat(600) })]),
+      loadDesignSystemForCwd: () => ({ present: true, mdNewerThanJson: true }),
+    };
+
+    // A finding this long would fill the whole budget; the renderer must
+    // reserve room so the note still lands without busting maxChars.
+    const r1 = await runHook({ stdinJson: event(a), env: {}, cwd, detector: det });
+    const ctx1 = JSON.parse(r1.stdout).hookSpecificOutput.additionalContext;
+    assert.ok(ctx1.length <= 500, `final emission honors maxChars (got ${ctx1.length})`);
+    assert.match(ctx1, /DESIGN\.md is newer/, 'the note is delivered on the first emission, not deferred past it');
+
+    const r2 = await runHook({ stdinJson: event(b), env: {}, cwd, detector: det });
+    const ctx2 = JSON.parse(r2.stdout).hookSpecificOutput.additionalContext;
+    assert.doesNotMatch(ctx2, /DESIGN\.md is newer/, 'one mention per session');
+  });
+
+  it('keeps the full-footer flag unspent when the clamp downgrades the footer', async () => {
     fs.writeFileSync(getConfigPath(cwd), JSON.stringify({
       hook: { limits: { maxChars: 500 } },
     }));
     const a = path.join(cwd, 'a.css');
     fs.writeFileSync(a, 'noop');
-    let current = [finding('tiny-text', 1, { name: 'Tiny text', description: 'y'.repeat(600) })];
-    const det = {
-      detectText: () => current.slice(),
-      detectHtml: () => current.slice(),
-      loadDesignSystemForCwd: () => ({ present: true, mdNewerThanJson: true }),
-    };
+    const det = fakeDetector([finding('tiny-text', 1, { name: 'Tiny text', description: 'y'.repeat(600) })]);
 
-    // The fresh emission fills the whole budget; appending the note here
-    // would bust maxChars, so it must wait without burning the session flag.
+    // 500 chars cannot hold the full policy, so the emission carries the
+    // short form. The session must not be marked as having seen the full
+    // footer it never received.
     const r1 = await runHook({ stdinJson: event(a), env: {}, cwd, detector: det });
-    const ctx1 = JSON.parse(r1.stdout).hookSpecificOutput.additionalContext;
-    assert.ok(ctx1.length <= 500, `final emission honors maxChars (got ${ctx1.length})`);
-    assert.doesNotMatch(ctx1, /DESIGN\.md is newer/);
-
-    // The next emission is a small clean ack with room to spare.
-    current = [];
-    const r2 = await runHook({ stdinJson: event(a), env: {}, cwd, detector: det });
-    assert.match(r2.stdout, /DESIGN\.md is newer/, 'the deferred note lands on the next emission with room');
+    assert.match(r1.stdout, /Triage per the session policy/);
+    assert.doesNotMatch(r1.stdout, /Triage each finding/);
+    const cache = readCache(cwd);
+    assert.ok(!cache.sessions['sid-1'].footerShown, 'a downgraded footer does not spend the session flag');
   });
 });
 
@@ -3648,6 +3677,7 @@ describe('runStopHook()', () => {
     const ctx = JSON.parse(stop.stdout).hookSpecificOutput.additionalContext;
     assert.ok(ctx.length <= 500, `grouped emission honors maxChars (got ${ctx.length})`);
     assert.match(ctx, /Triage per the session policy/, 'a clamped grouped emission still carries the policy');
+    assert.match(ctx, /\[side-tab\]/, 'a clamped grouped emission keeps finding detail, not just a file header');
   });
 
   it('exits silent and fast when the session touched no UI files', async () => {
