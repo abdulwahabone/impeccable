@@ -1191,7 +1191,14 @@ const pageData = JSON.stringify({
       });
       const result = await response.json();
       if (!response.ok) throw new Error(result?.error || 'the queue refused that');
-      siteQueue = result.result?.sites || siteQueue;
+      // The endpoint returns queue rows, which know nothing about renders: those
+      // are attached when the page is built, by looking on disk. Taking the
+      // response wholesale therefore dropped every image the moment anything was
+      // clicked, and only a reload brought them back. Carry them across.
+      const renders = new Map(siteQueue.filter(site => site.render).map(site => [site.url, site.render]));
+      siteQueue = (result.result?.sites || siteQueue).map(site => (
+        renders.has(site.url) ? { ...site, render: renders.get(site.url) } : site
+      ));
       renderSites();
       return result.result;
     }

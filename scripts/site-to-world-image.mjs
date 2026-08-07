@@ -125,36 +125,45 @@ for (let i = 0; i < scrolls; i += 1) {
 await browser.close();
 
 // ---------------------------------------------------------------- reimagine
-// The reference images carry the palette, the shape language, the type voice, the
-// illustration idiom and the composition. The prompt only has to say what to
-// change, which is the subject, and what not to, which is everything else.
+// What travels is the vocabulary. What must not travel is the artifact.
 //
-// It used to also describe a hero: navigation, a headline, a call to action, the
-// next section peeking in. That sentence came from the text-derived path, where
-// nothing else specifies a layout, and here it overrode the references and
-// produced a standard left-column-plus-right-picture hero against a source that
-// fills its viewport with one monumental centred line. Prose beat the images
-// because prose was the only thing making a claim about arrangement.
-const prompt = `The attached images are screenshots of one website. Study them as a visual system: its exact palette, its shape language and corner radii, its illustration idiom and how figures are drawn, its type voice and weight, its spacing, and how areas of colour relate to each other.
+// This prompt has now failed in both directions. The first version routed the
+// page through prose and lost the source entirely. The version that replaced it
+// said to keep "the exact chrome grammar of nav, buttons and chips" and shouted
+// KEEP THE COMPOSITION, which produced reskins: House of Honey came back with
+// their mark in the corner, their Get in Touch button in its place, their blush
+// ground, and their signature device of a heavy grotesk interrupted by a script
+// italic reproduced move for move. Only the illustration and the words were new.
+// One line telling it not to reuse the wordmark was no match for two paragraphs
+// telling it to copy everything around it.
+//
+// So the balance is inverted. A designer influenced by a page borrows its
+// vocabulary, not its arrangement, and never its mark. The instruction most
+// worth its space is the counter-intuitive one: the element that most identifies
+// the source is the element you must not reproduce, because it is simultaneously
+// the most tempting to keep and the only one that turns homage into forgery.
+const prompt = `The attached images are screenshots of one website. Read them the way a designer reads a reference: not as a page to reproduce, but as a vocabulary to learn. You are going to design something else using that vocabulary.
 
-Now design a COMPLETELY DIFFERENT product's landing page in that same visual world${subject ? `: ${subject}` : ''}. Different subject, different copy, different composition, different imagery content.
+The product is different${subject ? `: ${subject}` : ''}. New subject, new copy, new imagery, new brand.
 
-Keep these, and they are the parts that go missing if you are not told: the exact hues, sampled rather than approximated, with no colour introduced that is not already in the source. The illustration idiom in full, meaning the drawing hand AND its energy: if the source's figures are mid-action with exaggerated proportions and are cropped by the frame, yours are too, and if its props are scattered at several scales, yours are. Match how many figures appear and what they are doing. Match the density of loose elements around them. A single tidy centred vignette is a failure when the source is an ensemble in motion.
+WHAT TO CARRY OVER, and this is the part that goes missing if nobody says it:
 
-Also keep the type voice and weight, the corner radii, the way areas of colour meet, and the exact chrome grammar of nav, buttons and chips.
+- The palette's character. Its temperature, its saturation level, how many colours it runs, and which does the heavy lifting against which. Re-cast it rather than sampling it: shift the hues within the same family, or promote a secondary to ground, so the two palettes are unmistakably related and not identical.
+- The type PAIRING LOGIC rather than the typefaces. If the source sets a very heavy display against a delicate high-contrast serif, do that; use different faces to do it.
+- The shape language: radii, weight of line, whether forms are geometric or drawn, how areas of colour meet.
+- The illustration idiom in full, meaning the drawing hand AND its energy. If the source's figures are mid-action with exaggerated proportions and cropped by the frame, yours are too. If its props are scattered at several scales, yours are. Match the density of loose elements. A tidy centred vignette is a failure when the source is an ensemble in motion.
+- The register: how loud, how dense, how much air, how much the page is willing to shout.
 
-KEEP THE COMPOSITION. This is the one most easily lost, because a landing page has
-a default shape and it is not this one. Read off the reference: is the headline
-centred or ranged left? How much of the frame does it occupy? Does imagery sit
-beside the text in a column, or enter from an edge behind and beneath it? Is there
-a left text column at all? Reproduce that arrangement with your own content. If
-the source fills the viewport with one monumental centred line and lets the
-artwork rise from the bottom, do that. Do not produce a text column on the left
-with a picture on the right unless the reference does.
+WHAT MUST BE DIFFERENT, because these are what make a copy rather than an influence. Every one of these has been reproduced verbatim in a previous run:
 
-A person who knows the source should recognise the family immediately and never mistake this for the same site. Do not reuse its wordmark, its brand name, its copy, or its specific illustrations; invent new ones drawn in the same hand.
+- The composition. Where the headline sits, how much frame it takes, where the imagery enters, whether there is a text column at all. Arrange the page differently and let the same vocabulary support that arrangement.
+- The chrome. Different nav position, different structure, a different number of items, a different call-to-action treatment. If the source puts a labelled button with an arrow at top right, yours must not.
+- The mark. Invent one that shares no silhouette with theirs. If you cannot see a way to draw one that is clearly unrelated, use a wordmark set in type and nothing else.
+- THE SIGNATURE DEVICE. Every distinctive page has one trick that is more identifying than anything else: a script word interrupting a heavy headline, a rule that cuts the page, a badge, a specific hero motif. Find it, name it to yourself, and then do NOT use it. Invent your own device out of the same vocabulary. This is the single most important instruction here, and the one most likely to be quietly ignored, because that device is exactly what makes the reference feel good.
 
-Render as a complete desktop page filling the whole 16:9 frame, as if screenshotted at 1440 wide, showing the same part of the page the first reference shows and composed the same way. No browser chrome, no device mockup. Interface copy in English, plain punctuation, never an em dash.`;
+The test: two designers shown both pages should say the same influences, the same shelf of references, the same year. They must not say the same studio, and they must never say the same site with different words in it. If you find yourself placing an element in the same position with the same treatment as the source, move it and treat it differently.
+
+Render as a complete desktop page filling the whole 16:9 frame, as if screenshotted at 1440 wide, showing the top of the page and cut off mid-element at the bottom edge because more of it exists below. No browser chrome, no device mockup. Interface copy in English, plain punctuation, never an em dash.`;
 
 process.stdout.write('\nreimagining\n');
 const form = new FormData();
