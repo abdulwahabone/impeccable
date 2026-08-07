@@ -1,4 +1,4 @@
-import { copyFile, readFile, rename, writeFile } from 'node:fs/promises';
+import { copyFile, readFile, rename, stat, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import sharp from 'sharp';
 import {
@@ -542,7 +542,13 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
         // sixteen candidates means thirty-two of them. Serving them whole made
         // the tab spend a minute downloading pictures nobody was looking at yet.
         const width = Number(new URLSearchParams(rawQuery || '').get('w')) || 0;
-        const key = `${target}@${width}`;
+        // The modification time is part of the key, so re-rendering a world
+        // invalidates it. Without that the cache had no expiry at all and served
+        // the first bytes it ever saw: a rerun wrote a new world to disk and the
+        // lab kept showing the old one, which looks exactly like the rerun not
+        // having happened.
+        const { mtimeMs } = await stat(target);
+        const key = `${target}@${width}@${mtimeMs}`;
         try {
           if (!siteWorldCache.has(key)) {
             const started = Date.now();
@@ -550,6 +556,10 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
             siteWorldCache.set(key, width > 0
               ? await sharp(original).resize({ width }).webp({ quality: 82 }).toBuffer()
               : original);
+            // Entries for older versions of this same file are now unreachable.
+            for (const stale of siteWorldCache.keys()) {
+              if (stale.startsWith(`${target}@`) && stale !== key) siteWorldCache.delete(stale);
+            }
             process.stdout.write(`[site-worlds] ${path.basename(target)}@${width} in ${Date.now() - started}ms\n`);
           }
           res.setHeader('Content-Type', width > 0 || target.endsWith('.webp') ? 'image/webp' : 'image/png');
