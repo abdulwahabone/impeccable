@@ -2286,6 +2286,19 @@ button kbd {
   color: var(--ks-champagne);
 }
 
+/* Keep is the affirmative of the pair, and the one pressed most. */
+.worlds-sites-actions button.is-keep {
+  border-color: color-mix(in oklch, var(--ks-patina), transparent 55%);
+  color: var(--ks-patina);
+}
+
+.worlds-sites-actions button.is-keep:hover {
+  border-color: var(--ks-patina);
+  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
+}
+
+.worlds-sites-row.is-kept a { color: var(--ks-patina); }
+
 /* Takes the place of the two buttons, so the row does not reflow while a
    verdict is being typed and the URL stays readable beside it. */
 .worlds-sites-actions input {

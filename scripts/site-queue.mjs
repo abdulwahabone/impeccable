@@ -100,7 +100,8 @@ if (command === 'list' || command === undefined) {
     const number = site.status === 'pending' ? `${(index += 1)}`.padStart(3) : '   ';
     const tail = site.status === 'done' ? `-> ${site.conceptId}`
       : site.status === 'passed' ? `passed: ${site.note || 'no reason recorded'}`
-        : site.note || '';
+        : site.status === 'keep' ? `kept, no entry yet${site.note ? ` (${site.note})` : ''}`
+          : site.note || '';
     process.stdout.write(`${number}  ${site.url}${tail ? `\n     ${tail}` : ''}\n`);
   }
   const counts = queue.sites.reduce((acc, s) => ({ ...acc, [s.status]: (acc[s.status] || 0) + 1 }), {});
@@ -109,7 +110,7 @@ if (command === 'list' || command === undefined) {
 }
 
 // ------------------------------------------------------------ done / pass
-if (command === 'done' || command === 'pass') {
+if (command === 'done' || command === 'pass' || command === 'keep') {
   const queue = load();
   const entry = resolveEntry(queue, args[1] || '');
   if (!entry) {
@@ -117,9 +118,11 @@ if (command === 'done' || command === 'pass') {
     process.exit(1);
   }
   try {
-    closeSite(queue, entry.url, command === 'done'
-      ? { status: 'done', conceptId: flag('concept') }
-      : { status: 'passed', why: flag('why') });
+    closeSite(queue, entry.url, {
+      done: { status: 'done', conceptId: flag('concept') },
+      keep: { status: 'keep' },
+      pass: { status: 'passed', why: flag('why') },
+    }[command]);
   } catch (error) {
     process.stderr.write(`${error.message}\n`);
     process.exit(1);
@@ -148,12 +151,17 @@ if (command === 'import-awwwards') {
   process.exit(0);
 }
 
-process.stderr.write(`usage: site-queue.mjs <add|list|done|pass|import-awwwards>
+process.stderr.write(`usage: site-queue.mjs <add|list|keep|pass|done|import-awwwards>
 
   add [urls...]              extract and queue every URL in the arguments or on stdin
-  list [--all]               pending by default, numbered for done/pass
-  done <n|url> --concept ID  record which world the page became
-  pass <n|url> --why "..."   record why it did not become one
+  list [--all]               pending by default, numbered for the verbs below
+  keep <n|url>               worth a catalog entry; the id comes later
+  pass <n|url> --why "..."   record why it does not become one
+  done <n|url> --concept ID  record which world it became, once one is written
   import-awwwards            pull anything left in .waves/awwwards/sites.json
+
+The order is pending -> keep or pass -> done. keep exists because judging a
+render and writing its entry happen at different times, and the concept id is
+produced by the second: there is nothing to type at the moment of judging.
 `);
 process.exit(1);

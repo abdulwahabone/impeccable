@@ -1033,7 +1033,11 @@ const pageData = JSON.stringify({
       sitesPanel.hidden = !showing;
       if (!showing) return;
       const pending = siteQueue.filter(site => site.status === 'pending');
-      const closed = siteQueue.filter(site => site.status !== 'pending');
+      // Kept sits between the two: judged, but not yet written up. It is the
+      // work list for the derivation pass, so it stays visible rather than
+      // being filed away with the finished and the rejected.
+      const kept = siteQueue.filter(site => site.status === 'keep');
+      const closed = siteQueue.filter(site => site.status === 'done' || site.status === 'passed');
       sitesListEl.replaceChildren();
 
       const section = (title, rows, builder) => {
@@ -1091,13 +1095,17 @@ const pageData = JSON.stringify({
         pass.title = 'Record why this page does not become a world';
         pass.addEventListener('click', () => askFor('pass', 'why not? (enter)', why => ({ status: 'passed', why })));
 
-        const done = document.createElement('button');
-        done.type = 'button';
-        done.textContent = 'Became a world';
-        done.title = 'Record which concept this page became';
-        done.addEventListener('click', () => askFor('done', 'concept id (enter)', conceptId => ({ status: 'done', conceptId })));
+        // One click, nothing to type. Judging the render and writing the entry
+        // happen at different times, and the concept id is produced by the
+        // second: asking for it here asked for the answer to the next step.
+        const keep = document.createElement('button');
+        keep.type = 'button';
+        keep.className = 'is-keep';
+        keep.textContent = 'Keep';
+        keep.title = 'Worth a catalog entry. The id gets filled in when one is written.';
+        keep.addEventListener('click', () => closeSite(site.url, { status: 'keep' }));
 
-        actions.append(pass, done);
+        actions.append(pass, keep);
         row.append(link, meta, actions);
 
         // A rendered candidate is judged on one question: does the world belong
@@ -1127,6 +1135,28 @@ const pageData = JSON.stringify({
         group.className = 'worlds-sites-entry';
         group.append(row, wrap);
         return group;
+      });
+
+      section('Kept, waiting on an entry', kept, site => {
+        const row = document.createElement('div');
+        row.className = 'worlds-sites-row is-kept';
+        const link = document.createElement('a');
+        link.href = site.url;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = site.url.replace(/^https:\/\//, '');
+        const meta = document.createElement('span');
+        meta.className = 'worlds-sites-meta';
+        meta.textContent = site.note || '';
+        const actions = document.createElement('span');
+        actions.className = 'worlds-sites-actions';
+        const undo = document.createElement('button');
+        undo.type = 'button';
+        undo.textContent = 'Back to pending';
+        undo.addEventListener('click', () => reopenSite(site.url));
+        actions.append(undo);
+        row.append(link, meta, actions);
+        return row;
       });
 
       section('Closed', closed, site => {
@@ -1169,6 +1199,14 @@ const pageData = JSON.stringify({
     async function closeSite(url, verdict) {
       try {
         await postSites({ action: 'close', url, ...verdict });
+      } catch (error) {
+        showToast(error.message, 'error');
+      }
+    }
+
+    async function reopenSite(url) {
+      try {
+        await postSites({ action: 'reopen', url });
       } catch (error) {
         showToast(error.message, 'error');
       }

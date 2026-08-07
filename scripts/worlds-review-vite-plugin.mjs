@@ -21,7 +21,7 @@ import {
 } from '../skill/scripts/lib/composition-catalog.mjs';
 
 import {
-  QUEUE_RELATIVE, emptyQueue, extractUrls, addUrls, closeSite,
+  QUEUE_RELATIVE, emptyQueue, extractUrls, addUrls, closeSite, reopenSite,
 } from './lib/site-queue.mjs';
 
 const API_PATH = '/__impeccable/worlds';
@@ -299,14 +299,22 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
     }
 
     if (body.action === 'close') {
-      closeSite(queue, body.url, body.status === 'done'
-        ? { status: 'done', conceptId: body.conceptId }
-        : { status: 'passed', why: body.why });
+      const verdict = { done: { status: 'done', conceptId: body.conceptId },
+        keep: { status: 'keep' },
+        passed: { status: 'passed', why: body.why } }[body.status];
+      if (!verdict) throw new Error('Status must be keep, done, or passed');
+      closeSite(queue, body.url, verdict);
       await writeJsonAtomic(queuePath, queue);
       return { sites: queue.sites };
     }
 
-    throw new Error('Site queue takes add or close');
+    if (body.action === 'reopen') {
+      reopenSite(queue, body.url);
+      await writeJsonAtomic(queuePath, queue);
+      return { sites: queue.sites };
+    }
+
+    throw new Error('Site queue takes add, close, or reopen');
   }
 
   async function mutate(body) {

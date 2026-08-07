@@ -10,7 +10,13 @@ export const QUEUE_RELATIVE = ['catalog', 'site-queue.json'];
 
 export const QUEUE_NOTE = 'Sites worth deriving a world from, kept here rather than in .waves/ so a session can pick up where the last one stopped. Add freely and judge later: the cost of a bad candidate is one look, and the cost of a lost one is that it never comes back. status is pending until someone has actually used the page; done records the concept it became, passed records why it did not, so neither gets re-litigated.';
 
-export const SITE_STATUSES = new Set(['pending', 'done', 'passed']);
+// pending -> keep or passed -> done.
+//
+// "keep" exists because judging the picture and writing the entry are separate
+// jobs done at different times. A reviewer looking at a render cannot supply a
+// concept id, since the concept does not exist until someone derives it; asking
+// for one at that moment was asking for information the answer produces.
+export const SITE_STATUSES = new Set(['pending', 'keep', 'done', 'passed']);
 
 export function emptyQueue() {
   return { schemaVersion: 1, note: QUEUE_NOTE, sites: [] };
@@ -79,7 +85,7 @@ export function addUrls(queue, rawUrls, { source = 'manual', note = '', today } 
 
 export function closeSite(queue, url, { status, conceptId, why, today } = {}) {
   if (!SITE_STATUSES.has(status) || status === 'pending') {
-    throw new Error('status must be done or passed');
+    throw new Error('status must be keep, done, or passed');
   }
   const normalized = normalizeUrl(url) || url;
   const entry = queue.sites.find(site => site.url === normalized);
@@ -88,7 +94,12 @@ export function closeSite(queue, url, { status, conceptId, why, today } = {}) {
   if (status === 'done') {
     if (!conceptId) throw new Error('done needs the concept it became');
     Object.assign(entry, { status, conceptId, closed: stamp });
-    delete entry.note;
+  } else if (status === 'keep') {
+    // Deliberately keeps whatever note the row already carried, which is the
+    // site's title for anything the awwwards ingest found.
+    Object.assign(entry, { status, kept: stamp });
+    delete entry.conceptId;
+    delete entry.closed;
   } else {
     if (!why) throw new Error('passed needs a reason, so the page is not re-examined later');
     Object.assign(entry, { status, note: why, closed: stamp });

@@ -324,8 +324,9 @@ built it, which is the opposite of what a queue is for.
 ```bash
 pbpaste | node scripts/site-queue.mjs add        # anything containing URLs
 node scripts/site-queue.mjs list                 # pending, numbered
-node scripts/site-queue.mjs done 3 --concept <id>
+node scripts/site-queue.mjs keep 3                 # worth an entry; id comes later
 node scripts/site-queue.mjs pass 4 --why "flat template under the animation"
+node scripts/site-queue.mjs done 3 --concept <id>  # once the entry exists
 ```
 
 `add` extracts every http(s) URL from whatever it is given and throws the rest
@@ -351,9 +352,16 @@ before deciding anything. A screenshot is silent about motion, and motion is
 usually the reason the page is on the list. Then
 `site-to-world-image.mjs --url ... --name ...` for the image,
 `image-to-world.mjs --name ... --id ... --notes "<what you saw move>"` for the
-entry, `wave-merge.mjs` to land it, and `done`/`pass` to close the row. Nothing
-is deleted on close: `done` records which world the page became and `pass`
-records why it did not, so neither gets re-litigated in three months.
+entry, `wave-merge.mjs` to land it, then `done` to record the id.
+
+**The states are pending, then keep or passed, then done.** `keep` exists
+because judging a render and writing its entry are separate jobs done at
+different times: a reviewer looking at a picture cannot supply a concept id,
+because the concept does not exist until the entry is written, so asking for one
+at that moment asks for the answer to the next step. Keeping is one click and
+the id is filled in later by whoever derives the entry. Nothing is deleted on
+close: `done` records which world the page became and `pass` records why it did
+not, so neither gets re-litigated in three months.
 
 ## Render-gate traps
 
