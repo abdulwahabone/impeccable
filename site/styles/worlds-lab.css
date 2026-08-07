@@ -2294,6 +2294,69 @@ button kbd {
   font-size: var(--ks-type-mono-size);
 }
 
+.worlds-sites-entry { border-top: 1px solid var(--ks-rule); }
+.worlds-sites-entry .worlds-sites-row { border-top: 0; }
+
+/* Source beside world, because the only question a rendered candidate asks is
+   whether the two belong to one family without being the same page. */
+.worlds-sites-render {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+  padding: 0 0 var(--spacing-md);
+}
+
+.worlds-sites-render figure { margin: 0; }
+
+.worlds-sites-render figcaption {
+  margin-bottom: 4px;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.worlds-sites-render img {
+  display: block;
+  width: 100%;
+  /* Reserves the box before the image arrives. Without it every row is two
+     pixels tall, so nothing is ever off-screen and lazy loading does nothing:
+     all thirty-two start at once and the page stalls. */
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 1px solid var(--ks-rule);
+  background: var(--ks-lacquer-raised);
+  object-fit: cover;
+  object-position: top;
+  cursor: zoom-in;
+}
+
+.worlds-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  background: color-mix(in oklch, var(--ks-lacquer), transparent 6%);
+  cursor: zoom-out;
+}
+
+.worlds-lightbox p {
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-mono-size)/1 var(--ks-mono);
+}
+
+.worlds-lightbox img {
+  max-width: 100%;
+  max-height: calc(100vh - 6rem);
+  border: 1px solid var(--ks-rule);
+  object-fit: contain;
+}
+
 .worlds-coverage-lede {
   margin-bottom: var(--spacing-md);
   color: var(--ks-text-muted);

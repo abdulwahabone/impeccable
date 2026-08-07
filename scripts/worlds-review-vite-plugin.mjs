@@ -1,5 +1,6 @@
 import { copyFile, readFile, rename, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import sharp from 'sharp';
 import {
   conceptContentHash,
   CONCEPT_STRENGTHS,
@@ -517,6 +518,41 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
     name: 'impeccable-worlds-review',
     apply: 'serve',
     configureServer(server) {
+      // Site-derived worlds are rendered into .waves/, which is scratch space
+      // Astro does not publish, so judging one meant opening files by hand. This
+      // serves them read-only to the lab. Dev plugin, dev-only, and the path is
+      // resolved and then checked to be inside the directory, so a traversal
+      // cannot read the repo.
+      const siteWorldCache = new Map();
+      server.middlewares.use('/__impeccable/site-worlds', async (req, res, next) => {
+        if (req.method !== 'GET') { next(); return; }
+        const base = path.join(root, '.waves', 'site-worlds');
+        const [rawPath, rawQuery] = (req.url || '').split('?');
+        const target = path.resolve(base, `.${decodeURIComponent(rawPath)}`);
+        if (!target.startsWith(base + path.sep)) { res.statusCode = 403; res.end(); return; }
+        // Sources are full-resolution screenshots, several megabytes each, and
+        // sixteen candidates means thirty-two of them. Serving them whole made
+        // the tab spend a minute downloading pictures nobody was looking at yet.
+        const width = Number(new URLSearchParams(rawQuery || '').get('w')) || 0;
+        const key = `${target}@${width}`;
+        try {
+          if (!siteWorldCache.has(key)) {
+            const started = Date.now();
+            const original = await readFile(target);
+            siteWorldCache.set(key, width > 0
+              ? await sharp(original).resize({ width }).webp({ quality: 82 }).toBuffer()
+              : original);
+            process.stdout.write(`[site-worlds] ${path.basename(target)}@${width} in ${Date.now() - started}ms\n`);
+          }
+          res.setHeader('Content-Type', width > 0 || target.endsWith('.webp') ? 'image/webp' : 'image/png');
+          res.setHeader('Cache-Control', 'no-store');
+          res.end(siteWorldCache.get(key));
+        } catch {
+          res.statusCode = 404;
+          res.end();
+        }
+      });
+
       server.middlewares.use(API_PATH, async (req, res) => {
         if (req.method !== 'POST') {
           jsonResponse(res, 405, { error: 'Method not allowed' });

@@ -44,6 +44,22 @@ export function extractUrls(text) {
   return found.map(url => url.replace(/[.,;:]+$/, ''));
 }
 
+// The working name a rendered world is filed under, derived rather than stored
+// so the queue and the renders cannot drift apart.
+//
+// It keeps the whole host, including the TLD, and the path. Both were learned
+// the same day: dropping the TLD collided stripe.com with stripe.dev, and
+// dropping the path collided bennett-tea.com with bennett-tea.com/tea-store,
+// which gave two queue rows one render between them and showed the wrong one
+// under the second. Longer names are a small price for a slug that cannot lie
+// about which page it came from.
+export function siteSlug(url) {
+  const parsed = new URL(url);
+  const host = parsed.hostname.replace(/^www\./, '').split('.');
+  const trail = parsed.pathname.split('/').filter(Boolean).map(part => part.replace(/\.[a-z]+$/i, ''));
+  return [...host, ...trail].join('-').replace(/[^a-z0-9-]/gi, '-').replace(/-+/g, '-').toLowerCase();
+}
+
 export function addUrls(queue, rawUrls, { source = 'manual', note = '', today } = {}) {
   const stamp = today || new Date().toISOString().slice(0, 10);
   const seen = new Set(queue.sites.map(site => site.url));

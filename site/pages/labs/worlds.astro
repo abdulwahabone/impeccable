@@ -8,6 +8,7 @@ import Base from '../../layouts/Base.astro';
 import '../../styles/sub-pages.css';
 import '../../styles/worlds-lab.css';
 import { conceptContentHash } from '../../../skill/scripts/lib/concept-catalog.mjs';
+import { siteSlug } from '../../../scripts/lib/site-queue.mjs';
 
 const ROOT = process.cwd();
 const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'concept-ingredients.json'), 'utf8'));
@@ -95,7 +96,26 @@ const aestheticAxes = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'aes
 // Absent on a fresh clone, and an absent queue is an empty one rather than an error.
 const siteQueue = (() => {
   try {
-    return JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'site-queue.json'), 'utf8')).sites || [];
+    const sites = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'site-queue.json'), 'utf8')).sites || [];
+    // A candidate that has been rendered gets its source and its world attached,
+    // so the judgement can happen here instead of in a file browser.
+    return sites.map(site => {
+      try {
+        const slug = siteSlug(site.url);
+        const dir = path.join(ROOT, '.waves', 'site-worlds', slug);
+        if (!fs.existsSync(path.join(dir, 'world.webp'))) return site;
+        const refs = fs.readdirSync(dir).filter(f => /^ref-\d+\.png$/.test(f)).sort();
+        return {
+          ...site,
+          render: {
+            world: `/__impeccable/site-worlds/${slug}/world.webp`,
+            refs: refs.map(f => `/__impeccable/site-worlds/${slug}/${f}`),
+          },
+        };
+      } catch {
+        return site;
+      }
+    });
   } catch {
     return [];
   }
@@ -557,6 +577,12 @@ const pageData = JSON.stringify({
   </section>
 
   <div class="worlds-toast" role="status" aria-live="polite" data-toast hidden></div>
+  <!-- Viewing, not deciding. These images are 2048px and the judgement they
+       support cannot always be made at thumbnail size. -->
+  <div class="worlds-lightbox" data-lightbox hidden>
+    <p data-lightbox-caption></p>
+    <img data-lightbox-image alt="" />
+  </div>
   <script id="worlds-catalog-data" type="application/json" set:html={pageData}></script>
 
   <script>
@@ -717,6 +743,20 @@ const pageData = JSON.stringify({
     const positionEl = document.querySelector('[data-concept-position]');
     const editForm = document.querySelector('[data-edit-form]');
     const toast = document.querySelector('[data-toast]');
+    const lightbox = document.querySelector('[data-lightbox]');
+    const lightboxImage = document.querySelector('[data-lightbox-image]');
+    const lightboxCaption = document.querySelector('[data-lightbox-caption]');
+
+    function openLightbox(src, caption = '') {
+      lightboxImage.src = src;
+      lightboxCaption.textContent = caption;
+      lightbox.hidden = false;
+    }
+    function closeLightbox() {
+      lightbox.hidden = true;
+      lightboxImage.removeAttribute('src');
+    }
+    lightbox?.addEventListener('click', closeLightbox);
     const reviewStage = document.querySelector('[data-concept-form]').closest('.worlds-review-stage');
     const actionNote = document.querySelector('[data-action-note]');
     const decisionNoteInput = document.querySelector('[data-decision-note]');
@@ -916,7 +956,34 @@ const pageData = JSON.stringify({
 
         actions.append(pass, done);
         row.append(link, meta, actions);
-        return row;
+
+        // A rendered candidate is judged on one question: does the world belong
+        // to the source's family without being the same page? That is a
+        // comparison, so both are shown, at a size you can actually answer it at.
+        if (!site.render) return row;
+        const wrap = document.createElement('div');
+        wrap.className = 'worlds-sites-render';
+        for (const [label, src] of [['Source', site.render.refs[0]], ['World', site.render.world]]) {
+          if (!src) continue;
+          const figure = document.createElement('figure');
+          const caption = document.createElement('figcaption');
+          caption.textContent = label;
+          const image = document.createElement('img');
+          // Downscaled for the row, full size in the lightbox. That takes each
+          // one to about 20KB, which is why these are NOT lazy: an image
+          // inserted into a container that was display:none never registers
+          // with the intersection observer, and since nothing here scrolls on
+          // arrival they simply never loaded. Sixty of them is under a megabyte.
+          image.src = `${src}?w=900`;
+          image.alt = `${label} for ${site.url}`;
+          image.addEventListener('click', () => openLightbox(src, `${label}: ${site.url}`));
+          figure.append(caption, image);
+          wrap.append(figure);
+        }
+        const group = document.createElement('div');
+        group.className = 'worlds-sites-entry';
+        group.append(row, wrap);
+        return group;
       });
 
       section('Closed', closed, site => {
