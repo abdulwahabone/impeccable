@@ -334,6 +334,18 @@ normalizes before comparing, so trailing slashes, `www`, and tracking
 parameters do not smuggle in duplicates. Adding is meant to cost nothing:
 a bad candidate costs one look, a lost one never comes back.
 
+**What the camera catches instead of the design.** Four of the fifteen worlds in
+the 2026-08-07 batch were unusable, and all four failed the same way: the
+screenshot caught a consent banner, a geo-gate, a promo modal or an ENTER
+splash, so the model was handed a picture of a cookie bar and faithfully
+rebuilt a cookie bar. `site-to-world-image.mjs` now clears overlays by vendor
+name and by behaviour (pinned, large, gate-sounding text) and enters a splash
+gate. Two properties of that are deliberate: banners are **removed rather than
+accepted**, because clicking Accept transmits a consent decision that is not
+ours to give, and the splash matcher requires an exact word so "Enter your
+email" cannot trigger it. A page that renders nothing above the fold is still
+worth a second look with `--scrolls 4`.
+
 **To work the queue**: `list`, then for each candidate go and *use* the page
 before deciding anything. A screenshot is silent about motion, and motion is
 usually the reason the page is on the list. Then
