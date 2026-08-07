@@ -335,6 +335,16 @@ normalizes before comparing, so trailing slashes, `www`, and tracking
 parameters do not smuggle in duplicates. Adding is meant to cost nothing:
 a bad candidate costs one look, a lost one never comes back.
 
+**Award-winning sites go offline, so queue the entry page.** Agency work is taken
+down when the client moves on, campaign sites are switched off after the
+campaign, and studios close. Paste an `awwwards.com/sites/<slug>` URL and
+`site-to-world-image.mjs` reads the entry as the artifact rather than following
+it to a dead host: the submission shot plus the designer's own gallery captures,
+usually 3200px, showing sections a scroll capture never reaches. Nothing is
+kept; the captures land in gitignored scratch and are used the way a designer
+uses a reference. The prompt is told the captures may sit on a backdrop or in a
+device mockup, and to read only the interface.
+
 **What the camera catches instead of the design.** Four of the fifteen worlds in
 the 2026-08-07 batch were unusable, and all four failed the same way: the
 screenshot caught a consent banner, a geo-gate, a promo modal or an ENTER

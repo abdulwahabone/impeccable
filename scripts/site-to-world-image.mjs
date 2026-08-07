@@ -49,10 +49,76 @@ if (!url || !name) {
 mkdirSync(path.join(outDir, name), { recursive: true });
 const shotPath = i => path.join(outDir, name, `ref-${i}.png`);
 
+// --------------------------------------------------- awwwards entry pages
+// Award-winning sites go offline. Agency work gets taken down when the client
+// moves on, campaign sites are switched off after the campaign, and studios
+// close; a queue built from award entries decays faster than most. The entry
+// page outlives the site and carries the submission shot plus a gallery of the
+// designer's own captures, usually at 3200px, showing sections a scroll capture
+// would never reach.
+//
+// So an awwwards URL is a legitimate source rather than a broken one, and it is
+// read here as the artifact instead of being followed to a dead host. Nothing is
+// kept: the captures land in .waves/, which is gitignored, and are used the way
+// a designer uses a reference, to produce something else.
+const AWWWARDS_ENTRY = /^https?:\/\/(www\.)?awwwards\.com\/sites\/[a-z0-9-]+/i;
+const isEntry = AWWWARDS_ENTRY.test(url);
+
+async function captureFromEntry(page) {
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(() => {});
+  await page.waitForTimeout(3500);
+  const media = await page.evaluate(() => {
+    const primary = document.querySelector('meta[property="og:image"]')?.content || '';
+    const found = [];
+    for (const el of document.querySelectorAll('[data-poster], [data-src], img[src]')) {
+      const src = el.getAttribute('data-poster') || el.getAttribute('data-src') || el.getAttribute('src') || '';
+      if (/\/awards\/(submissions|element)\//.test(src) && /\.(jpe?g|png|webp)$/i.test(src)) found.push(src);
+    }
+    return { primary, found: [...new Set(found)] };
+  });
+
+  // Related-work rails carry other entries' media, and the reliable thing they
+  // do not share is the submission's month, since assets are filed by upload
+  // date. Scope to it, keep the submission shot first, and cap the set: eight
+  // views of one design is already more than the model can hold.
+  const stamp = (media.primary.match(/\/(\d{4}\/\d{2})\//) || [])[1];
+  const gallery = media.found.filter(src => (stamp ? src.includes(`/${stamp}/`) : true));
+  const urls = [...new Set([media.primary, ...gallery].filter(Boolean))].slice(0, 8);
+  if (urls.length === 0) throw new Error('no artifact found on that entry page');
+
+  const saved = [];
+  for (const [index, mediaUrl] of urls.entries()) {
+    const response = await fetch(mediaUrl, { headers: { 'user-agent': UA } });
+    if (!response.ok) continue;
+    const file = shotPath(index);
+    // Normalized to PNG at a sane width. These arrive as jpeg or png at up to
+    // 3200px, and the upload declares one type for every reference, so saving
+    // whatever came down under a .png name would send a mislabelled jpeg.
+    writeFileSync(file, await sharp(Buffer.from(await response.arrayBuffer()))
+      .resize({ width: 2048, withoutEnlargement: true }).png().toBuffer());
+    saved.push(file);
+    process.stdout.write(`  ref-${index}.png  ${mediaUrl.split('/').pop()}\n`);
+  }
+  if (saved.length === 0) throw new Error('every artifact download failed');
+  return saved;
+}
+
 // ---------------------------------------------------------------- capture
-process.stdout.write(`capturing ${url}\n`);
+process.stdout.write(`capturing ${url}${isEntry ? ' (awwwards entry: reading the hosted artifact)' : ''}\n`);
+const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36';
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
+
+let shots = [];
+if (isEntry) {
+  shots = await captureFromEntry(page);
+  await browser.close();
+} else {
+  shots = await captureLive(page);
+  await browser.close();
+}
+
+async function captureLive(page) {
 await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {});
 
 // Preloaders on sites like this can loop forever rather than ending, so waiting
@@ -114,15 +180,16 @@ if (await gate.count().catch(() => 0)) {
 
 await page.waitForTimeout(1500);
 
-const shots = [];
+const taken = [];
 for (let i = 0; i < scrolls; i += 1) {
   await page.screenshot({ path: shotPath(i) });
-  shots.push(shotPath(i));
+  taken.push(shotPath(i));
   process.stdout.write(`  ref-${i}.png\n`);
   await page.evaluate(() => { window.scrollBy(0, window.innerHeight * 0.9); });
   await page.waitForTimeout(2500);
 }
-await browser.close();
+return taken;
+}
 
 // ---------------------------------------------------------------- reimagine
 // What travels is the vocabulary. What must not travel is the artifact.
@@ -142,7 +209,10 @@ await browser.close();
 // worth its space is the counter-intuitive one: the element that most identifies
 // the source is the element you must not reproduce, because it is simultaneously
 // the most tempting to keep and the only one that turns homage into forgery.
-const prompt = `The attached images are screenshots of one website. Read them the way a designer reads a reference: not as a page to reproduce, but as a vocabulary to learn. You are going to design something else using that vocabulary.
+const prompt = `The attached images are ${isEntry ? 'the designer\'s own captures of one website, taken from an awards submission' : 'screenshots of one website'}. Read them the way a designer reads a reference: not as a page to reproduce, but as a vocabulary to learn. You are going to design something else using that vocabulary.
+${isEntry ? `
+These captures may be presented on a backdrop or inside a device mockup, and they show several different sections rather than one continuous page. Read only the interface: the frame around it, any drop shadow under it, and the surface it is resting on are presentation, not design. Do not reproduce them.
+` : ''}
 
 The product is different${subject ? `: ${subject}` : ''}. New subject, new copy, new imagery, new brand.
 
