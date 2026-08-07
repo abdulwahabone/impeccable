@@ -2517,6 +2517,12 @@ button kbd {
   font: 500 var(--ks-type-mono-size)/1 var(--ks-mono);
 }
 
+.worlds-lightbox [data-lightbox-frame] {
+  display: flex;
+  min-height: 0;
+  justify-content: center;
+}
+
 .worlds-lightbox img {
   max-width: 100%;
   max-height: calc(100vh - 6rem);

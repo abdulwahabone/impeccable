@@ -613,7 +613,9 @@ const pageData = JSON.stringify({
        support cannot always be made at thumbnail size. -->
   <div class="worlds-lightbox" data-lightbox hidden>
     <p data-lightbox-caption></p>
-    <img data-lightbox-image alt="" />
+    <!-- The image is built when one is opened rather than parked here without a
+         src, so there is never a source-less img in the document. -->
+    <div data-lightbox-frame></div>
   </div>
   <script id="worlds-catalog-data" type="application/json" set:html={pageData}></script>
 
@@ -781,17 +783,20 @@ const pageData = JSON.stringify({
     const editForm = document.querySelector('[data-edit-form]');
     const toast = document.querySelector('[data-toast]');
     const lightbox = document.querySelector('[data-lightbox]');
-    const lightboxImage = document.querySelector('[data-lightbox-image]');
+    const lightboxFrame = document.querySelector('[data-lightbox-frame]');
     const lightboxCaption = document.querySelector('[data-lightbox-caption]');
 
     function openLightbox(src, caption = '') {
-      lightboxImage.src = src;
+      const image = document.createElement('img');
+      image.src = src;
+      image.alt = caption;
+      lightboxFrame.replaceChildren(image);
       lightboxCaption.textContent = caption;
       lightbox.hidden = false;
     }
     function closeLightbox() {
       lightbox.hidden = true;
-      lightboxImage.removeAttribute('src');
+      lightboxFrame.replaceChildren();
     }
     lightbox?.addEventListener('click', closeLightbox);
     const reviewStage = document.querySelector('[data-concept-form]').closest('.worlds-review-stage');
