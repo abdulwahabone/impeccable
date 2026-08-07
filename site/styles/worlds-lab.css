@@ -510,6 +510,17 @@
   flex: 1 1 auto;
 }
 
+/* Triage gives the stage the whole width. The column has to collapse, not just
+   its contents: hiding the queue alone drops it out of the grid flow, which
+   slides the stage into the 332px column and leaves the wide one empty. */
+.worlds-workspace-grid.is-wide {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Same for the family rail, which the rail-width property makes a one-liner. */
+.worlds-workbench.is-wide { --worlds-rail-width: 0px; }
+.worlds-workbench.is-wide .worlds-family-rail { display: none; }
+
 .worlds-queue {
   display: flex;
   min-width: 0;
@@ -2292,6 +2303,162 @@ button kbd {
 .worlds-sites-empty {
   color: var(--ks-text-faint);
   font-size: var(--ks-type-mono-size);
+}
+
+/* Variant triage. One decision on screen, three frames as wide as the stage
+   allows, and nothing competing for the eye: the run is nine hundred of these
+   and every pixel spent elsewhere is spent nine hundred times. */
+.worlds-triage {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+}
+
+.worlds-triage-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.worlds-triage-head p {
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.worlds-triage-head strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--ks-text);
+  font-size: var(--ks-type-mono-size);
+  font-weight: 500;
+}
+
+.worlds-triage-progress {
+  min-width: 200px;
+  text-align: right;
+}
+
+.worlds-triage-progress span {
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  text-transform: uppercase;
+}
+
+.worlds-triage-progress div {
+  height: 2px;
+  margin-top: 6px;
+  background: var(--ks-rule);
+}
+
+.worlds-triage-progress i {
+  display: block;
+  height: 100%;
+  background: var(--ks-kinpaku);
+}
+
+.worlds-triage-frames {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-sm);
+  align-content: start;
+  min-height: 0;
+}
+
+.worlds-triage-frames figure {
+  margin: 0;
+  min-width: 0;
+}
+
+.worlds-triage-frames img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: 2px solid transparent;
+  background: var(--ks-lacquer-raised);
+  object-fit: cover;
+  object-position: top;
+  cursor: zoom-in;
+}
+
+.worlds-triage-frames .is-current img { border-color: var(--ks-kinpaku); }
+
+.worlds-triage-frames figcaption {
+  margin-top: 6px;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1.4 var(--ks-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.worlds-triage-frames .is-current figcaption { color: var(--ks-champagne); }
+.worlds-triage-frames figcaption em { font-style: normal; opacity: 0.75; }
+
+.worlds-triage-frames kbd {
+  display: inline-block;
+  min-width: 16px;
+  margin-right: 4px;
+  padding: 2px 4px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 2px;
+  text-align: center;
+}
+
+/* What the world was supposed to be, in the space a row of 16:9 frames leaves
+   over. Set quiet: it is reference while judging, not the thing being judged. */
+.worlds-triage-brief {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+  gap: var(--spacing-lg);
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--ks-rule);
+  scrollbar-width: thin;
+}
+
+.worlds-triage-brief p {
+  color: var(--ks-text-muted);
+  font-size: var(--ks-type-mono-size);
+  line-height: 1.55;
+}
+
+.worlds-triage-brief ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  columns: 2;
+  column-gap: var(--spacing-lg);
+}
+
+.worlds-triage-brief li {
+  margin-bottom: 5px;
+  color: var(--ks-text-faint);
+  font-size: var(--ks-type-mono-size);
+  line-height: 1.5;
+  break-inside: avoid;
+}
+
+.worlds-triage-keys {
+  display: flex;
+  gap: var(--spacing-md);
+  color: var(--ks-text-mute-deep);
+  font: 500 var(--ks-type-eyebrow-size)/1.6 var(--ks-mono);
+  text-transform: uppercase;
+}
+
+.worlds-triage-keys kbd {
+  margin-right: 3px;
+  padding: 1px 4px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 2px;
 }
 
 .worlds-sites-entry { border-top: 1px solid var(--ks-rule); }

@@ -257,6 +257,7 @@ const pageData = JSON.stringify({
           <button type="button" data-view="detail" aria-pressed="true" title="Review the catalog">Review</button>
           <button type="button" data-view="coverage" aria-pressed="false" title="Where the catalog is crowded and where it is open">Coverage</button>
           <button type="button" data-view="sites" aria-pressed="false" title="Real pages queued to derive a world from">Sites</button>
+          <button type="button" data-view="triage" aria-pressed="false" title="Pick a winner for every rendered variant">Variants</button>
         </div>
         <!-- Only shown when it says something a reader cannot already infer.
              In dev the whole point of the page is that it writes, so a permanent
@@ -391,6 +392,37 @@ const pageData = JSON.stringify({
           </header>
 
           <div class="worlds-coverage" data-coverage hidden></div>
+
+          <!-- Nine hundred decisions, so the screen holds one of them and nothing
+               else: three variants, a number key each, and the next pair the
+               instant one is pressed. Anything that costs a second here costs
+               a quarter of an hour across the run. -->
+          <div class="worlds-triage" data-triage hidden>
+            <header class="worlds-triage-head">
+              <div>
+                <p data-triage-position>Nothing to triage</p>
+                <strong data-triage-label></strong>
+              </div>
+              <div class="worlds-triage-progress">
+                <span data-triage-changed>0 changed</span>
+                <div><i data-triage-bar></i></div>
+              </div>
+            </header>
+            <div class="worlds-triage-frames" data-triage-frames></div>
+            <!-- Three renders of a world are hard to choose between without
+                 knowing what the world was meant to be, and the space under a
+                 row of 16:9 frames is free. -->
+            <div class="worlds-triage-brief">
+              <p data-triage-spark></p>
+              <ol data-triage-system></ol>
+            </div>
+            <footer class="worlds-triage-keys">
+              <span><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> pick and advance</span>
+              <span><kbd>&rarr;</kbd> keep and advance</span>
+              <span><kbd>&larr;</kbd> back</span>
+              <span>click a frame for full size</span>
+            </footer>
+          </div>
 
           <!-- The paste box leads because dropping a candidate in is the thing
                done often; working the queue is done rarely and deliberately. It
@@ -604,6 +636,9 @@ const pageData = JSON.stringify({
     };
 
     const queueList = document.querySelector('[data-queue-list]');
+    const queuePanel = document.querySelector('.worlds-queue');
+    const workspaceGrid = document.querySelector('.worlds-workspace-grid');
+    const workbench = document.querySelector('.worlds-workbench');
     const resultCount = document.querySelector('[data-result-count]');
     const windowLabel = document.querySelector('[data-window-label]');
     const queueTitle = document.querySelector('[data-queue-title]');
@@ -708,32 +743,34 @@ const pageData = JSON.stringify({
         button.title = entry.current
           ? `The ${KIND_LABEL[kind].toLowerCase()} everything else uses`
           : `Make this the ${KIND_LABEL[kind].toLowerCase()} everything else uses`;
-        button.addEventListener('click', () => chooseVariant(concept.id, kind, entry.variant));
+        button.addEventListener('click', () => {
+          chooseVariant(concept.id, kind, entry.variant)
+            .catch(error => showToast(`could not set the winner: ${error.message}`, 'error'));
+        });
         button.addEventListener('mouseenter', () => { imgEl.src = entry.src; });
         button.addEventListener('mouseleave', () => { imgEl.src = card[KIND_SRC[kind]]; });
         return button;
       });
     }
 
+    // Throws rather than swallowing, because triage fires this nine hundred
+    // times and a run that silently failed halfway would look exactly like a
+    // run that worked. Callers on the stage catch it into a toast.
     async function chooseVariant(id, kind, variant) {
-      try {
-        const response = await fetch('/__impeccable/worlds', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify({ action: 'cardWinner', id, kind, variant }),
-        });
-        if (!response.ok) throw new Error(await response.text());
-        // The winner now sits at the canonical filename, so the cache buster has
-        // to move or the browser keeps showing the previous choice.
-        const concept = conceptMap.get(id);
-        const bust = `?v=${Date.now().toString(36)}`;
-        const base = concept.card[KIND_SRC[kind]].split('?')[0];
-        concept.card[KIND_SRC[kind]] = base + bust;
-        for (const entry of concept.card.variants[kind]) entry.current = entry.variant === variant;
-        renderEvidence(concept);
-      } catch (error) {
-        console.error('could not set the winner', error);
-      }
+      const response = await fetch('/__impeccable/worlds', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ action: 'cardWinner', id, kind, variant }),
+      });
+      if (!response.ok) throw new Error((await response.text()).slice(0, 160));
+      // The winner now sits at the canonical filename, so the cache buster has
+      // to move or the browser keeps showing the previous choice.
+      const concept = conceptMap.get(id);
+      const bust = `?v=${Date.now().toString(36)}`;
+      const base = concept.card[KIND_SRC[kind]].split('?')[0];
+      concept.card[KIND_SRC[kind]] = base + bust;
+      for (const entry of concept.card.variants[kind]) entry.current = entry.variant === variant;
+      if (state.view !== 'triage') renderEvidence(concept);
     }
 
 
@@ -873,6 +910,107 @@ const pageData = JSON.stringify({
     function axisPlacement(axis, pool) {
       const placed = pool.filter(concept => (axis.values || []).some(value => axisMatches(concept, axis, value)));
       return { placed, unplaced: pool.filter(concept => !placed.includes(concept)) };
+    }
+
+    // Variant triage. The generation run produced three of every card and left
+    // v1 winning everywhere, so until a human picks, none of it is used. That is
+    // 303 worlds by three kinds, and the only way through it is one keystroke
+    // per decision.
+    const triagePanel = document.querySelector('[data-triage]');
+    const triageFrames = document.querySelector('[data-triage-frames]');
+    const triagePosition = document.querySelector('[data-triage-position]');
+    const triageLabel = document.querySelector('[data-triage-label]');
+    const triageChanged = document.querySelector('[data-triage-changed]');
+    const triageBar = document.querySelector('[data-triage-bar]');
+    const triageSpark = document.querySelector('[data-triage-spark]');
+    const triageSystem = document.querySelector('[data-triage-system]');
+    let triageQueue = [];
+    let triageIndex = 0;
+    let triageChangedCount = 0;
+
+    function buildTriageQueue() {
+      triageQueue = [];
+      for (const concept of concepts) {
+        for (const kind of ['board', 'hero', 'docs']) {
+          if ((concept.card?.variants?.[kind] || []).length > 1) triageQueue.push({ id: concept.id, kind });
+        }
+      }
+    }
+
+    function renderTriage() {
+      const showing = state.view === 'triage';
+      triagePanel.hidden = !showing;
+      if (!showing) return;
+      if (triageQueue.length === 0) buildTriageQueue();
+      if (triageQueue.length === 0) {
+        triagePosition.textContent = 'Nothing has variants yet';
+        triageLabel.textContent = '';
+        triageFrames.replaceChildren();
+        return;
+      }
+      triageIndex = Math.max(0, Math.min(triageIndex, triageQueue.length - 1));
+      const item = triageQueue[triageIndex];
+      const concept = conceptMap.get(item.id);
+      const variants = concept?.card?.variants?.[item.kind] || [];
+
+      triagePosition.textContent = `${triageIndex + 1} of ${triageQueue.length}`;
+      triageLabel.textContent = `${KIND_LABEL[item.kind]}: ${concept.form.split(',')[0]}`;
+      triageChanged.textContent = `${triageChangedCount} changed`;
+      triageBar.style.width = `${((triageIndex + 1) / triageQueue.length) * 100}%`;
+
+      triageFrames.replaceChildren(...variants.map((entry, index) => {
+        const figure = document.createElement('figure');
+        figure.className = entry.current ? 'is-current' : '';
+        const image = document.createElement('img');
+        image.src = entry.src;
+        image.alt = `${entry.variant} of ${KIND_LABEL[item.kind]} for ${concept.form.split(',')[0]}`;
+        image.addEventListener('click', () => openLightbox(entry.src, `${entry.variant.toUpperCase()}: ${concept.form.split(',')[0]}`));
+        const caption = document.createElement('figcaption');
+        caption.innerHTML = `<kbd>${index + 1}</kbd> ${entry.variant.toUpperCase()}${entry.current ? ' <em>in use</em>' : ''}`;
+        figure.append(image, caption);
+        return figure;
+      }));
+
+      triageSpark.textContent = concept.spark || '';
+      triageSystem.replaceChildren(...(concept.system || []).map(rule => {
+        const li = document.createElement('li');
+        li.textContent = rule;
+        return li;
+      }));
+
+      // The next pair's images are fetched now, so the keystroke that advances
+      // lands on a drawn screen rather than three empty boxes.
+      const next = triageQueue[triageIndex + 1];
+      if (next) {
+        for (const entry of conceptMap.get(next.id)?.card?.variants?.[next.kind] || []) {
+          const preload = new Image();
+          preload.src = entry.src;
+        }
+      }
+    }
+
+    function triageMove(delta) {
+      triageIndex = Math.max(0, Math.min(triageIndex + delta, triageQueue.length - 1));
+      renderTriage();
+    }
+
+    async function triagePick(index) {
+      const item = triageQueue[triageIndex];
+      if (!item) return;
+      const concept = conceptMap.get(item.id);
+      const entry = (concept?.card?.variants?.[item.kind] || [])[index];
+      if (!entry) return;
+      // Already the winner, so advancing is the whole action. Writing it again
+      // would copy a file and move a stamp to reach the state it is in.
+      if (entry.current) { triageMove(1); return; }
+      triageMove(1);
+      try {
+        await chooseVariant(item.id, item.kind, entry.variant);
+        triageChangedCount += 1;
+        triageChanged.textContent = `${triageChangedCount} changed`;
+      } catch (error) {
+        showToast(`could not set ${entry.variant}: ${error.message}`, 'error');
+      }
     }
 
     // The site queue: candidate pages to derive a world from. Its rows are not
@@ -1169,8 +1307,15 @@ const pageData = JSON.stringify({
       // other inside the rail. The stage is unaffected: whichever concept is
       // current stays under review, and its verdict controls stay live, because
       // picking a thumbnail is the same act as picking a row.
-      // List and grid both review; Coverage and Sites are different places.
+      // List and grid both review; Coverage, Sites and Variants are elsewhere.
       const reviewing = state.view === 'detail' || state.view === 'cards';
+      // Triage needs the width more than it needs the queue, and the queue
+      // cannot act on what triage is showing anyway.
+      queuePanel.hidden = state.view === 'triage';
+      workspaceGrid.classList.toggle('is-wide', state.view === 'triage');
+      // The family rail counts what the queue holds, and triage does not use the
+      // queue, so in triage it reads as a column of zeroes taking 292 pixels.
+      workbench.classList.toggle('is-wide', state.view === 'triage');
       cardGrid.hidden = !showing;
       queueList.hidden = showing;
       conceptBody.hidden = !reviewing;
@@ -1507,6 +1652,7 @@ const pageData = JSON.stringify({
       renderCardGrid();
       renderCoverage();
       renderSites();
+      renderTriage();
     }
 
     function move(delta, focusQueue = false) {
@@ -1986,6 +2132,22 @@ const pageData = JSON.stringify({
         if (event.code === 'KeyA') { event.preventDefault(); review('approved'); return; }
         if (event.code === 'KeyR') { event.preventDefault(); review('rejected'); return; }
         if (event.code === 'KeyU') { event.preventDefault(); review('pending'); return; }
+      }
+      if (event.key === 'Escape' && !lightbox.hidden) {
+        event.preventDefault();
+        closeLightbox();
+        return;
+      }
+      // Triage owns the digits while it is up. They mean rating on the stage and
+      // variant here, and the stage is not visible to be rated.
+      if (state.view === 'triage' && !(target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement)) {
+        if (['1', '2', '3'].includes(event.key) && !event.altKey && !event.metaKey && !event.ctrlKey) {
+          event.preventDefault();
+          triagePick(Number(event.key) - 1);
+          return;
+        }
+        if (event.key === 'ArrowRight' || event.key === 'Enter') { event.preventDefault(); triageMove(1); return; }
+        if (event.key === 'ArrowLeft') { event.preventDefault(); triageMove(-1); return; }
       }
       if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement || target instanceof HTMLSelectElement || target.isContentEditable) {
         return;
