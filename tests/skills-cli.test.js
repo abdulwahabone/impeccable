@@ -1619,6 +1619,30 @@ describe('copyProviderHooks: hook command path resolution (#399)', () => {
     rmSync(tmp, { recursive: true, force: true });
     rmSync(skillHome, { recursive: true, force: true });
   });
+
+  test('single-quotes an absolute install path that embeds $(...) (#476)', () => {
+    // A hook command is re-executed by the harness on every edit. JSON.stringify
+    // is not shell quoting: an install path containing $(...) inside double
+    // quotes would run on each fire. The absolute POSIX form must be
+    // single-quoted so the substitution stays inert.
+    const tmp = mkdtempSync(join(tmpdir(), 'imp-hook-split-'));
+    const skillHome = mkdtempSync(join(tmpdir(), 'imp-hook-$(touch pwned)-'));
+    const bundleDir = createProjectDirBundle(tmp);
+
+    copyProviderHooks(bundleDir, tmp, ['.claude'], { skillRoot: skillHome });
+
+    const raw = readFileSync(join(tmp, '.claude', 'settings.local.json'), 'utf8');
+    // The path appears single-quoted, never double-quoted (which would leave
+    // the substitution live for /bin/sh).
+    expect(raw).toContain(`'${skillHome}`);
+    expect(raw).not.toContain(`"${skillHome}`);
+    for (const command of claudeHookCommands(join(tmp, '.claude', 'settings.local.json'))) {
+      expect(command).toContain('[ ! -f ');
+      expect(command).not.toMatch(/"[^"]*\$\(touch pwned\)/);
+    }
+    rmSync(tmp, { recursive: true, force: true });
+    rmSync(skillHome, { recursive: true, force: true });
+  });
 });
 
 // ─── Update scope resolution (issue #399, part 2) ────────────────────────────
