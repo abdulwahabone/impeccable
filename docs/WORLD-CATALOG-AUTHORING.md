@@ -313,6 +313,36 @@ Two structural gaps remain open here. Rating conflates quality with breadth, so 
 
 A public aesthetics taxonomy is a legitimate source of territory and a poor source of candidates. Pulling the 1,078-entry aesthetics wiki on 2026-07-24 found roughly 50 already covered at system level and about 1,020 absent, but the absent ones are overwhelmingly fashion subcultures, mood-driven internet aesthetics, and music-scene labels, which `rejectIf` kills on style-as-label and on mood-without-pattern. Screening the full list against the winner-property test yielded 62 real candidates, a 6% conversion. Use such a list to find territories the catalog has never touched, then author the territory's canonical peak; never convert its entries one for one.
 
+## The site queue
+
+`catalog/site-queue.json` holds real pages worth deriving a world from, and
+`scripts/site-queue.mjs` is the only thing that should write it. It is in
+`catalog/` rather than `.waves/` for one reason: `.waves/` is gitignored, so the
+first version of this queue was invisible to every session after the one that
+built it, which is the opposite of what a queue is for.
+
+```bash
+pbpaste | node scripts/site-queue.mjs add        # anything containing URLs
+node scripts/site-queue.mjs list                 # pending, numbered
+node scripts/site-queue.mjs done 3 --concept <id>
+node scripts/site-queue.mjs pass 4 --why "flat template under the animation"
+```
+
+`add` extracts every http(s) URL from whatever it is given and throws the rest
+away, so a bookmark export, a markdown list or a chat log all work. It
+normalizes before comparing, so trailing slashes, `www`, and tracking
+parameters do not smuggle in duplicates. Adding is meant to cost nothing:
+a bad candidate costs one look, a lost one never comes back.
+
+**To work the queue**: `list`, then for each candidate go and *use* the page
+before deciding anything. A screenshot is silent about motion, and motion is
+usually the reason the page is on the list. Then
+`site-to-world-image.mjs --url ... --name ...` for the image,
+`image-to-world.mjs --name ... --id ... --notes "<what you saw move>"` for the
+entry, `wave-merge.mjs` to land it, and `done`/`pass` to close the row. Nothing
+is deleted on close: `done` records which world the page became and `pass`
+records why it did not, so neither gets re-litigated in three months.
+
 ## Render-gate traps
 
 The gate produces silent failures that look like successes, and every one of these shipped at least once before being caught:

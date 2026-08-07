@@ -121,5 +121,19 @@ for (const site of sites) if (!merged.some(s => s.slug === site.slug)) merged.pu
 writeFileSync(file, `${JSON.stringify(merged, null, 1)}\n`);
 
 process.stdout.write(`\n${sites.length} resolved, ${merged.length} in ${path.relative(ROOT, file)}\n`);
-process.stdout.write('Next: send an agent to each live site to use it, then author a world from what it saw.\n');
+
+// That file is under .waves/, which is gitignored, so on its own this round of
+// reading would be invisible to the next session. The durable queue is in
+// catalog/; feeding it here is what makes an ingest worth running at all.
+const { execFileSync } = await import('node:child_process');
+try {
+  const out = execFileSync('node', [path.join(ROOT, 'scripts', 'site-queue.mjs'), 'add', '--source', 'awwwards',
+    ...sites.map(s => s.live)], { encoding: 'utf8' });
+  process.stdout.write(out.split('\n').slice(-2).join('\n'));
+} catch (error) {
+  process.stdout.write(`could not reach the site queue: ${error.message}\n`);
+  process.stdout.write('Run: node scripts/site-queue.mjs import-awwwards\n');
+}
+
+process.stdout.write('\nNext: send an agent to each live site to use it, then author a world from what it saw.\n');
 process.stdout.write('A screenshot will not do. These pages are mostly motion.\n');

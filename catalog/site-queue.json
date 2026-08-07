@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "note": "Sites worth deriving a world from, kept here rather than in .waves/ so a session can pick up where the last one stopped. Add freely and judge later: the cost of a bad candidate is one look, and the cost of a lost one is that it never comes back. status is pending until someone has actually used the page; done records the concept it became, passed records why it did not, so neither gets re-litigated.",
+  "sites": [
+    {
+      "url": "https://palazzosogni.com",
+      "added": "2026-08-07",
+      "status": "pending",
+      "source": "awwwards",
+      "note": "Palazzo Sogni"
+    },
+    {
+      "url": "https://melinegobet.fr",
+      "added": "2026-08-07",
+      "status": "pending",
+      "source": "awwwards",
+      "note": "Méline Gobet"
+    },
+    {
+      "url": "https://houseofhoney.com",
+      "added": "2026-08-07",
+      "status": "pending",
+      "source": "awwwards",
+      "note": "House of Honey"
+    },
+    {
+      "url": "https://slowdowncreative.com",
+      "added": "2026-08-07",
+      "status": "pending",
+      "source": "awwwards",
+      "note": "Slow Down Creative"
+    },
+    {
+      "url": "https://domitur.pt",
+      "added": "2026-08-07",
+      "status": "pending",
+      "source": "awwwards",
+      "note": "Domitur"
+    },
+    {
+      "url": "https://loiseau.framer.website",
+      "added": "2026-08-07",
+      "status": "pending",
+      "source": "awwwards",
+      "note": "L&#039;OISEAU DÉ"
+    },
+    {
+      "url": "https://yanhladchenko.com",
+      "added": "2026-08-07",
+      "status": "pending",
+      "source": "awwwards",
+      "note": "Yan Hladchenko"
+    },
+    {
+      "url": "https://murynmukha.com",
+      "added": "2026-08-07",
+      "status": "pending",
+      "source": "awwwards",
+      "note": "Gregory Muryn"
+    }
+  ]
+}

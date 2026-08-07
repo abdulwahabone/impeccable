@@ -211,6 +211,14 @@ bun run wave --mode read --count 10     # read | persuade | operate | experience
 One command per round: draw, author, screen, dedupe, merge as pending, render
 board and hero and docs. It approves nothing; a round ends at the review queue.
 
+Worlds can also come from real pages instead of a draw. **`catalog/site-queue.json`
+is the standing inbox of candidate sites**, written only by
+`scripts/site-queue.mjs`; `pbpaste | node scripts/site-queue.mjs add` takes
+anything with URLs in it, and `list` shows what is still pending. When asked to
+work the queue, read the site-queue section of
+`docs/WORLD-CATALOG-AUTHORING.md` first: the page has to be *used*, not
+screenshotted, because motion is usually why it is on the list.
+
 Four things that are easy to get wrong:
 
 - **A mode is a file.** `catalog/<mode>-territories.json` carries its own
