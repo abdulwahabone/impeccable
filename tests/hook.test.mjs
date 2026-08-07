@@ -1142,6 +1142,21 @@ describe('renderTemplate()', () => {
     assert.match(text, /\/impeccable hooks ignore-value bounce-easing bounce-ball --shared/);
   });
 
+  it('single-quotes a hostile font value so the suggestion cannot inject a shell command (#476)', () => {
+    // The suggested command comes straight from scanned file content. A
+    // double-quoted arg would leave $(...) live for whoever runs the
+    // suggestion; single quotes neutralize it.
+    const text = renderTemplate(
+      [finding('overused-font', 1, {
+        name: 'Overused font',
+        snippet: 'body { font-family: "$(touch pwned)", sans-serif; }',
+      })],
+      '/x/fonts.css', DEFAULT_CONFIG, { cwd: '/x' }
+    );
+    assert.match(text, /ignore-value overused-font '\$\(touch pwned\)' --shared/);
+    assert.doesNotMatch(text, /ignore-value overused-font "\$\(touch pwned\)"/);
+  });
+
   it('drops the L<line> prefix when line is 0', () => {
     const text = renderTemplate(
       [finding('side-tab', 0, { name: 'X' })],

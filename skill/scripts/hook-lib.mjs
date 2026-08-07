@@ -1112,7 +1112,12 @@ function formatFindingIgnoreCommand(finding) {
 function quoteCommandArg(value) {
   const text = String(value || '').trim();
   if (/^[A-Za-z0-9._:-]+$/.test(text)) return text;
-  return `"${text.replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+  // Single quotes: the only character a POSIX shell interprets inside them is
+  // the closing quote itself. Double quotes leave $(...), backticks, and ${}
+  // live (issue #476), and this value comes straight from scanned file content
+  // (e.g. a font-family name), so a hostile stylesheet must not be able to
+  // author a runnable command in the suggestion.
+  return `'${text.replace(/'/g, `'\\''`)}'`;
 }
 
 function relativize(filePath, cwd) {
