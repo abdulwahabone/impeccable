@@ -92,11 +92,21 @@ const counts = {
 };
 counts.reviewed = counts.approved + counts.rejected;
 const aestheticAxes = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'aesthetic-axes.json'), 'utf8'));
+// Absent on a fresh clone, and an absent queue is an empty one rather than an error.
+const siteQueue = (() => {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'site-queue.json'), 'utf8')).sites || [];
+  } catch {
+    return [];
+  }
+})();
+
 const pageData = JSON.stringify({
   catalogVersion: catalog.catalogVersion,
   canWrite: import.meta.env.DEV,
   families,
   aestheticAxes,
+  siteQueue,
 }).replace(/</g, '\\u003c');
 ---
 
@@ -226,6 +236,7 @@ const pageData = JSON.stringify({
         <div class="worlds-view-toggle" role="group" aria-label="What this page shows" data-view-toggle>
           <button type="button" data-view="detail" aria-pressed="true" title="Review the catalog">Review</button>
           <button type="button" data-view="coverage" aria-pressed="false" title="Where the catalog is crowded and where it is open">Coverage</button>
+          <button type="button" data-view="sites" aria-pressed="false" title="Real pages queued to derive a world from">Sites</button>
         </div>
         <!-- Only shown when it says something a reader cannot already infer.
              In dev the whole point of the page is that it writes, so a permanent
@@ -360,6 +371,26 @@ const pageData = JSON.stringify({
           </header>
 
           <div class="worlds-coverage" data-coverage hidden></div>
+
+          <!-- The paste box leads because dropping a candidate in is the thing
+               done often; working the queue is done rarely and deliberately. It
+               takes anything with URLs in it, so there is nothing to get right. -->
+          <div class="worlds-sites" data-sites hidden>
+            <form class="worlds-sites-add" data-sites-form>
+              <label for="worlds-sites-paste">Paste anything with links in it</label>
+              <textarea
+                id="worlds-sites-paste"
+                data-sites-input
+                rows="3"
+                placeholder="https://example.com&#10;a markdown list, a bookmark export, or a chat log all work"
+              ></textarea>
+              <div class="worlds-sites-add-foot">
+                <span data-sites-feedback role="status"></span>
+                <button type="submit">Add to queue</button>
+              </div>
+            </form>
+            <div class="worlds-sites-list" data-sites-list></div>
+          </div>
 
           <div class="worlds-concept-body">
             <div class="worlds-concept-copy">
@@ -804,6 +835,148 @@ const pageData = JSON.stringify({
       return { placed, unplaced: pool.filter(concept => !placed.includes(concept)) };
     }
 
+    // The site queue: candidate pages to derive a world from. Its rows are not
+    // concepts and never become part of the review queue, so it renders itself
+    // rather than borrowing the stage's machinery.
+    const sitesPanel = document.querySelector('[data-sites]');
+    const sitesForm = document.querySelector('[data-sites-form]');
+    const sitesInput = document.querySelector('[data-sites-input]');
+    const sitesFeedback = document.querySelector('[data-sites-feedback]');
+    const sitesListEl = document.querySelector('[data-sites-list]');
+    let siteQueue = Array.isArray(payload.siteQueue) ? payload.siteQueue : [];
+
+    function renderSites() {
+      const showing = state.view === 'sites';
+      sitesPanel.hidden = !showing;
+      if (!showing) return;
+      const pending = siteQueue.filter(site => site.status === 'pending');
+      const closed = siteQueue.filter(site => site.status !== 'pending');
+      sitesListEl.replaceChildren();
+
+      const section = (title, rows, builder) => {
+        if (rows.length === 0) return;
+        const head = document.createElement('p');
+        head.className = 'worlds-sites-section';
+        head.textContent = `${title} (${rows.length})`;
+        sitesListEl.append(head, ...rows.map(builder));
+      };
+
+      section('Pending', pending, site => {
+        const row = document.createElement('div');
+        row.className = 'worlds-sites-row';
+
+        const link = document.createElement('a');
+        link.href = site.url;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = site.url.replace(/^https:\/\//, '');
+        link.title = 'Open it. A screenshot cannot show you why it is here.';
+
+        const meta = document.createElement('span');
+        meta.className = 'worlds-sites-meta';
+        meta.textContent = [site.note, site.source, site.added].filter(Boolean).join(' · ');
+
+        const actions = document.createElement('span');
+        actions.className = 'worlds-sites-actions';
+
+        // Inline rather than a prompt(). The page's direction contract rules out
+        // a modal per decision, and a browser prompt is exactly that; it also
+        // throws away what you typed the moment you want to check the URL again.
+        const askFor = (verb, placeholder, build) => {
+          const input = document.createElement('input');
+          input.type = 'text';
+          input.placeholder = placeholder;
+          const commit = () => {
+            const value = input.value.trim();
+            // A reason is required, not optional: the whole value of a closed
+            // row is that it stops the page being argued again later.
+            if (value) closeSite(site.url, build(value));
+            else renderSites();
+          };
+          input.addEventListener('keydown', event => {
+            if (event.key === 'Enter') { event.preventDefault(); commit(); }
+            if (event.key === 'Escape') { event.preventDefault(); renderSites(); }
+          });
+          input.addEventListener('blur', () => { if (!input.value.trim()) renderSites(); });
+          actions.replaceChildren(input);
+          input.focus();
+        };
+
+        const pass = document.createElement('button');
+        pass.type = 'button';
+        pass.textContent = 'Pass';
+        pass.title = 'Record why this page does not become a world';
+        pass.addEventListener('click', () => askFor('pass', 'why not? (enter)', why => ({ status: 'passed', why })));
+
+        const done = document.createElement('button');
+        done.type = 'button';
+        done.textContent = 'Became a world';
+        done.title = 'Record which concept this page became';
+        done.addEventListener('click', () => askFor('done', 'concept id (enter)', conceptId => ({ status: 'done', conceptId })));
+
+        actions.append(pass, done);
+        row.append(link, meta, actions);
+        return row;
+      });
+
+      section('Closed', closed, site => {
+        const row = document.createElement('div');
+        row.className = 'worlds-sites-row is-closed';
+        const link = document.createElement('a');
+        link.href = site.url;
+        link.target = '_blank';
+        link.rel = 'noopener';
+        link.textContent = site.url.replace(/^https:\/\//, '');
+        const meta = document.createElement('span');
+        meta.className = 'worlds-sites-meta';
+        meta.dataset.status = site.status;
+        meta.textContent = site.status === 'done' ? `became ${site.conceptId}` : `passed: ${site.note || 'no reason recorded'}`;
+        row.append(link, meta);
+        return row;
+      });
+
+      if (siteQueue.length === 0) {
+        const empty = document.createElement('p');
+        empty.className = 'worlds-sites-empty';
+        empty.textContent = 'Nothing queued. Paste some links above.';
+        sitesListEl.append(empty);
+      }
+    }
+
+    async function postSites(payload) {
+      const response = await fetch('/__impeccable/worlds', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ catalog: 'sites', ...payload }),
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result?.error || 'the queue refused that');
+      siteQueue = result.result?.sites || siteQueue;
+      renderSites();
+      return result.result;
+    }
+
+    async function closeSite(url, verdict) {
+      try {
+        await postSites({ action: 'close', url, ...verdict });
+      } catch (error) {
+        showToast(error.message, 'error');
+      }
+    }
+
+    sitesForm?.addEventListener('submit', async event => {
+      event.preventDefault();
+      const text = sitesInput.value;
+      if (!text.trim()) return;
+      try {
+        const result = await postSites({ action: 'add', text });
+        sitesInput.value = '';
+        sitesFeedback.textContent = `${result.added} added${result.duplicate ? `, ${result.duplicate} already queued` : ''}`;
+      } catch (error) {
+        sitesFeedback.textContent = error.message;
+      }
+    });
+
     function renderCoverage() {
       const showing = state.view === 'coverage';
       coveragePanel.hidden = !showing;
@@ -929,16 +1102,18 @@ const pageData = JSON.stringify({
       // other inside the rail. The stage is unaffected: whichever concept is
       // current stays under review, and its verdict controls stay live, because
       // picking a thumbnail is the same act as picking a row.
+      // List and grid both review; Coverage and Sites are different places.
+      const reviewing = state.view === 'detail' || state.view === 'cards';
       cardGrid.hidden = !showing;
       queueList.hidden = showing;
-      conceptBody.hidden = state.view === 'coverage';
-      reviewControls.hidden = state.view === 'coverage';
-      reviewActions.hidden = state.view === 'coverage';
+      conceptBody.hidden = !reviewing;
+      reviewControls.hidden = !reviewing;
+      reviewActions.hidden = !reviewing;
       for (const item of document.querySelectorAll('[data-view]')) {
         // The toolbar's Review covers both queue presentations, because a
-        // contact sheet is still reviewing; only Coverage is a different place.
+        // contact sheet is still reviewing.
         const active = item.dataset.view === 'detail' && item.closest('.worlds-view-toggle')
-          ? state.view !== 'coverage'
+          ? reviewing
           : item.dataset.view === state.view;
         item.setAttribute('aria-pressed', String(active));
       }
@@ -1264,6 +1439,7 @@ const pageData = JSON.stringify({
       renderConcept(rows);
       renderCardGrid();
       renderCoverage();
+      renderSites();
     }
 
     function move(delta, focusQueue = false) {

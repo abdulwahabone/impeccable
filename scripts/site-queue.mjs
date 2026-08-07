@@ -19,9 +19,12 @@
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
+import {
+  QUEUE_RELATIVE, QUEUE_NOTE, emptyQueue, normalizeUrl, extractUrls, addUrls, closeSite,
+} from './lib/site-queue.mjs';
 
 const ROOT = process.cwd();
-const QUEUE = path.join(ROOT, 'catalog', 'site-queue.json');
+const QUEUE = path.join(ROOT, ...QUEUE_RELATIVE);
 const AWWWARDS = path.join(ROOT, '.waves', 'awwwards', 'sites.json');
 
 const args = process.argv.slice(2);
@@ -31,47 +34,17 @@ const flag = (name, fallback = null) => {
   return i === -1 ? fallback : args[i + 1];
 };
 
-const NOTE = 'Sites worth deriving a world from, kept here rather than in .waves/ so a session can pick up where the last one stopped. Add freely and judge later: the cost of a bad candidate is one look, and the cost of a lost one is that it never comes back. status is pending until someone has actually used the page; done records the concept it became, passed records why it did not, so neither gets re-litigated.';
-
 function load() {
-  if (!existsSync(QUEUE)) return { schemaVersion: 1, note: NOTE, sites: [] };
+  if (!existsSync(QUEUE)) return emptyQueue();
   return JSON.parse(readFileSync(QUEUE, 'utf8'));
 }
 
 function save(queue) {
-  queue.note = NOTE;
+  queue.note = QUEUE_NOTE;
   // Review-file serialization: indent 2, trailing newline. Matching the
   // convention matters more than the value; writing this one at indent 1 would
   // reformat every entry the next time a script that assumes 2 touches it.
   writeFileSync(QUEUE, `${JSON.stringify(queue, null, 2)}\n`);
-}
-
-// Two URLs that differ only by a trailing slash, a scheme, a www, or a tracking
-// parameter are the same candidate, and a queue that lets them both in wastes a
-// screenshot run to discover it.
-function normalize(raw) {
-  let url;
-  try {
-    url = new URL(raw.trim());
-  } catch {
-    return null;
-  }
-  if (!/^https?:$/.test(url.protocol)) return null;
-  url.protocol = 'https:';
-  url.hostname = url.hostname.toLowerCase().replace(/^www\./, '');
-  url.hash = '';
-  for (const key of [...url.searchParams.keys()]) {
-    if (/^(utm_|fbclid|gclid|ref|source)/i.test(key)) url.searchParams.delete(key);
-  }
-  url.pathname = url.pathname.replace(/\/+$/, '') || '/';
-  return url.toString().replace(/\/$/, '');
-}
-
-function extractUrls(text) {
-  // Deliberately greedy about what counts as input and strict about what counts
-  // as a URL, so a pasted markdown list, a bookmark dump and a chat log all work.
-  const found = text.match(/https?:\/\/[^\s"'<>)\]}]+/g) || [];
-  return found.map(u => u.replace(/[.,;:]+$/, ''));
 }
 
 function readStdin() {
@@ -82,16 +55,12 @@ function readStdin() {
   }
 }
 
-function today() {
-  return new Date().toISOString().slice(0, 10);
-}
-
 function resolveEntry(queue, token) {
   if (/^\d+$/.test(token)) {
     const pending = queue.sites.filter(s => s.status === 'pending');
     return pending[Number(token) - 1] || null;
   }
-  const norm = normalize(token);
+  const norm = normalizeUrl(token);
   return queue.sites.find(s => s.url === norm || s.url.includes(token)) || null;
 }
 
@@ -109,21 +78,11 @@ if (command === 'add') {
   }
 
   const queue = load();
-  const seen = new Set(queue.sites.map(s => s.url));
-  let added = 0;
-  let duplicate = 0;
-  for (const candidate of raw) {
-    const url = normalize(candidate);
-    if (!url) continue;
-    if (seen.has(url)) { duplicate += 1; continue; }
-    seen.add(url);
-    queue.sites.push({ url, added: today(), status: 'pending', source, ...(note ? { note } : {}) });
-    added += 1;
-    process.stdout.write(`  + ${url}\n`);
-  }
+  const { added, duplicate } = addUrls(queue, raw, { source, note });
+  for (const entry of added) process.stdout.write(`  + ${entry.url}\n`);
   save(queue);
   const pending = queue.sites.filter(s => s.status === 'pending').length;
-  process.stdout.write(`\n${added} added${duplicate ? `, ${duplicate} already queued` : ''}. ${pending} pending.\n`);
+  process.stdout.write(`\n${added.length} added${duplicate ? `, ${duplicate} already queued` : ''}. ${pending} pending.\n`);
   process.exit(0);
 }
 
@@ -157,20 +116,13 @@ if (command === 'done' || command === 'pass') {
     process.stderr.write(`no queued site matching "${args[1]}". Run list to see the numbers.\n`);
     process.exit(1);
   }
-  if (command === 'done') {
-    const conceptId = flag('concept');
-    if (!conceptId) {
-      process.stderr.write('done needs --concept <id>, so the world can be traced back to the page it came from.\n');
-      process.exit(1);
-    }
-    Object.assign(entry, { status: 'done', conceptId, closed: today() });
-  } else {
-    const why = flag('why');
-    if (!why) {
-      process.stderr.write('pass needs --why "...", so the same page is not re-examined in three months.\n');
-      process.exit(1);
-    }
-    Object.assign(entry, { status: 'passed', note: why, closed: today() });
+  try {
+    closeSite(queue, entry.url, command === 'done'
+      ? { status: 'done', conceptId: flag('concept') }
+      : { status: 'passed', why: flag('why') });
+  } catch (error) {
+    process.stderr.write(`${error.message}\n`);
+    process.exit(1);
   }
   save(queue);
   process.stdout.write(`${entry.url}\n  ${entry.status}${entry.conceptId ? ` as ${entry.conceptId}` : `: ${entry.note}`}\n`);
@@ -185,21 +137,11 @@ if (command === 'import-awwwards') {
     process.exit(1);
   }
   const queue = load();
-  const seen = new Set(queue.sites.map(s => s.url));
   let added = 0;
   for (const site of JSON.parse(readFileSync(AWWWARDS, 'utf8'))) {
-    const url = normalize(site.live || '');
-    if (!url || seen.has(url)) continue;
-    seen.add(url);
-    queue.sites.push({
-      url,
-      added: today(),
-      status: 'pending',
-      source: 'awwwards',
-      ...(site.title ? { note: site.title } : {}),
-    });
-    added += 1;
-    process.stdout.write(`  + ${url}\n`);
+    const result = addUrls(queue, [site.live || ''], { source: 'awwwards', note: site.title || '' });
+    for (const entry of result.added) process.stdout.write(`  + ${entry.url}\n`);
+    added += result.added.length;
   }
   save(queue);
   process.stdout.write(`\n${added} imported. ${queue.sites.filter(s => s.status === 'pending').length} pending.\n`);

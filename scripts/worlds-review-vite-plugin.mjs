@@ -19,6 +19,10 @@ import {
   validateCompositionCatalog,
 } from '../skill/scripts/lib/composition-catalog.mjs';
 
+import {
+  QUEUE_RELATIVE, emptyQueue, extractUrls, addUrls, closeSite,
+} from './lib/site-queue.mjs';
+
 const API_PATH = '/__impeccable/worlds';
 const MAX_BODY_BYTES = 64 * 1024;
 const REVIEW_STATUSES = new Set(['pending', 'approved', 'rejected']);
@@ -272,9 +276,44 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
     return { axes: doc.axes.length };
   }
 
+  // The site queue, written from the lab so a candidate can be dropped in while
+  // reviewing rather than by leaving for a terminal. Both actions go through
+  // scripts/lib/site-queue.mjs, the same module the CLI uses, so the two cannot
+  // disagree about what counts as a duplicate.
+  async function mutateSites(body) {
+    const queuePath = path.join(root, ...QUEUE_RELATIVE);
+    let queue;
+    try {
+      queue = JSON.parse(await readFile(queuePath, 'utf8'));
+    } catch {
+      queue = emptyQueue();
+    }
+
+    if (body.action === 'add') {
+      const urls = extractUrls(body.text || '');
+      if (urls.length === 0) throw new Error('No URLs in that');
+      const { added, duplicate } = addUrls(queue, urls, { source: body.source || 'lab' });
+      await writeJsonAtomic(queuePath, queue);
+      return { added: added.length, duplicate, sites: queue.sites };
+    }
+
+    if (body.action === 'close') {
+      closeSite(queue, body.url, body.status === 'done'
+        ? { status: 'done', conceptId: body.conceptId }
+        : { status: 'passed', why: body.why });
+      await writeJsonAtomic(queuePath, queue);
+      return { sites: queue.sites };
+    }
+
+    throw new Error('Site queue takes add or close');
+  }
+
   async function mutate(body) {
     if (body.catalog === 'axes') return mutateAxes(body);
     if (body.catalog === 'compositions') return mutateComposition(body);
+    // Before the concept lookup below, which every catalog-less action would
+    // otherwise fail on with "Concept was not found".
+    if (body.catalog === 'sites') return mutateSites(body);
     const catalog = await readJson(catalogPath);
     const reviewData = await readJson(reviewsPath);
     const match = findConcept(catalog, body.id);

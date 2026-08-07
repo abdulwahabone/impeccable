@@ -75,8 +75,18 @@ function liveUrlFrom(html) {
   return best ? `https://${best[0]}/` : null;
 }
 
+// Titles come out of raw HTML, so they arrive entity-encoded and stay that way
+// all the way into the queue: L&#039;OISEAU rather than L'OISEAU.
+function decodeEntities(text) {
+  return text
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCharCode(parseInt(code, 16)))
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&nbsp;/g, ' ');
+}
+
 function metaFrom(html) {
-  const title = (html.match(/<title>([^<]+)<\/title>/) || [])[1] || '';
+  const title = decodeEntities((html.match(/<title>([^<]+)<\/title>/) || [])[1] || '');
   const tags = [...new Set([...html.matchAll(/\/websites\/[a-z0-9-]+\/"[^>]*>([A-Za-z0-9 &.-]{2,26})</g)]
     .map(m => m[1].trim()))].slice(0, 12);
   const scores = Object.fromEntries([...html.matchAll(/>(Design|Usability|Creativity|Content)<\/[^>]+>\s*<[^>]*>([0-9.]{3,4})</g)]

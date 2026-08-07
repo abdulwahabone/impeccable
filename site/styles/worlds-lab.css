@@ -2151,6 +2151,149 @@ button kbd {
   padding: var(--spacing-md);
 }
 
+/* The site queue. Candidate pages waiting to be used, which is a different job
+   from judging a world, so it gets the stage to itself rather than a corner. */
+.worlds-sites {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: var(--spacing-md);
+  scrollbar-width: thin;
+  scrollbar-color: var(--ks-graphite-2) transparent;
+}
+
+.worlds-sites-add {
+  max-width: 62ch;
+  margin-bottom: var(--spacing-lg);
+}
+
+.worlds-sites-add label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.worlds-sites-add textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 3px;
+  background: var(--ks-lacquer-raised);
+  color: var(--ks-text);
+  font: 400 var(--ks-type-mono-size)/1.5 var(--ks-mono);
+  resize: vertical;
+}
+
+.worlds-sites-add textarea:focus-visible {
+  border-color: var(--ks-kinpaku);
+  outline: none;
+}
+
+.worlds-sites-add-foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+  margin-top: 8px;
+}
+
+.worlds-sites-add-foot [data-sites-feedback] {
+  color: var(--ks-text-faint);
+  font: 400 var(--ks-type-mono-size)/1 var(--ks-mono);
+}
+
+.worlds-sites-add-foot button {
+  padding: 7px 14px;
+  border: 1px solid var(--ks-kinpaku);
+  border-radius: 3px;
+  background: color-mix(in oklch, var(--ks-kinpaku), transparent 84%);
+  color: var(--ks-champagne);
+  font: 500 var(--ks-type-mono-size)/1 var(--ks-mono);
+  cursor: pointer;
+}
+
+.worlds-sites-add-foot button:hover {
+  background: color-mix(in oklch, var(--ks-kinpaku), transparent 70%);
+}
+
+.worlds-sites-section {
+  margin: var(--spacing-md) 0 6px;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.worlds-sites-row {
+  display: grid;
+  grid-template-columns: minmax(0, 22ch) minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  padding: 7px 0;
+  border-top: 1px solid var(--ks-rule);
+}
+
+.worlds-sites-row a {
+  overflow: hidden;
+  color: var(--ks-text);
+  font-size: var(--ks-type-mono-size);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.worlds-sites-row a:hover { color: var(--ks-champagne); }
+
+.worlds-sites-meta {
+  color: var(--ks-text-faint);
+  font-size: var(--ks-type-mono-size);
+}
+
+.worlds-sites-meta[data-status="done"] { color: var(--ks-patina); }
+
+.worlds-sites-row.is-closed a { color: var(--ks-text-muted); }
+
+.worlds-sites-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.worlds-sites-actions button {
+  padding: 4px 8px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  cursor: pointer;
+}
+
+.worlds-sites-actions button:hover {
+  border-color: var(--ks-kinpaku);
+  color: var(--ks-champagne);
+}
+
+/* Takes the place of the two buttons, so the row does not reflow while a
+   verdict is being typed and the URL stays readable beside it. */
+.worlds-sites-actions input {
+  width: 22ch;
+  padding: 4px 7px;
+  border: 1px solid var(--ks-kinpaku);
+  border-radius: 2px;
+  background: var(--ks-lacquer);
+  color: var(--ks-text);
+  font: 400 var(--ks-type-mono-size)/1 var(--ks-mono);
+}
+
+.worlds-sites-actions input:focus-visible { outline: none; }
+
+.worlds-sites-empty {
+  color: var(--ks-text-faint);
+  font-size: var(--ks-type-mono-size);
+}
+
 .worlds-coverage-lede {
   margin-bottom: var(--spacing-md);
   color: var(--ks-text-muted);
