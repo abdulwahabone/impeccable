@@ -184,12 +184,19 @@ These captures may be presented on a backdrop or inside a device mockup, and the
 
 The product is different${subject ? `: ${subject}` : ''}. New subject, new copy, new imagery, new brand.
 
+TWO ABSOLUTE RULES, before anything else, because both are marks of machine-made design that this project's own guidance names and both survive being asked for politely further down:
+
+  1. NO ITALIC ACCENT WORD. Never set one or two words of a headline in italic for emphasis. A whole line in an italic or script cut is a different thing and is fine when the reference works that way. A single italicised word inside an otherwise upright line is the tell, and it is barred whatever the reference does.
+  2. NO DEFAULT TO WARM PAPER AND AN ELEGANT SERIF. Cream, ivory or parchment under a high-contrast serif is the look this task falls into when it stops reading. It is allowed only when the reference plainly is that, and a reference set in a grotesk does not become a serif page.
+
 WHAT TO CARRY OVER, and this is the part that goes missing if nobody says it:
 
 - The palette's character. Its temperature, its saturation level, how many colours it runs, and which does the heavy lifting against which. Re-cast it rather than sampling it: shift the hues within the same family, or promote a secondary to ground, so the two palettes are unmistakably related and not identical.
 - The type PAIRING LOGIC rather than the typefaces. If the source sets a very heavy display against a delicate high-contrast serif, do that; use different faces to do it.
 - The shape language: radii, weight of line, whether forms are geometric or drawn, how areas of colour meet.
-- The illustration idiom in full, meaning the drawing hand AND its energy. If the source's figures are mid-action with exaggerated proportions and cropped by the frame, yours are too. If its props are scattered at several scales, yours are. Match the density of loose elements. A tidy centred vignette is a failure when the source is an ensemble in motion.
+- THE IMAGERY MEDIUM, before anything about style. First answer what KIND of picture the source uses at all: studio photography, documentary photography, product shots on white, 3D render, video stills, scanned or archival material, collage of real objects, line drawing, flat vector illustration, screenshots of an interface, or no imagery whatsoever. Carry that answer. A source that photographs its subject gives you a world that photographs its subject. A source whose hero is one full-bleed product photograph does not become a page with a small drawn vignette on it.
+
+  Only once the source is established as drawn does how it is drawn matter, and then it matters completely: the hand, the weight of line, the energy, whether figures are mid-action or posed, whether props are scattered at several scales. A tidy centred vignette is a failure when the source is an ensemble in motion.
 - The register: how loud, how dense, how much air, how much the page is willing to shout.${sourceDensity === null ? '' : `
 
 HOW FULL THE PAGE IS, which is measured rather than described because it is the thing that never survives. Detail covers about ${sourceDensity}% of the source's first viewport, counting type, images, illustration and anything else that is not bare ground. Yours must come out close to that, within a few points either way.
@@ -212,8 +219,10 @@ A text column on the left with a picture on the right is arrangement (b), it is 
 THREE THINGS THIS PROMPT HAS DRIFTED INTO, measured across real runs. None of them is a bad move. Each is a fine move that started appearing everywhere, which is the actual problem: a world that would have looked the same whatever reference it was given has not been read from a reference at all. Treat each as a prompt to check yourself, not as a ban.
 
   1. A small object set inside the headline, so a book, a key or a tent sits between two words. Nine of twelve consecutive worlds did this. It is exactly right when the source does it and arbitrary when the source does not, so the only question is whether this reference asks for it.
-  2. A cream ground under a high-contrast serif with one word in italic. The same twelve converged here too. Palette and type voice come from the source; warm paper and an elegant serif arrived at without the reference asking for them are this prompt's habit rather than your reading.
-  3. Filling a sparse frame, covered above.
+  2. A cream ground under a high-contrast serif. The same twelve converged here too. Palette and type voice come from the source; warm paper and an elegant serif arrived at without the reference asking for them are this prompt's habit rather than your reading.
+  3. FLAT VECTOR ILLUSTRATION, which is the strongest of these pulls and the one to watch hardest. Runs put drawn figures and drawn props onto sources that contained none: a museum whose imagery is Old Master painting, a drinks brand shot in studio photography with real fruit, a headphone page built on one full-bleed product photograph, a stark geometric type site that came back carrying soft blob waves. In every case the medium was replaced by this prompt's favourite medium. If the source photographs, render photographs.
+  4. Filling a sparse frame, covered above.
+
 
 The general form of all three: if you could have drawn this page without looking at the reference, you have drawn the wrong page. And if the source is loud, ugly, technical, cold, cluttered or plain, the world must be too. A tasteful editorial page is not the safe answer here; it is the wrong answer to most references.
 
