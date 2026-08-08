@@ -24,6 +24,7 @@ import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
 import { UA, settle } from './lib/page-capture.mjs';
+import { buildWorldPrompt } from './lib/site-world-prompt.mjs';
 
 const ROOT = process.cwd();
 for (const line of readFileSync(path.join(ROOT, '.env'), 'utf8').split('\n')) {
@@ -177,67 +178,7 @@ if (sourceDensity !== null) process.stdout.write(`  source carries detail on ${s
 // worth its space is the counter-intuitive one: the element that most identifies
 // the source is the element you must not reproduce, because it is simultaneously
 // the most tempting to keep and the only one that turns homage into forgery.
-const prompt = `The attached images are ${isEntry ? 'the designer\'s own captures of one website, taken from an awards submission' : 'screenshots of one website'}. Read them the way a designer reads a reference: not as a page to reproduce, but as a vocabulary to learn. You are going to design something else using that vocabulary.
-${isEntry ? `
-These captures may be presented on a backdrop or inside a device mockup, and they show several different sections rather than one continuous page. Read only the interface: the frame around it, any drop shadow under it, and the surface it is resting on are presentation, not design. Do not reproduce them.
-` : ''}
-
-The product is different${subject ? `: ${subject}` : ''}. New subject, new copy, new imagery, new brand.
-
-TWO ABSOLUTE RULES, before anything else, because both are marks of machine-made design that this project's own guidance names and both survive being asked for politely further down:
-
-  1. NO ITALIC ACCENT WORD. Never set one or two words of a headline in italic for emphasis. A whole line in an italic or script cut is a different thing and is fine when the reference works that way. A single italicised word inside an otherwise upright line is the tell, and it is barred whatever the reference does.
-  2. NO DEFAULT TO WARM PAPER AND AN ELEGANT SERIF. Cream, ivory or parchment under a high-contrast serif is the look this task falls into when it stops reading. It is allowed only when the reference plainly is that, and a reference set in a grotesk does not become a serif page.
-
-WHAT TO CARRY OVER, and this is the part that goes missing if nobody says it:
-
-- The palette's character. Its temperature, its saturation level, how many colours it runs, and which does the heavy lifting against which. Re-cast it rather than sampling it: shift the hues within the same family, or promote a secondary to ground, so the two palettes are unmistakably related and not identical.
-- The type PAIRING LOGIC rather than the typefaces. If the source sets a very heavy display against a delicate high-contrast serif, do that; use different faces to do it.
-- The shape language: radii, weight of line, whether forms are geometric or drawn, how areas of colour meet.
-- THE IMAGERY MEDIUM, before anything about style. First answer what KIND of picture the source uses at all: studio photography, documentary photography, product shots on white, 3D render, video stills, scanned or archival material, collage of real objects, line drawing, flat vector illustration, screenshots of an interface, or no imagery whatsoever. Carry that answer. A source that photographs its subject gives you a world that photographs its subject. A source whose hero is one full-bleed product photograph does not become a page with a small drawn vignette on it.
-
-  Only once the source is established as drawn does how it is drawn matter, and then it matters completely: the hand, the weight of line, the energy, whether figures are mid-action or posed, whether props are scattered at several scales. A tidy centred vignette is a failure when the source is an ensemble in motion.
-- The register: how loud, how dense, how much air, how much the page is willing to shout.${sourceDensity === null ? '' : `
-
-HOW FULL THE PAGE IS, which is measured rather than described because it is the thing that never survives. Detail covers about ${sourceDensity}% of the source's first viewport, counting type, images, illustration and anything else that is not bare ground. Yours must come out close to that, within a few points either way.
-
-${sourceDensity < 25 ? `At ${sourceDensity}% this source is SPARSE, and that is the hardest instruction here to actually obey. An almost-empty frame reads as unfinished, and every previous run answered that feeling by adding an illustration, a card row or a photograph, arriving 15 to 20 points denser than the page it came from and losing the exact quality that made the page worth looking at. Resist it. If the source gives one headline, a line of body copy and a great deal of nothing, so do you. Note also that a page this sparse is often sparse because its content is time-based: it lives on motion and interaction, and a still frame of it is supposed to look this empty. Do not compensate for a stillness that is an artifact of the medium.` : `At ${sourceDensity}% this source is worked rather than sparse, so an empty frame would be as wrong as an overfilled one.`}`}
-
-WHAT MUST BE DIFFERENT, because these are what make a copy rather than an influence. Every one of these has been reproduced verbatim in a previous run:
-
-- The composition, but read the next paragraph before you decide what that means, because composition is the one thing here that is inherited as a LAW and not as a look.
-
-COMPOSITION IS A LAW. Decide first which of these arrangements the source uses, then use the SAME ONE with different content. This is not the thing to be inventive about; the invention goes into the device, the palette and the subject.
-
-  (a) TYPE IS THE LAYOUT. One sentence at enormous size occupies most of the frame and the first viewport holds little else: no image column, often no paragraph and no button in view. How type and image relate inside that arrangement is NOT part of the definition and must be read off the source, which may set pictures inline as words, may hold a single object behind or beside the sentence, or may have no imagery at all. Adding a paragraph beside the sentence and a picture to the right of it is a failure even if every colour is right.
-  (b) A SPLIT. Copy on one side, imagery on the other.
-  (c) A SCENE. One continuous field or photograph with the copy laid over it.
-  (d) A STACK. Bands or panels read in sequence down the frame.
-
-A text column on the left with a picture on the right is arrangement (b), it is the answer this task reaches for by default, and it is correct ONLY if the reference actually does it.
-
-THREE THINGS THIS PROMPT HAS DRIFTED INTO, measured across real runs. None of them is a bad move. Each is a fine move that started appearing everywhere, which is the actual problem: a world that would have looked the same whatever reference it was given has not been read from a reference at all. Treat each as a prompt to check yourself, not as a ban.
-
-  1. A small object set inside the headline, so a book, a key or a tent sits between two words. Nine of twelve consecutive worlds did this. It is exactly right when the source does it and arbitrary when the source does not, so the only question is whether this reference asks for it.
-  2. A cream ground under a high-contrast serif. The same twelve converged here too. Palette and type voice come from the source; warm paper and an elegant serif arrived at without the reference asking for them are this prompt's habit rather than your reading.
-  3. FLAT VECTOR ILLUSTRATION, which is the strongest of these pulls and the one to watch hardest. Runs put drawn figures and drawn props onto sources that contained none: a museum whose imagery is Old Master painting, a drinks brand shot in studio photography with real fruit, a headphone page built on one full-bleed product photograph, a stark geometric type site that came back carrying soft blob waves. In every case the medium was replaced by this prompt's favourite medium. If the source photographs, render photographs.
-  4. Filling a sparse frame, covered above.
-
-
-The general form of all three: if you could have drawn this page without looking at the reference, you have drawn the wrong page. And if the source is loud, ugly, technical, cold, cluttered or plain, the world must be too. A tasteful editorial page is not the safe answer here; it is the wrong answer to most references.
-
-Match the inventory too, not only the shape. Count what the source's first viewport actually contains: how many pieces of copy, how many controls, how many images. If it holds one sentence and a nav, yours holds one sentence and a nav. Furniture the source does without is furniture you do without.
-- The chrome. Different nav position, different structure, a different number of items, a different call-to-action treatment. If the source puts a labelled button with an arrow at top right, yours must not.
-- The mark. Invent one that shares no silhouette with theirs. If you cannot see a way to draw one that is clearly unrelated, use a wordmark set in type and nothing else.
-- THE SIGNATURE DEVICE, and read this one carefully, because both ways of getting it wrong are worse than the middle. Every distinctive page has one trick more identifying than anything else: a script word interrupting a heavy headline, images set inline inside a sentence, a rule that cuts the frame, a badge. Do not reproduce it. Do not simply drop it either: dropping it means falling back on the default arrangement, and a stock hero with a text column on the left and a picture on the right is a worse answer than a copy, because at least the copy was interesting.
-
-  What you inherit is the MECHANISM, not the execution. Name what the device does structurally, then do that same structural thing a different way. The test is that a reader would say both pages take the same kind of risk in the same place, and that the risks are not the same risk.
-
-  No example of a device is given here, deliberately. An earlier version of this prompt described one in detail, and it stopped being an illustration and became the answer: nine of twelve worlds in a row came back with a small object embedded inside the headline, whatever their source had done. Anything named here gets copied everywhere, so the device has to come from the reference in front of you and from nowhere else.
-
-The test: two designers shown both pages should say the same influences, the same shelf of references, the same year. They must not say the same studio, and they must never say the same site with different words in it. If you find yourself placing an element in the same position with the same treatment as the source, move it and treat it differently.
-
-Render as a complete desktop page filling the whole 16:9 frame, as if screenshotted at 1440 wide, showing the top of the page and cut off mid-element at the bottom edge because more of it exists below. No browser chrome, no device mockup. Interface copy in English, plain punctuation, never an em dash.`;
+const prompt = buildWorldPrompt({ isEntry, subject, sourceDensity });
 
 process.stdout.write('\nreimagining\n');
 const form = new FormData();
