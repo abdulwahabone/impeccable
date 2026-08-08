@@ -104,6 +104,26 @@ const snapshot = {
   windows: { '90d': w90, '30d': w30 },
 };
 fs.writeFileSync(OUT, JSON.stringify(snapshot, null, 2) + '\n');
+// The snapshot is a rolling window over a store that only keeps ~90 days;
+// the history file is the durable series. One compact line per day, appended
+// on the first pull of that day, so trends survive long after the raw events
+// age out of Analytics Engine.
+const HISTORY = path.join(ROOT, 'catalog', 'telemetry-history.jsonl');
+const today = snapshot.generatedAt.slice(0, 10);
+const lastLine = fs.existsSync(HISTORY) ? fs.readFileSync(HISTORY, 'utf8').trim().split('\n').at(-1) : null;
+let lastDate = null;
+try { lastDate = lastLine ? JSON.parse(lastLine).date : null; } catch { /* corrupt tail; append anyway */ }
+if (lastDate !== today) {
+  fs.appendFileSync(HISTORY, JSON.stringify({
+    date: today,
+    rolls90: w90.totals.rolls,
+    chosen90: w90.totals.chosen,
+    rolls30: w30.totals.rolls,
+    chosen30: w30.totals.chosen,
+    kinds30: w30.kinds,
+    registers30: w30.registers,
+  }) + '\n');
+}
 const idCount = Object.keys(w90.ids).length;
 console.log(`pull-telemetry: ${w90.totals.rolls} rolls and ${w90.totals.chosen} choices over 90d across ${idCount} dealt ids -> ${path.relative(ROOT, OUT)}`);
 if (!Object.keys(w90.kinds).length) {

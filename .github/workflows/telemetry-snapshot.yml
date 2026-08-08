@@ -1,0 +1,44 @@
+# Pulls roll/choice telemetry from Workers Analytics Engine into the committed
+# snapshot every day, so the worlds lab is always current without anyone
+# running the script by hand. Analytics Engine only retains ~90 days; the
+# daily commit (snapshot + one history line) is what makes the data durable.
+#
+# The commit message carries [skip ci] so a snapshot refresh never triggers
+# the deploy workflows; the lab reads the file at dev render time, no deploy
+# needed.
+#
+# Required repository secrets:
+#   CLOUDFLARE_ACCOUNT_ID       already present (shared with the deploy workflows)
+#   CLOUDFLARE_ANALYTICS_TOKEN  API token with Account Analytics: Read
+
+name: Telemetry snapshot
+
+on:
+  schedule:
+    - cron: '47 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Pull snapshot
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ANALYTICS_TOKEN: ${{ secrets.CLOUDFLARE_ANALYTICS_TOKEN }}
+        run: node scripts/pull-telemetry.mjs
+      - name: Commit if changed
+        run: |
+          git config user.name "telemetry-snapshot[bot]"
+          git config user.email "noreply@impeccable.style"
+          git add catalog/telemetry-snapshot.json catalog/telemetry-history.jsonl
+          git diff --cached --quiet && echo "no changes" && exit 0
+          git commit -m "Telemetry snapshot $(date -u +%F) [skip ci]"
+          git push
