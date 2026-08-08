@@ -181,6 +181,12 @@ if (motionEvidence?.kind === 'video' && motionEvidence.video) {
     d.animations?.length ? `Declared animations: ${d.animations.map(a => `${a.spec} (on ${a.count})`).join('; ')}` : '',
     d.libraries?.length ? `Animation libraries present: ${d.libraries.join(', ')}` : '',
     typeof d.stickyOrFixed === 'number' ? `${d.stickyOrFixed} sticky or fixed elements, will-change on ${d.willChange}` : '',
+    // Cursor-driven work is invisible to CSS and is often the most distinctive
+    // thing a page does. It gets its own line so it cannot be skimmed past.
+    d.pointer?.move ? `POINTER: ${d.pointer.move} pointermove listeners and ${d.pointer.enterLeave} enter/leave handlers${d.pointer.canvases ? `, ${d.pointer.canvases} canvas${d.pointer.webgl ? ' using WebGL' : ''}` : ''}. This page answers the cursor, not just hovers.` : '',
+    motionEvidence.sweeps?.length > 1
+      ? `Sweeping the cursor across a section changed ${motionEvidence.sweeps.slice(1).map(s => `${s.changedPercent}%`).join(', then ')} of the frame between steps, against 0% when nothing moves. ${motionEvidence.sweeps[motionEvidence.sweeps.length - 1].changedPercent > motionEvidence.sweeps[1].changedPercent * 1.5 ? 'The figure rises along the sweep, which is what an accumulating trail looks like rather than one element tracking the pointer.' : 'The figure is steady, which reads as elements reacting locally to the pointer rather than a trail.'}`
+      : '',
     s.sampled ? `Scrolling ${s.step}px moved ${s.moved} of ${s.sampled} sampled elements, changed opacity on ${s.faded}, and ${s.parallax} moved at a rate other than the scroll, which is parallax.` : '',
     d.scrollBehaviour && d.scrollBehaviour !== 'auto' ? `scroll-behavior is ${d.scrollBehaviour}` : '',
   ].filter(Boolean);
@@ -191,6 +197,15 @@ if (motionEvidence?.kind === 'video' && motionEvidence.video) {
   for (const frame of (motionEvidence.strip || []).slice(1, 3)) {
     if (existsSync(path.join(ROOT, frame.file))) {
       content.push({ type: 'text', text: `The live source at scroll offset ${frame.y}px.` });
+      content.push(pngBlock(path.join(ROOT, frame.file)));
+    }
+  }
+  // Two frames from the sweep, far enough apart that whatever the cursor drags
+  // along with it has had room to show.
+  const sweep = motionEvidence.sweeps || [];
+  for (const frame of [sweep[1], sweep[sweep.length - 1]].filter(Boolean)) {
+    if (existsSync(path.join(ROOT, frame.file))) {
+      content.push({ type: 'text', text: `The same section with the cursor at x=${frame.x}, mid-sweep.` });
       content.push(pngBlock(path.join(ROOT, frame.file)));
     }
   }

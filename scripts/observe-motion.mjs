@@ -26,6 +26,7 @@
 // the entry then carries no motion rule rather than a fabricated one.
 
 import { chromium } from 'playwright';
+import sharp from 'sharp';
 import { spawnSync } from 'node:child_process';
 import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
@@ -52,6 +53,20 @@ mkdirSync(dir, { recursive: true });
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+
+// Counted before the page runs, because a listener registered at boot cannot be
+// enumerated afterwards. This is the cheapest reliable answer to "is this page
+// driven by the cursor", which computed styles cannot tell you at all: a mouse
+// trail, a magnetic button and a field that reacts to the pointer are all
+// script, and all invisible to CSS.
+await page.addInitScript(() => {
+  window.__impeccableEvents = {};
+  const original = EventTarget.prototype.addEventListener;
+  EventTarget.prototype.addEventListener = function addEventListener(type, ...rest) {
+    window.__impeccableEvents[type] = (window.__impeccableEvents[type] || 0) + 1;
+    return original.call(this, type, ...rest);
+  };
+});
 
 // ------------------------------------------------- motion from the archive
 // An awwwards entry carries video the designer recorded of their own page:
@@ -180,8 +195,28 @@ const declared = await page.evaluate(() => {
     // which is itself worth knowing when writing the rule.
     libraries: ['gsap', 'ScrollTrigger', 'Lenis', 'locomotive', 'barba', 'framerMotion', 'Motion', 'anime', 'AOS']
       .filter(lib => lib in window || document.querySelector(`script[src*="${lib.toLowerCase()}" i]`)),
+
+    // Cursor-driven work is script, so it leaves its trace in listeners rather
+    // than in styles. A page with pointermove handlers is doing something with
+    // the cursor beyond hovering, and canvas usually means the effect is drawn.
+    pointer: (() => {
+      const counts = window.__impeccableEvents || {};
+      const sum = (...types) => types.reduce((total, type) => total + (counts[type] || 0), 0);
+      return {
+        move: sum('mousemove', 'pointermove'),
+        enterLeave: sum('mouseenter', 'mouseleave', 'pointerenter', 'pointerleave', 'mouseover', 'mouseout'),
+        wheel: sum('wheel'),
+        canvases: document.querySelectorAll('canvas').length,
+        webgl: [...document.querySelectorAll('canvas')].some(c => {
+          try { return Boolean(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; }
+        }),
+      };
+    })(),
   };
 });
+if (declared.pointer.move) {
+  process.stdout.write(`  ${declared.pointer.move} pointermove listener(s), ${declared.pointer.enterLeave} enter/leave, ${declared.pointer.canvases} canvas${declared.pointer.webgl ? ' (webgl)' : ''}\n`);
+}
 
 // --------------------------------------------- 1b. what scrolling actually does
 // The stylesheet only sees CSS. gusta.studio declares one colour transition and
@@ -284,9 +319,57 @@ for (const [index, target] of targets.entries()) {
 }
 process.stdout.write(`  ${hovers.length} hover pairs\n`);
 
+// ------------------------------------------------------ 4. a pointer sweep
+// The hover pass above moves to a point and waits, which is the wrong shape for
+// anything driven by motion rather than presence. A trail, a cursor-follower or
+// a field that reacts to velocity all need the mouse to travel and to be
+// photographed while travelling. nippori.lamm.tokyo is the case in point: it
+// has a section whose shapes wiggle under the cursor and a trail of images that
+// follows it, and neither leaves any trace in a hover pair or in computed style.
+//
+// Swept across the middle of a section deep enough to be past the hero, since
+// that is where these pages tend to put the interactive set pieces.
+const sweeps = [];
+if (declared.pointer.move > 0) {
+  const sweepAt = Math.min(Math.round(height * 0.35), 4000);
+  await page.evaluate(offset => window.scrollTo({ top: offset, behavior: 'instant' }), sweepAt);
+  await page.waitForTimeout(2000);
+  await page.mouse.move(120, 450);
+  await page.waitForTimeout(300);
+  const stops = 5;
+  for (let i = 0; i < stops; i += 1) {
+    const x = Math.round(160 + ((1440 - 320) / (stops - 1)) * i);
+    const y = 450 + Math.round(Math.sin((i / (stops - 1)) * Math.PI) * 120);
+    // Interpolated so the page receives a stream of moves rather than a jump,
+    // which is what a velocity-driven effect needs to fire at all.
+    await page.mouse.move(x, y, { steps: 12 });
+    // Short, because a trail is transient: wait a second and it has faded.
+    await page.waitForTimeout(220);
+    const file = path.join(dir, `sweep-${i}.png`);
+    await page.screenshot({ path: file });
+    sweeps.push({ x, y, file: path.relative(ROOT, file) });
+  }
+  // How much of the frame the cursor changed, which is the difference between a
+  // page that merely registers pointermove and one that visibly answers it.
+  // Compared small and greyscale, because the question is how much moved and not
+  // what colour it was. A rising series is the signature of an accumulating
+  // trail rather than a single element tracking the cursor.
+  const grab = file => sharp(file).greyscale().resize(360, 225, { fit: 'fill' }).raw().toBuffer();
+  for (let i = 1; i < sweeps.length; i += 1) {
+    const [before, after] = await Promise.all([
+      grab(path.join(ROOT, sweeps[i - 1].file)), grab(path.join(ROOT, sweeps[i].file)),
+    ]);
+    let changed = 0;
+    for (let px = 0; px < before.length; px += 1) if (Math.abs(before[px] - after[px]) > 12) changed += 1;
+    sweeps[i].changedPercent = Number(((changed / before.length) * 100).toFixed(1));
+  }
+  const deltas = sweeps.slice(1).map(s => s.changedPercent);
+  process.stdout.write(`  ${sweeps.length} pointer sweep frames at ${sweepAt}px, frame changed ${deltas.join('%, ')}%\n`);
+}
+
 await browser.close();
 
-const evidence = { url, reachable: true, declared, scrollLinked, strip, hovers };
+const evidence = { url, reachable: true, declared, scrollLinked, strip, hovers, sweeps };
 writeFileSync(path.join(dir, 'motion.json'), `${JSON.stringify(evidence, null, 2)}\n`);
 
 process.stdout.write(`\n${path.relative(ROOT, path.join(dir, 'motion.json'))}\n`);
