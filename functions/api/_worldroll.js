@@ -23,6 +23,9 @@ export function rollSeed({ scope, key, mode, grain = null, platform = null, rero
 
 // Impressions and choices land in Workers Analytics Engine when the binding
 // exists; without it, logging is a silent no-op so the roll never fails.
+// Blob positions are per-event (queries filter on indexes[0] = event): roll
+// events fill the tail with dealtIds, chosen events with kind and register.
+// The two never mix, so each event type's positions stay stable.
 export function logEvent(env, event, fields) {
   try {
     env.ROLL_ANALYTICS?.writeDataPoint({
@@ -33,6 +36,9 @@ export function logEvent(env, event, fields) {
         fields.poolRevision || '',
         fields.chosenId || '',
         ...(fields.dealtIds || []),
+        ...(fields.kind !== undefined || fields.register !== undefined
+          ? [fields.kind || '', fields.register || '']
+          : []),
       ],
       doubles: [fields.reroll || 0],
       indexes: [event],
