@@ -641,6 +641,7 @@ const pageData = JSON.stringify({
     const queuePanel = document.querySelector('.worlds-queue');
     const workspaceGrid = document.querySelector('.worlds-workspace-grid');
     const workbench = document.querySelector('.worlds-workbench');
+    const reviewHead = document.querySelector('.worlds-review-head');
     const resultCount = document.querySelector('[data-result-count]');
     const windowLabel = document.querySelector('[data-window-label]');
     const queueTitle = document.querySelector('[data-queue-title]');
@@ -1361,11 +1362,16 @@ const pageData = JSON.stringify({
       const reviewing = state.view === 'detail' || state.view === 'cards';
       // Triage needs the width more than it needs the queue, and the queue
       // cannot act on what triage is showing anyway.
-      queuePanel.hidden = state.view === 'triage';
-      workspaceGrid.classList.toggle('is-wide', state.view === 'triage');
-      // The family rail counts what the queue holds, and triage does not use the
-      // queue, so in triage it reads as a column of zeroes taking 292 pixels.
-      workbench.classList.toggle('is-wide', state.view === 'triage');
+      // Coverage, Sites and Variants are places, not presentations of the
+      // queue, and none of them acts on a current concept. Leaving the review
+      // furniture up under them showed a queue reading "no concepts match" and
+      // a breadcrumb for a world nothing on screen referred to. All three now
+      // take the full width and drop the queue, the family rail and the
+      // concept's own header.
+      reviewHead.hidden = !reviewing;
+      queuePanel.hidden = !reviewing;
+      workspaceGrid.classList.toggle('is-wide', !reviewing);
+      workbench.classList.toggle('is-wide', !reviewing);
       cardGrid.hidden = !showing;
       queueList.hidden = showing;
       conceptBody.hidden = !reviewing;
