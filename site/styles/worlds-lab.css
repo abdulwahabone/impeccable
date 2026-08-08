@@ -2745,16 +2745,16 @@ button kbd {
   white-space: nowrap;
 }
 .worlds-telemetry-block {
-  margin-top: 0.9rem;
-  padding-top: 0.9rem;
+  margin-top: var(--spacing-sm);
+  padding-top: var(--spacing-sm);
   border-top: 1px solid var(--ks-rule);
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
+  gap: var(--spacing-xs);
 }
 .worlds-telemetry-line {
   font-family: var(--ks-mono);
-  font-size: 0.66rem;
+  font-size: var(--ks-type-eyebrow-size);
   letter-spacing: 0.04em;
   color: var(--ks-text-muted);
   margin: 0;
