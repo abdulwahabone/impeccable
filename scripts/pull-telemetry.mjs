@@ -31,10 +31,12 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATASET = 'impeccable_world_rolls';
 const OUT = path.join(ROOT, 'catalog', 'telemetry-snapshot.json');
 
-const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
+// R2 is account-scoped, so R2_ACCOUNT_ID (already in .env for the card
+// pipeline) is the same identifier and serves as the fallback.
+const accountId = process.env.CLOUDFLARE_ACCOUNT_ID || process.env.R2_ACCOUNT_ID;
 const token = process.env.CLOUDFLARE_ANALYTICS_TOKEN;
 if (!accountId || !token) {
-  console.error('pull-telemetry: set CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_ANALYTICS_TOKEN (API token with Account Analytics: Read).');
+  console.error('pull-telemetry: set CLOUDFLARE_ACCOUNT_ID (or R2_ACCOUNT_ID) and CLOUDFLARE_ANALYTICS_TOKEN (API token with Account Analytics: Read).');
   process.exit(1);
 }
 
