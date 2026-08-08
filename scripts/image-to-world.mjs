@@ -103,6 +103,12 @@ Name real values. Read the hues off the image and give hex. Name the type voice,
 
 Do not describe the subject matter. A world is a system, not a page about seeds. The entry must dress a completely different product.
 
+Responsive/motion is the one rule you are asked to DESIGN rather than read off. Any measurements you are given come from the source page, and the world in front of you is not that page: it will contain things the source never had. Use the measurements for register only, meaning how fast this family moves, how far, how restrained, what easing it favours, whether it moves continuously or in discrete steps. Then look at what is actually in the world image and decide what motion its own composition earns.
+
+Name the elements you can see and say what they do. If three photographic tiles sit at different depths, they parallax at different rates and you say which and how much. If a drawn object is held or suspended, it can sway before anything is scrolled. If a strip or a track runs across the frame, something can travel along it. A rule that would fit any page has failed; a rule that could only have been written for this one, at the source's tempo, is the target.
+
+This rule is also the one that runs over length, every time, because there is more to say about it than fits. Pick the two or three motions that matter and drop the rest. Name them in the shortest form that still carries the numbers: "3 photo tiles parallax 0.8/1.0/1.2x; film strip sways 2deg/6s idle" is a law, and the sentence explaining why is not.
+
 Record the aesthetic axes you can see, choosing from:
 ${axisMenu}
 
@@ -167,7 +173,7 @@ if (motionEvidence?.reachable) {
     s.sampled ? `Scrolling ${s.step}px moved ${s.moved} of ${s.sampled} sampled elements, changed opacity on ${s.faded}, and ${s.parallax} moved at a rate other than the scroll, which is parallax.` : '',
     d.scrollBehaviour && d.scrollBehaviour !== 'auto' ? `scroll-behavior is ${d.scrollBehaviour}` : '',
   ].filter(Boolean);
-  content.push({ type: 'text', text: `MEASURED ON THE LIVE SOURCE. These are facts read off the running page, not impressions, and they are the basis for Responsive/motion. Name real numbers from them; a rule saying "smooth transitions" wastes the measurement.\n${lines.join('\n')}` });
+  content.push({ type: 'text', text: `MEASURED ON THE LIVE SOURCE. These are facts read off the running page, not impressions. They tell you the REGISTER this family moves in: its tempo, its easing, how much moves at once, and whether it is restrained or continuous. Borrow the numbers, then apply them to what is actually in the world image, which contains elements the source never had. Do not transcribe the source's motion; design this world's, at the source's speed.\n${lines.join('\n')}` });
 
   // The strip shows what those numbers look like: what is pinned, what enters,
   // what the page does with distance. Two frames is enough to read a habit.
@@ -186,7 +192,10 @@ ${notes ? `\nAlso observed by hand:\n${notes}` : ''}${!notes && !motionEvidence 
 
 let feedback = '';
 let concept = null;
-for (let attempt = 1; attempt <= 3 && !concept; attempt += 1) {
+// Five rather than three. The length limit is the only thing these runs fail on
+// and they converge on it rather than thrashing: 239 characters, then 184, then
+// 179. Three attempts stopped one short of a valid entry more than once.
+for (let attempt = 1; attempt <= 5 && !concept; attempt += 1) {
   const response = await anthropic.messages.stream({
     model,
     max_tokens: 16000,
@@ -208,9 +217,17 @@ for (let attempt = 1; attempt <= 3 && !concept; attempt += 1) {
       // The validator's message for the rules is generic. Say which rule and how
       // long it actually is, because "exactly five rules of 12 to 180" does not
       // tell a model that its third rule is 214 characters.
-      const detail = (parsed.system || []).map((rule, i) => `rule ${i + 1} is ${rule.length} chars`).join(', ');
-      feedback = `\nFix exactly these and return the whole object again:\n${errors.join('\n')}\nFor reference, your rules were: ${detail}. The limit is 180 each and there must be exactly 5.`;
-      process.stderr.write(`  attempt ${attempt}: ${errors.length} problem(s); ${detail}\n`);
+      // Naming only the offenders and the exact overshoot. Listing all five
+      // lengths made the model shorten the ones that already fit, which is how
+      // a run could oscillate for three attempts without converging.
+      const over = (parsed.system || [])
+        .map((rule, i) => ({ i: i + 1, len: rule.length }))
+        .filter(rule => rule.len > 180);
+      const detail = over.length
+        ? `over the limit: ${over.map(r => `rule ${r.i} by ${r.len - 180} chars`).join(', ')}. Cut only those; the others are fine as they are.`
+        : (parsed.system || []).map((rule, i) => `rule ${i + 1} is ${rule.length} chars`).join(', ');
+      feedback = `\nFix exactly these and return the whole object again:\n${errors.join('\n')}\n${detail}`;
+      process.stderr.write(`  attempt ${attempt}: ${errors.length} problem(s); ${detail.slice(0, 120)}\n`);
       continue;
     }
     concept = parsed;
