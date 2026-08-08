@@ -202,19 +202,29 @@ WHAT MUST BE DIFFERENT, because these are what make a copy rather than an influe
 
 COMPOSITION IS A LAW. Decide first which of these arrangements the source uses, then use the SAME ONE with different content. This is not the thing to be inventive about; the invention goes into the device, the palette and the subject.
 
-  (a) TYPE IS THE LAYOUT. One sentence at enormous size occupies most of the frame. Any imagery is inline, at word scale, sitting on the baseline inside the sentence, as though a picture were a word. There is NO separate image area, no column of copy, often no button in view. If this is what the source does, then your page has no image column either, your pictures sit inside your sentence, and your first viewport contains that sentence and almost nothing else. Adding a paragraph beside it and a picture to the right of it is a failure even if every colour is right.
+  (a) TYPE IS THE LAYOUT. One sentence at enormous size occupies most of the frame and the first viewport holds little else: no image column, often no paragraph and no button in view. How type and image relate inside that arrangement is NOT part of the definition and must be read off the source, which may set pictures inline as words, may hold a single object behind or beside the sentence, or may have no imagery at all. Adding a paragraph beside the sentence and a picture to the right of it is a failure even if every colour is right.
   (b) A SPLIT. Copy on one side, imagery on the other.
   (c) A SCENE. One continuous field or photograph with the copy laid over it.
   (d) A STACK. Bands or panels read in sequence down the frame.
 
-A text column on the left with a picture on the right is arrangement (b), it is the answer this task reaches for by default, and it is the single most common way these runs fail. It is correct ONLY if the reference actually does it.
+A text column on the left with a picture on the right is arrangement (b), it is the answer this task reaches for by default, and it is correct ONLY if the reference actually does it.
+
+THREE THINGS THIS PROMPT HAS DRIFTED INTO, measured across real runs. None of them is a bad move. Each is a fine move that started appearing everywhere, which is the actual problem: a world that would have looked the same whatever reference it was given has not been read from a reference at all. Treat each as a prompt to check yourself, not as a ban.
+
+  1. A small object set inside the headline, so a book, a key or a tent sits between two words. Nine of twelve consecutive worlds did this. It is exactly right when the source does it and arbitrary when the source does not, so the only question is whether this reference asks for it.
+  2. A cream ground under a high-contrast serif with one word in italic. The same twelve converged here too. Palette and type voice come from the source; warm paper and an elegant serif arrived at without the reference asking for them are this prompt's habit rather than your reading.
+  3. Filling a sparse frame, covered above.
+
+The general form of all three: if you could have drawn this page without looking at the reference, you have drawn the wrong page. And if the source is loud, ugly, technical, cold, cluttered or plain, the world must be too. A tasteful editorial page is not the safe answer here; it is the wrong answer to most references.
 
 Match the inventory too, not only the shape. Count what the source's first viewport actually contains: how many pieces of copy, how many controls, how many images. If it holds one sentence and a nav, yours holds one sentence and a nav. Furniture the source does without is furniture you do without.
 - The chrome. Different nav position, different structure, a different number of items, a different call-to-action treatment. If the source puts a labelled button with an arrow at top right, yours must not.
 - The mark. Invent one that shares no silhouette with theirs. If you cannot see a way to draw one that is clearly unrelated, use a wordmark set in type and nothing else.
 - THE SIGNATURE DEVICE, and read this one carefully, because both ways of getting it wrong are worse than the middle. Every distinctive page has one trick more identifying than anything else: a script word interrupting a heavy headline, images set inline inside a sentence, a rule that cuts the frame, a badge. Do not reproduce it. Do not simply drop it either: dropping it means falling back on the default arrangement, and a stock hero with a text column on the left and a picture on the right is a worse answer than a copy, because at least the copy was interesting.
 
-  What you inherit is the MECHANISM, not the execution. Name what the device does structurally, then do that same structural thing a different way. If the source sets images inline inside its headline so type and picture occupy one line, your page must also do something inventive where type and image meet, and it must not be the same move. If a script word interrupts a grotesk, find your own interruption. The test is that a reader would say both pages take the same kind of risk in the same place, and that the risks are not the same risk.
+  What you inherit is the MECHANISM, not the execution. Name what the device does structurally, then do that same structural thing a different way. The test is that a reader would say both pages take the same kind of risk in the same place, and that the risks are not the same risk.
+
+  No example of a device is given here, deliberately. An earlier version of this prompt described one in detail, and it stopped being an illustration and became the answer: nine of twelve worlds in a row came back with a small object embedded inside the headline, whatever their source had done. Anything named here gets copied everywhere, so the device has to come from the reference in front of you and from nowhere else.
 
 The test: two designers shown both pages should say the same influences, the same shelf of references, the same year. They must not say the same studio, and they must never say the same site with different words in it. If you find yourself placing an element in the same position with the same treatment as the source, move it and treat it differently.
 

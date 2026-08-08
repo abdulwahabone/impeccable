@@ -30,7 +30,26 @@ export async function clearOverlays(page) {
 
     // Then by behaviour, which catches the unnamed ones: anything pinned over
     // the page, large enough to matter, whose text reads like a gate.
-    const GATE = /\b(cookie|consent|privacy|accept all|reject all|manage preferences|are you over|enter site|do you still want|choose your (country|region)|select your (country|region))\b/i;
+    // English first, then the wordings that actually turned up in the queue.
+    // bruegel2018.at came through with its German dialog intact and the world
+    // was drawn from a screenshot of a consent box, because every term in the
+    // list was English and the sites in this catalog are not.
+    const GATE = new RegExp([
+      'cookie', 'consent', 'privacy', 'accept all', 'reject all', 'manage preferences',
+      'are you over', 'enter site', 'do you still want', 'choose your (country|region)', 'select your (country|region)',
+      'datenschutz', 'einstellungen', 'alle akzeptieren', 'zustimmen', 'einwilligung',
+      'confidentialit', 'tout accepter', 'gestion des cookies',
+      'privacidad', 'aceptar todo', 'configurar cookies',
+      'informativa', 'accetta tutti', 'preferenze',
+      'privacybeleid', 'alles accepteren',
+      'integritetspolicy', 'godkänn alla',
+      'プライバシー', 'クッキー', '同意',
+    // Leading boundary only, no trailing one: German compounds them, so
+    // "Datenschutzeinstellungen" has no word break after "datenschutz" and a
+    // closing \\b missed the exact dialog that prompted this list. The words are
+    // specific enough that prefix matching costs nothing, and the element still
+    // has to be pinned and large before any of this is consulted.
+    ].map(term => (/^[\x00-\x7F]+$/.test(term) ? `\\b${term}` : term)).join('|'), 'i');
     for (const el of document.querySelectorAll('body *')) {
       if (!el.isConnected) continue;
       const style = getComputedStyle(el);
