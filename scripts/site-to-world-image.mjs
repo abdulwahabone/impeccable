@@ -169,7 +169,18 @@ WHAT TO CARRY OVER, and this is the part that goes missing if nobody says it:
 
 WHAT MUST BE DIFFERENT, because these are what make a copy rather than an influence. Every one of these has been reproduced verbatim in a previous run:
 
-- The composition. Where the headline sits, how much frame it takes, where the imagery enters, whether there is a text column at all. Arrange the page differently and let the same vocabulary support that arrangement.
+- The composition, but read the next paragraph before you decide what that means, because composition is the one thing here that is inherited as a LAW and not as a look.
+
+COMPOSITION IS A LAW. Decide first which of these arrangements the source uses, then use the SAME ONE with different content. This is not the thing to be inventive about; the invention goes into the device, the palette and the subject.
+
+  (a) TYPE IS THE LAYOUT. One sentence at enormous size occupies most of the frame. Any imagery is inline, at word scale, sitting on the baseline inside the sentence, as though a picture were a word. There is NO separate image area, no column of copy, often no button in view. If this is what the source does, then your page has no image column either, your pictures sit inside your sentence, and your first viewport contains that sentence and almost nothing else. Adding a paragraph beside it and a picture to the right of it is a failure even if every colour is right.
+  (b) A SPLIT. Copy on one side, imagery on the other.
+  (c) A SCENE. One continuous field or photograph with the copy laid over it.
+  (d) A STACK. Bands or panels read in sequence down the frame.
+
+A text column on the left with a picture on the right is arrangement (b), it is the answer this task reaches for by default, and it is the single most common way these runs fail. It is correct ONLY if the reference actually does it.
+
+Match the inventory too, not only the shape. Count what the source's first viewport actually contains: how many pieces of copy, how many controls, how many images. If it holds one sentence and a nav, yours holds one sentence and a nav. Furniture the source does without is furniture you do without.
 - The chrome. Different nav position, different structure, a different number of items, a different call-to-action treatment. If the source puts a labelled button with an arrow at top right, yours must not.
 - The mark. Invent one that shares no silhouette with theirs. If you cannot see a way to draw one that is clearly unrelated, use a wordmark set in type and nothing else.
 - THE SIGNATURE DEVICE. Every distinctive page has one trick that is more identifying than anything else: a script word interrupting a heavy headline, a rule that cuts the page, a badge, a specific hero motif. Find it, name it to yourself, and then do NOT use it. Invent your own device out of the same vocabulary. This is the single most important instruction here, and the one most likely to be quietly ignored, because that device is exactly what makes the reference feel good.
