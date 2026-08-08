@@ -14,6 +14,24 @@ const ROOT = process.cwd();
 const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'concept-ingredients.json'), 'utf8'));
 const reviewData = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'concept-reviews.json'), 'utf8'));
 const reviews = reviewData.reviews || {};
+// Field telemetry: the committed snapshot scripts/pull-telemetry.mjs writes
+// from Workers Analytics Engine. An absent snapshot renders as "no field
+// data"; the lab never queries the network for it.
+const telemetrySnapshot = (() => {
+  try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'telemetry-snapshot.json'), 'utf8')); } catch { return null; }
+})();
+const telemetryFor = (id) => {
+  if (!telemetrySnapshot) return null;
+  const long = telemetrySnapshot.windows?.['90d']?.ids?.[id];
+  const short = telemetrySnapshot.windows?.['30d']?.ids?.[id];
+  if (!long && !short) return null;
+  return {
+    dealt: long?.dealt || 0,
+    chosen: long?.chosen || 0,
+    dealt30: short?.dealt || 0,
+    chosen30: short?.chosen || 0,
+  };
+};
 const CARD_DIR = path.join(ROOT, 'site', 'public', 'worlds', 'cards');
 const cardManifest = (() => {
   try { return JSON.parse(fs.readFileSync(path.join(CARD_DIR, 'manifest.json'), 'utf8')); } catch { return {}; }
@@ -78,6 +96,7 @@ const families = catalog.families.map(family => ({
     wellTier: wellsById.get(family.well)?.tier || null,
     status: reviews[concept.id]?.status || 'pending',
     review: reviews[concept.id] || null,
+    telemetry: telemetryFor(concept.id),
   })),
 }));
 const wellGroups = (catalog.wells || [])
@@ -92,6 +111,30 @@ const counts = {
   rejected: concepts.filter(concept => concept.status === 'rejected').length,
 };
 counts.reviewed = counts.approved + counts.rejected;
+// One line per concept and one rail block; formatting lives here so the
+// client script and the server render agree on the shape.
+const telemetryLine = (t) => {
+  if (!t) return 'no field data';
+  const rate = t.dealt ? ` · ${Math.round((t.chosen / t.dealt) * 100)}%` : '';
+  const recent = (t.dealt30 || t.chosen30) ? ` · 30d ${t.chosen30}/${t.dealt30}` : '';
+  return `dealt ${t.dealt} · won ${t.chosen}${rate}${recent}`;
+};
+const telemetrySummary = telemetrySnapshot ? (() => {
+  const w = telemetrySnapshot.windows?.['90d'] || {};
+  const kinds = w.kinds || {};
+  const kindTotal = Object.values(kinds).reduce((sum, n) => sum + Number(n), 0);
+  return {
+    rolls: w.totals?.rolls || 0,
+    chosen: w.totals?.chosen || 0,
+    kindLine: kindTotal > 0
+      ? ['assigned', 'pick', 'challenger', 'canon'].filter(kind => kinds[kind]).map(kind => `${kind} ${Math.round((kinds[kind] / kindTotal) * 100)}%`).join(' · ')
+      : null,
+    registerLine: Object.keys(w.registers || {}).length
+      ? `steers: ${Object.entries(w.registers).map(([register, n]) => `${register} ${n}`).join(' · ')}`
+      : null,
+    date: (telemetrySnapshot.generatedAt || '').slice(0, 10),
+  };
+})() : null;
 const aestheticAxes = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'aesthetic-axes.json'), 'utf8'));
 // Absent on a fresh clone, and an absent queue is an empty one rather than an error.
 const siteQueue = (() => {
@@ -190,6 +233,20 @@ const pageData = JSON.stringify({
               <span>All</span><strong data-count-total>{counts.total}</strong>
             </button>
           </div>
+          {telemetrySummary && (
+            <div class="worlds-telemetry-block" aria-label="Field telemetry from the roll API">
+              <div class="worlds-progress-copy">
+                <span>Field telemetry · 90d</span>
+                <strong>{telemetrySummary.rolls.toLocaleString()} rolls</strong>
+              </div>
+              <p class="worlds-telemetry-line">{telemetrySummary.chosen.toLocaleString()} recorded choices</p>
+              {telemetrySummary.kindLine
+                ? <p class="worlds-telemetry-line">{telemetrySummary.kindLine}</p>
+                : <p class="worlds-telemetry-line is-muted">card-kind shares accrue once clients ship the --kind ping</p>}
+              {telemetrySummary.registerLine && <p class="worlds-telemetry-line">{telemetrySummary.registerLine}</p>}
+              <p class="worlds-telemetry-line is-muted">snapshot {telemetrySummary.date} · refresh: node scripts/pull-telemetry.mjs</p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -332,6 +389,7 @@ const pageData = JSON.stringify({
               <div class="worlds-review-glance">
               <span class="worlds-review-folio">Catalog <strong data-concept-position>{String(concepts.findIndex(concept => concept.id === initialConcept.id) + 1).padStart(3, '0')}</strong> / {counts.total.toLocaleString()}</span>
               <span class={`worlds-status-badge is-${initialConcept.status}`} data-concept-status>{initialConcept.status}</span>
+              {telemetrySnapshot && <span class="worlds-telemetry-badge" data-concept-telemetry title="Field telemetry, 90-day window: times dealt by the roll · commits won · win rate">{telemetryLine(initialConcept.telemetry)}</span>}
               <button type="button" class="worlds-edit-button" data-edit-toggle disabled={!import.meta.env.DEV} title="Edit this concept's source">
                 Edit <kbd>E</kbd>
               </button>
@@ -680,6 +738,7 @@ const pageData = JSON.stringify({
     const familyEl = document.querySelector('[data-concept-family]');
     const idEl = document.querySelector('[data-concept-id]');
     const statusEl = document.querySelector('[data-concept-status]');
+    const telemetryEl = document.querySelector('[data-concept-telemetry]');
     const lineageEl = document.querySelector('[data-concept-lineage]');
     const tagsEl = document.querySelector('[data-concept-tags]');
     const systemEl = document.querySelector('[data-concept-system]');
@@ -1675,6 +1734,16 @@ const pageData = JSON.stringify({
       idEl.title = concept.id;
       statusEl.textContent = concept.status;
       statusEl.className = `worlds-status-badge is-${concept.status}`;
+      if (telemetryEl) {
+        const fieldData = concept.telemetry;
+        if (fieldData) {
+          const rate = fieldData.dealt ? ` · ${Math.round((fieldData.chosen / fieldData.dealt) * 100)}%` : '';
+          const recent = (fieldData.dealt30 || fieldData.chosen30) ? ` · 30d ${fieldData.chosen30}/${fieldData.dealt30}` : '';
+          telemetryEl.textContent = `dealt ${fieldData.dealt} · won ${fieldData.chosen}${rate}${recent}`;
+        } else {
+          telemetryEl.textContent = 'no field data';
+        }
+      }
       lineageEl.textContent = concept.lineage;
       systemEl.replaceChildren(...concept.system.map(rule => {
         const item = document.createElement('li');

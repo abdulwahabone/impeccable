@@ -2730,3 +2730,35 @@ button kbd {
   color: var(--ks-text-mute-deep);
   cursor: not-allowed;
 }
+
+/* Field telemetry: the roll's own record of a world in the wild. One quiet
+   badge on the stage, one block in the rail; numbers stay confined to the
+   rail per the page's contract, the badge reads as provenance, not a stat. */
+.worlds-telemetry-badge {
+  font-family: var(--ks-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: var(--ks-text-faint);
+  border: 1px solid var(--ks-rule);
+  border-radius: 4px;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+.worlds-telemetry-block {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--ks-rule);
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.worlds-telemetry-line {
+  font-family: var(--ks-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.04em;
+  color: var(--ks-text-muted);
+  margin: 0;
+}
+.worlds-telemetry-line.is-muted {
+  color: var(--ks-text-faint);
+}
