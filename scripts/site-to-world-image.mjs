@@ -20,11 +20,11 @@
 // page.
 
 import { chromium } from 'playwright';
-import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync, existsSync, copyFileSync } from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
 import { UA, settle } from './lib/page-capture.mjs';
-import { buildWorldPrompt } from './lib/site-world-prompt.mjs';
+import { buildWorldPrompt, STRATEGIES, STRATEGY_IDS } from './lib/site-world-prompt.mjs';
 
 const ROOT = process.cwd();
 for (const line of readFileSync(path.join(ROOT, '.env'), 'utf8').split('\n')) {
@@ -44,7 +44,7 @@ const subject = flag('subject', null);
 const outDir = flag('out', path.join(ROOT, '.waves', 'site-worlds'));
 
 if (!url || !name) {
-  process.stderr.write('usage: site-to-world-image.mjs --url <url> --name <slug> [--scrolls 3] [--subject "..."]\n');
+  process.stderr.write('usage: site-to-world-image.mjs --url <url> --name <slug> [--scrolls 4] [--subject "..."] [--strategies close,vocabulary,...]\n');
   process.exit(1);
 }
 
@@ -203,50 +203,56 @@ const sourceDensity = frameDensities[frameDensities[0] < frameDensities[best] * 
 process.stdout.write(`  frames: ${frameDensities.join('%, ')}%, reading density as ${sourceDensity}%\n`);
 
 // ---------------------------------------------------------------- reimagine
-// What travels is the vocabulary. What must not travel is the artifact.
-//
-// This prompt has now failed in both directions. The first version routed the
-// page through prose and lost the source entirely. The version that replaced it
-// said to keep "the exact chrome grammar of nav, buttons and chips" and shouted
-// KEEP THE COMPOSITION, which produced reskins: House of Honey came back with
-// their mark in the corner, their Get in Touch button in its place, their blush
-// ground, and their signature device of a heavy grotesk interrupted by a script
-// italic reproduced move for move. Only the illustration and the words were new.
-// One line telling it not to reuse the wordmark was no match for two paragraphs
-// telling it to copy everything around it.
-//
-// So the balance is inverted. A designer influenced by a page borrows its
-// vocabulary, not its arrangement, and never its mark. The instruction most
-// worth its space is the counter-intuitive one: the element that most identifies
-// the source is the element you must not reproduce, because it is simultaneously
-// the most tempting to keep and the only one that turns homage into forgery.
-const prompt = buildWorldPrompt({ isEntry, subject, sourceDensity });
-
-process.stdout.write('\nreimagining\n');
-const form = new FormData();
-form.append('model', 'gpt-image-2');
-for (const shot of shots) {
-  form.append('image[]', new Blob([readFileSync(shot)], { type: 'image/png' }), path.basename(shot));
+// The five strategies are drawn from ONE capture. The expensive parts of this
+// script are the browser and the network, not the prompt, so five points of
+// view on the same reference cost five image calls and nothing else. The
+// reviewer picks; nothing here decides which is best.
+const strategies = (flag('strategies', STRATEGY_IDS.join(',')) || '').split(',').map(s => s.trim()).filter(Boolean);
+for (const id of strategies) {
+  if (!STRATEGIES[id]) { process.stderr.write(`unknown strategy "${id}"; expected ${STRATEGY_IDS.join(', ')}\n`); process.exit(1); }
 }
-form.append('prompt', prompt);
-form.append('size', '2048x1152');
-form.append('quality', 'high');
 
-const response = await fetch('https://api.openai.com/v1/images/edits', {
-  method: 'POST',
-  headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
-  body: form,
-});
-const json = await response.json();
-if (!response.ok) {
-  process.stderr.write(`${json.error?.message || `HTTP ${response.status}`}\n`);
-  process.exit(1);
+process.stdout.write(`\nreimagining under ${strategies.length} strateg${strategies.length === 1 ? 'y' : 'ies'}\n`);
+
+async function render(strategyId) {
+  const form = new FormData();
+  form.append('model', 'gpt-image-2');
+  for (const shot of shots) {
+    form.append('image[]', new Blob([readFileSync(shot)], { type: 'image/png' }), path.basename(shot));
+  }
+  form.append('prompt', buildWorldPrompt({ isEntry, subject, sourceDensity, strategy: strategyId }));
+  form.append('size', '2048x1152');
+  form.append('quality', 'high');
+  const response = await fetch('https://api.openai.com/v1/images/edits', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
+    body: form,
+  });
+  const json = await response.json();
+  if (!response.ok) throw new Error(json.error?.message || `HTTP ${response.status}`);
+  const b64 = json.data?.[0]?.b64_json;
+  if (!b64) throw new Error('no image returned');
+  const file = path.join(outDir, name, `world-${strategyId}.webp`);
+  writeFileSync(file, await sharp(Buffer.from(b64, 'base64')).webp({ quality: 90 }).toBuffer());
+  return file;
 }
-const b64 = json.data?.[0]?.b64_json;
-if (!b64) { process.stderr.write('no image returned\n'); process.exit(1); }
 
-const outFile = path.join(outDir, name, 'world.webp');
-writeFileSync(outFile, await sharp(Buffer.from(b64, 'base64')).webp({ quality: 90 }).toBuffer());
-process.stdout.write(`\n${path.relative(ROOT, outFile)}\n`);
-process.stdout.write('Reference shots are beside it. Judge the family resemblance first; if the image is\n');
-process.stdout.write('right, the world text can be written from the image and the page rather than guessed.\n');
+const results = await Promise.all(strategies.map(id => render(id)
+  .then(file => ({ id, file }))
+  .catch(error => ({ id, error: error.message }))));
+
+for (const result of results) {
+  process.stdout.write(result.error
+    ? `  FAILED  ${result.id}: ${result.error.slice(0, 80)}\n`
+    : `  ${STRATEGIES[result.id].label.padEnd(22)} ${path.relative(ROOT, result.file)}\n`);
+}
+
+const landed = results.filter(r => r.file);
+if (landed.length === 0) { process.stderr.write('every strategy failed\n'); process.exit(1); }
+
+// world.webp stays as the current pick so everything downstream keeps working
+// unchanged. It is a copy rather than a rename, so choosing again later is a
+// copy too and the alternatives are never thrown away.
+const canonical = path.join(outDir, name, 'world.webp');
+if (!existsSync(canonical)) copyFileSync(landed[0].file, canonical);
+process.stdout.write(`\n${landed.length}/${strategies.length} rendered. Pick one in the lab's Sites view.\n`);

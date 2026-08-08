@@ -9,6 +9,7 @@ import '../../styles/sub-pages.css';
 import '../../styles/worlds-lab.css';
 import { conceptContentHash } from '../../../skill/scripts/lib/concept-catalog.mjs';
 import { siteSlug } from '../../../scripts/lib/site-queue.mjs';
+import { STRATEGIES } from '../../../scripts/lib/site-world-prompt.mjs';
 
 const ROOT = process.cwd();
 const catalog = JSON.parse(fs.readFileSync(path.join(ROOT, 'catalog', 'concept-ingredients.json'), 'utf8'));
@@ -147,12 +148,25 @@ const siteQueue = (() => {
         const slug = siteSlug(site.url);
         const dir = path.join(ROOT, '.waves', 'site-worlds', slug);
         if (!fs.existsSync(path.join(dir, 'world.webp'))) return site;
-        const refs = fs.readdirSync(dir).filter(f => /^ref-\d+\.png$/.test(f)).sort();
+        const files = fs.readdirSync(dir);
+        const refs = files.filter(f => /^ref-\d+\.png$/.test(f)).sort();
+        // A candidate drawn under several strategies offers a choice; one drawn
+        // under the old single prompt has none, and both have to render.
+        const variants = files
+          .map(f => (f.match(/^world-([a-z]+)\.webp$/) || [])[1])
+          .filter(Boolean)
+          .map(id => ({
+            id,
+            label: STRATEGIES[id]?.label || id,
+            note: STRATEGIES[id]?.note || '',
+            src: `/__impeccable/site-worlds/${slug}/world-${id}.webp`,
+          }));
         return {
           ...site,
           render: {
             world: `/__impeccable/site-worlds/${slug}/world.webp`,
             refs: refs.map(f => `/__impeccable/site-worlds/${slug}/${f}`),
+            variants,
           },
         };
       } catch {
@@ -1202,13 +1216,24 @@ const pageData = JSON.stringify({
         // to the source's family without being the same page? That is a
         // comparison, so both are shown, at a size you can actually answer it at.
         if (!site.render) return row;
+        const variants = site.render.variants || [];
         const wrap = document.createElement('div');
-        wrap.className = 'worlds-sites-render';
-        for (const [label, src] of [['Source', site.render.refs[0]], ['World', site.render.world]]) {
+        // One prompt could not serve every source: a page whose idea is a
+        // centred sentence and a page that lives on a shader want different
+        // treatments, and seven rounds of tuning one instruction traded one
+        // failure for another. So each candidate is drawn under several
+        // strategies and the choice is a human's.
+        wrap.className = variants.length > 1 ? 'worlds-sites-render is-choice' : 'worlds-sites-render';
+        const shown = variants.length > 1
+          ? [['Source', site.render.refs[0], null], ...variants.map(v => [v.label, v.src, v])]
+          : [['Source', site.render.refs[0], null], ['World', site.render.world, null]];
+        for (const [label, src, variant] of shown) {
           if (!src) continue;
           const figure = document.createElement('figure');
+          if (variant) figure.className = 'is-pickable';
           const caption = document.createElement('figcaption');
           caption.textContent = label;
+          if (variant) caption.title = variant.note;
           const image = document.createElement('img');
           // Downscaled for the row, full size in the lightbox. That takes each
           // one to about 20KB, which is why these are NOT lazy: an image
@@ -1219,6 +1244,23 @@ const pageData = JSON.stringify({
           image.alt = `${label} for ${site.url}`;
           image.addEventListener('click', () => openLightbox(src, `${label}: ${site.url}`));
           figure.append(caption, image);
+
+          // Choosing a strategy is the same act as keeping the candidate, so it
+          // does both: the pick becomes the world and the row moves to kept.
+          if (variant) {
+            const choose = document.createElement('button');
+            choose.type = 'button';
+            choose.textContent = 'Keep this one';
+            choose.addEventListener('click', async () => {
+              try {
+                await postSites({ action: 'pick', url: site.url, strategy: variant.id });
+                await postSites({ action: 'close', url: site.url, status: 'keep' });
+              } catch (error) {
+                showToast(error.message, 'error');
+              }
+            });
+            figure.append(choose);
+          }
           wrap.append(figure);
         }
         const group = document.createElement('div');

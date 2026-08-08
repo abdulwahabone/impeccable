@@ -21,7 +21,7 @@ import {
 } from '../skill/scripts/lib/composition-catalog.mjs';
 
 import {
-  QUEUE_RELATIVE, emptyQueue, extractUrls, addUrls, closeSite, reopenSite,
+  QUEUE_RELATIVE, emptyQueue, extractUrls, addUrls, closeSite, reopenSite, siteSlug,
 } from './lib/site-queue.mjs';
 
 const API_PATH = '/__impeccable/worlds';
@@ -308,13 +308,26 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       return { sites: queue.sites };
     }
 
+    // Choosing which strategy's drawing becomes the world. Copied over the
+    // canonical name rather than renamed, so the alternatives stay on disk and
+    // changing a mind costs a copy rather than five image calls.
+    if (body.action === 'pick') {
+      if (!/^[a-z]+$/.test(body.strategy || '')) throw new Error('strategy must be a plain name');
+      const slug = siteSlug(body.url);
+      const dir = path.join(root, '.waves', 'site-worlds', slug);
+      const from = path.join(dir, `world-${body.strategy}.webp`);
+      if (!from.startsWith(dir + path.sep)) throw new Error('bad strategy path');
+      await copyFile(from, path.join(dir, 'world.webp'));
+      return { url: body.url, strategy: body.strategy, sites: queue.sites };
+    }
+
     if (body.action === 'reopen') {
       reopenSite(queue, body.url);
       await writeJsonAtomic(queuePath, queue);
       return { sites: queue.sites };
     }
 
-    throw new Error('Site queue takes add, close, or reopen');
+    throw new Error('Site queue takes add, close, pick, or reopen');
   }
 
   async function mutate(body) {

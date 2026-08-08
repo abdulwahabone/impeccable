@@ -2762,3 +2762,33 @@ button kbd {
 .worlds-telemetry-line.is-muted {
   color: var(--ks-text-faint);
 }
+
+/* Several strategies drawn from one capture, laid out so the source stays first
+   and the alternatives read as a set to choose between rather than a gallery. */
+.worlds-sites-render.is-choice {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.worlds-sites-render figure.is-pickable figcaption {
+  color: var(--ks-text-muted);
+  cursor: help;
+}
+
+.worlds-sites-render figure.is-pickable button {
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px 8px;
+  border: 1px solid color-mix(in oklch, var(--ks-patina), transparent 55%);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ks-patina);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.worlds-sites-render figure.is-pickable button:hover {
+  border-color: var(--ks-patina);
+  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
+}
