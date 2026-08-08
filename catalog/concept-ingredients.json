@@ -2560,7 +2560,7 @@
     {
      "id": "aww-pavilion-route-band",
      "form": "a fair-pavilion interior threaded by one unbroken mitred band of ink silkscreened along the wall at hand height, where every bay of content exists only because the band doubles back and pens it in, and each place the band crosses itself prints one step darker",
-     "lineage": "postwar world's-fair pavilion circulation graphics, Brussels 1958 to Osaka 1970: silkscreened route bands and their folded companion guides; read against mindmarket.com, Awwwards Site of the Day 2026",
+     "lineage": "postwar world's-fair pavilion circulation graphics, Brussels 1958 to Osaka 1970: silkscreened route bands and their folded companion guides",
      "spark": "Ten at night in a half-lit fair pavilion, cleaners gone, a four-inch orange band running the wall at hand height, doubling back to pen in a bay of pinned photographs, the crossing printed a shade darker where the squeegee passed twice.",
      "system": [
       "Palette/material: seven zone inks screened on grey-tan uncoated board, tooth showing. Live zone floods 30-60%. Foreign media takes a butted band of that ink, never a tint over it.",
@@ -4989,7 +4989,7 @@
     {
      "id": "sd-seedbed-lobes",
      "form": "A saturated green field with a floating white capsule bar riding above it, an oversized grotesque headline set flush-left, and a flat vector cast spilling across the lower right. Below, a huge cream panel rises with a 48px top radius, carrying green circular icon wells.",
-     "lineage": "After mindmarket.com — floating-pill navigation, drenched brand ground, flat character illustration in the Alegria vein",
+     "lineage": "floating-pill navigation over a drenched brand ground, with flat character illustration in the Alegria vein",
      "spark": "One colour owns the whole viewport, and the interface floats on top of it as detached white lozenges. Nothing is inset; everything is a pill or a rounded slab hovering over the green, so the page reads as objects on a lawn rather than boxes in a grid.",
      "system": [
       "Palette/material: Ground #82CC5C; ink #2F3130 (never #000); white #FFFFFF capsules; cream panel #F2EFE3; accent tomato #F0574C, cobalt #1B8FF5, yellow #F5D42B.",
@@ -5026,7 +5026,7 @@
     {
      "id": "sd-lobed-field-cast",
      "form": "A saturated green field page with a floating white capsule nav, oversized grotesk headline, and a flat vector crowd bleeding off the lower edge, handing over to a bone-cream slab of icon-chip rows.",
-     "lineage": "mindmarket.com, Awwwards Site of the Day 2026",
+     "lineage": "late-2020s saturated-ground brand pages: capsule chrome floating over one committed field colour, with a flat vector cast bleeding off the edge",
      "spark": "One loud green does all the work: it is the ground, the button fill, the icon disc, and the only thing the eye needs to track. Everything else floats on it as white capsules, and a crowd of flat characters spills past the fold like they walked in from outside.",
      "system": [
       "Palette/material: Field #8CD35F, ink #33352F, white capsules #FFFFFF, lower slab #F1EDE1. Flat vector accents: #E8604D, #3B8EF5, #F5D400, #C9A6F5. No gradients, no shadow.",
@@ -5057,6 +5057,43 @@
       "scale-range": "wide",
       "motion": "simulated",
       "prohibition": "no-photography",
+      "variance": "container"
+     }
+    },
+    {
+     "id": "single-hue-poster-site-one",
+     "form": "A single-hue poster site: one saturated yellow ground carried edge to edge, a wall of black geometric caps set centred, and every image confined to a circular mask or an arc-cut band that rises from the bottom of the frame.",
+     "lineage": "poster-era Swiss caps meeting bottled-soda pop advertising and effervescent illustration",
+     "spark": "The page is one colour and refuses to dilute it. Nothing sits on a card, nothing gets a second background; images are punched into circles so the yellow stays continuous, and type is the only structure the layout needs.",
+     "system": [
+      "Palette/material: One ground #FFE100 edge to edge, ink #111111 never pure black, 1.5px ink pill outlines; accents leaf-green #1F7A3D, carrot #F07C1E, radish #E23B3B.",
+      "Type/composition: One geometric sans, Black caps only, two sizes: headline 120px/0.92 centred, nav 14px caps at 0.08em in 44px pills; 1px ink rule under header.",
+      "Topology/navigation: Full-bleed yellow sheet; content in centred circular masks (max 700px) and one arced bottom edge; nav is 3 pills left, mark centre, 3 icon discs right.",
+      "Controls/state: Pills and 36px icon discs are ink outline on yellow; hover inverts to ink fill with yellow glyph in 0.3s; arrow glyph slides 4px down; focus doubles stroke.",
+      "Responsive/motion: Bubble field drifts up 0.6x scroll, illustrated harvest band 1.2x; carrot bunch sways 2deg/5s idle; circle mask 0.94>1 in 0.6s (.215,.61,.355,1)."
+     ],
+     "webLeverage": "Fixed one-colour body means zero section backgrounds; circular clip-paths, outline pill buttons and scroll-rate-differenced sprite layers do all the depth work in CSS.",
+     "strength": "dual",
+     "tags": [
+      "single-hue-ground",
+      "circle-masked-media",
+      "outline-pill-nav"
+     ],
+     "avoid": [
+      "Introducing a white or off-white section background; the yellow must never be interrupted by a card or panel.",
+      "Drop shadows or gradients on the pills and circles, which are flat outline forms only.",
+      "Letting the illustrated band and bubbles drift so far they read as a separate scrolling layer rather than one poster."
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "drenched",
+      "material": "printed-ink",
+      "spatial": "sheet",
+      "density": "calm",
+      "composition": "axial",
+      "scale-range": "wide",
+      "motion": "continuous",
+      "prohibition": "no-dividers",
       "variance": "container"
      }
     }

@@ -198,7 +198,15 @@ if (motionEvidence?.kind === 'video' && motionEvidence.video) {
   content.push({ type: 'text', text: 'The live source no longer responds, so no motion could be observed. Keep Responsive/motion to what the image implies and invent no specifics: an honest gap is better than a plausible fabrication.' });
 }
 
-content.push({ type: 'text', text: `Use id "${id}" and familyId "${family}".${source ? ` Lineage should credit: ${source}` : ''}
+// Lineage names the tradition, never the page. A world derived from a real site
+// is the same act as a designer carrying an influence into new work, and the
+// output is defensible on exactly those terms; naming the studio it came from
+// turns a tradition into an accusation and invites a reading of the work that
+// its content does not support. Which page a world came from is still recorded,
+// in catalog/site-queue.json, which is never served.
+content.push({ type: 'text', text: `Use id "${id}" and familyId "${family}".
+
+Lineage names the tradition, era, movement or craft this world belongs to: "poster-era Swiss caps meeting bottled-soda advertising", "1970s airline timetable typography", "Memphis-adjacent flat geometry". It must NOT name the specific website, studio, brand or domain that inspired it, and must contain no URL. Write what a design historian would write about the family, not where you saw it.
 ${notes ? `\nAlso observed by hand:\n${notes}` : ''}${!notes && !motionEvidence ? '\nNo motion was observed. Keep Responsive/motion to what the image implies and do not invent specifics.' : ''}` });
 
 let feedback = '';
@@ -224,6 +232,22 @@ for (let attempt = 1; attempt <= 5 && !concept; attempt += 1) {
   try {
     const parsed = JSON.parse(text);
     const errors = validateConceptEntry(parsed, {});
+    // Enforced rather than requested. The instruction above is a sentence in a
+    // long prompt and the model has every reason to be helpful about provenance;
+    // this is the part that has to hold. Checked across the whole entry, not
+    // just lineage, because a brand name is no better inside form or spark,
+    // and those two ARE served.
+    const host = source ? new URL(source).hostname.replace(/^www\./, '') : '';
+    const brand = host ? host.split('.')[0].replace(/[^a-z0-9]/gi, '') : '';
+    const naming = ['lineage', 'form', 'spark', 'webLeverage']
+      .filter(field => {
+        const value = String(parsed[field] || '');
+        if (/https?:\/\/|\b[a-z0-9-]+\.(com|net|org|io|co|studio|design|fr|jp|nl|pt|it|ca|dev)\b/i.test(value)) return true;
+        return brand.length > 3 && new RegExp(`\\b${brand}\\b`, 'i').test(value);
+      });
+    if (naming.length) {
+      errors.push(`${naming.join(' and ')} names the source site or a domain. Lineage names the tradition, era or craft, never the page it came from, and no served field may name it either.`);
+    }
     if (errors.length) {
       // The validator's message for the rules is generic. Say which rule and how
       // long it actually is, because "exactly five rules of 12 to 180" does not

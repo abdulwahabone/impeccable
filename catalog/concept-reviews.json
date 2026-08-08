@@ -65,8 +65,15 @@
       "status": "rejected",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-05T21:19:33.677Z",
-      "formHash": "e40c0a89ea4f",
+      "formHash": "2fae8f25a964",
       "note": "it's a complete failure. it looks absolutely nothing like the inspiration.  I expected a bubbly aesthetic close to the original (while not being an exact copy, of course), with interesting characters that are animated, a continous scroll path of sorts, rounded friendly shapes, colorful, etc... i got none of that."
+    },
+    "aww2-zoo-gardens-guide-map": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-07T17:47:28.657Z",
+      "formHash": "38f9a85fb54d",
+      "rating": 2
     },
     "black-gold-augmentation": {
       "status": "rejected",
@@ -4111,6 +4118,19 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:22:48.917Z",
       "formHash": "6f03bcf033f0"
+    },
+    "sd-lobed-field-cast": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-07T17:48:00.854Z",
+      "formHash": "07d37c8985f5"
+    },
+    "sd-seedbed-lobes": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-07T17:47:57.173Z",
+      "formHash": "035261356598",
+      "rating": 2
     },
     "signals-instruments-darkroom-safelight-bay": {
       "status": "approved",
