@@ -162,7 +162,18 @@ const motionEvidence = (() => {
   }
 })();
 
-if (motionEvidence?.reachable) {
+if (motionEvidence?.kind === 'video' && motionEvidence.video) {
+  // Frames in time order from the designer's own capture. This is the only
+  // motion record that exists for a site that has gone offline, and it is a
+  // better one than a scroll probe: the person who built the page chose what to
+  // record, so the frames show the moments they thought were worth showing.
+  content.push({ type: 'text', text: `MOTION, SAMPLED FROM THE DESIGNER'S OWN VIDEO of the live source, since the site itself is gone. The frames below run in time order. Read them as motion: what has moved between one and the next, what is entering, what is holding still, whether things travel together or in sequence, and how far anything gets in the time shown. That gives you the register. Then apply it to what is in the world image, which contains elements the source never had.` });
+  for (const frame of motionEvidence.video.frames.slice(0, 6)) {
+    if (!existsSync(path.join(ROOT, frame.file))) continue;
+    content.push({ type: 'text', text: `clip ${frame.clip} at ${frame.at}s` });
+    content.push(pngBlock(path.join(ROOT, frame.file)));
+  }
+} else if (motionEvidence?.reachable) {
   const d = motionEvidence.declared || {};
   const s = motionEvidence.scrollLinked || {};
   const lines = [

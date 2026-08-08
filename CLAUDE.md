@@ -211,13 +211,51 @@ bun run wave --mode read --count 10     # read | persuade | operate | experience
 One command per round: draw, author, screen, dedupe, merge as pending, render
 board and hero and docs. It approves nothing; a round ends at the review queue.
 
-Worlds can also come from real pages instead of a draw. **`catalog/site-queue.json`
-is the standing inbox of candidate sites**, written only by
-`scripts/site-queue.mjs`; `pbpaste | node scripts/site-queue.mjs add` takes
-anything with URLs in it, and `list` shows what is still pending. When asked to
-work the queue, read the site-queue section of
-`docs/WORLD-CATALOG-AUTHORING.md` first: the page has to be *used*, not
-screenshotted, because motion is usually why it is on the list.
+### Worlds derived from real sites
+
+The second way a world enters the catalog. **`catalog/site-queue.json` is the
+standing inbox of candidate sites**, written only by `scripts/site-queue.mjs`
+and reviewed in the lab's Sites view. The reviewer keeps or passes a render;
+everything after that is yours.
+
+**When the reviewer says "derive the kept ones", "process the queue", or
+anything to that effect, this is the whole job:**
+
+```bash
+node scripts/derive-kept.mjs            # dry run, shows what it would do
+node scripts/derive-kept.mjs --write    # observe, derive, merge, close
+```
+
+That runs, per kept row: watch the live page move, write the entry from the
+render with that motion as evidence, merge as pending, close the row with the
+id. Rows close only after a successful merge, so a failure leaves the row kept
+and re-running is always safe. Report what landed and what did not; the new
+entries appear in the review queue as pending, where every other world is judged.
+
+To add candidates that arrive as a paste, `pbpaste | node scripts/site-queue.mjs add`
+takes anything with URLs in it. To render a new one,
+`node scripts/site-to-world-image.mjs --url <url> --name <slug> --subject "<a concept>"`,
+drawing the subject from `catalog/concept-deck.json` so each world dresses a
+different product.
+
+**Read `docs/WORLD-CATALOG-AUTHORING.md` before changing any of it.** Four
+things there were expensive to learn and are easy to undo:
+
+- **Vocabulary travels, the artifact does not.** The prompt once said to keep
+  the chrome and the composition and produced reskins carrying the source's own
+  logo. Palette character, type pairing logic, shape language and register
+  carry; composition, chrome, mark and above all the signature device must be
+  reinvented.
+- **An awwwards entry URL is a first-class source**, not a broken link. Award
+  sites go offline constantly, and the entry outlives them with the submission
+  shot plus the designer's gallery.
+- **Motion is designed, not transcribed.** Measurements from the source give the
+  register; the generated world gives the subjects, because it contains elements
+  the source never had. A dead host writes `reachable:false` and the rule stays
+  thin on purpose, unless the entry carries video, in which case frames from the
+  designer's own capture supply it.
+- **Overlays are removed, never accepted.** Clicking Accept on a consent banner
+  would transmit a decision that is not ours to give.
 
 Four things that are easy to get wrong:
 

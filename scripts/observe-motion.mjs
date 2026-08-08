@@ -26,9 +26,10 @@
 // the entry then carries no motion rule rather than a fabricated one.
 
 import { chromium } from 'playwright';
+import { spawnSync } from 'node:child_process';
 import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
-import { settle } from './lib/page-capture.mjs';
+import { UA, settle } from './lib/page-capture.mjs';
 
 const ROOT = process.cwd();
 const args = process.argv.slice(2);
@@ -51,6 +52,78 @@ mkdirSync(dir, { recursive: true });
 
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+
+// ------------------------------------------------- motion from the archive
+// An awwwards entry carries video the designer recorded of their own page:
+// scroll behaviour, hover states, transitions, captured while the site was
+// alive. For a dead host that is the only motion record that will ever exist,
+// and it is a better one than a scroll probe, because the person who built the
+// page chose what to show.
+const AWWWARDS_ENTRY = /^https?:\/\/(www\.)?awwwards\.com\/sites\/[a-z0-9-]+/i;
+
+function ffprobeDuration(file) {
+  const probe = spawnSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration',
+    '-of', 'default=noprint_wrappers=1:nokey=1', file], { encoding: 'utf8' });
+  return Number((probe.stdout || '').trim()) || 0;
+}
+
+async function observeFromEntry() {
+  await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 }).catch(() => {});
+  await page.waitForTimeout(3000);
+  const media = await page.evaluate(() => {
+    const primary = document.querySelector('meta[property="og:image"]')?.content || '';
+    const clips = [];
+    for (const el of document.querySelectorAll('[data-src], video source, video')) {
+      const src = el.getAttribute('data-src') || el.getAttribute('src') || '';
+      if (/\/awards\/element\/.*\.mp4$/.test(src)) clips.push(src);
+    }
+    return { primary, clips: [...new Set(clips)] };
+  });
+
+  // Same scoping as the still capture: related-work rails carry other entries'
+  // media, and the one thing they do not share is the submission's month.
+  const stamp = (media.primary.match(/\/(\d{4}\/\d{2})\//) || [])[1];
+  const clips = media.clips.filter(src => (stamp ? src.includes(`/${stamp}/`) : true)).slice(0, 2);
+  if (clips.length === 0) return null;
+
+  const sampled = [];
+  for (const [clipIndex, clipUrl] of clips.entries()) {
+    const response = await fetch(clipUrl, { headers: { 'user-agent': UA } });
+    if (!response.ok) continue;
+    const file = path.join(dir, `clip-${clipIndex}.mp4`);
+    writeFileSync(file, Buffer.from(await response.arrayBuffer()));
+    const duration = ffprobeDuration(file);
+    if (!duration) continue;
+    // Evenly across the clip, skipping the very ends: the first frame is often
+    // a blank or a title card and the last is often held.
+    const count = 5;
+    for (let i = 0; i < count; i += 1) {
+      const at = (duration * (i + 0.5)) / count;
+      const frame = path.join(dir, `clip-${clipIndex}-${i}.png`);
+      const cut = spawnSync('ffmpeg', ['-y', '-ss', at.toFixed(2), '-i', file,
+        '-frames:v', '1', '-vf', 'scale=1280:-1', frame], { encoding: 'utf8' });
+      if (cut.status === 0 && existsSync(frame)) {
+        sampled.push({ clip: clipIndex, at: Number(at.toFixed(2)), file: path.relative(ROOT, frame) });
+      }
+    }
+    process.stdout.write(`  clip ${clipIndex}: ${duration.toFixed(1)}s, ${count} frames\n`);
+  }
+  return sampled.length ? { clips: clips.length, frames: sampled } : null;
+}
+
+if (AWWWARDS_ENTRY.test(url)) {
+  const video = await observeFromEntry();
+  await browser.close();
+  writeFileSync(path.join(dir, 'motion.json'), `${JSON.stringify({
+    url, reachable: Boolean(video), kind: 'video', video,
+    note: video
+      ? 'Sampled from the designer\'s own capture on the awards entry. The frames are ordered in time within each clip.'
+      : 'The entry carried no video and there is no live page to watch. No motion was observed and none should be written.',
+  }, null, 2)}\n`);
+  process.stdout.write(`\n${path.relative(ROOT, path.join(dir, 'motion.json'))}\n`);
+  process.stdout.write(video ? `  ${video.frames.length} frames from ${video.clips} clip(s)\n` : '  no video on that entry\n');
+  process.exit(0);
+}
 
 let reachable = true;
 const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 }).catch(() => null);

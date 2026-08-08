@@ -357,7 +357,46 @@ ours to give, and the splash matcher requires an exact word so "Enter your
 email" cannot trigger it. A page that renders nothing above the fold is still
 worth a second look with `--scrolls 4`.
 
-**To work the queue**: `list`, then for each candidate go and *use* the page
+**Deriving the kept rows is one command.** `derive-kept.mjs` is the whole
+second half of the pipeline and the thing to reach for whenever the reviewer
+asks for the queue to be processed:
+
+```bash
+node scripts/derive-kept.mjs            # dry run
+node scripts/derive-kept.mjs --write
+node scripts/derive-kept.mjs --write --only melinegobet-fr
+```
+
+Per kept row it observes motion, derives the entry, merges as pending, and
+closes the row with the id. A row closes only after its merge succeeds, so any
+failure leaves it kept and the pass is safe to re-run.
+
+**Motion is the rule that gets invented, so it is the one that gets measured.**
+`observe-motion.mjs` returns evidence rather than an impression, in three forms:
+computed styles, where durations and easing curves are facts; a scroll strip;
+and hover pairs. It also measures the *effect* rather than the cause, by
+sampling transforms, scrolling, and sampling again, because a page can declare
+one CSS transition and animate a hundred elements from script. gusta.studio does
+exactly that, and library sniffing does not save you since bundlers rename
+globals.
+
+Three sources, in order of what is available:
+
+| Source | What it gives |
+|---|---|
+| A live page | Declared durations and curves, a scroll strip, hover pairs, and a count of what moved |
+| An awwwards entry | Frames sampled from the designer's own video, which is the only motion record a dead site will ever have, and often better since they chose what to record |
+| Neither | `reachable:false`, and the entry is told to leave the rule thin. An honest gap beats a plausible fabrication. |
+
+**The rule describes the new world, not the source.** The measurements give the
+register: tempo, easing, restraint, how much moves at once. The generated image
+gives the subjects, and it contains elements the source never had. Schweppes has
+no bubble field, no harvest band and no carrot bunch; the world derived from it
+has all three, and its rule parallaxes them at 0.6x and 1.2x and sways the bunch
+2 degrees over 5 seconds while nothing is being scrolled, at the source's
+measured speed. A rule that would fit any page has failed.
+
+**To work the queue by hand**: `list`, then for each candidate go and *use* the page
 before deciding anything. A screenshot is silent about motion, and motion is
 usually the reason the page is on the list. Then
 `site-to-world-image.mjs --url ... --name ...` for the image,
