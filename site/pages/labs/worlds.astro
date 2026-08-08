@@ -234,7 +234,7 @@ const pageData = JSON.stringify({
             </button>
           </div>
           {telemetrySummary && (
-            <div class="worlds-telemetry-block" aria-label="Field telemetry from the roll API">
+            <div class="worlds-telemetry-block" role="group" aria-label="Field telemetry from the roll API">
               <div class="worlds-progress-copy">
                 <span>Field telemetry · 90d</span>
                 <strong>{telemetrySummary.rolls.toLocaleString()} rolls</strong>
