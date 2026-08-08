@@ -134,6 +134,31 @@ for (let i = 0; i < scrolls; i += 1) {
 return taken;
 }
 
+// --------------------------------------------------------- how full it is
+// Restraint was the register that would not carry. Told to keep "how much air"
+// the page has, runs came back denser than the source every single time, and
+// worst where it mattered most: flowty.co went from 19% to 40%, supaste from 15
+// to 38. A minimal page reads as unfinished to an image model, so it fills the
+// space, and a page that lives on interaction looks emptiest of all as a still.
+//
+// So the register stops being an adjective and becomes a number, the same move
+// that fixed the motion rule. Detail rather than flat colour, because flowty's
+// ground is a gradient and a dominant-colour test scores it as busy: measured as
+// the share of the frame that differs from a blurred copy of itself, which type,
+// photographs and illustration all do and a gradient does not.
+async function detailDensity(file) {
+  const base = sharp(file).resize(240, 135, { fit: 'cover', position: 'top' }).greyscale();
+  const [crisp, blurred] = await Promise.all([
+    base.clone().raw().toBuffer(),
+    base.clone().blur(4).raw().toBuffer(),
+  ]);
+  let busy = 0;
+  for (let i = 0; i < crisp.length; i += 1) if (Math.abs(crisp[i] - blurred[i]) > 10) busy += 1;
+  return Math.round((busy / crisp.length) * 100);
+}
+const sourceDensity = await detailDensity(shots[0]).catch(() => null);
+if (sourceDensity !== null) process.stdout.write(`  source carries detail on ${sourceDensity}% of the frame\n`);
+
 // ---------------------------------------------------------------- reimagine
 // What travels is the vocabulary. What must not travel is the artifact.
 //
@@ -165,14 +190,20 @@ WHAT TO CARRY OVER, and this is the part that goes missing if nobody says it:
 - The type PAIRING LOGIC rather than the typefaces. If the source sets a very heavy display against a delicate high-contrast serif, do that; use different faces to do it.
 - The shape language: radii, weight of line, whether forms are geometric or drawn, how areas of colour meet.
 - The illustration idiom in full, meaning the drawing hand AND its energy. If the source's figures are mid-action with exaggerated proportions and cropped by the frame, yours are too. If its props are scattered at several scales, yours are. Match the density of loose elements. A tidy centred vignette is a failure when the source is an ensemble in motion.
-- The register: how loud, how dense, how much air, how much the page is willing to shout.
+- The register: how loud, how dense, how much air, how much the page is willing to shout.${sourceDensity === null ? '' : `
+
+HOW FULL THE PAGE IS, which is measured rather than described because it is the thing that never survives. Detail covers about ${sourceDensity}% of the source's first viewport, counting type, images, illustration and anything else that is not bare ground. Yours must come out close to that, within a few points either way.
+
+${sourceDensity < 25 ? `At ${sourceDensity}% this source is SPARSE, and that is the hardest instruction here to actually obey. An almost-empty frame reads as unfinished, and every previous run answered that feeling by adding an illustration, a card row or a photograph, arriving 15 to 20 points denser than the page it came from and losing the exact quality that made the page worth looking at. Resist it. If the source gives one headline, a line of body copy and a great deal of nothing, so do you. Note also that a page this sparse is often sparse because its content is time-based: it lives on motion and interaction, and a still frame of it is supposed to look this empty. Do not compensate for a stillness that is an artifact of the medium.` : `At ${sourceDensity}% this source is worked rather than sparse, so an empty frame would be as wrong as an overfilled one.`}`}
 
 WHAT MUST BE DIFFERENT, because these are what make a copy rather than an influence. Every one of these has been reproduced verbatim in a previous run:
 
 - The composition. Where the headline sits, how much frame it takes, where the imagery enters, whether there is a text column at all. Arrange the page differently and let the same vocabulary support that arrangement.
 - The chrome. Different nav position, different structure, a different number of items, a different call-to-action treatment. If the source puts a labelled button with an arrow at top right, yours must not.
 - The mark. Invent one that shares no silhouette with theirs. If you cannot see a way to draw one that is clearly unrelated, use a wordmark set in type and nothing else.
-- THE SIGNATURE DEVICE. Every distinctive page has one trick that is more identifying than anything else: a script word interrupting a heavy headline, a rule that cuts the page, a badge, a specific hero motif. Find it, name it to yourself, and then do NOT use it. Invent your own device out of the same vocabulary. This is the single most important instruction here, and the one most likely to be quietly ignored, because that device is exactly what makes the reference feel good.
+- THE SIGNATURE DEVICE, and read this one carefully, because both ways of getting it wrong are worse than the middle. Every distinctive page has one trick more identifying than anything else: a script word interrupting a heavy headline, images set inline inside a sentence, a rule that cuts the frame, a badge. Do not reproduce it. Do not simply drop it either: dropping it means falling back on the default arrangement, and a stock hero with a text column on the left and a picture on the right is a worse answer than a copy, because at least the copy was interesting.
+
+  What you inherit is the MECHANISM, not the execution. Name what the device does structurally, then do that same structural thing a different way. If the source sets images inline inside its headline so type and picture occupy one line, your page must also do something inventive where type and image meet, and it must not be the same move. If a script word interrupts a grotesk, find your own interruption. The test is that a reader would say both pages take the same kind of risk in the same place, and that the risks are not the same risk.
 
 The test: two designers shown both pages should say the same influences, the same shelf of references, the same year. They must not say the same studio, and they must never say the same site with different words in it. If you find yourself placing an element in the same position with the same treatment as the source, move it and treat it differently.
 
