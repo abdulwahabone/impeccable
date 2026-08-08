@@ -79,6 +79,9 @@ export function mergeConcepts({ conceptCatalog, conceptReviews }) {
         familyId: family.id,
         wellTier: wellsById.get(family.well)?.tier || null,
         status: reviews[concept.id]?.status || 'pending',
+        // Reserved for Pro. A distribution decision recorded beside the review,
+        // never part of the world itself, so re-authoring cannot clear it.
+        pro: Boolean(reviews[concept.id]?.pro),
         review: reviews[concept.id] || null,
       });
     }
@@ -150,8 +153,12 @@ const publicComposition = composition => ({
   platforms: composition.platforms ?? null,
 });
 
-export async function rollSeed({ scope, key, mode, grain = null, platform = null, reroll, rating = null, data }) {
-  const concepts = mergeConcepts(data);
+// The Pro pool is withheld here rather than in the selection code, because the
+// selection code is materialized from the public repo and cannot be edited from
+// this one. Withholding is the default and has to be asked out of, so a caller
+// that forgets the flag gets the free deal rather than the whole catalog.
+export async function rollSeed({ scope, key, mode, grain = null, platform = null, reroll, rating = null, includePro = false, data }) {
+  const concepts = mergeConcepts(data).filter(concept => includePro || !concept.pro);
   const compositions = mergeCompositions(data);
   const [poolRevision, { approved, picks }, dealt] = await Promise.all([
     approvedPoolRevision(concepts),

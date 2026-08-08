@@ -37,6 +37,7 @@ export const SUITES = {
         files: [
           'tests/catalog-integrity.test.mjs',
           'tests/live-ui-lab.test.mjs',
+          'tests/pro-worlds-withheld.test.mjs',
           'tests/served-provenance.test.mjs',
           'tests/shiki-theme.test.mjs',
           'tests/slop-catalog.test.mjs',

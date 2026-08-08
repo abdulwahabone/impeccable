@@ -936,7 +936,17 @@ button kbd {
 /* Breadth is a hold, not a grade: it reads as a quiet outline until engaged,
    then takes the warning-adjacent patina so a held-back world is obvious at a
    glance in the queue without implying the world is weak. */
-.worlds-breadth-toggle {
+/* Pro shares the pill shape of the breadth toggle because it sits beside it and
+   behaves the same way, but takes the gold when set: it is the one control here
+   that changes who can be dealt the world rather than what the world is. */
+.worlds-pro-toggle[aria-pressed="true"] {
+  border-color: var(--ks-kinpaku);
+  background: color-mix(in oklch, var(--ks-kinpaku), transparent 80%);
+  color: var(--ks-champagne);
+}
+
+.worlds-breadth-toggle,
+.worlds-pro-toggle {
   min-height: 26px;
   padding: 0 10px;
   border: 1px solid var(--ks-rule);
@@ -950,7 +960,8 @@ button kbd {
   cursor: pointer;
 }
 
-.worlds-breadth-toggle:hover:not(:disabled) {
+.worlds-breadth-toggle:hover:not(:disabled),
+.worlds-pro-toggle:hover:not(:disabled) {
   background: var(--ks-graphite);
   color: var(--ks-text-muted);
 }
@@ -961,7 +972,8 @@ button kbd {
   color: var(--ks-champagne);
 }
 
-.worlds-breadth-toggle:disabled {
+.worlds-breadth-toggle:disabled,
+.worlds-pro-toggle:disabled {
   cursor: not-allowed;
 }
 

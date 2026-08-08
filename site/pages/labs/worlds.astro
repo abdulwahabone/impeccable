@@ -359,6 +359,18 @@ const pageData = JSON.stringify({
                 title="Niche: keep the approval but hold this world out of challenger draws (press N)"
                 aria-keyshortcuts="n"
               >Niche</button>
+              <!-- Distribution rather than judgement, so it sits with the other
+                   approved-only controls but reads as its own decision. -->
+              <button
+                type="button"
+                class="worlds-pro-toggle"
+                data-pro-toggle
+                hidden={initialConcept.status !== 'approved'}
+                aria-pressed={String(Boolean(initialConcept.review?.pro))}
+                disabled={!import.meta.env.DEV}
+                title="Reserve this world for Pro: it stays approved and stops being dealt by the free roll (press P)"
+                aria-keyshortcuts="p"
+              >Pro</button>
               <div
                 class="worlds-modes"
                 role="group"
@@ -626,13 +638,30 @@ const pageData = JSON.stringify({
     const familyMap = new Map(families.map(family => [family.id, family]));
     const conceptMap = new Map(concepts.map(concept => [concept.id, concept]));
     const canWrite = payload.canWrite;
-    const initialId = location.hash.startsWith('#concept=') ? decodeURIComponent(location.hash.slice(9)) : '';
+    // The hash carries which view as well as which concept, so a reload lands
+    // where you were. It used to hold the concept alone, which meant reloading
+    // on Sites or Coverage dropped you back into the review of a world you were
+    // not looking at.
+    const VIEWS = new Set(['detail', 'cards', 'coverage', 'sites', 'triage']);
+    const readHash = () => new URLSearchParams(location.hash.replace(/^#/, ''));
+    const writeHash = () => {
+      const params = new URLSearchParams();
+      if (state.view && state.view !== 'detail') params.set('view', state.view);
+      if (state.currentId) params.set('concept', state.currentId);
+      const next = params.toString();
+      // replaceState, not push: walking the queue with J would otherwise bury
+      // the back button under one entry per world.
+      history.replaceState(null, '', next ? `#${next}` : location.pathname);
+    };
+    const initialHash = readHash();
+    const initialId = initialHash.get('concept') || '';
+    const initialView = VIEWS.has(initialHash.get('view')) ? initialHash.get('view') : 'detail';
     const initialStatus = conceptMap.get(initialId)?.status || 'pending';
     const state = {
       status: initialStatus,
       family: 'all',
       mode: 'all',
-      view: 'detail',
+      view: initialView,
       query: '',
       currentId: initialId,
     };
@@ -807,6 +836,7 @@ const pageData = JSON.stringify({
     const ratingGroup = document.querySelector('[data-rating-group]');
     const ratingButtons = [...document.querySelectorAll('[data-rating-option]')];
     const breadthToggle = document.querySelector('[data-breadth-toggle]');
+    const proToggle = document.querySelector('[data-pro-toggle]');
     const coveragePanel = document.querySelector('[data-coverage]');
     const cardGrid = document.querySelector('[data-card-grid]');
     const reviewControls = document.querySelector('.worlds-review-controls');
@@ -1677,6 +1707,8 @@ const pageData = JSON.stringify({
       }
       breadthToggle.hidden = concept.status !== 'approved';
       breadthToggle.setAttribute('aria-pressed', String(concept.review?.breadth === 'niche'));
+      proToggle.hidden = concept.status !== 'approved';
+      proToggle.setAttribute('aria-pressed', String(Boolean(concept.review?.pro)));
       // The decision-note field mirrors the current concept's saved note.
       // Only refill when the concept changes so re-renders never clobber typing.
       if (concept.id !== notedConceptId) {
@@ -1690,8 +1722,6 @@ const pageData = JSON.stringify({
         span.textContent = tag;
         return span;
       }));
-      history.replaceState(null, '', `#concept=${encodeURIComponent(concept.id)}`);
-
       for (const button of document.querySelectorAll('[data-review-status]')) {
         button.classList.toggle('is-current', button.dataset.reviewStatus === concept.status);
       }
@@ -1709,6 +1739,9 @@ const pageData = JSON.stringify({
       renderCoverage();
       renderSites();
       renderTriage();
+      // Here rather than in renderConcept, which does not run on the views that
+      // have no current concept, so those never made it into the URL.
+      writeHash();
     }
 
     function move(delta, focusQueue = false) {
@@ -1835,6 +1868,28 @@ const pageData = JSON.stringify({
     // Breadth is not a quality grade. It answers whether a world can serve an
     // arbitrary build, so an excellent but narrow world can be held out of
     // challenger draws without being libelled as marginal.
+    async function togglePro() {
+      const concept = currentConcept();
+      if (!canWrite || !concept || concept.status !== 'approved') return;
+      const pro = !concept.review?.pro;
+      try {
+        const response = await fetch('/__impeccable/worlds', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'pro', id: concept.id, pro }),
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Pro could not be saved');
+        concept.review = result.result.review;
+        render();
+        showToast(pro
+          ? `Reserved for Pro, out of the free roll: ${concept.form.split(',')[0]}`
+          : `Back in the free roll: ${concept.form.split(',')[0]}`);
+      } catch (error) {
+        showToast(error instanceof Error ? error.message : String(error), 'error');
+      }
+    }
+
     async function toggleBreadth() {
       const concept = currentConcept();
       if (!canWrite || !concept || concept.status !== 'approved') return;
@@ -2157,6 +2212,7 @@ const pageData = JSON.stringify({
       button.addEventListener('click', () => setRating(Number(button.dataset.ratingOption)));
     });
     breadthToggle.addEventListener('click', () => toggleBreadth());
+    proToggle.addEventListener('click', () => togglePro());
     for (const option of modeOptions) {
       option.addEventListener('click', () => toggleMode(option.dataset.modeOption));
     }
@@ -2168,11 +2224,13 @@ const pageData = JSON.stringify({
     document.querySelectorAll('[data-edit-cancel]').forEach(button => button.addEventListener('click', () => closeEditor()));
     editForm.addEventListener('submit', saveEdit);
     window.addEventListener('hashchange', () => {
-      const id = location.hash.startsWith('#concept=') ? decodeURIComponent(location.hash.slice(9)) : '';
-      if (conceptMap.has(id)) {
-        state.currentId = id;
-        render();
-      }
+      const params = readHash();
+      const id = params.get('concept') || '';
+      const view = params.get('view') || 'detail';
+      let changed = false;
+      if (conceptMap.has(id) && id !== state.currentId) { state.currentId = id; changed = true; }
+      if (VIEWS.has(view) && view !== state.view) { state.view = view; changed = true; }
+      if (changed) render();
     });
     document.addEventListener('keydown', event => {
       const target = event.target;
@@ -2251,6 +2309,8 @@ const pageData = JSON.stringify({
         setRating(Number(event.key));
       } else if (event.key.toLowerCase() === 'n' && !event.altKey && !event.metaKey && !event.ctrlKey) {
         toggleBreadth();
+      } else if (event.key.toLowerCase() === 'p' && !event.altKey && !event.metaKey && !event.ctrlKey) {
+        togglePro();
       }
     });
     window.addEventListener('beforeunload', event => {

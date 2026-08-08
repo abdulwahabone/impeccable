@@ -436,6 +436,21 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
       return { id: body.id, breadth: review.breadth ?? 'general', review };
     }
 
+    // Distribution, not design. A pro world is withheld from the free roll and
+    // nothing else about it changes, which is why this lives in the review file
+    // beside rating and breadth rather than on the concept: it is a decision
+    // about who gets dealt the world, and re-authoring the world should not
+    // silently reset it.
+    if (body.action === 'pro') {
+      const review = reviewData.reviews[body.id];
+      if (review?.status !== 'approved') throw new Error('Only an approved world can be reserved for Pro');
+      if (body.pro) review.pro = true;
+      else delete review.pro;
+      assertValidCatalog(catalog, reviewData);
+      await writeJsonAtomic(reviewsPath, reviewData);
+      return { id: body.id, pro: Boolean(review.pro), review };
+    }
+
     // Mode eligibility. Worlds used to be dealt with no mode awareness at all, so
     // a build asking for an app UI could draw six worlds that only work on a
     // landing page. This lowers a ceiling rather than assigning a category:
