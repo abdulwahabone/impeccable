@@ -1,0 +1,21 @@
+{
+  "_lab": {
+    "title": "Degraded roll",
+    "description": "The roll service was unreachable: one text-only grounded card and a re-roll, nothing else. The floor the page must never fall below."
+  },
+  "title": "Choose the visual world",
+  "question": "The roll ran degraded: no challengers, no boards.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Teletext Service",
+      "kicker": "THE ROLL",
+      "thesis": "The catalog as a broadcast index: pages, not sections.",
+      "body": "Degraded roll: grounded candidates only. Re-roll to try the service again.",
+      "viewport": "P100 index page.",
+      "case": "Grounded in the audience world."
+    }
+  ],
+  "reroll": true,
+  "steer": true
+}

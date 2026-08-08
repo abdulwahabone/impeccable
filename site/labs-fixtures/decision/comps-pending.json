@@ -1,0 +1,47 @@
+{
+  "_lab": {
+    "title": "Comps still rendering",
+    "description": "Same hand, but every comp slot points at a file that never lands: shimmer state, elapsed counters, and the four-minute inspiration stand-in behavior."
+  },
+  "title": "Choose the visual world",
+  "question": "The roll assigned Teletext Service. Comps are rendering.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Teletext Service",
+      "kicker": "THE ROLL",
+      "thesis": "The catalog as a broadcast index.",
+      "palette": [
+        "#0000c0",
+        "#ffff00",
+        "#00c000"
+      ],
+      "materials": [
+        "block mosaic"
+      ],
+      "viewport": "P100 index page.",
+      "risk": "Retro-novelty without strictness.",
+      "sketch": ".impeccable/mocks/decision/assigned.webp",
+      "hero": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp"
+    },
+    {
+      "id": "challenger-olympic",
+      "label": "Aicher Olympic Program",
+      "verdict": "competitive",
+      "thesis": "Every release an event.",
+      "palette": [
+        "#0f9bd7",
+        "#e8e4dc"
+      ],
+      "materials": [
+        "pictograms"
+      ],
+      "case": "Fuses cleanly.",
+      "risk": "Institutional cold.",
+      "sketch": ".impeccable/mocks/decision/challenger-olympic.webp",
+      "hero": "https://impeccable.style/worlds/cards/aicher-olympic-program-hero.webp"
+    }
+  ],
+  "reroll": true,
+  "steer": true
+}

@@ -1,0 +1,73 @@
+---
+// Dev-only overview of the internal labs: one page that knows where every
+// workbench lives, instead of each lab being a URL someone has to remember.
+if (!import.meta.env.DEV) return Astro.redirect('/');
+
+import Base from '../../layouts/Base.astro';
+import '../../styles/sub-pages.css';
+
+const labs = [
+  {
+    href: '/labs/worlds',
+    title: 'Worlds',
+    description: 'Review the concept-world catalog: approve, rate, and edit entries, with field telemetry from the roll API on every card.',
+  },
+  {
+    href: '/labs/compositions',
+    title: 'Compositions',
+    description: 'Review the composition catalog: the identity-free structures the roll deals beside the worlds.',
+  },
+  {
+    href: '/labs/decision',
+    title: 'Decision page',
+    description: 'Exercise the serve-question direction round across scenarios (full hand, identity mode, degraded, followup) without running a greenfield flow. Runs the real skill code.',
+  },
+  {
+    href: '/labs/live-ui',
+    title: 'Live UI',
+    description: 'The live-mode overlay surfaces: browse and test the in-browser iteration UI.',
+  },
+  {
+    href: '/live-lab/',
+    title: 'Live lab',
+    description: 'The public live-mode demo environment.',
+  },
+];
+---
+
+<Base
+  title="Labs | Impeccable"
+  description="Internal workbenches for the catalog, the decision page, and live mode."
+  activeNav="docs"
+  bodyClass="sub-page kinpaku-chrome kinpaku-surface"
+>
+  <main class="labs-index">
+    <header>
+      <p class="li-kicker">Internal · dev only</p>
+      <h1>Labs</h1>
+      <p class="li-dek">Every workbench in one place. These pages never render in a production build.</p>
+    </header>
+    <ul class="li-grid">
+      {labs.map((lab) => (
+        <li>
+          <a class="li-card" href={lab.href}>
+            <h2>{lab.title}</h2>
+            <p>{lab.description}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </main>
+</Base>
+
+<style>
+  .labs-index { max-width: 56rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .li-kicker { font-family: var(--ks-mono); font-size: 0.6875rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ks-text-faint); }
+  .labs-index h1 { margin: 0.4rem 0 0.6rem; }
+  .li-dek { color: var(--ks-text-muted); }
+  .li-grid { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem; }
+  .li-card { display: block; height: 100%; border: 1px solid var(--ks-rule); border-radius: 10px; padding: 1.1rem 1.25rem; background: var(--ks-lacquer-raised); text-decoration: none; transition: border-color 0.2s ease; }
+  .li-card:hover { border-color: var(--ks-kinpaku-deep); }
+  .li-card h2 { font-size: 1.05rem; margin: 0 0 0.35rem; color: var(--ks-champagne); }
+  .li-card p { margin: 0; font-size: 0.88rem; color: var(--ks-text-muted); }
+</style>

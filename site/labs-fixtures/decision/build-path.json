@@ -1,0 +1,25 @@
+{
+  "_lab": {
+    "title": "Execution contract (followup round)",
+    "description": "The second round after a direction pick: comp-led vs code-led as two text cards. Reached in real flows via --update on a followup table."
+  },
+  "title": "How should it be built?",
+  "question": "Teletext Service is locked. Two execution contracts; pick where the risk goes.",
+  "options": [
+    {
+      "id": "comp-led",
+      "label": "Comp-led",
+      "kicker": "BOLD",
+      "thesis": "A first-viewport comp leads and the build matches it, audited promise by promise.",
+      "risk": "Fix rounds expected; motion arrives last."
+    },
+    {
+      "id": "code-led",
+      "label": "Code-led",
+      "kicker": "CRAFTED",
+      "thesis": "Code authors the page; the QUALITY BAR boards calibrate it; ambition lives in the written contract, audited in behavior.",
+      "risk": "Composition stays closer to convention."
+    }
+  ],
+  "steer": true
+}

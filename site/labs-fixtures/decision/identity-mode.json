@@ -1,0 +1,65 @@
+{
+  "_lab": {
+    "title": "Identity mode (no image generation)",
+    "description": "Text-only assigned card: salience parity demotes every catalog hero to an inspired-by thumb; cards compete on palette chips and facts alone."
+  },
+  "title": "Choose the visual world",
+  "question": "The roll assigned Teletext Service. No image generation in this harness.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Teletext Service",
+      "kicker": "THE ROLL",
+      "thesis": "The catalog as a broadcast index: pages, not sections.",
+      "palette": [
+        "#0000c0",
+        "#ffff00",
+        "#00c000",
+        "#ffffff"
+      ],
+      "materials": [
+        "block mosaic",
+        "phosphor glow"
+      ],
+      "viewport": "P100 index page, releases as numbered rows.",
+      "risk": "Reads retro-novelty when the grid is not strict."
+    },
+    {
+      "id": "challenger-olympic",
+      "label": "Aicher Olympic Program",
+      "verdict": "competitive",
+      "thesis": "Every release an event in one pictogram system.",
+      "palette": [
+        "#0f9bd7",
+        "#e8e4dc"
+      ],
+      "materials": [
+        "grid discipline"
+      ],
+      "viewport": "Schedule board with pictogram rows.",
+      "case": "Fuses cleanly; loses narrowly.",
+      "risk": "Institutional cold.",
+      "hero": "https://impeccable.style/worlds/cards/aicher-olympic-program-hero.webp"
+    },
+    {
+      "id": "challenger-azulejo",
+      "label": "Azulejo Station Hall",
+      "verdict": "declined",
+      "case": "Fuses poorly.",
+      "kept": "Tile repetition as rhythm.",
+      "palette": [
+        "#12406e",
+        "#f4efe4"
+      ],
+      "hero": "https://impeccable.style/worlds/cards/architecture-places-azulejo-station-hall-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "canon": true,
+  "steer": true
+}

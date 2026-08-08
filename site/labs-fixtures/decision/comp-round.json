@@ -1,0 +1,142 @@
+{
+  "_lab": {
+    "title": "Full comp round",
+    "description": "The complete verdict-routed hand: assigned card with a 3-raise cycler and a finished comp, MY PICK, a competitive challenger, two declined cards, canon, registers, steer, and followup."
+  },
+  "title": "Choose the visual world",
+  "question": "The roll assigned Teletext Service, raised by the hand it beat.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "Teletext Service",
+      "kicker": "THE ROLL",
+      "lineage": "broadcast teletext magazines",
+      "thesis": "The catalog as a broadcast index: pages, not sections.",
+      "palette": [
+        "#0000c0",
+        "#ffff00",
+        "#00c000",
+        "#ffffff"
+      ],
+      "materials": [
+        "block mosaic",
+        "phosphor glow"
+      ],
+      "viewport": "P100 index page, releases as numbered rows.",
+      "risk": "Reads retro-novelty when the grid is not strict.",
+      "raised": [
+        {
+          "from": "challenger-terminal",
+          "raise": "The index now owns its whole viewport as one continuous signal field."
+        },
+        {
+          "from": "challenger-olympic",
+          "raise": "Pictogram discipline: one icon grammar across every row."
+        },
+        {
+          "from": "challenger-azulejo",
+          "raise": "Tile repetition carries the rhythm between pages."
+        }
+      ],
+      "sketch": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp",
+      "hero": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp",
+      "board": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service.webp"
+    },
+    {
+      "id": "model-pick",
+      "label": "The Program Guide",
+      "kicker": "MY PICK",
+      "lineage": "newspaper TV guides",
+      "thesis": "Releases as a printed evening schedule.",
+      "palette": [
+        "#f2ead8",
+        "#171310",
+        "#c22f1e"
+      ],
+      "materials": [
+        "newsprint",
+        "column rules"
+      ],
+      "viewport": "A dated grid of listings with one featured box.",
+      "risk": "Also the direction most runs in this category land on.",
+      "sketch": "https://impeccable.style/worlds/cards/animated-terminal-hero-hero.webp"
+    },
+    {
+      "id": "challenger-olympic",
+      "label": "Aicher Olympic Program",
+      "verdict": "competitive",
+      "lineage": "Munich 1972 identity program",
+      "thesis": "Every release an event in one pictogram system.",
+      "palette": [
+        "#0f9bd7",
+        "#e8e4dc"
+      ],
+      "materials": [
+        "grid discipline",
+        "flat pictograms"
+      ],
+      "viewport": "Schedule board with pictogram rows.",
+      "case": "Fuses cleanly; loses narrowly on audience identification.",
+      "risk": "Reads institutional if the palette stays cold.",
+      "sketch": "https://impeccable.style/worlds/cards/aicher-olympic-program-hero.webp",
+      "hero": "https://impeccable.style/worlds/cards/aicher-olympic-program-hero.webp"
+    },
+    {
+      "id": "challenger-azulejo",
+      "label": "Azulejo Station Hall",
+      "verdict": "declined",
+      "lineage": "Portuguese station tilework",
+      "case": "Fuses poorly: the audience does not identify with ceramic wayfinding.",
+      "kept": "Tile repetition as rhythm.",
+      "palette": [
+        "#12406e",
+        "#f4efe4"
+      ],
+      "materials": [
+        "glazed tile"
+      ],
+      "hero": "https://impeccable.style/worlds/cards/architecture-places-azulejo-station-hall-hero.webp"
+    },
+    {
+      "id": "challenger-terminal",
+      "label": "Animated Terminal",
+      "verdict": "declined",
+      "lineage": "live terminal sessions",
+      "case": "Fuses poorly: the product is not a developer tool.",
+      "kept": "Total environmental commitment.",
+      "palette": [
+        "#0a0f0a",
+        "#4ade80"
+      ],
+      "materials": [
+        "phosphor",
+        "scanlines"
+      ],
+      "hero": "https://impeccable.style/worlds/cards/animated-terminal-hero-hero.webp"
+    }
+  ],
+  "reroll": {
+    "registers": [
+      "safer",
+      "bolder"
+    ]
+  },
+  "canon": true,
+  "steer": true,
+  "followup": true,
+  "canonCard": {
+    "label": "The category standard",
+    "thesis": "What this category ships, executed impeccably.",
+    "palette": [
+      "#ffffff",
+      "#111827",
+      "#2563eb"
+    ],
+    "materials": [
+      "clean grid",
+      "product photography"
+    ],
+    "viewport": "The arrangement a visitor expects, at full craft.",
+    "risk": "Indistinguishable from the competition by design."
+  }
+}
