@@ -1,0 +1,222 @@
+#!/usr/bin/env node
+// Watches a real page move, so the one rule an image cannot supply is measured
+// rather than invented.
+//
+// Responsive/motion is the weak rule in every site-derived entry. The image says
+// nothing about it, and a model asked to fill it in writes plausible motion that
+// was never there: "elements fade up on scroll" fits any page and describes none.
+// The guide's answer has always been to go and use the page. This does that, and
+// then hands back evidence instead of an impression.
+//
+//   node scripts/observe-motion.mjs --url https://example.com --name thing
+//   node scripts/observe-motion.mjs --url ... --videos .waves/site-worlds/x/vid
+//
+// Three kinds of evidence, in descending order of how much they can be trusted:
+//
+//   1. The stylesheet. Durations, easing curves and property names are facts,
+//      not readings, and they are exactly the specificity the catalog wants: a
+//      rule saying "0.4s cubic-bezier(.2,.8,.2,1) on transform" can be built
+//      from, and "smooth transitions" cannot.
+//   2. A scroll strip. Frames at fixed offsets show what is pinned, what
+//      parallaxes, what enters, and whether the page moves at its own pace.
+//   3. Hover deltas. Before and after on real controls, compared, so a state
+//      change is observed rather than assumed.
+//
+// A dead host produces nothing here and says so, which is the correct outcome:
+// the entry then carries no motion rule rather than a fabricated one.
+
+import { chromium } from 'playwright';
+import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
+import path from 'node:path';
+import { settle } from './lib/page-capture.mjs';
+
+const ROOT = process.cwd();
+const args = process.argv.slice(2);
+const flag = (name, fallback = null) => {
+  const i = args.indexOf(`--${name}`);
+  return i === -1 ? fallback : args[i + 1];
+};
+const url = flag('url');
+const name = flag('name');
+const outDir = flag('out', path.join(ROOT, '.waves', 'site-worlds'));
+const frames = Number(flag('frames', 6));
+
+if (!url || !name) {
+  process.stderr.write('usage: observe-motion.mjs --url <url> --name <slug> [--frames 6]\n');
+  process.exit(1);
+}
+
+const dir = path.join(outDir, name, 'motion');
+mkdirSync(dir, { recursive: true });
+
+const browser = await chromium.launch();
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
+
+let reachable = true;
+const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 }).catch(() => null);
+if (!response || response.status() >= 400) reachable = false;
+
+if (!reachable) {
+  // Deliberately not a failure. A world whose source is gone still gets an
+  // entry; it gets one with an honest gap where the motion rule would be.
+  writeFileSync(path.join(dir, 'motion.json'), `${JSON.stringify({
+    url, reachable: false, note: 'Host did not respond. No motion was observed and none should be written.',
+  }, null, 2)}\n`);
+  process.stdout.write(`${url}\n  unreachable, no motion evidence\n`);
+  await browser.close();
+  process.exit(0);
+}
+
+await settle(page, { log: line => process.stdout.write(`${line}\n`) });
+
+// ------------------------------------------------------- 1. the stylesheet
+// Read from computed styles rather than by parsing CSS, so shorthands are
+// already resolved and whatever actually applies is what gets counted.
+const declared = await page.evaluate(() => {
+  const transitions = new Map();
+  const animations = new Map();
+  let scrollBehaviour = getComputedStyle(document.documentElement).scrollBehavior;
+  let sticky = 0;
+  let willChange = 0;
+
+  for (const el of document.querySelectorAll('body *')) {
+    const style = getComputedStyle(el);
+    if (style.position === 'sticky' || style.position === 'fixed') sticky += 1;
+    if (style.willChange && style.willChange !== 'auto') willChange += 1;
+
+    if (style.transitionDuration && style.transitionDuration !== '0s') {
+      const key = `${style.transitionProperty} ${style.transitionDuration} ${style.transitionTimingFunction}`;
+      transitions.set(key, (transitions.get(key) || 0) + 1);
+    }
+    if (style.animationName && style.animationName !== 'none') {
+      const key = `${style.animationName} ${style.animationDuration} ${style.animationTimingFunction} ${style.animationIterationCount}`;
+      animations.set(key, (animations.get(key) || 0) + 1);
+    }
+  }
+
+  const top = map => [...map.entries()].sort((a, b) => b[1] - a[1]).slice(0, 8)
+    .map(([spec, count]) => ({ spec, count }));
+
+  return {
+    transitions: top(transitions),
+    animations: top(animations),
+    scrollBehaviour,
+    stickyOrFixed: sticky,
+    willChange,
+    // A page that ships one of these is animating deliberately and at scale,
+    // which is itself worth knowing when writing the rule.
+    libraries: ['gsap', 'ScrollTrigger', 'Lenis', 'locomotive', 'barba', 'framerMotion', 'Motion', 'anime', 'AOS']
+      .filter(lib => lib in window || document.querySelector(`script[src*="${lib.toLowerCase()}" i]`)),
+  };
+});
+
+// --------------------------------------------- 1b. what scrolling actually does
+// The stylesheet only sees CSS. gusta.studio declares one colour transition and
+// puts will-change on 157 elements, which means its real motion is script-driven
+// and invisible to the pass above; sniffing for library globals missed it too,
+// because bundlers rename them. So measure the effect instead of the cause:
+// sample transforms and opacity, scroll a little, sample again. An element whose
+// transform moves at a different rate from the page is parallaxing, and one
+// whose opacity moves is being revealed, whatever drew it.
+const scrollLinked = await page.evaluate(async () => {
+  const sample = () => [...document.querySelectorAll('body *')].slice(0, 400).map(el => {
+    const style = getComputedStyle(el);
+    return { transform: style.transform, opacity: style.opacity };
+  });
+  const before = sample();
+  const step = 300;
+  window.scrollTo({ top: step, behavior: 'instant' });
+  await new Promise(resolve => { setTimeout(resolve, 1200); });
+  const after = sample();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+  await new Promise(resolve => { setTimeout(resolve, 600); });
+
+  let moved = 0;
+  let faded = 0;
+  let parallax = 0;
+  for (let i = 0; i < Math.min(before.length, after.length); i += 1) {
+    if (before[i].transform !== after[i].transform) {
+      moved += 1;
+      // A 2D matrix's last value is translateY. Moving by anything other than
+      // the scroll distance means it is being driven, not merely scrolled past.
+      const y = matrix => Number((matrix.match(/matrix\([^)]*,\s*([-\d.]+)\)$/) || [])[1] || 0);
+      const delta = Math.abs(y(after[i].transform) - y(before[i].transform));
+      if (delta > 1 && Math.abs(delta - step) > 20) parallax += 1;
+    }
+    if (before[i].opacity !== after[i].opacity) faded += 1;
+  }
+  return { sampled: before.length, moved, faded, parallax, step };
+});
+process.stdout.write(`  scrolling ${scrollLinked.step}px moved ${scrollLinked.moved} elements, faded ${scrollLinked.faded}, ${scrollLinked.parallax} off-rate\n`);
+
+// -------------------------------------------------------- 2. a scroll strip
+const height = await page.evaluate(() => document.documentElement.scrollHeight);
+const viewport = 900;
+const reach = Math.min(height - viewport, viewport * 5);
+const strip = [];
+for (let i = 0; i < frames; i += 1) {
+  const y = Math.round((reach / Math.max(1, frames - 1)) * i);
+  await page.evaluate(offset => window.scrollTo({ top: offset, behavior: 'instant' }), y);
+  // Long enough for scroll-linked work to settle, short enough that a looping
+  // animation is caught mid-cycle rather than always at the same phase.
+  await page.waitForTimeout(1200);
+  const file = path.join(dir, `scroll-${i}.png`);
+  await page.screenshot({ path: file });
+  strip.push({ y, file: path.relative(ROOT, file) });
+}
+process.stdout.write(`  ${strip.length} scroll frames over ${reach}px of ${height}px\n`);
+
+// --------------------------------------------------------- 3. hover deltas
+// Only elements big enough to read and near the top, because the point is the
+// page's hover grammar rather than an inventory of every link on it.
+await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+await page.waitForTimeout(800);
+
+const targets = await page.evaluate(() => {
+  const out = [];
+  for (const el of document.querySelectorAll('a, button, [role="button"], [class*="card" i], [class*="tile" i]')) {
+    const rect = el.getBoundingClientRect();
+    if (rect.top < 0 || rect.top > 880 || rect.width < 24 || rect.height < 14) continue;
+    // Nested controls give near-identical crops, so keep them apart.
+    if (out.some(prev => Math.abs(prev.x - (rect.left + rect.width / 2)) < 30
+      && Math.abs(prev.y - (rect.top + rect.height / 2)) < 30)) continue;
+    const style = getComputedStyle(el);
+    out.push({
+      x: Math.round(rect.left + rect.width / 2),
+      y: Math.round(rect.top + rect.height / 2),
+      label: (el.textContent || '').trim().slice(0, 40) || el.tagName.toLowerCase(),
+      transition: style.transitionDuration !== '0s' ? `${style.transitionProperty} ${style.transitionDuration} ${style.transitionTimingFunction}` : null,
+    });
+    if (out.length >= 5) break;
+  }
+  return out;
+});
+
+const hovers = [];
+for (const [index, target] of targets.entries()) {
+  const box = { x: Math.max(0, target.x - 160), y: Math.max(0, target.y - 60), width: 320, height: 120 };
+  const before = path.join(dir, `hover-${index}-off.png`);
+  const after = path.join(dir, `hover-${index}-on.png`);
+  await page.mouse.move(5, 5);
+  await page.waitForTimeout(400);
+  await page.screenshot({ path: before, clip: box }).catch(() => {});
+  await page.mouse.move(target.x, target.y);
+  // Past the longest transition seen on the page, so the resting hover state is
+  // captured rather than a frame partway into it.
+  await page.waitForTimeout(900);
+  await page.screenshot({ path: after, clip: box }).catch(() => {});
+  if (existsSync(before) && existsSync(after)) {
+    hovers.push({ ...target, before: path.relative(ROOT, before), after: path.relative(ROOT, after) });
+  }
+}
+process.stdout.write(`  ${hovers.length} hover pairs\n`);
+
+await browser.close();
+
+const evidence = { url, reachable: true, declared, scrollLinked, strip, hovers };
+writeFileSync(path.join(dir, 'motion.json'), `${JSON.stringify(evidence, null, 2)}\n`);
+
+process.stdout.write(`\n${path.relative(ROOT, path.join(dir, 'motion.json'))}\n`);
+if (declared.libraries.length) process.stdout.write(`  animation libraries: ${declared.libraries.join(', ')}\n`);
+for (const t of declared.transitions.slice(0, 3)) process.stdout.write(`  transition x${t.count}: ${t.spec}\n`);
+for (const a of declared.animations.slice(0, 2)) process.stdout.write(`  animation x${a.count}: ${a.spec}\n`);

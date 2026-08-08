@@ -36,6 +36,7 @@ const flag = (name, fallback) => {
 const name = flag('name', null);
 const id = flag('id', null);
 const notes = flag('notes', '');
+const motionDir = flag('motion-dir', null);
 const family = flag('family', 'digital-design-canon');
 const source = flag('source', '');
 const model = flag('model', 'claude-opus-5');
@@ -135,8 +136,53 @@ if (refs.length) {
   content.push({ type: 'text', text: 'This is the world. Describe the system it embodies.' });
 }
 content.push(block(worldImage));
+
+// Motion evidence, measured off the live source by observe-motion.mjs. This is
+// the one rule the image cannot supply and the one most likely to be invented,
+// so it is given as facts rather than prose: real durations, real easing curves,
+// and a count of what actually moved when the page was scrolled.
+//
+// The rule still describes THIS world rather than the source. The source's
+// numbers say how fast and how much its family moves; the entry says what that
+// grammar becomes on a different product.
+const motionEvidence = (() => {
+  if (!motionDir) return null;
+  const file = path.join(motionDir, 'motion.json');
+  if (!existsSync(file)) return null;
+  try {
+    return JSON.parse(readFileSync(file, 'utf8'));
+  } catch {
+    return null;
+  }
+})();
+
+if (motionEvidence?.reachable) {
+  const d = motionEvidence.declared || {};
+  const s = motionEvidence.scrollLinked || {};
+  const lines = [
+    d.transitions?.length ? `Declared transitions: ${d.transitions.map(t => `${t.spec} (on ${t.count} elements)`).join('; ')}` : '',
+    d.animations?.length ? `Declared animations: ${d.animations.map(a => `${a.spec} (on ${a.count})`).join('; ')}` : '',
+    d.libraries?.length ? `Animation libraries present: ${d.libraries.join(', ')}` : '',
+    typeof d.stickyOrFixed === 'number' ? `${d.stickyOrFixed} sticky or fixed elements, will-change on ${d.willChange}` : '',
+    s.sampled ? `Scrolling ${s.step}px moved ${s.moved} of ${s.sampled} sampled elements, changed opacity on ${s.faded}, and ${s.parallax} moved at a rate other than the scroll, which is parallax.` : '',
+    d.scrollBehaviour && d.scrollBehaviour !== 'auto' ? `scroll-behavior is ${d.scrollBehaviour}` : '',
+  ].filter(Boolean);
+  content.push({ type: 'text', text: `MEASURED ON THE LIVE SOURCE. These are facts read off the running page, not impressions, and they are the basis for Responsive/motion. Name real numbers from them; a rule saying "smooth transitions" wastes the measurement.\n${lines.join('\n')}` });
+
+  // The strip shows what those numbers look like: what is pinned, what enters,
+  // what the page does with distance. Two frames is enough to read a habit.
+  for (const frame of (motionEvidence.strip || []).slice(1, 3)) {
+    if (existsSync(path.join(ROOT, frame.file))) {
+      content.push({ type: 'text', text: `The live source at scroll offset ${frame.y}px.` });
+      content.push(pngBlock(path.join(ROOT, frame.file)));
+    }
+  }
+} else if (motionEvidence && !motionEvidence.reachable) {
+  content.push({ type: 'text', text: 'The live source no longer responds, so no motion could be observed. Keep Responsive/motion to what the image implies and invent no specifics: an honest gap is better than a plausible fabrication.' });
+}
+
 content.push({ type: 'text', text: `Use id "${id}" and familyId "${family}".${source ? ` Lineage should credit: ${source}` : ''}
-${notes ? `\nObserved on the live source, which a screenshot cannot show. Use this for Responsive/motion:\n${notes}` : '\nNo motion was observed. Keep Responsive/motion to what the image implies and do not invent specifics.'}` });
+${notes ? `\nAlso observed by hand:\n${notes}` : ''}${!notes && !motionEvidence ? '\nNo motion was observed. Keep Responsive/motion to what the image implies and do not invent specifics.' : ''}` });
 
 let feedback = '';
 let concept = null;

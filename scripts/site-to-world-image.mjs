@@ -23,6 +23,7 @@ import { chromium } from 'playwright';
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
+import { UA, settle } from './lib/page-capture.mjs';
 
 const ROOT = process.cwd();
 for (const line of readFileSync(path.join(ROOT, '.env'), 'utf8').split('\n')) {
@@ -105,7 +106,6 @@ async function captureFromEntry(page) {
 
 // ---------------------------------------------------------------- capture
 process.stdout.write(`capturing ${url}${isEntry ? ' (awwwards entry: reading the hosted artifact)' : ''}\n`);
-const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120 Safari/537.36';
 const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
 
@@ -120,65 +120,8 @@ if (isEntry) {
 
 async function captureLive(page) {
 await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {});
-
-// Preloaders on sites like this can loop forever rather than ending, so waiting
-// for them is waiting for nothing. Give the page a fixed budget, then clear
-// everything sitting between the camera and the design and carry on.
-//
-// Consent banners, geo-gates and promo modals are the failure that produced four
-// unusable worlds in the 2026-08-07 batch: the model was handed a screenshot of
-// a cookie bar and faithfully rebuilt a cookie bar. They are REMOVED rather than
-// accepted. Clicking Accept would transmit a consent decision on the operator's
-// behalf, which is not ours to give, and removing the node photographs the page
-// without answering it.
-await page.waitForTimeout(6000);
-const removed = await page.evaluate(() => {
-  const gone = [];
-  const kill = (el, why) => { if (el && el.isConnected) { el.remove(); gone.push(why); } };
-
-  for (const el of document.querySelectorAll('[class*="preload"],[class*="loader"],[id*="preload"],[id*="loader"]')) {
-    kill(el, 'preloader');
-  }
-
-  // By name first: these are near-universal among consent vendors.
-  const NAMED = '[id*="cookie" i],[class*="cookie" i],[id*="consent" i],[class*="consent" i],[id*="gdpr" i],[class*="gdpr" i],[aria-label*="cookie" i],[class*="cmp-" i],#onetrust-consent-sdk,#usercentrics-root,[id*="didomi" i],[class*="klaro" i]';
-  for (const el of document.querySelectorAll(NAMED)) kill(el, 'consent');
-
-  // Then by behaviour, which catches the unnamed ones: anything pinned over the
-  // page, large enough to matter, whose text reads like a gate.
-  const GATE = /\b(cookie|consent|privacy|accept all|reject all|manage preferences|are you over|enter site|do you still want|choose your (country|region)|select your (country|region))\b/i;
-  for (const el of document.querySelectorAll('body *')) {
-    if (!el.isConnected) continue;
-    const style = getComputedStyle(el);
-    if (style.position !== 'fixed' && style.position !== 'absolute') continue;
-    const rect = el.getBoundingClientRect();
-    const coverage = (rect.width * rect.height) / (window.innerWidth * window.innerHeight);
-    if (coverage < 0.06 || coverage > 1.6) continue;
-    if (GATE.test((el.textContent || '').slice(0, 400))) kill(el, 'gate');
-  }
-
-  // Scroll locks travel with the things just removed.
-  for (const node of [document.documentElement, document.body]) {
-    node.style.overflow = 'visible';
-    node.style.position = 'static';
-  }
-  document.documentElement.style.scrollBehavior = 'auto';
-  return gone;
-});
-if (removed.length) process.stdout.write(`  cleared ${removed.length} overlay(s): ${[...new Set(removed)].join(', ')}\n`);
-
-// A splash gate is not a banner and cannot be removed: the page behind it has
-// not been built yet. This one is entered rather than deleted, which is
-// navigation and not a consent decision. Only an exact word is matched, so
-// "Enter your email" cannot trigger it.
-const gate = page.locator('a, button').filter({ hasText: /^\s*(enter|enter site|skip intro)\s*$/i }).first();
-if (await gate.count().catch(() => 0)) {
-  await gate.click({ timeout: 4000 }).catch(() => {});
-  process.stdout.write('  entered a splash gate\n');
-  await page.waitForTimeout(3500);
-}
-
-await page.waitForTimeout(1500);
+await settle(page, { log: line => process.stdout.write(`${line}\n`) });
+await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; });
 
 const taken = [];
 for (let i = 0; i < scrolls; i += 1) {
