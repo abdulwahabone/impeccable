@@ -120,8 +120,24 @@ if (isEntry) {
 }
 
 async function captureLive(page) {
-await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => {});
+const landed = await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 }).catch(() => null);
 await settle(page, { log: line => process.stdout.write(`${line}\n`) });
+
+// A challenge page is a real page with real pixels on it, so the blankness
+// check further down does not always catch one. Named here so the refusal says
+// what actually happened rather than "nearly blank".
+const blocked = await page.evaluate(() => {
+  const text = (document.body?.innerText || '').slice(0, 600);
+  return /just a moment|checking your browser|verify(ing)? you are human|attention required|access denied|are you a robot|enable javascript and cookies|request blocked|403 forbidden|too many requests/i.test(text)
+    ? text.replace(/\s+/g, ' ').trim().slice(0, 90)
+    : null;
+});
+if (blocked || (landed && landed.status() >= 400)) {
+  process.stderr.write(`\nthe host is refusing us${landed ? ` (HTTP ${landed.status()})` : ''}: ${blocked || 'error response'}\nNo world generated. Queue the awwwards entry for this site instead if there is one.\n`);
+  await browser.close();
+  process.exit(2);
+}
+
 await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'auto'; });
 
 const taken = [];
@@ -157,8 +173,34 @@ async function detailDensity(file) {
   for (let i = 0; i < crisp.length; i += 1) if (Math.abs(crisp[i] - blurred[i]) > 10) busy += 1;
   return Math.round((busy / crisp.length) * 100);
 }
-const sourceDensity = await detailDensity(shots[0]).catch(() => null);
-if (sourceDensity !== null) process.stdout.write(`  source carries detail on ${sourceDensity}% of the frame\n`);
+// Every frame is measured, not just the first, because the first is often the
+// worst thing we have. A survey of 74 captures found five whose every frame was
+// under 4% detail, meaning a block page, a loading screen or a gate that was
+// photographed and then faithfully turned into a world; and ten more where a
+// later frame carried two to five times the detail of the top, which is what a
+// page whose work happens below the fold looks like. shinkei-systems reads 8%
+// at the top and 46% further down.
+const frameDensities = [];
+for (const shot of shots) frameDensities.push(await detailDensity(shot).catch(() => 0));
+const best = frameDensities.reduce((top, value, index) => (value > frameDensities[top] ? index : top), 0);
+
+// Nothing to work from. Refusing costs a few cents; generating produces a world
+// derived from a screenshot of a Cloudflare challenge, which is worse than
+// having no world at all because someone then has to review it.
+if (frameDensities[best] < 8) {
+  process.stderr.write(`\nevery frame is nearly blank (${frameDensities.join('%, ')}%). The page is gated, still loading, or refusing us.\nNo world generated. Try --scrolls 6, or queue the awwwards entry instead if there is one.\n`);
+  process.exit(2);
+}
+
+// Lead with the richest frame when the top of the page is not the page. The
+// model anchors hard on the first attachment, and a blank hero at the front of
+// the set is an instruction to draw a blank hero.
+if (frameDensities[0] < frameDensities[best] * 0.6) {
+  shots = [shots[best], ...shots.filter((_, i) => i !== best)];
+  process.stdout.write(`  top of page is thin (${frameDensities[0]}%), leading with frame ${best} (${frameDensities[best]}%)\n`);
+}
+const sourceDensity = frameDensities[frameDensities[0] < frameDensities[best] * 0.6 ? best : 0];
+process.stdout.write(`  frames: ${frameDensities.join('%, ')}%, reading density as ${sourceDensity}%\n`);
 
 // ---------------------------------------------------------------- reimagine
 // What travels is the vocabulary. What must not travel is the artifact.
