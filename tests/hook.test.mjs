@@ -1116,7 +1116,9 @@ describe('renderTemplate()', () => {
     assert.match(text, /Confident false positive or sanctioned exception/);
     assert.match(text, /literal or domain-appropriate motion/);
     assert.match(text, /persist the narrowest ignore yourself and disclose it/);
-    assert.match(text, /hook-admin\.mjs" ignore-value <rule> "<value>" --reason "<who decided: evidence>"/);
+    // quoteCommandArg quotes the hook-admin.mjs path per platform (single
+    // quotes on POSIX, double on Windows; #533), so match either close quote.
+    assert.match(text, /hook-admin\.mjs['"] ignore-value <rule> "<value>" --reason "<who decided: evidence>"/);
     assert.match(text, /Write "user confirmed" in a reason only when the user did/);
     assert.match(text, /Unsure: leave it as is and ask the user in one line/);
     assert.match(text, /Self-serve ends at ignore-value/);
@@ -1131,9 +1133,11 @@ describe('renderTemplate()', () => {
     );
     assert.match(text, /Triage per the session policy/);
     // The short form names the tool without the absolute path; the runnable
-    // invocation lives only in the session's first (full) footer.
+    // invocation lives only in the session's first (full) footer. The quoted
+    // path would render as `node '...'` on POSIX or `node "..."` on Windows,
+    // so reject both.
     assert.match(text, /`hook-admin\.mjs ignore-value`/);
-    assert.doesNotMatch(text, /node "/);
+    assert.doesNotMatch(text, /node ['"]/);
     assert.match(text, /unsure, ask in one line/);
     assert.doesNotMatch(text, /Triage each finding/);
     assert.doesNotMatch(text, /Self-serve ends at ignore-value/);
@@ -1174,9 +1178,12 @@ describe('renderTemplate()', () => {
   });
 
   it('single-quotes a hostile font value so the suggestion cannot inject a shell command (#476)', () => {
-    // The suggested command comes straight from scanned file content. A
-    // double-quoted arg would leave $(...) live for whoever runs the
-    // suggestion; single quotes neutralize it.
+    // The suggested pair comes straight from scanned file content. A
+    // double-quoted arg would leave $(...) live for whoever pastes it into
+    // the footer's hook-admin.mjs command; single quotes neutralize it. The
+    // hint format is now the bare `ignore-value <rule> '<value>'` pair (the
+    // runnable command prefix, --shared/--reason contract live in the
+    // footer), but the value still goes through quoteCommandArg.
     const text = renderTemplate(
       [finding('overused-font', 1, {
         name: 'Overused font',
@@ -1184,29 +1191,37 @@ describe('renderTemplate()', () => {
       })],
       '/x/fonts.css', DEFAULT_CONFIG, { cwd: '/x' }
     );
-    assert.match(text, /ignore-value overused-font '\$\(touch pwned\)' --shared/);
+    assert.match(text, /ignore-value overused-font '\$\(touch pwned\)'/);
     assert.doesNotMatch(text, /ignore-value overused-font "\$\(touch pwned\)"/);
   });
 
-  it('quotes the --file path per platform: single quotes on POSIX, double quotes on Windows (#533)', () => {
-    // The suggested command is run on the same machine the hook fired on.
-    // POSIX needs single quotes so $(...) in a filename cannot execute; Windows
-    // cmd.exe treats single quotes as literal, so a path with spaces must stay
-    // double-quoted or the ignore scope is split at the space.
+  it('quotes a hint value per platform: single quotes on POSIX, double quotes on Windows (#533)', () => {
+    // #533 originally targeted the footer's concrete `--file <path>`
+    // suggestion; directiveFooter() now carries only literal placeholders
+    // (`--file <path>`), so that surface is gone. The quoting-sensitive
+    // surface that remains user-visible is the per-finding ignore hint,
+    // whose value comes straight from scanned file content and is meant to
+    // be pasted into the footer's command on this same machine. POSIX needs
+    // single quotes so $(...) cannot execute; Windows cmd.exe treats single
+    // quotes as literal, so a value with spaces must stay double-quoted or
+    // the ignore scope is split at the space.
     const original = process.platform;
     const renderFor = (platform) => {
       Object.defineProperty(process, 'platform', { value: platform, configurable: true });
       try {
         return renderTemplate(
-          [finding('side-tab', 1, { name: 'Side tab' })],
-          '/x/My Components/Card.tsx', DEFAULT_CONFIG, { cwd: '/x' }
+          [finding('overused-font', 1, {
+            name: 'Overused font',
+            snippet: 'h1 { font-family: "Space Grotesk Var", sans-serif; }',
+          })],
+          '/x/fonts.css', DEFAULT_CONFIG, { cwd: '/x' }
         );
       } finally {
         Object.defineProperty(process, 'platform', { value: original, configurable: true });
       }
     };
-    assert.match(renderFor('linux'), /--file 'My Components\/Card\.tsx'/);
-    assert.match(renderFor('win32'), /--file "My Components\/Card\.tsx"/);
+    assert.match(renderFor('linux'), /ignore-value overused-font 'Space Grotesk Var'/);
+    assert.match(renderFor('win32'), /ignore-value overused-font "Space Grotesk Var"/);
   });
 
   it('drops the L<line> prefix when line is 0', () => {
