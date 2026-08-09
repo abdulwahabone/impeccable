@@ -120,8 +120,25 @@ export async function enterSplashGate(page) {
 // between the camera and the design, then carry on.
 export async function settle(page, { budget = 6000, log } = {}) {
   await page.waitForTimeout(budget);
-  const removed = await clearOverlays(page);
+
+  // A page can navigate under us while this runs. 1-placevendome.com/en does a
+  // locale redirect a few seconds in, and Playwright destroys the execution
+  // context mid-evaluate, which crashed the whole capture rather than costing
+  // one pass. Let it land and try once more; the second attempt is on the page
+  // that was actually being asked for.
+  let removed = [];
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      removed = await clearOverlays(page);
+      break;
+    } catch (error) {
+      if (attempt === 1 || !/context was destroyed|navigation/i.test(error.message)) throw error;
+      if (log) log('  the page navigated under us, waiting for it to land');
+      await page.waitForLoadState('domcontentloaded', { timeout: 20000 }).catch(() => {});
+      await page.waitForTimeout(3000);
+    }
+  }
   if (removed.length && log) log(`  cleared ${removed.length} overlay(s): ${removed.join(', ')}`);
-  if (await enterSplashGate(page) && log) log('  entered a splash gate');
+  if (await enterSplashGate(page).catch(() => false) && log) log('  entered a splash gate');
   await page.waitForTimeout(1500);
 }
