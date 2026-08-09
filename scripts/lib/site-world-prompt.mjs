@@ -29,17 +29,19 @@
 function fidelityBlock(sourceDensity) {
   const density = sourceDensity === null ? '' : `
 
-5. HOW FULL THE PAGE IS. Detail covers about ${sourceDensity}% of the reference frame, counting type, images and anything that is not bare ground. Come out within a few points of that.${sourceDensity < 25 ? ` At ${sourceDensity}% this reference is SPARSE, and this is the hardest line here to obey: an almost-empty frame reads as unfinished, and earlier runs answered that feeling by adding an illustration or a row of cards, landing 15 to 20 points denser and losing the quality that made the page worth looking at. A page this sparse is often sparse because it lives on motion, so a still of it is supposed to look empty. Do not compensate.` : ''}`;
+6. HOW FULL THE PAGE IS. Detail covers about ${sourceDensity}% of the reference frame, counting type, images and anything that is not bare ground. Come out within a few points of that.${sourceDensity < 25 ? ` At ${sourceDensity}% this reference is SPARSE, and it is the hardest line here to obey: an almost-empty frame reads as unfinished, and earlier runs answered that by adding imagery or a row of cards and landed 15 to 20 points denser. A page this sparse often lives on motion, so a still of it is supposed to look empty. Do not compensate.` : ''}`;
 
-  return `FIRST, READ THESE OFF THE REFERENCE. They are fidelity, not taste, and every one of them is wrong by default.
+  return `FIRST, MEASURE THESE OFF THE REFERENCE. They are fidelity, not taste, and every one of them is wrong by default.
 
-1. GROUND AND PALETTE. What colour is the page itself, how light or dark, how warm or cool? Match it. A pale cool page stays pale and cool, a near-black page stays near-black, a saturated single-hue page keeps its hue. Re-cast the ACCENTS rather than sampling them exactly. The GROUND is not where you are inventive: if the reference is near-white and yours comes back dark, it failed before anything else is judged.
+1. GROUND. What fills the frame edge to edge, and what share of it. Measure the pixels, not a container's background. A saturated field that owns the whole frame there owns the whole frame here. Match lightness, temperature and saturation, and re-cast the accent hues rather than sampling them. A vivid reference returning pale, its colour reduced to small parts, is the commonest failure here.
 
-2. TYPE VOICE. Grotesk, geometric sans, high-contrast serif, slab, mono, script? Which weights, what case, how tight? Use different faces to speak in the same voice. A reference set in a geometric sans does not become a serif page.
+2. HOW MANY REGIONS. Count what the first screen divides into, and the largest one's share. One region stays one region: do not split a frame the reference left whole, and do not add a band of something else beneath to fill the page out. Count the pieces of copy, the controls and the images too. Furniture the source does without is furniture you do without.
 
-3. IMAGERY MEDIUM, before any question of style. Studio photography, documentary photography, product shots, 3D render, video stills, archival or scanned material, collage of real objects, line drawing, flat vector, interface screenshots, or none at all? Carry that answer. A source that photographs its subject gives a world that photographs its subject. Only once the source is established as drawn does the hand matter, and then it matters completely.
+3. WHAT TOUCHES WHAT, which is what gets lost most often. Take each pair of things in the opening and name the verb between them: crosses, lies over, is cut by, runs behind, sits within, runs off an edge and which edge. Those verbs are the design more than the things they join. Carry every one, using your own objects. Separate clear rectangles that never meet is one specific answer among many, right only when the reference is that, and also what gets drawn when the pairs were never read.
 
-4. WHAT THE FIRST VIEWPORT HOLDS. Count it: how many pieces of copy, how many controls, how many images. Furniture the source does without is furniture you do without.${density}`;
+4. TYPE VOICE. Grotesk, geometric, high-contrast serif, slab, mono, script; which weights, what case, how tight. Different faces, the same voice.
+
+5. WHAT THE PICTURES ARE MADE OF. Photograph, render, scan, print, collage, hand drawing, flat vector, interface screenshot, or nothing at all. Carry that answer in both directions: photographic stays photographic, drawn or vector comes back drawn or vector. Putting a photograph in its place fails, and so does leaving the imagery out because it is harder to make. No imagery in the reference means none here.${density}`;
 }
 
 
