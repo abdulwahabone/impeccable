@@ -42,78 +42,101 @@ function fidelityBlock(sourceDensity) {
 4. WHAT THE FIRST VIEWPORT HOLDS. Count it: how many pieces of copy, how many controls, how many images. Furniture the source does without is furniture you do without.${density}`;
 }
 
-const NEVER = `TWO THINGS THAT ARE NEVER RIGHT, whatever the strategy:
 
-- An italic accent word: one or two words of an upright headline dropped into italic for emphasis. It is among the clearest marks of machine-made design. A whole line set in an italic or script cut is a different thing and is fine when the reference works that way.
-- Warm paper under an elegant high-contrast serif, arrived at WITHOUT the reference asking for it. The failure is arriving there by habit, not the use of a light ground. If the reference is pale, be pale.`;
+// The two bans ride at the very end rather than in the middle. Stated mid-prompt
+// they were skimmed past: one of five strategies still returned an italicised
+// accent word on a run where the ban was two paragraphs above. Last read is the
+// other position a model weights heavily, and this is a hard constraint rather
+// than a consideration.
+const RENDER = `Render as a complete desktop page filling the whole 16:9 frame, as if screenshotted at 1440 wide, showing the top of the page and cut off mid-element at the bottom edge because more of it exists below. No browser chrome, no device mockup. Interface copy in English, plain punctuation, never an em dash.
 
-const RENDER = `Render as a complete desktop page filling the whole 16:9 frame, as if screenshotted at 1440 wide, showing the top of the page and cut off mid-element at the bottom edge because more of it exists below. No browser chrome, no device mockup. Interface copy in English, plain punctuation, never an em dash.`;
+LAST, AND THESE OVERRIDE EVERYTHING ABOVE:
+- Do NOT set one or two words of an upright headline in italic for emphasis. Not one word. A whole line in an italic or script cut is fine when the reference works that way; a single italicised word inside an upright line is not, on any strategy, for any reference.
+- Do NOT arrive at warm paper under an elegant high-contrast serif unless the reference plainly is that. The failure is arriving there by habit, not the use of a light ground.`;
 
 // Five points of view. They differ in how much of the source's ARRANGEMENT and
 // DEVICE they carry, which is the axis that actually changes the result; they do
 // not differ in fidelity to ground, voice and medium, because nothing good comes
 // from getting those wrong.
 export const STRATEGIES = {
-  // The earliest version, which produced several of the best worlds before it
-  // was tuned away. It is nearest the line, so it is also the one that produces
-  // a reskin when it fails; kept because when it lands it lands hardest.
+  // Nearest the line, and the one that produced several of the best worlds.
   close: {
     label: 'Close transfer',
-    note: 'Carries the arrangement and the system tightly. Best results and the reskin risk both live here.',
-    body: `NOW MAKE THE PAGE. Carry the reference's arrangement closely: where the headline sits, how much frame it takes, where imagery enters, what the eye does first and second. Someone who knows the reference should recognise the family instantly.
+    note: 'Carries the arrangement as measurement: proportion, alignment, cropping. Best results and the reskin risk both live here.',
+    body: `NOW MAKE THE PAGE. Carry the arrangement as measurement rather than impression. Before drawing, read off the reference: which element is largest and what share of the frame it takes, what is centred and what is offset, what runs off an edge and which edge, what sits over what, how far down the frame the opening section reaches. Match those readings. Where the reference holds a symmetry, hold it to the same precision; where it cuts something off at the frame edge, cut yours at that same edge rather than floating it safely inside.
 
-Three things are still yours and must be: the MARK, which shares no silhouette with theirs and may simply be a wordmark set in type; the COPY and subject, wholly new; and the SIGNATURE DEVICE, whose mechanism you inherit but whose execution you invent. Name what their device does structurally, then do that structural thing another way.
+Scale and count too. If the reference gives the first screen to one thing, yours does, at the size the reference gives it. Do not shrink the opening to make room for more underneath. A page you would have to scroll to understand is the right answer here.
 
-Do not reproduce their logo, their exact chrome, or their palette sampled hex for hex.`,
+Colour, texture and light carry at full strength. Recast the accent hues, then keep the reference's saturation and the share of the frame that colour covers. A loud page comes back loud.
+
+Three things are yours and must be: the MARK, which shares no silhouette with theirs; the COPY and subject, wholly new; and the SIGNATURE DEVICE, whose mechanism you inherit and whose execution you invent. Name what their device does structurally, then do that structural thing with your own subject and your own objects. Their logo, their chrome, their assets and their palette sampled hex for hex stay theirs.`,
   },
 
-  // Fidelity in one place, invention in another. The seventh revision.
+  // The middle position: same arrangement archetype, everything else rebuilt.
   vocabulary: {
     label: 'Vocabulary transfer',
-    note: 'Matches ground, voice, medium and arrangement archetype; reinvents mark, chrome, device and balance.',
-    body: `NOW MAKE THE PAGE. Work out which arrangement the reference uses and use the same one:
-  (a) TYPE IS THE LAYOUT: one sentence at enormous size holds the frame, the first viewport carries little else, often no image column and no button. How type and image relate inside it is read off the source, never assumed.
-  (b) A SPLIT: copy one side, imagery the other.
-  (c) A SCENE: one continuous field or photograph with copy laid over it.
-  (d) A STACK: bands read in sequence down the frame.
-A text column left with a picture right is (b), it is what this task reaches for by default, and it is right only when the reference does it.
+    note: 'Matches the arrangement archetype and the system; reinvents mark, chrome, device execution and balance.',
+    body: `NOW MAKE THE PAGE. Settle the arrangement first, because the wrong one is this strategy's usual failure. Look at what the reference's opening viewport actually is: type holding the frame nearly alone, a split of copy against imagery, one continuous field or picture running edge to edge with copy sitting on it, or bands stacked down the page. Decide which, then build that one. If the reference gives its whole opening to a single image or scene, yours does too, at that size, bleeding off the same edges. Copy left with a picture right is one option among several and it is the one this task reaches for when it stops looking. Adding a row of small supporting items below the hero is the same reflex.
 
-Everything else is yours and must differ: the mark, the chrome, the balance within the arrangement, and the signature device, whose mechanism you inherit and whose execution you invent. Dropping the device is worse than copying it, because dropping it means falling back on the default.`,
+Everything else is yours and must differ: the mark, the chrome down to its smallest furniture, and the balance inside the arrangement. Their signature move you inherit at the level of mechanism and rebuild in your own execution, placed at a different scale or in a different part of the frame than they placed it. Dropping it is worse than copying it, because dropping it means falling back on the default.
+
+Carry the colour at full strength. Re-casting an accent means moving its hue, never lowering its saturation, and it covers as much of your frame as theirs covers of the reference. Grain, texture and light belong to the vocabulary too. A vivid reference that comes back muted has failed whatever else is right.`,
   },
 
-  // For pages whose whole identity is one property. Deliberately lets go of
-  // everything else, which is how it finds compositions the others never reach.
+  // One property, taken further than the reference took it.
   amplify: {
     label: 'Signature amplified',
-    note: 'Finds the single most distinctive property and builds the whole page on it, letting the rest go.',
-    body: `NOW MAKE THE PAGE, and make it about one thing. Find the single most distinctive property of the reference: it might be a scale relationship, a colour doing something unusual, a way type and image collide, an emptiness, a density, a material. Name it to yourself, then build an entire page whose reason for existing is that one property, pushed further than the reference pushes it.
+    note: "Finds the one property that survives a thumbnail and gives the page to it. The reviewer's favourite remit.",
+    body: `NOW MAKE THE PAGE, AND MAKE IT ABOUT ONE THING.
 
-Let the rest go. You are not carrying their chrome, their arrangement or their device; you are carrying their best idea and giving it more room than they did. The result should look like what a designer makes the day after seeing that page, when only one thing has stayed with them.
+Find the reference's single most distinctive property. Two tests decide whether you have the right one. It must survive a thumbnail: shrink the reference until no type is readable and the property is still the first thing you see. And you must be able to state it in one sentence that uses no noun from their subject, because what transfers is a structural relationship, not their content. If the sentence needs their subject, you have taken what the page is about instead of what it does, and you will draw their picture. A bare attribute is not an answer yet: push until the sentence says what occupies the frame, in what proportion, and against what.
 
-Their mark, copy and specific imagery are still theirs and stay out.`,
+Build a page whose only reason for existing is that property, carried further than the reference carries it, by an amount you could measure: more of the frame surrendered to it, a more extreme ratio, a more saturated commitment, twice where they did it once. If the property is an absence, the page holds less, not more. Half measures read as timidity, and timidity is the failure here.
+
+Letting the rest go means handing that space to the property. It does not mean the furniture that arrives when nothing has been decided: nav, headline, paragraph, two buttons, a row of small features. The first-viewport count is a ceiling now rather than a target. If the property has taken the frame, there is nothing left to place, and that is correct.
+
+Their mark, copy and specific imagery stay theirs.`,
   },
 
-  // Palette, voice, medium, density, and nothing else. The most likely to be
-  // fresh and the most likely to lose the reference entirely.
+  // Atmosphere and materials only. The page is invented.
   register: {
     label: 'Register only',
-    note: 'Carries the atmosphere and materials, invents the whole page. Freshest, and the likeliest to lose the source.',
-    body: `NOW MAKE THE PAGE FROM SCRATCH. You are keeping the reference's atmosphere and nothing structural: its ground and palette, its type voice, its imagery medium, its density, how loud or quiet it is, how much air it allows.
+    note: 'Carries intensity, surface and volume, and invents the page. Where atmosphere is meant to survive.',
+    body: `NOW MAKE THE PAGE FROM SCRATCH. Keep the reference's atmosphere and nothing structural. Compose as though it had never existed: different arrangement, different devices, different rhythm.
 
-Compose the page as though the reference had never existed. Different arrangement, different devices, different rhythm. The test is that the two pages would sit together in a mood board without either looking like a copy of the other, and that a reader could not reconstruct the reference from yours.`,
+Atmosphere is not the materials, it is their intensity, and intensity is what gets lost.
+
+HOW MUCH COLOUR, not which. Estimate what share of the frame is saturated rather than neutral, and land within a few points of it. Colour surviving only in a button or a label means you kept the hue and threw the world away. Match the strongest colour's intensity, never a step to the calmer side of it.
+
+SURFACE. Grain, tooth, print, noise, compression, gloss, or none. A clean flat surface is what gets drawn when nobody looked. Make it a decision.
+
+VOLUME. A loud reference stays loud, a quiet one stays quiet. Restraint on a shouting page misses by as much as noise on a still one.
+
+Whatever its pictures are made of, yours are made of the same stuff under the same light at the same intensity. The failure is rarely the wrong medium, it is the right medium with the light and colour drained out.
+
+Where this lands when it stops reading: pale neutral ground, dark sans headline left, soft photograph right, small line icons beneath, one colour left in a button. It has arrived there from references holding none of it.
+
+THE TEST: both pages give the same feeling in the first second, sit together on a mood board, and neither can be rebuilt from the other.`,
   },
 
-  // Anchors on an interior section. Several sources put their whole idea below
-  // the fold, and every other strategy reads the top of the page hardest.
+  // For sites whose real design is below the fold, and for stills of motion.
   interior: {
     label: 'From the interior',
-    note: 'Builds the page from the most interesting section rather than the hero. For sites whose idea lives below the fold.',
-    body: `NOW MAKE THE PAGE, and take your cue from the most interesting part of the reference rather than its opening. Look past the hero: the section with the strongest idea in it, wherever it sits, is the one to build from. Many pages spend their opening on a title and put their actual design further down.
+    note: 'Picks the strongest frame rather than the first, and composes a moment rather than completing it into a hero.',
+    body: `NOW MAKE THE PAGE FROM THE STRONGEST FRAME, NOT THE FIRST ONE.
 
-Turn that section's thinking into a landing page. Its grid, its relationship between type and image, its rhythm, become the top of yours. The mark, chrome and copy are yours to invent, and the device follows the same rule as everywhere: inherit the mechanism, invent the execution.`,
+The attachments run down one page. Before you draw, decide which single frame carries the most design: the boldest colour, the largest scale, the hardest crop to make. Often it is not the opening, because many pages spend the opening on a title. If it is not the first attachment, treat that frame as the reference and the others as context. If nothing beats the opening, the opening is the answer, and reading it harder than the others do is the job.
+
+Then be careful what you take. Most of a page's interior is the part every site has, in the same order, for the same reasons. Passing over the hero and landing there is the habit to avoid. The section worth having is the one no other site could have run.
+
+Build the top of your page out of that frame's thinking: its scale, its cropping, its grid, how type and image sit against each other, and above all its COLOUR. If the page keeps its loudest colour down here rather than in the hero, that is the page's colour, and yours comes back as saturated as that.
+
+A frame of a page that moves shows one moment: subject off centre, forms running past both edges, a field with no layout on it. That is the design, not an unfinished page. Compose yours as a moment too. Do not complete it into a hero.
+
+Mark, chrome and copy are yours. Inherit their device's mechanism, invent its execution.`,
   },
-};
 
+};
 export const STRATEGY_IDS = Object.keys(STRATEGIES);
 
 export function buildWorldPrompt({
@@ -134,7 +157,6 @@ ${fidelityBlock(sourceDensity)}
 
 ${chosen.body}
 
-${NEVER}
 
 THE TEST. Two designers shown both pages should say the same influences, the same shelf of references, the same year. They must never say the same studio, and never the same site with different words in it.
 
