@@ -20,6 +20,7 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
+import sharp from 'sharp';
 import { validateConceptEntry } from '../skill/scripts/lib/concept-catalog.mjs';
 
 const ROOT = process.cwd();
@@ -132,14 +133,19 @@ const SCHEMA = {
   },
 };
 
-const block = file => ({
-  type: 'image',
-  source: { type: 'base64', media_type: 'image/webp', data: readFileSync(file).toString('base64') },
-});
-const pngBlock = file => ({
-  type: 'image',
-  source: { type: 'base64', media_type: 'image/png', data: readFileSync(file).toString('base64') },
-});
+// Every attachment is downscaled before it is sent. An awwwards entry supplies
+// up to eight reference frames at 2048px, and with the world image and the
+// motion frames alongside them the request exceeded the API's size limit and
+// the derivation died: monopo-paris failed on request_too_large. 1400px is more
+// than enough to read a layout, a palette and a type voice, which is all these
+// are for, and webp costs a fraction of the PNGs coming off the capture.
+const MAX_WIDTH = 1400;
+async function block(file) {
+  const data = await sharp(file).resize({ width: MAX_WIDTH, withoutEnlargement: true })
+    .webp({ quality: 82 }).toBuffer();
+  return { type: 'image', source: { type: 'base64', media_type: 'image/webp', data: data.toString('base64') } };
+}
+const pngBlock = block;
 
 const anthropic = new Anthropic();
 
@@ -189,12 +195,12 @@ tags.`;
 const content = [];
 if (refs.length) {
   content.push({ type: 'text', text: 'These are screenshots of the REAL SOURCE PAGE. They are authoritative for every value you name: hues, type, weights, radii, spacing. Sample from these.' });
-  for (const ref of refs) content.push(pngBlock(ref));
+  for (const ref of refs) content.push(await pngBlock(ref));
   content.push({ type: 'text', text: 'This is the world derived from that source, and it is what the entry describes. Take its subject and composition from here, and its values from the screenshots above. Where the two disagree on a colour, the source is correct.' });
 } else {
   content.push({ type: 'text', text: 'This is the world. Describe the system it embodies.' });
 }
-content.push(block(worldImage));
+content.push(await block(worldImage));
 
 // Motion evidence, measured off the live source by observe-motion.mjs. This is
 // the one rule the image cannot supply and the one most likely to be invented,
@@ -224,7 +230,7 @@ if (motionEvidence?.kind === 'video' && motionEvidence.video) {
   for (const frame of motionEvidence.video.frames.slice(0, 6)) {
     if (!existsSync(path.join(ROOT, frame.file))) continue;
     content.push({ type: 'text', text: `clip ${frame.clip} at ${frame.at}s` });
-    content.push(pngBlock(path.join(ROOT, frame.file)));
+    content.push(await pngBlock(path.join(ROOT, frame.file)));
   }
 } else if (motionEvidence?.reachable) {
   const d = motionEvidence.declared || {};
@@ -250,7 +256,7 @@ if (motionEvidence?.kind === 'video' && motionEvidence.video) {
   for (const frame of (motionEvidence.strip || []).slice(1, 3)) {
     if (existsSync(path.join(ROOT, frame.file))) {
       content.push({ type: 'text', text: `The live source at scroll offset ${frame.y}px.` });
-      content.push(pngBlock(path.join(ROOT, frame.file)));
+      content.push(await pngBlock(path.join(ROOT, frame.file)));
     }
   }
   // Two frames from the sweep, far enough apart that whatever the cursor drags
@@ -259,7 +265,7 @@ if (motionEvidence?.kind === 'video' && motionEvidence.video) {
   for (const frame of [sweep[1], sweep[sweep.length - 1]].filter(Boolean)) {
     if (existsSync(path.join(ROOT, frame.file))) {
       content.push({ type: 'text', text: `The same section with the cursor at x=${frame.x}, mid-sweep.` });
-      content.push(pngBlock(path.join(ROOT, frame.file)));
+      content.push(await pngBlock(path.join(ROOT, frame.file)));
     }
   }
 } else if (motionEvidence && !motionEvidence.reachable) {
