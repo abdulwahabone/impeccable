@@ -5096,6 +5096,191 @@
       "prohibition": "no-dividers",
       "variance": "container"
      }
+    },
+    {
+     "id": "boutique-window-dressed-as-diagonal",
+     "form": "a boutique window dressed as a diagonal-sash display, where two coloured bands cut the pale ground on a constant rake, a single garment stands centre on the white wedge, and cut blooms are pinned across the field at drifting depths",
+     "lineage": "late-modern retail window dressing crossed with Swiss diagonal band composition and script-plus-condensed-sans cosmetic packaging",
+     "spark": "Two hard-edged parallelograms slice a near-white sheet at the same angle, and every other element obeys them: the subject stands in the light wedge, the type stack hugs the left margin, and small photographic objects float on the far side.",
+     "system": [
+      "Palette/material: ground #F0EFEE, coral band #F4485B, violet band #9B8FD8, white wedge #FFFFFF, ink #241540; matte flat fills, cut-out photography, no gradients.",
+      "Type/composition: condensed sans headline ~64px/1.05 in ink, 15px regular body at 1.7, lowercase button labels; type locked to a left column 400px wide, bands raked ~62deg.",
+      "Topology/navigation: one full-bleed frame; 01/04 counter plus four 12px ring dots bottom-left, rotating circular menu badge top-left, dark basket chip top-right.",
+      "Controls/state: primary is a square-cornered #F4485B block, white label; secondary is 1px ink outline on ground; active dot fills solid, others stay hollow rings.",
+      "Responsive/motion: dots advance slides in discrete 0.6s cubic-bezier(.4,0,.2,1) band-wipes along the rake; 5 cut blooms drift 6-14px to pointer at 0.3s."
+     ],
+     "webLeverage": "Diagonal clip-path bands, a fixed corner chip, a dot-indexed slide set and pointer-reactive cut-outs are all cheap in CSS and read as couture staging rather than a hero image.",
+     "strength": "dual",
+     "tags": [
+      "diagonal-bands",
+      "cutout-photography",
+      "boutique-window"
+     ],
+     "avoid": [
+      "letting the two bands take different angles or soften into gradients",
+      "dropping a drop-shadowed rounded card onto the white wedge",
+      "filling the empty lower ground with a second content block instead of leaving it as sheet"
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "committed",
+      "material": "printed-ink",
+      "spatial": "sheet",
+      "density": "calm",
+      "composition": "diagonal",
+      "scale-range": "wide",
+      "motion": "mechanical",
+      "prohibition": "no-curves",
+      "variance": "container"
+     }
+    },
+    {
+     "id": "patent-draughtsman-s-plate-held",
+     "form": "a patent draughtsman's plate held in a darkened vitrine, dotted-outline display caps traced like stitch lines, hairline circles and A/B call-outs orbiting one lit plaster specimen, fractions and pencilled marginalia crowding the plate's edges",
+     "lineage": "early-20th-century patent draughting and specimen-plate engraving, met with outline display capitals and the black-ground exhibition catalogue",
+     "spark": "Everything is a draft except the object. Ink is spent on hairlines, dotted contours and margin notes, so the single lit specimen carries all of the tone; the brass stroke is the only colour allowed to touch a control.",
+     "system": [
+      "Palette/material: Ground #0D0C0B, grain-flecked; ink #EFE9DD; draft hairlines #4A4740 at 1px; one accent, brass #C3AC74; specimen greys #C9C4BB to #6E6A63. No pure white.",
+      "Type/composition: Dotted-outline geometric caps, 96px+ at 0.95 leading; labels 11px caps tracked 0.2em; body 17px light grotesque at 1.7. Text left, specimen right.",
+      "Topology/navigation: Two zones: type column left, circular vitnette specimen on a rotating draft plate right. Sections numbered 01, 02 down a hairline rail.",
+      "Controls/state: Pill buttons, 40px radius, 1px #C3AC74 stroke, no fill at rest; hover fills brass over 0.5s ease, ink flips to #0D0C0B, arrow slides 12px right.",
+      "Responsive/motion: Draft circles rotate 0.6deg/s; specimen disc parallax 0.85x vs plate 1.15x; dotted caps stitch 40ms/letter; all eases 0.5s cubic(.445,.05,.55,.95)."
+     ],
+     "webLeverage": "Pointer answered locally: call-outs and marginalia brighten within their own radius, WebGL grain and vignette breathe under the specimen, and the sticky frame stays while plates rotate behind it.",
+     "strength": "dual",
+     "tags": [
+      "dark-vitrine",
+      "dotted-outline-type",
+      "patent-draft"
+     ],
+     "avoid": [
+      "letting brass leave the 1px stroke and become filled panels, badges or body text",
+      "glowing or neon-tracing the dotted capitals; they are stitch holes, not signage",
+      "stacking two specimen discs in one view, or making marginalia legible enough to read"
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "restrained",
+      "material": "grain-noise",
+      "spatial": "room",
+      "density": "calm",
+      "composition": "asymmetric",
+      "scale-range": "wide",
+      "motion": "continuous",
+      "prohibition": "no-full-width",
+      "variance": "curated-chaos"
+     }
+    },
+    {
+     "id": "swiss-modern-exhibition-wall-panel",
+     "form": "a swiss-modern exhibition wall panel, one grotesk cut at two extremes on warm paper white, a full-measure hairline dividing monumental title from a numbered argument in three narrowing columns, a single graded photographic plate bleeding off the lower right",
+     "lineage": "late-modernist Swiss grotesk editorial typography, Akzidenz-to-Helvetica lineage as used on museum exhibition panels and manifesto broadsheets",
+     "spark": "Everything is one typeface at one weight, so the drama has to come from scale, ragged left columns and a single 1px rule; the lone photographic plate arrives graded almost to monochrome and is allowed to fall off the edge.",
+     "system": [
+      "Palette/material: ground #F5F5F3, ink #111111, secondary text #6E6E6E; the one photo plate graded slate-teal #2E3A3C to #1A2124 with #FFFFFF caps. No tints, no shadows.",
+      "Type/composition: single grotesk (Neue Haas / Helvetica Now) at 400 with 500 only for row titles; display 92px/0.95 at -0.02em, body 15px/1.5, caps labels 12px +0.08em.",
+      "Topology/navigation: one full-measure 1px #111 rule under the title; below it an ordinal column, a mid-scale statement column, then a narrow reading column.",
+      "Controls/state: nav as 12px caps, 64px apart, underline on hover only; sign-in is a 56px solid #111 disc with 11px white caps; list rows separated by 1px hairlines.",
+      "Responsive/motion: headline lines fade 0.2s ease, 60ms stagger; masthead rule wipes L to R 0.3s; row hover inks its hairline #111; photo plate lifts 24px on scroll."
+     ],
+     "webLeverage": "One weight and one hue mean every state is carried by rule weight, tracking and position, so the system survives long copy, dense tables and any viewport without new tokens.",
+     "strength": "dual",
+     "tags": [
+      "grotesk-manifesto",
+      "hairline-rules",
+      "single-plate"
+     ],
+     "avoid": [
+      "No accent hue, no coloured button: the disc and the rules stay #111 on #F5F5F3.",
+      "Never add a second weight, bold display or drop shadow under the photo plate.",
+      "No centred type and no boxed cards; columns stay left-ragged against the hairline."
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "restrained",
+      "material": "printed-ink",
+      "spatial": "sheet",
+      "density": "calm",
+      "composition": "axial",
+      "scale-range": "wide",
+      "motion": "mechanical",
+      "prohibition": "no-colour-on-interactive",
+      "variance": "container"
+     }
+    },
+    {
+     "id": "design-annual-s-plate-section",
+     "form": "a design annual's plate section on uncoated near-white stock, where registration crosshairs mark every plate corner, a letterpressed circular attribution stamp sits half off the image, hairline rules divide the credits row, and one grotesque carries display and caption alike",
+     "lineage": "late-modern Swiss editorial grotesque crossed with prepress crop-mark ephemera and monospaced spec-sheet annotation",
+     "spark": "The sheet is almost white but never neutral: it drifts warm at one corner and green at another, so the ink reads as printed rather than rendered. Everything else is registration furniture — crosses, dots, hairlines — and a single periwinkle stamp to prove a human signed it.",
+     "system": [
+      "Palette/material: ground #F5F4F6, drifting to #FAF6F5 and #EEF3EF at edges; ink #16181A never pure black; single accent seal #DCDDF3; hairlines #C9C7C4 1px; photography untinted.",
+      "Type/composition: one grotesque throughout — 400 weight, 92px display at -0.02em, 17px body; labels 11px mono uppercase at 0.14em; 12-col grid, 40px gutters, no italics.",
+      "Topology/navigation: one continuous sheet; 72px sticky bar of mono tokens; crosshair plus marks register plate corners; 8px dot matrix fills voids; hairlines split the 4-up row.",
+      "Controls/state: primary is a filled #16181A rect, 0 radius, mono caps 0.12em; secondary a 1px outline rect; nav arrows 44px circles; background inverts 0.1s ease.",
+      "Responsive/motion: stamp's text ring turns 25s linear infinite and lifts 4px on hover 0.6s cubic-bezier(.19,1,.22,1); tiles step one column at that curve; no parallax."
+     ],
+     "webLeverage": "Sticky mono token bar, SVG textPath stamp on infinite linear rotation, pointer-local dot-matrix fades, and a whole grid built from 1px hairlines and CSS crosshairs.",
+     "strength": "dual",
+     "tags": [
+      "swiss-editorial",
+      "crop-marks",
+      "near-white-ground"
+     ],
+     "avoid": [
+      "Letting the near-white drift into beige or cream; the tint must stay under 4% saturation and change hue across the sheet.",
+      "Adding soft drop shadows or rounded cards; depth here comes only from hairlines, crosshairs and the photographic plate.",
+      "Introducing a second accent beside the periwinkle stamp, or colouring buttons on hover."
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "restrained",
+      "material": "printed-ink",
+      "spatial": "sheet",
+      "density": "calm",
+      "composition": "modular",
+      "scale-range": "wide",
+      "motion": "mechanical",
+      "prohibition": "no-colour-on-interactive",
+      "variance": "container"
+     }
+    },
+    {
+     "id": "department-store-catalogue-plate-blown",
+     "form": "a department-store catalogue plate blown up to poster scale, one cut-out object floated on a flat dyed field, an outsize display-serif watermark ghosted a half-step behind it, swing tags pinned at slight angles, a hairline centre spine with rotated micro-labels holding the whole sheet square",
+     "lineage": "mail-order catalogue cut-outs crossed with Swiss centre-axis silence and the high-contrast Didone watermarks of contemporary fashion editorial",
+     "spark": "One acid field, one object, and three tags is the entire cast. The world works because the loudest element, a serif the height of the frame, is tinted so close to the ground that it reads as texture and lets 11px caps carry the information.",
+     "system": [
+      "Palette/material: Flat ground #E5F49C; watermark serif one step down at #DDEE86; cut-out subject olive #4C5730 on #141414 legs; cards #FFFFFF, ink #1A1A1A; accent mint #A8EFC0.",
+      "Type/composition: Grotesk caps 700 at 0.08em for the mark, 11px caps 500 at 0.18em for micro-labels, one Didone watermark 320px 400 bled past both edges. No body copy.",
+      "Topology/navigation: 1px #1A1A1A spine on dead centre, labels rotated 90deg on it; mark and pill in opposite top corners, status dots in the bottom corners; middle stays void.",
+      "Controls/state: Pill 999px, 1px #1A1A1A hairline, 8px filled dot, label 11px caps; hover inverts to solid #1A1A1A with #E5F49C text over 0.3s ease.",
+      "Responsive/motion: 3 price tags sway ±1.5deg/7s at staggered phase; nearest tag drifts 6px toward the pointer in 0.3s ease; watermark serif shifts 8px counter."
+     ],
+     "webLeverage": "Pointer-local reactions on floating tags, smooth-scroll stepping between states, and a clipped display-serif watermark set in live text rather than image.",
+     "strength": "dual",
+     "tags": [
+      "cut-out-catalogue",
+      "ghost-display-serif",
+      "acid-ground"
+     ],
+     "avoid": [
+      "Raising the watermark's contrast until it competes with the micro-labels; it must stay one step off the ground.",
+      "Letting the acid field shrink to an accent band or panel; it is the whole surface or nothing.",
+      "Heavy drop shadows or perspective under the floating cards, and parallax on the cut-out object."
+     ],
+     "axes": {
+      "palette-breadth": "restricted",
+      "colour-strategy": "committed",
+      "material": "printed-ink",
+      "spatial": "sheet",
+      "density": "calm",
+      "composition": "asymmetric",
+      "scale-range": "extreme",
+      "motion": "continuous",
+      "prohibition": "no-colour-on-interactive",
+      "variance": "parametric"
+     }
     }
    ]
   },

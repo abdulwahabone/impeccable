@@ -5,58 +5,814 @@
     {
       "url": "https://palazzosogni.com",
       "added": "2026-08-07",
-      "status": "pending",
+      "status": "passed",
       "source": "awwwards",
-      "note": "Palazzo Sogni"
+      "note": "a bit too boring",
+      "closed": "2026-08-07"
     },
     {
       "url": "https://melinegobet.fr",
       "added": "2026-08-07",
-      "status": "pending",
+      "status": "keep",
       "source": "awwwards",
-      "note": "Méline Gobet"
+      "note": "Méline Gobet",
+      "kept": "2026-08-08"
     },
     {
       "url": "https://houseofhoney.com",
       "added": "2026-08-07",
-      "status": "pending",
+      "status": "keep",
       "source": "awwwards",
-      "note": "House of Honey"
+      "note": "House of Honey",
+      "kept": "2026-08-08"
     },
     {
       "url": "https://slowdowncreative.com",
       "added": "2026-08-07",
-      "status": "pending",
+      "status": "passed",
       "source": "awwwards",
-      "note": "Slow Down Creative"
+      "note": "doesn't look at all like the inspiration",
+      "closed": "2026-08-08"
     },
     {
       "url": "https://domitur.pt",
       "added": "2026-08-07",
-      "status": "pending",
+      "status": "keep",
       "source": "awwwards",
-      "note": "Domitur"
+      "note": "Domitur",
+      "kept": "2026-08-08"
     },
     {
       "url": "https://loiseau.framer.website",
       "added": "2026-08-07",
-      "status": "pending",
+      "status": "keep",
       "source": "awwwards",
-      "note": "L'OISEAU DÉ"
+      "note": "L'OISEAU DÉ",
+      "kept": "2026-08-08"
     },
     {
       "url": "https://yanhladchenko.com",
       "added": "2026-08-07",
-      "status": "pending",
+      "status": "keep",
       "source": "awwwards",
-      "note": "Yan Hladchenko"
+      "note": "Yan Hladchenko",
+      "kept": "2026-08-08"
     },
     {
       "url": "https://murynmukha.com",
       "added": "2026-08-07",
-      "status": "pending",
+      "status": "keep",
       "source": "awwwards",
-      "note": "Gregory Muryn"
+      "note": "Gregory Muryn",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://otsuka-air.jp",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://flowty.co",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://supaste.com",
+      "added": "2026-08-07",
+      "status": "passed",
+      "source": "lab",
+      "note": "too simple",
+      "closed": "2026-08-08"
+    },
+    {
+      "url": "https://upsunday.co",
+      "added": "2026-08-07",
+      "status": "passed",
+      "source": "lab",
+      "note": "too close to the original, not really a world",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://gusta.studio",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://dontboardme.com",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://en.manayerbamate.com",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://franshalsmuseum.nl/en",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://organimo.com/seamoss",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://bennett-tea.com",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://schweppes.ca/en",
+      "added": "2026-08-07",
+      "status": "done",
+      "source": "lab",
+      "kept": "2026-08-07",
+      "conceptId": "single-hue-poster-site-one",
+      "closed": "2026-08-08"
+    },
+    {
+      "url": "https://kombudrinks.com",
+      "added": "2026-08-07",
+      "status": "done",
+      "source": "lab",
+      "kept": "2026-08-09",
+      "conceptId": "boutique-window-dressed-as-diagonal",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://kitamura1923.com",
+      "added": "2026-08-07",
+      "status": "done",
+      "source": "lab",
+      "kept": "2026-08-09",
+      "conceptId": "patent-draughtsman-s-plate-held",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://gritz.it",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://tote.design/cure",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://by-kin.com",
+      "added": "2026-08-07",
+      "status": "passed",
+      "source": "lab",
+      "note": "not interesting enough",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://typographyprinciples.obys.agency/alignments",
+      "added": "2026-08-07",
+      "status": "done",
+      "source": "lab",
+      "kept": "2026-08-09",
+      "conceptId": "swiss-modern-exhibition-wall-panel",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://bennett-tea.com/tea-store.html",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://peppasauce.love",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://apple.com/airpods-max",
+      "added": "2026-08-07",
+      "status": "passed",
+      "source": "lab",
+      "note": "just doesn't translate into a world",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://driveplaza.com/special/ouchifesta",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://bruegel2018.at",
+      "added": "2026-08-07",
+      "status": "passed",
+      "source": "lab",
+      "note": "no world. the agent didn't scroll to the interesting parts on the real site",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://stripe.dev",
+      "added": "2026-08-07",
+      "status": "done",
+      "source": "lab",
+      "kept": "2026-08-09",
+      "conceptId": "design-annual-s-plate-section",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://stripe.com",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://shopify.com/editions/winter2026",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-08"
+    },
+    {
+      "url": "https://shopify.com/editions/spring2026",
+      "added": "2026-08-07",
+      "status": "passed",
+      "source": "lab",
+      "note": "only the close transfer works, but too much of a copy",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://portal.thenifty.com",
+      "added": "2026-08-07",
+      "status": "pending",
+      "source": "lab"
+    },
+    {
+      "url": "https://peachweb.io",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/inspiration/mountain-illustration-parallax",
+      "added": "2026-08-07",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/inspiration/distortion-and-mask-effect-in-transition",
+      "added": "2026-08-07",
+      "status": "done",
+      "source": "lab",
+      "kept": "2026-08-09",
+      "conceptId": "department-store-catalogue-plate-blown",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://diamante.io",
+      "added": "2026-08-08",
+      "status": "pending",
+      "source": "lab"
+    },
+    {
+      "url": "https://urbi.ae",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "copycat",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://primora.xyz",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "not interesting enough",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://faunarobotics.com",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://britainsfavouritebutterfly.co.uk",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://plaport.co.jp",
+      "added": "2026-08-08",
+      "status": "pending",
+      "source": "lab"
+    },
+    {
+      "url": "https://koei-con.co.jp",
+      "added": "2026-08-08",
+      "status": "pending",
+      "source": "lab"
+    },
+    {
+      "url": "https://shinkei.systems",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://nullmask.io",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "too close to gpt default style",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://liquidink.design/github_web",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://hear.ai",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://planetono.space",
+      "added": "2026-08-08",
+      "status": "pending",
+      "source": "lab"
+    },
+    {
+      "url": "https://mindjoin.netlify.app",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://tabkitchenbakery.com",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://sleep-well-creatives.com",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://nippori.lamm.tokyo",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://safetywing.com/nomad-insurance",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://davincii.com",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://geniestudio.app",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://omura.com.au",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "all bland",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://paul-factory.com/en",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://mystella.me/ja",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "no good transfer",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://makeitgolden.co.uk",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://novobudowa.pl/en",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://bombon.rs",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "has teh awwwards site of the day badge on the right baked into every generation, awkward",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://deluxburyseafarm.com",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://dispel.com",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "too regular saas",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://purposetalent.xyz",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "copycat",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://wpups.jp",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://pomegranate.health",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "different issues",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://comic.modular.com",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://creditgenie.com",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://oredev.org",
+      "added": "2026-08-08",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://nexio-bitcoin.webflow.io",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "copycat",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://leoff-paris.com",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "not interesting enough",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://cofounder.co",
+      "added": "2026-08-08",
+      "status": "passed",
+      "source": "lab",
+      "note": "didn't translate into interesting worlds",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://thisisfc88.com",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://houseofdreamers.com",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://recruit.zoccon.me",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://sugorocks.com",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://dogelonmars.com",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://xr.noomoagency.com",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://defoodtruckclub.nl",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://1-placevendome.com/en",
+      "added": "2026-08-09",
+      "status": "pending",
+      "source": "lab"
+    },
+    {
+      "url": "https://awwwards.com/sites/monopo-paris",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/sites/cara-cara-new-york",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://tasteedge.com",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "doesn't work",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://lokipjt.9re8.xyz",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "not interesting enough",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://theoryofnext.com",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://wysemeter.com",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "not a world",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://bhamla.com",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "the most interesting thing, the art style, didn't come through",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://nissei-com.co.jp/cremia",
+      "added": "2026-08-09",
+      "status": "pending",
+      "source": "lab"
+    },
+    {
+      "url": "https://satoshilabs.com",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "not a world, the iredescent thing was what attracted me",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://stgeorgescrypt.org.uk/the-pathway",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "too boring",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/sites/uhaina",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "no illustration came through :(",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://aurabora.com",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://tate-lab.com",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "doesn't come together as world",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/sites/saastock-dublin",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "signature amplified and close transfer are so so good, but i think it's too much of a copy cat :(",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/sites/planet-lizard",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "boring",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://momset.co.uk",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "you generated the popup along with it :(",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/sites/pop-mart-virtual-exhibition",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/sites/vana",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/sites/glaredb",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "not interesting enough",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://grislyscosmic.com/dev",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/sites/a-digital-cat-meditation",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "illustration missing",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://weswwim.com",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://awwwards.com/sites/aquerone",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://takahama-kawara-museum.com",
+      "added": "2026-08-09",
+      "status": "pending",
+      "source": "lab"
+    },
+    {
+      "url": "https://oumi-lease.com",
+      "added": "2026-08-09",
+      "status": "pending",
+      "source": "lab"
+    },
+    {
+      "url": "https://mew.xyz",
+      "added": "2026-08-09",
+      "status": "keep",
+      "source": "lab",
+      "kept": "2026-08-09"
+    },
+    {
+      "url": "https://sennep.com",
+      "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "boring",
+      "closed": "2026-08-09"
+    },
+    {
+      "url": "https://elecbrakes.com",
+      "added": "2026-08-09",
+      "status": "pending",
+      "source": "lab"
     }
   ]
 }
