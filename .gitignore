@@ -119,11 +119,15 @@ site/public/_routes.json
 site/public/js/detect-antipatterns-browser.js
 site/public/js/generated/
 
-# Note: harness skill directories (.claude/skills/, .cursor/skills/, etc.)
-# are intentionally tracked. npx skills reads them from this repo at install
-# time, and they enable clean submodule use. Run `bun run build` to refresh
-# them after editing skill/.
-#
+# Harness skill directories are NOT tracked here (unlike the public repo,
+# where they're committed for npx-skills installs). The skill is owned by
+# pbakaus/impeccable; a local install lands as a machine-specific symlink
+# via `npx impeccable skills link --source=<checkout>`.
+.claude/skills/
+.cursor/skills/
+.gemini/skills/
+.agents/skills/
+
 # Codex CLI consumes `.agents/skills/`; the asset-producer subagent ships
 # nested inside that skill (agents/*.toml), auto-discovered on install.
 # The project-local hook manifest is the one tracked `.codex/` artifact.
@@ -154,9 +158,9 @@ tmp/
 # reference/degraded/ links (pbakaus/impeccable#475). Run `bun run
 # skill:refresh` to re-materialize. scripts/build.js and the site-only libs
 # (api-data.js, sub-pages-data.js) stay tracked and site-owned.
-/skill/
-/cli/
-/.claude-plugin/
+/skill
+/cli
+/.claude-plugin
 /scripts/lib/transformers/
 /scripts/lib/assets/
 /scripts/lib/utils.js
