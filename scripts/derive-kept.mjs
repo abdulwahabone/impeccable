@@ -17,7 +17,8 @@
 // a concept that does not exist yet.
 
 import { spawn } from 'node:child_process';
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, copyFileSync } from 'node:fs';
+import { conceptContentHash } from '../skill/scripts/lib/concept-catalog.mjs';
 import path from 'node:path';
 import {
   QUEUE_RELATIVE, QUEUE_NOTE, siteSlug, closeSite,
@@ -35,6 +36,36 @@ const flag = (name, fallback = null) => {
 };
 const only = flag('only');
 const family = flag('family', 'digital-design-canon');
+
+const CARDS = path.join(ROOT, 'site', 'public', 'worlds', 'cards');
+
+// The world image IS the hero: a landing page built in this world, already
+// reviewed and chosen. Deriving an entry without installing it left six worlds
+// sitting in the review queue as text, which is the one thing that view cannot
+// judge. Board and docs still have to be rendered, but they cost money and this
+// world may yet be rejected, so they wait for approval like any other.
+function installHero(conceptId, worldImage) {
+  if (!existsSync(worldImage)) return false;
+  mkdirSync(CARDS, { recursive: true });
+  copyFileSync(worldImage, path.join(CARDS, `${conceptId}-hero.webp`));
+  const manifestPath = path.join(CARDS, 'manifest.json');
+  const manifest = existsSync(manifestPath) ? JSON.parse(readFileSync(manifestPath, 'utf8')) : {};
+  manifest[conceptId] = manifest[conceptId] || {};
+  manifest[conceptId].heroGeneratedAt = new Date().toISOString();
+  // Without the hash the lab reads the card as stale against its concept and
+  // says so on a world whose picture is the newest thing about it.
+  const fresh = JSON.parse(readFileSync(path.join(ROOT, 'catalog', 'concept-ingredients.json'), 'utf8'));
+  const entry = (fresh.families || []).flatMap(f => f.concepts || []).find(c => c.id === conceptId);
+  if (entry) manifest[conceptId].hash = conceptContentHash(entry);
+  writeJsonAtomicish(manifestPath, manifest);
+  return true;
+}
+
+// The manifest serializes at indent 1, like the ingredient catalogs it sits
+// beside. Writing it at 2 reformats every entry and buries the diff.
+function writeJsonAtomicish(file, value) {
+  writeFileSync(file, `${JSON.stringify(value, null, 1)}\n`);
+}
 
 function run(command, commandArgs) {
   return new Promise(resolve => {
@@ -140,6 +171,7 @@ for (const site of kept) {
   closeSite(current, site.url, { status: 'done', conceptId: id });
   current.note = QUEUE_NOTE;
   writeFileSync(QUEUE, `${JSON.stringify(current, null, 2)}\n`);
+  if (installHero(id, path.join(dir, 'world.webp'))) process.stdout.write('  hero installed\n');
   process.stdout.write('  merged as pending and the row is closed\n\n');
   results.push({ site, status: 'done', id });
 }
