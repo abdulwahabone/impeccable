@@ -60,6 +60,40 @@ export async function clearOverlays(page) {
       if (GATE.test((el.textContent || '').slice(0, 400))) kill(el, 'gate');
     }
 
+    // Promotional modals match none of the wording above, because they are not
+    // asking for consent, they are announcing a sale. leoff-paris.com came
+    // through with a newsletter modal sitting over an illustrated page and the
+    // world was drawn from the modal. So this pass matches on STRUCTURE rather
+    // than language: something pinned over the page, big enough to matter, that
+    // carries its own dismiss control. A thing that ships with a close button is
+    // a thing the page itself considers optional.
+    const CLOSER = 'button, a, [role="button"], [class*="close" i], [class*="dismiss" i]';
+    const CLOSE_LABEL = /^(x|✕|✖|×|close|fermer|schliessen|schließen|cerrar|chiudi|sluiten|閉じる|닫기)$/i;
+    for (const el of document.querySelectorAll('body *')) {
+      if (!el.isConnected) continue;
+      const style = getComputedStyle(el);
+      if (style.position !== 'fixed' && style.position !== 'absolute') continue;
+      const rect = el.getBoundingClientRect();
+      const coverage = (rect.width * rect.height) / (window.innerWidth * window.innerHeight);
+      if (coverage < 0.05 || coverage > 0.95) continue;
+      const hasCloser = [...el.querySelectorAll(CLOSER)].some(control => {
+        const label = (control.getAttribute('aria-label') || control.textContent || '').trim();
+        return CLOSE_LABEL.test(label)
+          || /close|dismiss/i.test(control.className || '')
+          || /close|dismiss/i.test(control.getAttribute('aria-label') || '');
+      });
+      if (hasCloser) kill(el, 'modal');
+    }
+
+    // Their backdrops outlive them and tint everything underneath.
+    for (const el of document.querySelectorAll('[class*="overlay" i],[class*="backdrop" i],[class*="modal" i]')) {
+      if (!el.isConnected) continue;
+      const style = getComputedStyle(el);
+      if (style.position !== 'fixed') continue;
+      const rect = el.getBoundingClientRect();
+      if ((rect.width * rect.height) / (window.innerWidth * window.innerHeight) > 0.6) kill(el, 'backdrop');
+    }
+
     // Scroll locks travel with the things just removed.
     for (const node of [document.documentElement, document.body]) {
       node.style.overflow = 'visible';
