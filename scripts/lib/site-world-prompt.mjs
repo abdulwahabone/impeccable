@@ -35,7 +35,7 @@ function fidelityBlock(sourceDensity) {
 
 1. GROUND. What fills the frame edge to edge, and what share of it. Measure the pixels, not a container's background. A saturated field that owns the whole frame there owns the whole frame here. Match lightness, temperature and saturation, and re-cast the accent hues rather than sampling them. A vivid reference returning pale, its colour reduced to small parts, is the commonest failure here.
 
-2. HOW MANY REGIONS. Count what the first screen divides into, and the largest one's share. One region stays one region: do not split a frame the reference left whole, and do not add a band of something else beneath to fill the page out. Count the pieces of copy, the controls and the images too. Furniture the source does without is furniture you do without.
+2. HOW MANY REGIONS. Count what the OPENING FRAME divides into, and the largest one's share. Only that frame answers this. The frames after it are sections from the middle of the page, and an opening read off them is a middle served as a top. One region stays one region: do not split a frame the reference left whole, and do not add a band of something else beneath to fill the page out. Count the pieces of copy, the controls and the images too. Furniture the source does without is furniture you do without.
 
 3. WHAT TOUCHES WHAT, which is what gets lost most often. Take each pair of things in the opening and name the verb between them: crosses, lies over, is cut by, runs behind, sits within, runs off an edge and which edge. Those verbs are the design more than the things they join. Carry every one, using your own objects. Separate clear rectangles that never meet is one specific answer among many, right only when the reference is that, and also what gets drawn when the pairs were never read.
 
@@ -50,7 +50,7 @@ function fidelityBlock(sourceDensity) {
 // accent word on a run where the ban was two paragraphs above. Last read is the
 // other position a model weights heavily, and this is a hard constraint rather
 // than a consideration.
-const RENDER = `Render as a complete desktop page filling the whole 16:9 frame, as if screenshotted at 1440 wide, showing the top of the page and cut off mid-element at the bottom edge because more of it exists below. No browser chrome, no device mockup. Interface copy in English, plain punctuation, never an em dash.
+const RENDER = `Render as a complete desktop page filling the whole 16:9 frame, as if screenshotted at 1440 wide, showing the top of the page. The bottom edge falls wherever the opening reaches: it cuts through the opening while the opening is still going, and shows the start of what follows only once the opening has ended on its own. Never end the opening early to get something under it. No browser chrome, no device mockup. Interface copy in English, plain punctuation, never an em dash.
 
 LAST, AND THESE OVERRIDE EVERYTHING ABOVE:
 - Do NOT set one or two words of an upright headline in italic for emphasis. Not one word. A whole line in an italic or script cut is fine when the reference works that way; a single italicised word inside an upright line is not, on any strategy, for any reference.
@@ -143,6 +143,7 @@ export const STRATEGY_IDS = Object.keys(STRATEGIES);
 
 export function buildWorldPrompt({
   isEntry = false, subject = null, sourceDensity = null, strategy = 'vocabulary',
+  leadsWithInterior = false,
 } = {}) {
   const chosen = STRATEGIES[strategy];
   if (!chosen) throw new Error(`unknown strategy "${strategy}"; expected one of ${STRATEGY_IDS.join(', ')}`);
@@ -151,7 +152,19 @@ export function buildWorldPrompt({
     ? '\nThese captures may sit on a backdrop or inside a device mockup, and they show several sections rather than one continuous page. Read only the interface; the frame, the shadow and the surface it rests on are presentation, not design.\n'
     : '';
 
-  return `The attached images are ${isEntry ? "the designer's own captures of one website, taken from an awards submission" : 'screenshots of one website'}. Read them the way a designer reads a reference: not as a page to reproduce, but as something to learn from.
+  // Every fidelity item that says "the opening" was unresolved until now: the
+  // model receives three to five frames with equal weight and nothing saying
+  // which is the top. On an art-directed site the interior frames are
+  // conventional by definition, so the hero was outvoted three to one, and the
+  // outputs matched the interior rather than the opening in 60% of the cases
+  // where the two differ.
+  const attachments = isEntry
+    ? "the designer's own captures of one website, taken from an awards submission"
+    : leadsWithInterior
+      ? 'screenshots of one website; the first attachment is a section from further down, taken because the top of the page is nearly empty, and the rest run in page order from the top'
+      : 'screenshots of one website, in order down the page: the first is the opening screen, the rest are sections below it';
+
+  return `The attached images are ${attachments}. Read them the way a designer reads a reference: not as a page to reproduce, but as something to learn from.
 ${entryNote}
 The product is different${subject ? `: ${subject}` : ''}. New subject, new copy, new imagery, new brand.
 

@@ -195,11 +195,19 @@ if (frameDensities[best] < 8) {
 // Lead with the richest frame when the top of the page is not the page. The
 // model anchors hard on the first attachment, and a blank hero at the front of
 // the set is an instruction to draw a blank hero.
-if (frameDensities[0] < frameDensities[best] * 0.6) {
+//
+// The relative test alone demoted openings that were perfectly good: a card grid
+// further down is busier than almost any art-directed top, so franshalsmuseum
+// (37% against 65%), gusta-studio (38 against 71) and bruegel2018 (20 against
+// 52) each lost their opening to one, and the model was then handed a middle of
+// a page and told it was the top. The rule exists for a top that is EMPTY, so it
+// gets an absolute floor as well.
+const leadsWithInterior = frameDensities[0] < 15 && frameDensities[0] < frameDensities[best] * 0.6;
+if (leadsWithInterior) {
   shots = [shots[best], ...shots.filter((_, i) => i !== best)];
-  process.stdout.write(`  top of page is thin (${frameDensities[0]}%), leading with frame ${best} (${frameDensities[best]}%)\n`);
+  process.stdout.write(`  top of page is nearly empty (${frameDensities[0]}%), leading with frame ${best} (${frameDensities[best]}%)\n`);
 }
-const sourceDensity = frameDensities[frameDensities[0] < frameDensities[best] * 0.6 ? best : 0];
+const sourceDensity = frameDensities[leadsWithInterior ? best : 0];
 process.stdout.write(`  frames: ${frameDensities.join('%, ')}%, reading density as ${sourceDensity}%\n`);
 
 // ---------------------------------------------------------------- reimagine
@@ -220,7 +228,7 @@ async function render(strategyId) {
   for (const shot of shots) {
     form.append('image[]', new Blob([readFileSync(shot)], { type: 'image/png' }), path.basename(shot));
   }
-  form.append('prompt', buildWorldPrompt({ isEntry, subject, sourceDensity, strategy: strategyId }));
+  form.append('prompt', buildWorldPrompt({ isEntry, subject, sourceDensity, strategy: strategyId, leadsWithInterior }));
   form.append('size', '2048x1152');
   form.append('quality', 'high');
   const response = await fetch('https://api.openai.com/v1/images/edits', {
