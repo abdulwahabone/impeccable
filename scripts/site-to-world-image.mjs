@@ -142,12 +142,25 @@ await page.evaluate(() => { document.documentElement.style.scrollBehavior = 'aut
 
 const taken = [];
 for (let i = 0; i < scrolls; i += 1) {
-  await page.screenshot({ path: shotPath(i) });
-  taken.push(shotPath(i));
-  process.stdout.write(`  ref-${i}.png\n`);
-  await page.evaluate(() => { window.scrollBy(0, window.innerHeight * 0.9); });
+  // animations disabled, because Playwright waits for the page to hold still
+  // and a page built on continuous motion never does: satoshilabs.com timed out
+  // at thirty seconds a frame. Freezing them also gives a cleaner still, which
+  // is what is wanted here anyway.
+  //
+  // A failed frame is skipped rather than fatal. Losing one of four costs a
+  // little coverage; throwing loses the capture, the four screenshots already
+  // taken, and the run for that candidate.
+  try {
+    await page.screenshot({ path: shotPath(i), animations: 'disabled', timeout: 45000 });
+    taken.push(shotPath(i));
+    process.stdout.write(`  ref-${i}.png\n`);
+  } catch (error) {
+    process.stdout.write(`  ref-${i}.png skipped: ${error.message.split('\n')[0]}\n`);
+  }
+  await page.evaluate(() => { window.scrollBy(0, window.innerHeight * 0.9); }).catch(() => {});
   await page.waitForTimeout(2500);
 }
+if (taken.length === 0) throw new Error('every screenshot failed; the page never held still enough to photograph');
 return taken;
 }
 

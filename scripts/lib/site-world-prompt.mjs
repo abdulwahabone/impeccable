@@ -95,7 +95,9 @@ Find the reference's single most distinctive property. Two tests decide whether 
 
 Build a page whose only reason for existing is that property, carried further than the reference carries it, by an amount you could measure: more of the frame surrendered to it, a more extreme ratio, a more saturated commitment, twice where they did it once. If the property is an absence, the page holds less, not more. Half measures read as timidity, and timidity is the failure here.
 
-Letting the rest go means handing that space to the property. It does not mean the furniture that arrives when nothing has been decided: nav, headline, paragraph, two buttons, a row of small features. The first-viewport count is a ceiling now rather than a target. If the property has taken the frame, there is nothing left to place, and that is correct.
+Letting the rest go means handing that space to the property. It does not mean the furniture that arrives when nothing has been decided: nav, headline, paragraph, two buttons, a row of small features. The first-viewport count is a ceiling now rather than a target.
+
+It is still a PAGE, and this is the one place this strategy fails. Stripped as far as it goes, what remains is the top of a website somebody built: a wordmark, at least one line of type set with intent, and whatever minimum of interface the page needs to be usable. A frame containing only an object, however beautiful the object, is a render rather than a page and cannot be used. The property may own the frame; the page still has to exist inside it.
 
 Their mark, copy and specific imagery stay theirs.`,
   },
