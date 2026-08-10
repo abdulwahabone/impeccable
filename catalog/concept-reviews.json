@@ -42,7 +42,9 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-09T23:55:01.485Z",
-      "formHash": "26fc319a6e92"
+      "formHash": "26fc319a6e92",
+      "pro": true,
+      "rating": 2
     },
     "architecture-inhabitable-space-daylight-section": {
       "status": "approved",
@@ -139,7 +141,9 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-09T23:55:13.687Z",
-      "formHash": "956f057026c3"
+      "formHash": "956f057026c3",
+      "pro": true,
+      "rating": 2
     },
     "boutique-window-dressed-as-diagonal": {
       "status": "approved",
@@ -1854,7 +1858,13 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-09T23:55:00.426Z",
-      "formHash": "4ec124b59cf2"
+      "formHash": "4ec124b59cf2",
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ],
+      "rating": 3
     },
     "food-fermentation-culinary-theater-pickling-brine-calendar": {
       "status": "approved",
@@ -2685,7 +2695,9 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-09T23:53:56.676Z",
-      "formHash": "2e40615cf5af"
+      "formHash": "2e40615cf5af",
+      "pro": true,
+      "rating": 2
     },
     "midnight-attraction-card-for-travelling": {
       "status": "approved",
@@ -2714,7 +2726,9 @@
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-08-09T23:54:30.141Z",
-      "formHash": "96d03cf318a3"
+      "formHash": "96d03cf318a3",
+      "pro": true,
+      "rating": 2
     },
     "museum-specimen-board-laid-out": {
       "status": "approved",
