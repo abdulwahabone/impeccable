@@ -309,8 +309,10 @@
     {
       "url": "https://portal.thenifty.com",
       "added": "2026-08-07",
-      "status": "pending",
-      "source": "lab"
+      "status": "passed",
+      "source": "lab",
+      "note": "host refuses us; queued as the awwwards entry https://www.awwwards.com/sites/portal-defi",
+      "closed": "2026-08-10"
     },
     {
       "url": "https://peachweb.io",
@@ -342,8 +344,10 @@
     {
       "url": "https://diamante.io",
       "added": "2026-08-08",
-      "status": "pending",
-      "source": "lab"
+      "status": "passed",
+      "source": "lab",
+      "note": "host refuses us; queued as the awwwards entry https://www.awwwards.com/sites/diamante",
+      "closed": "2026-08-10"
     },
     {
       "url": "https://urbi.ae",
@@ -382,14 +386,18 @@
     {
       "url": "https://plaport.co.jp",
       "added": "2026-08-08",
-      "status": "pending",
-      "source": "lab"
+      "status": "passed",
+      "source": "lab",
+      "note": "host refuses us; queued as the awwwards entry https://www.awwwards.com/sites/plaport-co-ltd",
+      "closed": "2026-08-10"
     },
     {
       "url": "https://koei-con.co.jp",
       "added": "2026-08-08",
-      "status": "pending",
-      "source": "lab"
+      "status": "passed",
+      "source": "lab",
+      "note": "host refuses us; queued as the awwwards entry https://www.awwwards.com/sites/koei-consultant-co-ltd",
+      "closed": "2026-08-10"
     },
     {
       "url": "https://shinkei.systems",
@@ -429,8 +437,10 @@
     {
       "url": "https://planetono.space",
       "added": "2026-08-08",
-      "status": "pending",
-      "source": "lab"
+      "status": "passed",
+      "source": "lab",
+      "note": "host refuses us; queued as the awwwards entry https://www.awwwards.com/sites/planetono",
+      "closed": "2026-08-10"
     },
     {
       "url": "https://mindjoin.netlify.app",
@@ -705,8 +715,10 @@
     {
       "url": "https://1-placevendome.com/en",
       "added": "2026-08-09",
-      "status": "pending",
-      "source": "lab"
+      "status": "passed",
+      "source": "lab",
+      "note": "host refuses us; queued as the awwwards entry https://www.awwwards.com/sites/1-place-vendome",
+      "closed": "2026-08-10"
     },
     {
       "url": "https://awwwards.com/sites/monopo-paris",
@@ -770,8 +782,10 @@
     {
       "url": "https://nissei-com.co.jp/cremia",
       "added": "2026-08-09",
-      "status": "pending",
-      "source": "lab"
+      "status": "passed",
+      "source": "lab",
+      "note": "host refuses us; queued as the awwwards entry https://www.awwwards.com/sites/cremia-10th-anniversary-site",
+      "closed": "2026-08-10"
     },
     {
       "url": "https://satoshilabs.com",
@@ -902,14 +916,18 @@
     {
       "url": "https://takahama-kawara-museum.com",
       "added": "2026-08-09",
-      "status": "pending",
-      "source": "lab"
+      "status": "passed",
+      "source": "lab",
+      "note": "host refuses us; queued as the awwwards entry https://www.awwwards.com/sites/kawara-museum-library",
+      "closed": "2026-08-10"
     },
     {
       "url": "https://oumi-lease.com",
       "added": "2026-08-09",
-      "status": "pending",
-      "source": "lab"
+      "status": "passed",
+      "source": "lab",
+      "note": "host refuses us; queued as the awwwards entry https://www.awwwards.com/sites/oumi-lease-co-ltd",
+      "closed": "2026-08-10"
     },
     {
       "url": "https://mew.xyz",
@@ -931,8 +949,70 @@
     {
       "url": "https://elecbrakes.com",
       "added": "2026-08-09",
+      "status": "passed",
+      "source": "lab",
+      "note": "host refuses us; queued as the awwwards entry https://www.awwwards.com/sites/elecbrakes",
+      "closed": "2026-08-10"
+    },
+    {
+      "url": "https://awwwards.com/sites/portal-defi",
+      "added": "2026-08-10",
       "status": "pending",
-      "source": "lab"
+      "source": "awwwards"
+    },
+    {
+      "url": "https://awwwards.com/sites/diamante",
+      "added": "2026-08-10",
+      "status": "pending",
+      "source": "awwwards"
+    },
+    {
+      "url": "https://awwwards.com/sites/plaport-co-ltd",
+      "added": "2026-08-10",
+      "status": "pending",
+      "source": "awwwards"
+    },
+    {
+      "url": "https://awwwards.com/sites/koei-consultant-co-ltd",
+      "added": "2026-08-10",
+      "status": "pending",
+      "source": "awwwards"
+    },
+    {
+      "url": "https://awwwards.com/sites/planetono",
+      "added": "2026-08-10",
+      "status": "pending",
+      "source": "awwwards"
+    },
+    {
+      "url": "https://awwwards.com/sites/1-place-vendome",
+      "added": "2026-08-10",
+      "status": "pending",
+      "source": "awwwards"
+    },
+    {
+      "url": "https://awwwards.com/sites/cremia-10th-anniversary-site",
+      "added": "2026-08-10",
+      "status": "pending",
+      "source": "awwwards"
+    },
+    {
+      "url": "https://awwwards.com/sites/kawara-museum-library",
+      "added": "2026-08-10",
+      "status": "pending",
+      "source": "awwwards"
+    },
+    {
+      "url": "https://awwwards.com/sites/oumi-lease-co-ltd",
+      "added": "2026-08-10",
+      "status": "pending",
+      "source": "awwwards"
+    },
+    {
+      "url": "https://awwwards.com/sites/elecbrakes",
+      "added": "2026-08-10",
+      "status": "pending",
+      "source": "awwwards"
     }
   ]
 }

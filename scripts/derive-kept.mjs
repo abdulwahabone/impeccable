@@ -5,10 +5,12 @@
 //   node scripts/derive-kept.mjs                 # dry run: what it would do
 //   node scripts/derive-kept.mjs --write
 //   node scripts/derive-kept.mjs --write --only melinegobet-fr
+//   node scripts/derive-kept.mjs --write --no-cards      # entries only
 //
 // Per kept row: go and watch the live page move, write the entry from the
 // render with that motion as evidence, merge it into the catalog as pending,
-// and close the queue row with the id it became. The row is only closed after
+// install the chosen render as the hero, render the board and docs to go with
+// it, and close the queue row with the id it became. The row is only closed after
 // the merge succeeds, so a failure anywhere leaves it kept and the pass can be
 // run again without losing the verdict.
 //
@@ -36,6 +38,8 @@ const flag = (name, fallback = null) => {
 };
 const only = flag('only');
 const family = flag('family', 'digital-design-canon');
+// Escape hatch for a run where the images are being handled separately.
+const skipCards = args.includes('--no-cards');
 
 const CARDS = path.join(ROOT, 'site', 'public', 'worlds', 'cards');
 
@@ -172,6 +176,23 @@ for (const site of kept) {
   current.note = QUEUE_NOTE;
   writeFileSync(QUEUE, `${JSON.stringify(current, null, 2)}\n`);
   if (installHero(id, path.join(dir, 'world.webp'))) process.stdout.write('  hero installed\n');
+
+  // 5. Render the board and the docs page. These used to wait for approval, on
+  //    the reasoning that a rejected world had wasted them. That was the wrong
+  //    trade: the reviewer cannot tell whether a world holds together from a
+  //    landing page alone, which is the whole question approval answers, so
+  //    withholding them made the decision harder to save money on the worlds
+  //    that decision rejects. The hero is not regenerated; it is the image the
+  //    reviewer already chose.
+  if (!skipCards) {
+    const rendered = await run('node', [path.join(ROOT, 'scripts', 'generate-world-cards.mjs'),
+      '--only', id, '--kind', 'board']);
+    const docs = await run('node', [path.join(ROOT, 'scripts', 'generate-world-cards.mjs'),
+      '--only', id, '--kind', 'docs']);
+    const ok = [rendered, docs].filter(r => r.code === 0).length;
+    process.stdout.write(ok === 2 ? '  board and docs rendered\n' : `  ${ok}/2 cards rendered\n`);
+  }
+
   process.stdout.write('  merged as pending and the row is closed\n\n');
   results.push({ site, status: 'done', id });
 }
