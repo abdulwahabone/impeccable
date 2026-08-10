@@ -975,7 +975,10 @@ export function renderTemplate(findings, filePath, config, opts = {}) {
   const cap = Math.max(1, limits.maxFindings || DEFAULT_CONFIG.limits.maxFindings);
   // reserveChars holds back room for a note the caller appends after render
   // (the DESIGN.md staleness note), so the final payload stays inside the
-  // configured budget.
+  // configured budget. It comes off after the 500-char floor, so at floor
+  // configs the note keeps guaranteed delivery room; the clamp budget can
+  // therefore sit below 500, which clampLastLine's footer-preserving
+  // fallback handles (Bugbot on PR #508).
   const maxChars = Math.max(500, limits.maxChars || DEFAULT_CONFIG.limits.maxChars) - (opts.reserveChars || 0);
 
   const cwd = opts.cwd || process.cwd();
@@ -1115,15 +1118,22 @@ function clampToBudget(header, lines, more, footer, maxChars) {
 // whatever happened to be last, which was always the footer.
 function clampLastLine(build, line, maxChars) {
   const footerText = directiveFooter({ mode: 'short' });
+  const bare = build([], footerText);
   // +1 for the newline the line itself brings when it joins the blocks.
-  const room = maxChars - build([], footerText).length - 1;
+  const room = maxChars - bare.length - 1;
   if (room >= 24) {
     const clipped = line.length > room ? `${line.slice(0, room - 1)}…` : line;
     return build([clipped], footerText);
   }
-  // maxChars is floored at 500 and header + short footer fit well inside
-  // that, so this is unreachable; keep the hard slice as the safety net.
-  return `${build([line], footerText).slice(0, maxChars - 1)}…`;
+  // No room for even a clipped finding line: the note reservation can pull
+  // the budget below the 500-char floor, and a deep file path can push the
+  // header past what remains beside the short policy (Bugbot on PR #508).
+  // Drop the line, and if the bare header + policy still overflow, clip the
+  // head. Never tail-slice: the footer sits at the end, so a tail slice is
+  // exactly the footer cut this renderer exists to prevent.
+  if (bare.length <= maxChars) return bare;
+  const head = bare.slice(0, Math.max(0, maxChars - footerText.length - 4));
+  return `${head}…\n\n${footerText}`;
 }
 
 // `compact` drops the registry description: within one emission the first

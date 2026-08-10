@@ -358,10 +358,16 @@ const BLOCK_PREFIX = 'Impeccable design hook blocked this write before it landed
 
 function cursorBlockMessage(findings, filePath, config, cwd, footerMode, reserveChars) {
   const limits = config?.limits || DEFAULT_CONFIG.limits;
+  // Subtract the prefix from whichever limit binds, not just the Cursor
+  // ceiling: with a configured maxChars at or below the ceiling, the old
+  // `min(maxChars, ceiling - prefix)` never charged the prefix against the
+  // budget, so the final deny text could exceed maxChars by the prefix
+  // length and appendDesignSystemNoteOnce's size check lost exactly the
+  // room designNoteReserve had held back (Bugbot on PR #508).
   const budget = Math.min(
     limits.maxChars || DEFAULT_CONFIG.limits.maxChars,
-    CURSOR_DENY_LIMIT - BLOCK_PREFIX.length,
-  );
+    CURSOR_DENY_LIMIT,
+  ) - BLOCK_PREFIX.length;
   const rendered = renderTemplate(findings, filePath,
     { ...config, limits: { ...limits, maxChars: budget } },
     { cwd, footer: footerMode, reserveChars });

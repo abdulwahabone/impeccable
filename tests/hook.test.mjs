@@ -1224,6 +1224,24 @@ describe('renderTemplate()', () => {
     assert.match(renderFor('win32'), /ignore-value overused-font "Space Grotesk Var"/);
   });
 
+  it('keeps the policy footer when reserveChars presses against the 500-char floor', () => {
+    // Bugbot on PR #508: the note reservation used to be subtracted after
+    // the 500-char floor, so the clamp could run at ~366 chars, below the
+    // budget clampLastLine assumes safe, and the hard tail slice cut the
+    // policy footer. The reserve now comes off before the floor; when the
+    // floor wins, the note defers instead.
+    const config = { ...DEFAULT_CONFIG, limits: { ...DEFAULT_CONFIG.limits, maxChars: 500 } };
+    const longPath = `/x/${'deeply-nested/'.repeat(6)}Component.tsx`;
+    const text = renderTemplate(
+      Array.from({ length: 6 }, (_, i) =>
+        finding('side-tab', i + 1, { name: 'Side tab', description: 'Colored side border.' })),
+      longPath, config, { cwd: '/x', reserveChars: 134 }
+    );
+    assert.ok(text.length <= 500, `stays inside the floored budget (got ${text.length})`);
+    assert.match(text, /unsure, ask in one line\.$/);
+    assert.doesNotMatch(text, /…$/);
+  });
+
   it('drops the L<line> prefix when line is 0', () => {
     const text = renderTemplate(
       [finding('side-tab', 0, { name: 'X' })],
