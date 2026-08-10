@@ -150,6 +150,41 @@ async function generateGemini(ai, model, concept, kind, variant) {
 let BOARD_REFERENCE_DIR = null;
 
 async function generateOpenAI(model, concept, kind, variant) {
+  // A site-derived world arrives the other way round: its hero is the artifact,
+  // chosen by a reviewer from five renders of a real page, and its board has
+  // never existed. Generating that board from the entry text alone let it drift
+  // from the image the world actually is, and docs, which references the board,
+  // inherited the drift. Five worlds came back with component sheets that shared
+  // almost nothing with their own landing pages.
+  //
+  // So the senior artifact is whichever of the pair already exists. Normally
+  // that is the board; here it is the hero.
+  if (kind === 'board' && BOARD_REFERENCE_DIR) {
+    const heroPath = join(BOARD_REFERENCE_DIR, `${concept.id}-hero.webp`);
+    const ownBoard = join(BOARD_REFERENCE_DIR, `${concept.id}.webp`);
+    if (existsSync(heroPath) && !existsSync(ownBoard)) {
+      try {
+        const form = new FormData();
+        form.append('model', model.id);
+        form.append('image[]', new Blob([readFileSync(heroPath)], { type: 'image/webp' }), `${concept.id}-hero.webp`);
+        form.append('prompt', `The attached image is a real page built in this world, and it is the binding reference. Its palette sampled exactly, its type voices, its materials, the way it draws and renders imagery, and its component grammar are what this world IS; the entry text below describes that same image and where the two disagree the image wins. Build the specimen board of that system. ${promptFor(concept, kind, variant)}`);
+        form.append('size', model.size);
+        form.append('quality', model.quality);
+        const response = await fetch('https://api.openai.com/v1/images/edits', {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${process.env.OPENAI_API_KEY}` },
+          body: form,
+        });
+        const json = await response.json();
+        if (!response.ok) throw new Error(json.error?.message || `HTTP ${response.status}`);
+        const b64 = json.data?.[0]?.b64_json;
+        if (b64) return Buffer.from(b64, 'base64');
+      } catch (error) {
+        process.stderr.write(`  hero-reference board failed for ${concept.id} (${error.message}); falling back to plain generation\n`);
+      }
+    }
+  }
+
   // Heroes are generated from the specimen board when it exists: the edits
   // endpoint takes the board as reference so both images share one system.
   if ((kind === 'hero' || kind === 'docs') && BOARD_REFERENCE_DIR) {

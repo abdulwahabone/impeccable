@@ -156,6 +156,10 @@ The five system rules are laws a builder applies to a different surface, each at
 
 Name real values. Read the hues off the image and give hex. Name the type voice, the weights actually used, the radii, the spacing. A rule that says "a warm palette" is worthless; a rule that says "#8ED462 land on #F5F1E4 ground, ink #2C2E2A, never pure black" can be built from.
 
+Palette/material must also say WHAT THE PICTURES ARE MADE OF, because that is material and there is no other rule for it. Say how imagery is made and rendered: photographed or drawn or built, in what medium, with what surface, at what level of finish, and what it depicts in the abstract. None of the five prefixes says "imagery", so this is the one that has to carry it, and when it does not the whole craft of the page goes unrecorded: an entry whose art is the reason the page works described it as "art full-bleed beneath" and nothing else, and a builder given those rules cannot arrive anywhere near it.
+
+The test for the five rules together is reconstruction. Someone who has never seen this image, holding only your rules, should be able to build a page a viewer would file as the same world. If your rules could equally describe a different-looking page, they are not yet the world. Spend the characters where the page spends its effort.
+
 Do not describe the subject matter. A world is a system, not a page about seeds. The entry must dress a completely different product.
 
 The form line names the world, not the page. You are looking at a designed surface and this is a library of worlds, so the entry has to make that step: find the tradition the design already belongs to, name that tradition's artifact or scene, and let the clause after the comma carry the structure you can see in the image. Sample forms from the catalog follow; take their register and none of their content. A form that opens by naming a page, a site, a landing surface or a layout has not made the step, and neither has one that reads as an inventory of headlines, cards, columns and folds.

@@ -1,6 +1,6 @@
 {
  "schemaVersion": 7,
- "catalogVersion": "2026-07-28T02:17:57.688Z",
+ "catalogVersion": "2026-08-10T00:23:58.979Z",
  "comment": "Human-reviewed creative worlds for concept-seed.mjs, organized into seven inspiration wells: the distinct places designers actually mine for award-level work. Every entry must create an immediate mental image, inherit concrete material, spatial, or compositional laws, translate those laws into reusable interface grammar, and exploit the web medium. Literal software archetypes, style names without inherited laws, and tacked-on spectacle are rejected before review.",
  "qualityBar": {
   "principle": "Catalog visual worlds a designer could mine on sight: every concept must name a magnetic world, artifact, or graphic tradition whose look immediately yields a palette and material vocabulary, a type voice, at least three distinct interface component roles, and one signature state change, then stay structurally generative, product-legible, and responsibly executable across a whole product rather than one opening page. Prefer worlds people already recognize and love: built-in cultural resonance beats equal lawfulness in obscurity.",
@@ -5765,39 +5765,39 @@
     },
     {
      "id": "mid-century-soda-fountain-product",
-     "form": "a mid-century soda-fountain product display card, cream board stamped with a repeating novelty motif, condensed grotesk shouting from the left while the object sits lit at the right on a slab shelf, a dark step-numbered strip running along the bottom",
-     "lineage": "American diner and fountain signage crossed with 1950s domestic product photography and typewriter-caption packaging",
-     "spark": "Cream card stock printed one colour, a tan icon confetti scattered edge to edge, and one hard black band at the foot doing all the counting. Every surface is warm except the object's own black face, which is where the numbers glow.",
+     "form": "a small-batch label campaign photographed in morning window light, cream stock overprinted with ghosted pictogram watermarks, ultra-condensed caps stacked flush left while one pastel object holds the sunlit right of the frame",
+     "lineage": "mid-century condensed poster grotesque meeting craft-label packaging: tonal ghost-print grounds, didone pull-quotes, stamped micro-caps specimen type",
+     "spark": "Warmth without sweetness. A single object under raking sun, a headline compressed hard enough to carry the whole left side, and a ground quietly tattooed with its own iconography at whisper contrast.",
      "system": [
-      "Palette/material: Ground #F8E6BC to #FBEDC8 warm gradient; icon confetti tan #E0C58C at 55% opacity; ink #2F2A24; salmon #F09B87 buttons; amber #E3A94A LED; cream #FDF6E6 objects.",
-      "Type/composition: Condensed grotesk caps 92px/0.9 for the shout, serif subhead 30px, mono 13px letterspaced 0.08em for captions; content left third, object right, 88px margins.",
-      "Topology/navigation: One warm sheet, one black slab. Nav is bare wordmarks plus a 999px pill outline 1.5px; the foot strip is a 4-cell numbered rail with 01-04 in amber.",
-      "Controls/state: Pills fill #2F2A24 with cream label on hover; salmon caps darken to #E08A76 on press, radii 12px on soft keys.",
-      "Responsive/motion: Confetti icons drift 6px on pointer at 0.15s linear, nearest first; clock face parallax 1.08x vs ground on scroll; keyring sways 2deg/2s; black strip pinned."
+      "Palette/material: Cream #F7E7BB ground, ghost tan #E3CE96, ink #382F24, coral #EE9A85, amber #D3A34E; one matte pastel object soft-rendered in raking light, faint grain.",
+      "Type/composition: Ultra-condensed grotesque caps 800, 92-104px, two lines flush left; didone serif subhead 30px; 11px caps 0.12em. Type owns left 45%, object right.",
+      "Topology/navigation: Full-bleed single scene, no grid; 4 nav links plus outlined pill top right; sections are full-width colour bands, 12px top radii, numbered 01-04.",
+      "Controls/state: Pills radius 999px; primary dark #382F24 with 40px amber arrow badge; ghost pill 1px #382F24 on cream; hover fills coral #EE9A85; watermarks inert.",
+      "Responsive/motion: Object tilts 2deg to pointer in 0.7s ease, shadow stretching; ghost icon field parallaxes 0.85x; arrow badge bounces 4px 2s ease infinite; digits step."
      ],
-     "webLeverage": "Cream ground plus one scattered tan motif survives any viewport; the black numbered strip pins as a persistent progress rail, and mono captions hold at small sizes without restyling.",
+     "webLeverage": "Pointer-reactive object tilt and shadow, scroll-crossfaded colour bands, sticky bottom offer bar, discrete digit readouts — all cheap in CSS, all native to a lit single-object scene.",
      "strength": "dual",
      "tags": [
-      "cream-ground",
+      "cream-stock",
       "condensed-caps",
-      "numbered-strip"
+      "sunlit-object"
      ],
      "avoid": [
-      "Letting the tan confetti darken past 60% opacity until it competes with the headline.",
-      "Adding a second accent hue beside salmon and amber; the warmth collapses into generic pastel.",
-      "Rounding the black foot strip or floating it as a card, it must be a full-bleed slab."
+      "Hard black drop shadows or pure #FFF panels; this ground has no white and no crisp edges.",
+      "Raising the watermark pictograms to legible contrast — they must stay a ghost print, never decoration.",
+      "Glass cards, gradients or neon accents over the cream; colour arrives only as coral, amber and ink."
      ],
      "axes": {
       "palette-breadth": "restricted",
       "colour-strategy": "committed",
-      "material": "printed-ink",
-      "spatial": "sheet",
-      "density": "working",
+      "material": "grain-noise",
+      "spatial": "room",
+      "density": "calm",
       "composition": "asymmetric",
       "scale-range": "wide",
       "motion": "simulated",
-      "prohibition": "no-ink-on-ground",
-      "variance": "container"
+      "prohibition": "no-dividers",
+      "variance": "curated-chaos"
      }
     },
     {
@@ -6035,7 +6035,7 @@
       "Responsive/motion: Bottle floats 6px over 9s, its cast shadow softening in step; pointer tilts the vessel up to 2deg, releasing 0.4s ease; hairline ripples draw L to R in 1.2s."
      ],
      "webLeverage": "A WebGL vessel that answers pointermove locally with a two-degree tilt while the page itself never parallaxes; sticky nav and 0.4s opacity crossfades keep every other transition quiet.",
-     "strength": "world",
+     "strength": "dual",
      "tags": [
       "bottled-diorama",
       "seamless-sweep",
@@ -6209,27 +6209,27 @@
     },
     {
      "id": "moonlit-matte-painting-title-card",
-     "form": "a moonlit matte-painting title card for an animated feature, one full-bleed horizon held as a proscenium, twin beacon lights pinning the outer edges, a single lit object centred on the waterline, and every word stacked into the upper third of the sky",
-     "lineage": "vector-gradient editorial illustration of the 2010s meeting animated-feature matte painting and geometric-grotesk title lettering",
-     "spark": "A dark scene that is not a background: the illustration is the page, and the type is a title card floating in its sky. Depth is the whole argument, so the only interface allowed is unboxed text and a column of dots counting how far into the night you have travelled.",
+     "form": "a nocturnal storybook diorama built in flat vector gradients, one lit vessel held dead-centre on layered ribbon water, twin beacons pinning the horizon in symmetry, drifting fragments scattered outward into a star-flecked void that bleeds past every edge",
+     "lineage": "late-2010s flat-vector nocturne illustration, descended from airbrushed sci-fi paperback skies and low-poly game concept art, set with geometric-sans display caps",
+     "spark": "A void that is never black, a single illuminated object at the axis, and a horizon of stacked translucent ribbons: depth is made from flat planes and soft gradients alone, so the type can sit weightless above it without a box or a scrim.",
      "system": [
-      "Palette/material: ground gradient #0A0F23 to #0D1430, ink #FFFFFF, body #A6AEC0, accent violet #7C6CF0 into lavender #B87FE0, beacon teal #3BE0C8; never pure black.",
-      "Type/composition: one geometric grotesk; 64/1.15 bold centred headline, 20/1.6 body at 46ch, 13px caps eyebrow at 0.16em split by bullets; art full-bleed beneath.",
-      "Topology/navigation: one non-scrolling viewport scene; right rail of six 8px dots at 32px pitch marks position; wordmark left, four caps links right, no rules, no cards.",
-      "Controls/state: text-only controls, #A6AEC0 to #FFFFFF in 0.3s ease; CTA arrow slides 6px right; rail dots go 1px #6E7690 stroke to filled #7C6CF0. No fills, borders or radii.",
-      "Responsive/motion: cursor drives depth, 3 wave bands track at 0.02/0.04/0.06x; centred object rocks 1.5deg/7s and bobs 6px; handoffs 0.4s cubic-bezier(.16,1,.3,1)."
+      "Palette/material: void #0A1024; wave ribbons #16205A/#2E4FA0 veined #2FBFA8; lamp teal #35E0D0; paper #C9CEE8. Drawn vector nocturne: flat planes, soft gradients, grain, no photos.",
+      "Type/composition: one geometric sans; 64/1.05 bold white heading centred over 16/1.45 #C3C9DE body at 460px; eyebrow 12px 600 caps 0.18em violet #8B7CE8 with • separators.",
+      "Topology/navigation: single full-bleed stage; centred text stack in the top third, illustration bleeding off all four edges; fixed 6-dot rail 40px from right; no cards or rules.",
+      "Controls/state: type-only controls: caps 12px/0.12em + arrow in #8B7CE8, arrow slides 6px on hover; rail dots 7px hollow #6E7BA8, active filled #7C6CE0; nav→#FFF 0.3s ease.",
+      "Responsive/motion: vessel bobs 4px/5s and rocks 1.5deg; beacon glow breathes 0.55→1 over 3s; drifting sheets follow pointer 0.06/0.03/0.015x; state 0.4s cubic-bezier(.16,1,.3,1)."
      ],
-     "webLeverage": "Fixed full-viewport illustration layers with pointer-parallax transforms, a fixed dot rail as the only chrome, and colour-only hover states keep the whole interface inside one WebGL-free composited scene.",
+     "webLeverage": "A WebGL depth field lets scattered foreground and far elements answer the cursor at separate rates while the frame itself never scrolls; the fixed dot rail carries section state.",
      "strength": "world",
      "tags": [
-      "night-scene",
-      "centred-title",
-      "pointer-parallax"
+      "nocturne-diorama",
+      "vector-gradient",
+      "pointer-reactive"
      ],
      "avoid": [
-      "Boxing the CTA or nav in pills and borders; this world's controls are bare text and an arrow.",
-      "Glow-dumping neon over the whole horizon so the teal beacons and violet accent stop reading as the only light sources.",
-      "Letting body copy or cards drift down over the illustration; the lower two thirds stay scene, not surface."
+      "no glassy translucent cards or scrims floating over the illustration; the stage is the layout",
+      "don't bloom every light source or drop soft shadows under the centred type",
+      "no photographic starfields, stock ocean or 3D-render sheen; every element stays drawn"
      ],
      "axes": {
       "palette-breadth": "restricted",
@@ -6241,7 +6241,7 @@
       "scale-range": "wide",
       "motion": "simulated",
       "prohibition": "no-photography",
-      "variance": "parametric"
+      "variance": "curated-chaos"
      }
     },
     {
@@ -6912,76 +6912,76 @@
     },
     {
      "id": "fly-posted-festival-hoarding-built",
-     "form": "a fly-posted festival hoarding built up in layers, torn cream stock peeling back over riso-bright skyline cut-outs, painted figures and stapled speech-flags crowding every angle, one clean white ticket strip taped flat across the seam",
-     "lineage": "Harajuku sticker-bomb flyer culture crossed with riso-printed community poster art and cut-and-paste zine collage",
-     "spark": "Maximalism that still knows where the door is: the whole frame is noise, layered ink and torn paper and hand-drawn junk, and exactly one calm white slab with one lime button sits on top of it and takes the input.",
+     "form": "a screenprinted street-fair flyer pinned over an older one, cut-paper city stacked layer on layer, one word broken into a different flat colour per letter, a torn deckle edge running across the bottom and a clean white ticket panel floating on top of the art",
+     "lineage": "risograph zine collage and screenprinted community-flyer maximalism, crossed with Y2K Harajuku street-poster clutter and marquee-band lettering",
+     "spark": "Every square inch is already occupied, so the only luxury left is one calm white panel and one word big enough to win. Colour is spent per letter, not per section; the grain of the print keeps the loudness handmade rather than glossy.",
      "system": [
-      "Palette/material: Cream stock #F3EAD9 under riso inks: orange #F4491F, magenta #EE2A8B, violet #6B4BD6, blue #2A7DE1, lime #C8E24B, ink #0A0A0A. Grained fills, torn edges.",
-      "Type/composition: Heavy condensed grotesk caps for display at 96-140px, tracking -2%, one word per ink colour; body 16/1.5 same family regular. Collage bleeds to all four edges.",
-      "Topology/navigation: One continuous scene, no cards. Nav rides top-right as bare 15px caps plus a lime pill; a torn paper horizon is the only section break in the whole stack.",
-      "Controls/state: Interactive means lime #C8E24B, 999px pill, black 600 label; fields live in a white 24px-radius slab split by hairline #E4DED0 rules. Hover tilts, never recolours.",
-      "Responsive/motion: Cursor tilts stickers within 120px by 3deg, 0.25s cubic-bezier(.165,.84,.44,1); doodles, skyline and bench figures parallax 0.85/1/1.15x."
+      "Palette/material: gouache flats with riso grain, torn deckle edges, outlined flat figures, scribbles, stickers, no photography; cream #F3EDE0, ink #111, #FF6A00 #EE1F8A #7B57F0.",
+      "Type/composition: ultra-bold grotesk caps, 3 stacked lines, the middle word letter-per-colour (#F4451E #7B57F0 #3EA83E #1C7FE2); subline reversed on a brushed black bar.",
+      "Topology/navigation: single full-bleed collage plane; white r20 finder card floats on it; torn-paper edge ends the field; #7B57F0 marquee repeats a word between circled chevrons.",
+      "Controls/state: nav 15px white caps top-right, active item #FF6A00; lime #C9E250 pill CTA, black caps; finder = 3 fields split by hairline dividers, round icons; no underlines.",
+      "Responsive/motion: marquee scrolls 60s linear; collage layers parallax .85/1/1.15x; badge spins 12s; big-word letters flip in 3.5s on load; stickers tilt 3deg to cursor, 0.25s"
      ],
-     "webLeverage": "Pointer-local tilt on dozens of collage elements is cheap with transforms; one white radius-24 slab over full-bleed art gives a legible form without breaking the poster.",
+     "webLeverage": "Continuous marquee bands, cursor-local sticker reactions and layered parallax let a static print collage keep breathing without ever reflowing the artwork.",
      "strength": "world",
      "tags": [
-      "riso-collage",
-      "sticker-bomb",
-      "torn-paper"
+      "collage-maximalism",
+      "riso-grain",
+      "marquee-band"
      ],
      "avoid": [
-      "Vector-smooth blobs and clean SVG shapes: every element keeps a torn, crayon or halftone edge",
-      "Drop shadows, blur or glass on the white input slab; it is a flat taped strip, not a floating card",
-      "Recolouring the lime CTA to match the collage, which removes the only signal that anything is clickable"
+      "Stock photography or 3D renders dropped into the collage; every element must read as drawn, printed and cut by hand.",
+      "Muting the field to a tasteful three-colour palette, or letting white space open up between the collage layers.",
+      "Neon glow, glass blur or gradient meshes; the loudness here is ink and grain, never emissive."
      ],
      "axes": {
       "palette-breadth": "full",
       "colour-strategy": "drenched",
       "material": "printed-ink",
-      "spatial": "stack",
+      "spatial": "sheet",
       "density": "saturated",
       "composition": "collage",
-      "scale-range": "wide",
-      "motion": "simulated",
+      "scale-range": "extreme",
+      "motion": "continuous",
       "prohibition": "no-photography",
       "variance": "curated-chaos"
      }
     },
     {
      "id": "arcade-cabinet-marquee-screened-two",
-     "form": "an arcade cabinet marquee screened in two fluorescent inks over a halftone ground, chiselled block caps thrown forward on a hard offset bevel, loose tetromino tiles drifting out of the wordmark while flat-vector cutouts crowd in from two corners",
-     "lineage": "1980s game-hall marquee lettering and Japanese arcade packaging, chamfered block caps crossed with screenprinted resort-sticker vector graphics",
-     "spark": "Everything is two inks and a bevel. The headline is a machined solid with a lime shadow welded to its lower right, the ground is a printed dot field rather than a colour, and loose grid squares fall out of the letters like the type is still assembling itself.",
+     "form": "an arcade cabinet marquee, chamfered block capitals in white dropping a hard lime shade across a halftoned violet field, a tetromino cluster hinging the title to its tagline, flat vector props bleeding in from both bottom corners",
+     "lineage": "japanese game-centre signage and 1980s mecha title lettering, screen-printed halftone poster craft, Memphis-adjacent tetromino geometry",
+     "spark": "Everything is one saturated sheet: no card, no divider, no photograph. Scale does the work instead, a title big enough to crop against a caption small enough to whisper, and the only depth comes from translucent square tiles drifting behind the type like loose game pieces waiting to lock.",
      "system": [
-      "Palette/material: ground violet #4318C0, tiles #6A0DE0, lime #C6E82D, white #FFF, ink #1B1145; every field carries a fine halftone dot noise; flat fills only, no gradients.",
-      "Type/composition: ultra-heavy chamfered geometric caps, two centred lines with a 12px lime bevel down-right; labels bold condensed caps 15px/1.5 in ragged 4-item columns.",
-      "Topology/navigation: one full-bleed axial column, nav as two caps stacks top-right, a 3-up icon row on 320px pitch, illustration bleeding off left and right edges, no dividers.",
-      "Controls/state: lime links go white on hover with the lime dropping to a 4px underline; buttons are 0-radius lime plates with #1B1145 glyphs; focus is a 3px white offset outline.",
-      "Responsive/motion: cursor sweep shoves the 5 tetromino tiles ±8px, 0.4s cubic-bezier(.175,.885,.32,1.275); skis parallax 1.15x, mountain 0.85x; snowflake pulses 2.5s infinite."
+      "Palette/material: violet #4318C4 ground under a 24px halftone grid; white, lime #C7E52E, tiles #6A44D6/45%. Imagery flat hard-edge vector terrain and gear, no gradients, no photos.",
+      "Type/composition: one chamfered ultra-black caps display, two lines, solid lime shade offset 8px down-left; condensed caps subhead 40px lime then white; nav 11px caps 0.08em.",
+      "Topology/navigation: one full-bleed sheet, no cards or rules; caps nav in two right columns, two-bar toggle left; props bleed off both bottom corners, chevron box marks descent.",
+      "Controls/state: link caps shift lime→white in 0.2s; tint tiles jump to #8A6BE6 under the pointer; icons 2px lime stroke in 4px-radius squares; chevron box fills lime on hover.",
+      "Responsive/motion: tiles the cursor crosses scale 1.06 and brighten in 0.4s cubic-bezier(.175,.885,.32,1.275); props sway 2deg/2.5s, peak parallaxes 0.85x, chevron bobs 6px/2.5s."
      ],
-     "webLeverage": "Halftone noise tiles as one repeating layer under flat fills; the bevel is a second text shadow, so display type stays live, selectable and reflowable at any breakpoint.",
-     "strength": "dual",
+     "webLeverage": "Pointer-reactive tint tiles give a flat sheet local life without hover chrome; corner props parallax against a fixed halftone ground, and the huge chamfered title can be set as live text.",
+     "strength": "world",
      "tags": [
       "arcade-marquee",
-      "beveled-display",
-      "halftone-violet"
+      "halftone-ground",
+      "tetromino-tiles"
      ],
      "avoid": [
-      "Softening the bevel into a blurred drop shadow; it is a hard flat offset in a single lime.",
-      "Adding a third accent hue or a photograph; two inks plus white on the dot ground is the whole system.",
-      "Rounding the display caps or the tile corners, which kills the chamfered marquee cut."
+      "gradients, glows or glass panels on the flat ground — the only depth allowed is a translucent tile",
+      "photographs or 3D renders dropped among the flat vector props",
+      "adding cards, borders or dividers to organise the sheet; scale and colour do that job"
      ],
      "axes": {
       "palette-breadth": "restricted",
-      "colour-strategy": "committed",
+      "colour-strategy": "drenched",
       "material": "grain-noise",
       "spatial": "sheet",
       "density": "working",
-      "composition": "axial",
+      "composition": "asymmetric",
       "scale-range": "extreme",
       "motion": "simulated",
       "prohibition": "no-photography",
-      "variance": "container"
+      "variance": "parametric"
      }
     },
     {
@@ -7430,27 +7430,27 @@
     },
     {
      "id": "bottler-s-hoarding-painted-one",
-     "form": "a bottler's hoarding painted in one high-visibility ink, black geometric caps stacked to the trim above a hairline rule, outline pill lozenges and a stamped circular badge along the top, a gouache crowd frieze rising out of the bottom edge into flat colour",
-     "lineage": "mid-century bottler and soft-drink advertising crossed with contemporary gouache editorial illustration; poster-scale geometric grotesque on a single saturated ink",
-     "spark": "The whole surface is one ink. Nothing sits on a card, nothing has a shadow, and the only shapes allowed to break the flatness are a hairline rule, outlined pills, and circles: painted figures and photographic discs are punched straight through the yellow rather than placed on top of it.",
+     "form": "a chrome-yellow bill-poster hoarding for a soft-drink house, one saturated sheet carrying black grotesque caps stacked dead-centre above a painted crowd that crops off the bottom edge, outlined pills hung along a hairline rule, bubbles rising through the ink",
+     "lineage": "poster-era geometric grotesque meeting mid-century bottled-soda hoarding advertising, with brush-gouache crowd illustration in the 1970s commercial manner",
+     "spark": "A single hue held at full strength as ground, packaging and atmosphere at once, so black caps and a hand-painted crowd both read as printing on the same sheet. Nothing is boxed; the sheet is the container, and everything either strokes it or bleeds off it.",
      "system": [
-      "Palette/material: #FFE000 ground throughout, ink pure #000; illustration limited to green #1E6B3A, carrot #F08A2E, berry #E0392B, cream #E8DCC0. Gouache grain, no gradients.",
-      "Type/composition: One geometric grotesque: Black caps at 0.92 leading spanning 88% of the frame, hairline TM superscript; nav and button labels 14px medium caps, 0.08em tracked.",
-      "Topology/navigation: Full-bleed column; one 1px black rule under a centred circular badge, pills left, icons right; imagery below arrives only as circular masks, never rectangles.",
-      "Controls/state: Interactive = 1.5px black pill outline, radius 999px, 40-48px tall, no fill; hover inverts to #000 with #FFE000 label in 0.3s; trailing arrow nudges 4px down.",
-      "Responsive/motion: bubbles rise 30px/12s at 3 depths; frieze parallaxes 0.85/1.0/1.15x; tossed fruit bob 6px/3s; circle masks scale .94\\u21921 in 0.6s cubic-bezier(.215,.61,.355,1)"
+      "Palette/material: #FFE300 ground, #000 ink; imagery hand-brushed gouache, thick contours, grainy fills in #1F7A3C, #8CC63F, #F07E22, figures crop off-frame.",
+      "Type/composition: geometric grotesque, black weight, caps only; headline 88–120px, tracking -2%, two centred lines, one lowercase i as signature; nav 13px caps +8%",
+      "Topology/navigation: fixed header, pills left, seal centred, 32px circle icons right, 1px #000 rule beneath; body one axial column above a full-bleed illustration band.",
+      "Controls/state: controls are 1px #000 strokes on yellow, radius 999px, 36px tall, caps label plus down-arrow; hover inverts to #000 fill and #FFE300 text over 0.3s",
+      "Responsive/motion: seal rotates 15s linear infinite; bubbles drift up at 0.85/1.0/1.2x scroll depths; illustrated figures rise 1.15x."
      ],
-     "webLeverage": "One background colour and one typeface carry the entire build; contrast comes from mask shape and illustration, so sections cost a circle and a crop rather than a new component.",
+     "webLeverage": "One hue as ground everywhere lets pills, circle icons and a rotating seal float with no cards or shadows; circle and arc clip-paths cut illustration or video into shapes CSS draws for free.",
      "strength": "world",
      "tags": [
-      "single-hue-ground",
-      "pill-outline-ui",
-      "circular-mask"
+      "mono-ground-yellow",
+      "outlined-pills",
+      "brush-illustration"
      ],
      "avoid": [
-      "Tinting the yellow per section; the ground is one value site-wide and never gradients or darkens.",
-      "Dropping illustration into rounded rectangles or cards with shadows instead of hard circular masks.",
-      "Adding a third type size or a lighter weight; display is Black caps, everything else is 14px medium caps."
+      "Tinting the yellow into gradients or adding a second background colour; the ground is one flat value from header to footer.",
+      "Rendering the crowd as vector flat-fill clip art — the illustration must keep visible brush grain and hand-drawn contour weight.",
+      "Boxing content in white cards, drop shadows or rounded panels; only pills and circle masks are allowed shapes."
      ],
      "axes": {
       "palette-breadth": "restricted",
@@ -7459,9 +7459,9 @@
       "spatial": "sheet",
       "density": "calm",
       "composition": "axial",
-      "scale-range": "extreme",
+      "scale-range": "wide",
       "motion": "continuous",
-      "prohibition": "no-dividers",
+      "prohibition": "no-photography",
       "variance": "container"
      }
     },
