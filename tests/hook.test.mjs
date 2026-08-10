@@ -3208,6 +3208,71 @@ describe('Cursor hook scripts', () => {
     assert.equal(entries[0].blockedFindings, 1);
   });
 
+  it('preToolUse delivers the stale-sidecar note within a 500-char budget (PR #508)', () => {
+    fs.mkdirSync(path.join(cwd, '.impeccable'), { recursive: true });
+    fs.writeFileSync(getConfigPath(cwd), JSON.stringify({
+      hook: { limits: { maxChars: 500 } },
+    }));
+
+    const designMd = path.join(cwd, 'DESIGN.md');
+    const sidecarPath = path.join(cwd, '.impeccable', 'design.json');
+    fs.writeFileSync(designMd, `---
+typography:
+  body:
+    fontFamily: "IBM Plex Sans, Arial, sans-serif"
+colors:
+  ink: "#241f1a"
+rounded:
+  "2xl": "80px"
+---
+
+# Design System
+`);
+    fs.writeFileSync(sidecarPath, JSON.stringify({
+      extensions: {
+        colorMeta: {
+          accent: {
+            canonical: '#b8422e',
+            tonalRamp: ['#d55a42'],
+          },
+        },
+        roundedMeta: {
+          lg: { canonical: '24px' },
+        },
+      },
+    }));
+    const past = new Date(Date.now() - 10000);
+    fs.utimesSync(sidecarPath, past, past);
+
+    const filePath = path.join(cwd, 'src/Card.html');
+    const out = execFileSync(process.execPath, [path.join('skill', 'scripts', 'hook-before-edit.mjs')], {
+      cwd: path.resolve('.'),
+      input: JSON.stringify({
+        hook_event_name: 'preToolUse',
+        session_id: 'sid-508',
+        cwd,
+        tool_name: 'Write',
+        tool_input: {
+          file_path: filePath,
+          content: `
+            <style>
+              .card { border-left: 4px solid #7c3aed; border-radius: 16px; }
+            </style>
+            <div class="card">Hello</div>
+          `,
+        },
+      }),
+      env: { ...process.env, IMPECCABLE_HOOK_LOG: '' },
+      encoding: 'utf-8',
+    });
+
+    const payload = JSON.parse(out);
+    assert.equal(payload.permission, 'deny');
+    assert.match(payload.agent_message, /DESIGN\.md is newer/);
+    assert.ok(payload.agent_message.length <= 500, `deny message length ${payload.agent_message.length} exceeds 500-char budget`);
+    assert.equal(readCache(cwd).sessions['sid-508'].designNoteShown, true);
+  });
+
   it('preToolUse allows writes with findings when the project platform is native', () => {
     // Same slop content the deny test blocks, but the project declares a
     // native platform, so the web rule engine must stand aside.

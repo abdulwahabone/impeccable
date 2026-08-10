@@ -358,19 +358,19 @@ const BLOCK_PREFIX = 'Impeccable design hook blocked this write before it landed
 
 function cursorBlockMessage(findings, filePath, config, cwd, footerMode, reserveChars) {
   const limits = config?.limits || DEFAULT_CONFIG.limits;
-  // Subtract the prefix from whichever limit binds, not just the Cursor
-  // ceiling: with a configured maxChars at or below the ceiling, the old
-  // `min(maxChars, ceiling - prefix)` never charged the prefix against the
-  // budget, so the final deny text could exceed maxChars by the prefix
-  // length and appendDesignSystemNoteOnce's size check lost exactly the
-  // room designNoteReserve had held back (Bugbot on PR #508).
+  // Charge the prefix via reserveChars, not by subtracting from maxChars:
+  // renderTemplate's 500-char floor re-raises any maxChars pushed below it,
+  // un-charging a prefix subtracted from maxChars (Greptile P1 on PR #508).
+  // reserveChars comes off after the floor, so the prefix is charged at every
+  // config tier and the final prefixed message plus a pending staleness note
+  // fits the binding limit. Default-config output is byte-identical.
   const budget = Math.min(
     limits.maxChars || DEFAULT_CONFIG.limits.maxChars,
     CURSOR_DENY_LIMIT,
-  ) - BLOCK_PREFIX.length;
+  );
   const rendered = renderTemplate(findings, filePath,
     { ...config, limits: { ...limits, maxChars: budget } },
-    { cwd, footer: footerMode, reserveChars });
+    { cwd, footer: footerMode, reserveChars: (reserveChars || 0) + BLOCK_PREFIX.length });
   return rendered.replace(
     '[impeccable@1] Design hook findings requiring review',
     `[impeccable@1] ${BLOCK_PREFIX}Design hook findings requiring review`,
