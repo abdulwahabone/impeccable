@@ -22,7 +22,8 @@ const scenarios = fs.readdirSync(FIXTURES).filter((f) => f.endsWith('.json')).so
   const options = payload.options || [];
   const declined = options.filter((o) => o.verdict === 'declined').length;
   const challengers = options.filter((o) => o.verdict && o.verdict !== 'declined').length;
-  const chips = [`${options.length + (payload.canonCard ? 1 : 0)} cards`];
+  const cardCount = options.length + (payload.canonCard ? 1 : 0);
+  const chips = [`${cardCount} card${cardCount === 1 ? '' : 's'}`];
   if (challengers) chips.push(`${challengers} challenger${challengers === 1 ? '' : 's'}`);
   if (declined) chips.push(`${declined} declined`);
   if (payload.canonCard) chips.push('canon card');

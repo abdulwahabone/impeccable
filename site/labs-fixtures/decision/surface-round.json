@@ -1,0 +1,24 @@
+{
+  "_lab": {
+    "title": "New page, existing world",
+    "description": "The surface-scope round: a whole new page inside an established world. concept-seed --scope surface assigns one of the agent's own grounded structures; no worlds dealt, no comps, no canon. Identity stays fixed, only the composition rolls.",
+    "stage": "direction",
+    "when": "The site already has its world (a new page on an existing product): the roll decides structure, never identity.",
+    "order": 3
+  },
+  "title": "Choose the structure",
+  "question": "The roll assigned structure 3 of 7 for Relay's new integrations page. The world stays Relay's own.",
+  "options": [
+    {
+      "id": "assigned",
+      "label": "The Ledger Spine",
+      "kicker": "THE ROLL",
+      "lineage": "structure 3 of 7 · world unchanged",
+      "thesis": "One continuous integration ledger: a single dense spine of rows, no card grid.",
+      "viewport": "An alphabetical spine with a sticky category rail; the first row is already an integration, not a hero.",
+      "risk": "Reads austere if the row rhythm is not varied."
+    }
+  ],
+  "reroll": true,
+  "steer": true
+}

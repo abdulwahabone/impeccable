@@ -4,7 +4,7 @@
     "description": "The roll service was unreachable: one text-only grounded card and a re-roll, nothing else. The floor the page must never fall below.",
     "stage": "direction",
     "when": "The roll ran thin (catalog unreachable): no challengers, no boards, still a real choice.",
-    "order": 4,
+    "order": 5,
     "tone": "warn"
   },
   "title": "Choose the visual world",
