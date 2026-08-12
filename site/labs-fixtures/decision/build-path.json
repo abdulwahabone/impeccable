@@ -3,7 +3,8 @@
     "title": "Execution contract (followup round)",
     "description": "The second round after a direction pick: comp-led vs code-led as two text cards. Reached in real flows via --update on a followup table.",
     "stage": "contract",
-    "when": "After the direction pick, followup keeps the table open and round two decides how it gets built."
+    "when": "After the direction pick, followup keeps the table open and round two decides how it gets built.",
+    "order": 1
   },
   "title": "How should it be built?",
   "question": "Teletext Service is locked. Two execution contracts; pick where the risk goes.",

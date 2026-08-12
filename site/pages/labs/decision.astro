@@ -37,10 +37,14 @@ const scenarios = fs.readdirSync(FIXTURES).filter((f) => f.endsWith('.json')).so
     description: payload._lab?.description || '',
     when: payload._lab?.when || '',
     stage: payload._lab?.stage || 'direction',
+    order: payload._lab?.order ?? 99,
+    warn: payload._lab?.tone === 'warn',
     question: payload.question || '',
     chips,
   };
-});
+// In-stage order follows the flow's own timeline (the _lab.order field),
+// not the filename alphabet: comps land after serving, so that state leads.
+}).sort((a, b) => a.order - b.order || a.name.localeCompare(b.name));
 
 // The greenfield flow the round belongs to. Stages without scenarios happen
 // inside the agent and are shown for orientation, not simulation.
@@ -111,9 +115,14 @@ const skillLinked = Boolean(skillSource?.linked);
           {!stage.agentSide && (
             <ul class="dl-cards">
               {scenarios.filter((s) => s.stage === stage.key).map((scenario) => (
-                <li class="dl-scenario" data-scenario={scenario.name}>
+                <li class={`dl-scenario ${scenario.warn ? 'is-warn' : ''}`} data-scenario={scenario.name}>
                   <div class="dl-head">
-                    <h3>{scenario.title}</h3>
+                    <h3>
+                      {scenario.warn && (
+                        <svg class="dl-warn" viewBox="0 0 24 24" aria-label="Degraded state" role="img"><path d="M12 3.2 22 20.3H2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 9.5v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="17.3" r="1" fill="currentColor"/></svg>
+                      )}
+                      {scenario.title}
+                    </h3>
                     <span class="dl-status" data-status hidden></span>
                   </div>
                   {scenario.when && <p class="dl-when"><span>when</span>{scenario.when}</p>}
@@ -169,7 +178,12 @@ const skillLinked = Boolean(skillSource?.linked);
   .dl-cards { list-style: none; margin: 1.1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr)); gap: 0.9rem; align-items: start; }
   .dl-scenario { border: 1px solid var(--ks-rule); border-radius: 10px; padding: 0.95rem 1.05rem 1rem; display: flex; flex-direction: column; gap: 0.4rem; background: var(--ks-lacquer-raised); }
   .dl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; }
-  .dl-scenario h3 { font-size: 1rem; margin: 0; color: var(--ks-champagne); }
+  .dl-scenario h3 { font-size: 1rem; margin: 0; color: var(--ks-champagne); display: flex; align-items: center; gap: 0.45rem; }
+  /* The degraded state announces itself: a vermilion warning triangle and a
+     matching hairline, so the fallback is never mistaken for a happy path. */
+  .dl-warn { flex: none; width: 15px; height: 15px; color: var(--ks-vermilion); }
+  .dl-scenario.is-warn { border-color: color-mix(in oklab, var(--ks-vermilion) 30%, var(--ks-rule)); }
+  .dl-scenario.is-warn .dl-when span { color: var(--ks-vermilion); border-color: color-mix(in oklab, var(--ks-vermilion) 35%, transparent); }
   .dl-status { flex: none; font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 999px; border: 1px solid var(--ks-rule); color: var(--ks-text-muted); white-space: nowrap; }
   .dl-status[data-tone='wait'] { color: var(--ks-kinpaku-rich); border-color: color-mix(in oklab, var(--ks-kinpaku-rich) 45%, transparent); }
   .dl-status[data-tone='done'] { color: var(--ks-patina); border-color: color-mix(in oklab, var(--ks-patina) 40%, transparent); }

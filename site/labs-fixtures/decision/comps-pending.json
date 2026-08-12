@@ -3,7 +3,8 @@
     "title": "Comps still rendering",
     "description": "Same hand, but every comp slot points at a file that never lands: shimmer state, elapsed counters, and the four-minute inspiration stand-in behavior.",
     "stage": "direction",
-    "when": "Seconds after serving: the page opens first, comps stream into their slots as generation finishes."
+    "when": "Seconds after serving: the page opens first, comps stream into their slots as generation finishes.",
+    "order": 1
   },
   "title": "Choose the visual world",
   "question": "The roll assigned Teletext Service. Comps are rendering.",
