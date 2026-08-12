@@ -1,22 +1,74 @@
 {
   "_lab": {
     "title": "New page, existing world",
-    "description": "The surface-scope round: a whole new page inside an established world. concept-seed --scope surface assigns one of the agent's own grounded structures; no worlds dealt, no comps, no canon. Identity stays fixed, only the composition rolls.",
+    "description": "The surface-scope round: a whole new page inside an established world. concept-seed --scope surface deals three of the agent's grounded structures as equal cards; the world is fixed, only composition rolls. This fixture shows the code-led channel, wireframe schematics drawn by the page; comp-led rounds carry generated comps in the same slots.",
     "stage": "direction",
-    "when": "The site already has its world (a new page on an existing product): the roll decides structure, never identity.",
+    "when": "The site already has its world (a new page on an existing product): the roll deals three structures, the user locks one in.",
     "order": 3
   },
   "title": "Choose the structure",
-  "question": "The roll assigned structure 3 of 7 for Relay's new integrations page. The world stays Relay's own.",
+  "question": "The roll dealt three structures for Relay's new integrations page. The world stays Relay's own.",
   "options": [
     {
       "id": "assigned",
       "label": "The Ledger Spine",
       "kicker": "THE ROLL",
-      "lineage": "structure 3 of 7 · world unchanged",
+      "lineage": "structure 6 of 7 · world unchanged",
       "thesis": "One continuous integration ledger: a single dense spine of rows, no card grid.",
       "viewport": "An alphabetical spine with a sticky category rail; the first row is already an integration, not a hero.",
-      "risk": "Reads austere if the row rhythm is not varied."
+      "risk": "Reads austere if the row rhythm is not varied.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "category rail", "x": 0, "y": 0, "w": 3, "h": 10 },
+          { "label": "ledger row", "x": 3, "y": 0, "w": 9, "h": 2, "accent": true },
+          { "label": "ledger row", "x": 3, "y": 2, "w": 9, "h": 2 },
+          { "label": "ledger row", "x": 3, "y": 4, "w": 9, "h": 2 },
+          { "label": "ledger row", "x": 3, "y": 6, "w": 9, "h": 2 },
+          { "label": "ledger row", "x": 3, "y": 8, "w": 9, "h": 2 }
+        ]
+      }
+    },
+    {
+      "id": "structure-switchboard",
+      "label": "The Switchboard",
+      "lineage": "structure 2 of 7 · world unchanged",
+      "thesis": "Integrations as a patch board: every connection a socket, wired or empty.",
+      "viewport": "A dense board of sockets under one search field; wired sockets glow, empty ones invite.",
+      "risk": "Density overwhelms if socket states are not instantly legible.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "search field", "x": 0, "y": 0, "w": 12, "h": 2 },
+          { "label": "socket", "x": 0, "y": 2, "w": 3, "h": 4 },
+          { "label": "socket", "x": 3, "y": 2, "w": 3, "h": 4, "accent": true },
+          { "label": "socket", "x": 6, "y": 2, "w": 3, "h": 4 },
+          { "label": "socket", "x": 9, "y": 2, "w": 3, "h": 4 },
+          { "label": "socket", "x": 0, "y": 6, "w": 3, "h": 4 },
+          { "label": "socket", "x": 3, "y": 6, "w": 3, "h": 4 },
+          { "label": "socket", "x": 6, "y": 6, "w": 3, "h": 4 },
+          { "label": "socket", "x": 9, "y": 6, "w": 3, "h": 4 }
+        ]
+      }
+    },
+    {
+      "id": "structure-pipeline",
+      "label": "The Pipeline Map",
+      "lineage": "structure 1 of 7 · world unchanged",
+      "thesis": "Integrations shown where they act: stations along the release pipeline.",
+      "viewport": "A horizontal pipeline with integration stations; below it, the station detail for the selected stop.",
+      "risk": "The map reads decorative if stations do not carry real state.",
+      "wireframe": {
+        "cols": 12,
+        "rows": 10,
+        "regions": [
+          { "label": "pipeline map", "x": 0, "y": 0, "w": 12, "h": 5, "accent": true },
+          { "label": "station detail", "x": 0, "y": 5, "w": 8, "h": 5 },
+          { "label": "connect panel", "x": 8, "y": 5, "w": 4, "h": 5 }
+        ]
+      }
     }
   ],
   "reroll": true,
