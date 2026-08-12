@@ -59,12 +59,7 @@ const STAGES = [
   {
     key: 'direction',
     name: 'Direction round',
-    note: 'The decision page deals the weighed hand: pick a world, steer, or re-roll a register.',
-  },
-  {
-    key: 'contract',
-    name: 'Execution contract',
-    note: 'A followup round on the same table decides how the chosen direction gets built.',
+    note: 'The decision page deals the weighed hand: pick a world or structure, steer, re-roll, and set the build path with the comp-first / code-first toggle.',
   },
   {
     key: 'finish',
@@ -166,7 +161,7 @@ const skillLinked = Boolean(skillSource?.linked);
   /* The pipeline board: one column per greenfield stage, in flow order.
      Agent-side stages are narrow, quiet markers; the stages this lab can
      actually deal are working columns. */
-  .dl-flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 11rem minmax(0, 1fr) minmax(0, 26rem) 11rem; gap: 1.25rem; align-items: stretch; }
+  .dl-flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 11rem minmax(0, 1fr) 11rem; gap: 1.25rem; align-items: stretch; }
   .dl-stage { border-top: 2px solid var(--ks-rule); padding-top: 0.9rem; min-width: 0; }
   .dl-stage:not(.is-agent) { border-top-color: var(--ks-kinpaku-deep); }
   .dl-stage-n { font-family: var(--ks-mono); font-size: 0.75rem; letter-spacing: 0.14em; color: var(--ks-kinpaku); }
@@ -227,7 +222,7 @@ const skillLinked = Boolean(skillSource?.linked);
 
   // Directive lines the tool prints beside an ANSWER; shown as tags on the
   // collected entry, full text in the raw log.
-  const DIRECTIVES = ['CHOSEN CARD', 'CHOSEN COMP', 'CANON CHOSEN', 'REGISTER', 'FOLLOWUP OPEN'];
+  const DIRECTIVES = ['CHOSEN CARD', 'CHOSEN COMP', 'CANON CHOSEN', 'REGISTER', 'FOLLOWUP OPEN', 'BUILD PATH'];
 
   document.querySelectorAll('.dl-scenario').forEach((row) => {
     const scenario = row.dataset.scenario;
@@ -289,6 +284,13 @@ const skillLinked = Boolean(skillSource?.linked);
         if (collected.code === 3) continue;
         if (collected.code === 0) {
           appendRaw('answer', collected.out);
+          if (/BUILD PATH FLIPPED:/.test(collected.out || '')) {
+            const li = document.createElement('li');
+            li.textContent = 'build path flipped to comp · an agent would now render comps into the shimmering slots';
+            answersEl.append(li);
+            setStatus('table open · comps would render now (the lab has no agent)', 'wait');
+            continue;
+          }
           addAnswer(collected.out);
           const tableOpen = /"optionId":"reroll"|REGISTER:|FOLLOWUP OPEN:/.test(collected.out || '');
           if (tableOpen) {

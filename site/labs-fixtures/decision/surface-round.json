@@ -1,7 +1,7 @@
 {
   "_lab": {
     "title": "New page, existing world",
-    "description": "The surface-scope round: a whole new page inside an established world. concept-seed --scope surface deals three of the agent's grounded structures as equal cards; the world is fixed, only composition rolls. This fixture shows the code-led channel, wireframe schematics drawn by the page; comp-led rounds carry generated comps in the same slots.",
+    "description": "The surface-scope round: a whole new page inside an established world. Three dealt structures as equal cards, wireframe schematics for the code-first default, and the build-path toggle: flip to comp-first and the slots shimmer where an agent would render comps.",
     "stage": "direction",
     "when": "The site already has its world (a new page on an existing product): the roll deals three structures, the user locks one in.",
     "order": 3
@@ -21,14 +21,52 @@
         "cols": 12,
         "rows": 10,
         "regions": [
-          { "label": "category rail", "x": 0, "y": 0, "w": 3, "h": 10 },
-          { "label": "ledger row", "x": 3, "y": 0, "w": 9, "h": 2, "accent": true },
-          { "label": "ledger row", "x": 3, "y": 2, "w": 9, "h": 2 },
-          { "label": "ledger row", "x": 3, "y": 4, "w": 9, "h": 2 },
-          { "label": "ledger row", "x": 3, "y": 6, "w": 9, "h": 2 },
-          { "label": "ledger row", "x": 3, "y": 8, "w": 9, "h": 2 }
+          {
+            "label": "category rail",
+            "x": 0,
+            "y": 0,
+            "w": 3,
+            "h": 10
+          },
+          {
+            "label": "ledger row",
+            "x": 3,
+            "y": 0,
+            "w": 9,
+            "h": 2,
+            "accent": true
+          },
+          {
+            "label": "ledger row",
+            "x": 3,
+            "y": 2,
+            "w": 9,
+            "h": 2
+          },
+          {
+            "label": "ledger row",
+            "x": 3,
+            "y": 4,
+            "w": 9,
+            "h": 2
+          },
+          {
+            "label": "ledger row",
+            "x": 3,
+            "y": 6,
+            "w": 9,
+            "h": 2
+          },
+          {
+            "label": "ledger row",
+            "x": 3,
+            "y": 8,
+            "w": 9,
+            "h": 2
+          }
         ]
-      }
+      },
+      "comp": ".impeccable/mocks/decision/assigned.webp"
     },
     {
       "id": "structure-switchboard",
@@ -41,17 +79,73 @@
         "cols": 12,
         "rows": 10,
         "regions": [
-          { "label": "search field", "x": 0, "y": 0, "w": 12, "h": 2 },
-          { "label": "socket", "x": 0, "y": 2, "w": 3, "h": 4 },
-          { "label": "socket", "x": 3, "y": 2, "w": 3, "h": 4, "accent": true },
-          { "label": "socket", "x": 6, "y": 2, "w": 3, "h": 4 },
-          { "label": "socket", "x": 9, "y": 2, "w": 3, "h": 4 },
-          { "label": "socket", "x": 0, "y": 6, "w": 3, "h": 4 },
-          { "label": "socket", "x": 3, "y": 6, "w": 3, "h": 4 },
-          { "label": "socket", "x": 6, "y": 6, "w": 3, "h": 4 },
-          { "label": "socket", "x": 9, "y": 6, "w": 3, "h": 4 }
+          {
+            "label": "search field",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 2
+          },
+          {
+            "label": "socket",
+            "x": 0,
+            "y": 2,
+            "w": 3,
+            "h": 4
+          },
+          {
+            "label": "socket",
+            "x": 3,
+            "y": 2,
+            "w": 3,
+            "h": 4,
+            "accent": true
+          },
+          {
+            "label": "socket",
+            "x": 6,
+            "y": 2,
+            "w": 3,
+            "h": 4
+          },
+          {
+            "label": "socket",
+            "x": 9,
+            "y": 2,
+            "w": 3,
+            "h": 4
+          },
+          {
+            "label": "socket",
+            "x": 0,
+            "y": 6,
+            "w": 3,
+            "h": 4
+          },
+          {
+            "label": "socket",
+            "x": 3,
+            "y": 6,
+            "w": 3,
+            "h": 4
+          },
+          {
+            "label": "socket",
+            "x": 6,
+            "y": 6,
+            "w": 3,
+            "h": 4
+          },
+          {
+            "label": "socket",
+            "x": 9,
+            "y": 6,
+            "w": 3,
+            "h": 4
+          }
         ]
-      }
+      },
+      "comp": ".impeccable/mocks/decision/structure-switchboard.webp"
     },
     {
       "id": "structure-pipeline",
@@ -64,13 +158,37 @@
         "cols": 12,
         "rows": 10,
         "regions": [
-          { "label": "pipeline map", "x": 0, "y": 0, "w": 12, "h": 5, "accent": true },
-          { "label": "station detail", "x": 0, "y": 5, "w": 8, "h": 5 },
-          { "label": "connect panel", "x": 8, "y": 5, "w": 4, "h": 5 }
+          {
+            "label": "pipeline map",
+            "x": 0,
+            "y": 0,
+            "w": 12,
+            "h": 5,
+            "accent": true
+          },
+          {
+            "label": "station detail",
+            "x": 0,
+            "y": 5,
+            "w": 8,
+            "h": 5
+          },
+          {
+            "label": "connect panel",
+            "x": 8,
+            "y": 5,
+            "w": 4,
+            "h": 5
+          }
         ]
-      }
+      },
+      "comp": ".impeccable/mocks/decision/structure-pipeline.webp"
     }
   ],
   "reroll": true,
-  "steer": true
+  "steer": true,
+  "buildPath": {
+    "value": "code",
+    "toggle": true
+  }
 }

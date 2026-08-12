@@ -1,7 +1,7 @@
 {
   "_lab": {
     "title": "Full comp round",
-    "description": "The complete verdict-routed hand: every contender carries a generated comp dressing the same fake product (Relay, a release catalog), the canon included; a 3-raise cycler, the pick card, a competitive challenger, two declined cards, registers, steer, and followup.",
+    "description": "The complete verdict-routed hand: every contender carries a generated comp dressing the same fake product (Relay, a release catalog), the canon included; a 3-raise cycler, the pick card, a competitive challenger, two declined cards, registers, steer, and the comp-first build-path toggle.",
     "stage": "direction",
     "when": "The full-fidelity moment: every comp landed before you opened the page.",
     "order": 2
@@ -126,7 +126,6 @@
   },
   "canon": true,
   "steer": true,
-  "followup": true,
   "canonCard": {
     "label": "The category standard",
     "thesis": "What this category ships, executed impeccably.",
@@ -142,5 +141,9 @@
     "viewport": "The arrangement a visitor expects, at full craft.",
     "risk": "Indistinguishable from the competition by design.",
     "sketch": "assets/comp-canon.webp"
+  },
+  "buildPath": {
+    "value": "comp",
+    "toggle": true
   }
 }
