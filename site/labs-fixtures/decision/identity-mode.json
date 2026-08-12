@@ -1,7 +1,9 @@
 {
   "_lab": {
     "title": "Identity mode (no image generation)",
-    "description": "Text-only assigned card: salience parity demotes every catalog hero to an inspired-by thumb; cards compete on palette chips and facts alone."
+    "description": "Text-only assigned card: salience parity demotes every catalog hero to an inspired-by thumb; cards compete on palette chips and facts alone.",
+    "stage": "direction",
+    "when": "The harness has no image generation, so the round runs on identity alone."
   },
   "title": "Choose the visual world",
   "question": "The roll assigned Teletext Service. No image generation in this harness.",

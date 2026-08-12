@@ -1,7 +1,9 @@
 {
   "_lab": {
     "title": "Degraded roll",
-    "description": "The roll service was unreachable: one text-only grounded card and a re-roll, nothing else. The floor the page must never fall below."
+    "description": "The roll service was unreachable: one text-only grounded card and a re-roll, nothing else. The floor the page must never fall below.",
+    "stage": "direction",
+    "when": "The roll ran thin (catalog unreachable): no challengers, no boards, still a real choice."
   },
   "title": "Choose the visual world",
   "question": "The roll ran degraded: no challengers, no boards.",

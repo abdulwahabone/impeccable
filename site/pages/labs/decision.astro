@@ -4,6 +4,10 @@
 // replica: link a sibling checkout (IMPECCABLE_SKILL_SRC=../impeccable
 // node scripts/fetch-public-skill.mjs --refresh) and uncommitted skill edits
 // render here immediately.
+//
+// The page is laid out as the greenfield pipeline itself: each scenario sits
+// in the stage of the flow where its state actually occurs, and the stages
+// the lab cannot simulate (they live in the agent) render as quiet markers.
 if (!import.meta.env.DEV) return Astro.redirect('/');
 
 import fs from 'node:fs';
@@ -26,15 +30,45 @@ const scenarios = fs.readdirSync(FIXTURES).filter((f) => f.endsWith('.json')).so
   else if (payload.reroll) chips.push('re-roll');
   if (payload.steer) chips.push('steer');
   if (payload.followup) chips.push('followup');
-  if (options.some((o) => o.sketch)) chips.push('comps');
+  if (options.some((o) => o.sketch || o.comp)) chips.push('comps');
   return {
     name: file.replace(/\.json$/, ''),
     title: payload._lab?.title || file,
     description: payload._lab?.description || '',
+    when: payload._lab?.when || '',
+    stage: payload._lab?.stage || 'direction',
     question: payload.question || '',
     chips,
   };
 });
+
+// The greenfield flow the round belongs to. Stages without scenarios happen
+// inside the agent and are shown for orientation, not simulation.
+const STAGES = [
+  {
+    key: 'seed',
+    name: 'Brief & seed',
+    note: 'concept-seed rolls the dice, deals challenger worlds from the catalog, and the agent weighs the hand.',
+    agentSide: true,
+  },
+  {
+    key: 'direction',
+    name: 'Direction round',
+    note: 'The decision page deals the weighed hand: pick a world, steer, or re-roll a register.',
+  },
+  {
+    key: 'contract',
+    name: 'Execution contract',
+    note: 'A followup round on the same table decides how the chosen direction gets built.',
+  },
+  {
+    key: 'finish',
+    name: 'Build & finish',
+    note: 'The agent builds against the chosen comp, then reviews the finish against it.',
+    agentSide: true,
+  },
+];
+
 const skillSource = (() => {
   try { return JSON.parse(fs.readFileSync(path.join(ROOT, '.skill-source.json'), 'utf8')); } catch { return null; }
 })();
@@ -48,85 +82,127 @@ const skillLinked = Boolean(skillSource?.linked);
   bodyClass="sub-page kinpaku-chrome kinpaku-surface"
 >
   <main class="decision-lab">
-    <header>
-      <p class="dl-kicker"><a href="/labs/">Labs</a> · Direction round</p>
-      <h1>The direction round, on demand</h1>
-      <p class="dl-dek">
-        Each scenario starts the real <code>serve-question.mjs</code> from this repo's
-        <code>skill/</code> in its own temp cwd and opens the live decision page in a new
-        tab. Pick, steer, or re-roll there; the answers an agent would read land back
-        here on their own.
-      </p>
+    <header class="dl-top">
+      <div>
+        <p class="dl-kicker"><a href="/labs/">Labs</a> · Direction round</p>
+        <h1>The direction round, on demand</h1>
+        <p class="dl-dek">
+          Each scenario starts the real <code>serve-question.mjs</code> in its own temp cwd and
+          opens the live decision page in a new tab. Pick, steer, or re-roll there; the answers
+          an agent would read land back here on their own.
+        </p>
+      </div>
       <p class={`dl-source ${skillLinked ? 'is-linked' : ''}`}>
-        skill source: <strong>{skillSource ? (skillLinked ? 'linked checkout (edits reflect live)' : skillSource.source) : 'not materialized'}</strong>
-        {!skillLinked && <span> · for live co-development: <code>IMPECCABLE_SKILL_SRC=../impeccable node scripts/fetch-public-skill.mjs --refresh</code></span>}
+        skill source<br />
+        <strong>{skillSource ? (skillLinked ? 'linked checkout (edits reflect live)' : skillSource.source) : 'not materialized'}</strong>
+        {!skillLinked && <span><br />for live co-development:<br /><code>IMPECCABLE_SKILL_SRC=../impeccable node scripts/fetch-public-skill.mjs --refresh</code></span>}
       </p>
     </header>
 
-    <ul class="dl-scenarios">
-      {scenarios.map((scenario) => (
-        <li class="dl-scenario" data-scenario={scenario.name}>
-          <div class="dl-head">
-            <h2>{scenario.title}</h2>
-            <span class="dl-status" data-status hidden></span>
-          </div>
-          <p class="dl-desc">{scenario.description}</p>
-          {scenario.question && <p class="dl-question">"{scenario.question}"</p>}
-          <p class="dl-meta">
-            <span class="dl-file">{scenario.name}.json</span>
-            {scenario.chips.map((chip) => <span class="dl-chip">{chip}</span>)}
-          </p>
-          <div class="dl-actions">
-            <button type="button" data-start>Deal the round</button>
-            <button type="button" data-stop disabled>Stop</button>
-          </div>
-          <div class="dl-log" hidden>
-            <ol class="dl-answers" data-answers></ol>
-            <details class="dl-raw">
-              <summary>Raw tool output</summary>
-              <pre data-raw></pre>
-            </details>
-          </div>
+    <ol class="dl-flow">
+      {STAGES.map((stage, index) => (
+        <li class={`dl-stage ${stage.agentSide ? 'is-agent' : ''}`}>
+          <header class="dl-stage-head">
+            <span class="dl-stage-n">{String(index + 1).padStart(2, '0')}</span>
+            <h2>{stage.name}</h2>
+            <p>{stage.note}</p>
+            {stage.agentSide && <p class="dl-agent-tag">agent-side · not simulated here</p>}
+          </header>
+          {!stage.agentSide && (
+            <ul class="dl-cards">
+              {scenarios.filter((s) => s.stage === stage.key).map((scenario) => (
+                <li class="dl-scenario" data-scenario={scenario.name}>
+                  <div class="dl-head">
+                    <h3>{scenario.title}</h3>
+                    <span class="dl-status" data-status hidden></span>
+                  </div>
+                  {scenario.when && <p class="dl-when"><span>when</span>{scenario.when}</p>}
+                  <p class="dl-desc">{scenario.description}</p>
+                  <p class="dl-meta">
+                    <span class="dl-file">{scenario.name}.json</span>
+                    {scenario.chips.map((chip) => <span class="dl-chip">{chip}</span>)}
+                  </p>
+                  <div class="dl-actions">
+                    <button type="button" data-start>Deal the round</button>
+                    <button type="button" data-stop disabled>Stop</button>
+                  </div>
+                  <div class="dl-log" hidden>
+                    <ol class="dl-answers" data-answers></ol>
+                    <details class="dl-raw">
+                      <summary>Raw tool output</summary>
+                      <pre data-raw></pre>
+                    </details>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </li>
       ))}
-    </ul>
+    </ol>
   </main>
 </Base>
 
 <style>
-  .decision-lab { max-width: 56rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  .decision-lab { max-width: 110rem; margin: 0 auto; padding: 2.4rem clamp(1.25rem, 3vw, 3rem) 4rem; }
+  .dl-top { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 2rem; }
   .dl-kicker { font-family: var(--ks-mono); font-size: 0.6875rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ks-text-faint); }
   .dl-kicker a { color: inherit; }
-  .decision-lab h1 { margin: 0.4rem 0 0.6rem; }
-  .dl-dek { color: var(--ks-text-muted); max-width: 44rem; }
-  .dl-source { font-family: var(--ks-mono); font-size: 0.6875rem; color: var(--ks-text-faint); margin-top: 0.8rem; }
+  .decision-lab h1 { margin: 0.4rem 0 0.5rem; }
+  .dl-dek { color: var(--ks-text-muted); max-width: 46rem; margin: 0; }
+  .dl-source { flex: none; text-align: right; font-family: var(--ks-mono); font-size: 0.6875rem; line-height: 1.7; color: var(--ks-text-faint); margin: 0; }
   .dl-source.is-linked strong { color: var(--ks-patina); }
-  .dl-scenarios { list-style: none; margin: 2rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
-  .dl-scenario { border: 1px solid var(--ks-rule); border-radius: 10px; padding: 1.15rem 1.3rem 1.2rem; display: flex; flex-direction: column; gap: 0.45rem; background: var(--ks-lacquer-raised); }
+
+  /* The pipeline board: one column per greenfield stage, in flow order.
+     Agent-side stages are narrow, quiet markers; the stages this lab can
+     actually deal are working columns. */
+  .dl-flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 11rem minmax(0, 1fr) minmax(0, 26rem) 11rem; gap: 1.25rem; align-items: stretch; }
+  .dl-stage { border-top: 2px solid var(--ks-rule); padding-top: 0.9rem; min-width: 0; }
+  .dl-stage:not(.is-agent) { border-top-color: var(--ks-kinpaku-deep); }
+  .dl-stage-n { font-family: var(--ks-mono); font-size: 0.75rem; letter-spacing: 0.14em; color: var(--ks-kinpaku); }
+  .dl-stage.is-agent .dl-stage-n { color: var(--ks-text-faint); }
+  .dl-stage-head h2 { font-size: 1.125rem; margin: 0.3rem 0 0.35rem; color: var(--ks-champagne); }
+  .dl-stage.is-agent .dl-stage-head h2 { color: var(--ks-text-muted); }
+  .dl-stage-head p { margin: 0; font-size: 0.8125rem; line-height: 1.5; color: var(--ks-text-faint); }
+  .dl-agent-tag { margin-top: 0.6rem !important; font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.12em; text-transform: uppercase; }
+
+  .dl-cards { list-style: none; margin: 1.1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr)); gap: 0.9rem; align-items: start; }
+  .dl-scenario { border: 1px solid var(--ks-rule); border-radius: 10px; padding: 0.95rem 1.05rem 1rem; display: flex; flex-direction: column; gap: 0.4rem; background: var(--ks-lacquer-raised); }
   .dl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; }
-  .dl-scenario h2 { font-size: 1.125rem; margin: 0; color: var(--ks-champagne); }
+  .dl-scenario h3 { font-size: 1rem; margin: 0; color: var(--ks-champagne); }
   .dl-status { flex: none; font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 999px; border: 1px solid var(--ks-rule); color: var(--ks-text-muted); white-space: nowrap; }
   .dl-status[data-tone='wait'] { color: var(--ks-kinpaku-rich); border-color: color-mix(in oklab, var(--ks-kinpaku-rich) 45%, transparent); }
   .dl-status[data-tone='done'] { color: var(--ks-patina); border-color: color-mix(in oklab, var(--ks-patina) 40%, transparent); }
   .dl-status[data-tone='err'] { color: var(--ks-vermilion); border-color: color-mix(in oklab, var(--ks-vermilion) 45%, transparent); }
-  .dl-desc { margin: 0; color: var(--ks-text-muted); font-size: 0.875rem; }
-  .dl-question { margin: 0; color: var(--ks-text-faint); font-size: 0.8125rem; font-style: italic; }
-  .dl-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; margin: 0.15rem 0 0; }
-  .dl-file { font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.08em; color: var(--ks-text-faint); margin-right: 0.35rem; }
-  .dl-chip { font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ks-text-muted); border: 1px solid var(--ks-rule); border-radius: 4px; padding: 0.15rem 0.45rem; }
-  .dl-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
-  .dl-actions button { font-family: var(--ks-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.5rem 0.9rem; border-radius: 6px; border: 1px solid var(--ks-rule); background: transparent; color: var(--ks-kinpaku); cursor: pointer; transition: border-color 0.2s ease; }
+  .dl-when { margin: 0; font-size: 0.8125rem; line-height: 1.5; color: var(--ks-text); }
+  .dl-when span { display: inline-block; font-family: var(--ks-mono); font-size: 0.5625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ks-patina); border: 1px solid color-mix(in oklab, var(--ks-patina) 35%, transparent); border-radius: 4px; padding: 0.05rem 0.35rem; margin-right: 0.5rem; transform: translateY(-1px); }
+  .dl-desc { margin: 0; color: var(--ks-text-faint); font-size: 0.75rem; line-height: 1.5; }
+  .dl-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; margin: 0.1rem 0 0; }
+  .dl-file { font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.08em; color: var(--ks-text-faint); margin-right: 0.3rem; }
+  .dl-chip { font-family: var(--ks-mono); font-size: 0.5625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ks-text-muted); border: 1px solid var(--ks-rule); border-radius: 4px; padding: 0.12rem 0.4rem; }
+  .dl-actions { display: flex; gap: 0.5rem; margin-top: 0.45rem; }
+  .dl-actions button { font-family: var(--ks-mono); font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.45rem 0.85rem; border-radius: 6px; border: 1px solid var(--ks-rule); background: transparent; color: var(--ks-kinpaku); cursor: pointer; transition: border-color 0.2s ease; }
   .dl-actions button:hover:not([disabled]) { border-color: var(--ks-kinpaku-deep); }
   .dl-actions button[disabled] { opacity: 0.35; cursor: default; }
-  .dl-log { margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .dl-log { margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.45rem; }
+  .dl-log[hidden] { display: none; }
   /* The answer rows are built by the script below, so they carry no Astro
      scope attribute; style them through :global under the static container. */
   .dl-answers { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
-  .dl-answers :global(li) { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.45rem; font-size: 0.8125rem; color: var(--ks-text); background: var(--ks-lacquer); border: 1px solid var(--ks-rule); border-radius: 7px; padding: 0.5rem 0.75rem; }
+  .dl-answers :global(li) { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.45rem; font-size: 0.8125rem; color: var(--ks-text); background: var(--ks-lacquer); border: 1px solid var(--ks-rule); border-radius: 7px; padding: 0.45rem 0.7rem; }
   .dl-answers :global(code) { font-family: var(--ks-mono); font-size: 0.75rem; color: var(--ks-patina); }
   .dl-answers :global(.dl-tag) { font-family: var(--ks-mono); font-size: 0.5625rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ks-text-faint); border: 1px solid var(--ks-rule); border-radius: 4px; padding: 0.1rem 0.35rem; }
-  .dl-raw summary { font-family: var(--ks-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ks-text-faint); cursor: pointer; }
-  .dl-raw pre { margin: 0.4rem 0 0; padding: 0.8rem 1rem; border-radius: 8px; background: var(--ks-lacquer); border: 1px solid var(--ks-rule); font-size: 0.75rem; line-height: 1.5; white-space: pre-wrap; overflow-x: auto; max-height: 18rem; overflow-y: auto; }
+  .dl-raw summary { font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ks-text-faint); cursor: pointer; }
+  .dl-raw pre { margin: 0.4rem 0 0; padding: 0.7rem 0.85rem; border-radius: 8px; background: var(--ks-lacquer); border: 1px solid var(--ks-rule); font-size: 0.75rem; line-height: 1.5; white-space: pre-wrap; overflow-x: auto; max-height: 16rem; overflow-y: auto; }
+
+  @media (max-width: 1280px) {
+    .dl-flow { grid-template-columns: 1fr; gap: 1.5rem; }
+    .dl-stage.is-agent { border-top-width: 1px; padding-top: 0.7rem; }
+    .dl-stage.is-agent .dl-stage-head { display: flex; align-items: baseline; gap: 0.8rem; flex-wrap: wrap; }
+    .dl-stage.is-agent .dl-stage-head h2 { margin: 0; }
+    .dl-top { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+    .dl-source { text-align: left; }
+  }
 </style>
 
 <script>
