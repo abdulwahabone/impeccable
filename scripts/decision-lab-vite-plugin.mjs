@@ -10,7 +10,7 @@
 //   POST /labs/decision/api/collect  { "key" }  -> { code, out }   (one --wait pass)
 //   POST /labs/decision/api/stop     { "key" }  -> { stopped: true }
 import { execFile } from 'node:child_process';
-import { mkdtempSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdtempSync, readFileSync, writeFileSync, existsSync, cpSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 
@@ -62,6 +62,10 @@ export function decisionLabPlugin() {
             if (!existsSync(SCRIPT)) return json(res, 500, { error: 'skill/ not materialized; run: node scripts/fetch-public-skill.mjs' });
             const cwd = mkdtempSync(path.join(tmpdir(), `decision-lab-${scenario}-`));
             writeFileSync(path.join(cwd, 'payload.json'), readFileSync(fixture, 'utf8'));
+            // Local comp images: fixtures reference assets/<file>.webp relative
+            // to the question server's cwd, so the shared assets ride along.
+            const assets = path.join(FIXTURES, 'assets');
+            if (existsSync(assets)) cpSync(assets, path.join(cwd, 'assets'), { recursive: true });
             const started = await run(['--start', '--payload', 'payload.json'], cwd);
             const url = started.out.match(/QUESTION URL: (\S+)/)?.[1];
             const key = started.out.match(/QUESTION KEY: (\S+)/)?.[1];

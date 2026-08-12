@@ -1,36 +1,102 @@
 ---
 // Dev-only overview of the internal labs: one page that knows where every
-// workbench lives, instead of each lab being a URL someone has to remember.
+// workbench lives and how much review work is waiting at each one, instead of
+// each lab being a URL someone has to remember.
 if (!import.meta.env.DEV) return Astro.redirect('/');
 
+import fs from 'node:fs';
+import path from 'node:path';
 import Base from '../../layouts/Base.astro';
 import '../../styles/sub-pages.css';
+import { LIVE_UI_SURFACES } from '../../../skill/scripts/live/ui-surfaces.mjs';
+import { LIVE_COMMANDS } from '../../../skill/scripts/live/vocabulary.mjs';
+
+const ROOT = process.cwd();
+const readJson = (rel, fallback) => {
+  try { return JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8')); } catch { return fallback; }
+};
+
+// Worlds: same catalog files the lab itself reads. A concept with no review
+// row counts as pending, matching the lab's own tally.
+const conceptCatalog = readJson('catalog/concept-ingredients.json', { families: [] });
+const conceptReviews = readJson('catalog/concept-reviews.json', { reviews: {} }).reviews || {};
+const concepts = (conceptCatalog.families || []).flatMap((family) => family.concepts || []);
+const worldCounts = { total: concepts.length, approved: 0, pending: 0, rejected: 0 };
+for (const concept of concepts) {
+  const status = conceptReviews[concept.id]?.status || 'pending';
+  if (status in worldCounts) worldCounts[status] += 1;
+}
+
+// The sites inbox is reviewed inside the worlds lab, so its open rows belong
+// on the worlds card.
+const siteRows = readJson('catalog/site-queue.json', { sites: [] }).sites || [];
+const sitesToReview = siteRows.filter((row) => row.status === 'pending').length;
+const sitesKept = siteRows.filter((row) => row.status === 'kept').length;
+
+const compositionCatalog = readJson('catalog/composition-ingredients.json', { compositions: [] });
+const compositionReviews = readJson('catalog/composition-reviews.json', { reviews: {} }).reviews || {};
+const compositions = compositionCatalog.compositions || [];
+const compositionCounts = { total: compositions.length, approved: 0, pending: 0, rejected: 0 };
+for (const composition of compositions) {
+  const status = compositionReviews[composition.id]?.status || 'pending';
+  if (status in compositionCounts) compositionCounts[status] += 1;
+}
+
+const decisionFixtures = (() => {
+  try {
+    return fs.readdirSync(path.join(ROOT, 'site', 'labs-fixtures', 'decision')).filter((f) => f.endsWith('.json')).length;
+  } catch { return 0; }
+})();
+const skillLinked = Boolean(readJson('.skill-source.json', null)?.linked);
+
+const worldsWaiting = worldCounts.pending + sitesToReview + sitesKept;
+const reviewBacklog = worldsWaiting + compositionCounts.pending;
+
+const badge = (count, noun) =>
+  count > 0 ? { text: `${count} ${noun}`, tone: 'wait' } : { text: 'queue clear', tone: 'clear' };
 
 const labs = [
   {
     href: '/labs/worlds',
     title: 'Worlds',
-    description: 'Review the concept-world catalog: approve, rate, and edit entries, with field telemetry from the roll API on every card.',
+    description: 'Approve, rate, and edit the concept-world catalog, with field telemetry from the roll API on every card. The Sites view reviews candidate site renders.',
+    stats: [
+      { value: worldCounts.total, label: 'worlds' },
+      { value: worldCounts.approved, label: 'approved' },
+      { value: sitesToReview + sitesKept, label: 'sites open' },
+    ],
+    badge: badge(worldsWaiting, 'to review'),
   },
   {
     href: '/labs/compositions',
     title: 'Compositions',
     description: 'Review the composition catalog: the identity-free structures the roll deals beside the worlds.',
+    stats: [
+      { value: compositionCounts.total, label: 'compositions' },
+      { value: compositionCounts.approved, label: 'approved' },
+      { value: compositionCounts.pending, label: 'pending' },
+    ],
+    badge: badge(compositionCounts.pending, 'pending'),
   },
   {
     href: '/labs/decision',
-    title: 'Decision page',
-    description: 'Exercise the serve-question direction round across scenarios (full hand, identity mode, degraded, followup) without running a greenfield flow. Runs the real skill code.',
+    title: 'Direction round',
+    description: 'Deal the serve-question direction round from scenario fixtures: pick, steer, re-roll, and read the answers an agent would collect. Exercises the real skill code, one temp cwd per run.',
+    stats: [
+      { value: decisionFixtures, label: 'scenarios' },
+      { value: skillLinked ? 'linked' : 'main', label: 'skill source' },
+    ],
+    badge: null,
   },
   {
     href: '/labs/live-ui',
     title: 'Live UI',
-    description: 'The live-mode overlay surfaces: browse and test the in-browser iteration UI.',
-  },
-  {
-    href: '/live-lab/',
-    title: 'Live lab',
-    description: 'The public live-mode demo environment.',
+    description: 'Every visible Live surface across its product states, on light and dark host pages. The old /live-lab URL redirects here.',
+    stats: [
+      { value: LIVE_UI_SURFACES.length, label: 'surfaces' },
+      { value: LIVE_COMMANDS.length, label: 'commands' },
+    ],
+    badge: null,
   },
 ];
 ---
@@ -46,13 +112,29 @@ const labs = [
       <p class="li-kicker">Internal · dev only</p>
       <h1>Labs</h1>
       <p class="li-dek">Every workbench in one place. These pages never render in a production build.</p>
+      {reviewBacklog > 0 ? (
+        <p class="li-backlog"><strong>{reviewBacklog}</strong> item{reviewBacklog === 1 ? '' : 's'} waiting on review across the catalogs.</p>
+      ) : (
+        <p class="li-backlog li-backlog--clear">Review queues are clear.</p>
+      )}
     </header>
     <ul class="li-grid">
       {labs.map((lab) => (
         <li>
           <a class="li-card" href={lab.href}>
-            <h2>{lab.title}</h2>
+            <div class="li-card-head">
+              <h2>{lab.title}</h2>
+              {lab.badge && <span class={`li-badge li-badge--${lab.badge.tone}`}>{lab.badge.text}</span>}
+            </div>
             <p>{lab.description}</p>
+            <dl class="li-stats">
+              {lab.stats.map((stat) => (
+                <div class="li-stat">
+                  <dd>{stat.value}</dd>
+                  <dt>{stat.label}</dt>
+                </div>
+              ))}
+            </dl>
           </a>
         </li>
       ))}
@@ -64,10 +146,21 @@ const labs = [
   .labs-index { max-width: 56rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
   .li-kicker { font-family: var(--ks-mono); font-size: 0.6875rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ks-text-faint); }
   .labs-index h1 { margin: 0.4rem 0 0.6rem; }
-  .li-dek { color: var(--ks-text-muted); }
-  .li-grid { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem; }
-  .li-card { display: block; height: 100%; border: 1px solid var(--ks-rule); border-radius: 10px; padding: 1.1rem 1.25rem; background: var(--ks-lacquer-raised); text-decoration: none; transition: border-color 0.2s ease; }
-  .li-card:hover { border-color: var(--ks-kinpaku-deep); }
-  .li-card h2 { font-size: 1.05rem; margin: 0 0 0.35rem; color: var(--ks-champagne); }
-  .li-card p { margin: 0; font-size: 0.88rem; color: var(--ks-text-muted); }
+  .li-dek { color: var(--ks-text-muted); margin: 0; }
+  .li-backlog { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--ks-text-muted); }
+  .li-backlog strong { color: var(--ks-kinpaku); font-variant-numeric: tabular-nums; }
+  .li-backlog--clear { color: var(--ks-patina); }
+  .li-grid { list-style: none; margin: 2rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr)); gap: 1rem; }
+  .li-grid > li { display: flex; }
+  .li-card { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; border: 1px solid var(--ks-rule); border-radius: 10px; padding: 1.15rem 1.3rem 1.05rem; background: var(--ks-lacquer-raised); text-decoration: none; transition: border-color 0.2s ease, background-color 0.2s ease; }
+  .li-card:hover { border-color: var(--ks-kinpaku-deep); background: var(--ks-graphite); }
+  .li-card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.75rem; }
+  .li-card h2 { font-size: 1.125rem; margin: 0; color: var(--ks-champagne); }
+  .li-card > p { margin: 0; font-size: 0.88rem; line-height: 1.5; color: var(--ks-text-muted); }
+  .li-badge { flex: none; font-family: var(--ks-mono); font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; white-space: nowrap; padding: 0.2rem 0.5rem; border-radius: 999px; border: 1px solid; }
+  .li-badge--wait { color: var(--ks-kinpaku-rich); border-color: color-mix(in oklab, var(--ks-kinpaku-rich) 45%, transparent); }
+  .li-badge--clear { color: var(--ks-patina); border-color: color-mix(in oklab, var(--ks-patina) 40%, transparent); }
+  .li-stats { display: flex; gap: 1.4rem; margin: auto 0 0; padding-top: 0.75rem; border-top: 1px solid var(--ks-rule); }
+  .li-stat dd { margin: 0; font-family: var(--ks-mono); font-size: 1rem; color: var(--ks-champagne); font-variant-numeric: tabular-nums; }
+  .li-stat dt { font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ks-text-faint); margin-top: 0.15rem; }
 </style>

@@ -15,11 +15,24 @@ const ROOT = process.cwd();
 const FIXTURES = path.join(ROOT, 'site', 'labs-fixtures', 'decision');
 const scenarios = fs.readdirSync(FIXTURES).filter((f) => f.endsWith('.json')).sort().map((file) => {
   const payload = JSON.parse(fs.readFileSync(path.join(FIXTURES, file), 'utf8'));
+  const options = payload.options || [];
+  const declined = options.filter((o) => o.verdict === 'declined').length;
+  const challengers = options.filter((o) => o.verdict && o.verdict !== 'declined').length;
+  const chips = [`${options.length + (payload.canonCard ? 1 : 0)} cards`];
+  if (challengers) chips.push(`${challengers} challenger${challengers === 1 ? '' : 's'}`);
+  if (declined) chips.push(`${declined} declined`);
+  if (payload.canonCard) chips.push('canon card');
+  if (payload.reroll?.registers?.length) chips.push('registers');
+  else if (payload.reroll) chips.push('re-roll');
+  if (payload.steer) chips.push('steer');
+  if (payload.followup) chips.push('followup');
+  if (options.some((o) => o.sketch)) chips.push('comps');
   return {
     name: file.replace(/\.json$/, ''),
     title: payload._lab?.title || file,
     description: payload._lab?.description || '',
-    cards: (payload.options || []).length + (payload.canonCard ? 1 : 0),
+    question: payload.question || '',
+    chips,
   };
 });
 const skillSource = (() => {
@@ -29,19 +42,20 @@ const skillLinked = Boolean(skillSource?.linked);
 ---
 
 <Base
-  title="Decision Lab | Impeccable"
-  description="Exercise the serve-question decision page across scenarios without running a greenfield flow."
+  title="Direction Round Lab | Impeccable"
+  description="Deal the serve-question direction round across scenarios without running a greenfield flow."
   activeNav="docs"
   bodyClass="sub-page kinpaku-chrome kinpaku-surface"
 >
   <main class="decision-lab">
     <header>
-      <p class="dl-kicker"><a href="/labs/">Labs</a> · Decision page</p>
+      <p class="dl-kicker"><a href="/labs/">Labs</a> · Direction round</p>
       <h1>The direction round, on demand</h1>
       <p class="dl-dek">
         Each scenario starts the real <code>serve-question.mjs</code> from this repo's
-        <code>skill/</code> in its own temp cwd, opens the live page, and lets you walk
-        the whole loop: pick, re-roll, steer, collect the ANSWER an agent would read.
+        <code>skill/</code> in its own temp cwd and opens the live decision page in a new
+        tab. Pick, steer, or re-roll there; the answers an agent would read land back
+        here on their own.
       </p>
       <p class={`dl-source ${skillLinked ? 'is-linked' : ''}`}>
         skill source: <strong>{skillSource ? (skillLinked ? 'linked checkout (edits reflect live)' : skillSource.source) : 'not materialized'}</strong>
@@ -52,17 +66,27 @@ const skillLinked = Boolean(skillSource?.linked);
     <ul class="dl-scenarios">
       {scenarios.map((scenario) => (
         <li class="dl-scenario" data-scenario={scenario.name}>
-          <div class="dl-scenario-copy">
+          <div class="dl-head">
             <h2>{scenario.title}</h2>
-            <p>{scenario.description}</p>
-            <p class="dl-meta">{scenario.name}.json · {scenario.cards} cards</p>
+            <span class="dl-status" data-status hidden></span>
           </div>
+          <p class="dl-desc">{scenario.description}</p>
+          {scenario.question && <p class="dl-question">"{scenario.question}"</p>}
+          <p class="dl-meta">
+            <span class="dl-file">{scenario.name}.json</span>
+            {scenario.chips.map((chip) => <span class="dl-chip">{chip}</span>)}
+          </p>
           <div class="dl-actions">
-            <button type="button" data-start>Open</button>
-            <button type="button" data-collect disabled>Collect answer</button>
+            <button type="button" data-start>Deal the round</button>
             <button type="button" data-stop disabled>Stop</button>
           </div>
-          <pre class="dl-out" hidden></pre>
+          <div class="dl-log" hidden>
+            <ol class="dl-answers" data-answers></ol>
+            <details class="dl-raw">
+              <summary>Raw tool output</summary>
+              <pre data-raw></pre>
+            </details>
+          </div>
         </li>
       ))}
     </ul>
@@ -78,15 +102,31 @@ const skillLinked = Boolean(skillSource?.linked);
   .dl-source { font-family: var(--ks-mono); font-size: 0.6875rem; color: var(--ks-text-faint); margin-top: 0.8rem; }
   .dl-source.is-linked strong { color: var(--ks-patina); }
   .dl-scenarios { list-style: none; margin: 2rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 1rem; }
-  .dl-scenario { border: 1px solid var(--ks-rule); border-radius: 10px; padding: 1.1rem 1.25rem; display: grid; grid-template-columns: 1fr auto; gap: 0.4rem 1.25rem; align-items: center; background: var(--ks-lacquer-raised); }
-  .dl-scenario h2 { font-size: 1.05rem; margin: 0 0 0.25rem; }
-  .dl-scenario-copy p { margin: 0; color: var(--ks-text-muted); font-size: 0.9rem; }
-  .dl-meta { font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.08em; color: var(--ks-text-faint); margin-top: 0.4rem !important; }
-  .dl-actions { display: flex; gap: 0.5rem; }
-  .dl-actions button { font-family: var(--ks-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.5rem 0.9rem; border-radius: 6px; border: 1px solid var(--ks-rule); background: transparent; color: var(--ks-kinpaku); cursor: pointer; }
+  .dl-scenario { border: 1px solid var(--ks-rule); border-radius: 10px; padding: 1.15rem 1.3rem 1.2rem; display: flex; flex-direction: column; gap: 0.45rem; background: var(--ks-lacquer-raised); }
+  .dl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; }
+  .dl-scenario h2 { font-size: 1.125rem; margin: 0; color: var(--ks-champagne); }
+  .dl-status { flex: none; font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 999px; border: 1px solid var(--ks-rule); color: var(--ks-text-muted); white-space: nowrap; }
+  .dl-status[data-tone='wait'] { color: var(--ks-kinpaku-rich); border-color: color-mix(in oklab, var(--ks-kinpaku-rich) 45%, transparent); }
+  .dl-status[data-tone='done'] { color: var(--ks-patina); border-color: color-mix(in oklab, var(--ks-patina) 40%, transparent); }
+  .dl-status[data-tone='err'] { color: var(--ks-vermilion); border-color: color-mix(in oklab, var(--ks-vermilion) 45%, transparent); }
+  .dl-desc { margin: 0; color: var(--ks-text-muted); font-size: 0.875rem; }
+  .dl-question { margin: 0; color: var(--ks-text-faint); font-size: 0.8125rem; font-style: italic; }
+  .dl-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; margin: 0.15rem 0 0; }
+  .dl-file { font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.08em; color: var(--ks-text-faint); margin-right: 0.35rem; }
+  .dl-chip { font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ks-text-muted); border: 1px solid var(--ks-rule); border-radius: 4px; padding: 0.15rem 0.45rem; }
+  .dl-actions { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+  .dl-actions button { font-family: var(--ks-mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.5rem 0.9rem; border-radius: 6px; border: 1px solid var(--ks-rule); background: transparent; color: var(--ks-kinpaku); cursor: pointer; transition: border-color 0.2s ease; }
   .dl-actions button:hover:not([disabled]) { border-color: var(--ks-kinpaku-deep); }
   .dl-actions button[disabled] { opacity: 0.35; cursor: default; }
-  .dl-out { grid-column: 1 / -1; margin: 0.6rem 0 0; padding: 0.8rem 1rem; border-radius: 8px; background: var(--ks-lacquer); border: 1px solid var(--ks-rule); font-size: 0.72rem; line-height: 1.5; white-space: pre-wrap; overflow-x: auto; max-height: 18rem; overflow-y: auto; }
+  .dl-log { margin-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  /* The answer rows are built by the script below, so they carry no Astro
+     scope attribute; style them through :global under the static container. */
+  .dl-answers { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
+  .dl-answers :global(li) { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.45rem; font-size: 0.8125rem; color: var(--ks-text); background: var(--ks-lacquer); border: 1px solid var(--ks-rule); border-radius: 7px; padding: 0.5rem 0.75rem; }
+  .dl-answers :global(code) { font-family: var(--ks-mono); font-size: 0.75rem; color: var(--ks-patina); }
+  .dl-answers :global(.dl-tag) { font-family: var(--ks-mono); font-size: 0.5625rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ks-text-faint); border: 1px solid var(--ks-rule); border-radius: 4px; padding: 0.1rem 0.35rem; }
+  .dl-raw summary { font-family: var(--ks-mono); font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ks-text-faint); cursor: pointer; }
+  .dl-raw pre { margin: 0.4rem 0 0; padding: 0.8rem 1rem; border-radius: 8px; background: var(--ks-lacquer); border: 1px solid var(--ks-rule); font-size: 0.75rem; line-height: 1.5; white-space: pre-wrap; overflow-x: auto; max-height: 18rem; overflow-y: auto; }
 </style>
 
 <script>
@@ -94,44 +134,113 @@ const skillLinked = Boolean(skillSource?.linked);
     method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body),
   }).then((r) => r.json());
 
+  // Directive lines the tool prints beside an ANSWER; shown as tags on the
+  // collected entry, full text in the raw log.
+  const DIRECTIVES = ['CHOSEN CARD', 'CHOSEN COMP', 'CANON CHOSEN', 'REGISTER', 'FOLLOWUP OPEN'];
+
   document.querySelectorAll('.dl-scenario').forEach((row) => {
     const scenario = row.dataset.scenario;
     const startBtn = row.querySelector('[data-start]');
-    const collectBtn = row.querySelector('[data-collect]');
     const stopBtn = row.querySelector('[data-stop]');
-    const out = row.querySelector('.dl-out');
+    const statusEl = row.querySelector('[data-status]');
+    const logEl = row.querySelector('.dl-log');
+    const rawEl = row.querySelector('[data-raw]');
+    const answersEl = row.querySelector('[data-answers]');
     let key = null;
-    const log = (text) => { out.hidden = false; out.textContent = text; };
+    let generation = 0;
+
+    const setStatus = (text, tone) => {
+      statusEl.hidden = false;
+      statusEl.textContent = text;
+      statusEl.dataset.tone = tone;
+    };
+    const appendRaw = (label, text) => {
+      logEl.hidden = false;
+      rawEl.textContent += `${rawEl.textContent ? '\n\n' : ''}· ${label}\n${text}`;
+    };
+    const addAnswer = (out) => {
+      logEl.hidden = false;
+      const li = document.createElement('li');
+      let parsed = null;
+      try { parsed = JSON.parse(out.match(/ANSWER: (\{.*\})/)?.[1] || ''); } catch { /* raw log has it */ }
+      if (parsed) {
+        const id = document.createElement('code');
+        id.textContent = parsed.optionId;
+        li.append('picked ', id);
+        if (parsed.register) li.append(` · register: ${parsed.register}`);
+        if (parsed.steer) li.append(` · steer: ${parsed.steer}`);
+      } else {
+        li.textContent = 'answered (see raw output)';
+      }
+      DIRECTIVES.filter((d) => out.includes(`${d}:`)).forEach((d) => {
+        const tag = document.createElement('span');
+        tag.className = 'dl-tag';
+        tag.textContent = d.toLowerCase();
+        li.append(tag);
+      });
+      answersEl.append(li);
+    };
+    const finish = () => {
+      key = null;
+      generation += 1;
+      stopBtn.disabled = true;
+      startBtn.disabled = false;
+    };
+
+    // One long-poll pass per iteration; the plugin's --wait returns exit 3
+    // (waiting) every few seconds until the user picks on the served page.
+    const poll = async () => {
+      const gen = generation;
+      while (key && gen === generation) {
+        const collected = await api('collect', { key });
+        if (!key || gen !== generation) return;
+        if (collected.error) { setStatus(collected.error, 'err'); appendRaw('collect', collected.error); finish(); return; }
+        if (collected.code === 3) continue;
+        if (collected.code === 0) {
+          appendRaw('answer', collected.out);
+          addAnswer(collected.out);
+          const tableOpen = /"optionId":"reroll"|REGISTER:|FOLLOWUP OPEN:/.test(collected.out || '');
+          if (tableOpen) {
+            setStatus('table open · the page waits on an agent round the lab never sends; stop when done', 'wait');
+            continue;
+          }
+          setStatus('answered', 'done');
+          finish();
+          return;
+        }
+        if (collected.code === 2) { setStatus('server gone', 'err'); appendRaw('collect', collected.out); finish(); return; }
+        if (collected.code === 4) { setStatus('page closed without an answer', 'err'); appendRaw('collect', collected.out); finish(); return; }
+        setStatus(`exit ${collected.code}`, 'err');
+        appendRaw('collect', collected.out || `exit ${collected.code}`);
+        finish();
+        return;
+      }
+    };
 
     startBtn.addEventListener('click', async () => {
       startBtn.disabled = true;
+      setStatus('starting', 'wait');
       const started = await api('start', { scenario });
-      startBtn.disabled = false;
-      if (!started.url) { log(`start failed: ${started.error}\n${started.detail || ''}`); return; }
-      key = started.key;
-      collectBtn.disabled = stopBtn.disabled = false;
-      log(`running · key ${key}\n${started.url}`);
-      window.open(started.url, '_blank');
-    });
-    collectBtn.addEventListener('click', async () => {
-      if (!key) return;
-      collectBtn.disabled = true;
-      const collected = await api('collect', { key });
-      collectBtn.disabled = false;
-      log(collected.out || `exit ${collected.code}`);
-      // Exit 0 is a terminal answer; re-roll and followup keep the table open.
-      if (collected.code === 0 && !/keeps the table open|FOLLOWUP OPEN|REGISTER:/.test(collected.out || '')) {
-        if (/"optionId":"reroll"|followup":true/.test(collected.out || '')) return;
-        stopBtn.disabled = collectBtn.disabled = true;
-        key = null;
+      if (!started.url) {
+        setStatus('start failed', 'err');
+        appendRaw('start', `${started.error}\n${started.detail || ''}`);
+        startBtn.disabled = false;
+        return;
       }
+      key = started.key;
+      stopBtn.disabled = false;
+      setStatus('live · pick on the served page', 'wait');
+      appendRaw('start', `${started.url}\nkey ${started.key}`);
+      window.open(started.url, '_blank');
+      poll();
     });
+
     stopBtn.addEventListener('click', async () => {
       if (!key) return;
-      await api('stop', { key });
-      log('stopped');
-      key = null;
-      collectBtn.disabled = stopBtn.disabled = true;
+      const stopping = key;
+      finish();
+      await api('stop', { key: stopping });
+      setStatus('stopped', 'idle');
     });
   });
 </script>

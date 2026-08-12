@@ -1,10 +1,10 @@
 {
   "_lab": {
     "title": "Full comp round",
-    "description": "The complete verdict-routed hand: assigned card with a 3-raise cycler and a finished comp, MY PICK, a competitive challenger, two declined cards, canon, registers, steer, and followup."
+    "description": "The complete verdict-routed hand: every contender carries a generated comp dressing the same fake product (Relay, a release catalog), the canon included; a 3-raise cycler, the pick card, a competitive challenger, two declined cards, registers, steer, and followup."
   },
   "title": "Choose the visual world",
-  "question": "The roll assigned Teletext Service, raised by the hand it beat.",
+  "question": "The roll assigned Teletext Service, already improved by the worlds it beat.",
   "options": [
     {
       "id": "assigned",
@@ -38,14 +38,14 @@
           "raise": "Tile repetition carries the rhythm between pages."
         }
       ],
-      "sketch": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp",
+      "sketch": "assets/comp-assigned-teletext.webp",
       "hero": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service-hero.webp",
       "board": "https://impeccable.style/worlds/cards/broadcast-programming-teletext-service.webp"
     },
     {
       "id": "model-pick",
       "label": "The Program Guide",
-      "kicker": "MY PICK",
+      "kicker": "IMPECCABLE’S PICK",
       "lineage": "newspaper TV guides",
       "thesis": "Releases as a printed evening schedule.",
       "palette": [
@@ -59,7 +59,7 @@
       ],
       "viewport": "A dated grid of listings with one featured box.",
       "risk": "Also the direction most runs in this category land on.",
-      "sketch": "https://impeccable.style/worlds/cards/animated-terminal-hero-hero.webp"
+      "sketch": "assets/comp-pick-program-guide.webp"
     },
     {
       "id": "challenger-olympic",
@@ -78,7 +78,7 @@
       "viewport": "Schedule board with pictogram rows.",
       "case": "Fuses cleanly; loses narrowly on audience identification.",
       "risk": "Reads institutional if the palette stays cold.",
-      "sketch": "https://impeccable.style/worlds/cards/aicher-olympic-program-hero.webp",
+      "sketch": "assets/comp-challenger-olympic.webp",
       "hero": "https://impeccable.style/worlds/cards/aicher-olympic-program-hero.webp"
     },
     {
@@ -137,6 +137,7 @@
       "product photography"
     ],
     "viewport": "The arrangement a visitor expects, at full craft.",
-    "risk": "Indistinguishable from the competition by design."
+    "risk": "Indistinguishable from the competition by design.",
+    "sketch": "assets/comp-canon.webp"
   }
 }
