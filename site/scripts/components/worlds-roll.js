@@ -66,11 +66,17 @@ export function initWorldsRoll() {
     image.width = 2048;
     image.height = 1152;
     image.decoding = 'async';
+    // The art area shimmers until the render decodes; a card whose image never
+    // arrives settles on flat graphite instead of shimmering forever.
+    image.addEventListener('load', () => item.classList.add('is-loaded'), { once: true });
+    image.addEventListener('error', () => item.classList.add('is-missing'), { once: true });
 
     const caption = document.createElement('span');
     caption.className = 'worlds-card-caption';
     const tier = document.createElement('span');
     tier.className = 'worlds-card-tier';
+    // DESIGN.md label-role micro caps; waived from the 11px functional floor.
+    tier.setAttribute('data-impeccable-ignore', 'undersized-ui-text');
     tier.textContent = world.wellTier || '';
     const name = document.createElement('strong');
     name.className = 'worlds-card-name';
@@ -111,11 +117,14 @@ export function initWorldsRoll() {
 
   const dealHand = async roll => {
     const cards = roll.challengers.map((world, index) => buildCard(world, index, roll));
-    hand.replaceChildren(...cards);
     status.classList.remove('is-error');
     status.textContent = '';
     meta.textContent = `roll ${roll.key}:${roll.reroll} · pool ${roll.poolRevision}`;
+    // Decode off-DOM while the skeletons keep holding the grid; the swap
+    // happens only once the art is ready (or the wait times out and the
+    // in-card shimmer takes over).
     await waitForImages(cards);
+    hand.replaceChildren(...cards);
 
     if (!reducedMotion) {
       // Stack every card on the deck first, unblurred order preserved by
@@ -156,6 +165,20 @@ export function initWorldsRoll() {
     status.textContent = `Dealt ${roll.challengers.map(world => world.name).join(', ')}.`;
   };
 
+  const skeletonCards = (count, height) => Array.from({ length: count }, () => {
+    const skeleton = document.createElement('li');
+    skeleton.className = 'worlds-card worlds-card--skeleton';
+    if (height) skeleton.style.height = `${height}px`;
+    skeleton.setAttribute('aria-hidden', 'true');
+    skeleton.innerHTML =
+      '<span class="worlds-skeleton-media"></span>'
+      + '<span class="worlds-card-caption">'
+      + '<span class="worlds-skeleton-line worlds-skeleton-line--tier"></span>'
+      + '<span class="worlds-skeleton-line worlds-skeleton-line--name"></span>'
+      + '</span>';
+    return skeleton;
+  });
+
   // Collapse the hand back onto the deck, then hold shimmer skeletons in the
   // grid while the next roll is in flight. Without the skeletons the section
   // empties out and the page reads as broken for the length of the fetch.
@@ -178,19 +201,7 @@ export function initWorldsRoll() {
     }
 
     const height = cards[0]?.getBoundingClientRect().height ?? 0;
-    hand.replaceChildren(...cards.map(() => {
-      const skeleton = document.createElement('li');
-      skeleton.className = 'worlds-card worlds-card--skeleton';
-      if (height) skeleton.style.height = `${height}px`;
-      skeleton.setAttribute('aria-hidden', 'true');
-      skeleton.innerHTML =
-        '<span class="worlds-skeleton-media"></span>'
-        + '<span class="worlds-card-caption">'
-        + '<span class="worlds-skeleton-line worlds-skeleton-line--tier"></span>'
-        + '<span class="worlds-skeleton-line worlds-skeleton-line--name"></span>'
-        + '</span>';
-      return skeleton;
-    }));
+    hand.replaceChildren(...skeletonCards(cards.length, height));
   };
 
   const showError = () => {
@@ -239,6 +250,11 @@ export function initWorldsRoll() {
       rerollButton.disabled = false;
     }
   });
+
+  // Hold the table with skeletons from the first paint. Without them the
+  // initial fetch leaves an empty hand and the section reads as broken for
+  // exactly the visitors the roll is meant to impress.
+  hand.replaceChildren(...skeletonCards(FAN_ANGLES.length));
 
   const observer = new IntersectionObserver(entries => {
     for (const entry of entries) {

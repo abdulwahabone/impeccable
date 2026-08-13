@@ -1,3 +1,12 @@
+---
+// The rule count is computed from the detector registry, never hardcoded:
+// a literal here goes stale the moment the public rule set changes, and a
+// site that sells detection cannot disagree with itself about how many
+// rules it ships (the homepage's CLI tile renders the same computed count).
+import { ANTIPATTERNS } from '../../cli/engine/registry/antipatterns.mjs';
+const detectionRuleCount = new Set(ANTIPATTERNS.map(rule => rule.id)).size;
+---
+
 <section
   class="slop-teaser-section slop-pattern-section"
   id="slop"
@@ -9,7 +18,7 @@
     <div>
       <h2 id="slop-pattern-title" class="slop-teaser-title">Detects and removes AI slop.</h2>
       <p class="slop-teaser-body">
-        58 checks catch the defaults agents keep reaching for before they become your design.
+        {detectionRuleCount} checks catch the defaults agents keep reaching for before they become your design.
       </p>
     </div>
     <div class="slop-pattern-actions">
@@ -18,7 +27,7 @@
         <span data-slop-scan-label>Detector on</span>
       </button>
       <a class="ks-button ks-button-secondary" href="/slop">
-        Explore all 58
+        Explore all {detectionRuleCount}
         <span class="ks-button-arrow" aria-hidden="true">
           <svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square">
             <path d="M0 4h14M10 0l4 4-4 4"/>
@@ -28,7 +37,11 @@
     </div>
   </header>
 
-  <div class="slop-pattern-board" aria-label="Interactive gallery of detected AI design patterns">
+  <div
+    class="slop-pattern-board"
+    aria-label="Interactive gallery of detected AI design patterns"
+    data-impeccable-ignore="*"
+  >
     <a
       class="slop-pattern-item slop-pattern-item--serif"
       href="/slop#rule-italic-serif-display"

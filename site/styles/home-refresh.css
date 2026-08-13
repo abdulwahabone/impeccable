@@ -356,7 +356,7 @@ html.light .hero-proof-seam::after {
   text-transform: uppercase;
 }
 
-.proof-polish h3 {
+.proof-polish .proof-h {
   max-width: 14ch;
   margin: 0;
   font-size: clamp(1.35rem, 2.5vw, 2.1rem);
@@ -364,7 +364,7 @@ html.light .hero-proof-seam::after {
   text-wrap: balance;
 }
 
-.proof-polish--before h3 {
+.proof-polish--before .proof-h {
   /* This is a deliberately light specimen in both themes. Keep its ink tied
      to the specimen instead of inheriting the page's dark-mode heading color. */
   color: inherit;
@@ -373,7 +373,7 @@ html.light .hero-proof-seam::after {
   letter-spacing: -0.035em;
 }
 
-.proof-polish--before h3 em {
+.proof-polish--before .proof-h em {
   color: oklch(49% 0.09 40);
 }
 
@@ -410,7 +410,7 @@ html.light .hero-proof-seam::after {
   border-bottom-color: var(--proof-rule);
 }
 
-.proof-polish--after h3 {
+.proof-polish--after .proof-h {
   color: var(--proof-text);
   font-family: var(--ks-font);
   font-weight: 500;
@@ -672,7 +672,7 @@ html.light .proof-distill-primary span {
   border: 1px solid var(--proof-rule);
 }
 
-.proof-clarify h3 {
+.proof-clarify .proof-h {
   max-width: 19ch;
   margin: 0;
   font-size: clamp(1rem, 2vw, 1.45rem);
@@ -690,7 +690,7 @@ html.light .proof-distill-primary span {
   color: oklch(50% 0.012 95);
 }
 
-.proof-clarify--before h3 {
+.proof-clarify--before .proof-h {
   /* Avoid the global dark-theme h3 color on this light form specimen. */
   color: inherit;
   font-family: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
@@ -1729,14 +1729,14 @@ html.light .slop-target--markers b {
 
 .steering-hook-log strong {
   color: var(--ks-champagne);
-  font-size: var(--ks-type-mono-size);
+  font-size: 0.75rem;
   font-weight: 500;
 }
 
 .steering-hook-log small {
   margin-top: 2px;
   color: var(--ks-muted);
-  font-size: var(--ks-type-eyebrow-size);
+  font-size: 0.75rem;
   line-height: 1.4;
 }
 
@@ -2117,7 +2117,7 @@ html.light .home-kinpaku .steering-desktop {
   overflow: hidden;
   color: var(--ks-text-muted);
   font-family: var(--ks-mono);
-  font-size: 0.58rem;
+  font-size: 0.6875rem;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -2344,7 +2344,7 @@ html.light .home-kinpaku .steering-desktop {
 
 .home-kinpaku .why-hook-step small {
   color: var(--ks-text-muted);
-  font-size: 0.69rem;
+  font-size: 0.75rem;
 }
 
 .home-kinpaku .why-hook-step--found .why-hook-mark {
@@ -2366,7 +2366,7 @@ html.light .home-kinpaku .steering-desktop {
   padding-top: 14px;
   color: var(--ks-text-muted);
   font-family: var(--ks-mono);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
 }
 
 .home-kinpaku .why-hook-loop .why-ci-summary strong {

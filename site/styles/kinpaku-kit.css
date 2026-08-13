@@ -1694,3 +1694,14 @@
 .live-mode-kinpaku .live-demo-stroke {
   color: var(--ks-kinpaku);
 }
+
+/* The skip link inherits legacy ink/paper tokens that both remap light in
+   the dark theme, leaving the first tab stop unreadable. Every kinpaku page
+   gets the homepage's patina pill: dark ink on patina clears AA in both
+   themes. */
+.kinpaku-chrome .skip-link {
+  background: var(--ks-patina);
+  color: var(--ks-dark-ink);
+  border: 1px solid var(--ks-patina);
+  border-radius: 4px;
+}

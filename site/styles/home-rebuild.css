@@ -76,7 +76,7 @@
   inset: 0;
   z-index: 0;
   background:
-    url("/assets/neo-kinpaku/candidates/finalists/m-01-v2-01.png") center / cover no-repeat;
+    url("/assets/neo-kinpaku/candidates/finalists/m-01-v2-01.webp") center / cover no-repeat;
   filter: saturate(1.2) contrast(1.08);
 }
 
@@ -151,6 +151,23 @@
   align-items: center;
   gap: 14px;
   margin-top: 4px;
+}
+
+/* On touch devices the icon tooltips never fire, so the harness names get a
+   visible caption line instead of staying locked behind hover. */
+.hero-rebuild-logos-caption {
+  display: none;
+  flex-basis: 100%;
+  margin-top: 2px;
+  color: var(--ks-text-muted);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+@media (hover: none) {
+  .hero-rebuild-logos-caption {
+    display: block;
+  }
 }
 
 .home-kinpaku .hero-rebuild-logo {
@@ -394,7 +411,7 @@
   align-items: center;
   gap: 8px;
   color: var(--ks-kinpaku);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -951,6 +968,14 @@ svg.downloads-rebuild-tab-logo {
   border-radius: 2px;
 }
 
+/* Method tabs are text buttons about 20px tall; on touch they need the full
+   44px target without shifting the baseline row on pointer devices. */
+@media (pointer: coarse) {
+  .downloads-rebuild-tab {
+    padding: 12px 0 14px;
+  }
+}
+
 /* Per-method explainer under the install box — carries the "what you give up"
    note for the skills.sh path and the Claude-Code-only caveat for marketplace. */
 .downloads-rebuild-method-note {
@@ -1197,6 +1222,13 @@ svg.downloads-rebuild-tab-logo {
 }
 .home-kinpaku .downloads-rebuild-cmd--update .downloads-rebuild-prompt {
   color: var(--card-prompt-update);
+}
+
+/* Agent-chat commands (slash commands) drop the shell "$" so nobody pastes
+   them into a terminal: a chevron prompt in patina marks "type this in your
+   agent, not your shell." */
+.home-kinpaku .downloads-rebuild-prompt--agent {
+  color: var(--ks-patina);
 }
 
 /* Compact icon-only copy button nested inside the cmd box, on the right. */
@@ -1829,7 +1861,12 @@ svg.downloads-rebuild-tab-logo {
   padding: 16px 0 0 22px;   /* no right padding so the row runs off the edge */
   overflow: hidden;
 }
-.hotel-suites-label {
+/* Like the hero rules above, the card and label text carries a .hotel-site
+   prefix purely for specificity: the global `.home-kinpaku h3`/`p` color
+   rules (0,1,1) otherwise beat these single-class rules and drag the
+   specimen's warm ink to champagne — invisible on the ivory card in dark
+   mode. The slop-variant overrides still win on source order. */
+.hotel-site .hotel-suites-label {
   margin: 0 0 11px;
   font-family: var(--h-sans);
   font-size: 10px;
@@ -1885,14 +1922,14 @@ svg.downloads-rebuild-tab-logo {
   flex: 1;
   padding: 13px 15px 14px;
 }
-.hotel-card-kicker {
+.hotel-site .hotel-card-kicker {
   margin: 0;
   font-size: 9px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--c-accent);
 }
-.hotel-card-name {
+.hotel-site .hotel-card-name {
   margin: 0;
   font-family: var(--h-serif);
   font-weight: 600;
@@ -1900,7 +1937,7 @@ svg.downloads-rebuild-tab-logo {
   line-height: 1.05;
   color: var(--c-ink);
 }
-.hotel-card-meta {
+.hotel-site .hotel-card-meta {
   margin: 0;
   font-size: 11px;
   color: var(--h-muted);

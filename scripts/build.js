@@ -68,6 +68,10 @@ function generateCounts(rootDir, skills, buildDir) {
   // Validate counts in key files
   const filesToCheck = [
     'site/pages/index.astro',
+    // Homepage proof components carry count claims too; "58 checks" shipped
+    // from SlopPatternPreview while index.astro rendered the computed 59.
+    'site/components/SlopPatternPreview.astro',
+    'site/components/HeroProof.astro',
     'README.md',
     'README.npm.md',
     'AGENTS.md',

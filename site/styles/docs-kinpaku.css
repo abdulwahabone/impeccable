@@ -410,7 +410,7 @@ html.light .docs-kinpaku {
 
 .docs-kinpaku .docs-start-rail-label {
   font-family: var(--ks-mono);
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   line-height: 1.1;
   letter-spacing: 0.24em;
   text-transform: uppercase;
@@ -729,7 +729,7 @@ html.light .docs-kinpaku {
 
 .docs-kinpaku .docs-flow-verb {
   font-family: var(--ks-mono);
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--docs-accent);

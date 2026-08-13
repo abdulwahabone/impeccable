@@ -113,7 +113,7 @@
   text-transform: uppercase;
   color: var(--color-ash);
 }
-.live-demo-card h3 {
+.live-demo-card .live-demo-card-h {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 20px;
@@ -149,14 +149,14 @@
 .live-demo-card--v1 {
   background: var(--color-cream);
 }
-.live-demo-card--v1 h3 { font-style: italic; }
-.live-demo-card--v1 h3 em { color: var(--color-accent); font-style: italic; }
+.live-demo-card--v1 .live-demo-card-h { font-style: italic; }
+.live-demo-card--v1 .live-demo-card-h em { color: var(--color-accent); font-style: italic; }
 .live-demo-card--v2 {
   background: var(--color-paper);
   border: 1px dashed var(--color-accent);
 }
 .live-demo-card--v2 .live-demo-card-kicker { color: var(--color-accent); }
-.live-demo-card--v2 h3 { font-family: var(--font-display); font-style: italic; }
+.live-demo-card--v2 .live-demo-card-h { font-family: var(--font-display); font-style: italic; }
 .live-demo-card--v2 button {
   background: var(--color-accent);
 }
@@ -164,7 +164,7 @@
   background: var(--color-cream);
   border: 1px solid var(--color-accent-soft);
 }
-.live-demo-card--v3 h3 em { color: var(--color-accent); font-style: italic; }
+.live-demo-card--v3 .live-demo-card-h em { color: var(--color-accent); font-style: italic; }
 .live-demo-card--v3 .live-demo-card-kicker { color: var(--color-accent-hover); }
 
 /* Highlight outline over the target */
@@ -817,7 +817,7 @@
   font-size: 10px;
   letter-spacing: 0.28em;
 }
-.live-demo-card--v1 h3 {
+.live-demo-card--v1 .live-demo-card-h {
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 400;
@@ -826,7 +826,7 @@
   letter-spacing: -0.01em;
   margin-top: 4px;
 }
-.live-demo-card--v1 h3 em { color: var(--color-accent); font-style: italic; }
+.live-demo-card--v1 .live-demo-card-h em { color: var(--color-accent); font-style: italic; }
 .live-demo-card--v1 p {
   font-family: var(--font-display);
   font-style: italic;
@@ -881,7 +881,7 @@
   letter-spacing: 0.3em;
   font-weight: 600;
 }
-.live-demo-card--v2 h3 {
+.live-demo-card--v2 .live-demo-card-h {
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 24px;
@@ -935,7 +935,7 @@
   color: var(--color-accent-hover);
   text-transform: none;
 }
-.live-demo-card--v3 h3 {
+.live-demo-card--v3 .live-demo-card-h {
   font-family: var(--font-display);
   font-weight: 400;
   font-size: 1.25rem;

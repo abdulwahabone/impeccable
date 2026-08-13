@@ -186,7 +186,7 @@ export function renderCommandDemo(commandId) {
   // Use split-screen comparison
   return `
     <figure class="demo-split-comparison" data-demo="command-${demo.id}" style="margin: 0;">
-      <div class="split-container">
+      <div class="split-container" data-impeccable-ignore="codex-grid-background">
         <div class="split-before">
           <div class="split-content" inert aria-hidden="true">${demo.before}</div>
         </div>

@@ -7,7 +7,7 @@ const proofs = [
 ---
 
 <section class="hero-proof" data-hero-proof aria-label="Impeccable command before and after examples">
-  <div class="hero-proof-stage">
+  <div class="hero-proof-stage" data-impeccable-ignore="cramped-padding">
     {proofs.map((proof, index) => (
       <div
         class:list={['hero-proof-panel', { 'is-active': index === 0 }]}
@@ -25,7 +25,7 @@ const proofs = [
         <div class="hero-proof-layer hero-proof-layer--before">
           <span class="hero-proof-side-label hero-proof-side-label--before">Before</span>
 
-          <div class={`hero-proof-canvas hero-proof-canvas--${proof.id}`} aria-hidden="true">
+          <div class={`hero-proof-canvas hero-proof-canvas--${proof.id}`} aria-hidden="true" data-impeccable-ignore="*">
             {proof.id === 'polish' && (
               <article class="proof-polish proof-polish--before">
                 <span class="proof-annotation proof-annotation--sidetab is-concealed">Side-tab border</span>
@@ -41,7 +41,7 @@ const proofs = [
                     <span class="proof-annotation is-concealed">AI kicker</span>
                   </span>
                   <div class="proof-polish-heading">
-                    <h3>Ship the <em>launch plan</em> by Friday.</h3>
+                    <p class="proof-h">Ship the <em>launch plan</em> by Friday.</p>
                     <span class="proof-annotation is-concealed">Italic serif</span>
                   </div>
                   <p>Owners, dependencies, and decisions in one view.</p>
@@ -79,7 +79,7 @@ const proofs = [
               <article class="proof-clarify proof-clarify--before">
                 <header><span>Get started</span><small>All fields required</small></header>
                 <div class="proof-clarify-heading">
-                  <h3>Unlock your potential today</h3>
+                  <p class="proof-h">Unlock your potential today</p>
                   <span class="proof-annotation is-concealed">Vague headline</span>
                 </div>
                 <div class="proof-clarify-fields">
@@ -106,7 +106,7 @@ const proofs = [
                   <span class="proof-polish-track">On track</span>
                 </header>
                 <div class="proof-polish-body">
-                  <h3>Ship the launch plan by Friday.</h3>
+                  <p class="proof-h">Ship the launch plan by Friday.</p>
                   <p>Owners, dependencies, and decisions in one view.</p>
                   <div class="proof-polish-progress"><i></i></div>
                   <footer><span>8 of 11 decisions closed</span><b>Review plan →</b></footer>
@@ -126,7 +126,7 @@ const proofs = [
             {proof.id === 'clarify' && (
               <article class="proof-clarify proof-clarify--after">
                 <header><span>New project</span><small>Step 1 of 3</small></header>
-                <h3>What should this project improve?</h3>
+                <p class="proof-h">What should this project improve?</p>
                 <p>Choose one focus. You can add more context next.</p>
                 <div class="proof-clarify-options"><span>Activation</span><span>Retention</span><span>Conversion</span></div>
                 <span class="proof-clarify-cta">Use this focus →</span>
@@ -149,7 +149,7 @@ const proofs = [
     ))}
   </div>
 
-  <div class="hero-proof-tabs" role="tablist" aria-label="Preview Impeccable commands">
+  <div class="hero-proof-tabs" data-impeccable-ignore="cramped-padding" role="tablist" aria-label="Preview Impeccable commands">
     {proofs.map((proof, index) => (
       <button
         type="button"

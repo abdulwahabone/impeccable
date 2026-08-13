@@ -313,7 +313,7 @@ html.light .hero-rebuild {
 }
 
 html.light .hero-rebuild-art {
-  background-image: url("/assets/neo-kinpaku/candidates/finalists/m-01-v2-01-light.png");
+  background-image: url("/assets/neo-kinpaku/candidates/finalists/m-01-v2-01-light.webp");
   background-position: left center;
   filter: saturate(1.12) contrast(1.04);
 }
@@ -483,12 +483,13 @@ html.light .home-kinpaku .why-dm-foot {
 }
 
 html.light .home-kinpaku .why-visual--ci {
+  /* Calibration grid only, matching the dark theme: the teal corner
+     spotlight was the radial-glow tell the tile demos detecting. */
   background:
     linear-gradient(90deg, oklch(77% 0.13 82 / 0.04) 1px, transparent 1px),
     linear-gradient(180deg, oklch(77% 0.13 82 / 0.03) 1px, transparent 1px),
-    radial-gradient(circle at 92% 12%, oklch(49% 0.08 188 / 0.08), transparent 18rem),
     var(--ks-lacquer-raised);
-  background-size: 34px 34px, 34px 34px, auto, auto;
+  background-size: 34px 34px, 34px 34px, auto;
 }
 
 /* Live demo chrome on homepage */
@@ -874,7 +875,7 @@ html.light .kinpaku-system-page .ks-hero-art {
   background:
     linear-gradient(90deg, var(--ks-lacquer) 0%, oklch(97% 0.012 95 / 0.65) 26%, transparent 48%, transparent 88%, var(--ks-lacquer) 100%),
     linear-gradient(180deg, oklch(97% 0.012 95 / 0.35) 0%, transparent 35%, var(--ks-lacquer) 100%),
-    url("/assets/neo-kinpaku/candidates/finalists/m-01-v2-01-light.png") center / cover no-repeat;
+    url("/assets/neo-kinpaku/candidates/finalists/m-01-v2-01-light.webp") center / cover no-repeat;
   filter: saturate(1.05) contrast(1.02);
 }
 
@@ -1904,4 +1905,24 @@ html.light .downloads-rebuild-alts-summary:hover {
 
 html.dark {
   color-scheme: dark;
+}
+
+/* Paper contrast fixes surfaced by the detector: small patina and gold
+   accents fail on the bright ground (the Gold-By-Size-On-Paper rule), so
+   they step down to their deep on-paper tokens; the browser address ink
+   steps up one tier to clear AA. */
+html.light .steering-hook-log i {
+  color: var(--ks-link-on-paper);
+}
+
+html.light .home-kinpaku .testimonials-section .t-coin {
+  color: var(--ks-link-on-paper);
+  border-color: oklch(49% 0.08 188 / 0.4);
+  /* Raised paper, not graphite: the deep-patina initial needs the brighter
+     ground to clear AA at this size. */
+  background: var(--ks-lacquer-raised);
+}
+
+html.light .steering-browser-address {
+  color: var(--ks-light-muted, oklch(45% 0.015 95));
 }

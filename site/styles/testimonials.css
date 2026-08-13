@@ -1,7 +1,7 @@
 /* ============================================================================
-   Testimonials — two-row marquee on a tinted graphite plinth.
-   Single variant, no switcher. Spotlight card (Ben Davis) gets a kinpaku
-   gold gradient so it commands attention even mid-row.
+   Testimonials: a single marquee row of outlined cards on the page ground.
+   One row, not two; the double-decker read as a wall where a single line
+   reads as a considered shelf.
    ============================================================================ */
 
 .home-kinpaku .testimonials-section {
@@ -52,24 +52,29 @@
 
 .home-kinpaku .t-marquee-track {
   display: flex;
-  gap: 14px;
   width: max-content;
-  /* Both rows share the same duration so on-screen speeds match. */
-  animation: t-marquee-fwd 110s linear infinite;
+  /* One full set is twice the cards of the old half-rows, so the duration
+     doubles to keep the same on-screen speed. */
+  animation: t-marquee-fwd 220s linear infinite;
 }
-.home-kinpaku .t-marquee-track--reverse {
-  animation: t-marquee-rev 110s linear infinite;
+
+/* The track holds two identical sets; -50% of the track is exactly one set
+   plus its trailing gap, so the loop wraps without a seam jump. */
+.home-kinpaku .t-marquee-set {
+  display: flex;
+  gap: 14px;
+  padding-right: 14px;
 }
-.home-kinpaku .t-marquee:hover .t-marquee-track {
+
+/* Pause for pointer hover and for keyboard focus alike: focus must never ride
+   a moving target off the viewport. */
+.home-kinpaku .t-marquee:hover .t-marquee-track,
+.home-kinpaku .t-marquee:focus-within .t-marquee-track {
   animation-play-state: paused;
 }
 @keyframes t-marquee-fwd {
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
-}
-@keyframes t-marquee-rev {
-  from { transform: translateX(-50%); }
-  to   { transform: translateX(0); }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-kinpaku .t-marquee-track { animation: none; }

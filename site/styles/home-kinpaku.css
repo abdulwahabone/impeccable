@@ -171,6 +171,19 @@
   letter-spacing: 0;
 }
 
+/* Demo-canvas headline copy inside the hero proof cards. These are p elements
+   so mockup copy stays out of the page heading outline; mirror the heading
+   ink here. */
+.home-kinpaku .proof-h {
+  margin: 0;
+  color: var(--ks-champagne);
+  font-family: var(--ks-font);
+  font-style: normal;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 1.1;
+}
+
 .home-kinpaku p {
   color: var(--ks-text);
 }
@@ -1155,7 +1168,7 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
 .home-kinpaku #framework-viz-container .ptable-group-label {
   padding-left: 0 !important;
   font-family: var(--ks-mono) !important;
-  font-size: 0.66rem !important;
+  font-size: 0.6875rem !important;
   font-weight: 500 !important;
   letter-spacing: 0.2em !important;
   opacity: 0.95;
@@ -1231,7 +1244,7 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
 .home-kinpaku #framework-viz-container .ptable-number {
   top: 6px !important;
   left: 7px !important;
-  font-size: 0.48rem !important;
+  font-size: 0.5rem !important;
   opacity: 0.62 !important;
 }
 
@@ -1243,17 +1256,17 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
 }
 
 .home-kinpaku #framework-viz-container .ptable-name {
-  max-width: 64px !important;
+  max-width: 68px !important;
   color: var(--ks-text-muted) !important;
-  font-size: 0.56rem !important;
-  letter-spacing: 0.04em;
+  font-size: 0.6875rem !important;
+  letter-spacing: 0.02em;
   opacity: 1 !important;
 }
 
 .home-kinpaku #framework-viz-container .ptable-alpha {
   top: 5px !important;
   right: 6px !important;
-  font-size: 0.48rem !important;
+  font-size: 0.5rem !important;
   opacity: 0.54 !important;
 }
 
@@ -1666,12 +1679,13 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 .home-kinpaku .why-visual--ci {
   padding: 0;
   overflow: hidden;
+  /* Calibration grid only; the decorative teal corner spotlight it used to
+     carry was exactly the radial-glow tell the tile demos detecting. */
   background:
     linear-gradient(90deg, oklch(78% 0.12 82 / 0.018) 1px, transparent 1px),
     linear-gradient(180deg, oklch(78% 0.12 82 / 0.015) 1px, transparent 1px),
-    radial-gradient(circle at 92% 12%, oklch(70% 0.105 190 / 0.055), transparent 18rem),
     oklch(5% 0.004 95 / 0.92);
-  background-size: 34px 34px, 34px 34px, auto, auto;
+  background-size: 34px 34px, 34px 34px, auto;
 }
 
 .home-kinpaku .why-ci-window {
@@ -1723,7 +1737,7 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 .home-kinpaku .why-ci-status,
 .home-kinpaku .why-ci-status--fail {
   font-family: var(--ks-mono);
-  font-size: 0.62rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 5px 13px;
@@ -2170,7 +2184,17 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 .home-kinpaku .why-dm-badge {
   border-color: oklch(70% 0.105 190 / 0.42);
   background: oklch(70% 0.105 190 / 0.08);
-  box-shadow: 0 0 24px oklch(70% 0.105 190 / 0.08);
+}
+
+/* Mockup chrome labels hold the 11px floor: they carry read content (field
+   keys, spec names, chip labels), not decoration, so they don't get the
+   micro-type exemption the tile numbers do. */
+.home-kinpaku .why-productmd-k,
+.home-kinpaku .why-dm-tile-meta span,
+.home-kinpaku .why-dm-type-family,
+.home-kinpaku .why-dm-comp-chip,
+.home-kinpaku .why-dm-badge {
+  font-size: 0.6875rem;
 }
 
 .home-kinpaku .why-dm-grid {
@@ -2527,7 +2551,7 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
   background: oklch(10% 0.006 95 / 0.92);
 }
 
-.home-kinpaku .live-demo-card h3 {
+.home-kinpaku .live-demo-card .live-demo-card-h {
   color: var(--ks-champagne);
   font-family: var(--ks-font);
   font-style: normal;

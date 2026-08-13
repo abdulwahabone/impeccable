@@ -191,6 +191,14 @@
         ],
         "createdAt": "2026-07-22T03:53:34.954Z",
         "reason": "User confirmed: the 24px grid is on .split-container, the before/after compare canvas with a draggable divider; mirrors the existing home-kinpaku.css waiver for the same component"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "site/styles/live-mode.css"
+        ],
+        "createdAt": "2026-08-10T04:06:30.851Z"
       }
     ]
   },

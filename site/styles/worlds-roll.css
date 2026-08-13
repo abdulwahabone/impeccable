@@ -111,8 +111,26 @@
 	height: auto;
 	aspect-ratio: 16 / 9;
 	object-fit: cover;
+	/* Same shimmer as the skeletons: the art area reads as loading, not as a
+	   black void, while a slow render decodes. */
 	background:
-		linear-gradient(100deg, var(--ks-graphite) 40%, var(--ks-graphite-2) 50%, var(--ks-graphite) 60%);
+		linear-gradient(100deg, var(--ks-graphite) 35%, var(--ks-graphite-2) 50%, var(--ks-graphite) 65%);
+	background-size: 220% 100%;
+	animation: worlds-shimmer 1.4s linear infinite;
+}
+
+/* Once the render arrives (or definitively fails) the shimmer stops; a failed
+   card settles on flat graphite and the browser's alt text names the world. */
+.worlds-card.is-loaded img,
+.worlds-card.is-missing img {
+	background: var(--ks-graphite);
+	background-size: auto;
+	animation: none;
+}
+
+.worlds-card.is-missing img {
+	color: var(--ks-text-muted);
+	padding: 14px;
 }
 
 .worlds-card-caption {
@@ -261,7 +279,8 @@
 
 @media (prefers-reduced-motion: reduce) {
 	.worlds-skeleton-media,
-	.worlds-skeleton-line {
+	.worlds-skeleton-line,
+	.worlds-card img {
 		animation: none;
 	}
 }
@@ -402,6 +421,9 @@
 	aspect-ratio: 16 / 10;
 	object-fit: cover;
 	object-position: top;
+	/* Graphite ground while the fold render loads, so the gold-framed card
+	   never presents an empty black window. */
+	background: var(--ks-graphite);
 }
 
 .worlds-played-caption {

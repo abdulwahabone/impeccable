@@ -37,7 +37,7 @@ const cardsBase = (import.meta.env.PROD || hasLocalCards)
   <div class="worlds-table">
     <div class="worlds-hand-zone">
       <div class="worlds-zone-head">
-        <span class="worlds-zone-label">01 &middot; Imagine</span>
+        <span class="worlds-zone-label" data-impeccable-ignore="undersized-ui-text">01 &middot; Imagine</span>
         {/* Reproduction key first, control last: the button anchors to the
             right edge of the hand and the key fills the slack, so the die is
             always in the same place no matter how long the key runs. */}
@@ -61,11 +61,11 @@ const cardsBase = (import.meta.env.PROD || hasLocalCards)
     </div>
 
     <aside class="worlds-played-zone" aria-label="The committed world">
-      <span class="worlds-zone-label">02 &middot; Commit</span>
-      <a class="worlds-played-card" href="/neo-mirai/">
+      <span class="worlds-zone-label" data-impeccable-ignore="undersized-ui-text">02 &middot; Commit</span>
+      <a class="worlds-played-card" href="/neo-mirai/" data-impeccable-ignore="gpt-thin-border-wide-shadow undersized-ui-text">
         <span class="worlds-played-chip">Played</span>
         <img
-          src="assets/cases/neo-mirai/live-fold.png"
+          src="assets/cases/neo-mirai/live-fold.webp"
           alt="Neo Mirai website hero, the committed world built end to end"
           width="1440" height="1100"
           loading="lazy" decoding="async"

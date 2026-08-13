@@ -2457,21 +2457,15 @@
   background: var(--color-cream);
   border-radius: 0 0 7px 7px;
 }
+/* Static status dot: the infinite pulse it shipped with was the exact
+   decorative pulsing-dot tell the detector bans. */
 .why-productmd-footer-dot {
   display: inline-block;
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--color-accent);
-  animation: whyPulse 2.4s ease-out infinite;
   flex-shrink: 0;
-}
-@keyframes whyPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(0.6); opacity: 0.5; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .why-productmd-footer-dot { animation: none; }
 }
 
 /* ─ Panel 03: path + meta additions ─ */
