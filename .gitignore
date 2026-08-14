@@ -123,7 +123,12 @@ site/public/js/generated/
 # where they're committed for npx-skills installs). The skill is owned by
 # pbakaus/impeccable; a local install lands as a machine-specific symlink
 # via `npx impeccable skills link --source=<checkout>`.
-.claude/skills/
+#
+# `.claude/skills/*` rather than `.claude/skills/`, so git still descends into
+# the directory and the negation below can take effect: a skill this repo owns
+# and writes itself is tracked, while installed copies stay ignored.
+.claude/skills/*
+!.claude/skills/changelog/
 .cursor/skills/
 .gemini/skills/
 .agents/skills/
