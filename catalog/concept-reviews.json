@@ -2220,7 +2220,8 @@
       "allowedModes": [
         "persuade",
         "experience"
-      ]
+      ],
+      "pro": true
     },
     "ink-pigment-printmaking-handscroll-and-seal": {
       "status": "rejected",
@@ -4227,7 +4228,8 @@
       "allowedModes": [
         "persuade",
         "experience"
-      ]
+      ],
+      "pro": true
     },
     "posters-covers-sleeves-taller-grafica-linocut": {
       "status": "approved",

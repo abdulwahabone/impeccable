@@ -166,6 +166,7 @@ tmp/
 /skill
 /cli
 /.claude-plugin
+/plugin
 /scripts/lib/transformers/
 /scripts/lib/assets/
 /scripts/lib/utils.js
