@@ -1326,9 +1326,13 @@ button:disabled kbd {
   gap: 3px;
 }
 
+/* 19px was a fourth control height invented for this one row. It sits on the
+   small rung with everything else now, which also makes it a target a pointer
+   can actually land on. */
 .worlds-lead-variants button {
   min-width: 30px;
-  padding: 3px 7px;
+  min-height: var(--ks-control-sm);
+  padding: 0 7px;
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
   background: transparent;
@@ -2151,39 +2155,20 @@ button:disabled kbd {
 
 /* Icons rather than words, because they sit in a 292px rail beside a count and
    a title that already say what the queue is. */
-.worlds-queue-view {
-  display: inline-flex;
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-sm);
-  overflow: hidden;
-}
-
+/* Both header switches are icon-only, so they take the same square cells, and
+   both use the one pressed colour from .ks-segmented. The view control used to
+   answer in patina while the sort beside it answered in gold, which read as two
+   systems rather than two questions. */
+.worlds-queue-sort button,
 .worlds-queue-view button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   width: 26px;
-  height: var(--ks-control-sm);
   padding: 0;
-  border: 0;
-  border-left: 1px solid var(--ks-rule);
-  background: transparent;
-  color: var(--ks-text-mute-deep);
-  cursor: pointer;
 }
 
-.worlds-queue-view button:first-child {
-  border-left: 0;
-}
-
-.worlds-queue-view button svg {
+.worlds-queue-sort svg,
+.worlds-queue-view svg {
   width: 13px;
   height: 13px;
-}
-
-.worlds-queue-view button[aria-pressed="true"] {
-  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
-  color: var(--ks-patina);
 }
 
 .worlds-sr {
@@ -3051,21 +3036,6 @@ button:disabled kbd {
   padding-top: var(--spacing-md);
   border-top: 1px solid var(--ks-rule);
 }
-
-/* Sort lives with the list it orders. */
-.worlds-queue-sort select {
-  max-width: 96px;
-  padding: 3px 4px;
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-sm);
-  background: transparent;
-  color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  cursor: pointer;
-}
-
-.worlds-queue-sort select:hover { border-color: var(--ks-kinpaku); color: var(--ks-champagne); }
-.worlds-queue-sort option { background: var(--ks-lacquer-raised); color: var(--ks-text); }
 
 /* Rating on the row, so an order sorted by it can be read back. */
 .worlds-queue-stars {
