@@ -1,4 +1,5 @@
-import { copyFile, readFile, rename, stat, writeFile } from 'node:fs/promises';
+import { mkdir, copyFile, readFile, rename, stat, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import sharp from 'sharp';
 import {
@@ -25,8 +26,20 @@ import {
 } from './lib/site-queue.mjs';
 
 const API_PATH = '/__impeccable/worlds';
+const THUMB_PATH = '/__impeccable/card-thumb';
 const MAX_BODY_BYTES = 64 * 1024;
 const REVIEW_STATUSES = new Set(['pending', 'approved', 'rejected']);
+
+// The contact sheet asks for one of these per concept, six hundred and counting,
+// so the width is an allowlist rather than a number off the query string. An
+// open width would let a scripted sweep of the page turn the dev server into a
+// resize farm, and each miss costs a full decode of a 2048x1152 source.
+// The three cover a card column of up to 160 CSS px at 1x, 2x and 3x.
+const THUMB_WIDTHS = [160, 320, 480];
+// A card filename and nothing else. Traversal is refused here rather than at the
+// resolved path, because that is the check a reader can see is right: no
+// separators survive decoding, so neither ../ nor its %2f spelling gets through.
+const CARD_NAME = /^[a-z0-9][a-z0-9._-]*\.webp$/i;
 
 function jsonResponse(res, status, payload) {
   res.statusCode = status;
@@ -554,6 +567,73 @@ export function worldsReviewPlugin({ root = process.cwd() } = {}) {
     name: 'impeccable-worlds-review',
     apply: 'serve',
     configureServer(server) {
+      // Thumbnails for the contact sheet. The generated cards are 2048x1152 at
+      // around 350KB, and the sheet draws them 144px wide, so serving the
+      // sources meant moving 214MB to look at 628 pictures and decoding every
+      // one of them at fourteen times the size it would be seen at. Same shape
+      // as the site-worlds resizer below, with a disk cache added because this
+      // route is asked for hundreds of files at once and an in-memory map comes
+      // back cold from every dev-server restart.
+      //
+      // Only a local card can be resized. A clone with no generated cards on
+      // disk reads them from impeccable.style, which has no resizer, so the page
+      // keeps pointing those at the published full-size URL and never comes
+      // here. See cardFor() in site/pages/labs/worlds.astro.
+      const cardsDir = path.join(root, 'site', 'public', 'worlds', 'cards');
+      const thumbCacheDir = path.join(root, 'node_modules', '.cache', 'impeccable-card-thumbs');
+      const thumbMemo = new Map();
+      let thumbCacheReady = null;
+      server.middlewares.use(THUMB_PATH, async (req, res, next) => {
+        if (req.method !== 'GET' && req.method !== 'HEAD') { next(); return; }
+        const [rawPath, rawQuery] = (req.url || '').split('?');
+        let name;
+        try { name = decodeURIComponent(rawPath).replace(/^\//, ''); } catch { name = null; }
+        if (!name || !CARD_NAME.test(name)) { res.statusCode = 400; res.end(); return; }
+        const width = Number(new URLSearchParams(rawQuery || '').get('w'));
+        if (!THUMB_WIDTHS.includes(width)) { res.statusCode = 400; res.end(); return; }
+        const source = path.resolve(cardsDir, name);
+        if (!source.startsWith(cardsDir + path.sep)) { res.statusCode = 403; res.end(); return; }
+
+        try {
+          // The card's own mtime is part of the key, so regenerating a world
+          // invalidates its thumbnail. Without it a rerun would keep showing the
+          // picture it replaced, which looks exactly like the rerun not running.
+          const { mtimeMs } = await stat(source);
+          const key = `${name}@${width}@${Math.round(mtimeMs)}`;
+          let body = thumbMemo.get(key);
+          if (!body) {
+            const digest = createHash('sha1').update(key).digest('hex');
+            const cached = path.join(thumbCacheDir, `${digest}.webp`);
+            try {
+              body = await readFile(cached);
+            } catch {
+              thumbCacheReady ||= mkdir(thumbCacheDir, { recursive: true });
+              await thumbCacheReady;
+              body = await sharp(await readFile(source))
+                .resize({ width, withoutEnlargement: true })
+                .webp({ quality: 72 })
+                .toBuffer();
+              // Written through a temporary name so two requests for the same
+              // thumbnail cannot hand a reader a half-finished file.
+              const staging = `${cached}.${process.pid}.${Math.random().toString(36).slice(2)}`;
+              await writeFile(staging, body);
+              await rename(staging, cached);
+            }
+            thumbMemo.set(key, body);
+          }
+          res.setHeader('Content-Type', 'image/webp');
+          // Keyed by mtime through the URL the page builds, so this is safe to
+          // hold: a regenerated card arrives under a different query string.
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+          res.setHeader('Content-Length', String(body.length));
+          if (req.method === 'HEAD') { res.end(); return; }
+          res.end(body);
+        } catch {
+          res.statusCode = 404;
+          res.end();
+        }
+      });
+
       // Site-derived worlds are rendered into .waves/, which is scratch space
       // Astro does not publish, so judging one meant opening files by hand. This
       // serves them read-only to the lab. Dev plugin, dev-only, and the path is

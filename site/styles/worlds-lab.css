@@ -2227,9 +2227,11 @@ button:disabled kbd {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  /* 562 cards of full-size art. Lazy loading keeps the fetches down but the
-     boxes are still laid out and painted, so skip the ones nobody can see.
-     The intrinsic size holds the scrollbar steady while they are skipped. */
+  /* 628 cards, so skip painting the ones nobody can see and let the intrinsic
+     size hold the scrollbar steady while they are skipped. Measured on this
+     page it currently skips none of them, which is why it is not what bounds
+     the loading: the observer in renderCardGrid is, and it watches the card
+     rather than the image so it still fires if skipping ever starts. */
   content-visibility: auto;
   contain-intrinsic-size: auto 115px;
   padding: 0;
@@ -2258,7 +2260,7 @@ button:disabled kbd {
   aspect-ratio: 16 / 9;
   background: var(--ks-graphite);
   color: var(--ks-text-mute-deep);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
   text-transform: uppercase;
 }
 
@@ -2266,6 +2268,75 @@ button:disabled kbd {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Waiting, broken and never-generated were one flat grey between them, which is
+   also what a fair number of these worlds honestly look like at 144px. Each one
+   gets its own surface off the ladder so the sheet can be read for what is
+   missing as well as for what is there. */
+
+/* Queued or in flight. Hatched rather than flat, because flat is exactly what a
+   dark minimal world looks like and the two have to be told apart at a glance.
+   Static on purpose: a shimmer is a background-position animation, it does not
+   composite, and several hundred of them repaint the rail every frame. */
+.worlds-card-thumb[data-state="pending"] {
+  background-color: var(--ks-lacquer-raised);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--ks-graphite) 0 6px,
+    var(--ks-graphite-2) 6px 12px
+  );
+}
+
+/* Requested and refused. Vermilion is the one alarm colour in the set, and the
+   glyph carries it for anyone who cannot use the hue. */
+.worlds-card-thumb[data-state="failed"] {
+  background: var(--ks-lacquer-deep);
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--ks-vermilion), transparent 55%);
+  color: var(--ks-vermilion);
+}
+
+.worlds-card-thumb[data-state="failed"]::after {
+  content: "failed";
+}
+
+/* Taken out of flow, because the image is still in the box at zero opacity and
+   as a flex sibling it is 100% wide, which pushed the word off the right edge. */
+.worlds-card-thumb[data-state="failed"]::after,
+.worlds-card-thumb[data-state="unrendered"]::after {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.06em;
+}
+
+/* No card was ever generated for this concept, which is a fact about the
+   catalog rather than a fault in the page. */
+.worlds-card-thumb[data-state="unrendered"] {
+  background: var(--ks-lacquer);
+  box-shadow: inset 0 0 0 1px var(--ks-rule);
+}
+
+.worlds-card-thumb[data-state="unrendered"]::after {
+  content: "no card";
+}
+
+/* The picture is held back until it has pixels, so a half-decoded thumbnail
+   never flashes over the hatching. Opacity composites; the hatching underneath
+   is never repainted for it. */
+.worlds-card-thumb img {
+  opacity: 0;
+  transition: opacity var(--ks-quick) var(--ks-ease);
+}
+
+.worlds-card-thumb[data-state="ready"] img {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .worlds-card-thumb img { transition: none; }
 }
 
 /* At this width the form line cannot be read in full, and letting it run to
@@ -2279,7 +2350,7 @@ button:disabled kbd {
   overflow: hidden;
   padding: 0 7px;
   color: var(--ks-text-muted);
-  font-size: 11px;
+  font-size: var(--ks-type-micro-size);
   line-height: 1.3;
 }
 
@@ -2297,7 +2368,7 @@ button:disabled kbd {
   border-radius: var(--ks-radius-pill);
   background: color-mix(in oklch, var(--ks-lacquer), transparent 15%);
   color: var(--ks-champagne);
-  font: 500 8px/1 var(--ks-mono);
+  font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
   letter-spacing: 0.06em;
 }
 

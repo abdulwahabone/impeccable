@@ -1711,6 +1711,114 @@ const pageData = JSON.stringify({
     }
 
 
+    // --- Contact sheet thumbnails ---------------------------------------
+    // The generated cards are 2048x1152 at around 350KB, and the sheet draws
+    // them 144px wide. Asking for the sources cost 214MB to scroll the sheet
+    // once and put the renderer on the floor, so the dev server resizes them
+    // and the page asks for the size it will actually paint.
+    const THUMB_ENDPOINT = '/__impeccable/card-thumb';
+    const THUMB_WIDTHS = [160, 320, 480];
+    // The column is fixed by the rail, so one number describes every card and
+    // the browser can pick a candidate before layout instead of after it.
+    const THUMB_SIZES = '144px';
+    const LOCAL_CARDS = '/worlds/cards/';
+
+    // Only a locally generated card can be resized. A clone without one reads
+    // the published card off impeccable.style, which has no resizer, so that
+    // path keeps the full-size URL and simply pays for it.
+    function thumbSourcesFor(src) {
+      if (!src.startsWith(LOCAL_CARDS)) return { srcset: '', src };
+      const [file, query] = src.slice(LOCAL_CARDS.length).split('?');
+      // The card's generation stamp rides along so a regenerated world busts the
+      // browser cache; the server keys on the file's mtime for the same reason.
+      const stamp = query ? `&${query}` : '';
+      return {
+        srcset: THUMB_WIDTHS.map(w => `${THUMB_ENDPOINT}/${file}?w=${w}${stamp} ${w}w`).join(', '),
+        src: `${THUMB_ENDPOINT}/${file}?w=${THUMB_WIDTHS[0]}${stamp}`,
+      };
+    }
+
+    // Native loading="lazy" is what the sheet used to rely on, and inside this
+    // nested scroller it releases a whole scroll-region at a time: a scrollbar
+    // drag fired 60-odd full-size requests at once. An IntersectionObserver on
+    // its own has the opposite failure, handing all 628 over in one callback the
+    // moment the grid is shown. So the observer only nominates, and a queue with
+    // a fixed number of slots decides when each one is allowed to start.
+    const THUMB_CONCURRENCY = 6;
+    let thumbGeneration = 0;
+    let thumbObserver = null;
+    let thumbQueue = [];
+    let thumbInFlight = 0;
+
+    function pumpThumbQueue() {
+      while (thumbInFlight < THUMB_CONCURRENCY && thumbQueue.length > 0) {
+        const job = thumbQueue.shift();
+        // The sheet rebuilds whenever the filters change, so by the time a slot
+        // frees up the element this job was queued for may be off the page. Both
+        // checks matter: the generation catches a rebuild, isConnected catches an
+        // element dropped for any other reason.
+        if (job.generation !== thumbGeneration || !job.img.isConnected) continue;
+        thumbInFlight += 1;
+        const done = () => {
+          thumbInFlight -= 1;
+          pumpThumbQueue();
+        };
+        job.img.addEventListener('load', () => {
+          // A response that arrives after a rebuild has nowhere to land. The
+          // element is detached by then, so dropping the state change is enough.
+          if (job.generation === thumbGeneration) job.img.parentNode?.setAttribute('data-state', 'ready');
+          done();
+        }, { once: true });
+        job.img.addEventListener('error', () => {
+          if (job.generation === thumbGeneration) job.img.parentNode?.setAttribute('data-state', 'failed');
+          done();
+        }, { once: true });
+        if (job.srcset) job.img.srcset = job.srcset;
+        job.img.src = job.src;
+      }
+    }
+
+    function onThumbsVisible(entries) {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        // One shot each: a card that has been nominated never needs nominating
+        // again, and unobserving keeps the callback's work proportional to what
+        // just scrolled in rather than to the whole sheet.
+        thumbObserver.unobserve(entry.target);
+        const img = entry.target.querySelector('img[data-thumb-src]');
+        if (!img) continue;
+        thumbQueue.push({
+          img,
+          src: img.dataset.thumbSrc,
+          srcset: img.dataset.thumbSrcset || '',
+          generation: thumbGeneration,
+        });
+      }
+      pumpThumbQueue();
+    }
+
+    function resetThumbLoader() {
+      // Anything still queued belongs to the sheet that is being replaced.
+      thumbGeneration += 1;
+      thumbQueue = [];
+      // Zeroed rather than left to drain. A request already on the wire when the
+      // sheet rebuilds can briefly push the real total over the limit, which is
+      // the price of never deadlocking: an abandoned image whose load the
+      // browser cancels without firing either event would otherwise hold a slot
+      // for the rest of the session.
+      thumbInFlight = 0;
+      thumbObserver?.disconnect();
+      // Observed on the card rather than on the image, because the card carries
+      // content-visibility: auto and a skipped subtree generates no box for the
+      // image to be seen through. The card always has one.
+      thumbObserver = new IntersectionObserver(onThumbsVisible, {
+        root: cardGrid,
+        // Roughly a screenful of lead time, so a steady scroll finds pictures
+        // already there without reaching far enough to drain the queue.
+        rootMargin: '600px 0px',
+      });
+    }
+
     let cardSignature = null;
     function renderCardGrid() {
       const showing = state.view === 'cards';
@@ -1762,6 +1870,8 @@ const pageData = JSON.stringify({
         return;
       }
       cardSignature = signature;
+      resetThumbLoader();
+      const pending = [];
       cardGridItems.replaceChildren(...rows.map(concept => {
         const button = document.createElement('button');
         button.type = 'button';
@@ -1771,16 +1881,28 @@ const pageData = JSON.stringify({
         const figure = document.createElement('span');
         figure.className = 'worlds-card-thumb';
         if (concept.card?.src) {
+          const sources = thumbSourcesFor(concept.card.src);
           const img = document.createElement('img');
-          img.src = concept.card.src;
           img.alt = '';
-          // Native lazy loading, so a 531-card grid does not fetch everything at once.
-          img.loading = 'lazy';
           img.decoding = 'async';
+          // The intrinsic size is on the element rather than left to the file,
+          // so the box is the right shape before a byte arrives and a card that
+          // never loads holds its place instead of collapsing.
+          img.width = 160;
+          img.height = 90;
+          img.sizes = THUMB_SIZES;
+          // Held off the src until the loader says go. An src set here is a
+          // request the queue no longer controls.
+          img.dataset.thumbSrc = sources.src;
+          if (sources.srcset) img.dataset.thumbSrcset = sources.srcset;
+          figure.dataset.state = 'pending';
           figure.append(img);
+          pending.push(button);
         } else {
-          figure.classList.add('is-unrendered');
-          figure.textContent = 'no card';
+          // Never generated, which is a different fact from not loaded yet and
+          // has to look like one: a fair number of these worlds are legitimately
+          // near-flat grey at this size.
+          figure.dataset.state = 'unrendered';
         }
         // Status and rating ride on the picture rather than taking a line of
         // their own: at two columns that line was a third of the card's height
@@ -1807,6 +1929,9 @@ const pageData = JSON.stringify({
         button.append(figure, label);
         return button;
       }));
+      // Observed only once the cards are in the document, so the first callback
+      // reports real geometry rather than nominating the whole sheet at once.
+      for (const card of pending) thumbObserver.observe(card);
       keepCurrentCardInSight();
     }
 
