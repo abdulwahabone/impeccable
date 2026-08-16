@@ -411,14 +411,31 @@ const pageData = JSON.stringify({
                    does against the field average rather than by raw reports,
                    which would just rank by how often the roll happened to deal
                    it. -->
-              <label class="worlds-queue-sort">
-                <span class="worlds-sr">Sort the queue</span>
-                <select data-sort aria-label="Sort the queue">
-                  <option value="catalog">Catalog order</option>
-                  <option value="rating">Rating, best first</option>
-                  <option value="popularity">Popularity, best first</option>
-                </select>
-              </label>
+              <div class="ks-segmented ks-segmented--dense worlds-queue-sort" role="group" aria-label="Sort the queue" data-sort-group>
+                <!-- Numbered rules, not plain ones: the view control two
+                     buttons along is also three horizontal lines, and two
+                     adjacent switches whose first glyph is identical is how you
+                     get someone changing the sort when they meant the view. -->
+                <button type="button" data-sort="catalog" aria-pressed="true" title="Catalog order">
+                  <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M6 4h8M6 8h8M6 12h8"></path>
+                    <path d="M2 3.2v2.4M1.4 3.4l.8-.6M1.4 12.6h1.7M1.4 10.8a.9.9 0 0 1 1.7.4c0 .8-1.7 1-1.7 1.4" stroke-width="1.2"></path>
+                  </svg>
+                  <span class="worlds-sr">Catalog order</span>
+                </button>
+                <button type="button" data-sort="rating" aria-pressed="false" title="Rating, best first">
+                  <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor">
+                    <path d="M8 1.6l1.8 3.9 4.2.5-3.1 2.9.8 4.2L8 11l-3.7 2.1.8-4.2L2 6l4.2-.5z"></path>
+                  </svg>
+                  <span class="worlds-sr">Rating, best first</span>
+                </button>
+                <button type="button" data-sort="popularity" aria-pressed="false" title="Popularity, best first">
+                  <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M2 12l3.5-4 3 2.5L13 4"></path><path d="M9.5 4H13v3.5"></path>
+                  </svg>
+                  <span class="worlds-sr">Popularity, best first</span>
+                </button>
+              </div>
               <!-- These present the queue, so they live on the queue. As a
                    page-level tab row they read as switching what the page is,
                    which is why "cards" seemed to throw the detail view away. -->
@@ -2495,14 +2512,22 @@ const pageData = JSON.stringify({
         });
       });
     }
-    document.querySelector('[data-sort]')?.addEventListener('change', event => {
-      state.sort = event.target.value;
-      // Move to the top of the new order. The queue window follows the current
-      // concept, so re-sorting while parked at row 124 re-sorts the list and
-      // then shows you row 124 of it, which looks exactly like nothing sorted.
-      const rows = filteredConcepts();
-      if (rows.length) state.currentId = rows[0].id;
-      render();
+    // Three icon buttons rather than a select. The select rendered its own
+    // value clipped as "Catalog orde" in the space the header could spare, and
+    // spelling out the current sort is not worth a third of the queue header.
+    document.querySelectorAll('[data-sort]').forEach(button => {
+      button.addEventListener('click', () => {
+        state.sort = button.dataset.sort;
+        document.querySelectorAll('[data-sort]').forEach(item => {
+          item.setAttribute('aria-pressed', String(item === button));
+        });
+        // Move to the top of the new order. The queue window follows the current
+        // concept, so re-sorting while parked at row 124 re-sorts the list and
+        // then shows you row 124 of it, which looks exactly like nothing sorted.
+        const rows = filteredConcepts();
+        if (rows.length) state.currentId = rows[0].id;
+        render();
+      });
     });
     document.querySelectorAll('[data-status-filter]').forEach(button => {
       button.addEventListener('click', () => {
