@@ -463,6 +463,57 @@ The system is mostly flat. Depth comes from material contrast, hairline borders,
 - **Patina Glow:** `0 0 22px oklch(70% 0.105 190 / 0.24)` for tiny live indicators only.
 - **No Default Card Shadow:** Cards rest on borders and background shifts.
 
+### Control Scales
+
+Application surfaces (the labs, the review workbench) need scales the marketing
+pages never asked for, because a page with four elements can improvise each one
+and a page with four hundred cannot. These are the values; anything off them is
+a mistake, not a smaller size.
+
+**Radius: three values.** `--ks-radius-sm` 3px for chips, inputs and dense
+chrome. `--ks-radius-md` 8px for panels and cards. `--ks-radius-pill` for
+toggles and anything round. A control nested inside another subtracts 1px
+rather than picking a fourth value.
+
+**Control height: three rungs.** `--ks-control-sm` 26px for dense chrome in a
+rail, `--ks-control-md` 32px for the default, `--ks-control-lg` 44px for a
+primary action. A segmented track lands on a rung by construction: 3px inset
+plus segment plus 3px plus two borders.
+
+**Dense type: four steps.** The marketing ramp steps 11px straight to 16px, so
+an application surface has nothing between a caption and body copy and puts
+every label, list row and control on the same 11px. `--ks-type-micro-size` 11px
+is the floor for row numbers and counts, `--ks-type-label-size` 12px for control
+text and caps section heads, `--ks-type-ui-size` 13px for list rows and any
+sentence someone reads to make a decision, `--ks-type-ui-lead` 15px for
+subheads. **Nothing functional goes below 11px.** Being on the ramp does not
+exempt a value: 10px fails on high-DPI and on small viewports whatever the token
+is called.
+
+**Motion: one duration pair, one curve.** `--ks-quick` 120ms for state changes,
+`--ks-settle` 200ms for something arriving, `--ks-ease` for both. Controls
+declare their transition once per surface rather than per family, or you get
+one family that acknowledges a press and eleven that look broken.
+
+**Surfaces: a ladder that can be seen.** `--ks-lacquer` is the ground,
+`--ks-lacquer-deep` the recessed step (never pure black), `--ks-lacquer-raised`,
+`--ks-graphite` and `--ks-graphite-2` the raised ones. Steps are ~1.05 to 1.09
+apart in luminance; below about 1.02 a surface change is invisible and the page
+reads as one plane. `--ks-rule` is decorative separation; `--ks-edge` is the
+boundary of a control and clears 3:1 for WCAG 1.4.11.
+
+**`--ks-text-mute-deep` is the disabled colour.** It measures under 4.5:1 on
+these grounds by design. Live content takes `--ks-text-faint` or above; if a
+figure or a label is using mute-deep, that is the bug.
+
+**Flush means pick one, spaced means tick any.** A row of segments butted
+together reads as navigation whatever it does. Reserve it for single-select and
+give multi-selects visible gaps.
+
+`tests/css-contradictions.test.mjs` enforces the radius, control-height and type
+floor for the files listed in its `SCALE_ENFORCED` set, and flags any selector
+that sets the same geometry property twice in one context.
+
 ### Material Rules
 
 **Hairline First Rule.** Use 1px gold hairlines before adding shadow.
