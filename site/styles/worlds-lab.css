@@ -302,6 +302,9 @@
 }
 
 .worlds-family-scroll {
+  /* Takes the rail's remaining height so the telemetry footer below it pins to
+     the bottom rather than floating under the last family. */
+  flex: 1 1 auto;
   min-height: 0;
   overflow: auto;
   padding: var(--spacing-sm);
@@ -2792,3 +2795,79 @@ button kbd {
   border-color: var(--ks-patina);
   background: color-mix(in oklch, var(--ks-patina), transparent 86%);
 }
+
+/* Refine: rating, reach and tier. Compact pill rows rather than the counted
+   grids the status and mode filters use, because these three are reached for
+   occasionally while status and family are reached for constantly, and three
+   more grids would push the family list off the screen to say so. */
+.worlds-refine {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.worlds-refine-row {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.worlds-refine-row > span {
+  color: var(--ks-text-mute-deep);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.worlds-refine-row > div {
+  display: flex;
+  gap: 3px;
+}
+
+.worlds-refine-row button {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 4px 2px;
+  border: 1px solid var(--ks-rule);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.worlds-refine-row button:hover {
+  border-color: color-mix(in oklch, var(--ks-champagne), transparent 60%);
+  color: var(--ks-text-muted);
+}
+
+.worlds-refine-row button[aria-pressed="true"] {
+  border-color: var(--ks-kinpaku);
+  background: color-mix(in oklch, var(--ks-kinpaku), transparent 84%);
+  color: var(--ks-champagne);
+}
+
+/* Pinned to the foot of the rail. The family list above it takes the remaining
+   height, so this stays visible without ever entering the filter stack. */
+.worlds-telemetry-foot {
+  flex: 0 0 auto;
+  padding: var(--spacing-sm);
+  border-top: 1px solid var(--ks-rule);
+  background: var(--ks-lacquer-deep);
+}
+
+.worlds-telemetry-foot p {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-xs);
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-eyebrow-size)/1.5 var(--ks-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.worlds-telemetry-foot strong { color: var(--ks-text-muted); font-weight: 500; }
+.worlds-telemetry-foot .is-muted { color: var(--ks-text-mute-deep); text-transform: none; letter-spacing: 0; }

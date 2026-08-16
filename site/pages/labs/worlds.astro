@@ -114,11 +114,33 @@ const counts = {
 counts.reviewed = counts.approved + counts.rejected;
 // One line per concept and one rail block; formatting lives here so the
 // client script and the server render agree on the shape.
+// The share of dealt worlds that get reported back at all, across the whole
+// catalog. Every per-world rate has to be read against this and not against
+// 100%: a world chosen 98 times out of 21,361 looks like a rout until you know
+// the field average is 0.09%, at which point it is five times the average and
+// one of the best performers in the catalog.
+const FIELD_BASE_RATE = (() => {
+  const ids = telemetrySnapshot?.windows?.['90d']?.ids;
+  if (!ids) return null;
+  let dealt = 0;
+  let chosen = 0;
+  for (const row of Object.values(ids)) { dealt += row.dealt || 0; chosen += row.chosen || 0; }
+  return dealt > 0 ? chosen / dealt : null;
+})();
+
 const telemetryLine = (t) => {
   if (!t) return 'no field data';
-  const rate = t.dealt ? ` · ${Math.round((t.chosen / t.dealt) * 100)}%` : '';
-  const recent = (t.dealt30 || t.chosen30) ? ` · 30d ${t.chosen30}/${t.dealt30}` : '';
-  return `dealt ${t.dealt} · won ${t.chosen}${rate}${recent}`;
+  // Expressed as a multiple of the field average rather than a raw percentage.
+  // A raw percentage invites reading it as a win rate, which it is not: most
+  // rolls never report a choice at all, so the denominator counts appearances
+  // and the numerator counts the small fraction anyone told us about.
+  const index = FIELD_BASE_RATE && t.dealt
+    ? ` · ${(t.chosen / t.dealt / FIELD_BASE_RATE).toFixed(1)}x field average`
+    : '';
+  // Below about twenty reports the rate is mostly Poisson noise and should not
+  // be ranked on, so it says so instead of implying precision it does not have.
+  const thin = t.chosen < 20 ? ' · too few to rank' : '';
+  return `dealt ${t.dealt.toLocaleString()} · reported ${t.chosen}${index}${thin}`;
 };
 const telemetrySummary = telemetrySnapshot ? (() => {
   const w = telemetrySnapshot.windows?.['90d'] || {};
@@ -133,6 +155,8 @@ const telemetrySummary = telemetrySnapshot ? (() => {
     registerLine: Object.keys(w.registers || {}).length
       ? `steers: ${Object.entries(w.registers).map(([register, n]) => `${register} ${n}`).join(' · ')}`
       : null,
+    // Stated because every per-world number is a fraction of this, not of 100.
+    reportRate: w.totals?.rolls ? ((w.totals.chosen / w.totals.rolls) * 100).toFixed(1) : '0',
     date: (telemetrySnapshot.generatedAt || '').slice(0, 10),
   };
 })() : null;
@@ -184,6 +208,7 @@ const pageData = JSON.stringify({
   families,
   aestheticAxes,
   siteQueue,
+  fieldBaseRate: FIELD_BASE_RATE,
 }).replace(/</g, '\\u003c');
 ---
 
@@ -240,27 +265,46 @@ const pageData = JSON.stringify({
             <button type="button" data-status-filter="rejected" aria-pressed="false">
               <span>Rejected</span><strong data-count-rejected>{counts.rejected}</strong>
             </button>
-            <button type="button" data-status-filter="unrated" aria-pressed="false" title="Approved worlds without a star rating yet">
-              <span>Unrated</span><strong data-count-unrated>{concepts.filter(concept => concept.status === 'approved' && !concept.review?.rating).length}</strong>
-            </button>
             <button type="button" data-status-filter="all" aria-pressed="false">
               <span>All</span><strong data-count-total>{counts.total}</strong>
             </button>
           </div>
-          {telemetrySummary && (
-            <div class="worlds-telemetry-block" role="group" aria-label="Field telemetry from the roll API">
-              <div class="worlds-progress-copy">
-                <span>Field telemetry · 90d</span>
-                <strong>{telemetrySummary.rolls.toLocaleString()} rolls</strong>
-              </div>
-              <p class="worlds-telemetry-line">{telemetrySummary.chosen.toLocaleString()} recorded choices</p>
-              {telemetrySummary.kindLine
-                ? <p class="worlds-telemetry-line">{telemetrySummary.kindLine}</p>
-                : <p class="worlds-telemetry-line is-muted">card-kind shares accrue once clients ship the --kind ping</p>}
-              {telemetrySummary.registerLine && <p class="worlds-telemetry-line">{telemetrySummary.registerLine}</p>}
-              <p class="worlds-telemetry-line is-muted">snapshot {telemetrySummary.date} · refresh: node scripts/pull-telemetry.mjs</p>
+        </div>
+      </div>
+
+      <!-- Rating, reach and tier are qualities OF an approved world rather than
+           statuses beside it, which is why "unrated" used to sit oddly next to
+           "rejected" as though they were the same kind of thing. Grouped here
+           they compose: approved plus three stars plus pro is one query. -->
+      <div class="worlds-filter-section">
+        <span class="worlds-filter-heading">Refine approved</span>
+        <div class="worlds-refine" role="group" aria-label="Filter approved worlds by rating, reach, and tier">
+          <div class="worlds-refine-row" role="group" aria-label="Rating">
+            <span>Rating</span>
+            <div>
+              <button type="button" data-rating-filter="all" aria-pressed="true">Any</button>
+              <button type="button" data-rating-filter="unrated" aria-pressed="false" title="Approved, no star rating yet">None</button>
+              {[1, 2, 3].map(value => (
+                <button type="button" data-rating-filter={String(value)} aria-pressed="false" title={`${value} star`}>{'★'.repeat(value)}</button>
+              ))}
             </div>
-          )}
+          </div>
+          <div class="worlds-refine-row" role="group" aria-label="Reach">
+            <span>Reach</span>
+            <div>
+              <button type="button" data-reach-filter="all" aria-pressed="true">Any</button>
+              <button type="button" data-reach-filter="general" aria-pressed="false" title="Drawn by challenger rolls">General</button>
+              <button type="button" data-reach-filter="niche" aria-pressed="false" title="Held out of challenger draws">Niche</button>
+            </div>
+          </div>
+          <div class="worlds-refine-row" role="group" aria-label="Tier">
+            <span>Tier</span>
+            <div>
+              <button type="button" data-tier-filter="all" aria-pressed="true">Any</button>
+              <button type="button" data-tier-filter="free" aria-pressed="false" title="Dealt by the free roll">Free</button>
+              <button type="button" data-tier-filter="pro" aria-pressed="false" title="Reserved for Pro, withheld from the free roll">Pro</button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -309,6 +353,29 @@ const pageData = JSON.stringify({
           Browse all {families.length} families
         </button>
       </nav>
+
+      <!-- Field telemetry is reference, not a control. It used to sit between
+           the status filters and the mode filters, so a stack that reads as
+           "ways to narrow the list" had a paragraph of usage stats in the
+           middle of it. Pinned to the foot of the rail it stays glanceable and
+           stops interrupting the one thing the rail is for.
+
+           The counts are also easy to misread, so the rate is stated against
+           its own base rather than left to look like a win rate. See
+           docs/WORLD-CATALOG-AUTHORING.md on reading field telemetry. -->
+      {telemetrySummary && (
+        <footer class="worlds-telemetry-foot" aria-label="Field telemetry from the roll API">
+          <p>
+            <span>Field · 90d</span>
+            <strong>{telemetrySummary.rolls.toLocaleString()} rolls</strong>
+          </p>
+          <p class="is-muted">
+            {telemetrySummary.chosen.toLocaleString()} reported back ({telemetrySummary.reportRate}% of rolls)
+          </p>
+          {telemetrySummary.kindLine && <p class="is-muted">{telemetrySummary.kindLine}</p>}
+          <p class="is-muted">snapshot {telemetrySummary.date}</p>
+        </footer>
+      )}
     </aside>
 
     <div class="worlds-workspace">
@@ -403,7 +470,7 @@ const pageData = JSON.stringify({
               <div class="worlds-review-glance">
               <span class="worlds-review-folio">Catalog <strong data-concept-position>{String(concepts.findIndex(concept => concept.id === initialConcept.id) + 1).padStart(3, '0')}</strong> / {counts.total.toLocaleString()}</span>
               <span class={`worlds-status-badge is-${initialConcept.status}`} data-concept-status>{initialConcept.status}</span>
-              {telemetrySnapshot && <span class="worlds-telemetry-badge" data-concept-telemetry title="Field telemetry, 90-day window: times dealt by the roll · commits won · win rate">{telemetryLine(initialConcept.telemetry)}</span>}
+              {telemetrySnapshot && <span class="worlds-telemetry-badge" data-concept-telemetry title="Field telemetry, 90-day window. Not a win rate: only about 1 roll in 120 reports a choice at all, so this is measured against the field average rather than against 100%.">{telemetryLine(initialConcept.telemetry)}</span>}
               <button type="button" class="worlds-edit-button" data-edit-toggle disabled={!import.meta.env.DEV} title="Edit this concept's source">
                 Edit <kbd>E</kbd>
               </button>
@@ -733,6 +800,10 @@ const pageData = JSON.stringify({
       status: initialStatus,
       family: 'all',
       mode: 'all',
+      // Qualities of an approved world rather than statuses beside it.
+      rating: 'all',
+      reach: 'all',
+      tier: 'all',
       view: initialView,
       query: '',
       currentId: initialId,
@@ -753,6 +824,18 @@ const pageData = JSON.stringify({
     const idEl = document.querySelector('[data-concept-id]');
     const statusEl = document.querySelector('[data-concept-status]');
     const telemetryEl = document.querySelector('[data-concept-telemetry]');
+    // The same reading the server renders. Two copies of this drifted the
+    // moment one of them was corrected, which is exactly how the stage kept
+    // showing "won 7 · 0%" after that wording was retired.
+    const fieldBaseRate = payload.fieldBaseRate || null;
+    const fieldLine = (t) => {
+      if (!t) return 'no field data';
+      const index = fieldBaseRate && t.dealt
+        ? ` · ${(t.chosen / t.dealt / fieldBaseRate).toFixed(1)}x field average`
+        : '';
+      const thin = t.chosen < 20 ? ' · too few to rank' : '';
+      return `dealt ${t.dealt.toLocaleString()} · reported ${t.chosen}${index}${thin}`;
+    };
     const lineageEl = document.querySelector('[data-concept-lineage]');
     const tagsEl = document.querySelector('[data-concept-tags]');
     const systemEl = document.querySelector('[data-concept-system]');
@@ -947,10 +1030,24 @@ const pageData = JSON.stringify({
     function filteredConcepts() {
       const query = state.query.trim().toLowerCase();
       return concepts.filter(concept => {
-        if (state.status === 'unrated') {
-          if (concept.status !== 'approved' || concept.review?.rating) return false;
-        } else if (state.status !== 'all' && concept.status !== state.status) {
-          return false;
+        if (state.status !== 'all' && concept.status !== state.status) return false;
+
+        // All three only exist on an approved world, so each implies approved
+        // rather than silently matching a backlog entry that has no such field.
+        if (state.rating !== 'all') {
+          if (concept.status !== 'approved') return false;
+          const rating = concept.review?.rating || null;
+          if (state.rating === 'unrated' ? rating : rating !== Number(state.rating)) return false;
+        }
+        if (state.reach !== 'all') {
+          if (concept.status !== 'approved') return false;
+          const niche = concept.review?.breadth === 'niche';
+          if (state.reach === 'niche' ? !niche : niche) return false;
+        }
+        if (state.tier !== 'all') {
+          if (concept.status !== 'approved') return false;
+          const pro = Boolean(concept.review?.pro);
+          if (state.tier === 'pro' ? !pro : pro) return false;
         }
         if (state.family !== 'all' && concept.familyId !== state.family) return false;
         // A world with no allowedModes is eligible everywhere, so it matches every
@@ -1642,16 +1739,11 @@ const pageData = JSON.stringify({
       document.querySelector('[data-count-approved]').textContent = counts.approved.toLocaleString();
       document.querySelector('[data-count-pending]').textContent = counts.pending.toLocaleString();
       document.querySelector('[data-count-rejected]').textContent = counts.rejected.toLocaleString();
-      document.querySelector('[data-count-unrated]').textContent = concepts
-        .filter(concept => concept.status === 'approved' && !concept.review?.rating).length.toLocaleString();
       document.querySelector('[data-count-total]').textContent = concepts.length.toLocaleString();
       // Mode counts are scoped to the current status filter, so they answer how
       // many of what you are looking at each mode can draw from. A world nobody
       // narrowed is eligible everywhere and counts toward every mode.
-      const inStatus = concepts.filter(concept => {
-        if (state.status === 'unrated') return concept.status === 'approved' && !concept.review?.rating;
-        return state.status === 'all' || concept.status === state.status;
-      });
+      const inStatus = concepts.filter(concept => state.status === 'all' || concept.status === state.status);
       const scopedOf = concept => {
         const allowed = concept.review?.allowedModes;
         return Array.isArray(allowed) && allowed.length > 0 ? allowed : null;
@@ -1776,16 +1868,7 @@ const pageData = JSON.stringify({
       idEl.title = concept.id;
       statusEl.textContent = concept.status;
       statusEl.className = `worlds-status-badge is-${concept.status}`;
-      if (telemetryEl) {
-        const fieldData = concept.telemetry;
-        if (fieldData) {
-          const rate = fieldData.dealt ? ` · ${Math.round((fieldData.chosen / fieldData.dealt) * 100)}%` : '';
-          const recent = (fieldData.dealt30 || fieldData.chosen30) ? ` · 30d ${fieldData.chosen30}/${fieldData.dealt30}` : '';
-          telemetryEl.textContent = `dealt ${fieldData.dealt} · won ${fieldData.chosen}${rate}${recent}`;
-        } else {
-          telemetryEl.textContent = 'no field data';
-        }
-      }
+      if (telemetryEl) telemetryEl.textContent = fieldLine(concept.telemetry);
       lineageEl.textContent = concept.lineage;
       systemEl.replaceChildren(...concept.system.map(rule => {
         const item = document.createElement('li');
@@ -2259,6 +2342,18 @@ const pageData = JSON.stringify({
         render();
       });
     });
+    // One wiring for the three refine axes, since they behave identically and a
+    // third copy of the same eight lines is where they start to drift apart.
+    for (const [attribute, key] of [['ratingFilter', 'rating'], ['reachFilter', 'reach'], ['tierFilter', 'tier']]) {
+      const selector = `[data-${attribute.replace(/([A-Z])/g, '-$1').toLowerCase()}]`;
+      document.querySelectorAll(selector).forEach(button => {
+        button.addEventListener('click', () => {
+          state[key] = button.dataset[attribute];
+          document.querySelectorAll(selector).forEach(item => item.setAttribute('aria-pressed', String(item === button)));
+          render();
+        });
+      });
+    }
     document.querySelectorAll('[data-status-filter]').forEach(button => {
       button.addEventListener('click', () => {
         state.status = button.dataset.statusFilter;
