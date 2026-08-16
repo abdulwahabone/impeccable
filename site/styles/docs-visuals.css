@@ -3434,7 +3434,11 @@
 .neon-case-command .neon-case-command-prompt {
   flex: none;
   color: var(--neon-command-accent);
-  font-size: 1.05rem;
+  /* 1rem, on the ramp. This was 1.05rem, which reads as an optical adjustment
+     for a prompt glyph sitting above 13px command text, except that 0.8px on a
+     single character adjusts nothing anyone can see. An off-ramp value has to
+     earn itself. */
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1;
   user-select: none;
