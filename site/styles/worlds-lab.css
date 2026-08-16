@@ -2949,33 +2949,18 @@ button:disabled kbd {
   text-transform: uppercase;
 }
 
-.worlds-refine-row > div {
-  display: flex;
-  gap: 3px;
-}
+.worlds-refine-row .ks-segmented { width: 100%; }
 
-.worlds-refine-row button {
+/* The rating row carries five segments in a 292px rail, so its buttons have to
+   be allowed to give up their padding rather than push the track past the rail
+   edge. min-width:0 is the part that matters: without it a flex item refuses to
+   shrink below its content and the last star lands under the scrollbar. */
+.worlds-refine-row .ks-segmented button {
   flex: 1 1 auto;
   min-width: 0;
-  padding: 4px 2px;
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-sm);
-  background: transparent;
-  color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.worlds-refine-row button:hover {
-  border-color: color-mix(in oklch, var(--ks-champagne), transparent 60%);
-  color: var(--ks-text-muted);
-}
-
-.worlds-refine-row button[aria-pressed="true"] {
-  border-color: var(--ks-kinpaku);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 84%);
-  color: var(--ks-champagne);
+  padding: 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Pinned to the foot of the rail. The family list above it takes the remaining
@@ -3008,50 +2993,15 @@ button:disabled kbd {
   text-transform: none;
 }
 
-/* One filter idiom for the rail. The status and mode groups were 2-column grids
-   of 44px cells, so seven mode options alone ran four rows and about 180px, and
-   the rail spent more height on filters than on the family list they narrow.
-   Wrapping chips carry the same labels and counts in roughly a third of that. */
-.worlds-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
+/* One filter idiom for the rail, and it is the shared primitive rather than a
+   local one. The status and mode groups were 2-column grids of 44px cells, so
+   seven mode options alone ran four rows and about 180px, and the rail spent
+   more height on filters than on the family list they narrow. They are
+   .ks-segmented --wrap --dense now; this only gives the group its rail width. */
+.worlds-rail-group {
   margin-top: var(--spacing-sm);
+  width: 100%;
 }
-
-.worlds-chips button {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-  padding: 4px 7px;
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-sm);
-  background: transparent;
-  color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.worlds-chips button:hover {
-  border-color: color-mix(in oklch, var(--ks-champagne), transparent 60%);
-  color: var(--ks-text-muted);
-}
-
-.worlds-chips button[aria-pressed="true"] {
-  border-color: var(--ks-kinpaku);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 84%);
-  color: var(--ks-champagne);
-}
-
-/* The count rides inside its chip rather than under its label, which is what
-   made the old cells tall. */
-.worlds-chips b {
-  color: var(--ks-text-mute-deep);
-  font-weight: 500;
-}
-
-.worlds-chips button[aria-pressed="true"] b { color: var(--ks-champagne); }
 
 /* Filters end here and browsing begins. Without a rule the two ran together. */
 .worlds-rail-divide {

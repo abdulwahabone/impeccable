@@ -255,7 +255,7 @@ const pageData = JSON.stringify({
           <div class="worlds-progress-track" role="progressbar" aria-label="Catalog review progress" aria-valuemin="0" aria-valuemax={counts.total} aria-valuenow={counts.reviewed} data-progress-track>
             <span style={`--worlds-progress: ${(counts.reviewed / counts.total) * 100}%`} data-progress-fill></span>
           </div>
-          <div class="worlds-chips" role="group" aria-label="Filter concepts by review status">
+          <div class="ks-segmented ks-segmented--wrap ks-segmented--dense worlds-rail-group" role="group" aria-label="Filter concepts by review status">
             <button type="button" data-status-filter="pending" aria-pressed="true">Backlog<b data-count-pending>{counts.pending}</b></button>
             <button type="button" data-status-filter="approved" aria-pressed="false">Approved<b data-count-approved>{counts.approved}</b></button>
             <button type="button" data-status-filter="rejected" aria-pressed="false">Rejected<b data-count-rejected>{counts.rejected}</b></button>
@@ -273,7 +273,7 @@ const pageData = JSON.stringify({
         <div class="worlds-refine" role="group" aria-label="Filter approved worlds by rating, reach, and tier">
           <div class="worlds-refine-row" role="group" aria-label="Rating">
             <span>Rating</span>
-            <div>
+            <div class="ks-segmented ks-segmented--dense">
               <button type="button" data-rating-filter="all" aria-pressed="true">Any</button>
               <button type="button" data-rating-filter="unrated" aria-pressed="false" title="Approved, no star rating yet">None</button>
               {[1, 2, 3].map(value => (
@@ -283,7 +283,7 @@ const pageData = JSON.stringify({
           </div>
           <div class="worlds-refine-row" role="group" aria-label="Reach">
             <span>Reach</span>
-            <div>
+            <div class="ks-segmented ks-segmented--dense">
               <button type="button" data-reach-filter="all" aria-pressed="true">Any</button>
               <button type="button" data-reach-filter="general" aria-pressed="false" title="Drawn by challenger rolls">General</button>
               <button type="button" data-reach-filter="niche" aria-pressed="false" title="Held out of challenger draws">Niche</button>
@@ -291,7 +291,7 @@ const pageData = JSON.stringify({
           </div>
           <div class="worlds-refine-row" role="group" aria-label="Tier">
             <span>Tier</span>
-            <div>
+            <div class="ks-segmented ks-segmented--dense">
               <button type="button" data-tier-filter="all" aria-pressed="true">Any</button>
               <button type="button" data-tier-filter="free" aria-pressed="false" title="Dealt by the free roll">Free</button>
               <button type="button" data-tier-filter="pro" aria-pressed="false" title="Reserved for Pro, withheld from the free roll">Pro</button>
@@ -302,7 +302,7 @@ const pageData = JSON.stringify({
 
       <div class="worlds-filter-section">
         <span class="worlds-filter-heading">Eligible for mode</span>
-        <div class="worlds-chips" role="group" aria-label="Filter concepts by the mode they can carry">
+        <div class="ks-segmented ks-segmented--wrap ks-segmented--dense worlds-rail-group" role="group" aria-label="Filter concepts by the mode they can carry">
           <button type="button" data-mode-filter="all" aria-pressed="true">Any<b data-mode-count="all">0</b></button>
           <button type="button" data-mode-filter="unscoped" aria-pressed="false" title="Worlds nobody has narrowed, so they are eligible in every mode">Every<b data-mode-count="unscoped">0</b></button>
           {['persuade', 'operate', 'read', 'experience'].map(value => (
@@ -377,7 +377,7 @@ const pageData = JSON.stringify({
         <!-- Page-level views, so they sit in page-level chrome. They used to
              live in the concept header beside its breadcrumb and ID, which read
              as belonging to the world rather than switching what the page is. -->
-        <div class="worlds-view-toggle" role="group" aria-label="What this page shows" data-view-toggle>
+        <div class="ks-segmented worlds-view-toggle" role="group" aria-label="What this page shows" data-view-toggle>
           <button type="button" data-view="detail" aria-pressed="true" title="Review the catalog">Review</button>
           <button type="button" data-view="coverage" aria-pressed="false" title="Where the catalog is crowded and where it is open">Coverage</button>
           <button type="button" data-view="sites" aria-pressed="false" title="Real pages queued to derive a world from">Sites</button>
@@ -421,7 +421,7 @@ const pageData = JSON.stringify({
               <!-- These present the queue, so they live on the queue. As a
                    page-level tab row they read as switching what the page is,
                    which is why "cards" seemed to throw the detail view away. -->
-              <div class="worlds-queue-view" role="group" aria-label="How the queue is shown">
+              <div class="ks-segmented ks-segmented--dense worlds-queue-view" role="group" aria-label="How the queue is shown">
                 <button type="button" data-view="detail" aria-pressed="true" title="One at a time, with the full stage (V)" aria-keyshortcuts="v">
                   <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5">
                     <path d="M2 4h12M2 8h12M2 12h8"></path>
