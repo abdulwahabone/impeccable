@@ -1705,3 +1705,106 @@
   border: 1px solid var(--ks-patina);
   border-radius: 4px;
 }
+
+/* ============================================================
+   Segmented control.
+
+   A recessed track holding a raised thumb. Five bespoke versions of this
+   existed across the world catalog before it was factored out: one had a
+   transition, none had a press state, and each picked its own height,
+   radius and divider treatment, so a row of them read as loose buttons
+   rather than as one control.
+
+   The 3px track inset is what makes it a track. An earlier version butted
+   the segments straight against the border and separated them with
+   hairlines, which put the labels on the boundary line; once there is a
+   track, the selected segment can be a thumb sitting in it and the
+   dividers have nothing left to do. Inset plus segment height is also how
+   each size lands on the control ladder: 3 + 24 + 3 + two borders is
+   --ks-control-md exactly.
+   ============================================================ */
+.ks-segmented {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--ks-edge);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-lacquer-deep);
+}
+
+.ks-segmented button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: calc(var(--ks-control-md) - 8px);
+  padding: 0 9px;
+  border: 0;
+  border-radius: calc(var(--ks-radius-sm) - 1px);
+  background: transparent;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-label-size)/1 var(--ks-mono);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--ks-quick) var(--ks-ease),
+    color var(--ks-quick) var(--ks-ease);
+}
+
+.ks-segmented button:hover {
+  background: var(--ks-lacquer-raised);
+  color: var(--ks-text);
+}
+
+/* The press. A tool whose main verb is choosing had no pressed state at
+   all, so nothing acknowledged the click that committed a decision. */
+.ks-segmented button:active { background: var(--ks-graphite); }
+
+/* The thumb. It lifts off the track rather than only tinting, so the
+   current choice is legible at a glance across a rail holding five. */
+.ks-segmented button[aria-pressed="true"],
+.ks-segmented button[aria-selected="true"] {
+  background: color-mix(in oklch, var(--ks-kinpaku), transparent 82%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklch, var(--ks-kinpaku), transparent 62%),
+    var(--ks-lift-1);
+  color: var(--ks-champagne);
+}
+
+.ks-segmented button:disabled {
+  color: var(--ks-text-mute-deep);
+  cursor: not-allowed;
+}
+
+/* A count belongs to its option, so it rides inside the segment. Putting
+   it on a second line is what made the old cells 44px tall.
+
+   It takes the faint step, not mute-deep. mute-deep is the disabled colour
+   and measures 3.75:1 here, which is defensible for something you cannot
+   act on and wrong for a live figure telling you how many are in a bucket. */
+.ks-segmented b {
+  color: var(--ks-text-faint);
+  font-weight: 500;
+}
+
+.ks-segmented button[aria-pressed="true"] b { color: var(--ks-kinpaku); }
+
+/* Wraps instead of overflowing when the group is wider than its rail. The
+   track and thumb carry over unchanged; only the flow differs. */
+.ks-segmented--wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ks-segmented--wrap button {
+  flex: 1 1 auto;
+}
+
+/* Dense variant for a narrow rail: the small rung of the same ladder, so
+   the whole control lands on --ks-control-sm rather than improvising. */
+.ks-segmented--dense button {
+  min-height: calc(var(--ks-control-sm) - 8px);
+  padding: 0 7px;
+  letter-spacing: 0;
+}

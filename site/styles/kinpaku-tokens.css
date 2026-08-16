@@ -46,12 +46,20 @@
 
 	/* ============================================================
 	   Surfaces. Warm-black lacquer carries everything.
+
+	   The ladder is wide enough to see. The old steps ran 1.006, 1.019,
+	   1.041 and 1.068 in luminance, which is 1.14:1 end to end: below about
+	   1.02 a surface change is invisible, so a raised panel and the page
+	   behind it read as one plane and the whole system looks flat no matter
+	   what sits on it. These run 1.047 / 1.088 / 1.136 / 1.171, or 1.52:1
+	   end to end. --ks-lacquer-deep is 10% rather than 4% for the same
+	   reason and stops short of pure black, which has no headroom under it.
 	   ============================================================ */
-	--ks-lacquer:        oklch(7% 0.006 95);    /* page ground */
-	--ks-lacquer-deep:   oklch(4% 0.004 95);    /* deepest inset */
-	--ks-lacquer-raised: oklch(11% 0.006 95);   /* raised panels, inputs */
-	--ks-graphite:       oklch(15% 0.008 95);   /* inactive surfaces */
-	--ks-graphite-2:     oklch(19% 0.008 95);   /* one step up from graphite */
+	--ks-lacquer:        oklch(15% 0.006 95);   /* page ground */
+	--ks-lacquer-deep:   oklch(10% 0.006 95);   /* deepest inset, never pure black */
+	--ks-lacquer-raised: oklch(20% 0.006 95);   /* raised panels, inputs */
+	--ks-graphite:       oklch(25% 0.008 95);   /* inactive surfaces */
+	--ks-graphite-2:     oklch(30% 0.008 95);   /* one step up from graphite */
 
 	/* ============================================================
 	   Text. The whole text ramp runs near-neutral and bright so copy,
@@ -71,7 +79,43 @@
 	   carry warmth (warmth lives in the gold accents and surfaces). For a
 	   gold accent border, use --ks-kinpaku directly, not a readability variant.
 	   ============================================================ */
-	--ks-rule:           oklch(78% 0 0 / 0.16);
+	--ks-rule:           oklch(78% 0 0 / 0.22);
+
+	/* The boundary of a control, as opposed to a decorative separator.
+	   WCAG 1.4.11 asks 3:1 of anything that tells you where a control is;
+	   --ks-rule measured 1.25:1, so every input, track and toggle on the
+	   site had an edge that was technically drawn and practically absent.
+	   This measures 3.29:1 on lacquer. Use --ks-rule to divide, --ks-edge
+	   to bound something you can operate. */
+	--ks-edge:           oklch(80% 0 0 / 0.5);
+
+	/* ============================================================
+	   Control scales. An application surface improvises one of these per
+	   component unless it is told not to; the world catalog had reached
+	   seven control heights and four radii before anyone noticed.
+	   ============================================================ */
+
+	/* Radius. Three values and no others. Small for chips, inputs and dense
+	   chrome; medium for panels and cards; pill for toggles and anything
+	   round. A control nested inside another subtracts a pixel rather than
+	   inventing a fourth value. */
+	--ks-radius-sm:      3px;
+	--ks-radius-md:      8px;
+	--ks-radius-pill:    999px;
+
+	/* Control height. Three rungs and no others. sm is dense chrome in a
+	   rail, md is the default, lg is a primary action. Anything below sm is
+	   not a smaller control, it is a mistake. */
+	--ks-control-sm:     26px;
+	--ks-control-md:     32px;
+	--ks-control-lg:     44px;
+
+	/* Elevation. Deliberately short, because this system keeps things flat
+	   and puts depth in material and hairlines. These exist so the few
+	   things that genuinely leave the plane agree with each other instead
+	   of each hand-rolling a blur. */
+	--ks-lift-1:         0 2px 6px oklch(0% 0 0 / 0.35);
+	--ks-lift-2:         0 10px 28px oklch(0% 0 0 / 0.45);
 
 	/* ============================================================
 	   Code. One treatment site-wide. Inline code is a neutral graphite
@@ -146,10 +190,26 @@
 	--ks-type-mono-size:  0.6875rem;
 	--ks-type-mono-track: 0.22em;
 
+	/* Dense UI ramp. The marketing scale steps 11px straight to 16px, which
+	   leaves an application surface nothing between a caption and body copy,
+	   so every label, every list row and every control ends up on the same
+	   11px and nothing can be emphasised. These four fill that gap. Micro is
+	   the floor: nothing functional goes below it, because 10px functional
+	   text fails on high-DPI and on small viewports whatever the ramp says. */
+	--ks-type-micro-size: 0.6875rem;  /* 11px — row numbers, counts, badges */
+	--ks-type-label-size: 0.75rem;    /* 12px — control text, caps section heads */
+	--ks-type-ui-size:    0.8125rem;  /* 13px — list rows and meta you read */
+	--ks-type-ui-lead:    0.9375rem;  /* 15px — subheads inside dense panels */
+
 	/* ============================================================
 	   Motion.
 	   ============================================================ */
 	--ks-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+	/* Two durations, so a surface does not have to decide per component.
+	   Quick is a state change, settle is something arriving. */
+	--ks-quick:  120ms;
+	--ks-settle: 200ms;
 }
 
 html.dark {
@@ -205,7 +265,14 @@ html.light {
 	--ks-text-mute-deep: oklch(65% 0.01 95);
 
 	/* Rules — dark hairlines. */
-	--ks-rule:           oklch(25% 0.02 95 / 0.12);
+	--ks-rule:           oklch(25% 0.02 95 / 0.16);
+
+	/* Light-mode counterparts of the control tokens. The scales themselves
+	   (radius, height, duration) are theme-independent; only the ink and the
+	   shadow have to be restated for paper. */
+	--ks-edge:           oklch(25% 0.02 95 / 0.42);
+	--ks-lift-1:         0 2px 6px oklch(25% 0.02 95 / 0.10);
+	--ks-lift-2:         0 10px 28px oklch(25% 0.02 95 / 0.16);
 
 	/* Code — light chips, dark text. */
 	--ks-code-fg:         oklch(28% 0.02 95);

@@ -15,6 +15,43 @@
   display: none !important;
 }
 
+/*
+ * Interaction contract, declared once for every control on the page.
+ * Before this, one family had a transition and eleven did not, so a press
+ * registered on the segmented control and nowhere else; the difference read as
+ * some buttons being broken rather than as a style choice. Per-family rules
+ * still own colour and border, which is why this sets only the two properties
+ * no family had a reason to disagree about.
+ */
+.worlds-lab-page button,
+.worlds-lab-page select,
+.worlds-lab-page .worlds-family-button {
+  transition:
+    background-color var(--ks-quick) var(--ks-ease),
+    border-color var(--ks-quick) var(--ks-ease),
+    color var(--ks-quick) var(--ks-ease);
+}
+
+.worlds-lab-page button:not(:disabled):active,
+.worlds-lab-page .worlds-family-button:active {
+  /* Depth the page cannot spend on shadow gets spent on displacement: one
+     device pixel down is enough to feel like a press at this density. */
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .worlds-lab-page button,
+  .worlds-lab-page select,
+  .worlds-lab-page .worlds-family-button {
+    transition: none;
+  }
+
+  .worlds-lab-page button:not(:disabled):active,
+  .worlds-lab-page .worlds-family-button:active {
+    transform: none;
+  }
+}
+
 .worlds-main-shell,
 .worlds-workbench {
   min-height: 0;
@@ -43,10 +80,10 @@
 }
 
 .worlds-skip-links a {
-  min-height: 44px;
+  min-height: var(--ks-control-lg);
   padding: 12px var(--spacing-sm);
   border: 1px solid var(--ks-kinpaku);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: var(--ks-lacquer-deep);
   color: var(--ks-kinpaku);
   font: 600 var(--ks-type-mono-size)/1.2 var(--ks-font);
@@ -124,7 +161,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: var(--spacing-md);
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   overflow: hidden;
 }
 
@@ -192,7 +229,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   margin-top: var(--spacing-sm);
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   overflow: hidden;
 }
 
@@ -203,7 +240,7 @@
 .worlds-status-grid button {
   display: block;
   min-width: 0;
-  min-height: 44px;
+  min-height: var(--ks-control-lg);
   padding: 10px 8px;
   border: 0;
   border-right: 1px solid var(--ks-rule);
@@ -262,13 +299,25 @@
   color: var(--ks-kinpaku);
 }
 
+/* One rule, not two. There were two .worlds-family-button blocks 95 lines
+   apart, the first asking for --ks-control-lg and the second setting
+   min-height: 0, so the rows rendered at 24px and neither block was wrong on
+   its own. A dense list row is --ks-control-sm; 23 families at lg would be a
+   thousand pixels of rail. */
 .worlds-family-button {
-  min-height: 44px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--spacing-sm);
+  align-items: center;
+  width: 100%;
+  min-height: var(--ks-control-sm);
+  padding: 3px 10px;
   border: 1px solid transparent;
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-text-muted);
-  font: 500 var(--ks-type-mono-size)/1.25 var(--ks-font);
+  font: 500 var(--ks-type-label-size)/1.25 var(--ks-font);
+  text-align: left;
   cursor: pointer;
 }
 
@@ -311,13 +360,16 @@
   scrollbar-color: var(--ks-graphite-2) transparent;
 }
 
+/* Not uppercased. These are family names out of the catalog, so their length is
+   whatever an editor wrote: "Print" reads fine in caps and "Material & Imagined
+   Worlds" does not, and losing the word shapes on a 26-character phrase costs
+   more than the label treatment buys. Weight and colour carry the rank instead. */
 .worlds-well-heading {
   margin: var(--spacing-md) 0 5px;
   padding: 0 10px;
   color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1.2 var(--ks-mono);
-  letter-spacing: var(--ks-type-eyebrow-track);
-  text-transform: uppercase;
+  font: 600 var(--ks-type-micro-size)/1.2 var(--ks-mono);
+  letter-spacing: 0.02em;
 }
 
 .worlds-well-heading:first-child {
@@ -341,10 +393,10 @@
 
 .worlds-family-search input {
   width: 100%;
-  min-height: 44px;
+  min-height: var(--ks-control-lg);
   padding: 0 11px;
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: var(--ks-lacquer-raised);
   color: var(--ks-champagne);
   font: 500 var(--ks-type-mono-size)/1.2 var(--ks-font);
@@ -352,17 +404,6 @@
 
 .worlds-family-search input::placeholder {
   color: var(--ks-text-faint);
-}
-
-.worlds-family-button {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--spacing-sm);
-  align-items: center;
-  width: 100%;
-  min-height: 0;
-  padding: 4px 10px;
-  text-align: left;
 }
 
 .worlds-family-button > span:first-child {
@@ -388,11 +429,11 @@
 
 .worlds-family-expand {
   width: 100%;
-  min-height: 44px;
+  min-height: var(--ks-control-lg);
   margin-top: var(--spacing-xs);
   padding: 8px 10px;
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-kinpaku);
   font: 500 var(--ks-type-mono-size)/1.25 var(--ks-font);
@@ -452,10 +493,10 @@
 
 .worlds-search input {
   width: 100%;
-  min-height: 44px;
+  min-height: var(--ks-control-lg);
   padding: 0 48px;
   border: 1px solid var(--ks-rule);
-  border-radius: 4px;
+  border-radius: var(--ks-radius-sm);
   background: var(--ks-lacquer-raised);
   color: var(--ks-champagne);
   font: 400 var(--ks-type-body-size)/1.2 var(--ks-font);
@@ -503,7 +544,7 @@
 .worlds-runtime-state small {
   margin-top: 2px;
   color: var(--ks-text-faint);
-  font-size: var(--ks-type-eyebrow-size);
+  font-size: var(--ks-type-label-size);
 }
 
 .worlds-workspace-grid {
@@ -540,23 +581,40 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-sm);
-  min-height: 64px;
-  padding: 10px var(--spacing-sm);
+  padding: 8px var(--spacing-sm);
   border-bottom: 1px solid var(--ks-rule);
 }
 
-.worlds-queue-head strong {
-  display: block;
-  margin-top: 3px;
-  color: var(--ks-champagne);
-  font-size: var(--ks-type-title-size);
-  font-weight: 600;
+.worlds-queue-head {
+  min-height: 46px;
 }
 
-.worlds-queue-head > span {
-  color: var(--ks-patina);
+/* The bucket and its size are one fact, so they are one lockup. "Review queue"
+   stacked over "Backlog" over a floating count spent 88px of a rail on saying
+   the same thing three ways, and the bucket name already tells you which queue
+   this is. */
+.worlds-queue-title {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.worlds-queue-head strong {
+  overflow: hidden;
+  color: var(--ks-champagne);
+  font-size: var(--ks-type-ui-lead);
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.worlds-queue-title > span {
+  flex: 0 0 auto;
+  color: var(--ks-text-faint);
   font-family: var(--ks-mono);
-  font-size: var(--ks-type-mono-size);
+  font-size: var(--ks-type-label-size);
+  font-variant-numeric: tabular-nums;
 }
 
 .worlds-queue-list {
@@ -595,9 +653,13 @@
 }
 
 .worlds-queue-item > span:first-child {
-  color: var(--ks-text-faint);
+  /* Muted for the same reason as the family label: faint drops to 3.7:1 once
+     the row is the current one, and the row number is how you say where you
+     are to someone else. */
+  color: var(--ks-text-muted);
   font-family: var(--ks-mono);
-  font-size: var(--ks-type-eyebrow-size);
+  font-size: var(--ks-type-micro-size);
+  font-variant-numeric: tabular-nums;
 }
 
 .worlds-queue-item small,
@@ -608,16 +670,24 @@
   white-space: nowrap;
 }
 
+/* Muted, not faint. Faint clears 4.5:1 on the rail's own ground and drops to
+   3.7:1 the moment the row is hovered or current, which is exactly when someone
+   is reading it. One value that holds on all three backgrounds beats a state
+   swap that has to be remembered every time a row background changes. */
 .worlds-queue-item small {
-  color: var(--ks-text-faint);
-  font-size: var(--ks-type-eyebrow-size);
+  color: var(--ks-text-muted);
+  font-size: var(--ks-type-micro-size);
 }
 
+/* The concept phrase is the one thing in the row anyone reads down the list,
+   so it takes the step above the family and the row number rather than
+   sharing their size and relying on weight alone to separate them. */
 .worlds-queue-item strong {
-  margin-top: 3px;
+  margin-top: 2px;
   color: var(--ks-text);
-  font-size: var(--ks-type-mono-size);
+  font-size: var(--ks-type-ui-size);
   font-weight: 500;
+  line-height: 1.35;
 }
 
 .worlds-queue-item i {
@@ -651,7 +721,7 @@
    shortcut the label already teaches. Quieter and half the height; the hit area
    stays large enough to click. */
 .worlds-queue-foot {
-  min-height: 34px;
+  min-height: var(--ks-control-md);
   border-top: 1px solid var(--ks-rule);
   border-bottom: 0;
   color: var(--ks-text-faint);
@@ -670,10 +740,10 @@
   justify-content: center;
   gap: 4px;
   min-width: 30px;
-  height: 30px;
+  height: var(--ks-control-sm);
   padding: 0 6px;
   border: 0;
-  border-radius: 2px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-text-muted);
   cursor: pointer;
@@ -692,24 +762,43 @@
 kbd {
   display: inline-flex;
   min-width: 20px;
-  min-height: 20px;
+  min-height: var(--ks-control-sm);
   align-items: center;
   justify-content: center;
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: var(--ks-graphite-2);
   color: currentColor;
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
 }
 
-/* Inside a button the chip would nest box-in-box; the hint becomes quiet text. */
+/* Inside a button the chip would nest box-in-box; the hint becomes quiet text.
+   The fade is 18% rather than 35%: at 35% the shortcut on Reject measured
+   2.65:1, and a keyboard hint nobody can read is the one kind of affordance
+   that fails silently, because the people who need it are not looking at the
+   button when they need it. */
 button kbd {
   min-width: 0;
   min-height: 0;
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: color-mix(in oklch, currentColor, transparent 35%);
+  color: color-mix(in oklch, currentColor, transparent 18%);
+}
+
+/* Reject is the one action whose colour has no headroom to give: vermilion is
+   already near its floor, so any fade at all puts the hint under 4.5:1. It
+   keeps the full colour and separates from the label by tracking instead. */
+.worlds-action-reject kbd {
+  color: currentColor;
+  letter-spacing: 0.08em;
+}
+
+/* A disabled button is already the quietest thing in its family, so fading the
+   hint inside it a second time took the shortcut to 2.6:1 and made the control
+   read as absent rather than unavailable. */
+button:disabled kbd {
+  color: currentColor;
 }
 
 .worlds-review-stage {
@@ -743,30 +832,139 @@ button kbd {
 .worlds-review-context {
   display: flex;
   min-width: 0;
+  flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: var(--spacing-md);
+  gap: var(--spacing-xs) var(--spacing-md);
 }
 
+/* The glance used to be nowrap and unshrinkable, which held at 1440 and put the
+   Edit button 365px off the right edge at 1024: the one control on the line
+   became unreachable rather than the line becoming two. It now wraps, and the
+   telemetry reading truncates, because a shortened stat still tells you the
+   scale while an off-screen button tells you nothing. */
 .worlds-review-glance {
   display: flex;
-  flex: 0 0 auto;
+  min-width: 0;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
   align-items: center;
-  gap: var(--spacing-sm);
-  white-space: nowrap;
+  gap: var(--spacing-xs) var(--spacing-sm);
 }
 
 /* Line two: the verdict. Groups never compress internally, so a narrow stage
    wraps between them instead of squeezing a control to illegibility. */
+/*
+ * The write band. Everything inside it changes the catalog on disk; the line
+ * above it only reports. That was invisible before, because a status badge and
+ * a toggle were both bordered pills sitting on the same ground.
+ *
+ * The band is its own surface, which is the part that does not depend on anyone
+ * reading a label: writable controls physically sit on a different plane from
+ * the facts. It is raised rather than recessed because the header ground is
+ * already within a few percent of black and sinking further had nowhere to go
+ * — the first attempt measured 1.047 against its surround, which is the bottom
+ * of what an eye resolves. Direction matters less here than difference, and a
+ * raised tool tray is just as conventional as a sunken one.
+ *
+ * Wrapping instead of scrolling is deliberate at this density: a field that
+ * runs off the edge is a setting nobody knows exists.
+ */
 .worlds-review-controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 8px var(--spacing-md);
+  margin-top: 3px;
+  padding: 7px var(--spacing-sm);
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-lacquer-raised);
 }
 
 .worlds-review-controls > * {
   flex: 0 0 auto;
+}
+
+/* A label beside a control is what a field looks like; a bare word in a pill is
+   what a static tag looks like. This is most of why the row read as chrome. */
+.worlds-field {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.worlds-field-label {
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* The write acknowledgement. These controls commit the moment they are clicked
+   and the only sign was a toast in the opposite corner, so the flash happens on
+   the field that changed. It is also the least ambiguous way to say the thing
+   was a control at all. */
+.worlds-field.is-written {
+  animation: worlds-field-written 420ms var(--ks-ease);
+}
+
+@keyframes worlds-field-written {
+  0%   { background: color-mix(in oklch, var(--ks-kinpaku), transparent 74%); }
+  100% { background: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .worlds-field.is-written { animation: none; }
+}
+
+/*
+ * Below about 1240px the stage is under 500px wide and the band's five fields
+ * wrapped one per line, taking a third of the viewport for the header alone.
+ * Two other shapes were tried and measured: one field per row cost 216px of an
+ * 800px viewport, and a repeat(auto-fit, minmax()) grid gave the identical
+ * 216px because auto-fit sizes every track to the widest field's min-content,
+ * so Strength alone forced a single column. Plain wrapping has no such
+ * coupling, and came in at 151px.
+ */
+@media (max-width: 1240px) {
+  .worlds-review-controls {
+    gap: 5px var(--spacing-sm);
+  }
+
+  .worlds-field {
+    padding: 2px 3px;
+    border-radius: var(--ks-radius-sm);
+  }
+
+  /* min-width:0 is what lets the chips inside wrap. Without it the field is a
+     flex item that refuses to shrink below its content, so .worlds-modes never
+     reaches its own wrap point and the last chip runs 32px past the band's
+     padding instead of dropping to the next line. */
+  .worlds-field[data-field="modes"] {
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+
+  /* Modes give up their word spacing first: they are the widest field and the
+     one whose four items can sit tighter without touching. */
+  .worlds-modes {
+    gap: 3px;
+  }
+
+  .worlds-mode-option {
+    padding: 0 6px;
+    font-size: var(--ks-type-micro-size);
+  }
+
+  /* The facts stay on one line here. Left to wrap they took four, because the
+     telemetry reading is a whole sentence and pushed Edit onto a line of its
+     own. The reading is the one thing on that line that degrades gracefully, so
+     it gives up its tail and everything else keeps its place. */
+  .worlds-review-glance {
+    flex-wrap: nowrap;
+  }
 }
 
 .worlds-review-path {
@@ -776,7 +974,7 @@ button kbd {
   gap: var(--spacing-xs);
   overflow: hidden;
   color: var(--ks-text-faint);
-  font-size: var(--ks-type-mono-size);
+  font-size: var(--ks-type-label-size);
   white-space: nowrap;
 }
 
@@ -813,29 +1011,39 @@ button kbd {
   white-space: nowrap;
 }
 
+/* No border. The status is a fact about the world, and giving facts the same
+   outlined-pill treatment as the controls below is what made the whole header
+   read as one undifferentiated strip of chrome. It keeps its colour, because
+   that is what the reviewer actually reads it for, and takes a leading dot so
+   it is still findable in a line of plain text. */
 .worlds-status-badge {
+  display: inline-flex;
   flex: 0 0 auto;
-  padding: 5px 9px;
-  border: 1px solid var(--ks-rule);
-  border-radius: 999px;
+  align-items: center;
+  gap: 6px;
   color: var(--ks-text-muted);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
+.worlds-status-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
 .worlds-status-badge.is-approved {
-  border-color: color-mix(in oklch, var(--ks-patina), transparent 54%);
   color: var(--ks-patina);
 }
 
 .worlds-status-badge.is-rejected {
-  border-color: color-mix(in oklch, var(--ks-vermilion), transparent 44%);
   color: var(--ks-vermilion);
 }
 
 .worlds-status-badge.is-pending {
-  border-color: color-mix(in oklch, var(--ks-kinpaku), transparent 58%);
   color: var(--ks-kinpaku);
 }
 
@@ -860,25 +1068,13 @@ button kbd {
   white-space: nowrap;
 }
 
-/* Squared, because this sets a value on the world rather than navigating. The
-   rounded pill is reserved for switching what the page shows, and using one
-   shape for both made a control look like a tab. */
-.worlds-strength-toggle,
-.worlds-mode-toggle {
-  display: inline-flex;
-  border: 1px solid var(--ks-rule);
-  border-radius: 3px;
-  background: var(--ks-lacquer-raised);
-  overflow: hidden;
-}
-
 .worlds-rating {
   display: inline-flex;
   gap: 2px;
 }
 
 .worlds-rating button {
-  min-height: 26px;
+  min-height: var(--ks-control-sm);
   padding: 0 3px;
   border: 0;
   background: transparent;
@@ -905,79 +1101,19 @@ button kbd {
   cursor: default;
 }
 
+/* Strength sets a value on the world rather than navigating, so its thumb
+   takes the patina instead of the gold the navigation segments use. Everything
+   else about the control now comes from .ks-segmented. */
 .worlds-strength-toggle button {
-  min-height: 26px;
-  padding: 0 10px;
-  border: 0;
-  background: transparent;
-  color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  letter-spacing: 0.06em;
   text-transform: uppercase;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.worlds-strength-toggle button + button {
-  border-left: 1px solid var(--ks-rule);
-}
-
-.worlds-strength-toggle button:hover:not(:disabled) {
-  background: var(--ks-graphite);
-  color: var(--ks-text-muted);
 }
 
 .worlds-strength-toggle button[aria-pressed="true"] {
-  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
+  background: color-mix(in oklch, var(--ks-patina), transparent 84%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklch, var(--ks-patina), transparent 62%),
+    var(--ks-lift-1);
   color: var(--ks-patina);
-}
-
-.worlds-strength-toggle button:disabled {
-  cursor: not-allowed;
-}
-
-/* Breadth is a hold, not a grade: it reads as a quiet outline until engaged,
-   then takes the warning-adjacent patina so a held-back world is obvious at a
-   glance in the queue without implying the world is weak. */
-/* Pro shares the pill shape of the breadth toggle because it sits beside it and
-   behaves the same way, but takes the gold when set: it is the one control here
-   that changes who can be dealt the world rather than what the world is. */
-.worlds-pro-toggle[aria-pressed="true"] {
-  border-color: var(--ks-kinpaku);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 80%);
-  color: var(--ks-champagne);
-}
-
-.worlds-breadth-toggle,
-.worlds-pro-toggle {
-  min-height: 26px;
-  padding: 0 10px;
-  border: 1px solid var(--ks-rule);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.worlds-breadth-toggle:hover:not(:disabled),
-.worlds-pro-toggle:hover:not(:disabled) {
-  background: var(--ks-graphite);
-  color: var(--ks-text-muted);
-}
-
-.worlds-breadth-toggle[aria-pressed="true"] {
-  border-color: color-mix(in oklch, var(--ks-champagne), transparent 60%);
-  background: color-mix(in oklch, var(--ks-champagne), transparent 88%);
-  color: var(--ks-champagne);
-}
-
-.worlds-breadth-toggle:disabled,
-.worlds-pro-toggle:disabled {
-  cursor: not-allowed;
 }
 
 .worlds-strength-toggle button:disabled[aria-pressed="false"] {
@@ -1109,15 +1245,19 @@ button kbd {
   border-top: 0;
 }
 
+/* These four lines are what a reviewer actually reads before deciding, and they
+   run 100 to 170 characters each. At the 11px caption size they were the
+   smallest text on a screen whose entire job is reading them, so they take the
+   UI reading size and the leading that goes with a real line length. */
 .worlds-system-contract ol,
 .worlds-system-contract ul,
 .worlds-system-contract strong {
   display: block;
   margin: 0;
   color: var(--ks-text);
-  font-size: var(--ks-type-mono-size);
+  font-size: var(--ks-type-ui-size);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .worlds-system-contract ol {
@@ -1133,7 +1273,7 @@ button kbd {
    status badge and taking a third of the header. */
 .worlds-review-folio {
   color: var(--ks-text-faint);
-  font-size: 0.625rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.06em;
 }
 
@@ -1150,10 +1290,10 @@ button kbd {
 
 .worlds-card-stale {
   padding: 2px 6px;
-  border-radius: 2px;
+  border-radius: var(--ks-radius-sm);
   background: color-mix(in oklch, var(--ks-patina), transparent 84%);
   color: var(--ks-patina);
-  font-size: 0.5625rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.08em;
 }
 
@@ -1186,14 +1326,18 @@ button kbd {
   gap: 3px;
 }
 
+/* 19px was a fourth control height invented for this one row. It sits on the
+   small rung with everything else now, which also makes it a target a pointer
+   can actually land on. */
 .worlds-lead-variants button {
   min-width: 30px;
-  padding: 3px 7px;
+  min-height: var(--ks-control-sm);
+  padding: 0 7px;
   border: 1px solid var(--ks-rule);
-  border-radius: 2px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-text-faint);
-  font: 500 0.625rem/1 var(--ks-mono);
+  font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
   letter-spacing: 0.08em;
   cursor: pointer;
 }
@@ -1225,10 +1369,10 @@ button kbd {
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-xs);
-  min-height: 22px;
+  min-height: var(--ks-control-sm);
   margin-bottom: 4px;
   color: var(--ks-text-faint);
-  font-size: 0.625rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -1284,7 +1428,7 @@ button kbd {
 .worlds-tag-row span {
   padding: 6px 9px;
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: var(--ks-lacquer-raised);
   color: var(--ks-text-muted);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
@@ -1321,11 +1465,13 @@ button kbd {
   margin-top: var(--spacing-md);
 }
 
+/* Sentences, so they sit on the UI reading step with the system grammar rather
+   than on the caption step with the labels above them. */
 .worlds-concept-meta strong {
   display: block;
   margin-top: var(--spacing-xs);
   color: var(--ks-text);
-  font-size: var(--ks-type-mono-size);
+  font-size: var(--ks-type-ui-size);
   font-weight: 500;
   line-height: 1.55;
 }
@@ -1337,7 +1483,7 @@ button kbd {
   gap: var(--spacing-sm);
   margin-top: var(--spacing-sm);
   color: var(--ks-text-faint);
-  font-size: var(--ks-type-mono-size);
+  font-size: var(--ks-type-label-size);
 }
 
 .worlds-concept-meta-row em {
@@ -1347,10 +1493,10 @@ button kbd {
 }
 
 .worlds-concept-meta button {
-  min-height: 42px;
+  min-height: var(--ks-control-lg);
   padding: 0 12px;
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-kinpaku);
   font: 500 var(--ks-type-mono-size)/1 var(--ks-font);
@@ -1411,10 +1557,10 @@ button kbd {
 }
 
 .worlds-edit-form header button {
-  width: 34px;
-  height: 34px;
+  width: var(--ks-control-md);
+  height: var(--ks-control-md);
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-text);
   font-size: var(--ks-type-title-size);
@@ -1439,7 +1585,7 @@ button kbd {
   width: 100%;
   margin-top: var(--spacing-xs);
   border: 1px solid var(--ks-rule);
-  border-radius: 4px;
+  border-radius: var(--ks-radius-sm);
   background: var(--ks-lacquer-raised);
   color: var(--ks-text);
   font: 400 var(--ks-type-body-size)/1.55 var(--ks-font);
@@ -1447,7 +1593,7 @@ button kbd {
 
 .worlds-edit-form input,
 .worlds-edit-form select {
-  min-height: 42px;
+  min-height: var(--ks-control-lg);
   padding: 0 12px;
 }
 
@@ -1485,9 +1631,9 @@ button kbd {
 
 .worlds-button-secondary,
 .worlds-button-primary {
-  min-height: 42px;
+  min-height: var(--ks-control-lg);
   padding: 0 18px;
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   font: 600 var(--ks-type-mono-size)/1 var(--ks-font);
   cursor: pointer;
 }
@@ -1520,10 +1666,10 @@ button kbd {
 .worlds-decision-note {
   flex: 1 1 auto;
   min-width: 180px;
-  min-height: 44px;
+  min-height: var(--ks-control-lg);
   padding: 0 12px;
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: var(--ks-lacquer-deep);
   color: var(--ks-champagne);
   font-size: var(--ks-type-mono-size);
@@ -1575,14 +1721,14 @@ button kbd {
 
 .worlds-review-actions button {
   display: inline-flex;
-  min-height: 44px;
+  min-height: var(--ks-control-lg);
   flex: 0 0 auto;
   align-items: center;
   justify-content: space-between;
   gap: var(--spacing-md);
   padding: 0 12px 0 16px;
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: var(--ks-lacquer-raised);
   color: var(--ks-text);
   font: 600 var(--ks-type-mono-size)/1 var(--ks-font);
@@ -1627,15 +1773,22 @@ button kbd {
   z-index: 40;
   max-width: min(420px, calc(100vw - 32px));
   padding: 12px var(--spacing-sm);
-  border: 1px solid color-mix(in oklch, var(--ks-patina), transparent 28%);
-  background: var(--ks-graphite-2);
+  /* The whole surface carries the outcome, rather than a hairline round the
+     edge or an accent bar down one side. A toast is the one thing here that is
+     genuinely off the plane, so it commits to elevation and lets the tint say
+     whether the thing worked; a 1px ring under a 28px shadow claims a defined
+     edge and a soft float at once, and the left stripe is already doing
+     selection duty in the queue. */
+  border: 0;
+  border-radius: var(--ks-radius-sm);
+  background: color-mix(in oklch, var(--ks-patina), var(--ks-graphite-2) 82%);
   color: var(--ks-champagne);
-  box-shadow: 0 18px 42px color-mix(in oklch, var(--ks-lacquer-deep), transparent 20%);
-  font-size: var(--ks-type-mono-size);
+  box-shadow: var(--ks-lift-2);
+  font-size: var(--ks-type-label-size);
 }
 
 .worlds-toast[data-kind="error"] {
-  border-color: color-mix(in oklch, var(--ks-vermilion), transparent 20%);
+  background: color-mix(in oklch, var(--ks-vermilion), var(--ks-graphite-2) 80%);
 }
 
 @media (max-width: 1500px) {
@@ -1751,7 +1904,7 @@ button kbd {
 
   .worlds-family-button {
     min-width: 0;
-    min-height: 44px;
+    min-height: var(--ks-control-lg);
   }
 
   .worlds-toolbar,
@@ -1831,43 +1984,70 @@ button kbd {
    shape and sit at the same weight rather than competing with the decision
    buttons. A mode reads as on unless the reviewer turned it off, because an
    absent allowedModes means eligible everywhere. */
+/*
+ * Spaced, not flush, and deliberately not a segmented track.
+ *
+ * Four words butted together is a tab bar to anyone who has used software, and
+ * no hover state undoes that at a glance. These four are an independent
+ * multi-select where all four on is the default, which is the least tab-like
+ * thing on the page, so it was wearing the most misleading shape available.
+ * The rule the rest of this file now follows: flush means pick one of these,
+ * spaced means tick any of these.
+ */
 .worlds-modes {
   display: inline-flex;
-  border: 1px solid var(--ks-rule);
-  border-radius: 999px;
-  overflow: hidden;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
+/* This is also the one control where pressed is the resting state, so the mark
+   is quiet and the reviewer's act is striking one out. Lighting up all four by
+   default would say nothing at all. */
 .worlds-mode-option {
-  min-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  min-height: var(--ks-control-sm);
   padding: 0 8px;
-  border: 0;
-  border-left: 1px solid var(--ks-rule);
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-sm);
   background: transparent;
-  color: var(--ks-text-mute-deep);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  color: var(--ks-text-muted);
+  font: 500 var(--ks-type-label-size)/1 var(--ks-mono);
   text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
 }
 
-.worlds-mode-option:first-child {
-  border-left: 0;
+/* The tick. Drawn rather than typed so it keeps its weight at 12px, and shown
+   hollow when the mode is struck out so the control reads as a checkbox in both
+   states rather than as a word that sometimes has a mark next to it. */
+.worlds-mode-option::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border: 1px solid currentColor;
+  /* One inside the chip's own radius, the way a nested control takes its
+     parent's corner rather than inventing a fourth value. */
+  border-radius: calc(var(--ks-radius-sm) - 1px);
+  background: currentColor;
+  box-shadow: inset 0 0 0 1px var(--ks-lacquer-deep);
 }
 
 .worlds-mode-option:hover:not(:disabled) {
-  background: var(--ks-graphite);
-  color: var(--ks-text-muted);
-}
-
-.worlds-mode-option[aria-pressed="true"] {
-  color: var(--ks-text-muted);
+  border-color: var(--ks-edge);
+  color: var(--ks-champagne);
 }
 
 .worlds-mode-option[aria-pressed="false"] {
-  background: color-mix(in oklch, var(--ks-graphite), transparent 40%);
+  border-color: var(--ks-rule);
   color: var(--ks-text-mute-deep);
   text-decoration: line-through;
+}
+
+.worlds-mode-option[aria-pressed="false"]::before {
+  background: transparent;
+  box-shadow: none;
 }
 
 .worlds-mode-option:disabled {
@@ -1888,10 +2068,10 @@ button kbd {
 }
 
 .worlds-area select {
-  min-height: 26px;
+  min-height: var(--ks-control-sm);
   padding: 0 6px;
   border: 1px solid var(--ks-rule);
-  border-radius: 4px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-text-muted);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
@@ -1945,13 +2125,13 @@ button kbd {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  min-height: 22px;
+  min-height: var(--ks-control-sm);
   padding: 0 8px;
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-text-muted);
-  font: 500 0.625rem/1 var(--ks-mono);
+  font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   cursor: pointer;
@@ -1975,39 +2155,20 @@ button kbd {
 
 /* Icons rather than words, because they sit in a 292px rail beside a count and
    a title that already say what the queue is. */
-.worlds-queue-view {
-  display: inline-flex;
-  border: 1px solid var(--ks-rule);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
+/* Both header switches are icon-only, so they take the same square cells, and
+   both use the one pressed colour from .ks-segmented. The view control used to
+   answer in patina while the sort beside it answered in gold, which read as two
+   systems rather than two questions. */
+.worlds-queue-sort button,
 .worlds-queue-view button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   width: 26px;
-  height: 24px;
   padding: 0;
-  border: 0;
-  border-left: 1px solid var(--ks-rule);
-  background: transparent;
-  color: var(--ks-text-mute-deep);
-  cursor: pointer;
 }
 
-.worlds-queue-view button:first-child {
-  border-left: 0;
-}
-
-.worlds-queue-view button svg {
+.worlds-queue-sort svg,
+.worlds-queue-view svg {
   width: 13px;
   height: 13px;
-}
-
-.worlds-queue-view button[aria-pressed="true"] {
-  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
-  color: var(--ks-patina);
 }
 
 .worlds-sr {
@@ -2020,33 +2181,17 @@ button kbd {
   white-space: nowrap;
 }
 
+/* Rounded, because this one switches what the page shows rather than setting a
+   value on the world. It is the only pill-shaped segmented group for that
+   reason. */
 .worlds-view-toggle {
-  display: inline-flex;
   flex: 0 0 auto;
-  border: 1px solid var(--ks-rule);
-  border-radius: 999px;
-  overflow: hidden;
+  border-radius: var(--ks-radius-pill);
 }
 
 .worlds-view-toggle button {
-  min-height: 24px;
-  padding: 0 9px;
-  border: 0;
-  border-left: 1px solid var(--ks-rule);
-  background: transparent;
-  color: var(--ks-text-mute-deep);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  border-radius: var(--ks-radius-pill);
   text-transform: uppercase;
-  cursor: pointer;
-}
-
-.worlds-view-toggle button:first-child {
-  border-left: 0;
-}
-
-.worlds-view-toggle button[aria-pressed="true"] {
-  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
-  color: var(--ks-patina);
 }
 
 /* The contact sheet is the queue rail drawn as thumbnails, not a page of its
@@ -2082,14 +2227,16 @@ button kbd {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  /* 562 cards of full-size art. Lazy loading keeps the fetches down but the
-     boxes are still laid out and painted, so skip the ones nobody can see.
-     The intrinsic size holds the scrollbar steady while they are skipped. */
+  /* 628 cards, so skip painting the ones nobody can see and let the intrinsic
+     size hold the scrollbar steady while they are skipped. Measured on this
+     page it currently skips none of them, which is why it is not what bounds
+     the loading: the observer in renderCardGrid is, and it watches the card
+     rather than the image so it still fires if skipping ever starts. */
   content-visibility: auto;
   contain-intrinsic-size: auto 115px;
   padding: 0;
   border: 1px solid var(--ks-rule);
-  border-radius: 8px;
+  border-radius: var(--ks-radius-md);
   background: transparent;
   overflow: hidden;
   text-align: left;
@@ -2113,7 +2260,7 @@ button kbd {
   aspect-ratio: 16 / 9;
   background: var(--ks-graphite);
   color: var(--ks-text-mute-deep);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
   text-transform: uppercase;
 }
 
@@ -2121,6 +2268,75 @@ button kbd {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Waiting, broken and never-generated were one flat grey between them, which is
+   also what a fair number of these worlds honestly look like at 144px. Each one
+   gets its own surface off the ladder so the sheet can be read for what is
+   missing as well as for what is there. */
+
+/* Queued or in flight. Hatched rather than flat, because flat is exactly what a
+   dark minimal world looks like and the two have to be told apart at a glance.
+   Static on purpose: a shimmer is a background-position animation, it does not
+   composite, and several hundred of them repaint the rail every frame. */
+.worlds-card-thumb[data-state="pending"] {
+  background-color: var(--ks-lacquer-raised);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--ks-graphite) 0 6px,
+    var(--ks-graphite-2) 6px 12px
+  );
+}
+
+/* Requested and refused. Vermilion is the one alarm colour in the set, and the
+   glyph carries it for anyone who cannot use the hue. */
+.worlds-card-thumb[data-state="failed"] {
+  background: var(--ks-lacquer-deep);
+  box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--ks-vermilion), transparent 55%);
+  color: var(--ks-vermilion);
+}
+
+.worlds-card-thumb[data-state="failed"]::after {
+  content: "failed";
+}
+
+/* Taken out of flow, because the image is still in the box at zero opacity and
+   as a flex sibling it is 100% wide, which pushed the word off the right edge. */
+.worlds-card-thumb[data-state="failed"]::after,
+.worlds-card-thumb[data-state="unrendered"]::after {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.06em;
+}
+
+/* No card was ever generated for this concept, which is a fact about the
+   catalog rather than a fault in the page. */
+.worlds-card-thumb[data-state="unrendered"] {
+  background: var(--ks-lacquer);
+  box-shadow: inset 0 0 0 1px var(--ks-rule);
+}
+
+.worlds-card-thumb[data-state="unrendered"]::after {
+  content: "no card";
+}
+
+/* The picture is held back until it has pixels, so a half-decoded thumbnail
+   never flashes over the hatching. Opacity composites; the hatching underneath
+   is never repainted for it. */
+.worlds-card-thumb img {
+  opacity: 0;
+  transition: opacity var(--ks-quick) var(--ks-ease);
+}
+
+.worlds-card-thumb[data-state="ready"] img {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .worlds-card-thumb img { transition: none; }
 }
 
 /* At this width the form line cannot be read in full, and letting it run to
@@ -2134,7 +2350,7 @@ button kbd {
   overflow: hidden;
   padding: 0 7px;
   color: var(--ks-text-muted);
-  font-size: 11px;
+  font-size: var(--ks-type-micro-size);
   line-height: 1.3;
 }
 
@@ -2149,10 +2365,10 @@ button kbd {
   align-items: center;
   gap: 3px;
   padding: 2px 5px;
-  border-radius: 999px;
+  border-radius: var(--ks-radius-pill);
   background: color-mix(in oklch, var(--ks-lacquer), transparent 15%);
   color: var(--ks-champagne);
-  font: 500 8px/1 var(--ks-mono);
+  font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
   letter-spacing: 0.06em;
 }
 
@@ -2193,20 +2409,22 @@ button kbd {
   margin-bottom: var(--spacing-lg);
 }
 
+/* An instruction, not a field name. "Paste anything with links in it" loses its
+   word shapes in caps and reads slower for it, which is the opposite of what a
+   prompt above an empty box is for. */
 .worlds-sites-add label {
   display: block;
   margin-bottom: 6px;
   color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font: 500 var(--ks-type-label-size)/1.3 var(--ks-mono);
+  letter-spacing: 0.01em;
 }
 
 .worlds-sites-add textarea {
   width: 100%;
   padding: 10px 12px;
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: var(--ks-lacquer-raised);
   color: var(--ks-text);
   font: 400 var(--ks-type-mono-size)/1.5 var(--ks-mono);
@@ -2234,7 +2452,7 @@ button kbd {
 .worlds-sites-add-foot button {
   padding: 7px 14px;
   border: 1px solid var(--ks-kinpaku);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   background: color-mix(in oklch, var(--ks-kinpaku), transparent 84%);
   color: var(--ks-champagne);
   font: 500 var(--ks-type-mono-size)/1 var(--ks-mono);
@@ -2289,7 +2507,7 @@ button kbd {
 .worlds-sites-actions button {
   padding: 4px 8px;
   border: 1px solid var(--ks-rule);
-  border-radius: 2px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-text-faint);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
@@ -2320,7 +2538,7 @@ button kbd {
   width: 22ch;
   padding: 4px 7px;
   border: 1px solid var(--ks-kinpaku);
-  border-radius: 2px;
+  border-radius: var(--ks-radius-sm);
   background: var(--ks-lacquer);
   color: var(--ks-text);
   font: 400 var(--ks-type-mono-size)/1 var(--ks-mono);
@@ -2434,7 +2652,7 @@ button kbd {
   margin-right: 4px;
   padding: 2px 4px;
   border: 1px solid var(--ks-rule);
-  border-radius: 2px;
+  border-radius: var(--ks-radius-sm);
   text-align: center;
 }
 
@@ -2474,19 +2692,20 @@ button kbd {
   break-inside: avoid;
 }
 
+/* Hints in sentences, so they keep their word shapes. The caps treatment stays
+   for the group headings above them, which are two or three words each. */
 .worlds-triage-keys {
   display: flex;
   gap: var(--spacing-md);
-  color: var(--ks-text-mute-deep);
-  font: 500 var(--ks-type-eyebrow-size)/1.6 var(--ks-mono);
-  text-transform: uppercase;
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-label-size)/1.6 var(--ks-mono);
 }
 
 .worlds-triage-keys kbd {
   margin-right: 3px;
   padding: 1px 4px;
   border: 1px solid var(--ks-rule);
-  border-radius: 2px;
+  border-radius: var(--ks-radius-sm);
 }
 
 .worlds-sites-entry { border-top: 1px solid var(--ks-rule); }
@@ -2685,10 +2904,10 @@ button kbd {
   flex: 1;
   min-width: 0;
   max-width: 560px;
-  min-height: 28px;
+  min-height: var(--ks-control-sm);
   padding: 0 8px;
   border: 1px solid var(--ks-rule);
-  border-radius: 4px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-text-muted);
   font: 500 var(--ks-type-mono-size)/1 var(--ks-mono);
@@ -2716,10 +2935,10 @@ button kbd {
 }
 
 .worlds-coverage-save {
-  min-height: 30px;
+  min-height: var(--ks-control-md);
   padding: 0 14px;
   border: 1px solid var(--ks-kinpaku);
-  border-radius: 999px;
+  border-radius: var(--ks-radius-pill);
   background: color-mix(in oklch, var(--ks-kinpaku), transparent 88%);
   color: var(--ks-kinpaku);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
@@ -2739,12 +2958,20 @@ button kbd {
    rail per the page's contract, the badge reads as provenance, not a stat. */
 .worlds-telemetry-badge {
   font-family: var(--ks-mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
+  /* This holds a sentence of figures, not a label, so it takes the label size
+     and normal tracking. 0.08em is for three uppercase words; across 64
+     characters it just pulls the digits apart.
+
+     No border either: it reports, so it is plain text like the folio beside it.
+     Only the controls below carry containers now. */
+  font-size: var(--ks-type-label-size);
+  letter-spacing: 0.01em;
   color: var(--ks-text-faint);
-  border: 1px solid var(--ks-rule);
-  border-radius: 4px;
-  padding: 3px 8px;
+  padding: 0;
+  min-width: 0;
+  flex: 0 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
 }
 .worlds-telemetry-block {
@@ -2782,7 +3009,7 @@ button kbd {
   margin-top: 5px;
   padding: 5px 8px;
   border: 1px solid color-mix(in oklch, var(--ks-patina), transparent 55%);
-  border-radius: 2px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-patina);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
@@ -2814,39 +3041,24 @@ button kbd {
 }
 
 .worlds-refine-row > span {
-  color: var(--ks-text-mute-deep);
+  color: var(--ks-text-faint);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
-.worlds-refine-row > div {
-  display: flex;
-  gap: 3px;
-}
+.worlds-refine-row .ks-segmented { width: 100%; }
 
-.worlds-refine-row button {
+/* The rating row carries five segments in a 292px rail, so its buttons have to
+   be allowed to give up their padding rather than push the track past the rail
+   edge. min-width:0 is the part that matters: without it a flex item refuses to
+   shrink below its content and the last star lands under the scrollbar. */
+.worlds-refine-row .ks-segmented button {
   flex: 1 1 auto;
   min-width: 0;
-  padding: 4px 2px;
-  border: 1px solid var(--ks-rule);
-  border-radius: 2px;
-  background: transparent;
-  color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.worlds-refine-row button:hover {
-  border-color: color-mix(in oklch, var(--ks-champagne), transparent 60%);
-  color: var(--ks-text-muted);
-}
-
-.worlds-refine-row button[aria-pressed="true"] {
-  border-color: var(--ks-kinpaku);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 84%);
-  color: var(--ks-champagne);
+  padding: 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Pinned to the foot of the rail. The family list above it takes the remaining
@@ -2870,52 +3082,24 @@ button kbd {
 }
 
 .worlds-telemetry-foot strong { color: var(--ks-text-muted); font-weight: 500; }
-.worlds-telemetry-foot .is-muted { color: var(--ks-text-mute-deep); text-transform: none; letter-spacing: 0; }
-
-/* One filter idiom for the rail. The status and mode groups were 2-column grids
-   of 44px cells, so seven mode options alone ran four rows and about 180px, and
-   the rail spent more height on filters than on the family list they narrow.
-   Wrapping chips carry the same labels and counts in roughly a third of that. */
-.worlds-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 3px;
-  margin-top: var(--spacing-sm);
-}
-
-.worlds-chips button {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 4px;
-  padding: 4px 7px;
-  border: 1px solid var(--ks-rule);
-  border-radius: 2px;
-  background: transparent;
+/* Running prose rather than a label row, so it drops out of the caps treatment
+   and takes the label size. It was the only 11px sentence left on the page. */
+.worlds-telemetry-foot .is-muted {
   color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  white-space: nowrap;
-  cursor: pointer;
+  font-size: var(--ks-type-label-size);
+  letter-spacing: 0;
+  text-transform: none;
 }
 
-.worlds-chips button:hover {
-  border-color: color-mix(in oklch, var(--ks-champagne), transparent 60%);
-  color: var(--ks-text-muted);
+/* One filter idiom for the rail, and it is the shared primitive rather than a
+   local one. The status and mode groups were 2-column grids of 44px cells, so
+   seven mode options alone ran four rows and about 180px, and the rail spent
+   more height on filters than on the family list they narrow. They are
+   .ks-segmented --wrap --dense now; this only gives the group its rail width. */
+.worlds-rail-group {
+  margin-top: var(--spacing-sm);
+  width: 100%;
 }
-
-.worlds-chips button[aria-pressed="true"] {
-  border-color: var(--ks-kinpaku);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 84%);
-  color: var(--ks-champagne);
-}
-
-/* The count rides inside its chip rather than under its label, which is what
-   made the old cells tall. */
-.worlds-chips b {
-  color: var(--ks-text-mute-deep);
-  font-weight: 500;
-}
-
-.worlds-chips button[aria-pressed="true"] b { color: var(--ks-champagne); }
 
 /* Filters end here and browsing begins. Without a rule the two ran together. */
 .worlds-rail-divide {
@@ -2924,26 +3108,11 @@ button kbd {
   border-top: 1px solid var(--ks-rule);
 }
 
-/* Sort lives with the list it orders. */
-.worlds-queue-sort select {
-  max-width: 96px;
-  padding: 3px 4px;
-  border: 1px solid var(--ks-rule);
-  border-radius: 2px;
-  background: transparent;
-  color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  cursor: pointer;
-}
-
-.worlds-queue-sort select:hover { border-color: var(--ks-kinpaku); color: var(--ks-champagne); }
-.worlds-queue-sort option { background: var(--ks-lacquer-raised); color: var(--ks-text); }
-
 /* Rating on the row, so an order sorted by it can be read back. */
 .worlds-queue-stars {
   align-self: center;
   color: var(--ks-kinpaku);
-  font: 400 10px/1 var(--ks-mono);
+  font: 400 var(--ks-type-micro-size)/1 var(--ks-mono);
   font-style: normal;
   letter-spacing: -0.5px;
   white-space: nowrap;

@@ -2216,9 +2216,12 @@
   color: var(--color-accent);
 }
 
+/* The column track lives with the proof case further down, which is the rule
+   that actually wins. This block kept a two-column `1.35fr 1fr` from before the
+   spread became three plates: it had been dead for as long as the third plate
+   has existed, and reading this block alone told you the wrong layout. */
 .designing-visualize-spread {
   display: grid;
-  grid-template-columns: 1.35fr 1fr;
   gap: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
   align-items: start;
 }
@@ -3431,7 +3434,11 @@
 .neon-case-command .neon-case-command-prompt {
   flex: none;
   color: var(--neon-command-accent);
-  font-size: 1.05rem;
+  /* 1rem, on the ramp. This was 1.05rem, which reads as an optical adjustment
+     for a prompt glyph sitting above 13px command text, except that 0.8px on a
+     single character adjusts nothing anyone can see. An off-ramp value has to
+     earn itself. */
+  font-size: 1rem;
   font-weight: 500;
   line-height: 1;
   user-select: none;
