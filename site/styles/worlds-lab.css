@@ -853,15 +853,117 @@ button:disabled kbd {
 
 /* Line two: the verdict. Groups never compress internally, so a narrow stage
    wraps between them instead of squeezing a control to illegibility. */
+/*
+ * The write band. Everything inside it changes the catalog on disk; the line
+ * above it only reports. That was invisible before, because a status badge and
+ * a toggle were both bordered pills sitting on the same ground.
+ *
+ * The band is its own surface, which is the part that does not depend on anyone
+ * reading a label: writable controls physically sit on a different plane from
+ * the facts. It is raised rather than recessed because the header ground is
+ * already within a few percent of black and sinking further had nowhere to go
+ * — the first attempt measured 1.047 against its surround, which is the bottom
+ * of what an eye resolves. Direction matters less here than difference, and a
+ * raised tool tray is just as conventional as a sunken one.
+ *
+ * Wrapping instead of scrolling is deliberate at this density: a field that
+ * runs off the edge is a setting nobody knows exists.
+ */
 .worlds-review-controls {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--spacing-sm);
+  gap: 8px var(--spacing-md);
+  margin-top: 3px;
+  padding: 7px var(--spacing-sm);
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-lacquer-raised);
 }
 
 .worlds-review-controls > * {
   flex: 0 0 auto;
+}
+
+/* A label beside a control is what a field looks like; a bare word in a pill is
+   what a static tag looks like. This is most of why the row read as chrome. */
+.worlds-field {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.worlds-field-label {
+  color: var(--ks-text-faint);
+  font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* The write acknowledgement. These controls commit the moment they are clicked
+   and the only sign was a toast in the opposite corner, so the flash happens on
+   the field that changed. It is also the least ambiguous way to say the thing
+   was a control at all. */
+.worlds-field.is-written {
+  animation: worlds-field-written 420ms var(--ks-ease);
+}
+
+@keyframes worlds-field-written {
+  0%   { background: color-mix(in oklch, var(--ks-kinpaku), transparent 74%); }
+  100% { background: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .worlds-field.is-written { animation: none; }
+}
+
+/*
+ * Below about 1240px the stage is under 500px wide and the band's five fields
+ * wrapped one per line, taking a third of the viewport for the header alone.
+ * Two other shapes were tried and measured: one field per row cost 216px of an
+ * 800px viewport, and a repeat(auto-fit, minmax()) grid gave the identical
+ * 216px because auto-fit sizes every track to the widest field's min-content,
+ * so Strength alone forced a single column. Plain wrapping has no such
+ * coupling, and came in at 151px.
+ */
+@media (max-width: 1240px) {
+  .worlds-review-controls {
+    gap: 5px var(--spacing-sm);
+  }
+
+  .worlds-field {
+    padding: 2px 3px;
+    border-radius: var(--ks-radius-sm);
+  }
+
+  /* min-width:0 is what lets the chips inside wrap. Without it the field is a
+     flex item that refuses to shrink below its content, so .worlds-modes never
+     reaches its own wrap point and the last chip runs 32px past the band's
+     padding instead of dropping to the next line. */
+  .worlds-field[data-field="modes"] {
+    min-width: 0;
+    flex: 1 1 100%;
+  }
+
+  /* Modes give up their word spacing first: they are the widest field and the
+     one whose four items can sit tighter without touching. */
+  .worlds-modes {
+    gap: 3px;
+  }
+
+  .worlds-mode-option {
+    padding: 0 6px;
+    font-size: var(--ks-type-micro-size);
+  }
+
+  /* The facts stay on one line here. Left to wrap they took four, because the
+     telemetry reading is a whole sentence and pushed Edit onto a line of its
+     own. The reading is the one thing on that line that degrades gracefully, so
+     it gives up its tail and everything else keeps its place. */
+  .worlds-review-glance {
+    flex-wrap: nowrap;
+  }
 }
 
 .worlds-review-path {
@@ -965,18 +1067,6 @@ button:disabled kbd {
   white-space: nowrap;
 }
 
-/* Squared, because this sets a value on the world rather than navigating. The
-   rounded pill is reserved for switching what the page shows, and using one
-   shape for both made a control look like a tab. */
-.worlds-strength-toggle,
-.worlds-mode-toggle {
-  display: inline-flex;
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer-raised);
-  overflow: hidden;
-}
-
 .worlds-rating {
   display: inline-flex;
   gap: 2px;
@@ -1010,79 +1100,19 @@ button:disabled kbd {
   cursor: default;
 }
 
+/* Strength sets a value on the world rather than navigating, so its thumb
+   takes the patina instead of the gold the navigation segments use. Everything
+   else about the control now comes from .ks-segmented. */
 .worlds-strength-toggle button {
-  min-height: var(--ks-control-sm);
-  padding: 0 10px;
-  border: 0;
-  background: transparent;
-  color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  letter-spacing: 0.06em;
   text-transform: uppercase;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.worlds-strength-toggle button + button {
-  border-left: 1px solid var(--ks-rule);
-}
-
-.worlds-strength-toggle button:hover:not(:disabled) {
-  background: var(--ks-graphite);
-  color: var(--ks-text-muted);
 }
 
 .worlds-strength-toggle button[aria-pressed="true"] {
-  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
+  background: color-mix(in oklch, var(--ks-patina), transparent 84%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in oklch, var(--ks-patina), transparent 62%),
+    var(--ks-lift-1);
   color: var(--ks-patina);
-}
-
-.worlds-strength-toggle button:disabled {
-  cursor: not-allowed;
-}
-
-/* Breadth is a hold, not a grade: it reads as a quiet outline until engaged,
-   then takes the warning-adjacent patina so a held-back world is obvious at a
-   glance in the queue without implying the world is weak. */
-/* Pro shares the pill shape of the breadth toggle because it sits beside it and
-   behaves the same way, but takes the gold when set: it is the one control here
-   that changes who can be dealt the world rather than what the world is. */
-.worlds-pro-toggle[aria-pressed="true"] {
-  border-color: var(--ks-kinpaku);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 80%);
-  color: var(--ks-champagne);
-}
-
-.worlds-breadth-toggle,
-.worlds-pro-toggle {
-  min-height: var(--ks-control-sm);
-  padding: 0 10px;
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-pill);
-  background: transparent;
-  color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.worlds-breadth-toggle:hover:not(:disabled),
-.worlds-pro-toggle:hover:not(:disabled) {
-  background: var(--ks-graphite);
-  color: var(--ks-text-muted);
-}
-
-.worlds-breadth-toggle[aria-pressed="true"] {
-  border-color: color-mix(in oklch, var(--ks-champagne), transparent 60%);
-  background: color-mix(in oklch, var(--ks-champagne), transparent 88%);
-  color: var(--ks-champagne);
-}
-
-.worlds-breadth-toggle:disabled,
-.worlds-pro-toggle:disabled {
-  cursor: not-allowed;
 }
 
 .worlds-strength-toggle button:disabled[aria-pressed="false"] {
@@ -1949,43 +1979,70 @@ button:disabled kbd {
    shape and sit at the same weight rather than competing with the decision
    buttons. A mode reads as on unless the reviewer turned it off, because an
    absent allowedModes means eligible everywhere. */
+/*
+ * Spaced, not flush, and deliberately not a segmented track.
+ *
+ * Four words butted together is a tab bar to anyone who has used software, and
+ * no hover state undoes that at a glance. These four are an independent
+ * multi-select where all four on is the default, which is the least tab-like
+ * thing on the page, so it was wearing the most misleading shape available.
+ * The rule the rest of this file now follows: flush means pick one of these,
+ * spaced means tick any of these.
+ */
 .worlds-modes {
   display: inline-flex;
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-pill);
-  overflow: hidden;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
+/* This is also the one control where pressed is the resting state, so the mark
+   is quiet and the reviewer's act is striking one out. Lighting up all four by
+   default would say nothing at all. */
 .worlds-mode-option {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   min-height: var(--ks-control-sm);
   padding: 0 8px;
-  border: 0;
-  border-left: 1px solid var(--ks-rule);
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-sm);
   background: transparent;
-  color: var(--ks-text-mute-deep);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  color: var(--ks-text-muted);
+  font: 500 var(--ks-type-label-size)/1 var(--ks-mono);
   text-transform: uppercase;
   white-space: nowrap;
   cursor: pointer;
 }
 
-.worlds-mode-option:first-child {
-  border-left: 0;
+/* The tick. Drawn rather than typed so it keeps its weight at 12px, and shown
+   hollow when the mode is struck out so the control reads as a checkbox in both
+   states rather than as a word that sometimes has a mark next to it. */
+.worlds-mode-option::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  border: 1px solid currentColor;
+  /* One inside the chip's own radius, the way a nested control takes its
+     parent's corner rather than inventing a fourth value. */
+  border-radius: calc(var(--ks-radius-sm) - 1px);
+  background: currentColor;
+  box-shadow: inset 0 0 0 1px var(--ks-lacquer-deep);
 }
 
 .worlds-mode-option:hover:not(:disabled) {
-  background: var(--ks-graphite);
-  color: var(--ks-text-muted);
-}
-
-.worlds-mode-option[aria-pressed="true"] {
-  color: var(--ks-text-muted);
+  border-color: var(--ks-edge);
+  color: var(--ks-champagne);
 }
 
 .worlds-mode-option[aria-pressed="false"] {
-  background: color-mix(in oklch, var(--ks-graphite), transparent 40%);
+  border-color: var(--ks-rule);
   color: var(--ks-text-mute-deep);
   text-decoration: line-through;
+}
+
+.worlds-mode-option[aria-pressed="false"]::before {
+  background: transparent;
+  box-shadow: none;
 }
 
 .worlds-mode-option:disabled {
@@ -2138,33 +2195,17 @@ button:disabled kbd {
   white-space: nowrap;
 }
 
+/* Rounded, because this one switches what the page shows rather than setting a
+   value on the world. It is the only pill-shaped segmented group for that
+   reason. */
 .worlds-view-toggle {
-  display: inline-flex;
   flex: 0 0 auto;
-  border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-pill);
-  overflow: hidden;
 }
 
 .worlds-view-toggle button {
-  min-height: var(--ks-control-sm);
-  padding: 0 9px;
-  border: 0;
-  border-left: 1px solid var(--ks-rule);
-  background: transparent;
-  color: var(--ks-text-mute-deep);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
+  border-radius: var(--ks-radius-pill);
   text-transform: uppercase;
-  cursor: pointer;
-}
-
-.worlds-view-toggle button:first-child {
-  border-left: 0;
-}
-
-.worlds-view-toggle button[aria-pressed="true"] {
-  background: color-mix(in oklch, var(--ks-patina), transparent 86%);
-  color: var(--ks-patina);
 }
 
 /* The contact sheet is the queue rail drawn as thumbnails, not a page of its

@@ -397,13 +397,14 @@ const pageData = JSON.stringify({
 
       <div class="worlds-workspace-grid">
         <aside class="worlds-queue" aria-label="Filtered concept queue">
+          <!-- One line, not three. "Review queue" over "Backlog" over a floating
+               count spent 88px of a rail on saying the same thing three ways,
+               and the bucket name already tells you which queue this is. -->
           <header class="worlds-queue-head">
-            <div>
-              <p>Review queue</p>
+            <h2 class="worlds-queue-title">
               <strong data-queue-title>Backlog</strong>
-            </div>
+            </h2>
             <div class="worlds-queue-head-tools">
-              <span data-result-count>{counts.pending.toLocaleString()}</span>
               <!-- Sort belongs to the list, not the rail: the rail decides which
                    worlds are in the set, this decides what order you meet them
                    in. Popularity is the field index, so it ranks by how a world
@@ -476,68 +477,118 @@ const pageData = JSON.stringify({
               </button>
             </div>
             </div>
-            <div class="worlds-review-controls">
-              <div class="worlds-rating" role="group" aria-label="Approval rating: how strong this approved world is" data-rating-group hidden={initialConcept.status !== 'approved'}>
-                {[1, 2, 3].map(value => (
-                  <button
-                    type="button"
-                    data-rating-option={value}
-                    aria-pressed={String((initialConcept.review?.rating || 0) >= value)}
-                    disabled={!import.meta.env.DEV}
-                    title={value === 3 ? 'Exceptional: flagship-grade world (press 3)' : value === 2 ? 'Solid approved world (press 2)' : 'Marginal keep (press 1)'}
-                  >★</button>
-                ))}
+            <!--
+              Everything in this band writes to the catalog on disk, and the line
+              above it is read-only. That difference used to be invisible: an
+              APPROVED badge and a NICHE toggle were both bordered pills, four
+              modes in a flush row read as a tab bar, and the rail's filters
+              looked the same again while only changing what you see.
+
+              Three things carry the distinction now. The band is its own
+              surface, so writable controls physically sit on a different plane
+              from the facts. Every control has a label, because a bare word in a
+              pill is what a static tag looks like and a label beside a control
+              is what a field looks like. And the labels are the rail's own
+              words, Rating / Reach / Tier, so the same idea is named the same
+              way whether you are filtering by it or setting it.
+            -->
+            <div class="worlds-review-controls" data-review-controls>
+              <div class="worlds-field" data-field="rating" hidden={initialConcept.status !== 'approved'}>
+                <span class="worlds-field-label" id="worlds-field-rating">Rating</span>
+                <div class="worlds-rating" role="group" aria-labelledby="worlds-field-rating" data-rating-group>
+                  {[1, 2, 3].map(value => (
+                    <button
+                      type="button"
+                      data-rating-option={value}
+                      aria-pressed={String((initialConcept.review?.rating || 0) >= value)}
+                      disabled={!import.meta.env.DEV}
+                      title={value === 3 ? 'Exceptional: flagship-grade world (press 3)' : value === 2 ? 'Solid approved world (press 2)' : 'Marginal keep (press 1)'}
+                    >★</button>
+                  ))}
+                </div>
               </div>
-              <button
-                type="button"
-                class="worlds-breadth-toggle"
-                data-breadth-toggle
-                hidden={initialConcept.status !== 'approved'}
-                aria-pressed={String(initialConcept.review?.breadth === 'niche')}
-                disabled={!import.meta.env.DEV}
-                title="Niche: keep the approval but hold this world out of challenger draws (press N)"
-                aria-keyshortcuts="n"
-              >Niche</button>
+
+              <!-- Two states named, rather than one state offered. "Niche" alone
+                   made the reviewer infer both that it was pressable and what
+                   the other state was called; General | Niche says both, and it
+                   is why picking the value already set can now be a no-op. -->
+              <div class="worlds-field" data-field="reach" hidden={initialConcept.status !== 'approved'}>
+                <span class="worlds-field-label" id="worlds-field-reach">Reach</span>
+                <div class="ks-segmented ks-segmented--dense worlds-breadth-toggle" role="group" aria-labelledby="worlds-field-reach" data-breadth-toggle>
+                  {[
+                    { value: 'general', label: 'General', title: 'Drawn by challenger rolls (press N to switch)' },
+                    { value: 'niche', label: 'Niche', title: 'Keep the approval but hold this world out of challenger draws (press N)' },
+                  ].map(option => (
+                    <button
+                      type="button"
+                      data-breadth-option={option.value}
+                      aria-pressed={String((initialConcept.review?.breadth === 'niche' ? 'niche' : 'general') === option.value)}
+                      disabled={!import.meta.env.DEV}
+                      title={option.title}
+                      aria-keyshortcuts="n"
+                    >{option.label}</button>
+                  ))}
+                </div>
+              </div>
+
               <!-- Distribution rather than judgement, so it sits with the other
-                   approved-only controls but reads as its own decision. -->
-              <button
-                type="button"
-                class="worlds-pro-toggle"
-                data-pro-toggle
-                hidden={initialConcept.status !== 'approved'}
-                aria-pressed={String(Boolean(initialConcept.review?.pro))}
-                disabled={!import.meta.env.DEV}
-                title="Reserve this world for Pro: it stays approved and stops being dealt by the free roll (press P)"
-                aria-keyshortcuts="p"
-              >Pro</button>
-              <div
-                class="worlds-modes"
-                role="group"
-                aria-label="Mode eligibility: which registers of work this world can carry"
-                data-modes-group
-                hidden={initialConcept.status !== 'approved'}
-              >
-                {['persuade', 'operate', 'read', 'experience'].map(value => (
-                  <button
-                    type="button"
-                    class="worlds-mode-option"
-                    data-mode-option={value}
-                    aria-pressed="true"
-                    disabled={!import.meta.env.DEV}
-                    title={`Eligible for ${value}. All four on means eligible everywhere, which is the default.`}
-                  >{value}</button>
-                ))}
+                   approved-only fields but reads as its own decision. -->
+              <div class="worlds-field" data-field="tier" hidden={initialConcept.status !== 'approved'}>
+                <span class="worlds-field-label" id="worlds-field-tier">Tier</span>
+                <div class="ks-segmented ks-segmented--dense worlds-pro-toggle" role="group" aria-labelledby="worlds-field-tier" data-pro-toggle>
+                  {[
+                    { value: 'free', label: 'Free', title: 'Dealt by the free roll (press P to switch)' },
+                    { value: 'pro', label: 'Pro', title: 'Reserved for Pro: stays approved and stops being dealt by the free roll (press P)' },
+                  ].map(option => (
+                    <button
+                      type="button"
+                      data-tier-option={option.value}
+                      aria-pressed={String((initialConcept.review?.pro ? 'pro' : 'free') === option.value)}
+                      disabled={!import.meta.env.DEV}
+                      title={option.title}
+                      aria-keyshortcuts="p"
+                    >{option.label}</button>
+                  ))}
+                </div>
               </div>
-              <div class="worlds-strength-toggle" role="group" aria-label="Concept strength: what this entry is strong at" data-strength-toggle>
-                {['world', 'composition', 'dual'].map(value => (
-                  <button
-                    type="button"
-                    data-strength-option={value}
-                    aria-pressed={String(initialConcept.strength === value)}
-                    disabled={!import.meta.env.DEV}
-                    title={value === 'world' ? 'Durable visual identity' : value === 'composition' ? 'Staging idea, dressable in any identity' : 'Identity and staging fused'}
-                  >{value}</button>
-                ))}
+
+              <!-- Spaced, not flush, and deliberately not a .ks-segmented track.
+                   Flush reads as navigation and spaced reads as a checklist, and
+                   these four are an independent multi-select where every one can
+                   be on at once: the least tab-like thing on the page was
+                   wearing the most tab-like shape. -->
+              <div class="worlds-field" data-field="modes" hidden={initialConcept.status !== 'approved'}>
+                <span class="worlds-field-label" id="worlds-field-modes">Eligible</span>
+                <div class="worlds-modes" role="group" aria-labelledby="worlds-field-modes" data-modes-group>
+                  {['persuade', 'operate', 'read', 'experience'].map(value => (
+                    <button
+                      type="button"
+                      class="worlds-mode-option"
+                      data-mode-option={value}
+                      aria-pressed="true"
+                      disabled={!import.meta.env.DEV}
+                      title={`Eligible for ${value}. All four on means eligible everywhere, which is the default.`}
+                    >{value}</button>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Stays flush, because this one genuinely is a single-select of
+                   three and that is what a segmented control is for. It only
+                   read as a tab because everything beside it was segmented too. -->
+              <div class="worlds-field" data-field="strength">
+                <span class="worlds-field-label" id="worlds-field-strength">Strength</span>
+                <div class="ks-segmented ks-segmented--dense worlds-strength-toggle" role="group" aria-labelledby="worlds-field-strength" data-strength-toggle>
+                  {['world', 'composition', 'dual'].map(value => (
+                    <button
+                      type="button"
+                      data-strength-option={value}
+                      aria-pressed={String(initialConcept.strength === value)}
+                      disabled={!import.meta.env.DEV}
+                      title={value === 'world' ? 'Durable visual identity' : value === 'composition' ? 'Staging idea, dressable in any identity' : 'Identity and staging fused'}
+                    >{value}</button>
+                  ))}
+                </div>
               </div>
             </div>
           </header>
@@ -795,7 +846,17 @@ const pageData = JSON.stringify({
     const initialHash = readHash();
     const initialId = initialHash.get('concept') || '';
     const initialView = VIEWS.has(initialHash.get('view')) ? initialHash.get('view') : 'detail';
-    const initialStatus = conceptMap.get(initialId)?.status || 'pending';
+    // Land on a bucket that has something in it. The default used to be
+    // 'pending' unconditionally, so once the backlog was cleared the app opened
+    // on an empty stage and an empty queue and read as broken to anyone who did
+    // not already know that meant the reviewing was done. A linked concept still
+    // wins; otherwise take the backlog while it has work, and fall back through
+    // approved to the whole catalog.
+    const conceptCount = status => concepts.reduce((n, c) => n + (c.status === status ? 1 : 0), 0);
+    const initialStatus = conceptMap.get(initialId)?.status
+      || (conceptCount('pending') > 0 ? 'pending'
+        : conceptCount('approved') > 0 ? 'approved'
+        : 'all');
     const state = {
       status: initialStatus,
       family: 'all',
@@ -994,6 +1055,35 @@ const pageData = JSON.stringify({
     const ratingButtons = [...document.querySelectorAll('[data-rating-option]')];
     const breadthToggle = document.querySelector('[data-breadth-toggle]');
     const proToggle = document.querySelector('[data-pro-toggle]');
+    const breadthButtons = [...document.querySelectorAll('[data-breadth-option]')];
+    const tierButtons = [...document.querySelectorAll('[data-tier-option]')];
+    // Labeled wrappers, keyed by the field they hold, so visibility and the
+    // write flash can address a whole field rather than hunting for its control.
+    const reviewFields = Object.fromEntries(
+      [...document.querySelectorAll('[data-field]')].map(el => [el.dataset.field, el]),
+    );
+    /** Point a two-or-three-way segmented group at one value. */
+    const setSegmentState = (buttons, key, value) => {
+      for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset[key] === value));
+    };
+    /**
+     * Say that a write landed, on the control that was written.
+     *
+     * These controls commit to the catalog on disk the moment they are clicked,
+     * and the only acknowledgement was a toast in the far corner of the screen.
+     * A brief flash on the field ties the write to the thing written, which is
+     * also the clearest possible statement that the control was a control.
+     */
+    const flashWrite = (field) => {
+      const el = typeof field === 'string' ? reviewFields[field] : field;
+      if (!el) return;
+      el.classList.remove('is-written');
+      // Reading offsetWidth restarts the animation when the same field is
+      // written twice in a row; without it the class is added in the same frame
+      // it was removed and nothing replays.
+      void el.offsetWidth;
+      el.classList.add('is-written');
+    };
     const coveragePanel = document.querySelector('[data-coverage]');
     const cardGrid = document.querySelector('[data-card-grid]');
     const reviewControls = document.querySelector('.worlds-review-controls');
@@ -1861,7 +1951,11 @@ const pageData = JSON.stringify({
         queueList.querySelector('[aria-pressed="true"]')?.scrollIntoView({ block: 'nearest' });
       }
 
-      resultCount.textContent = rows.length.toLocaleString();
+      // The filtered size was on screen three times: on the status button that
+      // set it, beside the queue title, and in "of N" at the foot. The header
+      // copy was the one with no context around it, and dropping it is what
+      // gives a long bucket name room to finish on one line.
+      if (resultCount) resultCount.textContent = rows.length.toLocaleString();
       windowLabel.textContent = rows.length
         ? `Showing ${start + 1}–${Math.min(start + 60, rows.length)} of ${rows.length.toLocaleString()}`
         : 'No results';
@@ -1927,20 +2021,24 @@ const pageData = JSON.stringify({
       strengthButtons.forEach(button => {
         button.setAttribute('aria-pressed', String(button.dataset.strengthOption === concept.strength));
       });
-      ratingGroup.hidden = concept.status !== 'approved';
+      // Each control is wrapped in a labeled field now, so approved-only
+      // visibility is set on the field. Hiding the control alone would leave its
+      // label behind, announcing a setting that is not there.
+      const approved = concept.status === 'approved';
+      for (const field of ['rating', 'reach', 'tier', 'modes']) {
+        const el = reviewFields[field];
+        if (el) el.hidden = !approved;
+      }
       ratingButtons.forEach(button => {
         button.setAttribute('aria-pressed', String((concept.review?.rating || 0) >= Number(button.dataset.ratingOption)));
       });
-      modesGroup.hidden = concept.status !== 'approved';
       const allowed = concept.review?.allowedModes;
       for (const option of modeOptions) {
         const on = !Array.isArray(allowed) || allowed.length === 0 || allowed.includes(option.dataset.modeOption);
         option.setAttribute('aria-pressed', String(on));
       }
-      breadthToggle.hidden = concept.status !== 'approved';
-      breadthToggle.setAttribute('aria-pressed', String(concept.review?.breadth === 'niche'));
-      proToggle.hidden = concept.status !== 'approved';
-      proToggle.setAttribute('aria-pressed', String(Boolean(concept.review?.pro)));
+      setSegmentState(breadthButtons, 'breadthOption', concept.review?.breadth === 'niche' ? 'niche' : 'general');
+      setSegmentState(tierButtons, 'tierOption', concept.review?.pro ? 'pro' : 'free');
       // The decision-note field mirrors the current concept's saved note.
       // Only refill when the concept changes so re-renders never clobber typing.
       if (concept.id !== notedConceptId) {
@@ -2061,6 +2159,7 @@ const pageData = JSON.stringify({
         concept.strength = strength;
         document.querySelector('[data-catalog-version]').textContent = result.result.catalogVersion;
         render();
+        flashWrite('strength');
         showToast(`Typed as ${strength}: ${concept.form.split(',')[0]}`);
       } catch (error) {
         showToast(error instanceof Error ? error.message : String(error), 'error');
@@ -2089,6 +2188,7 @@ const pageData = JSON.stringify({
           state.currentId = rowsAfter[Math.min(Math.max(indexBefore, 0), Math.max(0, rowsAfter.length - 1))]?.id || concept.id;
         }
         render();
+        flashWrite('rating');
         showToast(rating
           ? `Rated ${'★'.repeat(rating)}: ${concept.form.split(',')[0]}`
           : `Rating cleared: ${concept.form.split(',')[0]}`);
@@ -2114,6 +2214,7 @@ const pageData = JSON.stringify({
         if (!response.ok) throw new Error(result.error || 'Pro could not be saved');
         concept.review = result.result.review;
         render();
+        flashWrite('tier');
         showToast(pro
           ? `Reserved for Pro, out of the free roll: ${concept.form.split(',')[0]}`
           : `Back in the free roll: ${concept.form.split(',')[0]}`);
@@ -2136,6 +2237,7 @@ const pageData = JSON.stringify({
         if (!response.ok) throw new Error(result.error || 'Breadth could not be saved');
         concept.review = result.result.review;
         render();
+        flashWrite('reach');
         showToast(breadth === 'niche'
           ? `Held out of challenger draws: ${concept.form.split(',')[0]}`
           : `Back in challenger draws: ${concept.form.split(',')[0]}`);
@@ -2164,6 +2266,7 @@ const pageData = JSON.stringify({
         if (!response.ok) throw new Error(result.error || 'Mode eligibility could not be saved');
         concept.review = result.result.review;
         render();
+        flashWrite('modes');
         const saved = result.result.allowedModes;
         showToast(saved
           ? `Eligible for ${saved.join(', ')}: ${concept.form.split(',')[0]}`
@@ -2464,8 +2567,23 @@ const pageData = JSON.stringify({
     ratingButtons.forEach(button => {
       button.addEventListener('click', () => setRating(Number(button.dataset.ratingOption)));
     });
-    breadthToggle.addEventListener('click', () => toggleBreadth());
-    proToggle.addEventListener('click', () => togglePro());
+    // Picking the value that is already set is a no-op, not a flip. The old
+    // single-button form had no way to express that: any click toggled, so the
+    // only way to confirm a world was General was to make it Niche and back.
+    breadthButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const concept = currentConcept();
+        const current = concept?.review?.breadth === 'niche' ? 'niche' : 'general';
+        if (button.dataset.breadthOption !== current) toggleBreadth();
+      });
+    });
+    tierButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const concept = currentConcept();
+        const current = concept?.review?.pro ? 'pro' : 'free';
+        if (button.dataset.tierOption !== current) togglePro();
+      });
+    });
     for (const option of modeOptions) {
       option.addEventListener('click', () => toggleMode(option.dataset.modeOption));
     }
