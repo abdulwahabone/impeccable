@@ -255,19 +255,11 @@ const pageData = JSON.stringify({
           <div class="worlds-progress-track" role="progressbar" aria-label="Catalog review progress" aria-valuemin="0" aria-valuemax={counts.total} aria-valuenow={counts.reviewed} data-progress-track>
             <span style={`--worlds-progress: ${(counts.reviewed / counts.total) * 100}%`} data-progress-fill></span>
           </div>
-          <div class="worlds-status-grid" role="group" aria-label="Filter concepts by review status">
-            <button type="button" data-status-filter="pending" aria-pressed="true">
-              <span>Backlog</span><strong data-count-pending>{counts.pending}</strong>
-            </button>
-            <button type="button" data-status-filter="approved" aria-pressed="false">
-              <span>Approved</span><strong data-count-approved>{counts.approved}</strong>
-            </button>
-            <button type="button" data-status-filter="rejected" aria-pressed="false">
-              <span>Rejected</span><strong data-count-rejected>{counts.rejected}</strong>
-            </button>
-            <button type="button" data-status-filter="all" aria-pressed="false">
-              <span>All</span><strong data-count-total>{counts.total}</strong>
-            </button>
+          <div class="worlds-chips" role="group" aria-label="Filter concepts by review status">
+            <button type="button" data-status-filter="pending" aria-pressed="true">Backlog<b data-count-pending>{counts.pending}</b></button>
+            <button type="button" data-status-filter="approved" aria-pressed="false">Approved<b data-count-approved>{counts.approved}</b></button>
+            <button type="button" data-status-filter="rejected" aria-pressed="false">Rejected<b data-count-rejected>{counts.rejected}</b></button>
+            <button type="button" data-status-filter="all" aria-pressed="false">All<b data-count-total>{counts.total}</b></button>
           </div>
         </div>
       </div>
@@ -310,25 +302,19 @@ const pageData = JSON.stringify({
 
       <div class="worlds-filter-section">
         <span class="worlds-filter-heading">Eligible for mode</span>
-        <div class="worlds-status-grid" role="group" aria-label="Filter concepts by the mode they can carry">
-          <button type="button" data-mode-filter="all" aria-pressed="true">
-            <span>Any</span><strong data-mode-count="all">0</strong>
-          </button>
-          <button type="button" data-mode-filter="unscoped" aria-pressed="false" title="Worlds nobody has narrowed, so they are eligible in every mode">
-            <span>Every mode</span><strong data-mode-count="unscoped">0</strong>
-          </button>
+        <div class="worlds-chips" role="group" aria-label="Filter concepts by the mode they can carry">
+          <button type="button" data-mode-filter="all" aria-pressed="true">Any<b data-mode-count="all">0</b></button>
+          <button type="button" data-mode-filter="unscoped" aria-pressed="false" title="Worlds nobody has narrowed, so they are eligible in every mode">Every<b data-mode-count="unscoped">0</b></button>
           {['persuade', 'operate', 'read', 'experience'].map(value => (
             <button type="button" data-mode-filter={value} aria-pressed="false" title={`Worlds a ${value} build can draw from, narrowed or not`}>
-              <span>{value.charAt(0).toUpperCase() + value.slice(1)}</span><strong data-mode-count={value}>0</strong>
+              {value.charAt(0).toUpperCase() + value.slice(1)}<b data-mode-count={value}>0</b>
             </button>
           ))}
-          <button type="button" data-mode-filter="scoped" aria-pressed="false" title="Only worlds whose eligibility someone has narrowed">
-            <span>Narrowed</span><strong data-mode-count="scoped">0</strong>
-          </button>
+          <button type="button" data-mode-filter="scoped" aria-pressed="false" title="Only worlds whose eligibility someone has narrowed">Narrowed<b data-mode-count="scoped">0</b></button>
         </div>
       </div>
 
-      <label class="worlds-family-search">
+      <label class="worlds-family-search worlds-rail-divide">
         <span>Find a family</span>
         <input type="search" placeholder={`Filter ${catalog.families.length} families`} autocomplete="off" data-family-search>
       </label>
@@ -418,6 +404,20 @@ const pageData = JSON.stringify({
             </div>
             <div class="worlds-queue-head-tools">
               <span data-result-count>{counts.pending.toLocaleString()}</span>
+              <!-- Sort belongs to the list, not the rail: the rail decides which
+                   worlds are in the set, this decides what order you meet them
+                   in. Popularity is the field index, so it ranks by how a world
+                   does against the field average rather than by raw reports,
+                   which would just rank by how often the roll happened to deal
+                   it. -->
+              <label class="worlds-queue-sort">
+                <span class="worlds-sr">Sort the queue</span>
+                <select data-sort aria-label="Sort the queue">
+                  <option value="catalog">Catalog order</option>
+                  <option value="rating">Rating, best first</option>
+                  <option value="popularity">Popularity, best first</option>
+                </select>
+              </label>
               <!-- These present the queue, so they live on the queue. As a
                    page-level tab row they read as switching what the page is,
                    which is why "cards" seemed to throw the detail view away. -->
@@ -804,6 +804,7 @@ const pageData = JSON.stringify({
       rating: 'all',
       reach: 'all',
       tier: 'all',
+      sort: 'catalog',
       view: initialView,
       query: '',
       currentId: initialId,
@@ -1029,7 +1030,7 @@ const pageData = JSON.stringify({
 
     function filteredConcepts() {
       const query = state.query.trim().toLowerCase();
-      return concepts.filter(concept => {
+      const rows = concepts.filter(concept => {
         if (state.status !== 'all' && concept.status !== state.status) return false;
 
         // All three only exist on an approved world, so each implies approved
@@ -1065,6 +1066,30 @@ const pageData = JSON.stringify({
         }
         return !query || searchableText(concept).includes(query);
       });
+      if (state.sort === 'catalog') return rows;
+      // Copied before sorting: filteredConcepts is called on every render and
+      // sorting in place would permanently reorder the catalog array the folio
+      // counter and the id lookups are built from.
+      const sorted = [...rows];
+      if (state.sort === 'rating') {
+        // Unrated last rather than first: a missing rating is unknown, not zero.
+        sorted.sort((a, b) => (b.review?.rating || 0) - (a.review?.rating || 0)
+          || fieldIndex(b) - fieldIndex(a));
+      } else if (state.sort === 'popularity') {
+        sorted.sort((a, b) => fieldIndex(b) - fieldIndex(a));
+      }
+      return sorted;
+    }
+
+    // How a world does against the field average, which is the only comparable
+    // reading: raw reports rank by how often the roll dealt a world, and a raw
+    // rate reads as a win rate when it is nothing of the kind. Worlds under
+    // twenty reports sort as unknown rather than as good or bad, because at the
+    // median of one report the rate is noise.
+    function fieldIndex(concept) {
+      const t = concept.telemetry;
+      if (!t || !t.dealt || !fieldBaseRate || t.chosen < 20) return -1;
+      return t.chosen / t.dealt / fieldBaseRate;
     }
 
     // Coverage: where the catalog is crowded and where it is open. Computed live
@@ -1809,6 +1834,19 @@ const pageData = JSON.stringify({
           form.textContent = concept.form.split(',')[0];
           copy.append(family, form);
           button.append(index, copy);
+
+          // The rating rides on the row, because sorting by it and then not
+          // showing it means reading an order you cannot check. Shown wherever
+          // an approved world can appear, and it is the meaning of the row's
+          // position whenever the sort is by rating.
+          if (concept.status === 'approved') {
+            const stars = document.createElement('em');
+            stars.className = 'worlds-queue-stars';
+            const rating = concept.review?.rating || 0;
+            stars.textContent = rating ? '\u2605'.repeat(rating) : '\u00b7';
+            stars.title = rating ? `${rating} star` : 'approved, not yet rated';
+            button.append(stars);
+          }
           // Only where statuses mix. Filtered to backlog every row is pending,
           // so a dot per row said nothing and read as an unexplained marker.
           if (state.status === 'all') {
@@ -2354,6 +2392,15 @@ const pageData = JSON.stringify({
         });
       });
     }
+    document.querySelector('[data-sort]')?.addEventListener('change', event => {
+      state.sort = event.target.value;
+      // Move to the top of the new order. The queue window follows the current
+      // concept, so re-sorting while parked at row 124 re-sorts the list and
+      // then shows you row 124 of it, which looks exactly like nothing sorted.
+      const rows = filteredConcepts();
+      if (rows.length) state.currentId = rows[0].id;
+      render();
+    });
     document.querySelectorAll('[data-status-filter]').forEach(button => {
       button.addEventListener('click', () => {
         state.status = button.dataset.statusFilter;

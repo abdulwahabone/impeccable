@@ -128,7 +128,7 @@ function generateCounts(rootDir, skills, buildDir) {
  * lives in ./lib/validate-plugin-versions.js (so it's unit-tested directly);
  * this wrapper owns the console output and the error count the build gates on.
  */
-function validatePluginVersions(rootDir) {
+function validatePluginVersions(rootDir, { syncedRootOutputs = true } = {}) {
   const { source, mismatches, errors } = collectPluginVersions(rootDir);
   // No root manifest at all → nothing to check (source null with no errors).
   if (source == null && errors.length === 0) return 0;
@@ -144,10 +144,18 @@ function validatePluginVersions(rootDir) {
 
   const total = errors.length + mismatches.length;
   if (total > 0) {
-    console.error(
-      `\n❌ ${total} plugin/skill version problem(s). Bump every version together and run ` +
-      `\`bun run build:release\` to regenerate the ./plugin subtree (issue #274).`,
-    );
+    // A default build skips the sync that writes ./plugin, so a stale copy here
+    // is this build declining to regenerate it rather than a version anybody
+    // mis-bumped. Saying "bump every version together" in that case sends the
+    // reader to edit manifests that are already correct: the drift appeared
+    // because .claude-plugin is materialized from the public repo and moved,
+    // while ./plugin is local build output that did not.
+    console.error(syncedRootOutputs
+      ? `\n❌ ${total} plugin/skill version problem(s). Bump every version together and run ` +
+        `\`bun run build:release\` to regenerate the ./plugin subtree (issue #274).`
+      : `\n❌ ${total} plugin/skill version problem(s). This build skipped the root sync, so ` +
+        `./plugin is stale local output rather than a mis-bump. Run \`bun run build:release\` ` +
+        `once to regenerate it (it is gitignored here, so nothing needs committing).`);
   } else {
     console.log(`✓ Plugin/skill versions agree: ${source}`);
   }
@@ -874,7 +882,7 @@ async function build() {
 
   // Guard plugin/skill version drift: marketplace + ./plugin subtree must
   // match root plugin.json so marketplace installs never ship a stale version.
-  const versionErrors = validatePluginVersions(ROOT_DIR);
+  const versionErrors = validatePluginVersions(ROOT_DIR, { syncedRootOutputs: BUILD_OPTIONS.syncRootOutputs });
 
   // Verify every hand-authored HTML page carries the shared site header
   const headerErrors = validateSiteHeader(ROOT_DIR);
