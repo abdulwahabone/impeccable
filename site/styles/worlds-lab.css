@@ -1740,22 +1740,44 @@ button:disabled kbd {
   background: var(--ks-graphite-2);
 }
 
+/* Each action carries its own accent so the current-state treatment below can
+   mark whichever one is current without hardcoding gold onto a rejection. */
 .worlds-review-actions .worlds-action-reject {
+  --worlds-action-accent: var(--ks-vermilion);
   color: var(--ks-vermilion);
 }
 
+.worlds-review-actions .worlds-action-pending {
+  --worlds-action-accent: var(--ks-text-muted);
+}
+
 .worlds-review-actions .worlds-action-approve {
+  --worlds-action-accent: var(--ks-kinpaku);
   border-color: var(--ks-kinpaku);
   background: var(--ks-kinpaku);
   color: var(--ks-dark-ink);
 }
 
-.worlds-review-actions .worlds-action-approve:hover:not(:disabled) {
+.worlds-review-actions .worlds-action-approve:hover:not(:disabled):not(.is-current) {
   background: var(--ks-kinpaku-pale);
 }
 
+/* The current status is a readout, not an invitation. This used to be a 3px
+   inset underline in currentColor, which on the approve button meant dark ink
+   under a full gold fill: on an already-approved world the loudest control on
+   the surface was still asking for a decision that had been made months ago.
+   The fill is what has to go, so the marker moves to the leading edge where it
+   reads on any of the three, and the accent moves to the text. */
 .worlds-review-actions button.is-current {
-  box-shadow: inset 0 -3px 0 currentColor;
+  border-color: var(--worlds-action-accent);
+  background: var(--ks-lacquer-raised);
+  box-shadow: inset 3px 0 0 var(--worlds-action-accent);
+  color: var(--worlds-action-accent);
+  cursor: default;
+}
+
+.worlds-review-actions button.is-current:hover:not(:disabled) {
+  background: var(--ks-lacquer-raised);
 }
 
 .worlds-review-actions button:disabled {
