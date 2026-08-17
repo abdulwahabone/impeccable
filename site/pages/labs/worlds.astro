@@ -811,14 +811,18 @@ const pageData = JSON.stringify({
               </button>
             </div>
             <div class="worlds-action-buttons">
-              <button type="button" class="worlds-action-reject" data-review-status="rejected" disabled={!import.meta.env.DEV} aria-keyshortcuts="Alt+R">
-                <span>Reject</span><kbd>⌥R</kbd>
+              <!-- Two labels each: the verb while the decision is open, the
+                   past tense once it is the standing one. A control that still
+                   reads "Approve" on an approved world describes an action that
+                   review() already treats as a no-op. -->
+              <button type="button" class="worlds-action-reject" data-review-status="rejected" data-action-label="Reject" data-state-label="Rejected" disabled={!import.meta.env.DEV} aria-keyshortcuts="Alt+R">
+                <span data-action-text>Reject</span><kbd>⌥R</kbd>
               </button>
-              <button type="button" class="worlds-action-pending" data-review-status="pending" disabled={!import.meta.env.DEV} aria-keyshortcuts="Alt+U">
-                <span>Return to backlog</span><kbd>⌥U</kbd>
+              <button type="button" class="worlds-action-pending" data-review-status="pending" data-action-label="Return to backlog" data-state-label="In backlog" disabled={!import.meta.env.DEV} aria-keyshortcuts="Alt+U">
+                <span data-action-text>Return to backlog</span><kbd>⌥U</kbd>
               </button>
-              <button type="button" class="worlds-action-approve" data-review-status="approved" disabled={!import.meta.env.DEV} aria-keyshortcuts="Alt+A">
-                <span>Approve</span><kbd>⌥A</kbd>
+              <button type="button" class="worlds-action-approve" data-review-status="approved" data-action-label="Approve" data-state-label="Approved" disabled={!import.meta.env.DEV} aria-keyshortcuts="Alt+A">
+                <span data-action-text>Approve</span><kbd>⌥A</kbd>
               </button>
             </div>
           </footer>
@@ -2195,7 +2199,16 @@ const pageData = JSON.stringify({
         return span;
       }));
       for (const button of document.querySelectorAll('[data-review-status]')) {
-        button.classList.toggle('is-current', button.dataset.reviewStatus === concept.status);
+        const isCurrent = button.dataset.reviewStatus === concept.status;
+        button.classList.toggle('is-current', isCurrent);
+        // aria-current, not aria-disabled: the control still takes a click,
+        // because a same-status press is how a note is saved against a decision
+        // that is already made.
+        if (isCurrent) button.setAttribute('aria-current', 'true');
+        else button.removeAttribute('aria-current');
+        const label = isCurrent ? button.dataset.stateLabel : button.dataset.actionLabel;
+        const text = button.querySelector('[data-action-text]');
+        if (text && label && text.textContent !== label) text.textContent = label;
       }
       const position = rows.findIndex(item => item.id === concept.id);
       document.querySelector('[data-previous]').disabled = position <= 0;
