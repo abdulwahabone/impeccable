@@ -1,31 +1,31 @@
 {
-  "generatedAt": "2026-08-16T07:18:29.085Z",
+  "generatedAt": "2026-08-17T07:39:15.998Z",
   "dataset": "impeccable_world_rolls",
   "windows": {
     "90d": {
       "totals": {
-        "rolls": 720550,
-        "chosen": 7774
+        "rolls": 746957,
+        "chosen": 9057
       },
       "ids": {
         "3": {
           "dealt": 0,
-          "chosen": 2
+          "chosen": 3
         },
         "4": {
           "dealt": 0,
           "chosen": 2
         },
         "sd-seedbed-lobes": {
-          "dealt": 1376,
-          "chosen": 0
+          "dealt": 1877,
+          "chosen": 1
         },
         "ikeda-datamatics": {
-          "dealt": 78931,
-          "chosen": 98
+          "dealt": 80596,
+          "chosen": 100
         },
         "highlife-sleeve": {
-          "dealt": 5790,
+          "dealt": 5997,
           "chosen": 4
         },
         "feltron-personal-annual": {
@@ -33,95 +33,95 @@
           "chosen": 0
         },
         "risograph-web-system": {
-          "dealt": 50969,
-          "chosen": 92
+          "dealt": 52292,
+          "chosen": 95
         },
         "webgl-shader-portal": {
-          "dealt": 27499,
-          "chosen": 28
+          "dealt": 28668,
+          "chosen": 30
         },
         "tanaka-plane-portrait": {
-          "dealt": 12122,
-          "chosen": 26
+          "dealt": 12388,
+          "chosen": 27
         },
         "emigre-bitmap-specimen": {
-          "dealt": 15481,
+          "dealt": 15802,
           "chosen": 40
         },
         "dubois-data-portraits": {
-          "dealt": 14529,
+          "dealt": 14859,
           "chosen": 17
         },
         "neubrutalist-award-grade": {
-          "dealt": 6162,
+          "dealt": 6347,
           "chosen": 8
         },
         "luxury-fashion-flagship": {
-          "dealt": 6004,
-          "chosen": 13
+          "dealt": 6214,
+          "chosen": 14
         },
         "cyworld-minihompy-room": {
-          "dealt": 53002,
+          "dealt": 54240,
           "chosen": 14
         },
         "rw-timetable-slide-rack": {
-          "dealt": 1653,
-          "chosen": 0
-        },
-        "kinetic-sand-glyphs": {
-          "dealt": 4904,
-          "chosen": 0
+          "dealt": 2245,
+          "chosen": 3
         },
         "eboy-pixorama-metropolis": {
-          "dealt": 14115,
+          "dealt": 14408,
           "chosen": 14
         },
+        "kinetic-sand-glyphs": {
+          "dealt": 5121,
+          "chosen": 0
+        },
         "crouwel-grid-specimen": {
-          "dealt": 12559,
+          "dealt": 13120,
           "chosen": 36
         },
         "variable-font-specimen": {
-          "dealt": 44113,
-          "chosen": 55
+          "dealt": 46380,
+          "chosen": 59
         },
         "studio-dumbar-identity": {
-          "dealt": 1565,
-          "chosen": 3
+          "dealt": 2093,
+          "chosen": 5
         },
         "kraftwerk-man-machine": {
-          "dealt": 7878,
-          "chosen": 26
+          "dealt": 8210,
+          "chosen": 27
         },
         "tdr-info-noise-sleeve": {
-          "dealt": 14290,
+          "dealt": 14590,
           "chosen": 23
         },
         "massin-stage-page": {
-          "dealt": 14338,
+          "dealt": 14712,
           "chosen": 12
         },
         "rw-copy-shop-zine-interior": {
-          "dealt": 227,
+          "dealt": 319,
           "chosen": 0
         },
         "digital-design-canon-warm-consumer-app-surface": {
-          "dealt": 6110,
+          "dealt": 6434,
           "chosen": 23
         },
         "vernacular-ephemera-matchbook-drawer": {
-          "dealt": 6105,
+          "dealt": 6337,
           "chosen": 6
         },
         "pop-culture-shelf-gothic-lolita-mook": {
-          "dealt": 4512,
+          "dealt": 4823,
           "chosen": 0
         },
         "digital-design-canon-metro-typographic-tiles": {
-          "dealt": 10473,
-          "chosen": 32
+          "dealt": 10909,
+          "chosen": 34
         },
         "kinetic-sculpture-automata-crank-paper-menagerie": {
-          "dealt": 47186,
+          "dealt": 48404,
           "chosen": 28
         },
         "vernacular-ephemera-cancellation-stamp-album": {
@@ -129,35 +129,35 @@
           "chosen": 2
         },
         "pop-culture-shelf-cassette-futurism-deck": {
-          "dealt": 12775,
-          "chosen": 30
+          "dealt": 13084,
+          "chosen": 31
         },
         "posters-covers-sleeves-posada-calavera-broadside": {
-          "dealt": 8021,
+          "dealt": 8260,
           "chosen": 5
         },
         "posters-covers-sleeves-weimar-cabaret-bill": {
-          "dealt": 6989,
+          "dealt": 7205,
           "chosen": 1
         },
         "operate-a-cutting-bench-select-rail": {
-          "dealt": 7665,
-          "chosen": 12
+          "dealt": 10495,
+          "chosen": 14
         },
         "posters-covers-sleeves-museum-exhibition-identity": {
-          "dealt": 75,
+          "dealt": 105,
           "chosen": 0
         },
         "pop-culture-shelf-lowbrow-gallery-panel": {
-          "dealt": 3452,
+          "dealt": 3644,
           "chosen": 0
         },
         "vernacular-ephemera-calendar-pinup-pad": {
-          "dealt": 519,
+          "dealt": 722,
           "chosen": 0
         },
         "dream-surreal-impossible-worlds-gravity-rain-garden": {
-          "dealt": 56485,
+          "dealt": 58115,
           "chosen": 26
         },
         "vernacular-ephemera-library-due-date-card": {
@@ -165,139 +165,139 @@
           "chosen": 3
         },
         "pop-culture-shelf-sticker-album-spread": {
-          "dealt": 4372,
+          "dealt": 4626,
           "chosen": 1
         },
         "generative-art-computational-color-chord-counterpoint": {
-          "dealt": 21501,
-          "chosen": 16
+          "dealt": 22597,
+          "chosen": 17
         },
         "pop-culture-shelf-wax-pack-card": {
-          "dealt": 5282,
+          "dealt": 5485,
           "chosen": 1
         },
         "operate-c-depot-blind-courses": {
-          "dealt": 1132,
-          "chosen": 3
+          "dealt": 1560,
+          "chosen": 5
         },
         "pop-culture-shelf-skate-deck-wall": {
-          "dealt": 10102,
-          "chosen": 4
+          "dealt": 10313,
+          "chosen": 5
         },
         "pop-culture-shelf-sticker-sheet-decoden": {
           "dealt": 3537,
           "chosen": 0
         },
         "design-canon-factory-silkscreen-loft": {
-          "dealt": 13848,
-          "chosen": 9
+          "dealt": 14139,
+          "chosen": 10
         },
         "notation-diagram-systems-patent-drawing-sheet": {
-          "dealt": 9675,
-          "chosen": 32
+          "dealt": 10093,
+          "chosen": 33
         },
         "design-canon-raygun-layout-desk": {
-          "dealt": 16430,
+          "dealt": 16857,
           "chosen": 1
         },
+        "notation-diagram-systems-orienteering-map": {
+          "dealt": 13650,
+          "chosen": 40
+        },
         "posters-covers-sleeves-saul-bass-title": {
-          "dealt": 14055,
+          "dealt": 14306,
           "chosen": 22
         },
-        "notation-diagram-systems-orienteering-map": {
-          "dealt": 13032,
-          "chosen": 39
-        },
         "design-canon-op-art-textile-repeat": {
-          "dealt": 3997,
+          "dealt": 4215,
           "chosen": 2
         },
         "vernacular-ephemera-desert-neon-sign-program": {
-          "dealt": 5396,
+          "dealt": 5700,
           "chosen": 1
         },
         "vernacular-ephemera-well-traveled-passport": {
-          "dealt": 7465,
+          "dealt": 7871,
           "chosen": 4
         },
         "pop-culture-shelf-industrial-starship-terminal": {
-          "dealt": 12875,
+          "dealt": 13128,
           "chosen": 17
         },
         "ink-pigment-printmaking-drybrush-reed-storm": {
-          "dealt": 11644,
+          "dealt": 11645,
           "chosen": 7
         },
         "brand-identity-canon-saville-catalog-sleeve": {
-          "dealt": 16027,
-          "chosen": 50
+          "dealt": 16366,
+          "chosen": 51
         },
         "pop-culture-shelf-endurance-livery-garage": {
-          "dealt": 10209,
+          "dealt": 10421,
           "chosen": 11
         },
-        "generative-parametric-identity": {
-          "dealt": 12502,
-          "chosen": 22
-        },
         "cinema-cinematography-editing-hand-processed-film-bloom": {
-          "dealt": 21518,
+          "dealt": 22382,
           "chosen": 12
         },
+        "generative-parametric-identity": {
+          "dealt": 13064,
+          "chosen": 25
+        },
         "brand-identity-canon-push-pin-poster": {
-          "dealt": 12048,
+          "dealt": 12273,
           "chosen": 14
         },
         "vernacular-ephemera-boarding-pass-and-gate-board": {
-          "dealt": 15213,
-          "chosen": 106
+          "dealt": 15737,
+          "chosen": 107
         },
         "wayfinding-cartography-signage-night-market-sign-river": {
-          "dealt": 11916,
+          "dealt": 12140,
           "chosen": 8
         },
         "light-shadow-caustics-rain-night-cityscape": {
-          "dealt": 21887,
-          "chosen": 20
+          "dealt": 22792,
+          "chosen": 21
         },
         "posters-covers-sleeves-hatch-show-print": {
-          "dealt": 5913,
+          "dealt": 6160,
           "chosen": 2
         },
         "pop-culture-shelf-city-pop-airbrush": {
-          "dealt": 10271,
+          "dealt": 10482,
           "chosen": 4
         },
         "pop-culture-shelf-spy-dossier-title-sequence": {
-          "dealt": 4433,
-          "chosen": 1
+          "dealt": 4709,
+          "chosen": 2
         },
         "dream-surreal-impossible-worlds-cloud-quarry": {
-          "dealt": 33550,
-          "chosen": 12
+          "dealt": 35372,
+          "chosen": 14
         },
         "pop-culture-shelf-rpg-dialog-window": {
           "dealt": 2042,
           "chosen": 0
         },
         "design-canon-futurist-bolted-book": {
-          "dealt": 7106,
+          "dealt": 7446,
           "chosen": 5
         },
         "digital-design-canon-antialiased-racing-league": {
-          "dealt": 14093,
-          "chosen": 26
+          "dealt": 14400,
+          "chosen": 27
         },
         "operate-c-emission-line-rail": {
-          "dealt": 1139,
-          "chosen": 3
+          "dealt": 1484,
+          "chosen": 6
         },
         "design-canon-memphis-showroom-morning": {
-          "dealt": 11467,
+          "dealt": 11686,
           "chosen": 2
         },
         "pop-culture-shelf-insert-card-numbered-series": {
-          "dealt": 170,
+          "dealt": 237,
           "chosen": 0
         },
         "memory-palimpsest-ruins-archive-ghost-sign-gable": {
@@ -305,39 +305,39 @@
           "chosen": 4
         },
         "pop-culture-shelf-code-cascade-terminal": {
-          "dealt": 6583,
+          "dealt": 6926,
           "chosen": 1
         },
         "typography-calligraphy-writing-illuminated-initial-vine": {
-          "dealt": 11922,
+          "dealt": 12145,
           "chosen": 4
         },
         "design-canon-breton-ornament-program": {
-          "dealt": 4841,
+          "dealt": 5139,
           "chosen": 1
         },
         "digital-design-canon-dark-first-developer-console": {
-          "dealt": 5929,
-          "chosen": 33
+          "dealt": 6250,
+          "chosen": 34
         },
         "magnetism-electricity-plasma-hand-bent-neon-circuit": {
-          "dealt": 25362,
+          "dealt": 26448,
           "chosen": 12
         },
         "design-canon-decollage-torn-billboard": {
-          "dealt": 9189,
+          "dealt": 9499,
           "chosen": 4
         },
         "textiles-weave-drape-fashion-wax-print-market": {
-          "dealt": 9846,
+          "dealt": 9851,
           "chosen": 2
         },
         "design-canon-creator-hardware-bench": {
-          "dealt": 19565,
-          "chosen": 105
+          "dealt": 20068,
+          "chosen": 107
         },
         "posters-covers-sleeves-polish-film-poster": {
-          "dealt": 11068,
+          "dealt": 11296,
           "chosen": 7
         },
         "ritual-ceremony-festival-yggdrasil-nine-realms": {
@@ -345,51 +345,51 @@
           "chosen": 0
         },
         "pop-culture-shelf-viewfinder-bracket-hud": {
-          "dealt": 6552,
+          "dealt": 6841,
           "chosen": 22
         },
         "medium-native-fluid-ink-basin": {
-          "dealt": 34045,
-          "chosen": 30
+          "dealt": 35710,
+          "chosen": 31
         },
         "posters-covers-sleeves-movida-scene-magazine": {
-          "dealt": 3710,
+          "dealt": 3913,
           "chosen": 2
         },
         "design-canon-bauhaus-foundation-workshop": {
-          "dealt": 6593,
+          "dealt": 6856,
           "chosen": 14
         },
         "textiles-weave-drape-fashion-industrial-quote-grammar": {
-          "dealt": 44604,
-          "chosen": 95
+          "dealt": 45793,
+          "chosen": 97
         },
         "digital-design-canon-greiman-hybrid-collage": {
-          "dealt": 11709,
+          "dealt": 11904,
           "chosen": 10
         },
         "design-annual-s-plate-section": {
-          "dealt": 1480,
+          "dealt": 2040,
           "chosen": 2
         },
         "architecture-inhabitable-space-versailles-bosquet-vistas": {
-          "dealt": 22013,
+          "dealt": 22908,
           "chosen": 7
         },
         "signals-instruments-drum-machine-step-row": {
-          "dealt": 42899,
-          "chosen": 57
+          "dealt": 45242,
+          "chosen": 59
         },
         "design-canon-riley-moire-gallery": {
-          "dealt": 7056,
-          "chosen": 7
+          "dealt": 7375,
+          "chosen": 8
         },
         "clay-ceramics-fracture-coiled-earth-tower": {
-          "dealt": 23530,
+          "dealt": 24602,
           "chosen": 6
         },
         "brand-identity-canon-brodovitch-bazaar-spread": {
-          "dealt": 7673,
+          "dealt": 7949,
           "chosen": 7
         },
         "design-canon-liquid-light-ballroom": {
@@ -397,44 +397,44 @@
           "chosen": 0
         },
         "operate-b-normalled-jackfield": {
-          "dealt": 1094,
-          "chosen": 1
+          "dealt": 1418,
+          "chosen": 3
         },
         "posters-covers-sleeves-wuxia-painted-hoarding": {
-          "dealt": 3835,
+          "dealt": 4035,
           "chosen": 0
         },
         "reefs-bioluminescent-nocturnal-plankton-wake-stars": {
-          "dealt": 25204,
-          "chosen": 8
+          "dealt": 26387,
+          "chosen": 9
         },
         "posters-covers-sleeves-risograph-zine-cover": {
-          "dealt": 9106,
+          "dealt": 9410,
           "chosen": 7
         },
         "metal-forging-patina-blacksmith-scale-shower": {
-          "dealt": 20933,
+          "dealt": 21786,
           "chosen": 19
         },
         "wayfinding-cartography-signage-salt-stiffened-treasure-map": {
-          "dealt": 16687,
+          "dealt": 17064,
           "chosen": 4
         },
         "medium-native-ascii-live-scene-render": {
-          "dealt": 44307,
+          "dealt": 46485,
           "chosen": 19
         },
         "posters-covers-sleeves-shibuya-boutique-sleeve": {
-          "dealt": 6649,
-          "chosen": 6
-        },
-        "pop-culture-shelf-character-goods-catalog": {
-          "dealt": 5113,
+          "dealt": 7079,
           "chosen": 6
         },
         "pop-culture-shelf-kaiju-broadcast-alert": {
-          "dealt": 10290,
+          "dealt": 10524,
           "chosen": 2
+        },
+        "pop-culture-shelf-character-goods-catalog": {
+          "dealt": 5416,
+          "chosen": 6
         },
         "ritual-ceremony-festival-papel-picado-canopy": {
           "dealt": 5804,
@@ -445,55 +445,55 @@
           "chosen": 1
         },
         "pop-culture-shelf-rubber-hose-cel": {
-          "dealt": 3419,
+          "dealt": 3640,
           "chosen": 2
         },
         "japanese-high-density-web": {
-          "dealt": 8143,
-          "chosen": 40
+          "dealt": 8473,
+          "chosen": 41
         },
         "wayfinding-cartography-signage-midnight-transit-diagram": {
-          "dealt": 13015,
-          "chosen": 80
+          "dealt": 13616,
+          "chosen": 82
         },
         "fashion-folded-worlds-sewing-pattern-envelope": {
-          "dealt": 21479,
-          "chosen": 15
+          "dealt": 22490,
+          "chosen": 17
         },
         "digital-design-canon-shareware-installer-screens": {
-          "dealt": 4915,
+          "dealt": 5276,
           "chosen": 1
         },
         "paper-folds-pleats-deployable-miura-orbit-sheet": {
-          "dealt": 53667,
-          "chosen": 151
+          "dealt": 55307,
+          "chosen": 156
         },
         "pop-culture-shelf-benday-comic-page": {
-          "dealt": 10060,
+          "dealt": 10235,
           "chosen": 5
         },
         "digital-design-canon-console-dashboard-atmosphere": {
-          "dealt": 827,
+          "dealt": 1075,
           "chosen": 2
         },
         "pop-culture-shelf-gyaru-magazine-density": {
-          "dealt": 8541,
+          "dealt": 8935,
           "chosen": 4
         },
         "scientific-notation-particle-detector-event-display": {
-          "dealt": 37566,
-          "chosen": 46
+          "dealt": 39474,
+          "chosen": 48
         },
         "brand-identity-canon-art-paul-magazine-program": {
-          "dealt": 7063,
+          "dealt": 7471,
           "chosen": 12
         },
         "posters-covers-sleeves-soundsystem-dance-poster": {
-          "dealt": 3730,
+          "dealt": 3968,
           "chosen": 2
         },
         "digital-design-canon-mondo-tech-utopian-spread": {
-          "dealt": 5005,
+          "dealt": 5349,
           "chosen": 4
         },
         "posters-covers-sleeves-sonidero-dayglo-poster": {
@@ -505,43 +505,43 @@
           "chosen": 2
         },
         "vernacular-ephemera-layered-sticker-accretion": {
-          "dealt": 613,
+          "dealt": 846,
           "chosen": 1
         },
         "design-canon-mloda-polska-secession-page": {
-          "dealt": 3824,
-          "chosen": 1
+          "dealt": 4032,
+          "chosen": 2
         },
         "clay-ceramics-fracture-glaze-river-shelf": {
-          "dealt": 44446,
-          "chosen": 10
+          "dealt": 45560,
+          "chosen": 11
         },
         "signals-instruments-vu-meter-bridge": {
-          "dealt": 37297,
+          "dealt": 39357,
           "chosen": 25
         },
         "vernacular-ephemera-vhs-rental-wall": {
-          "dealt": 12029,
+          "dealt": 12211,
           "chosen": 6
         },
         "dream-surreal-impossible-worlds-luminescent-alien-understory": {
-          "dealt": 23401,
+          "dealt": 24563,
           "chosen": 6
         },
         "graphic-worlds-publishing-expedition-ice-press": {
-          "dealt": 4857,
+          "dealt": 5129,
           "chosen": 2
         },
         "galaxies-nebulae-deep-time-accretion-disk-threshold": {
-          "dealt": 22093,
+          "dealt": 22933,
           "chosen": 12
         },
         "design-canon-toyism-signed-collective-plate": {
-          "dealt": 7459,
+          "dealt": 7671,
           "chosen": 7
         },
         "posters-covers-sleeves-plakatstil-object-poster": {
-          "dealt": 75,
+          "dealt": 85,
           "chosen": 0
         },
         "posters-covers-sleeves-ballad-sheet-tune-name": {
@@ -549,47 +549,47 @@
           "chosen": 0
         },
         "posters-covers-sleeves-festival-lineup-poster": {
-          "dealt": 5730,
+          "dealt": 6019,
           "chosen": 8
         },
         "signals-instruments-phosphor-terminal-midnight": {
-          "dealt": 67573,
-          "chosen": 47
+          "dealt": 69309,
+          "chosen": 48
         },
         "pop-culture-shelf-football-kit-crest": {
-          "dealt": 5416,
+          "dealt": 5637,
           "chosen": 2
         },
         "signals-instruments-darkroom-safelight-bay": {
-          "dealt": 77889,
+          "dealt": 80129,
           "chosen": 91
         },
         "pop-culture-shelf-vertical-video-feed-surface": {
-          "dealt": 7094,
+          "dealt": 7566,
           "chosen": 21
         },
         "clouds-storms-auroras-iridescent-cloud-edge": {
-          "dealt": 36233,
-          "chosen": 75
+          "dealt": 38131,
+          "chosen": 77
         },
         "signals-instruments-nixie-laboratory-counter": {
-          "dealt": 77386,
-          "chosen": 75
+          "dealt": 79689,
+          "chosen": 77
         },
         "vernacular-ephemera-loteria-tabla-night": {
-          "dealt": 7730,
+          "dealt": 8013,
           "chosen": 4
         },
         "textiles-weave-drape-fashion-drawcord-transforming-cape": {
-          "dealt": 54522,
-          "chosen": 36
+          "dealt": 56143,
+          "chosen": 37
         },
         "design-canon-hoffmann-gridsmith-showroom": {
-          "dealt": 5940,
+          "dealt": 6137,
           "chosen": 7
         },
         "fly-posted-festival-hoarding-built": {
-          "dealt": 587,
+          "dealt": 830,
           "chosen": 0
         },
         "notation-diagram-systems-adinkra-symbol-cloth": {
@@ -597,63 +597,63 @@
           "chosen": 1
         },
         "posters-covers-sleeves-dong-ho-shell-ground": {
-          "dealt": 3769,
+          "dealt": 3966,
           "chosen": 1
         },
         "brand-identity-canon-village-coffeehouse-identity": {
-          "dealt": 4166,
+          "dealt": 4382,
           "chosen": 1
         },
         "pop-culture-shelf-pulp-rocketship-plate": {
-          "dealt": 3448,
+          "dealt": 3680,
           "chosen": 1
         },
         "rw-lexicon-shoulder-and-plate": {
-          "dealt": 182,
+          "dealt": 247,
           "chosen": 1
         },
         "medium-native-one-bit-desktop": {
-          "dealt": 60735,
-          "chosen": 84
+          "dealt": 62102,
+          "chosen": 86
         },
         "vernacular-ephemera-seed-packet-rack": {
-          "dealt": 6110,
+          "dealt": 6318,
           "chosen": 0
         },
         "paper-folds-pleats-deployable-orizuru-crane-sequence": {
-          "dealt": 54137,
-          "chosen": 70
+          "dealt": 55791,
+          "chosen": 74
         },
         "craft-making-coptic-exposed-binding": {
-          "dealt": 482,
-          "chosen": 0
+          "dealt": 628,
+          "chosen": 1
         },
         "ink-pigment-printmaking-mezzotint-velvet-night": {
-          "dealt": 7740,
+          "dealt": 8031,
           "chosen": 8
         },
         "posters-covers-sleeves-fight-poster": {
-          "dealt": 8703,
-          "chosen": 1
+          "dealt": 9014,
+          "chosen": 2
         },
         "vernacular-ephemera-signboard-canyon-midnight": {
-          "dealt": 6025,
+          "dealt": 6253,
           "chosen": 4
         },
         "paper-folds-pleats-deployable-akari-light-sculpture": {
-          "dealt": 18658,
+          "dealt": 19458,
           "chosen": 13
         },
         "kinetic-sculpture-automata-tensegrity-breathing-column": {
-          "dealt": 37028,
-          "chosen": 68
+          "dealt": 38986,
+          "chosen": 70
         },
         "digital-design-canon-gameboy-four-shade-field": {
-          "dealt": 10431,
+          "dealt": 10884,
           "chosen": 4
         },
         "design-canon-deco-cinema-lobby": {
-          "dealt": 6094,
+          "dealt": 6338,
           "chosen": 4
         },
         "clay-ceramics-fracture-talavera-courtyard": {
@@ -661,11 +661,11 @@
           "chosen": 1
         },
         "posters-covers-sleeves-tropicalia-sleeve-collage": {
-          "dealt": 6954,
+          "dealt": 7162,
           "chosen": 6
         },
         "digital-design-canon-grid-horizon-sunset": {
-          "dealt": 4027,
+          "dealt": 4299,
           "chosen": 1
         },
         "design-canon-alhambra-zellige-court": {
@@ -673,111 +673,111 @@
           "chosen": 1
         },
         "digital-design-canon-skeuomorph-leather-studio": {
-          "dealt": 7434,
+          "dealt": 7719,
           "chosen": 8
         },
         "design-canon-blast-manifesto-page": {
-          "dealt": 5078,
+          "dealt": 5448,
           "chosen": 1
         },
         "exhibition-museum-curation-provenance-ribbon": {
-          "dealt": 27783,
-          "chosen": 40
+          "dealt": 29097,
+          "chosen": 42
         },
         "posters-covers-sleeves-exploitation-combo-sheet": {
-          "dealt": 8293,
+          "dealt": 8526,
           "chosen": 2
         },
         "brand-identity-canon-single-hue-doll-program": {
-          "dealt": 7726,
+          "dealt": 7961,
           "chosen": 7
         },
         "pop-culture-shelf-couture-doll-atelier": {
-          "dealt": 5147,
+          "dealt": 5360,
           "chosen": 1
         },
         "operate-b-exposure-record-zone-sheets": {
-          "dealt": 1111,
+          "dealt": 1500,
           "chosen": 1
         },
         "scientific-notation-oscilloscope-signal-bench": {
-          "dealt": 78278,
-          "chosen": 100
+          "dealt": 80570,
+          "chosen": 102
         },
         "rw-manual-acetate-tab-board": {
-          "dealt": 1596,
-          "chosen": 5
+          "dealt": 2117,
+          "chosen": 8
         },
         "posters-covers-sleeves-torn-flyer-photocopy-wall": {
-          "dealt": 3746,
+          "dealt": 3974,
           "chosen": 4
         },
         "civic-bureau-prospectus-late-modern": {
-          "dealt": 1413,
-          "chosen": 0
+          "dealt": 1915,
+          "chosen": 2
         },
         "textiles-weave-drape-fashion-memory-quilt-atlas": {
-          "dealt": 18442,
+          "dealt": 19181,
           "chosen": 10
         },
         "notation-diagram-systems-star-atlas": {
-          "dealt": 8643,
-          "chosen": 34
+          "dealt": 9045,
+          "chosen": 35
         },
         "vernacular-ephemera-banknote-proof-table": {
           "dealt": 2109,
           "chosen": 2
         },
         "pop-culture-shelf-bebop-title-card": {
-          "dealt": 10250,
+          "dealt": 10474,
           "chosen": 14
         },
         "posters-covers-sleeves-pachuco-zoot-handbill": {
-          "dealt": 51,
+          "dealt": 100,
           "chosen": 0
         },
         "signals-instruments-seven-segment-alarm-clock": {
-          "dealt": 43108,
-          "chosen": 49
-        },
-        "design-canon-punk-pasteup-table": {
-          "dealt": 11373,
-          "chosen": 3
-        },
-        "graphic-worlds-publishing-busytown-cross-section": {
-          "dealt": 10864,
-          "chosen": 17
+          "dealt": 45445,
+          "chosen": 52
         },
         "pop-culture-shelf-sukeban-long-skirt-code": {
-          "dealt": 4582,
+          "dealt": 4906,
           "chosen": 4
         },
-        "wayfinding-cartography-signage-terminal-yellow-wayfinding": {
-          "dealt": 22791,
-          "chosen": 101
+        "graphic-worlds-publishing-busytown-cross-section": {
+          "dealt": 11362,
+          "chosen": 17
         },
-        "pop-culture-shelf-cereal-box-aisle": {
-          "dealt": 5199,
-          "chosen": 0
+        "design-canon-punk-pasteup-table": {
+          "dealt": 11607,
+          "chosen": 3
+        },
+        "wayfinding-cartography-signage-terminal-yellow-wayfinding": {
+          "dealt": 23377,
+          "chosen": 103
         },
         "posters-covers-sleeves-yeye-pop-sleeve": {
-          "dealt": 5844,
+          "dealt": 6171,
           "chosen": 13
         },
+        "pop-culture-shelf-cereal-box-aisle": {
+          "dealt": 5400,
+          "chosen": 0
+        },
         "digital-design-canon-fansite-shrine-page": {
-          "dealt": 4042,
+          "dealt": 4275,
           "chosen": 1
         },
         "rw-centre-rail-reference-setting": {
-          "dealt": 1575,
-          "chosen": 2
+          "dealt": 2141,
+          "chosen": 3
         },
         "posters-covers-sleeves-dungeon-tape-jcard": {
-          "dealt": 3724,
+          "dealt": 3898,
           "chosen": 1
         },
         "architecture-places-azulejo-station-hall": {
-          "dealt": 21995,
+          "dealt": 22925,
           "chosen": 26
         },
         "typography-calligraphy-writing-zoomorphic-calligram": {
@@ -785,7 +785,7 @@
           "chosen": 0
         },
         "digital-design-canon-emergency-signal-degradation": {
-          "dealt": 5106,
+          "dealt": 5426,
           "chosen": 1
         },
         "pop-culture-shelf-jingle-truck-art": {
@@ -793,15 +793,15 @@
           "chosen": 0
         },
         "digital-design-canon-cdrom-chrome-navigation": {
-          "dealt": 5426,
+          "dealt": 5749,
           "chosen": 9
         },
         "rw-botteghe-quarterly-interior": {
-          "dealt": 506,
+          "dealt": 719,
           "chosen": 0
         },
         "design-canon-googie-starburst-diner": {
-          "dealt": 11533,
+          "dealt": 11804,
           "chosen": 5
         },
         "metal-forging-patina-copper-lantern-souk": {
@@ -809,135 +809,135 @@
           "chosen": 0
         },
         "design-canon-precisionist-industrial-plate": {
-          "dealt": 209,
+          "dealt": 261,
           "chosen": 1
         },
         "pop-culture-shelf-itasha-vinyl-wrap": {
-          "dealt": 6552,
+          "dealt": 6737,
           "chosen": 4
         },
         "rivers-tides-ocean-depths-mesophotic-deep-dive": {
-          "dealt": 35971,
-          "chosen": 39
+          "dealt": 37926,
+          "chosen": 41
         },
         "design-canon-swiss-grid-poster-wall": {
-          "dealt": 6584,
+          "dealt": 6824,
           "chosen": 31
         },
         "pop-culture-shelf-doujin-event-catalog": {
-          "dealt": 7271,
-          "chosen": 13
+          "dealt": 7703,
+          "chosen": 14
         },
         "dream-surreal-impossible-worlds-alphabet-storm": {
-          "dealt": 61594,
-          "chosen": 37
+          "dealt": 63344,
+          "chosen": 39
         },
         "notation-diagram-systems-thangka-mandala-cosmogram": {
           "dealt": 2487,
           "chosen": 0
         },
         "medium-native-ansi-bbs-nightboard": {
-          "dealt": 61923,
+          "dealt": 63491,
           "chosen": 20
         },
         "textiles-weave-drape-fashion-jacquard-punched-brocade": {
-          "dealt": 21760,
-          "chosen": 21
+          "dealt": 22768,
+          "chosen": 23
         },
         "medium-native-hypercard-stack-shoebox": {
-          "dealt": 44670,
-          "chosen": 40
+          "dealt": 46831,
+          "chosen": 42
         },
         "signals-instruments-pinball-backglass": {
-          "dealt": 10699,
+          "dealt": 10857,
           "chosen": 2
         },
         "graphic-worlds-publishing-chaekgeori-reverse-perspective": {
-          "dealt": 4045,
-          "chosen": 6
+          "dealt": 4260,
+          "chosen": 7
         },
         "ink-pigment-printmaking-screenprint-transparent-overlap": {
-          "dealt": 14284,
+          "dealt": 14613,
           "chosen": 15
         },
         "brand-identity-canon-fletcher-wit-poster": {
-          "dealt": 6251,
+          "dealt": 6474,
           "chosen": 7
         },
         "growth-metamorphosis-branching-ikebana-ma-arrangement": {
-          "dealt": 22378,
-          "chosen": 23
+          "dealt": 23321,
+          "chosen": 24
         },
         "pop-culture-shelf-neo-tokyo-neon-night": {
-          "dealt": 10046,
+          "dealt": 10232,
           "chosen": 1
         },
         "vernacular-ephemera-cassette-j-card": {
-          "dealt": 8481,
+          "dealt": 8851,
           "chosen": 9
         },
         "medium-native-ebru-floated-pigment": {
-          "dealt": 44317,
+          "dealt": 45950,
           "chosen": 35
         },
         "digital-design-canon-otome-choice-frame": {
-          "dealt": 133,
+          "dealt": 223,
           "chosen": 1
         },
         "pop-culture-shelf-rebel-menu-interface": {
-          "dealt": 12441,
-          "chosen": 6
+          "dealt": 12724,
+          "chosen": 7
         },
         "textiles-weave-drape-fashion-ikat-ghost-grid": {
           "dealt": 4804,
           "chosen": 3
         },
         "pop-culture-shelf-devianart-character-sheet": {
-          "dealt": 8080,
+          "dealt": 8338,
           "chosen": 0
         },
         "pop-culture-shelf-manga-screentone-page": {
-          "dealt": 10129,
+          "dealt": 10329,
           "chosen": 6
         },
         "pop-culture-shelf-saturday-title-card": {
-          "dealt": 10197,
+          "dealt": 10392,
           "chosen": 2
         },
         "posters-covers-sleeves-ospaaal-poster": {
-          "dealt": 5879,
+          "dealt": 6109,
           "chosen": 4
         },
         "vernacular-ephemera-ekiben-wrapper-kiosk": {
-          "dealt": 6183,
-          "chosen": 9
+          "dealt": 6405,
+          "chosen": 10
         },
         "pop-culture-shelf-menhera-pastel-grimness": {
-          "dealt": 3338,
+          "dealt": 3548,
           "chosen": 0
         },
         "paper-folds-pleats-deployable-curved-crease-shell": {
-          "dealt": 23586,
-          "chosen": 27
+          "dealt": 24611,
+          "chosen": 28
         },
         "graphic-worlds-publishing-ukiyoe-block-registration": {
-          "dealt": 5205,
+          "dealt": 5578,
           "chosen": 6
         },
         "digital-design-canon-monochrome-product-marketing": {
-          "dealt": 6035,
-          "chosen": 21
+          "dealt": 6413,
+          "chosen": 22
         },
         "broadcast-programming-teletext-service": {
-          "dealt": 77566,
-          "chosen": 70
+          "dealt": 79895,
+          "chosen": 72
         },
         "digital-design-canon-teletext-weather-mosaic": {
-          "dealt": 5071,
+          "dealt": 5385,
           "chosen": 0
         },
         "cinema-cinematography-editing-multiplane-cel-dawn": {
-          "dealt": 46125,
+          "dealt": 47275,
           "chosen": 52
         },
         "ink-pigment-printmaking-persian-miniature-page": {
@@ -945,19 +945,19 @@
           "chosen": 1
         },
         "operate-b-struck-cathode-gauze": {
-          "dealt": 1162,
+          "dealt": 1503,
           "chosen": 1
         },
         "craft-making-lowicz-layered-papercut": {
-          "dealt": 15335,
-          "chosen": 13
+          "dealt": 16143,
+          "chosen": 14
         },
         "vernacular-ephemera-wildstyle-blackbook-page": {
-          "dealt": 4043,
+          "dealt": 4313,
           "chosen": 1
         },
         "vernacular-ephemera-socialist-kiosk-print": {
-          "dealt": 9429,
+          "dealt": 9768,
           "chosen": 11
         },
         "design-canon-streamliner-observation-lounge": {
@@ -965,115 +965,115 @@
           "chosen": 1
         },
         "digital-design-canon-pc98-sixteen-color-field": {
-          "dealt": 11392,
+          "dealt": 11741,
           "chosen": 20
         },
         "aww2-zoo-gardens-guide-map": {
-          "dealt": 1567,
-          "chosen": 0
+          "dealt": 2098,
+          "chosen": 2
         },
         "hand-drawn-zine-explainer": {
-          "dealt": 70211,
+          "dealt": 71615,
           "chosen": 105
         },
         "reefs-bioluminescent-nocturnal-chromatophore-skin-language": {
-          "dealt": 25064,
-          "chosen": 8
+          "dealt": 26200,
+          "chosen": 10
         },
         "editorial-sequence-montage-botanical-folio-season": {
-          "dealt": 8414,
-          "chosen": 11
+          "dealt": 8779,
+          "chosen": 13
         },
         "posters-covers-sleeves-fillmore-handbill": {
           "dealt": 4162,
           "chosen": 1
         },
         "textiles-weave-drape-fashion-sneaker-box-stacks": {
-          "dealt": 29715,
-          "chosen": 35
+          "dealt": 31441,
+          "chosen": 39
         },
         "dream-surreal-impossible-worlds-sleeping-city-fold": {
-          "dealt": 43676,
+          "dealt": 44766,
           "chosen": 3
         },
         "signals-instruments-night-flight-six-pack": {
-          "dealt": 67486,
-          "chosen": 124
+          "dealt": 69279,
+          "chosen": 126
         },
         "brand-identity-canon-scher-street-typography": {
-          "dealt": 12004,
+          "dealt": 12247,
           "chosen": 15
         },
         "design-canon-rietveld-sliding-house": {
-          "dealt": 13474,
+          "dealt": 13746,
           "chosen": 20
         },
         "design-canon-merz-collage-page": {
-          "dealt": 9268,
+          "dealt": 9610,
           "chosen": 11
         },
         "operate-c-cracktro-scroller-queue": {
-          "dealt": 4210,
-          "chosen": 2
+          "dealt": 5742,
+          "chosen": 4
         },
         "vernacular-ephemera-jet-age-ticket-wallet": {
-          "dealt": 10785,
-          "chosen": 38
+          "dealt": 11279,
+          "chosen": 42
         },
         "light-shadow-caustics-indoor-weather-sun": {
-          "dealt": 21981,
-          "chosen": 9
+          "dealt": 22944,
+          "chosen": 10
         },
         "pop-culture-shelf-bollywood-painted-poster": {
-          "dealt": 12383,
-          "chosen": 2
+          "dealt": 12722,
+          "chosen": 3
         },
         "craft-making-glazier-colorfield-partition": {
-          "dealt": 20915,
-          "chosen": 61
+          "dealt": 21753,
+          "chosen": 64
         },
         "clay-ceramics-fracture-raku-smoke-flash": {
-          "dealt": 39665,
+          "dealt": 40526,
           "chosen": 14
         },
-        "graphic-worlds-publishing-sampler-alphabet-proof": {
-          "dealt": 6761,
-          "chosen": 6
-        },
         "posters-covers-sleeves-taller-grafica-linocut": {
-          "dealt": 3783,
+          "dealt": 4007,
           "chosen": 1
         },
+        "graphic-worlds-publishing-sampler-alphabet-proof": {
+          "dealt": 7147,
+          "chosen": 6
+        },
         "posters-covers-sleeves-wpa-park-poster": {
-          "dealt": 15157,
-          "chosen": 38
+          "dealt": 15525,
+          "chosen": 42
         },
         "posters-covers-sleeves-noir-one-sheet-duotone": {
-          "dealt": 4426,
+          "dealt": 4686,
           "chosen": 8
         },
         "medium-native-webring-homepage-lane": {
-          "dealt": 18931,
+          "dealt": 19093,
           "chosen": 4
         },
         "pop-culture-shelf-arcade-marquee-row": {
-          "dealt": 10135,
+          "dealt": 10329,
           "chosen": 7
         },
         "architecture-inhabitable-space-daylight-section": {
-          "dealt": 27328,
-          "chosen": 51
+          "dealt": 28730,
+          "chosen": 52
         },
         "pop-culture-shelf-teen-magazine-quiz": {
-          "dealt": 12209,
+          "dealt": 12486,
           "chosen": 3
         },
         "pop-culture-shelf-window-box-toy-shelf": {
-          "dealt": 6632,
+          "dealt": 6933,
           "chosen": 1
         },
         "posters-covers-sleeves-flash-scrawl-club-sleeve": {
-          "dealt": 236,
+          "dealt": 322,
           "chosen": 0
         },
         "pop-culture-shelf-magical-girl-transformation": {
@@ -1081,11 +1081,11 @@
           "chosen": 1
         },
         "pop-culture-shelf-streaming-title-card-wall": {
-          "dealt": 7086,
+          "dealt": 7548,
           "chosen": 19
         },
         "posters-covers-sleeves-pulp-rack": {
-          "dealt": 11121,
+          "dealt": 11327,
           "chosen": 1
         },
         "design-canon-egyptomania-commercial-revival": {
@@ -1093,780 +1093,780 @@
           "chosen": 0
         },
         "medium-native-crt-arcade-pixel-glow": {
-          "dealt": 60543,
-          "chosen": 45
+          "dealt": 62034,
+          "chosen": 47
         },
         "medium-native-algorave-source-floor": {
-          "dealt": 33713,
+          "dealt": 35297,
           "chosen": 3
         },
         "design-canon-constructivist-agit-train": {
-          "dealt": 11547,
+          "dealt": 11772,
           "chosen": 13
         },
         "pop-culture-shelf-sapeur-portrait-plate": {
-          "dealt": 4578,
-          "chosen": 3
+          "dealt": 4854,
+          "chosen": 4
         },
         "posters-covers-sleeves-blue-note-session-sleeve": {
-          "dealt": 3794,
+          "dealt": 4006,
           "chosen": 4
         },
         "posters-covers-sleeves-angura-theatre-poster": {
-          "dealt": 6947,
-          "chosen": 2
+          "dealt": 7209,
+          "chosen": 3
         },
         "dream-surreal-impossible-worlds-moon-shadow-bazaar": {
-          "dealt": 23547,
+          "dealt": 24659,
           "chosen": 4
         },
         "food-fermentation-culinary-theater-pickling-brine-calendar": {
-          "dealt": 22406,
-          "chosen": 2
+          "dealt": 23381,
+          "chosen": 3
         },
         "stagecraft-theater-lighting-cyclorama-dawn": {
-          "dealt": 65386,
-          "chosen": 201
+          "dealt": 67458,
+          "chosen": 206
         },
         "games-toys-physics-play-brick-build-instructions": {
-          "dealt": 52403,
-          "chosen": 100
+          "dealt": 53730,
+          "chosen": 101
         },
         "pop-culture-shelf-anime-command-center": {
-          "dealt": 17899,
+          "dealt": 18285,
           "chosen": 13
         },
         "pop-culture-shelf-ligne-claire-album": {
-          "dealt": 5122,
-          "chosen": 12
+          "dealt": 5347,
+          "chosen": 13
         },
         "pop-culture-shelf-primary-toy-catalogue-spread": {
-          "dealt": 4339,
+          "dealt": 4630,
           "chosen": 1
         },
         "notation-diagram-systems-labanotation": {
-          "dealt": 12755,
-          "chosen": 21
+          "dealt": 13302,
+          "chosen": 22
         },
         "signals-instruments-split-flap-concourse": {
-          "dealt": 77484,
-          "chosen": 233
+          "dealt": 79719,
+          "chosen": 244
         },
         "variety-telop-caption-field": {
-          "dealt": 19888,
+          "dealt": 20336,
           "chosen": 7
         },
         "pop-culture-shelf-elbow-panel-console": {
-          "dealt": 17538,
-          "chosen": 19
+          "dealt": 17990,
+          "chosen": 20
         },
         "pop-culture-shelf-photocard-binder": {
           "dealt": 3629,
           "chosen": 0
         },
         "posters-covers-sleeves-stenberg-poster": {
-          "dealt": 10958,
+          "dealt": 10959,
           "chosen": 6
         },
         "design-canon-highland-ornament-program": {
           "dealt": 4,
           "chosen": 0
         },
-        "spatial-navigation-enfilade-sightline": {
-          "dealt": 10167,
-          "chosen": 1
-        },
-        "reveal-transform-resumable-index": {
-          "dealt": 10510,
+        "first-viewport-split-argument": {
+          "dealt": 10043,
           "chosen": 0
-        },
-        "spatial-navigation-landmark-horizon": {
-          "dealt": 12713,
-          "chosen": 1
-        },
-        "reveal-transform-page-stack-assembly": {
-          "dealt": 9182,
-          "chosen": 0
-        },
-        "spatial-navigation-express-aisle": {
-          "dealt": 10009,
-          "chosen": 0
-        },
-        "data-dramaturgy-ruled-timeline": {
-          "dealt": 10083,
-          "chosen": 0
-        },
-        "spatial-navigation-tuned-bands": {
-          "dealt": 9140,
-          "chosen": 0
-        },
-        "interaction-physics-pivot-fan": {
-          "dealt": 12323,
-          "chosen": 0
-        },
-        "first-viewport-overture-flicker": {
-          "dealt": 11444,
-          "chosen": 1
-        },
-        "working-surfaces-perimeter-rail": {
-          "dealt": 11415,
-          "chosen": 0
-        },
-        "first-viewport-crossing-seam": {
-          "dealt": 9958,
-          "chosen": 1
         },
         "reading-rhythm-mask-unveiling-sequence": {
-          "dealt": 10794,
+          "dealt": 11338,
           "chosen": 0
         },
         "collective-fields-roving-sweep": {
-          "dealt": 10291,
+          "dealt": 10744,
+          "chosen": 0
+        },
+        "first-viewport-grid-break-focal": {
+          "dealt": 10048,
+          "chosen": 1
+        },
+        "interaction-physics-pivot-fan": {
+          "dealt": 12933,
+          "chosen": 0
+        },
+        "first-viewport-overture-flicker": {
+          "dealt": 11911,
+          "chosen": 1
+        },
+        "reveal-transform-page-stack-assembly": {
+          "dealt": 9525,
+          "chosen": 0
+        },
+        "data-dramaturgy-ruled-timeline": {
+          "dealt": 10511,
+          "chosen": 0
+        },
+        "working-surfaces-perimeter-rail": {
+          "dealt": 11904,
+          "chosen": 0
+        },
+        "reveal-transform-resumable-index": {
+          "dealt": 10922,
+          "chosen": 0
+        },
+        "narrative-scroll-two-speed-parallax-argument": {
+          "dealt": 9751,
           "chosen": 0
         },
         "reveal-transform-released-plume-settle": {
-          "dealt": 8992,
+          "dealt": 9360,
           "chosen": 1
         },
-        "working-surfaces-command-sentence": {
-          "dealt": 11348,
-          "chosen": 4
-        },
-        "narrative-scroll-two-speed-parallax-argument": {
-          "dealt": 9379,
+        "spatial-navigation-raised-relief-map": {
+          "dealt": 9340,
           "chosen": 0
         },
-        "first-viewport-split-argument": {
-          "dealt": 9643,
+        "spatial-navigation-express-aisle": {
+          "dealt": 10436,
           "chosen": 0
         },
         "spatial-navigation-diagonal-axis": {
-          "dealt": 8905,
+          "dealt": 9267,
           "chosen": 2
         },
+        "spatial-navigation-landmark-horizon": {
+          "dealt": 13301,
+          "chosen": 1
+        },
+        "first-viewport-crossing-seam": {
+          "dealt": 10389,
+          "chosen": 1
+        },
+        "spatial-navigation-tuned-bands": {
+          "dealt": 9520,
+          "chosen": 0
+        },
+        "spatial-navigation-enfilade-sightline": {
+          "dealt": 10558,
+          "chosen": 1
+        },
+        "working-surfaces-command-sentence": {
+          "dealt": 11851,
+          "chosen": 4
+        },
         "reading-rhythm-telescoping-depth": {
-          "dealt": 10171,
+          "dealt": 10551,
           "chosen": 1
         },
         "working-surfaces-finite-tile-inventory": {
-          "dealt": 11439,
+          "dealt": 11950,
           "chosen": 1
         },
         "narrative-scroll-measured-hang": {
-          "dealt": 11183,
+          "dealt": 11652,
           "chosen": 2
         },
         "data-dramaturgy-light-table-triage": {
-          "dealt": 13181,
+          "dealt": 13828,
           "chosen": 4
         },
         "working-surfaces-passed-baton": {
-          "dealt": 11485,
+          "dealt": 11948,
           "chosen": 0
         },
         "working-surfaces-rehearsed-command": {
-          "dealt": 11340,
+          "dealt": 11792,
           "chosen": 5
         },
+        "collective-fields-particle-consensus": {
+          "dealt": 10807,
+          "chosen": 0
+        },
         "working-surfaces-twinned-probe": {
-          "dealt": 11060,
+          "dealt": 11541,
           "chosen": 0
         },
         "reveal-transform-flat-page-standing-city": {
-          "dealt": 9032,
-          "chosen": 0
-        },
-        "working-surfaces-depth-row": {
-          "dealt": 11467,
-          "chosen": 1
-        },
-        "data-dramaturgy-free-clockwork-broadside": {
-          "dealt": 12305,
-          "chosen": 0
-        },
-        "narrative-scroll-accumulating-precis": {
-          "dealt": 13372,
-          "chosen": 2
-        },
-        "reveal-transform-mutable-anchor": {
-          "dealt": 9306,
-          "chosen": 0
-        },
-        "reveal-transform-three-distances": {
-          "dealt": 10257,
-          "chosen": 1
-        },
-        "spatial-navigation-angle-dependent-facets": {
-          "dealt": 9004,
-          "chosen": 0
-        },
-        "reading-rhythm-spaced-returns": {
-          "dealt": 10134,
-          "chosen": 0
-        },
-        "narrative-scroll-lookback-depth": {
-          "dealt": 9422,
-          "chosen": 0
-        },
-        "reveal-transform-entered-through-process": {
-          "dealt": 10286,
-          "chosen": 0
-        },
-        "data-dramaturgy-evidence-transect": {
-          "dealt": 13185,
-          "chosen": 6
-        },
-        "data-dramaturgy-continuous-trace": {
-          "dealt": 13001,
-          "chosen": 0
-        },
-        "interaction-physics-two-key-commit": {
-          "dealt": 9975,
-          "chosen": 1
-        },
-        "data-dramaturgy-pastry-lamination-geology": {
-          "dealt": 12391,
-          "chosen": 1
-        },
-        "interaction-physics-bellows-breath": {
-          "dealt": 9961,
-          "chosen": 0
-        },
-        "interaction-physics-mechanical-espresso-lever": {
-          "dealt": 11195,
-          "chosen": 0
-        },
-        "spatial-navigation-open-storage-annex": {
-          "dealt": 10190,
-          "chosen": 0
-        },
-        "reading-rhythm-fading-scaffold": {
-          "dealt": 9941,
-          "chosen": 0
-        },
-        "reveal-transform-xray-toggle": {
-          "dealt": 13967,
-          "chosen": 6
-        },
-        "narrative-scroll-zoom-anchored-chapters": {
-          "dealt": 13633,
-          "chosen": 0
-        },
-        "reading-rhythm-font-bellows-press": {
-          "dealt": 8612,
-          "chosen": 0
-        },
-        "collective-fields-advocacy-quorum": {
-          "dealt": 14712,
-          "chosen": 0
-        },
-        "working-surfaces-shaker-meeting-room": {
-          "dealt": 9978,
-          "chosen": 1
-        },
-        "data-dramaturgy-sweep-and-decay": {
-          "dealt": 13524,
-          "chosen": 0
-        },
-        "narrative-scroll-threshold-promenade": {
-          "dealt": 9753,
-          "chosen": 1
-        },
-        "reveal-transform-mask-through-letter": {
-          "dealt": 8997,
-          "chosen": 0
-        },
-        "working-surfaces-verdict-run": {
-          "dealt": 11363,
-          "chosen": 1
-        },
-        "reading-rhythm-invertible-commentary": {
-          "dealt": 10240,
-          "chosen": 1
-        },
-        "data-dramaturgy-visible-transit": {
-          "dealt": 13328,
-          "chosen": 2
-        },
-        "reading-rhythm-goal-compiled-route": {
-          "dealt": 10125,
-          "chosen": 0
-        },
-        "reveal-transform-dissection-plate": {
-          "dealt": 9188,
-          "chosen": 2
-        },
-        "reading-rhythm-prediction-checkpoint": {
-          "dealt": 10065,
-          "chosen": 0
-        },
-        "data-dramaturgy-scrubbed-datum": {
-          "dealt": 9994,
-          "chosen": 0
-        },
-        "spatial-navigation-prerequisite-terrain": {
-          "dealt": 12412,
-          "chosen": 0
-        },
-        "working-surfaces-drawn-registration": {
-          "dealt": 11285,
-          "chosen": 2
-        },
-        "interaction-physics-trim-and-launch": {
-          "dealt": 12762,
-          "chosen": 1
-        },
-        "data-dramaturgy-commitment-lattice": {
-          "dealt": 13157,
-          "chosen": 0
-        },
-        "spatial-navigation-branching-fan-routes": {
-          "dealt": 9111,
-          "chosen": 2
-        },
-        "interaction-physics-wound-medium": {
-          "dealt": 12648,
-          "chosen": 0
-        },
-        "reveal-transform-fly-tower-transformation": {
-          "dealt": 9137,
-          "chosen": 0
-        },
-        "reading-rhythm-version-seams": {
-          "dealt": 10224,
-          "chosen": 1
-        },
-        "reading-rhythm-spec-sheet-law": {
-          "dealt": 10038,
-          "chosen": 0
-        },
-        "collective-fields-folded-curtain": {
-          "dealt": 10337,
-          "chosen": 0
-        },
-        "collective-fields-synchronized-array": {
-          "dealt": 10171,
-          "chosen": 1
-        },
-        "interaction-physics-tension-commit": {
-          "dealt": 12433,
-          "chosen": 1
-        },
-        "working-surfaces-splice-strip": {
-          "dealt": 11276,
-          "chosen": 4
-        },
-        "reveal-transform-room-before-work": {
-          "dealt": 10320,
-          "chosen": 0
-        },
-        "working-surfaces-held-failure": {
-          "dealt": 11388,
-          "chosen": 1
-        },
-        "spatial-navigation-transit-stack": {
-          "dealt": 12920,
-          "chosen": 9
-        },
-        "first-viewport-inverted-zoom-out": {
-          "dealt": 9786,
-          "chosen": 1
-        },
-        "reveal-transform-lit-veil": {
-          "dealt": 9250,
-          "chosen": 0
-        },
-        "interaction-physics-staged-cascade": {
-          "dealt": 10115,
-          "chosen": 0
-        },
-        "spatial-navigation-depth-landscape": {
-          "dealt": 8691,
-          "chosen": 0
-        },
-        "spatial-navigation-elevator-floor-directory": {
-          "dealt": 11445,
-          "chosen": 0
-        },
-        "spatial-navigation-portal-peepholes": {
-          "dealt": 12384,
-          "chosen": 0
-        },
-        "collective-fields-entrained-flash-field": {
-          "dealt": 10379,
-          "chosen": 0
-        },
-        "spatial-navigation-elimination-key": {
-          "dealt": 12633,
-          "chosen": 0
-        },
-        "reading-rhythm-latched-checkpoints": {
-          "dealt": 10206,
-          "chosen": 0
-        },
-        "interaction-physics-threshold-relay": {
-          "dealt": 12871,
-          "chosen": 1
-        },
-        "interaction-physics-patch-graph-wall": {
-          "dealt": 12425,
-          "chosen": 1
-        },
-        "interaction-physics-elastic-scope": {
-          "dealt": 12332,
-          "chosen": 1
-        },
-        "first-viewport-pointer-protagonist": {
-          "dealt": 9848,
-          "chosen": 0
-        },
-        "reading-rhythm-summoned-definitions": {
-          "dealt": 9958,
-          "chosen": 0
-        },
-        "working-surfaces-object-time-fan": {
-          "dealt": 11412,
-          "chosen": 2
-        },
-        "spatial-navigation-tooling-by-zoom": {
-          "dealt": 12537,
-          "chosen": 1
-        },
-        "spatial-navigation-utopian-scholastic-cutaway": {
-          "dealt": 11197,
-          "chosen": 0
-        },
-        "working-surfaces-tethered-bench": {
-          "dealt": 11141,
-          "chosen": 1
-        },
-        "data-dramaturgy-full-state-trace": {
-          "dealt": 13093,
-          "chosen": 0
-        },
-        "data-dramaturgy-suspect-lineup": {
-          "dealt": 13342,
-          "chosen": 1
-        },
-        "reading-rhythm-failure-first-repair": {
-          "dealt": 9872,
-          "chosen": 1
-        },
-        "reveal-transform-carried-motion": {
-          "dealt": 9175,
-          "chosen": 1
-        },
-        "interaction-physics-instruments-evening-switchboard": {
-          "dealt": 10946,
-          "chosen": 0
-        },
-        "interaction-physics-weighted-drag": {
-          "dealt": 12210,
-          "chosen": 0
-        },
-        "spatial-navigation-nested-shell-descent": {
-          "dealt": 9170,
-          "chosen": 0
-        },
-        "narrative-scroll-withheld-reveal": {
-          "dealt": 9462,
-          "chosen": 1
-        },
-        "reveal-transform-concentric-disclosure-cycle": {
-          "dealt": 9158,
-          "chosen": 1
-        },
-        "reveal-transform-masked-stage": {
-          "dealt": 9320,
-          "chosen": 0
-        },
-        "reveal-transform-exploded-axis": {
-          "dealt": 9293,
-          "chosen": 0
-        },
-        "spatial-navigation-split-spectrum-corridors": {
-          "dealt": 9173,
-          "chosen": 0
-        },
-        "working-surfaces-exemplar-proof-sheet": {
-          "dealt": 11170,
-          "chosen": 1
-        },
-        "spatial-navigation-magnitude-ladder": {
-          "dealt": 8963,
-          "chosen": 0
-        },
-        "collective-fields-candlelit-potion-class": {
-          "dealt": 9790,
-          "chosen": 0
-        },
-        "narrative-scroll-wordless-steps": {
-          "dealt": 9417,
-          "chosen": 2
-        },
-        "reveal-transform-parallel-making": {
-          "dealt": 9117,
-          "chosen": 1
-        },
-        "narrative-scroll-continuous-thread": {
-          "dealt": 9384,
-          "chosen": 4
-        },
-        "spatial-navigation-zoned-colony-districts": {
-          "dealt": 8807,
-          "chosen": 0
-        },
-        "narrative-scroll-interstitial-labels": {
-          "dealt": 11063,
-          "chosen": 0
-        },
-        "reveal-transform-folding-volume": {
-          "dealt": 9194,
-          "chosen": 1
-        },
-        "collective-fields-particle-consensus": {
-          "dealt": 10310,
+          "dealt": 9465,
           "chosen": 0
         },
         "spatial-navigation-inverted-depth-stacks": {
-          "dealt": 9094,
+          "dealt": 9477,
           "chosen": 0
         },
-        "reveal-transform-aligned-fragments-snap": {
-          "dealt": 8890,
+        "working-surfaces-depth-row": {
+          "dealt": 11905,
+          "chosen": 1
+        },
+        "data-dramaturgy-free-clockwork-broadside": {
+          "dealt": 12874,
           "chosen": 0
         },
-        "collective-fields-detail-first-index": {
-          "dealt": 11020,
-          "chosen": 0
-        },
-        "reveal-transform-translation-gate": {
-          "dealt": 9105,
+        "narrative-scroll-accumulating-precis": {
+          "dealt": 13960,
           "chosen": 2
         },
-        "collective-fields-shared-formation": {
-          "dealt": 10417,
-          "chosen": 0
-        },
-        "spatial-navigation-filament-zoom": {
-          "dealt": 9042,
+        "reveal-transform-three-distances": {
+          "dealt": 10672,
           "chosen": 1
         },
-        "first-viewport-live-mirror": {
-          "dealt": 9591,
-          "chosen": 1
-        },
-        "data-dramaturgy-cast-indicator-calendar": {
-          "dealt": 9910,
+        "reveal-transform-mutable-anchor": {
+          "dealt": 9666,
           "chosen": 0
         },
-        "narrative-scroll-horizontal-rail": {
-          "dealt": 9483,
+        "spatial-navigation-angle-dependent-facets": {
+          "dealt": 9406,
+          "chosen": 0
+        },
+        "reading-rhythm-spaced-returns": {
+          "dealt": 10547,
+          "chosen": 0
+        },
+        "narrative-scroll-lookback-depth": {
+          "dealt": 9852,
+          "chosen": 0
+        },
+        "reveal-transform-entered-through-process": {
+          "dealt": 10732,
+          "chosen": 0
+        },
+        "data-dramaturgy-evidence-transect": {
+          "dealt": 13736,
           "chosen": 6
         },
-        "spatial-navigation-raised-relief-map": {
-          "dealt": 8886,
+        "data-dramaturgy-continuous-trace": {
+          "dealt": 13562,
           "chosen": 0
         },
-        "narrative-scroll-long-return-arc": {
-          "dealt": 9519,
-          "chosen": 0
-        },
-        "first-viewport-converging-pair": {
-          "dealt": 9525,
+        "interaction-physics-two-key-commit": {
+          "dealt": 10435,
           "chosen": 1
         },
-        "narrative-scroll-gatefold-liner-notes": {
-          "dealt": 9620,
+        "data-dramaturgy-pastry-lamination-geology": {
+          "dealt": 12943,
+          "chosen": 1
+        },
+        "interaction-physics-bellows-breath": {
+          "dealt": 10381,
+          "chosen": 0
+        },
+        "spatial-navigation-open-storage-annex": {
+          "dealt": 10599,
+          "chosen": 0
+        },
+        "interaction-physics-mechanical-espresso-lever": {
+          "dealt": 11794,
+          "chosen": 0
+        },
+        "reading-rhythm-fading-scaffold": {
+          "dealt": 10396,
+          "chosen": 0
+        },
+        "reveal-transform-xray-toggle": {
+          "dealt": 14595,
+          "chosen": 7
+        },
+        "narrative-scroll-zoom-anchored-chapters": {
+          "dealt": 14210,
+          "chosen": 0
+        },
+        "reading-rhythm-font-bellows-press": {
+          "dealt": 9029,
+          "chosen": 0
+        },
+        "collective-fields-advocacy-quorum": {
+          "dealt": 15392,
+          "chosen": 0
+        },
+        "working-surfaces-shaker-meeting-room": {
+          "dealt": 10476,
+          "chosen": 1
+        },
+        "data-dramaturgy-sweep-and-decay": {
+          "dealt": 14135,
+          "chosen": 0
+        },
+        "narrative-scroll-threshold-promenade": {
+          "dealt": 10131,
+          "chosen": 1
+        },
+        "reveal-transform-mask-through-letter": {
+          "dealt": 9380,
+          "chosen": 0
+        },
+        "working-surfaces-verdict-run": {
+          "dealt": 11888,
+          "chosen": 1
+        },
+        "reading-rhythm-invertible-commentary": {
+          "dealt": 10706,
+          "chosen": 1
+        },
+        "data-dramaturgy-visible-transit": {
+          "dealt": 13924,
           "chosen": 2
         },
-        "interaction-physics-live-thread-unravel": {
-          "dealt": 10170,
+        "reading-rhythm-goal-compiled-route": {
+          "dealt": 10585,
           "chosen": 0
         },
-        "collective-fields-condensed-outtakes": {
-          "dealt": 10896,
+        "reveal-transform-dissection-plate": {
+          "dealt": 9546,
+          "chosen": 2
+        },
+        "reading-rhythm-prediction-checkpoint": {
+          "dealt": 10481,
           "chosen": 0
         },
-        "interaction-physics-cursor-spotlight": {
-          "dealt": 10277,
+        "data-dramaturgy-scrubbed-datum": {
+          "dealt": 10438,
           "chosen": 0
         },
-        "interaction-physics-metered-reserve": {
-          "dealt": 10008,
+        "spatial-navigation-prerequisite-terrain": {
+          "dealt": 12927,
           "chosen": 0
         },
-        "collective-fields-auroras-auroral-curtain": {
-          "dealt": 10007,
+        "working-surfaces-drawn-registration": {
+          "dealt": 11787,
+          "chosen": 2
+        },
+        "interaction-physics-trim-and-launch": {
+          "dealt": 13360,
+          "chosen": 1
+        },
+        "data-dramaturgy-commitment-lattice": {
+          "dealt": 13763,
           "chosen": 0
         },
-        "spatial-navigation-carried-object": {
-          "dealt": 12727,
-          "chosen": 6
+        "spatial-navigation-branching-fan-routes": {
+          "dealt": 9501,
+          "chosen": 2
         },
-        "reveal-transform-staged-reorganization-chambers": {
-          "dealt": 9115,
+        "interaction-physics-wound-medium": {
+          "dealt": 13190,
           "chosen": 0
         },
-        "spatial-navigation-verso-return": {
-          "dealt": 10017,
+        "reading-rhythm-version-seams": {
+          "dealt": 10630,
+          "chosen": 1
+        },
+        "reveal-transform-fly-tower-transformation": {
+          "dealt": 9631,
+          "chosen": 0
+        },
+        "reading-rhythm-spec-sheet-law": {
+          "dealt": 10433,
+          "chosen": 0
+        },
+        "collective-fields-folded-curtain": {
+          "dealt": 10771,
+          "chosen": 0
+        },
+        "collective-fields-synchronized-array": {
+          "dealt": 10676,
+          "chosen": 2
+        },
+        "interaction-physics-tension-commit": {
+          "dealt": 12984,
+          "chosen": 2
+        },
+        "reveal-transform-room-before-work": {
+          "dealt": 10797,
+          "chosen": 0
+        },
+        "working-surfaces-splice-strip": {
+          "dealt": 11718,
+          "chosen": 4
+        },
+        "working-surfaces-held-failure": {
+          "dealt": 11914,
+          "chosen": 1
+        },
+        "spatial-navigation-transit-stack": {
+          "dealt": 13501,
+          "chosen": 9
+        },
+        "first-viewport-inverted-zoom-out": {
+          "dealt": 10181,
+          "chosen": 1
+        },
+        "reveal-transform-lit-veil": {
+          "dealt": 9671,
+          "chosen": 0
+        },
+        "interaction-physics-staged-cascade": {
+          "dealt": 10557,
+          "chosen": 0
+        },
+        "spatial-navigation-depth-landscape": {
+          "dealt": 9104,
+          "chosen": 0
+        },
+        "spatial-navigation-elevator-floor-directory": {
+          "dealt": 11997,
+          "chosen": 0
+        },
+        "spatial-navigation-portal-peepholes": {
+          "dealt": 12918,
+          "chosen": 0
+        },
+        "collective-fields-entrained-flash-field": {
+          "dealt": 10793,
+          "chosen": 0
+        },
+        "spatial-navigation-elimination-key": {
+          "dealt": 13177,
+          "chosen": 0
+        },
+        "reading-rhythm-latched-checkpoints": {
+          "dealt": 10608,
+          "chosen": 0
+        },
+        "interaction-physics-threshold-relay": {
+          "dealt": 13428,
+          "chosen": 1
+        },
+        "interaction-physics-patch-graph-wall": {
+          "dealt": 13024,
+          "chosen": 1
+        },
+        "interaction-physics-elastic-scope": {
+          "dealt": 12918,
+          "chosen": 1
+        },
+        "first-viewport-pointer-protagonist": {
+          "dealt": 10246,
           "chosen": 0
         },
         "working-surfaces-pipe-organ-keydesk": {
-          "dealt": 10287,
+          "dealt": 10824,
+          "chosen": 0
+        },
+        "reading-rhythm-summoned-definitions": {
+          "dealt": 10383,
+          "chosen": 0
+        },
+        "working-surfaces-object-time-fan": {
+          "dealt": 11981,
+          "chosen": 2
+        },
+        "spatial-navigation-tooling-by-zoom": {
+          "dealt": 13131,
+          "chosen": 1
+        },
+        "spatial-navigation-utopian-scholastic-cutaway": {
+          "dealt": 11730,
+          "chosen": 0
+        },
+        "working-surfaces-tethered-bench": {
+          "dealt": 11647,
+          "chosen": 1
+        },
+        "data-dramaturgy-full-state-trace": {
+          "dealt": 13684,
+          "chosen": 0
+        },
+        "data-dramaturgy-suspect-lineup": {
+          "dealt": 13953,
+          "chosen": 1
+        },
+        "reading-rhythm-failure-first-repair": {
+          "dealt": 10289,
+          "chosen": 1
+        },
+        "reveal-transform-carried-motion": {
+          "dealt": 9599,
+          "chosen": 1
+        },
+        "interaction-physics-instruments-evening-switchboard": {
+          "dealt": 11503,
+          "chosen": 0
+        },
+        "interaction-physics-weighted-drag": {
+          "dealt": 12755,
+          "chosen": 0
+        },
+        "spatial-navigation-nested-shell-descent": {
+          "dealt": 9582,
+          "chosen": 0
+        },
+        "narrative-scroll-withheld-reveal": {
+          "dealt": 9902,
+          "chosen": 1
+        },
+        "reveal-transform-concentric-disclosure-cycle": {
+          "dealt": 9567,
+          "chosen": 1
+        },
+        "reveal-transform-masked-stage": {
+          "dealt": 9719,
+          "chosen": 0
+        },
+        "reveal-transform-exploded-axis": {
+          "dealt": 9666,
+          "chosen": 0
+        },
+        "spatial-navigation-split-spectrum-corridors": {
+          "dealt": 9541,
+          "chosen": 0
+        },
+        "working-surfaces-exemplar-proof-sheet": {
+          "dealt": 11668,
+          "chosen": 1
+        },
+        "spatial-navigation-magnitude-ladder": {
+          "dealt": 9329,
+          "chosen": 0
+        },
+        "collective-fields-candlelit-potion-class": {
+          "dealt": 10315,
+          "chosen": 0
+        },
+        "narrative-scroll-wordless-steps": {
+          "dealt": 9818,
+          "chosen": 2
+        },
+        "reveal-transform-parallel-making": {
+          "dealt": 9573,
+          "chosen": 1
+        },
+        "narrative-scroll-continuous-thread": {
+          "dealt": 9804,
+          "chosen": 4
+        },
+        "narrative-scroll-interstitial-labels": {
+          "dealt": 11504,
+          "chosen": 0
+        },
+        "spatial-navigation-zoned-colony-districts": {
+          "dealt": 9184,
+          "chosen": 0
+        },
+        "reveal-transform-folding-volume": {
+          "dealt": 9536,
+          "chosen": 1
+        },
+        "reveal-transform-aligned-fragments-snap": {
+          "dealt": 9265,
+          "chosen": 0
+        },
+        "collective-fields-detail-first-index": {
+          "dealt": 11547,
+          "chosen": 0
+        },
+        "reveal-transform-translation-gate": {
+          "dealt": 9540,
+          "chosen": 2
+        },
+        "collective-fields-shared-formation": {
+          "dealt": 10841,
+          "chosen": 0
+        },
+        "spatial-navigation-filament-zoom": {
+          "dealt": 9429,
+          "chosen": 1
+        },
+        "first-viewport-live-mirror": {
+          "dealt": 10000,
+          "chosen": 1
+        },
+        "data-dramaturgy-cast-indicator-calendar": {
+          "dealt": 10333,
+          "chosen": 0
+        },
+        "narrative-scroll-horizontal-rail": {
+          "dealt": 9921,
+          "chosen": 6
+        },
+        "narrative-scroll-long-return-arc": {
+          "dealt": 9940,
+          "chosen": 0
+        },
+        "first-viewport-converging-pair": {
+          "dealt": 9926,
+          "chosen": 1
+        },
+        "narrative-scroll-gatefold-liner-notes": {
+          "dealt": 10079,
+          "chosen": 2
+        },
+        "interaction-physics-live-thread-unravel": {
+          "dealt": 10550,
+          "chosen": 0
+        },
+        "collective-fields-condensed-outtakes": {
+          "dealt": 11372,
+          "chosen": 0
+        },
+        "interaction-physics-cursor-spotlight": {
+          "dealt": 10711,
+          "chosen": 0
+        },
+        "interaction-physics-metered-reserve": {
+          "dealt": 10492,
+          "chosen": 0
+        },
+        "collective-fields-auroras-auroral-curtain": {
+          "dealt": 10540,
+          "chosen": 0
+        },
+        "spatial-navigation-carried-object": {
+          "dealt": 13359,
+          "chosen": 6
+        },
+        "reveal-transform-staged-reorganization-chambers": {
+          "dealt": 9543,
+          "chosen": 0
+        },
+        "spatial-navigation-verso-return": {
+          "dealt": 10497,
           "chosen": 0
         },
         "first-viewport-empty-stage-flood": {
-          "dealt": 9831,
+          "dealt": 10214,
           "chosen": 0
         },
         "first-viewport-evidenced-absence": {
-          "dealt": 9882,
+          "dealt": 10265,
           "chosen": 3
         },
         "narrative-scroll-processional-order": {
-          "dealt": 11209,
+          "dealt": 11666,
           "chosen": 0
         },
         "narrative-scroll-diffuse-to-stream": {
-          "dealt": 9463,
+          "dealt": 9903,
           "chosen": 0
         },
         "spatial-navigation-continuous-world": {
-          "dealt": 8956,
+          "dealt": 9335,
           "chosen": 0
         },
         "narrative-scroll-parallel-streams-merge": {
-          "dealt": 9829,
+          "dealt": 10261,
           "chosen": 1
         },
         "data-dramaturgy-product-teardown": {
-          "dealt": 9948,
+          "dealt": 10315,
           "chosen": 1
         },
         "reveal-transform-reduction-passes": {
-          "dealt": 9183,
+          "dealt": 9576,
           "chosen": 1
         },
         "spatial-navigation-stacked-commons": {
-          "dealt": 9011,
+          "dealt": 9391,
           "chosen": 0
         },
         "narrative-scroll-sticky-morph": {
-          "dealt": 9662,
+          "dealt": 10032,
           "chosen": 1
         },
         "narrative-scroll-carved-epoch-descent": {
-          "dealt": 9433,
+          "dealt": 9849,
           "chosen": 2
         },
         "collective-fields-flash-party-archive": {
-          "dealt": 9886,
+          "dealt": 10327,
           "chosen": 0
         },
         "interaction-physics-drop-assembly": {
-          "dealt": 10012,
+          "dealt": 10487,
           "chosen": 0
         },
         "narrative-scroll-vertical-strata-ascent": {
-          "dealt": 9568,
+          "dealt": 9994,
           "chosen": 2
         },
         "data-dramaturgy-diagnostic-plate": {
-          "dealt": 10403,
+          "dealt": 10864,
           "chosen": 1
         },
         "spatial-navigation-pierced-density": {
-          "dealt": 8634,
+          "dealt": 9008,
           "chosen": 1
         },
         "data-dramaturgy-opening-and-race": {
-          "dealt": 9995,
+          "dealt": 10521,
           "chosen": 0
         },
         "first-viewport-constant-silhouette": {
-          "dealt": 9705,
+          "dealt": 10133,
           "chosen": 0
         },
         "spatial-navigation-portal-counterparts": {
-          "dealt": 8845,
+          "dealt": 9282,
           "chosen": 0
         },
         "narrative-scroll-unbroken-route": {
-          "dealt": 9575,
+          "dealt": 9928,
           "chosen": 1
         },
         "first-viewport-conversational-form": {
-          "dealt": 9700,
+          "dealt": 10169,
           "chosen": 0
         },
         "first-viewport-cold-open-arrival": {
-          "dealt": 11330,
+          "dealt": 11848,
           "chosen": 0
         },
         "spatial-navigation-tide-locked-rooms": {
-          "dealt": 8808,
+          "dealt": 9202,
           "chosen": 0
         },
         "reveal-transform-before-after-page": {
-          "dealt": 9120,
+          "dealt": 9522,
           "chosen": 0
         },
         "reveal-transform-creased-unfolding": {
-          "dealt": 9108,
+          "dealt": 9461,
           "chosen": 1
         },
         "spatial-navigation-miniature-glide": {
-          "dealt": 8962,
+          "dealt": 9318,
           "chosen": 1
         },
         "first-viewport-type-as-architecture": {
-          "dealt": 9737,
+          "dealt": 10116,
           "chosen": 0
         },
         "spatial-navigation-orchard-of-moments": {
-          "dealt": 8952,
+          "dealt": 9263,
           "chosen": 0
         },
         "reveal-transform-raking-beam": {
-          "dealt": 9153,
+          "dealt": 9531,
           "chosen": 1
         },
         "first-viewport-generated-screening": {
-          "dealt": 9752,
+          "dealt": 10192,
           "chosen": 0
         },
         "collective-fields-cascade-trigger": {
-          "dealt": 10114,
-          "chosen": 1
-        },
-        "first-viewport-grid-break-focal": {
-          "dealt": 9651,
+          "dealt": 10528,
           "chosen": 1
         },
         "data-dramaturgy-periodic-sweep-score": {
-          "dealt": 10053,
+          "dealt": 10505,
           "chosen": 0
         },
         "first-viewport-cropped-giant": {
-          "dealt": 9697,
+          "dealt": 10141,
           "chosen": 0
         },
         "first-viewport-monumental-berth": {
-          "dealt": 9749,
+          "dealt": 10161,
           "chosen": 1
         },
         "narrative-scroll-folded-continuous-route": {
-          "dealt": 9454,
+          "dealt": 9858,
           "chosen": 0
         },
         "first-viewport-aperture-projection-room": {
-          "dealt": 9636,
+          "dealt": 10067,
           "chosen": 0
         },
         "none": {
           "dealt": 0,
-          "chosen": 18
+          "chosen": 19
         },
         "reroll": {
           "dealt": 0,
@@ -1900,11 +1900,11 @@
           "dealt": 0,
           "chosen": 24
         },
-        "anilha": {
+        "resolved": {
           "dealt": 0,
           "chosen": 1
         },
-        "resolved": {
+        "anilha": {
           "dealt": 0,
           "chosen": 1
         },
@@ -1930,7 +1930,7 @@
         },
         "assigned": {
           "dealt": 0,
-          "chosen": 90
+          "chosen": 92
         },
         "challenger-zine": {
           "dealt": 0,
@@ -1944,7 +1944,7 @@
           "dealt": 0,
           "chosen": 1
         },
-        "health-check": {
+        "challenger-ebru": {
           "dealt": 0,
           "chosen": 1
         },
@@ -1952,7 +1952,7 @@
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-ebru": {
+        "health-check": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2060,6 +2060,10 @@
           "dealt": 0,
           "chosen": 1
         },
+        "challenger-quad": {
+          "dealt": 0,
+          "chosen": 1
+        },
         "alt-vidriera": {
           "dealt": 0,
           "chosen": 1
@@ -2118,7 +2122,7 @@
         },
         "model-pick": {
           "dealt": 0,
-          "chosen": 2
+          "chosen": 4
         },
         "challenger-crank": {
           "dealt": 0,
@@ -2148,11 +2152,11 @@
           "dealt": 0,
           "chosen": 1
         },
-        "field-almanac-fused": {
+        "challenger-channel-rows": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-channel-rows": {
+        "field-almanac-fused": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2176,7 +2180,7 @@
           "dealt": 0,
           "chosen": 6
         },
-        "core-screen-family": {
+        "user-pinned-reference": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2184,11 +2188,11 @@
           "dealt": 0,
           "chosen": 1
         },
-        "user-pinned-reference": {
+        "challenger-rhythm": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-rhythm": {
+        "core-screen-family": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2244,11 +2248,11 @@
           "dealt": 0,
           "chosen": 1
         },
-        "own-grounded-punch-card": {
+        "folded-mission-map": {
           "dealt": 0,
           "chosen": 1
         },
-        "folded-mission-map": {
+        "own-grounded-punch-card": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2312,7 +2316,7 @@
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-gateboard": {
+        "gift-wrapping-station": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2320,7 +2324,7 @@
           "dealt": 0,
           "chosen": 1
         },
-        "gift-wrapping-station": {
+        "challenger-gateboard": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2372,15 +2376,19 @@
           "dealt": 0,
           "chosen": 1
         },
+        "challenger-industry-wall": {
+          "dealt": 0,
+          "chosen": 1
+        },
         "grounded-assignment": {
           "dealt": 0,
           "chosen": 1
         },
-        "product-test-dossier": {
+        "challenger-ticket-wallet": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-ticket-wallet": {
+        "product-test-dossier": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2440,11 +2448,11 @@
           "dealt": 0,
           "chosen": 1
         },
-        "user-pinned-warm-premium": {
+        "challenger-japanese": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-stagecraft": {
+        "user-pinned-warm-premium": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2452,7 +2460,15 @@
           "dealt": 0,
           "chosen": 1
         },
+        "challenger-stagecraft": {
+          "dealt": 0,
+          "chosen": 1
+        },
         "industrial-drawing-plate": {
+          "dealt": 0,
+          "chosen": 1
+        },
+        "challenger-amanecer": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2468,11 +2484,11 @@
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-decollage": {
+        "challenger-orizuru-crane": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-orizuru-crane": {
+        "challenger-decollage": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2532,11 +2548,11 @@
           "dealt": 0,
           "chosen": 2
         },
-        "challenger-sneaker": {
+        "challenger-swiss-grid": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-swiss-grid": {
+        "challenger-sneaker": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2576,13 +2592,17 @@
           "dealt": 0,
           "chosen": 1
         },
+        "challenger-bolted-book": {
+          "dealt": 0,
+          "chosen": 1
+        },
         "explicit-trust-language": {
           "dealt": 0,
           "chosen": 1
         },
         "challenger-darkroom": {
           "dealt": 0,
-          "chosen": 1
+          "chosen": 2
         },
         "dark-punk-streetwear": {
           "dealt": 0,
@@ -2748,11 +2768,15 @@
           "dealt": 0,
           "chosen": 1
         },
+        "challenger-airport-wayfinding": {
+          "dealt": 0,
+          "chosen": 1
+        },
         "festival-market-programme-catalog": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-airport-wayfinding": {
+        "textiles-weave-drape-fashion-drawcord-cape": {
           "dealt": 0,
           "chosen": 1
         },
@@ -2794,40 +2818,40 @@
         }
       },
       "kinds": {
-        "pick": 599,
-        "canon": 238,
-        "assigned": 1381,
-        "challenger": 202
+        "pick": 900,
+        "canon": 370,
+        "assigned": 2044,
+        "challenger": 310
       },
       "registers": {
-        "bolder": 55,
-        "safer": 58
+        "bolder": 94,
+        "safer": 90
       }
     },
     "30d": {
       "totals": {
-        "rolls": 720550,
-        "chosen": 7774
+        "rolls": 746957,
+        "chosen": 9057
       },
       "ids": {
         "3": {
           "dealt": 0,
-          "chosen": 2
+          "chosen": 3
         },
         "4": {
           "dealt": 0,
           "chosen": 2
         },
         "sd-seedbed-lobes": {
-          "dealt": 1376,
-          "chosen": 0
+          "dealt": 1877,
+          "chosen": 1
         },
         "ikeda-datamatics": {
-          "dealt": 78931,
-          "chosen": 98
+          "dealt": 80596,
+          "chosen": 100
         },
         "highlife-sleeve": {
-          "dealt": 5790,
+          "dealt": 5997,
           "chosen": 4
         },
         "feltron-personal-annual": {
@@ -2835,95 +2859,95 @@
           "chosen": 0
         },
         "risograph-web-system": {
-          "dealt": 50969,
-          "chosen": 92
+          "dealt": 52292,
+          "chosen": 95
         },
         "webgl-shader-portal": {
-          "dealt": 27499,
-          "chosen": 28
+          "dealt": 28668,
+          "chosen": 30
         },
         "tanaka-plane-portrait": {
-          "dealt": 12122,
-          "chosen": 26
+          "dealt": 12388,
+          "chosen": 27
         },
         "emigre-bitmap-specimen": {
-          "dealt": 15481,
+          "dealt": 15802,
           "chosen": 40
         },
         "dubois-data-portraits": {
-          "dealt": 14529,
+          "dealt": 14859,
           "chosen": 17
         },
         "neubrutalist-award-grade": {
-          "dealt": 6162,
+          "dealt": 6347,
           "chosen": 8
         },
         "luxury-fashion-flagship": {
-          "dealt": 6004,
-          "chosen": 13
+          "dealt": 6214,
+          "chosen": 14
         },
         "cyworld-minihompy-room": {
-          "dealt": 53002,
+          "dealt": 54240,
           "chosen": 14
         },
         "rw-timetable-slide-rack": {
-          "dealt": 1653,
-          "chosen": 0
+          "dealt": 2245,
+          "chosen": 3
         },
         "eboy-pixorama-metropolis": {
-          "dealt": 14115,
+          "dealt": 14408,
           "chosen": 14
         },
         "kinetic-sand-glyphs": {
-          "dealt": 4904,
+          "dealt": 5121,
           "chosen": 0
         },
         "crouwel-grid-specimen": {
-          "dealt": 12559,
+          "dealt": 13120,
           "chosen": 36
         },
         "variable-font-specimen": {
-          "dealt": 44113,
-          "chosen": 55
+          "dealt": 46380,
+          "chosen": 59
         },
         "studio-dumbar-identity": {
-          "dealt": 1565,
-          "chosen": 3
+          "dealt": 2093,
+          "chosen": 5
         },
         "kraftwerk-man-machine": {
-          "dealt": 7878,
-          "chosen": 26
+          "dealt": 8210,
+          "chosen": 27
         },
         "tdr-info-noise-sleeve": {
-          "dealt": 14290,
+          "dealt": 14590,
           "chosen": 23
         },
         "massin-stage-page": {
-          "dealt": 14338,
+          "dealt": 14712,
           "chosen": 12
         },
         "rw-copy-shop-zine-interior": {
-          "dealt": 227,
+          "dealt": 319,
           "chosen": 0
         },
         "digital-design-canon-warm-consumer-app-surface": {
-          "dealt": 6110,
+          "dealt": 6434,
           "chosen": 23
         },
         "vernacular-ephemera-matchbook-drawer": {
-          "dealt": 6105,
+          "dealt": 6337,
           "chosen": 6
         },
         "pop-culture-shelf-gothic-lolita-mook": {
-          "dealt": 4512,
+          "dealt": 4823,
           "chosen": 0
         },
         "digital-design-canon-metro-typographic-tiles": {
-          "dealt": 10473,
-          "chosen": 32
+          "dealt": 10909,
+          "chosen": 34
         },
         "kinetic-sculpture-automata-crank-paper-menagerie": {
-          "dealt": 47186,
+          "dealt": 48404,
           "chosen": 28
         },
         "vernacular-ephemera-cancellation-stamp-album": {
@@ -2931,35 +2955,35 @@
           "chosen": 2
         },
         "pop-culture-shelf-cassette-futurism-deck": {
-          "dealt": 12775,
-          "chosen": 30
+          "dealt": 13084,
+          "chosen": 31
         },
         "posters-covers-sleeves-posada-calavera-broadside": {
-          "dealt": 8021,
+          "dealt": 8260,
           "chosen": 5
         },
         "posters-covers-sleeves-weimar-cabaret-bill": {
-          "dealt": 6989,
+          "dealt": 7205,
           "chosen": 1
         },
         "operate-a-cutting-bench-select-rail": {
-          "dealt": 7665,
-          "chosen": 12
+          "dealt": 10495,
+          "chosen": 14
         },
         "posters-covers-sleeves-museum-exhibition-identity": {
-          "dealt": 75,
+          "dealt": 105,
           "chosen": 0
         },
         "pop-culture-shelf-lowbrow-gallery-panel": {
-          "dealt": 3452,
+          "dealt": 3644,
           "chosen": 0
         },
         "vernacular-ephemera-calendar-pinup-pad": {
-          "dealt": 519,
+          "dealt": 722,
           "chosen": 0
         },
         "dream-surreal-impossible-worlds-gravity-rain-garden": {
-          "dealt": 56485,
+          "dealt": 58115,
           "chosen": 26
         },
         "vernacular-ephemera-library-due-date-card": {
@@ -2967,139 +2991,139 @@
           "chosen": 3
         },
         "pop-culture-shelf-sticker-album-spread": {
-          "dealt": 4372,
+          "dealt": 4626,
           "chosen": 1
         },
         "generative-art-computational-color-chord-counterpoint": {
-          "dealt": 21501,
-          "chosen": 16
+          "dealt": 22597,
+          "chosen": 17
         },
         "pop-culture-shelf-wax-pack-card": {
-          "dealt": 5282,
+          "dealt": 5485,
           "chosen": 1
         },
         "operate-c-depot-blind-courses": {
-          "dealt": 1132,
-          "chosen": 3
+          "dealt": 1560,
+          "chosen": 5
         },
         "pop-culture-shelf-skate-deck-wall": {
-          "dealt": 10102,
-          "chosen": 4
+          "dealt": 10313,
+          "chosen": 5
         },
         "pop-culture-shelf-sticker-sheet-decoden": {
           "dealt": 3537,
           "chosen": 0
         },
         "design-canon-factory-silkscreen-loft": {
-          "dealt": 13848,
-          "chosen": 9
+          "dealt": 14139,
+          "chosen": 10
         },
         "notation-diagram-systems-patent-drawing-sheet": {
-          "dealt": 9675,
-          "chosen": 32
+          "dealt": 10093,
+          "chosen": 33
         },
         "design-canon-raygun-layout-desk": {
-          "dealt": 16430,
+          "dealt": 16857,
           "chosen": 1
         },
         "notation-diagram-systems-orienteering-map": {
-          "dealt": 13032,
-          "chosen": 39
+          "dealt": 13650,
+          "chosen": 40
         },
         "posters-covers-sleeves-saul-bass-title": {
-          "dealt": 14055,
+          "dealt": 14306,
           "chosen": 22
         },
         "design-canon-op-art-textile-repeat": {
-          "dealt": 3997,
+          "dealt": 4215,
           "chosen": 2
         },
         "vernacular-ephemera-desert-neon-sign-program": {
-          "dealt": 5396,
+          "dealt": 5700,
           "chosen": 1
         },
         "vernacular-ephemera-well-traveled-passport": {
-          "dealt": 7465,
+          "dealt": 7871,
           "chosen": 4
         },
         "pop-culture-shelf-industrial-starship-terminal": {
-          "dealt": 12875,
+          "dealt": 13128,
           "chosen": 17
         },
         "ink-pigment-printmaking-drybrush-reed-storm": {
-          "dealt": 11644,
+          "dealt": 11645,
           "chosen": 7
         },
         "brand-identity-canon-saville-catalog-sleeve": {
-          "dealt": 16027,
-          "chosen": 50
+          "dealt": 16366,
+          "chosen": 51
         },
         "pop-culture-shelf-endurance-livery-garage": {
-          "dealt": 10209,
+          "dealt": 10421,
           "chosen": 11
         },
-        "generative-parametric-identity": {
-          "dealt": 12502,
-          "chosen": 22
-        },
         "cinema-cinematography-editing-hand-processed-film-bloom": {
-          "dealt": 21518,
+          "dealt": 22382,
           "chosen": 12
         },
+        "generative-parametric-identity": {
+          "dealt": 13064,
+          "chosen": 25
+        },
         "brand-identity-canon-push-pin-poster": {
-          "dealt": 12048,
+          "dealt": 12273,
           "chosen": 14
         },
         "vernacular-ephemera-boarding-pass-and-gate-board": {
-          "dealt": 15213,
-          "chosen": 106
+          "dealt": 15737,
+          "chosen": 107
         },
         "wayfinding-cartography-signage-night-market-sign-river": {
-          "dealt": 11916,
+          "dealt": 12140,
           "chosen": 8
         },
         "light-shadow-caustics-rain-night-cityscape": {
-          "dealt": 21887,
-          "chosen": 20
+          "dealt": 22792,
+          "chosen": 21
         },
         "posters-covers-sleeves-hatch-show-print": {
-          "dealt": 5913,
+          "dealt": 6160,
           "chosen": 2
         },
         "pop-culture-shelf-city-pop-airbrush": {
-          "dealt": 10271,
+          "dealt": 10482,
           "chosen": 4
         },
         "pop-culture-shelf-spy-dossier-title-sequence": {
-          "dealt": 4433,
-          "chosen": 1
+          "dealt": 4709,
+          "chosen": 2
         },
         "dream-surreal-impossible-worlds-cloud-quarry": {
-          "dealt": 33550,
-          "chosen": 12
+          "dealt": 35372,
+          "chosen": 14
         },
         "pop-culture-shelf-rpg-dialog-window": {
           "dealt": 2042,
           "chosen": 0
         },
+        "digital-design-canon-antialiased-racing-league": {
+          "dealt": 14400,
+          "chosen": 27
+        },
         "design-canon-futurist-bolted-book": {
-          "dealt": 7106,
+          "dealt": 7446,
           "chosen": 5
         },
-        "digital-design-canon-antialiased-racing-league": {
-          "dealt": 14093,
-          "chosen": 26
-        },
         "operate-c-emission-line-rail": {
-          "dealt": 1139,
-          "chosen": 3
+          "dealt": 1484,
+          "chosen": 6
         },
         "design-canon-memphis-showroom-morning": {
-          "dealt": 11467,
+          "dealt": 11686,
           "chosen": 2
         },
         "pop-culture-shelf-insert-card-numbered-series": {
-          "dealt": 170,
+          "dealt": 237,
           "chosen": 0
         },
         "memory-palimpsest-ruins-archive-ghost-sign-gable": {
@@ -3107,39 +3131,39 @@
           "chosen": 4
         },
         "pop-culture-shelf-code-cascade-terminal": {
-          "dealt": 6583,
+          "dealt": 6926,
           "chosen": 1
         },
         "typography-calligraphy-writing-illuminated-initial-vine": {
-          "dealt": 11922,
+          "dealt": 12145,
           "chosen": 4
         },
+        "digital-design-canon-dark-first-developer-console": {
+          "dealt": 6250,
+          "chosen": 34
+        },
         "design-canon-breton-ornament-program": {
-          "dealt": 4841,
+          "dealt": 5139,
           "chosen": 1
         },
-        "digital-design-canon-dark-first-developer-console": {
-          "dealt": 5929,
-          "chosen": 33
-        },
         "magnetism-electricity-plasma-hand-bent-neon-circuit": {
-          "dealt": 25362,
+          "dealt": 26448,
           "chosen": 12
         },
         "design-canon-decollage-torn-billboard": {
-          "dealt": 9189,
+          "dealt": 9499,
           "chosen": 4
         },
         "textiles-weave-drape-fashion-wax-print-market": {
-          "dealt": 9846,
+          "dealt": 9851,
           "chosen": 2
         },
         "design-canon-creator-hardware-bench": {
-          "dealt": 19565,
-          "chosen": 105
+          "dealt": 20068,
+          "chosen": 107
         },
         "posters-covers-sleeves-polish-film-poster": {
-          "dealt": 11068,
+          "dealt": 11296,
           "chosen": 7
         },
         "ritual-ceremony-festival-yggdrasil-nine-realms": {
@@ -3147,51 +3171,51 @@
           "chosen": 0
         },
         "pop-culture-shelf-viewfinder-bracket-hud": {
-          "dealt": 6552,
+          "dealt": 6841,
           "chosen": 22
         },
         "medium-native-fluid-ink-basin": {
-          "dealt": 34045,
-          "chosen": 30
+          "dealt": 35710,
+          "chosen": 31
         },
         "posters-covers-sleeves-movida-scene-magazine": {
-          "dealt": 3710,
+          "dealt": 3913,
           "chosen": 2
         },
         "design-canon-bauhaus-foundation-workshop": {
-          "dealt": 6593,
+          "dealt": 6856,
           "chosen": 14
         },
         "textiles-weave-drape-fashion-industrial-quote-grammar": {
-          "dealt": 44604,
-          "chosen": 95
+          "dealt": 45793,
+          "chosen": 97
         },
         "digital-design-canon-greiman-hybrid-collage": {
-          "dealt": 11709,
+          "dealt": 11904,
           "chosen": 10
         },
         "design-annual-s-plate-section": {
-          "dealt": 1480,
+          "dealt": 2040,
           "chosen": 2
         },
         "architecture-inhabitable-space-versailles-bosquet-vistas": {
-          "dealt": 22013,
+          "dealt": 22908,
           "chosen": 7
         },
         "signals-instruments-drum-machine-step-row": {
-          "dealt": 42899,
-          "chosen": 57
+          "dealt": 45242,
+          "chosen": 59
         },
         "design-canon-riley-moire-gallery": {
-          "dealt": 7056,
-          "chosen": 7
+          "dealt": 7375,
+          "chosen": 8
         },
         "clay-ceramics-fracture-coiled-earth-tower": {
-          "dealt": 23530,
+          "dealt": 24602,
           "chosen": 6
         },
         "brand-identity-canon-brodovitch-bazaar-spread": {
-          "dealt": 7673,
+          "dealt": 7949,
           "chosen": 7
         },
         "design-canon-liquid-light-ballroom": {
@@ -3199,103 +3223,103 @@
           "chosen": 0
         },
         "operate-b-normalled-jackfield": {
-          "dealt": 1094,
-          "chosen": 1
+          "dealt": 1418,
+          "chosen": 3
         },
         "posters-covers-sleeves-wuxia-painted-hoarding": {
-          "dealt": 3835,
+          "dealt": 4035,
           "chosen": 0
         },
         "reefs-bioluminescent-nocturnal-plankton-wake-stars": {
-          "dealt": 25204,
-          "chosen": 8
+          "dealt": 26387,
+          "chosen": 9
         },
         "posters-covers-sleeves-risograph-zine-cover": {
-          "dealt": 9106,
+          "dealt": 9410,
           "chosen": 7
         },
         "metal-forging-patina-blacksmith-scale-shower": {
-          "dealt": 20933,
+          "dealt": 21786,
           "chosen": 19
         },
         "wayfinding-cartography-signage-salt-stiffened-treasure-map": {
-          "dealt": 16687,
+          "dealt": 17064,
           "chosen": 4
         },
         "medium-native-ascii-live-scene-render": {
-          "dealt": 44307,
+          "dealt": 46485,
           "chosen": 19
         },
         "posters-covers-sleeves-shibuya-boutique-sleeve": {
-          "dealt": 6649,
+          "dealt": 7079,
           "chosen": 6
         },
         "pop-culture-shelf-kaiju-broadcast-alert": {
-          "dealt": 10290,
+          "dealt": 10524,
           "chosen": 2
         },
         "pop-culture-shelf-character-goods-catalog": {
-          "dealt": 5113,
+          "dealt": 5416,
           "chosen": 6
-        },
-        "ritual-ceremony-festival-papel-picado-canopy": {
-          "dealt": 5804,
-          "chosen": 0
         },
         "design-canon-art-nouveau-metro-threshold": {
           "dealt": 4044,
           "chosen": 1
         },
+        "ritual-ceremony-festival-papel-picado-canopy": {
+          "dealt": 5804,
+          "chosen": 0
+        },
         "pop-culture-shelf-rubber-hose-cel": {
-          "dealt": 3419,
+          "dealt": 3640,
           "chosen": 2
         },
         "japanese-high-density-web": {
-          "dealt": 8143,
-          "chosen": 40
+          "dealt": 8473,
+          "chosen": 41
         },
         "wayfinding-cartography-signage-midnight-transit-diagram": {
-          "dealt": 13015,
-          "chosen": 80
+          "dealt": 13616,
+          "chosen": 82
         },
         "fashion-folded-worlds-sewing-pattern-envelope": {
-          "dealt": 21479,
-          "chosen": 15
+          "dealt": 22490,
+          "chosen": 17
         },
         "digital-design-canon-shareware-installer-screens": {
-          "dealt": 4915,
+          "dealt": 5276,
           "chosen": 1
         },
         "paper-folds-pleats-deployable-miura-orbit-sheet": {
-          "dealt": 53667,
-          "chosen": 151
+          "dealt": 55307,
+          "chosen": 156
         },
         "pop-culture-shelf-benday-comic-page": {
-          "dealt": 10060,
+          "dealt": 10235,
           "chosen": 5
         },
         "digital-design-canon-console-dashboard-atmosphere": {
-          "dealt": 827,
+          "dealt": 1075,
           "chosen": 2
         },
         "pop-culture-shelf-gyaru-magazine-density": {
-          "dealt": 8541,
+          "dealt": 8935,
           "chosen": 4
         },
         "scientific-notation-particle-detector-event-display": {
-          "dealt": 37566,
-          "chosen": 46
+          "dealt": 39474,
+          "chosen": 48
         },
         "brand-identity-canon-art-paul-magazine-program": {
-          "dealt": 7063,
+          "dealt": 7471,
           "chosen": 12
         },
         "posters-covers-sleeves-soundsystem-dance-poster": {
-          "dealt": 3730,
+          "dealt": 3968,
           "chosen": 2
         },
         "digital-design-canon-mondo-tech-utopian-spread": {
-          "dealt": 5005,
+          "dealt": 5349,
           "chosen": 4
         },
         "posters-covers-sleeves-sonidero-dayglo-poster": {
@@ -3307,43 +3331,43 @@
           "chosen": 2
         },
         "vernacular-ephemera-layered-sticker-accretion": {
-          "dealt": 613,
+          "dealt": 846,
           "chosen": 1
         },
         "design-canon-mloda-polska-secession-page": {
-          "dealt": 3824,
-          "chosen": 1
+          "dealt": 4032,
+          "chosen": 2
         },
         "clay-ceramics-fracture-glaze-river-shelf": {
-          "dealt": 44446,
-          "chosen": 10
+          "dealt": 45560,
+          "chosen": 11
         },
         "signals-instruments-vu-meter-bridge": {
-          "dealt": 37297,
+          "dealt": 39357,
           "chosen": 25
         },
         "vernacular-ephemera-vhs-rental-wall": {
-          "dealt": 12029,
+          "dealt": 12211,
           "chosen": 6
         },
         "dream-surreal-impossible-worlds-luminescent-alien-understory": {
-          "dealt": 23401,
+          "dealt": 24563,
           "chosen": 6
         },
         "graphic-worlds-publishing-expedition-ice-press": {
-          "dealt": 4857,
+          "dealt": 5129,
           "chosen": 2
         },
         "galaxies-nebulae-deep-time-accretion-disk-threshold": {
-          "dealt": 22093,
+          "dealt": 22933,
           "chosen": 12
         },
         "design-canon-toyism-signed-collective-plate": {
-          "dealt": 7459,
+          "dealt": 7671,
           "chosen": 7
         },
         "posters-covers-sleeves-plakatstil-object-poster": {
-          "dealt": 75,
+          "dealt": 85,
           "chosen": 0
         },
         "posters-covers-sleeves-ballad-sheet-tune-name": {
@@ -3351,47 +3375,47 @@
           "chosen": 0
         },
         "posters-covers-sleeves-festival-lineup-poster": {
-          "dealt": 5730,
+          "dealt": 6019,
           "chosen": 8
         },
         "signals-instruments-phosphor-terminal-midnight": {
-          "dealt": 67573,
-          "chosen": 47
+          "dealt": 69309,
+          "chosen": 48
         },
         "pop-culture-shelf-football-kit-crest": {
-          "dealt": 5416,
+          "dealt": 5637,
           "chosen": 2
         },
         "signals-instruments-darkroom-safelight-bay": {
-          "dealt": 77889,
+          "dealt": 80129,
           "chosen": 91
         },
         "pop-culture-shelf-vertical-video-feed-surface": {
-          "dealt": 7094,
+          "dealt": 7566,
           "chosen": 21
         },
         "clouds-storms-auroras-iridescent-cloud-edge": {
-          "dealt": 36233,
-          "chosen": 75
+          "dealt": 38131,
+          "chosen": 77
         },
         "signals-instruments-nixie-laboratory-counter": {
-          "dealt": 77386,
-          "chosen": 75
+          "dealt": 79689,
+          "chosen": 77
         },
         "vernacular-ephemera-loteria-tabla-night": {
-          "dealt": 7730,
+          "dealt": 8013,
           "chosen": 4
         },
         "textiles-weave-drape-fashion-drawcord-transforming-cape": {
-          "dealt": 54522,
-          "chosen": 36
+          "dealt": 56143,
+          "chosen": 37
         },
         "design-canon-hoffmann-gridsmith-showroom": {
-          "dealt": 5940,
+          "dealt": 6137,
           "chosen": 7
         },
         "fly-posted-festival-hoarding-built": {
-          "dealt": 587,
+          "dealt": 830,
           "chosen": 0
         },
         "notation-diagram-systems-adinkra-symbol-cloth": {
@@ -3399,63 +3423,63 @@
           "chosen": 1
         },
         "posters-covers-sleeves-dong-ho-shell-ground": {
-          "dealt": 3769,
+          "dealt": 3966,
           "chosen": 1
         },
         "brand-identity-canon-village-coffeehouse-identity": {
-          "dealt": 4166,
+          "dealt": 4382,
           "chosen": 1
         },
         "pop-culture-shelf-pulp-rocketship-plate": {
-          "dealt": 3448,
+          "dealt": 3680,
           "chosen": 1
         },
         "rw-lexicon-shoulder-and-plate": {
-          "dealt": 182,
+          "dealt": 247,
           "chosen": 1
         },
         "medium-native-one-bit-desktop": {
-          "dealt": 60735,
-          "chosen": 84
+          "dealt": 62102,
+          "chosen": 86
         },
         "vernacular-ephemera-seed-packet-rack": {
-          "dealt": 6110,
+          "dealt": 6318,
           "chosen": 0
         },
         "paper-folds-pleats-deployable-orizuru-crane-sequence": {
-          "dealt": 54137,
-          "chosen": 70
+          "dealt": 55791,
+          "chosen": 74
         },
         "craft-making-coptic-exposed-binding": {
-          "dealt": 482,
-          "chosen": 0
+          "dealt": 628,
+          "chosen": 1
         },
         "ink-pigment-printmaking-mezzotint-velvet-night": {
-          "dealt": 7740,
+          "dealt": 8031,
           "chosen": 8
         },
         "posters-covers-sleeves-fight-poster": {
-          "dealt": 8703,
-          "chosen": 1
+          "dealt": 9014,
+          "chosen": 2
         },
         "vernacular-ephemera-signboard-canyon-midnight": {
-          "dealt": 6025,
+          "dealt": 6253,
           "chosen": 4
         },
         "paper-folds-pleats-deployable-akari-light-sculpture": {
-          "dealt": 18658,
+          "dealt": 19458,
           "chosen": 13
         },
         "kinetic-sculpture-automata-tensegrity-breathing-column": {
-          "dealt": 37028,
-          "chosen": 68
+          "dealt": 38986,
+          "chosen": 70
         },
         "digital-design-canon-gameboy-four-shade-field": {
-          "dealt": 10431,
+          "dealt": 10884,
           "chosen": 4
         },
         "design-canon-deco-cinema-lobby": {
-          "dealt": 6094,
+          "dealt": 6338,
           "chosen": 4
         },
         "clay-ceramics-fracture-talavera-courtyard": {
@@ -3463,11 +3487,11 @@
           "chosen": 1
         },
         "posters-covers-sleeves-tropicalia-sleeve-collage": {
-          "dealt": 6954,
+          "dealt": 7162,
           "chosen": 6
         },
         "digital-design-canon-grid-horizon-sunset": {
-          "dealt": 4027,
+          "dealt": 4299,
           "chosen": 1
         },
         "design-canon-alhambra-zellige-court": {
@@ -3475,111 +3499,111 @@
           "chosen": 1
         },
         "digital-design-canon-skeuomorph-leather-studio": {
-          "dealt": 7434,
+          "dealt": 7719,
           "chosen": 8
         },
         "design-canon-blast-manifesto-page": {
-          "dealt": 5078,
+          "dealt": 5448,
           "chosen": 1
         },
         "exhibition-museum-curation-provenance-ribbon": {
-          "dealt": 27783,
-          "chosen": 40
+          "dealt": 29097,
+          "chosen": 42
         },
         "posters-covers-sleeves-exploitation-combo-sheet": {
-          "dealt": 8293,
+          "dealt": 8526,
           "chosen": 2
         },
         "brand-identity-canon-single-hue-doll-program": {
-          "dealt": 7726,
+          "dealt": 7961,
           "chosen": 7
         },
         "pop-culture-shelf-couture-doll-atelier": {
-          "dealt": 5147,
+          "dealt": 5360,
           "chosen": 1
         },
         "operate-b-exposure-record-zone-sheets": {
-          "dealt": 1111,
+          "dealt": 1500,
           "chosen": 1
         },
         "scientific-notation-oscilloscope-signal-bench": {
-          "dealt": 78278,
-          "chosen": 100
+          "dealt": 80570,
+          "chosen": 102
         },
         "rw-manual-acetate-tab-board": {
-          "dealt": 1596,
-          "chosen": 5
+          "dealt": 2117,
+          "chosen": 8
         },
         "posters-covers-sleeves-torn-flyer-photocopy-wall": {
-          "dealt": 3746,
+          "dealt": 3974,
           "chosen": 4
         },
         "civic-bureau-prospectus-late-modern": {
-          "dealt": 1413,
-          "chosen": 0
+          "dealt": 1915,
+          "chosen": 2
         },
         "textiles-weave-drape-fashion-memory-quilt-atlas": {
-          "dealt": 18442,
+          "dealt": 19181,
           "chosen": 10
         },
         "notation-diagram-systems-star-atlas": {
-          "dealt": 8643,
-          "chosen": 34
+          "dealt": 9045,
+          "chosen": 35
         },
         "vernacular-ephemera-banknote-proof-table": {
           "dealt": 2109,
           "chosen": 2
         },
         "pop-culture-shelf-bebop-title-card": {
-          "dealt": 10250,
+          "dealt": 10474,
           "chosen": 14
         },
         "posters-covers-sleeves-pachuco-zoot-handbill": {
-          "dealt": 51,
+          "dealt": 100,
           "chosen": 0
         },
         "signals-instruments-seven-segment-alarm-clock": {
-          "dealt": 43108,
-          "chosen": 49
+          "dealt": 45445,
+          "chosen": 52
         },
         "pop-culture-shelf-sukeban-long-skirt-code": {
-          "dealt": 4582,
+          "dealt": 4906,
           "chosen": 4
         },
-        "graphic-worlds-publishing-busytown-cross-section": {
-          "dealt": 10864,
-          "chosen": 17
-        },
         "design-canon-punk-pasteup-table": {
-          "dealt": 11373,
+          "dealt": 11607,
           "chosen": 3
         },
+        "graphic-worlds-publishing-busytown-cross-section": {
+          "dealt": 11362,
+          "chosen": 17
+        },
         "wayfinding-cartography-signage-terminal-yellow-wayfinding": {
-          "dealt": 22791,
-          "chosen": 101
+          "dealt": 23377,
+          "chosen": 103
         },
         "pop-culture-shelf-cereal-box-aisle": {
-          "dealt": 5199,
+          "dealt": 5400,
           "chosen": 0
         },
         "posters-covers-sleeves-yeye-pop-sleeve": {
-          "dealt": 5844,
+          "dealt": 6171,
           "chosen": 13
         },
         "digital-design-canon-fansite-shrine-page": {
-          "dealt": 4042,
+          "dealt": 4275,
           "chosen": 1
         },
         "rw-centre-rail-reference-setting": {
-          "dealt": 1575,
-          "chosen": 2
+          "dealt": 2141,
+          "chosen": 3
         },
         "posters-covers-sleeves-dungeon-tape-jcard": {
-          "dealt": 3724,
+          "dealt": 3898,
           "chosen": 1
         },
         "architecture-places-azulejo-station-hall": {
-          "dealt": 21995,
+          "dealt": 22925,
           "chosen": 26
         },
         "typography-calligraphy-writing-zoomorphic-calligram": {
@@ -3587,7 +3611,7 @@
           "chosen": 0
         },
         "digital-design-canon-emergency-signal-degradation": {
-          "dealt": 5106,
+          "dealt": 5426,
           "chosen": 1
         },
         "pop-culture-shelf-jingle-truck-art": {
@@ -3595,151 +3619,151 @@
           "chosen": 0
         },
         "digital-design-canon-cdrom-chrome-navigation": {
-          "dealt": 5426,
+          "dealt": 5749,
           "chosen": 9
         },
         "rw-botteghe-quarterly-interior": {
-          "dealt": 506,
+          "dealt": 719,
           "chosen": 0
         },
         "design-canon-googie-starburst-diner": {
-          "dealt": 11533,
+          "dealt": 11804,
           "chosen": 5
-        },
-        "design-canon-precisionist-industrial-plate": {
-          "dealt": 209,
-          "chosen": 1
         },
         "metal-forging-patina-copper-lantern-souk": {
           "dealt": 5590,
           "chosen": 0
         },
+        "design-canon-precisionist-industrial-plate": {
+          "dealt": 261,
+          "chosen": 1
+        },
         "pop-culture-shelf-itasha-vinyl-wrap": {
-          "dealt": 6552,
+          "dealt": 6737,
           "chosen": 4
         },
         "rivers-tides-ocean-depths-mesophotic-deep-dive": {
-          "dealt": 35971,
-          "chosen": 39
+          "dealt": 37926,
+          "chosen": 41
         },
         "design-canon-swiss-grid-poster-wall": {
-          "dealt": 6584,
+          "dealt": 6824,
           "chosen": 31
         },
         "pop-culture-shelf-doujin-event-catalog": {
-          "dealt": 7271,
-          "chosen": 13
+          "dealt": 7703,
+          "chosen": 14
         },
         "dream-surreal-impossible-worlds-alphabet-storm": {
-          "dealt": 61594,
-          "chosen": 37
+          "dealt": 63344,
+          "chosen": 39
         },
         "notation-diagram-systems-thangka-mandala-cosmogram": {
           "dealt": 2487,
           "chosen": 0
         },
         "medium-native-ansi-bbs-nightboard": {
-          "dealt": 61923,
+          "dealt": 63491,
           "chosen": 20
         },
         "textiles-weave-drape-fashion-jacquard-punched-brocade": {
-          "dealt": 21760,
-          "chosen": 21
+          "dealt": 22768,
+          "chosen": 23
         },
         "medium-native-hypercard-stack-shoebox": {
-          "dealt": 44670,
-          "chosen": 40
+          "dealt": 46831,
+          "chosen": 42
         },
         "signals-instruments-pinball-backglass": {
-          "dealt": 10699,
+          "dealt": 10857,
           "chosen": 2
         },
         "graphic-worlds-publishing-chaekgeori-reverse-perspective": {
-          "dealt": 4045,
-          "chosen": 6
+          "dealt": 4260,
+          "chosen": 7
         },
         "ink-pigment-printmaking-screenprint-transparent-overlap": {
-          "dealt": 14284,
+          "dealt": 14613,
           "chosen": 15
         },
         "brand-identity-canon-fletcher-wit-poster": {
-          "dealt": 6251,
+          "dealt": 6474,
           "chosen": 7
         },
         "growth-metamorphosis-branching-ikebana-ma-arrangement": {
-          "dealt": 22378,
-          "chosen": 23
+          "dealt": 23321,
+          "chosen": 24
         },
         "pop-culture-shelf-neo-tokyo-neon-night": {
-          "dealt": 10046,
+          "dealt": 10232,
           "chosen": 1
         },
         "vernacular-ephemera-cassette-j-card": {
-          "dealt": 8481,
+          "dealt": 8851,
           "chosen": 9
         },
         "medium-native-ebru-floated-pigment": {
-          "dealt": 44317,
+          "dealt": 45950,
           "chosen": 35
         },
         "digital-design-canon-otome-choice-frame": {
-          "dealt": 133,
+          "dealt": 223,
           "chosen": 1
         },
         "pop-culture-shelf-rebel-menu-interface": {
-          "dealt": 12441,
-          "chosen": 6
+          "dealt": 12724,
+          "chosen": 7
         },
         "textiles-weave-drape-fashion-ikat-ghost-grid": {
           "dealt": 4804,
           "chosen": 3
         },
         "pop-culture-shelf-devianart-character-sheet": {
-          "dealt": 8080,
+          "dealt": 8338,
           "chosen": 0
         },
         "pop-culture-shelf-manga-screentone-page": {
-          "dealt": 10129,
+          "dealt": 10329,
           "chosen": 6
         },
         "pop-culture-shelf-saturday-title-card": {
-          "dealt": 10197,
+          "dealt": 10392,
           "chosen": 2
         },
         "posters-covers-sleeves-ospaaal-poster": {
-          "dealt": 5879,
+          "dealt": 6109,
           "chosen": 4
         },
         "vernacular-ephemera-ekiben-wrapper-kiosk": {
-          "dealt": 6183,
-          "chosen": 9
+          "dealt": 6405,
+          "chosen": 10
         },
         "pop-culture-shelf-menhera-pastel-grimness": {
-          "dealt": 3338,
+          "dealt": 3548,
           "chosen": 0
         },
         "paper-folds-pleats-deployable-curved-crease-shell": {
-          "dealt": 23586,
-          "chosen": 27
+          "dealt": 24611,
+          "chosen": 28
         },
         "graphic-worlds-publishing-ukiyoe-block-registration": {
-          "dealt": 5205,
+          "dealt": 5578,
           "chosen": 6
         },
         "digital-design-canon-monochrome-product-marketing": {
-          "dealt": 6035,
-          "chosen": 21
+          "dealt": 6413,
+          "chosen": 22
         },
         "broadcast-programming-teletext-service": {
-          "dealt": 77566,
-          "chosen": 70
+          "dealt": 79895,
+          "chosen": 72
         },
         "digital-design-canon-teletext-weather-mosaic": {
-          "dealt": 5071,
+          "dealt": 5385,
           "chosen": 0
         },
         "cinema-cinematography-editing-multiplane-cel-dawn": {
-          "dealt": 46125,
+          "dealt": 47275,
           "chosen": 52
         },
         "ink-pigment-printmaking-persian-miniature-page": {
@@ -3747,19 +3771,19 @@
           "chosen": 1
         },
         "operate-b-struck-cathode-gauze": {
-          "dealt": 1162,
+          "dealt": 1503,
           "chosen": 1
         },
         "craft-making-lowicz-layered-papercut": {
-          "dealt": 15335,
-          "chosen": 13
+          "dealt": 16143,
+          "chosen": 14
         },
         "vernacular-ephemera-wildstyle-blackbook-page": {
-          "dealt": 4043,
+          "dealt": 4313,
           "chosen": 1
         },
         "vernacular-ephemera-socialist-kiosk-print": {
-          "dealt": 9429,
+          "dealt": 9768,
           "chosen": 11
         },
         "design-canon-streamliner-observation-lounge": {
@@ -3767,115 +3791,115 @@
           "chosen": 1
         },
         "digital-design-canon-pc98-sixteen-color-field": {
-          "dealt": 11392,
+          "dealt": 11741,
           "chosen": 20
         },
         "aww2-zoo-gardens-guide-map": {
-          "dealt": 1567,
-          "chosen": 0
+          "dealt": 2098,
+          "chosen": 2
         },
         "hand-drawn-zine-explainer": {
-          "dealt": 70211,
+          "dealt": 71615,
           "chosen": 105
         },
         "reefs-bioluminescent-nocturnal-chromatophore-skin-language": {
-          "dealt": 25064,
-          "chosen": 8
+          "dealt": 26200,
+          "chosen": 10
         },
         "editorial-sequence-montage-botanical-folio-season": {
-          "dealt": 8414,
-          "chosen": 11
+          "dealt": 8779,
+          "chosen": 13
         },
         "posters-covers-sleeves-fillmore-handbill": {
           "dealt": 4162,
           "chosen": 1
         },
         "textiles-weave-drape-fashion-sneaker-box-stacks": {
-          "dealt": 29715,
-          "chosen": 35
+          "dealt": 31441,
+          "chosen": 39
         },
         "dream-surreal-impossible-worlds-sleeping-city-fold": {
-          "dealt": 43676,
+          "dealt": 44766,
           "chosen": 3
         },
         "signals-instruments-night-flight-six-pack": {
-          "dealt": 67486,
-          "chosen": 124
+          "dealt": 69279,
+          "chosen": 126
         },
         "brand-identity-canon-scher-street-typography": {
-          "dealt": 12004,
+          "dealt": 12247,
           "chosen": 15
         },
         "design-canon-rietveld-sliding-house": {
-          "dealt": 13474,
+          "dealt": 13746,
           "chosen": 20
         },
+        "operate-c-cracktro-scroller-queue": {
+          "dealt": 5742,
+          "chosen": 4
+        },
         "design-canon-merz-collage-page": {
-          "dealt": 9268,
+          "dealt": 9610,
           "chosen": 11
         },
-        "operate-c-cracktro-scroller-queue": {
-          "dealt": 4210,
-          "chosen": 2
-        },
         "vernacular-ephemera-jet-age-ticket-wallet": {
-          "dealt": 10785,
-          "chosen": 38
+          "dealt": 11279,
+          "chosen": 42
         },
         "light-shadow-caustics-indoor-weather-sun": {
-          "dealt": 21981,
-          "chosen": 9
+          "dealt": 22944,
+          "chosen": 10
         },
         "pop-culture-shelf-bollywood-painted-poster": {
-          "dealt": 12383,
-          "chosen": 2
+          "dealt": 12722,
+          "chosen": 3
         },
         "craft-making-glazier-colorfield-partition": {
-          "dealt": 20915,
-          "chosen": 61
+          "dealt": 21753,
+          "chosen": 64
         },
         "clay-ceramics-fracture-raku-smoke-flash": {
-          "dealt": 39665,
+          "dealt": 40526,
           "chosen": 14
         },
         "graphic-worlds-publishing-sampler-alphabet-proof": {
-          "dealt": 6761,
+          "dealt": 7147,
           "chosen": 6
         },
         "posters-covers-sleeves-taller-grafica-linocut": {
-          "dealt": 3783,
+          "dealt": 4007,
           "chosen": 1
         },
         "posters-covers-sleeves-wpa-park-poster": {
-          "dealt": 15157,
-          "chosen": 38
+          "dealt": 15525,
+          "chosen": 42
         },
         "posters-covers-sleeves-noir-one-sheet-duotone": {
-          "dealt": 4426,
+          "dealt": 4686,
           "chosen": 8
         },
         "medium-native-webring-homepage-lane": {
-          "dealt": 18931,
+          "dealt": 19093,
           "chosen": 4
         },
         "pop-culture-shelf-arcade-marquee-row": {
-          "dealt": 10135,
+          "dealt": 10329,
           "chosen": 7
         },
         "architecture-inhabitable-space-daylight-section": {
-          "dealt": 27328,
-          "chosen": 51
+          "dealt": 28730,
+          "chosen": 52
         },
         "pop-culture-shelf-teen-magazine-quiz": {
-          "dealt": 12209,
+          "dealt": 12486,
           "chosen": 3
         },
         "pop-culture-shelf-window-box-toy-shelf": {
-          "dealt": 6632,
+          "dealt": 6933,
           "chosen": 1
         },
         "posters-covers-sleeves-flash-scrawl-club-sleeve": {
-          "dealt": 236,
+          "dealt": 322,
           "chosen": 0
         },
         "pop-culture-shelf-magical-girl-transformation": {
@@ -3883,11 +3907,11 @@
           "chosen": 1
         },
         "pop-culture-shelf-streaming-title-card-wall": {
-          "dealt": 7086,
+          "dealt": 7548,
           "chosen": 19
         },
         "posters-covers-sleeves-pulp-rack": {
-          "dealt": 11121,
+          "dealt": 11327,
           "chosen": 1
         },
         "design-canon-egyptomania-commercial-revival": {
@@ -3895,79 +3919,79 @@
           "chosen": 0
         },
         "medium-native-crt-arcade-pixel-glow": {
-          "dealt": 60543,
-          "chosen": 45
+          "dealt": 62034,
+          "chosen": 47
         },
         "medium-native-algorave-source-floor": {
-          "dealt": 33713,
+          "dealt": 35297,
           "chosen": 3
         },
         "design-canon-constructivist-agit-train": {
-          "dealt": 11547,
+          "dealt": 11772,
           "chosen": 13
         },
         "pop-culture-shelf-sapeur-portrait-plate": {
-          "dealt": 4578,
-          "chosen": 3
+          "dealt": 4854,
+          "chosen": 4
         },
         "posters-covers-sleeves-blue-note-session-sleeve": {
-          "dealt": 3794,
+          "dealt": 4006,
           "chosen": 4
         },
         "posters-covers-sleeves-angura-theatre-poster": {
-          "dealt": 6947,
-          "chosen": 2
+          "dealt": 7209,
+          "chosen": 3
         },
         "dream-surreal-impossible-worlds-moon-shadow-bazaar": {
-          "dealt": 23547,
+          "dealt": 24659,
           "chosen": 4
         },
         "food-fermentation-culinary-theater-pickling-brine-calendar": {
-          "dealt": 22406,
-          "chosen": 2
+          "dealt": 23381,
+          "chosen": 3
         },
         "stagecraft-theater-lighting-cyclorama-dawn": {
-          "dealt": 65386,
-          "chosen": 201
+          "dealt": 67458,
+          "chosen": 206
         },
         "games-toys-physics-play-brick-build-instructions": {
-          "dealt": 52403,
-          "chosen": 100
+          "dealt": 53730,
+          "chosen": 101
         },
         "pop-culture-shelf-anime-command-center": {
-          "dealt": 17899,
+          "dealt": 18285,
           "chosen": 13
         },
         "pop-culture-shelf-ligne-claire-album": {
-          "dealt": 5122,
-          "chosen": 12
+          "dealt": 5347,
+          "chosen": 13
         },
         "pop-culture-shelf-primary-toy-catalogue-spread": {
-          "dealt": 4339,
+          "dealt": 4630,
           "chosen": 1
         },
         "notation-diagram-systems-labanotation": {
-          "dealt": 12755,
-          "chosen": 21
-        },
-        "signals-instruments-split-flap-concourse": {
-          "dealt": 77484,
-          "chosen": 233
+          "dealt": 13302,
+          "chosen": 22
         },
         "variety-telop-caption-field": {
-          "dealt": 19888,
+          "dealt": 20336,
           "chosen": 7
         },
+        "signals-instruments-split-flap-concourse": {
+          "dealt": 79719,
+          "chosen": 244
+        },
         "pop-culture-shelf-elbow-panel-console": {
-          "dealt": 17538,
-          "chosen": 19
+          "dealt": 17990,
+          "chosen": 20
         },
         "pop-culture-shelf-photocard-binder": {
           "dealt": 3629,
           "chosen": 0
         },
         "posters-covers-sleeves-stenberg-poster": {
-          "dealt": 10958,
+          "dealt": 10959,
           "chosen": 6
         },
         "design-canon-highland-ornament-program": {
@@ -3975,700 +3999,700 @@
           "chosen": 0
         },
         "first-viewport-split-argument": {
-          "dealt": 9643,
+          "dealt": 10043,
           "chosen": 0
         },
         "reading-rhythm-mask-unveiling-sequence": {
-          "dealt": 10794,
+          "dealt": 11338,
           "chosen": 0
         },
         "collective-fields-roving-sweep": {
-          "dealt": 10291,
+          "dealt": 10744,
           "chosen": 0
         },
+        "first-viewport-grid-break-focal": {
+          "dealt": 10048,
+          "chosen": 1
+        },
         "interaction-physics-pivot-fan": {
-          "dealt": 12323,
+          "dealt": 12933,
           "chosen": 0
         },
         "first-viewport-overture-flicker": {
-          "dealt": 11444,
+          "dealt": 11911,
           "chosen": 1
         },
         "reveal-transform-page-stack-assembly": {
-          "dealt": 9182,
+          "dealt": 9525,
           "chosen": 0
         },
         "data-dramaturgy-ruled-timeline": {
-          "dealt": 10083,
+          "dealt": 10511,
           "chosen": 0
         },
         "working-surfaces-perimeter-rail": {
-          "dealt": 11415,
+          "dealt": 11904,
           "chosen": 0
         },
         "reveal-transform-resumable-index": {
-          "dealt": 10510,
+          "dealt": 10922,
           "chosen": 0
         },
         "narrative-scroll-two-speed-parallax-argument": {
-          "dealt": 9379,
+          "dealt": 9751,
           "chosen": 0
         },
         "reveal-transform-released-plume-settle": {
-          "dealt": 8992,
+          "dealt": 9360,
           "chosen": 1
         },
+        "spatial-navigation-raised-relief-map": {
+          "dealt": 9340,
+          "chosen": 0
+        },
         "spatial-navigation-express-aisle": {
-          "dealt": 10009,
+          "dealt": 10436,
           "chosen": 0
         },
         "spatial-navigation-diagonal-axis": {
-          "dealt": 8905,
+          "dealt": 9267,
           "chosen": 2
         },
         "spatial-navigation-landmark-horizon": {
-          "dealt": 12713,
-          "chosen": 1
-        },
-        "first-viewport-crossing-seam": {
-          "dealt": 9958,
+          "dealt": 13301,
           "chosen": 1
         },
         "spatial-navigation-tuned-bands": {
-          "dealt": 9140,
+          "dealt": 9520,
           "chosen": 0
         },
+        "first-viewport-crossing-seam": {
+          "dealt": 10389,
+          "chosen": 1
+        },
         "spatial-navigation-enfilade-sightline": {
-          "dealt": 10167,
+          "dealt": 10558,
           "chosen": 1
         },
         "working-surfaces-command-sentence": {
-          "dealt": 11348,
+          "dealt": 11851,
           "chosen": 4
         },
         "reading-rhythm-telescoping-depth": {
-          "dealt": 10171,
+          "dealt": 10551,
           "chosen": 1
         },
         "working-surfaces-finite-tile-inventory": {
-          "dealt": 11439,
+          "dealt": 11950,
           "chosen": 1
         },
         "narrative-scroll-measured-hang": {
-          "dealt": 11183,
+          "dealt": 11652,
           "chosen": 2
         },
         "data-dramaturgy-light-table-triage": {
-          "dealt": 13181,
+          "dealt": 13828,
           "chosen": 4
         },
         "working-surfaces-passed-baton": {
-          "dealt": 11485,
+          "dealt": 11948,
           "chosen": 0
         },
         "working-surfaces-rehearsed-command": {
-          "dealt": 11340,
+          "dealt": 11792,
           "chosen": 5
         },
+        "collective-fields-particle-consensus": {
+          "dealt": 10807,
+          "chosen": 0
+        },
         "working-surfaces-twinned-probe": {
-          "dealt": 11060,
+          "dealt": 11541,
           "chosen": 0
         },
         "reveal-transform-flat-page-standing-city": {
-          "dealt": 9032,
-          "chosen": 0
-        },
-        "working-surfaces-depth-row": {
-          "dealt": 11467,
-          "chosen": 1
-        },
-        "data-dramaturgy-free-clockwork-broadside": {
-          "dealt": 12305,
-          "chosen": 0
-        },
-        "narrative-scroll-accumulating-precis": {
-          "dealt": 13372,
-          "chosen": 2
-        },
-        "reveal-transform-mutable-anchor": {
-          "dealt": 9306,
-          "chosen": 0
-        },
-        "reveal-transform-three-distances": {
-          "dealt": 10257,
-          "chosen": 1
-        },
-        "spatial-navigation-angle-dependent-facets": {
-          "dealt": 9004,
-          "chosen": 0
-        },
-        "reading-rhythm-spaced-returns": {
-          "dealt": 10134,
-          "chosen": 0
-        },
-        "narrative-scroll-lookback-depth": {
-          "dealt": 9422,
-          "chosen": 0
-        },
-        "reveal-transform-entered-through-process": {
-          "dealt": 10286,
-          "chosen": 0
-        },
-        "data-dramaturgy-evidence-transect": {
-          "dealt": 13185,
-          "chosen": 6
-        },
-        "data-dramaturgy-continuous-trace": {
-          "dealt": 13001,
-          "chosen": 0
-        },
-        "interaction-physics-two-key-commit": {
-          "dealt": 9975,
-          "chosen": 1
-        },
-        "data-dramaturgy-pastry-lamination-geology": {
-          "dealt": 12391,
-          "chosen": 1
-        },
-        "interaction-physics-bellows-breath": {
-          "dealt": 9961,
-          "chosen": 0
-        },
-        "interaction-physics-mechanical-espresso-lever": {
-          "dealt": 11195,
-          "chosen": 0
-        },
-        "spatial-navigation-open-storage-annex": {
-          "dealt": 10190,
-          "chosen": 0
-        },
-        "reading-rhythm-fading-scaffold": {
-          "dealt": 9941,
-          "chosen": 0
-        },
-        "reveal-transform-xray-toggle": {
-          "dealt": 13967,
-          "chosen": 6
-        },
-        "narrative-scroll-zoom-anchored-chapters": {
-          "dealt": 13633,
-          "chosen": 0
-        },
-        "reading-rhythm-font-bellows-press": {
-          "dealt": 8612,
-          "chosen": 0
-        },
-        "collective-fields-advocacy-quorum": {
-          "dealt": 14712,
-          "chosen": 0
-        },
-        "working-surfaces-shaker-meeting-room": {
-          "dealt": 9978,
-          "chosen": 1
-        },
-        "data-dramaturgy-sweep-and-decay": {
-          "dealt": 13524,
-          "chosen": 0
-        },
-        "narrative-scroll-threshold-promenade": {
-          "dealt": 9753,
-          "chosen": 1
-        },
-        "reveal-transform-mask-through-letter": {
-          "dealt": 8997,
-          "chosen": 0
-        },
-        "working-surfaces-verdict-run": {
-          "dealt": 11363,
-          "chosen": 1
-        },
-        "reading-rhythm-invertible-commentary": {
-          "dealt": 10240,
-          "chosen": 1
-        },
-        "data-dramaturgy-visible-transit": {
-          "dealt": 13328,
-          "chosen": 2
-        },
-        "reading-rhythm-goal-compiled-route": {
-          "dealt": 10125,
-          "chosen": 0
-        },
-        "reveal-transform-dissection-plate": {
-          "dealt": 9188,
-          "chosen": 2
-        },
-        "reading-rhythm-prediction-checkpoint": {
-          "dealt": 10065,
-          "chosen": 0
-        },
-        "data-dramaturgy-scrubbed-datum": {
-          "dealt": 9994,
-          "chosen": 0
-        },
-        "spatial-navigation-prerequisite-terrain": {
-          "dealt": 12412,
-          "chosen": 0
-        },
-        "working-surfaces-drawn-registration": {
-          "dealt": 11285,
-          "chosen": 2
-        },
-        "interaction-physics-trim-and-launch": {
-          "dealt": 12762,
-          "chosen": 1
-        },
-        "data-dramaturgy-commitment-lattice": {
-          "dealt": 13157,
-          "chosen": 0
-        },
-        "spatial-navigation-branching-fan-routes": {
-          "dealt": 9111,
-          "chosen": 2
-        },
-        "interaction-physics-wound-medium": {
-          "dealt": 12648,
-          "chosen": 0
-        },
-        "reading-rhythm-version-seams": {
-          "dealt": 10224,
-          "chosen": 1
-        },
-        "reveal-transform-fly-tower-transformation": {
-          "dealt": 9137,
-          "chosen": 0
-        },
-        "reading-rhythm-spec-sheet-law": {
-          "dealt": 10038,
-          "chosen": 0
-        },
-        "collective-fields-folded-curtain": {
-          "dealt": 10337,
-          "chosen": 0
-        },
-        "collective-fields-synchronized-array": {
-          "dealt": 10171,
-          "chosen": 1
-        },
-        "interaction-physics-tension-commit": {
-          "dealt": 12433,
-          "chosen": 1
-        },
-        "working-surfaces-splice-strip": {
-          "dealt": 11276,
-          "chosen": 4
-        },
-        "reveal-transform-room-before-work": {
-          "dealt": 10320,
-          "chosen": 0
-        },
-        "working-surfaces-held-failure": {
-          "dealt": 11388,
-          "chosen": 1
-        },
-        "spatial-navigation-transit-stack": {
-          "dealt": 12920,
-          "chosen": 9
-        },
-        "first-viewport-inverted-zoom-out": {
-          "dealt": 9786,
-          "chosen": 1
-        },
-        "reveal-transform-lit-veil": {
-          "dealt": 9250,
-          "chosen": 0
-        },
-        "interaction-physics-staged-cascade": {
-          "dealt": 10115,
-          "chosen": 0
-        },
-        "spatial-navigation-depth-landscape": {
-          "dealt": 8691,
-          "chosen": 0
-        },
-        "spatial-navigation-elevator-floor-directory": {
-          "dealt": 11445,
-          "chosen": 0
-        },
-        "collective-fields-entrained-flash-field": {
-          "dealt": 10379,
-          "chosen": 0
-        },
-        "spatial-navigation-portal-peepholes": {
-          "dealt": 12384,
-          "chosen": 0
-        },
-        "spatial-navigation-elimination-key": {
-          "dealt": 12633,
-          "chosen": 0
-        },
-        "reading-rhythm-latched-checkpoints": {
-          "dealt": 10206,
-          "chosen": 0
-        },
-        "interaction-physics-threshold-relay": {
-          "dealt": 12871,
-          "chosen": 1
-        },
-        "interaction-physics-patch-graph-wall": {
-          "dealt": 12425,
-          "chosen": 1
-        },
-        "interaction-physics-elastic-scope": {
-          "dealt": 12332,
-          "chosen": 1
-        },
-        "first-viewport-pointer-protagonist": {
-          "dealt": 9848,
-          "chosen": 0
-        },
-        "reading-rhythm-summoned-definitions": {
-          "dealt": 9958,
-          "chosen": 0
-        },
-        "working-surfaces-object-time-fan": {
-          "dealt": 11412,
-          "chosen": 2
-        },
-        "spatial-navigation-tooling-by-zoom": {
-          "dealt": 12537,
-          "chosen": 1
-        },
-        "spatial-navigation-utopian-scholastic-cutaway": {
-          "dealt": 11197,
-          "chosen": 0
-        },
-        "working-surfaces-tethered-bench": {
-          "dealt": 11141,
-          "chosen": 1
-        },
-        "data-dramaturgy-full-state-trace": {
-          "dealt": 13093,
-          "chosen": 0
-        },
-        "data-dramaturgy-suspect-lineup": {
-          "dealt": 13342,
-          "chosen": 1
-        },
-        "reading-rhythm-failure-first-repair": {
-          "dealt": 9872,
-          "chosen": 1
-        },
-        "reveal-transform-carried-motion": {
-          "dealt": 9175,
-          "chosen": 1
-        },
-        "interaction-physics-instruments-evening-switchboard": {
-          "dealt": 10946,
-          "chosen": 0
-        },
-        "interaction-physics-weighted-drag": {
-          "dealt": 12210,
-          "chosen": 0
-        },
-        "spatial-navigation-nested-shell-descent": {
-          "dealt": 9170,
-          "chosen": 0
-        },
-        "narrative-scroll-withheld-reveal": {
-          "dealt": 9462,
-          "chosen": 1
-        },
-        "reveal-transform-concentric-disclosure-cycle": {
-          "dealt": 9158,
-          "chosen": 1
-        },
-        "reveal-transform-masked-stage": {
-          "dealt": 9320,
-          "chosen": 0
-        },
-        "reveal-transform-exploded-axis": {
-          "dealt": 9293,
-          "chosen": 0
-        },
-        "spatial-navigation-split-spectrum-corridors": {
-          "dealt": 9173,
-          "chosen": 0
-        },
-        "working-surfaces-exemplar-proof-sheet": {
-          "dealt": 11170,
-          "chosen": 1
-        },
-        "spatial-navigation-magnitude-ladder": {
-          "dealt": 8963,
-          "chosen": 0
-        },
-        "collective-fields-candlelit-potion-class": {
-          "dealt": 9790,
-          "chosen": 0
-        },
-        "narrative-scroll-wordless-steps": {
-          "dealt": 9417,
-          "chosen": 2
-        },
-        "reveal-transform-parallel-making": {
-          "dealt": 9117,
-          "chosen": 1
-        },
-        "narrative-scroll-continuous-thread": {
-          "dealt": 9384,
-          "chosen": 4
-        },
-        "narrative-scroll-interstitial-labels": {
-          "dealt": 11063,
-          "chosen": 0
-        },
-        "spatial-navigation-zoned-colony-districts": {
-          "dealt": 8807,
-          "chosen": 0
-        },
-        "reveal-transform-folding-volume": {
-          "dealt": 9194,
-          "chosen": 1
-        },
-        "collective-fields-particle-consensus": {
-          "dealt": 10310,
+          "dealt": 9465,
           "chosen": 0
         },
         "spatial-navigation-inverted-depth-stacks": {
-          "dealt": 9094,
+          "dealt": 9477,
           "chosen": 0
         },
-        "collective-fields-detail-first-index": {
-          "dealt": 11020,
+        "working-surfaces-depth-row": {
+          "dealt": 11905,
+          "chosen": 1
+        },
+        "data-dramaturgy-free-clockwork-broadside": {
+          "dealt": 12874,
           "chosen": 0
         },
-        "reveal-transform-aligned-fragments-snap": {
-          "dealt": 8890,
-          "chosen": 0
-        },
-        "reveal-transform-translation-gate": {
-          "dealt": 9105,
+        "narrative-scroll-accumulating-precis": {
+          "dealt": 13960,
           "chosen": 2
         },
-        "collective-fields-shared-formation": {
-          "dealt": 10417,
+        "reveal-transform-mutable-anchor": {
+          "dealt": 9666,
           "chosen": 0
         },
-        "spatial-navigation-filament-zoom": {
-          "dealt": 9042,
+        "reveal-transform-three-distances": {
+          "dealt": 10672,
           "chosen": 1
         },
-        "first-viewport-live-mirror": {
-          "dealt": 9591,
-          "chosen": 1
-        },
-        "data-dramaturgy-cast-indicator-calendar": {
-          "dealt": 9910,
+        "spatial-navigation-angle-dependent-facets": {
+          "dealt": 9406,
           "chosen": 0
         },
-        "narrative-scroll-horizontal-rail": {
-          "dealt": 9483,
+        "reading-rhythm-spaced-returns": {
+          "dealt": 10547,
+          "chosen": 0
+        },
+        "narrative-scroll-lookback-depth": {
+          "dealt": 9852,
+          "chosen": 0
+        },
+        "reveal-transform-entered-through-process": {
+          "dealt": 10732,
+          "chosen": 0
+        },
+        "data-dramaturgy-evidence-transect": {
+          "dealt": 13736,
           "chosen": 6
         },
-        "spatial-navigation-raised-relief-map": {
-          "dealt": 8886,
+        "data-dramaturgy-continuous-trace": {
+          "dealt": 13562,
           "chosen": 0
         },
-        "narrative-scroll-long-return-arc": {
-          "dealt": 9519,
-          "chosen": 0
-        },
-        "first-viewport-converging-pair": {
-          "dealt": 9525,
+        "interaction-physics-two-key-commit": {
+          "dealt": 10435,
           "chosen": 1
         },
-        "narrative-scroll-gatefold-liner-notes": {
-          "dealt": 9620,
+        "data-dramaturgy-pastry-lamination-geology": {
+          "dealt": 12943,
+          "chosen": 1
+        },
+        "interaction-physics-bellows-breath": {
+          "dealt": 10381,
+          "chosen": 0
+        },
+        "spatial-navigation-open-storage-annex": {
+          "dealt": 10599,
+          "chosen": 0
+        },
+        "interaction-physics-mechanical-espresso-lever": {
+          "dealt": 11794,
+          "chosen": 0
+        },
+        "reading-rhythm-fading-scaffold": {
+          "dealt": 10396,
+          "chosen": 0
+        },
+        "reveal-transform-xray-toggle": {
+          "dealt": 14595,
+          "chosen": 7
+        },
+        "narrative-scroll-zoom-anchored-chapters": {
+          "dealt": 14210,
+          "chosen": 0
+        },
+        "reading-rhythm-font-bellows-press": {
+          "dealt": 9029,
+          "chosen": 0
+        },
+        "collective-fields-advocacy-quorum": {
+          "dealt": 15392,
+          "chosen": 0
+        },
+        "working-surfaces-shaker-meeting-room": {
+          "dealt": 10476,
+          "chosen": 1
+        },
+        "data-dramaturgy-sweep-and-decay": {
+          "dealt": 14135,
+          "chosen": 0
+        },
+        "narrative-scroll-threshold-promenade": {
+          "dealt": 10131,
+          "chosen": 1
+        },
+        "reveal-transform-mask-through-letter": {
+          "dealt": 9380,
+          "chosen": 0
+        },
+        "working-surfaces-verdict-run": {
+          "dealt": 11888,
+          "chosen": 1
+        },
+        "reading-rhythm-invertible-commentary": {
+          "dealt": 10706,
+          "chosen": 1
+        },
+        "data-dramaturgy-visible-transit": {
+          "dealt": 13924,
           "chosen": 2
         },
-        "interaction-physics-live-thread-unravel": {
-          "dealt": 10170,
+        "reading-rhythm-goal-compiled-route": {
+          "dealt": 10585,
           "chosen": 0
         },
-        "collective-fields-condensed-outtakes": {
-          "dealt": 10896,
+        "reveal-transform-dissection-plate": {
+          "dealt": 9546,
+          "chosen": 2
+        },
+        "reading-rhythm-prediction-checkpoint": {
+          "dealt": 10481,
           "chosen": 0
         },
-        "interaction-physics-cursor-spotlight": {
-          "dealt": 10277,
+        "data-dramaturgy-scrubbed-datum": {
+          "dealt": 10438,
           "chosen": 0
         },
-        "interaction-physics-metered-reserve": {
-          "dealt": 10008,
+        "spatial-navigation-prerequisite-terrain": {
+          "dealt": 12927,
           "chosen": 0
         },
-        "collective-fields-auroras-auroral-curtain": {
-          "dealt": 10007,
+        "working-surfaces-drawn-registration": {
+          "dealt": 11787,
+          "chosen": 2
+        },
+        "interaction-physics-trim-and-launch": {
+          "dealt": 13360,
+          "chosen": 1
+        },
+        "data-dramaturgy-commitment-lattice": {
+          "dealt": 13763,
           "chosen": 0
         },
-        "spatial-navigation-carried-object": {
-          "dealt": 12727,
-          "chosen": 6
+        "spatial-navigation-branching-fan-routes": {
+          "dealt": 9501,
+          "chosen": 2
         },
-        "reveal-transform-staged-reorganization-chambers": {
-          "dealt": 9115,
+        "interaction-physics-wound-medium": {
+          "dealt": 13190,
           "chosen": 0
         },
-        "spatial-navigation-verso-return": {
-          "dealt": 10017,
+        "reveal-transform-fly-tower-transformation": {
+          "dealt": 9631,
+          "chosen": 0
+        },
+        "reading-rhythm-version-seams": {
+          "dealt": 10630,
+          "chosen": 1
+        },
+        "reading-rhythm-spec-sheet-law": {
+          "dealt": 10433,
+          "chosen": 0
+        },
+        "collective-fields-folded-curtain": {
+          "dealt": 10771,
+          "chosen": 0
+        },
+        "collective-fields-synchronized-array": {
+          "dealt": 10676,
+          "chosen": 2
+        },
+        "interaction-physics-tension-commit": {
+          "dealt": 12984,
+          "chosen": 2
+        },
+        "reveal-transform-room-before-work": {
+          "dealt": 10797,
+          "chosen": 0
+        },
+        "working-surfaces-splice-strip": {
+          "dealt": 11718,
+          "chosen": 4
+        },
+        "working-surfaces-held-failure": {
+          "dealt": 11914,
+          "chosen": 1
+        },
+        "spatial-navigation-transit-stack": {
+          "dealt": 13501,
+          "chosen": 9
+        },
+        "reveal-transform-lit-veil": {
+          "dealt": 9671,
+          "chosen": 0
+        },
+        "first-viewport-inverted-zoom-out": {
+          "dealt": 10181,
+          "chosen": 1
+        },
+        "interaction-physics-staged-cascade": {
+          "dealt": 10557,
+          "chosen": 0
+        },
+        "spatial-navigation-depth-landscape": {
+          "dealt": 9104,
+          "chosen": 0
+        },
+        "spatial-navigation-elevator-floor-directory": {
+          "dealt": 11997,
+          "chosen": 0
+        },
+        "spatial-navigation-portal-peepholes": {
+          "dealt": 12918,
+          "chosen": 0
+        },
+        "collective-fields-entrained-flash-field": {
+          "dealt": 10793,
+          "chosen": 0
+        },
+        "spatial-navigation-elimination-key": {
+          "dealt": 13177,
+          "chosen": 0
+        },
+        "reading-rhythm-latched-checkpoints": {
+          "dealt": 10608,
+          "chosen": 0
+        },
+        "interaction-physics-threshold-relay": {
+          "dealt": 13428,
+          "chosen": 1
+        },
+        "interaction-physics-patch-graph-wall": {
+          "dealt": 13024,
+          "chosen": 1
+        },
+        "interaction-physics-elastic-scope": {
+          "dealt": 12918,
+          "chosen": 1
+        },
+        "first-viewport-pointer-protagonist": {
+          "dealt": 10246,
           "chosen": 0
         },
         "working-surfaces-pipe-organ-keydesk": {
-          "dealt": 10287,
+          "dealt": 10824,
+          "chosen": 0
+        },
+        "reading-rhythm-summoned-definitions": {
+          "dealt": 10383,
+          "chosen": 0
+        },
+        "working-surfaces-object-time-fan": {
+          "dealt": 11981,
+          "chosen": 2
+        },
+        "spatial-navigation-tooling-by-zoom": {
+          "dealt": 13131,
+          "chosen": 1
+        },
+        "spatial-navigation-utopian-scholastic-cutaway": {
+          "dealt": 11730,
+          "chosen": 0
+        },
+        "working-surfaces-tethered-bench": {
+          "dealt": 11647,
+          "chosen": 1
+        },
+        "data-dramaturgy-full-state-trace": {
+          "dealt": 13684,
+          "chosen": 0
+        },
+        "data-dramaturgy-suspect-lineup": {
+          "dealt": 13953,
+          "chosen": 1
+        },
+        "reading-rhythm-failure-first-repair": {
+          "dealt": 10289,
+          "chosen": 1
+        },
+        "reveal-transform-carried-motion": {
+          "dealt": 9599,
+          "chosen": 1
+        },
+        "interaction-physics-instruments-evening-switchboard": {
+          "dealt": 11503,
+          "chosen": 0
+        },
+        "interaction-physics-weighted-drag": {
+          "dealt": 12755,
+          "chosen": 0
+        },
+        "spatial-navigation-nested-shell-descent": {
+          "dealt": 9582,
+          "chosen": 0
+        },
+        "narrative-scroll-withheld-reveal": {
+          "dealt": 9902,
+          "chosen": 1
+        },
+        "reveal-transform-concentric-disclosure-cycle": {
+          "dealt": 9567,
+          "chosen": 1
+        },
+        "reveal-transform-masked-stage": {
+          "dealt": 9719,
+          "chosen": 0
+        },
+        "reveal-transform-exploded-axis": {
+          "dealt": 9666,
+          "chosen": 0
+        },
+        "spatial-navigation-split-spectrum-corridors": {
+          "dealt": 9541,
+          "chosen": 0
+        },
+        "working-surfaces-exemplar-proof-sheet": {
+          "dealt": 11668,
+          "chosen": 1
+        },
+        "spatial-navigation-magnitude-ladder": {
+          "dealt": 9329,
+          "chosen": 0
+        },
+        "collective-fields-candlelit-potion-class": {
+          "dealt": 10315,
+          "chosen": 0
+        },
+        "narrative-scroll-wordless-steps": {
+          "dealt": 9818,
+          "chosen": 2
+        },
+        "reveal-transform-parallel-making": {
+          "dealt": 9573,
+          "chosen": 1
+        },
+        "narrative-scroll-continuous-thread": {
+          "dealt": 9804,
+          "chosen": 4
+        },
+        "narrative-scroll-interstitial-labels": {
+          "dealt": 11504,
+          "chosen": 0
+        },
+        "spatial-navigation-zoned-colony-districts": {
+          "dealt": 9184,
+          "chosen": 0
+        },
+        "reveal-transform-folding-volume": {
+          "dealt": 9536,
+          "chosen": 1
+        },
+        "collective-fields-detail-first-index": {
+          "dealt": 11547,
+          "chosen": 0
+        },
+        "reveal-transform-aligned-fragments-snap": {
+          "dealt": 9265,
+          "chosen": 0
+        },
+        "reveal-transform-translation-gate": {
+          "dealt": 9540,
+          "chosen": 2
+        },
+        "collective-fields-shared-formation": {
+          "dealt": 10841,
+          "chosen": 0
+        },
+        "spatial-navigation-filament-zoom": {
+          "dealt": 9429,
+          "chosen": 1
+        },
+        "first-viewport-live-mirror": {
+          "dealt": 10000,
+          "chosen": 1
+        },
+        "data-dramaturgy-cast-indicator-calendar": {
+          "dealt": 10333,
+          "chosen": 0
+        },
+        "narrative-scroll-horizontal-rail": {
+          "dealt": 9921,
+          "chosen": 6
+        },
+        "narrative-scroll-long-return-arc": {
+          "dealt": 9940,
+          "chosen": 0
+        },
+        "first-viewport-converging-pair": {
+          "dealt": 9926,
+          "chosen": 1
+        },
+        "narrative-scroll-gatefold-liner-notes": {
+          "dealt": 10079,
+          "chosen": 2
+        },
+        "interaction-physics-live-thread-unravel": {
+          "dealt": 10550,
+          "chosen": 0
+        },
+        "collective-fields-condensed-outtakes": {
+          "dealt": 11372,
+          "chosen": 0
+        },
+        "interaction-physics-cursor-spotlight": {
+          "dealt": 10711,
+          "chosen": 0
+        },
+        "interaction-physics-metered-reserve": {
+          "dealt": 10492,
+          "chosen": 0
+        },
+        "collective-fields-auroras-auroral-curtain": {
+          "dealt": 10540,
+          "chosen": 0
+        },
+        "spatial-navigation-carried-object": {
+          "dealt": 13359,
+          "chosen": 6
+        },
+        "reveal-transform-staged-reorganization-chambers": {
+          "dealt": 9543,
+          "chosen": 0
+        },
+        "spatial-navigation-verso-return": {
+          "dealt": 10497,
           "chosen": 0
         },
         "first-viewport-empty-stage-flood": {
-          "dealt": 9831,
+          "dealt": 10214,
           "chosen": 0
         },
         "first-viewport-evidenced-absence": {
-          "dealt": 9882,
+          "dealt": 10265,
           "chosen": 3
         },
         "narrative-scroll-processional-order": {
-          "dealt": 11209,
+          "dealt": 11666,
           "chosen": 0
         },
         "narrative-scroll-diffuse-to-stream": {
-          "dealt": 9463,
+          "dealt": 9903,
           "chosen": 0
         },
         "spatial-navigation-continuous-world": {
-          "dealt": 8956,
+          "dealt": 9335,
           "chosen": 0
         },
         "narrative-scroll-parallel-streams-merge": {
-          "dealt": 9829,
+          "dealt": 10261,
           "chosen": 1
         },
         "data-dramaturgy-product-teardown": {
-          "dealt": 9948,
+          "dealt": 10315,
           "chosen": 1
         },
         "reveal-transform-reduction-passes": {
-          "dealt": 9183,
+          "dealt": 9576,
           "chosen": 1
         },
         "spatial-navigation-stacked-commons": {
-          "dealt": 9011,
+          "dealt": 9391,
           "chosen": 0
         },
         "narrative-scroll-sticky-morph": {
-          "dealt": 9662,
+          "dealt": 10032,
           "chosen": 1
         },
         "narrative-scroll-carved-epoch-descent": {
-          "dealt": 9433,
+          "dealt": 9849,
           "chosen": 2
         },
         "collective-fields-flash-party-archive": {
-          "dealt": 9886,
+          "dealt": 10327,
           "chosen": 0
         },
         "interaction-physics-drop-assembly": {
-          "dealt": 10012,
+          "dealt": 10487,
           "chosen": 0
         },
         "narrative-scroll-vertical-strata-ascent": {
-          "dealt": 9568,
+          "dealt": 9994,
           "chosen": 2
         },
         "data-dramaturgy-diagnostic-plate": {
-          "dealt": 10403,
+          "dealt": 10864,
           "chosen": 1
         },
         "spatial-navigation-pierced-density": {
-          "dealt": 8634,
+          "dealt": 9008,
           "chosen": 1
         },
         "data-dramaturgy-opening-and-race": {
-          "dealt": 9995,
+          "dealt": 10521,
           "chosen": 0
         },
         "first-viewport-constant-silhouette": {
-          "dealt": 9705,
+          "dealt": 10133,
           "chosen": 0
         },
         "spatial-navigation-portal-counterparts": {
-          "dealt": 8845,
+          "dealt": 9282,
           "chosen": 0
         },
         "narrative-scroll-unbroken-route": {
-          "dealt": 9575,
+          "dealt": 9928,
           "chosen": 1
         },
         "first-viewport-conversational-form": {
-          "dealt": 9700,
+          "dealt": 10169,
           "chosen": 0
         },
         "first-viewport-cold-open-arrival": {
-          "dealt": 11330,
-          "chosen": 0
-        },
-        "spatial-navigation-tide-locked-rooms": {
-          "dealt": 8808,
+          "dealt": 11848,
           "chosen": 0
         },
         "reveal-transform-before-after-page": {
-          "dealt": 9120,
+          "dealt": 9522,
+          "chosen": 0
+        },
+        "spatial-navigation-tide-locked-rooms": {
+          "dealt": 9202,
           "chosen": 0
         },
         "reveal-transform-creased-unfolding": {
-          "dealt": 9108,
+          "dealt": 9461,
           "chosen": 1
         },
         "spatial-navigation-miniature-glide": {
-          "dealt": 8962,
+          "dealt": 9318,
           "chosen": 1
         },
         "first-viewport-type-as-architecture": {
-          "dealt": 9737,
+          "dealt": 10116,
           "chosen": 0
         },
         "spatial-navigation-orchard-of-moments": {
-          "dealt": 8952,
+          "dealt": 9263,
           "chosen": 0
         },
         "reveal-transform-raking-beam": {
-          "dealt": 9153,
+          "dealt": 9531,
           "chosen": 1
         },
         "first-viewport-generated-screening": {
-          "dealt": 9752,
+          "dealt": 10192,
           "chosen": 0
         },
         "collective-fields-cascade-trigger": {
-          "dealt": 10114,
-          "chosen": 1
-        },
-        "first-viewport-grid-break-focal": {
-          "dealt": 9651,
+          "dealt": 10528,
           "chosen": 1
         },
         "data-dramaturgy-periodic-sweep-score": {
-          "dealt": 10053,
+          "dealt": 10505,
           "chosen": 0
         },
         "first-viewport-cropped-giant": {
-          "dealt": 9697,
+          "dealt": 10141,
           "chosen": 0
         },
         "first-viewport-monumental-berth": {
-          "dealt": 9749,
+          "dealt": 10161,
           "chosen": 1
         },
         "narrative-scroll-folded-continuous-route": {
-          "dealt": 9454,
+          "dealt": 9858,
           "chosen": 0
         },
         "first-viewport-aperture-projection-room": {
-          "dealt": 9636,
+          "dealt": 10067,
           "chosen": 0
         },
         "none": {
           "dealt": 0,
-          "chosen": 18
+          "chosen": 19
         },
         "reroll": {
           "dealt": 0,
@@ -4702,11 +4726,11 @@
           "dealt": 0,
           "chosen": 24
         },
-        "anilha": {
+        "resolved": {
           "dealt": 0,
           "chosen": 1
         },
-        "resolved": {
+        "anilha": {
           "dealt": 0,
           "chosen": 1
         },
@@ -4732,7 +4756,7 @@
         },
         "assigned": {
           "dealt": 0,
-          "chosen": 90
+          "chosen": 92
         },
         "challenger-zine": {
           "dealt": 0,
@@ -4806,11 +4830,11 @@
           "dealt": 0,
           "chosen": 1
         },
-        "check-later": {
+        "challenger-kiln": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-kiln": {
+        "check-later": {
           "dealt": 0,
           "chosen": 1
         },
@@ -4859,6 +4883,10 @@
           "chosen": 1
         },
         "brief-pinned": {
+          "dealt": 0,
+          "chosen": 1
+        },
+        "challenger-quad": {
           "dealt": 0,
           "chosen": 1
         },
@@ -4920,7 +4948,7 @@
         },
         "model-pick": {
           "dealt": 0,
-          "chosen": 2
+          "chosen": 4
         },
         "challenger-crank": {
           "dealt": 0,
@@ -4978,7 +5006,7 @@
           "dealt": 0,
           "chosen": 6
         },
-        "core-screen-family": {
+        "user-pinned-reference": {
           "dealt": 0,
           "chosen": 1
         },
@@ -4986,11 +5014,11 @@
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-rhythm": {
+        "core-screen-family": {
           "dealt": 0,
           "chosen": 1
         },
-        "user-pinned-reference": {
+        "challenger-rhythm": {
           "dealt": 0,
           "chosen": 1
         },
@@ -5002,11 +5030,11 @@
           "dealt": 0,
           "chosen": 1
         },
-        "forensic-evidence-log": {
+        "pharmaceutical-cleanroom": {
           "dealt": 0,
           "chosen": 1
         },
-        "pharmaceutical-cleanroom": {
+        "forensic-evidence-log": {
           "dealt": 0,
           "chosen": 1
         },
@@ -5114,7 +5142,7 @@
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-gateboard": {
+        "challenger-metro-tiles": {
           "dealt": 0,
           "chosen": 1
         },
@@ -5122,7 +5150,7 @@
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-metro-tiles": {
+        "challenger-gateboard": {
           "dealt": 0,
           "chosen": 1
         },
@@ -5178,11 +5206,15 @@
           "dealt": 0,
           "chosen": 1
         },
-        "product-test-dossier": {
+        "challenger-industry-wall": {
           "dealt": 0,
           "chosen": 1
         },
         "challenger-ticket-wallet": {
+          "dealt": 0,
+          "chosen": 1
+        },
+        "product-test-dossier": {
           "dealt": 0,
           "chosen": 1
         },
@@ -5242,11 +5274,11 @@
           "dealt": 0,
           "chosen": 1
         },
-        "user-pinned-warm-premium": {
+        "challenger-japanese": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-stagecraft": {
+        "user-pinned-warm-premium": {
           "dealt": 0,
           "chosen": 1
         },
@@ -5254,7 +5286,19 @@
           "dealt": 0,
           "chosen": 1
         },
+        "challenger-stagecraft": {
+          "dealt": 0,
+          "chosen": 1
+        },
         "industrial-drawing-plate": {
+          "dealt": 0,
+          "chosen": 1
+        },
+        "challenger-amanecer": {
+          "dealt": 0,
+          "chosen": 1
+        },
+        "guided-ladder-refined": {
           "dealt": 0,
           "chosen": 1
         },
@@ -5262,19 +5306,15 @@
           "dealt": 0,
           "chosen": 4
         },
-        "guided-ladder-refined": {
-          "dealt": 0,
-          "chosen": 1
-        },
         "challenger-ribbon": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-decollage": {
+        "challenger-orizuru-crane": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-orizuru-crane": {
+        "challenger-decollage": {
           "dealt": 0,
           "chosen": 1
         },
@@ -5334,11 +5374,11 @@
           "dealt": 0,
           "chosen": 2
         },
-        "challenger-swiss-grid": {
+        "challenger-sneaker": {
           "dealt": 0,
           "chosen": 1
         },
-        "challenger-sneaker": {
+        "challenger-swiss-grid": {
           "dealt": 0,
           "chosen": 1
         },
@@ -5378,13 +5418,17 @@
           "dealt": 0,
           "chosen": 1
         },
+        "challenger-bolted-book": {
+          "dealt": 0,
+          "chosen": 1
+        },
         "explicit-trust-language": {
           "dealt": 0,
           "chosen": 1
         },
         "challenger-darkroom": {
           "dealt": 0,
-          "chosen": 1
+          "chosen": 2
         },
         "dark-punk-streetwear": {
           "dealt": 0,
@@ -5558,6 +5602,10 @@
           "dealt": 0,
           "chosen": 1
         },
+        "textiles-weave-drape-fashion-drawcord-cape": {
+          "dealt": 0,
+          "chosen": 1
+        },
         "challenger-brick-build-instructions": {
           "dealt": 0,
           "chosen": 1
@@ -5596,14 +5644,14 @@
         }
       },
       "kinds": {
-        "pick": 599,
-        "canon": 238,
-        "assigned": 1381,
-        "challenger": 202
+        "pick": 900,
+        "canon": 370,
+        "assigned": 2044,
+        "challenger": 310
       },
       "registers": {
-        "bolder": 55,
-        "safer": 58
+        "bolder": 94,
+        "safer": 90
       }
     }
   }
