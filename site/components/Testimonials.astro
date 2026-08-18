@@ -6,7 +6,9 @@
 // The card list renders twice so the loop can wrap, but the second set is
 // presentation-only: aria-hidden and untabbable, so keyboard and screen-reader
 // users meet every quote exactly once. Quotes without a source url (video
-// transcriptions) render as plain divs instead of dead links.
+// transcriptions) render as plain divs instead of dead links. Each card is a
+// blockquote with a footer/cite, so the attribution is attribution and not a
+// second paragraph.
 import { testimonials } from '../data/testimonials.js';
 
 const initial = (handle) => (handle || '@?').replace('@', '').charAt(0).toUpperCase();
@@ -29,16 +31,16 @@ const all = testimonials;
                     rel={t.url ? 'noopener' : undefined}
                     tabindex={duplicate && t.url ? '-1' : undefined}
                   >
-                    <p class="t-card-quote">{t.quote}</p>
-                    <div class="t-card-meta">
+                    <blockquote class="t-card-quote">{t.quote}</blockquote>
+                    <footer class="t-card-meta">
                       {t.avatar
                         ? <img class="t-avatar" src={t.avatar} alt="" loading="lazy" width="28" height="28" />
                         : <span class="t-coin" aria-hidden="true">{initial(t.handle)}</span>}
                       <span class="t-name-block">
-                        <span class="t-name">{t.name || t.handle}</span>
+                        <cite class="t-name">{t.name || t.handle}</cite>
                         <span class="t-handle">{t.handle}</span>
                       </span>
-                    </div>
+                    </footer>
                   </Card>
                 );
               })}

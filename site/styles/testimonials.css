@@ -112,8 +112,10 @@
   transform: translateY(-1px);
 }
 
-/* Quote text */
+/* Quote text (a blockquote: reset the UA indent, keep the clamp) */
 .home-kinpaku .testimonials-section .t-card-quote {
+  padding: 0;
+  font-style: normal;
   font-family: var(--ks-font);
   font-size: 0.94rem;
   line-height: 1.5;
@@ -140,6 +142,7 @@
   min-width: 0;
 }
 .home-kinpaku .testimonials-section .t-name {
+  font-style: normal;
   color: var(--ks-text);
   font-size: 0.82rem;
   letter-spacing: 0.01em;
