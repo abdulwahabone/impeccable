@@ -1,0 +1,248 @@
+/* Audience document additions for the existing Impeccable docs shell.
+   The shell, header, navigation, typography, and base rows come from the
+   production docs stylesheets. This file only defines the audience modules. */
+
+.audience-docs {
+  --audience-icon-size: 100px;
+}
+
+.audience-docs .skills-main--docs-index {
+  width: 100%;
+  max-width: 900px;
+  justify-self: start;
+}
+
+.audience-docs .docs-index {
+  width: 100%;
+}
+
+.audience-docs .audience-docs-hero {
+  gap: 18px;
+}
+
+.audience-docs .audience-docs-hero .docs-start-rail-title {
+  color: var(--ks-champagne);
+}
+
+.audience-docs .audience-docs-hero .docs-start-rail-lede {
+  max-width: 56ch;
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.audience-docs .audience-docs-section {
+  margin-bottom: clamp(48px, 6vw, 76px);
+  scroll-margin-top: 104px;
+}
+
+.audience-docs .audience-docs-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.audience-docs .audience-section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--audience-icon-size);
+  gap: clamp(24px, 4vw, 44px);
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.audience-docs .audience-section-heading {
+  min-width: 0;
+}
+
+.audience-docs .audience-section-title {
+  margin: 0;
+  color: var(--ks-champagne);
+  font-family: var(--ks-font);
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: 0;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.audience-docs .audience-section-lede {
+  max-width: 52ch;
+  margin: 10px 0 0;
+  color: var(--ks-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.audience-docs .audience-section-icon {
+  width: var(--audience-icon-size);
+  height: var(--audience-icon-size);
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.audience-docs .audience-section-icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.audience-docs .audience-pair-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.audience-docs .audience-card {
+  min-width: 0;
+  padding: 18px 20px 20px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--docs-row-bg);
+}
+
+.audience-docs .audience-card h3 {
+  margin: 0;
+  color: var(--ks-champagne);
+  font-family: var(--ks-font);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.audience-docs .audience-card p {
+  margin: 9px 0 0;
+  color: var(--ks-text-muted);
+  font-size: 0.92rem;
+  line-height: 1.58;
+  text-wrap: pretty;
+}
+
+.audience-docs .audience-journey {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 30px minmax(0, 1fr);
+  gap: 12px;
+  align-items: stretch;
+}
+
+.audience-docs .audience-journey-arrow {
+  display: grid;
+  place-items: center;
+  color: var(--docs-accent);
+  font-family: var(--ks-mono);
+  font-size: 1rem;
+}
+
+.audience-docs .audience-list {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.audience-docs .audience-list-row {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
+  min-width: 0;
+  padding: 18px 20px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: var(--docs-row-bg);
+}
+
+.audience-docs .audience-list-number {
+  color: var(--docs-accent);
+  font-family: var(--ks-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+}
+
+.audience-docs .audience-list-copy {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--ks-text);
+  font-size: 0.96rem;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.audience-docs .audience-docs-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+  margin-top: clamp(56px, 7vw, 88px);
+  padding-top: 26px;
+  border-top: 1px solid var(--ks-rule);
+  color: var(--ks-text-faint);
+  font-family: var(--ks-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.audience-docs .audience-docs-footer a {
+  color: var(--docs-accent);
+  text-decoration: none;
+}
+
+.audience-docs .audience-docs-footer a:hover {
+  color: var(--docs-accent-hover);
+}
+
+@media (max-width: 960px) {
+  .audience-docs .skills-main--docs-index {
+    max-width: none;
+  }
+
+  .audience-docs .audience-docs-section {
+    scroll-margin-top: 88px;
+  }
+}
+
+@media (max-width: 620px) {
+  .audience-docs .audience-section-head {
+    grid-template-columns: minmax(0, 1fr) var(--audience-icon-size);
+    gap: 18px;
+  }
+
+  .audience-docs .audience-pair-grid,
+  .audience-docs .audience-journey {
+    grid-template-columns: 1fr;
+  }
+
+  .audience-docs .audience-journey-arrow {
+    height: 22px;
+    justify-content: start;
+    padding-left: 20px;
+    transform: rotate(90deg);
+  }
+}
+
+@media (max-width: 430px) {
+  .audience-docs .audience-section-head {
+    grid-template-columns: minmax(0, 1fr) var(--audience-icon-size);
+    gap: 14px;
+  }
+
+  .audience-docs .audience-section-title {
+    font-size: 1.3rem;
+  }
+
+  .audience-docs .audience-list-row {
+    grid-template-columns: 26px minmax(0, 1fr);
+    padding: 16px;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .audience-docs *,
+  .audience-docs *::before,
+  .audience-docs *::after {
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+  }
+}
