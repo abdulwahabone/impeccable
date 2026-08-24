@@ -815,7 +815,7 @@ svg.downloads-rebuild-tab-logo {
   cursor: help;
 }
 .downloads-rebuild-method-note .downloads-rebuild-method-followup {
-  color: var(--ks-accent-ink);
+  color: var(--ks-kinpaku);
   text-decoration: underline;
   text-decoration-color: color-mix(in oklch, var(--ks-kinpaku), transparent 55%);
   text-underline-offset: 3px;

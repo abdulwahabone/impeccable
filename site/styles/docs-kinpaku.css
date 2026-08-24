@@ -1484,7 +1484,7 @@ html.light .docs-kinpaku .prose .code-block code {
   border-radius: 999px;
   color: var(--docs-accent);
   font-family: var(--ks-mono);
-  font-size: 0.58rem;
+  font-size: 0.625rem;
   font-weight: 600;
   line-height: 1;
   letter-spacing: 0.13em;
