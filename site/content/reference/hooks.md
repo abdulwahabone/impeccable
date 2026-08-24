@@ -98,8 +98,6 @@ npx impeccable update --no-hooks
 
 <p class="docs-context-note"><strong>Check it once.</strong> Run <code>/impeccable hooks status</code>, then <a href="/docs/doctor"><code>/impeccable doctor</code></a> to confirm the manifest and script path agree.</p>
 
-<p class="docs-hook-approval-security"><strong>Review before you allow.</strong> Hooks execute local commands with your user permissions. Impeccable never requires a bypass-trust flag.</p>
-
 ## What it does
 
 The hook scans direct edits to UI code and styles. When it finds a new issue, it sends the agent a short reminder with the finding and a fix direction.
