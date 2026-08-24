@@ -1431,152 +1431,6 @@ html.light .docs-kinpaku .prose .code-block code {
   color: var(--ks-text-muted);
 }
 
-/* Hook approval matrix — the install and security gate are separate actions.
-   Keep every harness visible at once so the user can scan for their tool;
-   cards stack on small screens instead of forcing a horizontal table. */
-.docs-kinpaku .prose .docs-hook-approval-lede {
-  padding: 14px 18px;
-  border-left: 2px solid var(--docs-accent);
-  background: var(--docs-accent-wash);
-  color: var(--ks-text);
-}
-
-.docs-kinpaku .prose .docs-hook-approval-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  overflow: hidden;
-  border: 1px solid var(--ks-rule);
-  border-radius: 6px;
-  background: var(--ks-rule);
-}
-
-.docs-kinpaku .prose .docs-hook-approval-card {
-  display: flex;
-  flex-direction: column;
-  gap: 13px;
-  min-width: 0;
-  margin: 0;
-  padding: 22px;
-  background: var(--docs-panel-bg);
-}
-
-.docs-kinpaku .prose .docs-hook-approval-card > * {
-  margin: 0;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 14px;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-head h3 {
-  margin: 0;
-  color: var(--ks-champagne);
-}
-
-.docs-kinpaku .prose .docs-hook-approval-gate {
-  flex: none;
-  padding: 5px 8px 4px;
-  border: 1px solid var(--docs-accent-line);
-  border-radius: 999px;
-  color: var(--docs-accent);
-  font-family: var(--ks-mono);
-  font-size: 0.625rem;
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-card p {
-  color: var(--ks-text);
-  font-size: 0.91rem;
-  line-height: 1.55;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-events {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-events code {
-  border: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer);
-}
-
-.docs-kinpaku .prose .docs-hook-approval-alt {
-  padding-top: 13px;
-  border-top: 1px solid var(--ks-rule);
-}
-
-.docs-kinpaku .prose .docs-hook-approval-card .docs-hook-approval-meta {
-  color: var(--ks-text-muted);
-  font-size: 0.82rem;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-link {
-  align-self: flex-start;
-  margin-top: auto;
-  padding-top: 2px;
-  font-family: var(--ks-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.05em;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-card--wide {
-  grid-column: 1 / -1;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-wide-copy {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-wide-copy > * {
-  margin: 0;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-wide-copy > div {
-  padding-left: 22px;
-  border-left: 1px solid var(--ks-rule);
-}
-
-.docs-kinpaku .prose .docs-hook-approval-wide-copy .docs-hook-approval-alt {
-  padding-top: 0;
-  border-top: 0;
-}
-
-.docs-kinpaku .prose .docs-hook-approval-wide-copy .docs-hook-approval-meta {
-  margin: 8px 0 0;
-}
-
-@media (max-width: 700px) {
-  .docs-kinpaku .prose .docs-hook-approval-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .docs-kinpaku .prose .docs-hook-approval-card {
-    padding: 19px;
-  }
-
-  .docs-kinpaku .prose .docs-hook-approval-wide-copy {
-    grid-template-columns: 1fr;
-    gap: 13px;
-  }
-
-  .docs-kinpaku .prose .docs-hook-approval-wide-copy > div {
-    padding: 13px 0 0;
-    border-top: 1px solid var(--ks-rule);
-    border-left: 0;
-  }
-}
-
 .docs-kinpaku .prose hr {
   border: 0;
   height: 1px;
@@ -1700,6 +1554,72 @@ html.light .docs-kinpaku .prose .code-block code {
   align-self: center;
 }
 
+/* Harness approvals reuse the Design Context flow. Six tracks keep the
+   compact 3 + 2 card rhythm even. */
+.docs-kinpaku .prose .docs-hook-flow-lede {
+  max-width: 68ch;
+  line-height: 1.7;
+}
+
+.docs-kinpaku .prose .docs-hook-flow {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.docs-kinpaku .prose > h2 + .docs-hook-flow-lede {
+  margin-top: 0.75em;
+}
+
+.docs-kinpaku .prose > .docs-hook-flow-lede + .docs-hook-flow {
+  margin-top: 1.5em;
+}
+
+.docs-kinpaku .prose .docs-hook-flow-source {
+  grid-column: span 2;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 10px;
+  padding: 22px 20px;
+}
+
+.docs-kinpaku .prose .docs-hook-flow-source > * {
+  margin: 0;
+}
+
+.docs-kinpaku .prose .docs-hook-flow-source--half {
+  grid-column: span 3;
+}
+
+.docs-kinpaku .prose .docs-hook-flow-source > strong {
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+.docs-kinpaku .prose .docs-hook-flow-copy {
+  color: var(--ks-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.docs-kinpaku .prose .docs-hook-flow-link {
+  display: inline-flex;
+  align-items: center;
+  align-self: end;
+  justify-self: start;
+  width: fit-content;
+  min-block-size: 24px;
+  margin-top: 4px;
+  font-family: var(--ks-mono);
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+}
+
+.docs-kinpaku .prose .docs-hook-flow-link:focus-visible {
+  outline: 2px solid var(--docs-accent);
+  outline-offset: 4px;
+}
+
 .docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details) {
   border-top: 1px solid var(--ks-rule);
   border-bottom: 1px solid var(--ks-rule);
@@ -1768,6 +1688,12 @@ html.light .docs-kinpaku .prose .code-block code {
     grid-template-columns: 1fr;
     gap: 8px;
   }
+
+  .docs-kinpaku .prose .docs-hook-flow-source,
+  .docs-kinpaku .prose .docs-hook-flow-source--half {
+    grid-column: auto;
+  }
+
 }
 
 

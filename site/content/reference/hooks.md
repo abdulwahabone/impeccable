@@ -32,71 +32,40 @@ npx impeccable update --no-hooks
 
 ## Allow the hook in your harness
 
-<p class="docs-hook-approval-lede"><strong>Installed does not always mean active.</strong> Impeccable writes the hook configuration, but your harness decides whether it may run. Review the generated command, then allow it only in repositories you trust.</p>
+<p class="docs-hook-flow-lede"><strong>Installed does not always mean active.</strong> Impeccable writes the hook configuration, but your harness decides whether it may run. Choose your harness, allow the hook, then verify it once.</p>
 
-<div class="docs-hook-approval-grid">
-  <article class="docs-hook-approval-card" aria-labelledby="hook-approval-codex">
-    <header class="docs-hook-approval-head">
-      <h3 id="hook-approval-codex">Codex</h3>
-      <span class="docs-hook-approval-gate">Trust hooks</span>
-    </header>
-    <p>In the desktop app, open <strong>Settings &rarr; Hooks</strong> and turn on <strong>Trust</strong> for both Impeccable events:</p>
-    <div class="docs-hook-approval-events" aria-label="Hooks to trust"><code>PostToolUse</code><code>Stop</code></div>
-    <p class="docs-hook-approval-alt"><strong>Using the CLI?</strong> Run <code>/hooks</code>, inspect both definitions, and trust them there.</p>
-    <p class="docs-hook-approval-meta">Codex trusts the exact hook definition. If an install or update changes it, review and trust it again.</p>
-    <a class="docs-hook-approval-link" href="https://developers.openai.com/codex/hooks">Codex hook guidance &nearr;</a>
+<div class="docs-context-flow docs-hook-flow" role="group" aria-labelledby="allow-the-hook-in-your-harness">
+  <article class="docs-context-flow-source docs-hook-flow-source" aria-labelledby="hook-flow-codex">
+    <span class="docs-context-flow-label">Trust hooks</span>
+    <strong id="hook-flow-codex">Codex</strong>
+    <span class="docs-hook-flow-copy">Open <code>Settings &rarr; Hooks</code> and trust <code>PostToolUse</code> and <code>Stop</code>. In the CLI, use <code>/hooks</code>. Review again after hook changes.</span>
+    <a class="docs-hook-flow-link" href="https://developers.openai.com/codex/hooks">Codex hook guidance &nearr;</a>
   </article>
-
-  <article class="docs-hook-approval-card" aria-labelledby="hook-approval-claude">
-    <header class="docs-hook-approval-head">
-      <h3 id="hook-approval-claude">Claude Code</h3>
-      <span class="docs-hook-approval-gate">Trust workspace</span>
-    </header>
-    <p>Start Claude Code inside the repository and accept the workspace-trust prompt. Claude holds settings-based hooks until the workspace is trusted.</p>
-    <p class="docs-hook-approval-alt"><strong>Verify it.</strong> Run <code>/hooks</code> and confirm the Impeccable <code>PostToolUse</code> and <code>Stop</code> hooks. Standard installs appear under <strong>Local Settings</strong>; plugin installs appear under <strong>Plugin Hooks</strong>.</p>
-    <p class="docs-hook-approval-meta"><code>/hooks</code> is a read-only browser, not a per-hook approval switch.</p>
-    <a class="docs-hook-approval-link" href="https://code.claude.com/docs/en/hooks#workspace-trust">Claude Code hook guidance &nearr;</a>
+  <article class="docs-context-flow-source docs-hook-flow-source" aria-labelledby="hook-flow-claude">
+    <span class="docs-context-flow-label">Trust workspace</span>
+    <strong id="hook-flow-claude">Claude Code</strong>
+    <span class="docs-hook-flow-copy">Accept workspace trust, then use <code>/hooks</code> to confirm both events under Local Settings or Plugin Hooks. The command verifies; it does not approve.</span>
+    <a class="docs-hook-flow-link" href="https://code.claude.com/docs/en/hooks#workspace-trust">Claude Code hook guidance &nearr;</a>
   </article>
-
-  <article class="docs-hook-approval-card" aria-labelledby="hook-approval-cursor">
-    <header class="docs-hook-approval-head">
-      <h3 id="hook-approval-cursor">Cursor</h3>
-      <span class="docs-hook-approval-gate">Trust workspace</span>
-    </header>
-    <p>Open the repository as a trusted workspace. Cursor then loads the project hook from <code>.cursor/hooks.json</code> automatically.</p>
-    <p class="docs-hook-approval-alt"><strong>Verify it.</strong> Open <strong>Customize &rarr; Hooks</strong> or the Hooks output channel. Restart Cursor if the hook still does not appear.</p>
-    <p class="docs-hook-approval-meta">Cursor does not document a separate per-hook Trust approval for project hooks.</p>
-    <a class="docs-hook-approval-link" href="https://prod.cursor.com/docs/hooks">Cursor hook guidance &nearr;</a>
+  <article class="docs-context-flow-source docs-hook-flow-source" aria-labelledby="hook-flow-cursor">
+    <span class="docs-context-flow-label">Trust workspace</span>
+    <strong id="hook-flow-cursor">Cursor</strong>
+    <span class="docs-hook-flow-copy">Trust the workspace. Cursor loads <code>.cursor/hooks.json</code> automatically; verify it under <code>Customize &rarr; Hooks</code> and restart if it is missing.</span>
+    <a class="docs-hook-flow-link" href="https://prod.cursor.com/docs/hooks">Cursor hook guidance &nearr;</a>
   </article>
-
-  <article class="docs-hook-approval-card" aria-labelledby="hook-approval-copilot">
-    <header class="docs-hook-approval-head">
-      <h3 id="hook-approval-copilot">GitHub Copilot</h3>
-      <span class="docs-hook-approval-gate">Trust folder</span>
-    </header>
-    <p>Commit <code>.github/hooks/impeccable.json</code> and merge it into the repository's default branch.</p>
-    <p class="docs-hook-approval-alt"><strong>Copilot CLI:</strong> start <code>copilot</code> in the repository and choose <strong>Yes, and remember this folder for future sessions</strong>. Restart the CLI after hook changes.</p>
-    <p class="docs-hook-approval-meta"><strong>Cloud agent:</strong> there is no local Trust switch; it reads the committed hook directly from the repository.</p>
-    <a class="docs-hook-approval-link" href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/use-hooks">Copilot hook guidance &nearr;</a>
+  <article class="docs-context-flow-source docs-hook-flow-source docs-hook-flow-source--half" aria-labelledby="hook-flow-copilot">
+    <span class="docs-context-flow-label">Trust folder</span>
+    <strong id="hook-flow-copilot">GitHub Copilot</strong>
+    <span class="docs-hook-flow-copy">Commit <code>.github/hooks/impeccable.json</code> to the default branch. Trust the folder in Copilot CLI and restart after changes; the cloud agent reads the committed hook.</span>
+    <a class="docs-hook-flow-link" href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/use-hooks">Copilot hook guidance &nearr;</a>
   </article>
-
-  <article class="docs-hook-approval-card docs-hook-approval-card--wide" aria-labelledby="hook-approval-grok">
-    <header class="docs-hook-approval-head">
-      <h3 id="hook-approval-grok">Grok Build</h3>
-      <span class="docs-hook-approval-gate">Trust folder</span>
-    </header>
-    <div class="docs-hook-approval-wide-copy">
-      <p>Grok discovers Impeccable from <code>.grok/hooks/impeccable.json</code>, but project hooks stay blocked until you trust the folder.</p>
-      <div>
-        <p class="docs-hook-approval-alt"><strong>Allow it.</strong> Run <code>/hooks-trust</code> inside the repository, review the project hook, and confirm trust.</p>
-        <p class="docs-hook-approval-meta"><code>/hooks</code> opens Grok's Hooks tab when you want to inspect what loaded.</p>
-      </div>
-    </div>
-    <a class="docs-hook-approval-link" href="https://docs.x.ai/build/features/skills-plugins-marketplaces">Grok Build hook guidance &nearr;</a>
+  <article class="docs-context-flow-source docs-hook-flow-source docs-hook-flow-source--half" aria-labelledby="hook-flow-grok">
+    <span class="docs-context-flow-label">Trust folder</span>
+    <strong id="hook-flow-grok">Grok Build</strong>
+    <span class="docs-hook-flow-copy">Run <code>/hooks-trust</code>, review the project hook, and confirm the folder. Use <code>/hooks</code> to inspect what Grok loaded.</span>
+    <a class="docs-hook-flow-link" href="https://docs.x.ai/build/features/skills-plugins-marketplaces">Grok Build hook guidance &nearr;</a>
   </article>
 </div>
-
-<p class="docs-context-note"><strong>Check it once.</strong> Run <code>/impeccable hooks status</code>, then <a href="/docs/doctor"><code>/impeccable doctor</code></a> to confirm the manifest and script path agree.</p>
 
 ## What it does
 

@@ -815,6 +815,9 @@ svg.downloads-rebuild-tab-logo {
   cursor: help;
 }
 .downloads-rebuild-method-note .downloads-rebuild-method-followup {
+  display: block;
+  width: fit-content;
+  margin-top: 3px;
   color: var(--ks-kinpaku);
   text-decoration: underline;
   text-decoration-color: color-mix(in oklch, var(--ks-kinpaku), transparent 55%);
