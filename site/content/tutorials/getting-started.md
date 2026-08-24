@@ -53,7 +53,7 @@ Prefer a different setup? Claude Code users can install the plugin with `/plugin
 
 When a new version ships later, run `npx impeccable update` from the same project root. `npx impeccable check` tells you first whether you are behind, and plugin users update from the `/plugin` menu instead.
 
-On Claude Code, GitHub Copilot, Codex, and Cursor, the installer can also add Impeccable's automatic design hook. See [Design hooks](/docs/hooks) for harness-specific behavior and approval steps.
+<p class="docs-context-note"><strong>Installed does not always mean active.</strong> On Claude Code, GitHub Copilot, Codex, Cursor, and Grok Build, the installer can also add Impeccable's automatic design hook, but your harness may still require a workspace, folder, or hook approval. <a href="/docs/hooks#allow-the-hook-in-your-harness">Allow the hook in your harness &rarr;</a></p>
 
 ## Step 2. Set up Impeccable for your project
 

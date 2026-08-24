@@ -1,6 +1,6 @@
 ---
 title: Design hooks
-tagline: "Automatic detector feedback inside Claude Code, GitHub Copilot, Codex, and Cursor."
+tagline: "Automatic detector feedback inside Claude Code, GitHub Copilot, Codex, Cursor, and Grok Build."
 description: "Install, enable, disable, debug, and tune Impeccable's provider-native design hook for automatic detector feedback on UI file edits."
 section: automation
 order: 2
@@ -30,11 +30,81 @@ npx impeccable install --no-hooks
 npx impeccable update --no-hooks
 ```
 
+## Allow the hook in your harness
+
+<p class="docs-hook-approval-lede"><strong>Installed does not always mean active.</strong> Impeccable writes the hook configuration, but your harness decides whether it may run. Review the generated command, then allow it only in repositories you trust.</p>
+
+<div class="docs-hook-approval-grid">
+  <article class="docs-hook-approval-card" aria-labelledby="hook-approval-codex">
+    <header class="docs-hook-approval-head">
+      <h3 id="hook-approval-codex">Codex</h3>
+      <span class="docs-hook-approval-gate">Trust hooks</span>
+    </header>
+    <p>In the desktop app, open <strong>Settings &rarr; Hooks</strong> and turn on <strong>Trust</strong> for both Impeccable events:</p>
+    <div class="docs-hook-approval-events" aria-label="Hooks to trust"><code>PostToolUse</code><code>Stop</code></div>
+    <p class="docs-hook-approval-alt"><strong>Using the CLI?</strong> Run <code>/hooks</code>, inspect both definitions, and trust them there.</p>
+    <p class="docs-hook-approval-meta">Codex trusts the exact hook definition. If an install or update changes it, review and trust it again.</p>
+    <a class="docs-hook-approval-link" href="https://developers.openai.com/codex/hooks">Codex hook guidance &nearr;</a>
+  </article>
+
+  <article class="docs-hook-approval-card" aria-labelledby="hook-approval-claude">
+    <header class="docs-hook-approval-head">
+      <h3 id="hook-approval-claude">Claude Code</h3>
+      <span class="docs-hook-approval-gate">Trust workspace</span>
+    </header>
+    <p>Start Claude Code inside the repository and accept the workspace-trust prompt. Claude holds settings-based hooks until the workspace is trusted.</p>
+    <p class="docs-hook-approval-alt"><strong>Verify it.</strong> Run <code>/hooks</code> and confirm the Impeccable <code>PostToolUse</code> and <code>Stop</code> hooks. Standard installs appear under <strong>Local Settings</strong>; plugin installs appear under <strong>Plugin Hooks</strong>.</p>
+    <p class="docs-hook-approval-meta"><code>/hooks</code> is a read-only browser, not a per-hook approval switch.</p>
+    <a class="docs-hook-approval-link" href="https://code.claude.com/docs/en/hooks#workspace-trust">Claude Code hook guidance &nearr;</a>
+  </article>
+
+  <article class="docs-hook-approval-card" aria-labelledby="hook-approval-cursor">
+    <header class="docs-hook-approval-head">
+      <h3 id="hook-approval-cursor">Cursor</h3>
+      <span class="docs-hook-approval-gate">Trust workspace</span>
+    </header>
+    <p>Open the repository as a trusted workspace. Cursor then loads the project hook from <code>.cursor/hooks.json</code> automatically.</p>
+    <p class="docs-hook-approval-alt"><strong>Verify it.</strong> Open <strong>Customize &rarr; Hooks</strong> or the Hooks output channel. Restart Cursor if the hook still does not appear.</p>
+    <p class="docs-hook-approval-meta">Cursor does not document a separate per-hook Trust approval for project hooks.</p>
+    <a class="docs-hook-approval-link" href="https://prod.cursor.com/docs/hooks">Cursor hook guidance &nearr;</a>
+  </article>
+
+  <article class="docs-hook-approval-card" aria-labelledby="hook-approval-copilot">
+    <header class="docs-hook-approval-head">
+      <h3 id="hook-approval-copilot">GitHub Copilot</h3>
+      <span class="docs-hook-approval-gate">Trust folder</span>
+    </header>
+    <p>Commit <code>.github/hooks/impeccable.json</code> and merge it into the repository's default branch.</p>
+    <p class="docs-hook-approval-alt"><strong>Copilot CLI:</strong> start <code>copilot</code> in the repository and choose <strong>Yes, and remember this folder for future sessions</strong>. Restart the CLI after hook changes.</p>
+    <p class="docs-hook-approval-meta"><strong>Cloud agent:</strong> there is no local Trust switch; it reads the committed hook directly from the repository.</p>
+    <a class="docs-hook-approval-link" href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/use-hooks">Copilot hook guidance &nearr;</a>
+  </article>
+
+  <article class="docs-hook-approval-card docs-hook-approval-card--wide" aria-labelledby="hook-approval-grok">
+    <header class="docs-hook-approval-head">
+      <h3 id="hook-approval-grok">Grok Build</h3>
+      <span class="docs-hook-approval-gate">Trust folder</span>
+    </header>
+    <div class="docs-hook-approval-wide-copy">
+      <p>Grok discovers Impeccable from <code>.grok/hooks/impeccable.json</code>, but project hooks stay blocked until you trust the folder.</p>
+      <div>
+        <p class="docs-hook-approval-alt"><strong>Allow it.</strong> Run <code>/hooks-trust</code> inside the repository, review the project hook, and confirm trust.</p>
+        <p class="docs-hook-approval-meta"><code>/hooks</code> opens Grok's Hooks tab when you want to inspect what loaded.</p>
+      </div>
+    </div>
+    <a class="docs-hook-approval-link" href="https://docs.x.ai/build/features/skills-plugins-marketplaces">Grok Build hook guidance &nearr;</a>
+  </article>
+</div>
+
+<p class="docs-context-note"><strong>Check it once.</strong> Run <code>/impeccable hooks status</code>, then <a href="/docs/doctor"><code>/impeccable doctor</code></a> to confirm the manifest and script path agree.</p>
+
+<p class="docs-hook-approval-security"><strong>Review before you allow.</strong> Hooks execute local commands with your user permissions. Impeccable never requires a bypass-trust flag.</p>
+
 ## What it does
 
 The hook scans direct edits to UI code and styles. When it finds a new issue, it sends the agent a short reminder with the finding and a fix direction.
 
-Claude Code, GitHub Copilot, and Codex run after the edit. Cursor checks proposed writes before they land and blocks only when the detector finds an issue in the proposed UI code.
+Claude Code, GitHub Copilot, Codex, and Grok Build run after the edit. Cursor checks proposed writes before they land and blocks only when the detector finds an issue in the proposed UI code.
 
 Plain `.ts` and `.js` files are scanned, but the hook stays quiet unless it finds something design-relevant.
 
@@ -77,22 +147,6 @@ For value-specific rules such as `overused-font`, use `ignore-value` for a speci
 The terminal equivalent is `npx impeccable ignores ...`, which writes the same detector config. See [Config and ignores](/docs/config).
 
 ## Details when the default path is not enough
-
-<details class="docs-prose-details">
-  <summary>Supported harnesses and approval steps</summary>
-  <div>
-    <p><code>npx impeccable install</code> and <code>npx impeccable update</code> install provider-native hook manifests for Claude Code, GitHub Copilot, Codex, and Cursor.</p>
-    <ul>
-      <li>Claude Code: <code>.claude/settings.local.json</code> by default.</li>
-      <li>GitHub Copilot: <code>.github/hooks/impeccable.json</code>, a committed file shared by the Copilot CLI and the cloud agent.</li>
-      <li>Codex: <code>.codex/hooks.json</code>.</li>
-      <li>Cursor: <code>.cursor/hooks.json</code>.</li>
-    </ul>
-    <p>GitHub Copilot reads the committed <code>.github/hooks/impeccable.json</code>. In the Copilot CLI the hook activates once that file is on the repository's default branch and you trust the folder; the cloud agent reads it straight from the repo.</p>
-    <p>Codex requires one extra approval step. After install or update, open <code>/hooks</code> in Codex and approve the project hook. Codex tracks trust by hook definition, so updates can require approval again.</p>
-    <p>Cursor users should also confirm hooks are enabled in Cursor Settings -> Hooks.</p>
-  </div>
-</details>
 
 <details class="docs-prose-details">
   <summary>Scanned file types</summary>

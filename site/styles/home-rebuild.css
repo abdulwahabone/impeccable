@@ -814,6 +814,16 @@ svg.downloads-rebuild-tab-logo {
   font-weight: 600;
   cursor: help;
 }
+.downloads-rebuild-method-note .downloads-rebuild-method-followup {
+  color: var(--ks-accent-ink);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--ks-kinpaku), transparent 55%);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 160ms var(--ks-ease);
+}
+.downloads-rebuild-method-note .downloads-rebuild-method-followup:hover {
+  text-decoration-color: var(--ks-kinpaku);
+}
 
 /* Marketplace updates from a menu, not a shell command, so its Update slot is
    quiet guidance text rather than a runnable box. */
