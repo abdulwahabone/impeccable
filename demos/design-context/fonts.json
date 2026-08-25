@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "specimen": {
+    "headline": "Seasonal ceremony florals"
+  },
+  "preview": {
+    "brand": "Ha",
+    "nav": ["Weddings", "Gifting", "Subscribe", "Studio"],
+    "navAction": "Book",
+    "menuAction": "Menu",
+    "ctaPrimary": "Book consultation",
+    "ctaSecondary": "View gallery",
+    "proof": ["Studio Mondine", "Ikenobo trained", "Tokyo atelier", "Seasonal restraint"],
+    "sectionTitle": "Commission lanes",
+    "sectionLink": "All work",
+    "gallery": [
+      { "title": "Ceremony stems", "meta": "Spring peony" },
+      { "title": "Corporate gifting", "meta": "Autumn arrangement" },
+      { "title": "Subscription box", "meta": "Weekly seasonal" }
+    ],
+    "footerLinks": ["Weddings", "Corporate", "Subscribe", "Contact"],
+    "footerMark": "© Hanazono"
+  },
+  "pairs": [
+    {
+      "id": "cormorant-source",
+      "name": "Cormorant + Source Sans 3",
+      "heading": { "family": "Cormorant Garamond", "weight": 600 },
+      "body": { "family": "Source Sans 3", "weight": 400 },
+      "why": "Aesop editorial restraint"
+    },
+    {
+      "id": "playfair-work",
+      "name": "Playfair + Work Sans",
+      "heading": { "family": "Playfair Display", "weight": 600 },
+      "body": { "family": "Work Sans", "weight": 400 },
+      "why": "Kinfolk magazine warmth"
+    },
+    {
+      "id": "libre-plex",
+      "name": "Libre Baskerville + IBM Plex Sans",
+      "heading": { "family": "Libre Baskerville", "weight": 700 },
+      "body": { "family": "IBM Plex Sans", "weight": 400 },
+      "why": "Monocle editorial clarity"
+    },
+    {
+      "id": "source-serif-pair",
+      "name": "Source Serif 4 + Source Sans 3",
+      "heading": { "family": "Source Serif 4", "weight": 600 },
+      "body": { "family": "Source Sans 3", "weight": 400 },
+      "why": "Bilingual mincho bridge"
+    },
+    {
+      "id": "lora-nunito",
+      "name": "Lora + Nunito Sans",
+      "heading": { "family": "Lora", "weight": 600 },
+      "body": { "family": "Nunito Sans", "weight": 400 },
+      "why": "Warm atelier invitation"
+    },
+    {
+      "id": "eb-garamond-dm",
+      "name": "EB Garamond + DM Sans",
+      "heading": { "family": "EB Garamond", "weight": 600 },
+      "body": { "family": "DM Sans", "weight": 400 },
+      "why": "Gallery exhibition poise"
+    }
+  ]
+}
