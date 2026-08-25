@@ -64,37 +64,75 @@
           </button>
 
           <div class="skills-sidebar-inner" id="audience-sidebar-inner">
-            <p class="skills-sidebar-label">Audience</p>
+            <h2 class="skills-sidebar-label" id="audience-on-this-page">On this page</h2>
 
-            <div class="skills-sidebar-group">
-              <span class="skills-sidebar-category">Overview</span>
-              <ul class="skills-sidebar-list">
-                <li><a href="#audience-overview" aria-current="page">Audience</a></li>
-              </ul>
-            </div>
+            <nav class="audience-toc" aria-labelledby="audience-on-this-page" data-audience-toc>
+              <svg class="audience-toc-rail" aria-hidden="true" fill="none">
+                <defs>
+                  <pattern id="audience-toc-patina-material" width="72" height="48" patternUnits="userSpaceOnUse">
+                    <rect class="audience-toc-material-base audience-toc-material-base--patina" width="72" height="48"></rect>
+                    <image class="audience-toc-material-image audience-toc-material-image--patina" href="../../site/public/assets/neo-kinpaku/verdigris-patina.png" width="72" height="48" preserveAspectRatio="xMidYMid slice"></image>
+                  </pattern>
+                  <pattern id="audience-toc-gold-material" width="72" height="48" patternUnits="userSpaceOnUse">
+                    <rect class="audience-toc-material-base audience-toc-material-base--gold" width="72" height="48"></rect>
+                    <image class="audience-toc-material-image audience-toc-material-image--gold" href="../../site/public/assets/neo-kinpaku/kinpaku-gold-leaf.png" width="72" height="48" preserveAspectRatio="xMidYMid slice"></image>
+                  </pattern>
+                </defs>
+                <path class="audience-toc-rail-track" data-audience-toc-rail-track></path>
+                <path class="audience-toc-rail-active" data-audience-toc-rail-active></path>
+              </svg>
 
-            <div class="skills-sidebar-group">
-              <span class="skills-sidebar-category">People</span>
-              <ul class="skills-sidebar-list">
-                <li><a href="#who-they-are">Who they are</a></li>
-                <li><a href="#emotional-journey">Emotional journey</a></li>
-              </ul>
-            </div>
+              <div class="skills-sidebar-group">
+                <span class="skills-sidebar-category" data-audience-toc-node>Overview</span>
+                <svg class="audience-toc-curve" aria-hidden="true" viewBox="0 0 1 1" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="2" overflow="visible">
+                  <path d="M 0 0 C 0 0.5, 1 0.5, 1 1" vector-effect="non-scaling-stroke"></path>
+                </svg>
+                <ul class="skills-sidebar-list">
+                  <li><a href="#audience-overview" aria-current="page" data-audience-toc-node data-audience-toc-link>Audience</a></li>
+                </ul>
+                <svg class="audience-toc-curve" aria-hidden="true" viewBox="0 0 1 1" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="2" overflow="visible">
+                  <path d="M 1 0 C 1 0.5, 0 0.5, 0 1" vector-effect="non-scaling-stroke"></path>
+                </svg>
+              </div>
 
-            <div class="skills-sidebar-group">
-              <span class="skills-sidebar-category">Decision factors</span>
-              <ul class="skills-sidebar-list">
-                <li><a href="#needs">Needs</a></li>
-                <li><a href="#trust-triggers">Trust triggers</a></li>
-              </ul>
-            </div>
+              <div class="skills-sidebar-group">
+                <span class="skills-sidebar-category" data-audience-toc-node>People</span>
+                <svg class="audience-toc-curve" aria-hidden="true" viewBox="0 0 1 1" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="2" overflow="visible">
+                  <path d="M 0 0 C 0 0.5, 1 0.5, 1 1" vector-effect="non-scaling-stroke"></path>
+                </svg>
+                <ul class="skills-sidebar-list">
+                  <li><a href="#who-they-are" data-audience-toc-node data-audience-toc-link>Who they are</a></li>
+                  <li><a href="#emotional-journey" data-audience-toc-node data-audience-toc-link>Emotional journey</a></li>
+                </ul>
+                <svg class="audience-toc-curve" aria-hidden="true" viewBox="0 0 1 1" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="2" overflow="visible">
+                  <path d="M 1 0 C 1 0.5, 0 0.5, 0 1" vector-effect="non-scaling-stroke"></path>
+                </svg>
+              </div>
 
-            <div class="skills-sidebar-group">
-              <span class="skills-sidebar-category">Inclusion</span>
-              <ul class="skills-sidebar-list">
-                <li><a href="#inclusion">Who must not be excluded</a></li>
-              </ul>
-            </div>
+              <div class="skills-sidebar-group">
+                <span class="skills-sidebar-category" data-audience-toc-node>Decision factors</span>
+                <svg class="audience-toc-curve" aria-hidden="true" viewBox="0 0 1 1" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="2" overflow="visible">
+                  <path d="M 0 0 C 0 0.5, 1 0.5, 1 1" vector-effect="non-scaling-stroke"></path>
+                </svg>
+                <ul class="skills-sidebar-list">
+                  <li><a href="#needs" data-audience-toc-node data-audience-toc-link>Needs</a></li>
+                  <li><a href="#trust-triggers" data-audience-toc-node data-audience-toc-link>Trust triggers</a></li>
+                </ul>
+                <svg class="audience-toc-curve" aria-hidden="true" viewBox="0 0 1 1" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="2" overflow="visible">
+                  <path d="M 1 0 C 1 0.5, 0 0.5, 0 1" vector-effect="non-scaling-stroke"></path>
+                </svg>
+              </div>
+
+              <div class="skills-sidebar-group">
+                <span class="skills-sidebar-category" data-audience-toc-node>Inclusion</span>
+                <svg class="audience-toc-curve" aria-hidden="true" viewBox="0 0 1 1" preserveAspectRatio="none" fill="none" stroke="currentColor" stroke-width="2" overflow="visible">
+                  <path d="M 0 0 C 0 0.5, 1 0.5, 1 1" vector-effect="non-scaling-stroke"></path>
+                </svg>
+                <ul class="skills-sidebar-list">
+                  <li><a href="#inclusion" data-audience-toc-node data-audience-toc-link>Who must not be excluded</a></li>
+                </ul>
+              </div>
+            </nav>
           </div>
         </aside>
 
@@ -280,10 +318,109 @@
     <script>
       const sidebarToggle = document.querySelector(".skills-sidebar-toggle");
       const sidebarLinks = [...document.querySelectorAll('.skills-sidebar-list a[href^="#"]')];
+      const audienceToc = document.querySelector("[data-audience-toc]");
+      const tocRailTrack = document.querySelector("[data-audience-toc-rail-track]");
+      const tocRailActive = document.querySelector("[data-audience-toc-rail-active]");
+      const tocNodes = [...document.querySelectorAll("[data-audience-toc-node]")];
+      let tocRailSegments = new Map();
+      let tocRailLength = 0;
+      let tocRailReady = false;
+
+      const buildTocRail = () => {
+        if (!audienceToc || !tocRailTrack || !tocRailActive || audienceToc.offsetHeight === 0) return false;
+
+        const navRect = audienceToc.getBoundingClientRect();
+        const points = tocNodes.map((node) => {
+          const rect = node.getBoundingClientRect();
+          return {
+            node,
+            x: rect.left - navRect.left + 1,
+            yTop: rect.top - navRect.top,
+            yBottom: rect.bottom - navRect.top,
+          };
+        });
+
+        let pathData = "";
+        let totalLength = 0;
+        let previousX = 0;
+        let previousBottom = 0;
+        const nextSegments = new Map();
+        const measurePath = (value) => {
+          tocRailActive.setAttribute("d", value);
+          return tocRailActive.getTotalLength();
+        };
+
+        points.forEach((point, index) => {
+          if (index === 0) {
+            pathData += `M ${point.x} ${point.yTop} `;
+          } else {
+            const previous = points[index - 1];
+            let connector;
+
+            if (Math.abs(point.x - previous.x) < 0.5) {
+              connector = `L ${point.x} ${point.yTop} `;
+            } else {
+              const midpoint = (previous.yBottom + point.yTop) / 2;
+              connector = `C ${previous.x} ${midpoint}, ${point.x} ${midpoint}, ${point.x} ${point.yTop} `;
+            }
+
+            pathData += connector;
+            totalLength += measurePath(`M ${previousX} ${previousBottom} ${connector}`);
+          }
+
+          const segmentStart = totalLength;
+          const segment = `L ${point.x} ${point.yBottom} `;
+          pathData += segment;
+          totalLength += measurePath(`M ${point.x} ${point.yTop} ${segment}`);
+
+          if (point.node.matches("[data-audience-toc-link]")) {
+            nextSegments.set(point.node, {
+              start: segmentStart,
+              length: totalLength - segmentStart,
+            });
+          }
+
+          previousX = point.x;
+          previousBottom = point.yBottom;
+        });
+
+        tocRailTrack.setAttribute("d", pathData);
+        tocRailActive.setAttribute("d", pathData);
+        tocRailSegments = nextSegments;
+        tocRailLength = totalLength;
+        return true;
+      };
+
+      const moveTocRail = (activeLink, instant = false) => {
+        if (!tocRailActive || !activeLink) return;
+        const segment = tocRailSegments.get(activeLink);
+        if (!segment) return;
+
+        if (instant) {
+          tocRailActive.setAttribute("data-initial", "true");
+          tocRailActive.getBoundingClientRect();
+        }
+
+        tocRailActive.style.strokeDasharray = `${segment.length} ${tocRailLength + 1}`;
+        tocRailActive.style.strokeDashoffset = `${-segment.start}`;
+
+        if (!tocRailReady || instant) {
+          tocRailReady = true;
+          requestAnimationFrame(() => {
+            tocRailActive.setAttribute("data-ready", "true");
+            audienceToc?.setAttribute("data-rail-ready", "true");
+            requestAnimationFrame(() => tocRailActive.removeAttribute("data-initial"));
+          });
+        }
+      };
 
       sidebarToggle?.addEventListener("click", () => {
         const expanded = sidebarToggle.getAttribute("aria-expanded") === "true";
         sidebarToggle.setAttribute("aria-expanded", String(!expanded));
+        requestAnimationFrame(() => {
+          const railWasBuilt = buildTocRail();
+          updateCurrentSection(railWasBuilt);
+        });
       });
 
       sidebarLinks.forEach((link) => {
@@ -296,8 +433,8 @@
         .map((link) => document.querySelector(link.getAttribute("href")))
         .filter(Boolean);
 
-      const updateCurrentSection = () => {
-        const marker = 132;
+      const updateCurrentSection = (instantRail = false) => {
+        const marker = window.innerHeight * 0.25;
         let current = linkedSections[0];
 
         for (const section of linkedSections) {
@@ -308,15 +445,44 @@
           current = linkedSections.at(-1);
         }
 
+        let activeLink = null;
         sidebarLinks.forEach((link) => {
           const active = link.getAttribute("href") === `#${current?.id}`;
-          if (active) link.setAttribute("aria-current", "page");
-          else link.removeAttribute("aria-current");
+          if (active) {
+            link.setAttribute("aria-current", "page");
+            activeLink = link;
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+
+        moveTocRail(activeLink, instantRail || !tocRailReady);
+      };
+
+      let scrollFrame = 0;
+      const requestCurrentSectionUpdate = () => {
+        if (scrollFrame) return;
+        scrollFrame = requestAnimationFrame(() => {
+          scrollFrame = 0;
+          updateCurrentSection();
         });
       };
 
-      updateCurrentSection();
-      window.addEventListener("scroll", updateCurrentSection, { passive: true });
+      buildTocRail();
+      updateCurrentSection(true);
+      window.addEventListener("scroll", requestCurrentSectionUpdate, { passive: true });
+
+      const rebuildTocRail = () => {
+        if (!buildTocRail()) return;
+        const activeLink = sidebarLinks.find((link) => link.hasAttribute("aria-current"));
+        moveTocRail(activeLink, true);
+      };
+
+      const tocResizeObserver = new ResizeObserver(rebuildTocRail);
+
+      if (audienceToc) tocResizeObserver.observe(audienceToc);
+      window.addEventListener("resize", rebuildTocRail, { passive: true });
+      document.fonts?.ready.then(rebuildTocRail);
     </script>
   </body>
 </html>

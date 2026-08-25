@@ -1,0 +1,276 @@
+{
+  "modes": ["persuade", "experience"],
+  "context": {
+    "product": {
+      "name": "Hanazono Atelier",
+      "purpose": "Marketing site for a boutique Tokyo flower atelier selling craft, seasonal restraint, and three commission lanes.",
+      "platform": "web",
+      "success": "8 to 12 qualified consultation requests per month, with at least half converting to a paid commission within 90 days",
+      "conversion": "Book a consultation",
+      "clarities": ["Craft and seasonal restraint before any pitch", "The three commission lanes: weddings, corporate gifting, subscriptions", "An obvious path to book a consultation"],
+      "principles": [
+        { "title": "One focal point per viewport", "detail": "Gallery pacing over thumbnail clutter; let a single arrangement or proof moment carry the screen" },
+        { "title": "Restraint is the sell", "detail": "Generous whitespace, copy that does not oversell; Aesop-level discipline on every lane page" },
+        { "title": "Seasonal asymmetry, not Instagram symmetry", "detail": "Compose like an exhibition, not a mood board; negative space is part of the craft" },
+        { "title": "Proof before pitch", "detail": "Planners need credible signals before they will book" },
+        { "title": "Earn the consultation", "detail": "Make the booking path obvious without urgency gimmicks, price grids, or package upsell scaffolding" }
+      ],
+      "surfaces": {
+        "persuade": "Marketing surface: craft, seasonal restraint, and the path to book a consultation before any pitch",
+        "experience": "Commission gallery: one hero arrangement per viewport, exhibition pacing"
+      }
+    },
+    "audience": {
+      "primary": "Wedding planners sourcing ceremony florals for discerning clients",
+      "secondary": "Couples commissioning ceremony florals; corporate hospitality teams",
+      "emotion": "Trust in craft and seasonal point of view before booking a consultation",
+      "needs": ["Proof of craft", "Clear seasonal POV", "Fast path to book"],
+      "leaving": "Confident in the atelier's craft and seasonal point of view, ready to book a consultation",
+      "trust": ["Partner quotes from planners", "A stated seasonal point of view", "Studio story and commission gallery as proof of craft"],
+      "inclusion": ["Japanese and English bilingual readers, both scripts at 16px or larger", "Visitors who prefer reduced motion", "Screen reader users on the consultation form"]
+    },
+    "brand": {
+      "words": ["warm", "mechanical", "opinionated", "seasonal", "editorial"],
+      "principles": [
+        "One focal point per viewport: gallery pacing over thumbnail clutter, one arrangement carrying the screen",
+        "Restraint is the sell: generous whitespace and copy that does not oversell, on every lane page",
+        "Seasonal asymmetry, not Instagram symmetry: composed like an exhibition, negative space as part of the craft",
+        "Proof before pitch: partner quotes, seasonal POV, and studio story before any booking ask",
+        "Earn the consultation: an obvious booking path without urgency gimmicks, price grids, or package upsell"
+      ],
+      "voice": [
+        { "say": "Peonies arrive the first week of May; we hold your date until they do", "not": "Beautiful blooms for your special day!" },
+        { "say": "Three commission lanes, one atelier standard", "not": "Packages starting from $99 to fit every budget" },
+        { "say": "We compose for the room the ceremony is in", "not": "Let us make your dream wedding magical" }
+      ],
+      "personality": "Warm, mechanical, opinionated — seasonal craft with editorial restraint. Tokyo atelier, not Pinterest floristry."
+    },
+    "assets": [],
+    "interview": {
+      "colorStrategy": "Committed",
+      "hueAnchor": "deep teal",
+      "typeDirection": "Serif display + sans body",
+      "motionEnergy": "Restrained",
+      "references": [
+        { "name": "Aesop", "takeaway": "Product-page restraint: generous whitespace, one focal image, copy that does not oversell" },
+        { "name": "Kinfolk magazine", "takeaway": "Slow editorial pacing with photography that carries the page" },
+        { "name": "Monocle", "takeaway": "An opinionated editorial voice inside a disciplined layout" }
+      ],
+      "antiReference": { "name": "Dropbox", "why": "Friendly generic SaaS polish, the opposite of a Tokyo atelier's editorial restraint" }
+    }
+  },
+  "cues": [
+    "zinc-dawn",
+    "lacquer-glow",
+    "margin-stems",
+    "clay-bench",
+    "scroll-proof",
+    "drying-settle"
+  ],
+  "palette": {
+    "zinc-dawn": {
+      "primary": {
+        "hex": "#185856",
+        "snapped": "#175558",
+        "at": [
+          186,
+          612
+        ]
+      },
+      "secondary": {
+        "hex": "#567A72",
+        "snapped": "#587570",
+        "at": [
+          624,
+          660
+        ]
+      },
+      "tertiary": {
+        "hex": "#C9584E",
+        "snapped": "#C9534C",
+        "at": [
+          600,
+          912
+        ]
+      },
+      "neutral": {
+        "hex": "#E8EBEA",
+        "snapped": "#E9EBEA",
+        "at": [
+          900,
+          198
+        ]
+      }
+    },
+    "lacquer-glow": {
+      "primary": {
+        "hex": "#1E1815",
+        "snapped": "#1E1914",
+        "at": [
+          648,
+          816
+        ]
+      },
+      "secondary": {
+        "hex": "#6E5848",
+        "snapped": "#6D5848",
+        "at": [
+          588,
+          912
+        ]
+      },
+      "tertiary": {
+        "hex": "#D4832F",
+        "snapped": "#D5842C",
+        "at": [
+          810,
+          810
+        ]
+      },
+      "neutral": {
+        "hex": "#F1EBE2",
+        "snapped": "#F1EBE2",
+        "at": [
+          246,
+          318
+        ]
+      }
+    },
+    "margin-stems": {
+      "primary": {
+        "hex": "#5E4872",
+        "snapped": "#5D4975",
+        "at": [
+          372,
+          42
+        ]
+      },
+      "secondary": {
+        "hex": "#6B8F7A",
+        "snapped": "#6A8E7A",
+        "at": [
+          234,
+          408
+        ]
+      },
+      "tertiary": {
+        "hex": "#2E8560",
+        "snapped": "#2E8562",
+        "at": [
+          138,
+          588
+        ]
+      },
+      "neutral": {
+        "hex": "#F0EBE3",
+        "snapped": "#EEEAE4",
+        "at": [
+          546,
+          24
+        ]
+      }
+    },
+    "clay-bench": {
+      "primary": {
+        "hex": "#C45A38",
+        "snapped": "#C65A36",
+        "at": [
+          774,
+          138
+        ]
+      },
+      "secondary": {
+        "hex": "#9A7055",
+        "snapped": "#9A7056",
+        "at": [
+          864,
+          600
+        ]
+      },
+      "tertiary": {
+        "hex": "#F0287A",
+        "snapped": "#EA3871",
+        "at": [
+          498,
+          762
+        ]
+      },
+      "neutral": {
+        "hex": "#F0E9DC",
+        "snapped": "#F3E6DD",
+        "at": [
+          138,
+          402
+        ]
+      }
+    },
+    "scroll-proof": {
+      "primary": {
+        "hex": "#6E8572",
+        "snapped": "#718370",
+        "at": [
+          780,
+          366
+        ]
+      },
+      "secondary": {
+        "hex": "#B5A896",
+        "snapped": "#B6A895",
+        "at": [
+          606,
+          870
+        ]
+      },
+      "tertiary": {
+        "hex": "#C4A058",
+        "snapped": "#C7995A",
+        "at": [
+          450,
+          942
+        ]
+      },
+      "neutral": {
+        "hex": "#F2EDE4",
+        "snapped": "#F2ECE4",
+        "at": [
+          246,
+          564
+        ]
+      }
+    },
+    "drying-settle": {
+      "primary": {
+        "hex": "#6B5E52",
+        "snapped": "#6E5E49",
+        "at": [
+          12,
+          846
+        ]
+      },
+      "secondary": {
+        "hex": "#9A8878",
+        "snapped": "#9A8A77",
+        "at": [
+          540,
+          966
+        ]
+      },
+      "tertiary": {
+        "hex": "#C0786E",
+        "snapped": "#BE776E",
+        "at": [
+          930,
+          894
+        ]
+      },
+      "neutral": {
+        "hex": "#F2EDE4",
+        "snapped": "#F3F1E0",
+        "at": [
+          612,
+          996
+        ]
+      }
+    }
+  }
+}

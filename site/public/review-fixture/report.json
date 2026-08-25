@@ -1,0 +1,828 @@
+{
+  "contract": 1,
+  "url": "https://api.chucknorris.io/",
+  "runId": "scan-a81638fe-045b-4f58-8948-f66727eda30e",
+  "scannedAt": "2026-08-21T11:57:11.615Z",
+  "routes": [
+    "/"
+  ],
+  "unreachableRoutes": [],
+  "viewports": [
+    "desktop",
+    "mobile"
+  ],
+  "stats": {
+    "detector": 6,
+    "vision": 3,
+    "total": 9,
+    "crops": 5,
+    "cropsRendered": 3,
+    "tier": "full",
+    "conclusion": "failure"
+  },
+  "usage": {
+    "inputTokens": 16065,
+    "outputTokens": 3214
+  },
+  "cost": {
+    "v": 1,
+    "lines": [
+      {
+        "stage": "vision+synthesis",
+        "kind": "llm",
+        "model": "gemini/gemini-3.7-flash",
+        "inputTokens": 16065,
+        "outputTokens": 3214,
+        "usd": 0.012855
+      }
+    ],
+    "totalUsd": 0.012855
+  },
+  "timings": [
+    {
+      "stage": "visual-scan",
+      "ms": 10829
+    },
+    {
+      "stage": "visual-critique",
+      "ms": 15117
+    },
+    {
+      "stage": "box-crops",
+      "ms": 255
+    },
+    {
+      "stage": "synthesis",
+      "ms": 1785
+    },
+    {
+      "stage": "plan",
+      "ms": 4
+    }
+  ],
+  "totalMs": 27992,
+  "warnings": [],
+  "findings": [
+    {
+      "id": "detector:justified-text:rendered:collapsed",
+      "source": "detector",
+      "ruleId": "justified-text",
+      "title": "Justified text · 25 places on the rendered page",
+      "detail": "text-align: justify without hyphens: auto\nExamples: `section:nth-of-type(1) > p`, `b > a`, `section:nth-of-type(3) > p:nth-of-type(1)`\nThe annotated capture spotlights the worst of these.",
+      "severity": "P3",
+      "dimension": "ui",
+      "advisory": true,
+      "route": "/"
+    },
+    {
+      "id": "detector:undersized-ui-text:rendered:collapsed",
+      "source": "detector",
+      "ruleId": "undersized-ui-text",
+      "title": "Undersized functional text · 4 places on the rendered page",
+      "detail": "10px functional text \"Jugendstil.io\" (below 11px floor)\nExamples: `small.disclaimer > a`, `small:nth-of-type(2) > a`, `small:nth-of-type(4) > a:nth-of-type(1)`\nThe annotated capture spotlights the worst of these.",
+      "fix": "Raise functional UI text to at least 11px, and body copy to 14px or more.",
+      "severity": "P3",
+      "dimension": "craft",
+      "advisory": true,
+      "route": "/"
+    },
+    {
+      "id": "detector:skipped-heading:rendered:00z2j7i",
+      "source": "detector",
+      "ruleId": "skipped-heading",
+      "title": "Skipped heading level",
+      "detail": "<h1> \"\" followed by <h3> \"Usage\" (missing h2)\n\nWhere: `body` (desktop viewport, `/`)",
+      "fix": "Insert the missing heading level, or demote the heading that skipped it.",
+      "severity": "P3",
+      "dimension": "craft",
+      "advisory": true,
+      "route": "/"
+    },
+    {
+      "id": "detector:gradient-text:rendered:00z2j7i",
+      "source": "detector",
+      "ruleId": "gradient-text",
+      "title": "Gradient text",
+      "detail": "background-clip: text + gradient\n\nWhere: `body` (desktop viewport, `/`)",
+      "severity": "P3",
+      "dimension": "slop",
+      "advisory": true,
+      "route": "/"
+    },
+    {
+      "id": "probe:a11y-form-label:/",
+      "source": "detector",
+      "ruleId": "a11y-form-label",
+      "title": "1 form field with no label",
+      "detail": "No `<label>`, no `aria-label`, and no labelled-by reference, so nothing tells a screen reader what the field is for. 1 of them rely on a placeholder, which disappears the moment someone types, which is when they most need to know what the box was for.\n\nExamples: `input`\n\nWhere: `/` (desktop viewport)",
+      "fix": "Add a `<label for>` per field, or an `aria-label` where the design has no room for visible text.",
+      "severity": "P2",
+      "dimension": "craft",
+      "advisory": false,
+      "route": "/"
+    },
+    {
+      "id": "probe:a11y-landmark-main:/",
+      "source": "detector",
+      "ruleId": "a11y-landmark-main",
+      "title": "No main landmark on the page",
+      "detail": "The page has no `<main>` and no `role=\"main\"`, so a keyboard or screen-reader visitor has no way to skip the navigation and land on the content. Every visit starts at the top of the header again.\n\nWhere: `/` (desktop viewport)",
+      "fix": "Wrap the page content in a `<main>` element.",
+      "severity": "P3",
+      "dimension": "craft",
+      "advisory": false,
+      "route": "/"
+    },
+    {
+      "id": "llm:visual-0-full-justification-creates-severe-word-spacing-d",
+      "source": "llm",
+      "title": "Full justification creates severe word spacing distortion on narrow viewports",
+      "detail": "Body copy on mobile uses full justification on monospace type, causing extreme whitespace gaps (rivers) across single-line descriptions such as 'Retrieve a list of available categories.' This severely degrades reading cadence and optical flow.\n\nWhere: Mobile capture, endpoint description under category joke endpoint",
+      "fix": "Set text-align to left on all paragraph and heading elements across mobile breakpoints.",
+      "severity": "P1",
+      "dimension": "craft",
+      "advisory": false,
+      "pageRegion": "Mobile capture, endpoint description under category joke endpoint",
+      "route": "/",
+      "cropUrl": "/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/crops/mobile-2-llm-visual-0-full-justification-creates-severe-word-spacing-d.png"
+    },
+    {
+      "id": "llm:visual-1-sub-12px-footer-disclaimer-text-falls-below-legi",
+      "source": "llm",
+      "title": "Sub-12px footer disclaimer text falls below legibility thresholds",
+      "detail": "The legal disclaimer and sponsorship note in the footer render at 10px monospace in a constrained, centered column. At this scale, glyphs become cramped and difficult to scan on standard desktop displays.\n\nWhere: Footer section, legal disclaimer block at bottom center",
+      "fix": "Increase the disclaimer font size to at least 12px and relax line height to 1.5.",
+      "severity": "P2",
+      "dimension": "craft",
+      "advisory": false,
+      "pageRegion": "Footer section, legal disclaimer block at bottom center",
+      "route": "/",
+      "cropUrl": "/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/crops/4-llm-visual-1-sub-12px-footer-disclaimer-text-falls-below-legi.png"
+    },
+    {
+      "id": "llm:visual-2-subscribe-form-controls-use-unstyled-native-inpu",
+      "source": "llm",
+      "title": "Subscribe form controls use unstyled native inputs with cramped touch targets",
+      "detail": "The email input field and 'Subscribe' button rely on unstyled browser defaults with minimal internal padding. On mobile devices, the button renders as an undersized tap target separated from the input without unified styling.\n\nWhere: Below intro paragraph, 'Subscribe for new Chuck Facts' input and button",
+      "fix": "Style the email input and subscribe button with explicit padding (at least 10px vertical), a matching border radius, and a 44px minimum touch target height.",
+      "severity": "P2",
+      "dimension": "ui",
+      "advisory": false,
+      "pageRegion": "Below intro paragraph, 'Subscribe for new Chuck Facts' input and button",
+      "route": "/",
+      "cropUrl": "/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/crops/mobile-3-llm-visual-2-subscribe-form-controls-use-unstyled-native-inpu.png"
+    }
+  ],
+  "assessment": {
+    "impression": "A lightweight, developer-focused API documentation page built with an overt retro terminal and 8-bit arcade aesthetic. The single-page reference layout communicates core endpoints clearly without extraneous marketing noise, though raw monospace styling creates layout defects on mobile.",
+    "healthScore": [
+      {
+        "heuristic": "Visibility of System Status",
+        "score": 3,
+        "keyIssue": "JSON response examples clearly show returned payloads, but interactive 'press r to refresh' lacks visible feedback chrome."
+      },
+      {
+        "heuristic": "Match System / Real World",
+        "score": 4,
+        "keyIssue": "Endpoint structures, HTTP methods, and query parameters follow standard REST conventions."
+      },
+      {
+        "heuristic": "User Control and Freedom",
+        "score": 3,
+        "keyIssue": "Live interactive trigger allows on-demand joke refreshes directly from the documentation."
+      },
+      {
+        "heuristic": "Consistency and Standards",
+        "score": 3,
+        "keyIssue": "Code block containers maintain consistent borders and GET badges across all four endpoint sections."
+      },
+      {
+        "heuristic": "Error Prevention",
+        "score": "n/a",
+        "keyIssue": "Static API documentation with read-only endpoint reference; no critical user destructive actions."
+      },
+      {
+        "heuristic": "Recognition Rather Than Recall",
+        "score": 3,
+        "keyIssue": "Full JSON payload schema and sample response values are visible immediately beside the request definition."
+      },
+      {
+        "heuristic": "Flexibility and Efficiency",
+        "score": 3,
+        "keyIssue": "Direct copyable URLs and command cheatsheets for Slack and Facebook Messenger accelerate developer onboarding."
+      },
+      {
+        "heuristic": "Aesthetic and Minimalist Design",
+        "score": 2,
+        "keyIssue": "Full justification across monospace text creates extreme spacing rivers and irregular word gaps on mobile screens."
+      },
+      {
+        "heuristic": "Error Recovery",
+        "score": "n/a",
+        "keyIssue": "Documentation surface; no dynamic error states rendered in captures."
+      },
+      {
+        "heuristic": "Help and Documentation",
+        "score": 3,
+        "keyIssue": "Chatbot syntax examples and privacy disclosures are documented inline below API usage."
+      }
+    ],
+    "specificityVerdict": "Authored, decisively. The pixel-art cowboy emblem, custom 3D block headers, and terminal-style monospace documentation give the page an unmistakable identity tailored to a novelty API. Two cracks: full text justification on mobile causes severe spacing gaps across single-line paragraphs, and the subscribe form uses unstyled default browser form elements.",
+    "whatsWorking": [
+      "The pixel-art logo and blocky display headers establish an immediate and memorable brand voice.",
+      "Clear GET badges and copy-ready endpoint strings make developer evaluation instantaneous.",
+      "Inline sample JSON response gives developers immediate visibility into the API payload schema."
+    ],
+    "personaNotes": [
+      "Alex (impatient power user): Positive: The API endpoints and response schema are visible immediately without wading through sign-up gates.",
+      "Casey (distracted mobile user): Monospace text justification causes erratic word gaps that disrupt smooth thumb-scrolling reading."
+    ],
+    "nextSteps": [
+      "Remove text-align: justify across all viewports to prevent monospace spacing gaps on mobile.",
+      "Style the newsletter subscription input and button with cohesive borders and a 44px minimum tap height.",
+      "Increase footer legal text size to 12px for improved legibility."
+    ],
+    "minorObservations": [
+      "The Slack logo button uses modern rounded corners that clash slightly with the rigid retro aesthetic.",
+      "Underline text decoration is applied broadly across both interactive links and plain code identifiers."
+    ],
+    "questionsToConsider": [
+      "Would adding a one-click copy button next to each endpoint box increase conversion over raw highlighted text?",
+      "Could the email subscription widget be integrated more neatly into the footer rather than interrupting the flow between intro and usage?"
+    ]
+  },
+  "synthesis": {
+    "deterministicScanNotes": "The deterministic scan returned 6 findings across typography, structure, and accessibility, virtually all of which accurately reflect the page markup. The scan flagged 25 instances of justified text and undersized UI labels that directly compound the mobile distortion noted in the review, alongside basic DOM omissions like a missing main landmark and an unlabelled form field. The detector surfaced structural semantic gaps and global CSS justification rules across dozens of nodes that the human pass only sampled; the design review recognized how those same issues degrade the retro arcade aesthetic into broken mobile layouts.",
+    "suspectFindingIds": [],
+    "systemicPatterns": [
+      "global text justification: 26 findings across detector hits and visual reviews, creating severe spacing anomalies across all paragraph content"
+    ]
+  },
+  "screenshots": [
+    {
+      "viewport": "desktop",
+      "key": "runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/desktop.png",
+      "annotated": false,
+      "route": "/",
+      "width": 1440,
+      "height": 2927,
+      "url": "/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/desktop.png"
+    },
+    {
+      "viewport": "desktop",
+      "key": "runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/desktop-annotated.png",
+      "annotated": true,
+      "route": "/",
+      "width": 1440,
+      "height": 2927,
+      "annotations": [
+        {
+          "number": 1,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 277.875,
+            "width": 590,
+            "height": 58
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:1f104ao"
+          ]
+        },
+        {
+          "number": 2,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 280.875,
+            "width": 134.421875,
+            "height": 18
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:1kfyq0l"
+          ]
+        },
+        {
+          "number": 3,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 522.46875,
+            "width": 590,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:1og611j"
+          ]
+        },
+        {
+          "number": 4,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 642.96875,
+            "width": 590,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:0g29a5o"
+          ]
+        },
+        {
+          "number": 5,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 894.96875,
+            "width": 590,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:1ncdx9l"
+          ]
+        },
+        {
+          "number": 6,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 1015.46875,
+            "width": 590,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:0ntd0za"
+          ]
+        },
+        {
+          "number": 7,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 1135.96875,
+            "width": 590,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:0dto6ib"
+          ]
+        },
+        {
+          "number": 8,
+          "severity": "P3",
+          "title": "Undersized functional text",
+          "ruleId": "undersized-ui-text",
+          "rect": {
+            "x": 771,
+            "y": 2453.46875,
+            "width": 78.015625,
+            "height": 11
+          },
+          "findingIds": [
+            "detector:undersized-ui-text:rendered:193awsr"
+          ]
+        }
+      ],
+      "url": "/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/desktop-annotated.png"
+    },
+    {
+      "viewport": "desktop",
+      "key": "runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/desktop-annotated-fold.png",
+      "annotated": true,
+      "route": "/",
+      "fold": true,
+      "width": 1440,
+      "height": 900,
+      "annotations": [
+        {
+          "number": 1,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 277.875,
+            "width": 590,
+            "height": 58
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:1f104ao"
+          ]
+        },
+        {
+          "number": 2,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 280.875,
+            "width": 134.421875,
+            "height": 18
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:1kfyq0l"
+          ]
+        },
+        {
+          "number": 3,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 522.46875,
+            "width": 590,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:1og611j"
+          ]
+        },
+        {
+          "number": 4,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 642.96875,
+            "width": 590,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:0g29a5o"
+          ]
+        },
+        {
+          "number": 5,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 425,
+            "y": 894.96875,
+            "width": 590,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:1ncdx9l"
+          ]
+        }
+      ],
+      "url": "/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/desktop-annotated-fold.png"
+    },
+    {
+      "viewport": "mobile",
+      "key": "runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/mobile.png",
+      "annotated": false,
+      "route": "/",
+      "width": 390,
+      "height": 3587,
+      "url": "/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/mobile.png"
+    },
+    {
+      "viewport": "mobile",
+      "key": "runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/mobile-annotated.png",
+      "annotated": true,
+      "route": "/",
+      "width": 390,
+      "height": 3587,
+      "annotations": [
+        {
+          "number": 1,
+          "severity": "P3",
+          "title": "Body text touching viewport edge",
+          "ruleId": "body-text-viewport-edge",
+          "rect": {
+            "x": 5,
+            "y": 277.875,
+            "width": 380,
+            "height": 82
+          },
+          "findingIds": [
+            "detector:body-text-viewport-edge:rendered:1f104ao",
+            "detector:justified-text:rendered:1f104ao"
+          ]
+        },
+        {
+          "number": 2,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 5,
+            "y": 280.875,
+            "width": 134.421875,
+            "height": 18
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:1kfyq0l"
+          ]
+        },
+        {
+          "number": 3,
+          "severity": "P3",
+          "title": "Body text touching viewport edge",
+          "ruleId": "body-text-viewport-edge",
+          "rect": {
+            "x": 5,
+            "y": 596.25,
+            "width": 380,
+            "height": 58
+          },
+          "findingIds": [
+            "detector:body-text-viewport-edge:rendered:1og611j",
+            "detector:justified-text:rendered:1og611j"
+          ]
+        },
+        {
+          "number": 4,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 5,
+            "y": 740.75,
+            "width": 380,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:0g29a5o"
+          ]
+        },
+        {
+          "number": 5,
+          "severity": "P3",
+          "title": "Body text touching viewport edge",
+          "ruleId": "body-text-viewport-edge",
+          "rect": {
+            "x": 5,
+            "y": 1109.75,
+            "width": 380,
+            "height": 58
+          },
+          "findingIds": [
+            "detector:body-text-viewport-edge:rendered:1ncdx9l",
+            "detector:justified-text:rendered:1ncdx9l"
+          ]
+        },
+        {
+          "number": 6,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 5,
+            "y": 1273.75,
+            "width": 380,
+            "height": 58
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:0ntd0za"
+          ]
+        },
+        {
+          "number": 7,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 5,
+            "y": 1437.75,
+            "width": 380,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:0dto6ib"
+          ]
+        },
+        {
+          "number": 8,
+          "severity": "P3",
+          "title": "Undersized functional text",
+          "ruleId": "undersized-ui-text",
+          "rect": {
+            "x": 246,
+            "y": 3112.75,
+            "width": 78.015625,
+            "height": 11
+          },
+          "findingIds": [
+            "detector:undersized-ui-text:rendered:193awsr"
+          ]
+        }
+      ],
+      "url": "/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/mobile-annotated.png"
+    },
+    {
+      "viewport": "mobile",
+      "key": "runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/mobile-annotated-fold.png",
+      "annotated": true,
+      "route": "/",
+      "fold": true,
+      "width": 390,
+      "height": 844,
+      "annotations": [
+        {
+          "number": 1,
+          "severity": "P3",
+          "title": "Body text touching viewport edge",
+          "ruleId": "body-text-viewport-edge",
+          "rect": {
+            "x": 5,
+            "y": 277.875,
+            "width": 380,
+            "height": 82
+          },
+          "findingIds": [
+            "detector:body-text-viewport-edge:rendered:1f104ao",
+            "detector:justified-text:rendered:1f104ao"
+          ]
+        },
+        {
+          "number": 2,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 5,
+            "y": 280.875,
+            "width": 134.421875,
+            "height": 18
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:1kfyq0l"
+          ]
+        },
+        {
+          "number": 3,
+          "severity": "P3",
+          "title": "Body text touching viewport edge",
+          "ruleId": "body-text-viewport-edge",
+          "rect": {
+            "x": 5,
+            "y": 596.25,
+            "width": 380,
+            "height": 58
+          },
+          "findingIds": [
+            "detector:body-text-viewport-edge:rendered:1og611j",
+            "detector:justified-text:rendered:1og611j"
+          ]
+        },
+        {
+          "number": 4,
+          "severity": "P3",
+          "title": "Justified text",
+          "ruleId": "justified-text",
+          "rect": {
+            "x": 5,
+            "y": 740.75,
+            "width": 380,
+            "height": 34
+          },
+          "findingIds": [
+            "detector:justified-text:rendered:0g29a5o"
+          ]
+        }
+      ],
+      "url": "/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/mobile-annotated-fold.png"
+    }
+  ],
+  "overlays": [
+    {
+      "findingId": "llm:visual-0-full-justification-creates-severe-word-spacing-d",
+      "severity": "P1",
+      "captureKey": "runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/mobile.png",
+      "box": {
+        "x": 8,
+        "y": 444,
+        "w": 984,
+        "h": 46
+      }
+    },
+    {
+      "findingId": "llm:visual-1-sub-12px-footer-disclaimer-text-falls-below-legi",
+      "severity": "P2",
+      "captureKey": "runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/desktop.png",
+      "box": {
+        "x": 390,
+        "y": 880,
+        "w": 220,
+        "h": 60
+      }
+    },
+    {
+      "findingId": "llm:visual-2-subscribe-form-controls-use-unstyled-native-inpu",
+      "severity": "P2",
+      "captureKey": "runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/mobile.png",
+      "box": {
+        "x": 8,
+        "y": 224,
+        "w": 750,
+        "h": 72
+      }
+    }
+  ],
+  "artifactsBase": "/review-fixture/artifacts",
+  "reviewMarkdown": "<!-- pristine-review-summary -->\n\n## Pristine design review\n\nA lightweight, developer-focused API documentation page built with an overt retro terminal and 8-bit arcade aesthetic. The single-page reference layout communicates core endpoints clearly without extraneous marketing noise, though raw monospace styling creates layout defects on mobile.\n\n### Design health score\n| # | Heuristic | Score | Key issue |\n| --- | --- | --- | --- |\n| 1 | Visibility of System Status | 3 | JSON response examples clearly show returned payloads, but interactive 'press r to refresh' lacks visible feedback chrome. |\n| 2 | Match System / Real World | 4 | Endpoint structures, HTTP methods, and query parameters follow standard REST conventions. |\n| 3 | User Control and Freedom | 3 | Live interactive trigger allows on-demand joke refreshes directly from the documentation. |\n| 4 | Consistency and Standards | 3 | Code block containers maintain consistent borders and GET badges across all four endpoint sections. |\n| 5 | Error Prevention | n/a | Static API documentation with read-only endpoint reference; no critical user destructive actions. |\n| 6 | Recognition Rather Than Recall | 3 | Full JSON payload schema and sample response values are visible immediately beside the request definition. |\n| 7 | Flexibility and Efficiency | 3 | Direct copyable URLs and command cheatsheets for Slack and Facebook Messenger accelerate developer onboarding. |\n| 8 | Aesthetic and Minimalist Design | 2 | Full justification across monospace text creates extreme spacing rivers and irregular word gaps on mobile screens. |\n| 9 | Error Recovery | n/a | Documentation surface; no dynamic error states rendered in captures. |\n| 10 | Help and Documentation | 3 | Chatbot syntax examples and privacy disclosures are documented inline below API usage. |\n| | **Total** | **24/32 (75%)** | **Good** |\n\n### Design specificity verdict\n\nAuthored, decisively. The pixel-art cowboy emblem, custom 3D block headers, and terminal-style monospace documentation give the page an unmistakable identity tailored to a novelty API. Two cracks: full text justification on mobile causes severe spacing gaps across single-line paragraphs, and the subscribe form uses unstyled default browser form elements.\n\nFound **1 P1**, **3 P2**, and **1 P3** issues on 1 scanned page.\n\n### Deterministic scan\n\nThe deterministic scan returned 6 findings across typography, structure, and accessibility, virtually all of which accurately reflect the page markup. The scan flagged 25 instances of justified text and undersized UI labels that directly compound the mobile distortion noted in the review, alongside basic DOM omissions like a missing main landmark and an unlabelled form field. The detector surfaced structural semantic gaps and global CSS justification rules across dozens of nodes that the human pass only sampled; the design review recognized how those same issues degrade the retro arcade aesthetic into broken mobile layouts.\n\n- global text justification: 26 findings across detector hits and visual reviews, creating severe spacing anomalies across all paragraph content\n\n### Priority issues\n\n**P1 · Full justification creates severe word spacing distortion on narrow viewports** · Mobile capture, endpoint description under category joke endpoint\nBody copy on mobile uses full justification on monospace type, causing extreme whitespace gaps (rivers) across single-line descriptions such as 'Retrieve a list of available categories.' This severely degrades reading cadence and optical flow.\n**Fix:** Set text-align to left on all paragraph and heading elements across mobile breakpoints.\n\n<img src=\"/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/crops/mobile-2-llm-visual-0-full-justification-creates-severe-word-spacing-d.png\" alt=\"Full justification creates severe word spacing distortion on narrow viewports\" width=\"420\">\n\n**P2 · Sub-12px footer disclaimer text falls below legibility thresholds** · Footer section, legal disclaimer block at bottom center\nThe legal disclaimer and sponsorship note in the footer render at 10px monospace in a constrained, centered column. At this scale, glyphs become cramped and difficult to scan on standard desktop displays.\n**Fix:** Increase the disclaimer font size to at least 12px and relax line height to 1.5.\n\n<img src=\"/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/crops/4-llm-visual-1-sub-12px-footer-disclaimer-text-falls-below-legi.png\" alt=\"Sub-12px footer disclaimer text falls below legibility thresholds\" width=\"420\">\n\n**P2 · Subscribe form controls use unstyled native inputs with cramped touch targets** · Below intro paragraph, 'Subscribe for new Chuck Facts' input and button\nThe email input field and 'Subscribe' button rely on unstyled browser defaults with minimal internal padding. On mobile devices, the button renders as an undersized tap target separated from the input without unified styling.\n**Fix:** Style the email input and subscribe button with explicit padding (at least 10px vertical), a matching border radius, and a 44px minimum touch target height.\n\n<img src=\"/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/crops/mobile-3-llm-visual-2-subscribe-form-controls-use-unstyled-native-inpu.png\" alt=\"Subscribe form controls use unstyled native inputs with cramped touch targets\" width=\"420\">\n\n**P2 · 1 form field with no label**\nNo `<label>`, no `aria-label`, and no labelled-by reference, so nothing tells a screen reader what the field is for. 1 of them rely on a placeholder, which disappears the moment someone types, which is when they most need to know what the box was for.\n\nExamples: `input`\n\nWhere: `/` (desktop viewport)\n**Fix:** Add a `<label for>` per field, or an `aria-label` where the design has no room for visible text.\n\n**P3 · No main landmark on the page**\nThe page has no `<main>` and no `role=\"main\"`, so a keyboard or screen-reader visitor has no way to skip the navigation and land on the content. Every visit starts at the top of the header again.\n\nWhere: `/` (desktop viewport)\n**Fix:** Wrap the page content in a `<main>` element.\n\n### What's working\n- The pixel-art logo and blocky display headers establish an immediate and memorable brand voice.\n- Clear GET badges and copy-ready endpoint strings make developer evaluation instantaneous.\n- Inline sample JSON response gives developers immediate visibility into the API payload schema.\n\n### Persona red flags\n- Alex (impatient power user): Positive: The API endpoints and response schema are visible immediately without wading through sign-up gates.\n- Casey (distracted mobile user): Monospace text justification causes erratic word gaps that disrupt smooth thumb-scrolling reading.\n\n### Minor observations\n- The Slack logo button uses modern rounded corners that clash slightly with the rigid retro aesthetic.\n- Underline text decoration is applied broadly across both interactive links and plain code identifiers.\n\n<details>\n<summary>Advisory notes (4)</summary>\n\n- P3 · Gradient text · `rendered page`\n- P3 · Justified text · 25 places on the rendered page · `rendered page`\n- P3 · Skipped heading level · `rendered page`\n- P3 · Undersized functional text · 4 places on the rendered page · `rendered page`\n\n</details>\n\n### Rendered preview · `/`\n\n<img src=\"/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/desktop-annotated-fold.png\" alt=\"desktop preview of /, findings spotlighted: 5 · P3 · Justified text (x5)\" width=\"820\">\n<sub>5 · P3 · Justified text (x5)</sub>\n\n<details>\n<summary>3 more viewports</summary>\n\n<img src=\"/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/desktop-annotated.png\" alt=\"desktop preview of /, findings spotlighted: 7 · P3 · Justified text (x7) · 8 · P3 · Undersized functional text\" width=\"420\">\n<sub>7 · P3 · Justified text (x7) · 8 · P3 · Undersized functional text</sub>\n<img src=\"/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/mobile-annotated-fold.png\" alt=\"mobile preview of /, findings spotlighted: 1 · P3 · Body text touching viewport edge · 2 · P3 · Justified text · 3 · P3 · Body text touching viewport edge · 4 · P3 · Justified text\" width=\"420\">\n<sub>1 · P3 · Body text touching viewport edge · 2 · P3 · Justified text · 3 · P3 · Body text touching viewport edge · 4 · P3 · Justified text</sub>\n<img src=\"/review-fixture/artifacts/runs/scan-a81638fe-045b-4f58-8948-f66727eda30e/mobile-annotated.png\" alt=\"mobile preview of /, findings spotlighted: 5 · P3 · Body text touching viewport edge (x3) · 7 · P3 · Justified text (x4) · 8 · P3 · Undersized functional text\" width=\"420\">\n<sub>5 · P3 · Body text touching viewport edge (x3) · 7 · P3 · Justified text (x4) · 8 · P3 · Undersized functional text</sub>\n\n</details>\n\n### Questions to consider\n1. Would adding a one-click copy button next to each endpoint box increase conversion over raw highlighted text?\n2. Could the email subscription widget be integrated more neatly into the footer rather than interrupting the flow between intro and usage?\n\n### Next steps\n1. Remove text-align: justify across all viewports to prevent monospace spacing gaps on mobile.\n2. Style the newsletter subscription input and button with cohesive borders and a 44px minimum tap height.\n3. Increase footer legal text size to 12px for improved legibility.\n\n<sub>Scanned https://api.chucknorris.io/ · 1 page. impeccable engine + LLM critique · visual tier.</sub>\n",
+  "techAudit": {
+    "accessibility": {
+      "score": 3.25,
+      "findingIds": [
+        "detector:skipped-heading:rendered:00z2j7i",
+        "probe:a11y-form-label:/",
+        "probe:a11y-landmark-main:/"
+      ]
+    },
+    "performance": {
+      "score": 4,
+      "findingIds": []
+    },
+    "responsive": {
+      "score": 2.5,
+      "findingIds": [
+        "llm:visual-0-full-justification-creates-severe-word-spacing-d",
+        "llm:visual-2-subscribe-form-controls-use-unstyled-native-inpu"
+      ]
+    },
+    "antiPatterns": {
+      "score": 3.75,
+      "findingIds": [
+        "detector:justified-text:rendered:collapsed",
+        "detector:undersized-ui-text:rendered:collapsed",
+        "detector:gradient-text:rendered:00z2j7i"
+      ]
+    },
+    "theming": {
+      "score": null,
+      "reason": "no-design-md",
+      "hint": "Scan again with a DESIGN.md to score theming against your own contract."
+    }
+  },
+  "commands": {
+    "detector:justified-text:rendered:collapsed": {
+      "command": "typeset",
+      "invocation": "/impeccable typeset"
+    },
+    "detector:undersized-ui-text:rendered:collapsed": {
+      "command": "typeset",
+      "invocation": "/impeccable typeset"
+    },
+    "detector:skipped-heading:rendered:00z2j7i": {
+      "command": "typeset",
+      "invocation": "/impeccable typeset"
+    },
+    "detector:gradient-text:rendered:00z2j7i": {
+      "command": "colorize",
+      "invocation": "/impeccable colorize"
+    },
+    "probe:a11y-form-label:/": {
+      "command": "harden",
+      "invocation": "/impeccable harden"
+    },
+    "probe:a11y-landmark-main:/": {
+      "command": "harden",
+      "invocation": "/impeccable harden"
+    },
+    "llm:visual-0-full-justification-creates-severe-word-spacing-d": {
+      "command": "adapt",
+      "invocation": "/impeccable adapt"
+    },
+    "llm:visual-1-sub-12px-footer-disclaimer-text-falls-below-legi": {
+      "command": "polish",
+      "invocation": "/impeccable polish"
+    },
+    "llm:visual-2-subscribe-form-controls-use-unstyled-native-inpu": {
+      "command": "adapt",
+      "invocation": "/impeccable adapt"
+    }
+  },
+  "trend": [
+    {
+      "scannedAt": "2026-08-21T11:57:11.615Z",
+      "healthPct": 75,
+      "active": {
+        "P1": 1,
+        "P2": 3,
+        "P3": 1
+      },
+      "runId": "scan-a81638fe-045b-4f58-8948-f66727eda30e"
+    }
+  ]
+}
