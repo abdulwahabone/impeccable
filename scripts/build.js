@@ -32,7 +32,7 @@ import { ANTIPATTERNS } from '../cli/engine/registry/antipatterns.mjs';
  * Generate authoritative counts from source data and write to site/public/js/generated/counts.js.
  * Also validates that key HTML files reference the correct numbers.
  */
-function generateCounts(rootDir, skills, buildDir) {
+function generateCounts(rootDir, skills) {
   // Count active commands. After the v3.0 consolidation, commands are sub-commands
   // of /impeccable. Count them from the command router table in SKILL.md.
   const impeccableSkill = skills.find(s => s.name === 'impeccable');
@@ -383,21 +383,6 @@ function validateSkillProse(rootDir) {
 }
 
 /**
- * Validate that every hand-authored HTML page carries the shared site header.
- * The partial is stamped with `<!-- site-header v1 -->` so drift is loud.
- *
- * Returns the number of validation errors. Build fails if > 0.
- */
-function validateSiteHeader(_rootDir) {
-  // With Astro, the shared header is a component (site/components/Header.astro).
-  // There's nothing to validate per-page — the component is imported by Base.astro
-  // and rendered identically everywhere. This function is kept as a no-op so the
-  // call site doesn't need to change.
-  console.log('✓ Site header is a shared Astro component (no per-page validation needed)');
-  return 0;
-}
-
-/**
  * Guard the kinpaku default. Kinpaku is the site-wide default theme: the legacy
  * --color-* names in tokens.css now carry dark-lacquer / gold-accent values, and
  * the per-page kinpaku styling assumes that. If someone reintroduces the retired
@@ -577,16 +562,6 @@ These are hidden folders (dotfiles). Press Cmd+Shift+. in Finder to see them.
 }
 
 /**
- * Copy dist files to build output for Cloudflare Pages Functions access.
- * Download functions use env.ASSETS.fetch() to read these files.
- */
-function copyDistToBuild(distDir, buildDir) {
-  const destDir = path.join(buildDir, '_data', 'dist');
-  copyDirSync(distDir, destDir);
-  console.log('✓ Copied dist files to build output');
-}
-
-/**
  * Generate Cloudflare Pages config files (_headers, _redirects)
  */
 function generateCFConfig(buildDir) {
@@ -698,8 +673,6 @@ async function build() {
     fs.mkdirSync(jsDir, { recursive: true });
     fs.copyFileSync(detectorSrc, path.join(jsDir, 'detect-antipatterns-browser.js'));
   }
-
-  const buildDir = path.join(ROOT_DIR, 'build');
 
   // Read source files (unified skills architecture)
   const { skills } = readSourceFiles(ROOT_DIR);
@@ -878,14 +851,11 @@ async function build() {
   await createProviderZip(openAiPluginRoot, DIST_DIR, 'openai-plugin');
 
   // Generate authoritative counts and validate references
-  const countErrors = generateCounts(ROOT_DIR, skills, buildDir);
+  const countErrors = generateCounts(ROOT_DIR, skills);
 
   // Guard plugin/skill version drift: marketplace + ./plugin subtree must
   // match root plugin.json so marketplace installs never ship a stale version.
   const versionErrors = validatePluginVersions(ROOT_DIR, { syncedRootOutputs: BUILD_OPTIONS.syncRootOutputs });
-
-  // Verify every hand-authored HTML page carries the shared site header
-  const headerErrors = validateSiteHeader(ROOT_DIR);
 
   // Guard the kinpaku default: fail if light-mode token values are reintroduced
   const themeErrors = validateTheme(ROOT_DIR);
@@ -897,7 +867,7 @@ async function build() {
   // that has no technical reading. Hardening repetition is intentionally allowed.
   const skillProseErrors = validateSkillProse(ROOT_DIR);
 
-  if (countErrors > 0 || versionErrors > 0 || headerErrors > 0 || themeErrors > 0 || proseErrors > 0 || skillProseErrors > 0) {
+  if (countErrors > 0 || versionErrors > 0 || themeErrors > 0 || proseErrors > 0 || skillProseErrors > 0) {
     process.exit(1);
   }
 
