@@ -1,9 +1,9 @@
 {
+  "buildPath": "comp",
   "detector": {
     "ignoreRules": [],
     "ignoreFiles": [
       "tests/fixtures/**",
-      "tests/detect-antipatterns.test.js",
       "site/pages/slop/**",
       "site/public/antipattern-examples/**",
       "site/public/neo-mirai/**",

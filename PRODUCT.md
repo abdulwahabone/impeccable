@@ -1,46 +1,62 @@
 # Product
 
-## Register
+<!-- impeccable:product-schema 1 -->
 
-brand
+## Platform
+
+web
 
 ## Users
 
-Designers, product managers, and engineers who use AI coding tools (Cursor, Claude Code, GitHub Copilot, Gemini CLI, Codex CLI, and others) and want better design output from their AI. They land on the site from GitHub, social media, or word of mouth, already aware that AI-generated UIs have quality problems. They're looking for a practical solution, not education about the problem.
+Designers, product managers, and engineers who use AI coding tools and want better design output from their AI. They typically arrive from GitHub, social media, or word of mouth already aware that AI-generated interfaces have quality problems. They are looking for a practical way to direct and improve the work, not introductory education about the problem.
 
 ## Product Purpose
 
-Impeccable gives builders a shared design vocabulary with their AI, delivered as a plug-and-play skill that works in every major AI coding harness. Success is measured in two ways: (1) the user can steer AI output with design precision instead of vague prose, and (2) the AI produces interfaces that pass professional design review, not "looks like an AI made it" output.
+Impeccable gives builders a shared design vocabulary with their AI through a plug-and-play skill that works across major AI coding harnesses. Success means users can steer output with design precision instead of vague prose, and the resulting interfaces hold up to professional design review instead of looking generically AI-generated.
 
-## Brand Personality
+## Positioning
 
-Expert, opinionated, refined. Impeccable speaks with an authoritative design voice: confident taste, editorial quality, zero hedging. It's the design director in the room who knows exactly what's wrong and how to fix it. The tone is **direct** (no "maybe consider"), **specific** (no "improve the vibe"), and **rooted in craft** (no hype, no hedging).
+Impeccable combines an opinionated design vocabulary, durable project context, deterministic anti-pattern detection, and live browser iteration in the coding workflow. It does not merely generate a one-off interface or score a screenshot; it gives the builder and agent a shared system for shaping, evaluating, refining, and maintaining frontend quality.
 
-Three-word personality: **expert, decisive, editorial**.
+## Operating Context
 
-## Anti-references
+Impeccable is installed into an AI coding harness and used from the project being designed. Builders establish durable product and design context, invoke focused commands during frontend work, run deterministic checks in the CLI or browser extension, and use Live Mode when visual iteration in the running product is useful. The website, documentation, tutorials, examples, and changelog support evaluation and continued use.
 
-The site and brand must be the antithesis of everything Impeccable critiques. Specifically, avoid:
+## Capabilities and Constraints
 
-- **Generic AI tool marketing**: dark mode with purple gradients, neon accents, glassmorphism, glowing particles, cyan-on-black.
-- **SaaS landing-page clichés**: hero-metric layouts, identical-card feature grids, sparkline decorations, "boost your productivity" copy.
-- **Hedging language**: "might", "could", "consider", "perhaps". Impeccable is opinionated — it picks a direction and commits.
-- **Educational framing**: this product is for people who already know they have a problem; we solve it, we don't teach it.
-- **Over-decoration**: every visual element must earn its place. No ornament for ornament's sake.
+- One Impeccable skill exposes focused commands for shaping, building, evaluating, refining, fixing, and iterating on frontend interfaces.
+- Provider transforms distribute the skill to supported coding harnesses while `skill/` remains the source of truth in this repository.
+- The deterministic detector covers HTML, CSS, component-source formats, browser-computed output, and CI-oriented workflows without requiring an LLM or API key.
+- Live Mode supports visual element selection, variant generation, tuning, and source write-back in supported web projects.
+- New surfaces default to a comp-first workflow in this repository; the project setting lives in `.impeccable/config.json`.
+- Tooling requires Node.js 22.12 or newer where the package manifest applies. Provider and framework capabilities vary, so unsupported behavior must not be implied.
 
-## Design Principles
+## Brand Commitments
 
-1. **Practice what you preach.** The site must pass its own anti-pattern tests with flying colors. If we ship anything we'd flag in an audit, we've lost.
-2. **Show, don't tell.** Demonstrate design quality through execution, not through words about design quality. The site IS the demo.
-3. **Expert confidence.** Direct, opinionated, decisive. No hedging. Every assertion should sound like it comes from someone who has seen a thousand interfaces and knows what works.
-4. **Editorial over marketing.** Feels like a design publication (Eye Magazine, It's Nice That, A List Apart) rather than a SaaS landing page. Long-form reading, considered typography, breathing room.
-5. **Purposeful restraint.** Every element earns its place. Nothing decorative without function. Nothing included because "landing pages usually have that".
+Impeccable is expert, decisive, and editorial. Its voice is authoritative, direct, specific, and rooted in craft: no hedging, vague “vibe” language, or unsupported hype.
+
+The site and brand avoid generic AI-tool marketing, purple-to-blue gradients, neon accents, glassmorphism, glowing particles, SaaS landing-page clichés, interchangeable feature-card grids, educational framing for an already problem-aware audience, and decoration that has no function.
+
+The name Impeccable, the Neo Kinpaku identity, the existing logo and material assets, and the project’s direct command vocabulary are durable brand assets. Visual implementation details remain governed by `DESIGN.md` and the source tokens rather than this product record.
+
+## Evidence on Hand
+
+- The homepage demonstrates the command vocabulary, supported harnesses, before/after comparisons, Live Mode, and product installation (`site/pages/index.astro`).
+- The documentation and tutorials provide the command and workflow reference (`site/pages/docs/`, `site/pages/tutorials/`).
+- The Neo Mirai case study provides an implemented before/after example (`site/pages/cases/neo-mirai.astro`).
+- Detector fixtures and tests provide reproducible evidence for the deterministic rules (`tests/fixtures/`, `tests/detect-antipatterns-fixtures.test.mjs`).
+- The changelog records shipped product behavior and historical claims (`site/pages/changelog.astro`).
+
+Do not fabricate adoption metrics, customer names, testimonials, benchmarks, compatibility claims, or endorsements beyond evidence present in the repository.
+
+## Product Principles
+
+1. **Practice what you preach.** The product and site must meet the frontend standards Impeccable asks users to uphold.
+2. **Show, do not tell.** Demonstrate design quality through working interfaces, examples, and deterministic evidence.
+3. **Give precise direction.** Prefer named, actionable interventions over vague taste language or hedged advice.
+4. **Stay inside the coding workflow.** Context, commands, detection, and iteration should reduce translation between design intent and implementation.
+5. **Use purposeful restraint.** Features, language, and visual elements must earn their place.
 
 ## Accessibility & Inclusion
 
-Baseline: WCAG 2.1 AA on all pages. Key commitments:
-- Color contrast ratios verified with actual contrast checks, not eyeballing.
-- All interactive elements keyboard-navigable with visible focus states.
-- `prefers-reduced-motion` respected for every animation.
-- Semantic HTML first, ARIA as a supplement, never as a workaround.
-- Copy readable at an 8th-grade level; jargon only when precisely needed (design terms like "OKLCH", "chroma" are acceptable because they're the actual vocabulary users are here to learn).
+All pages target WCAG 2.1 AA. Verify color contrast with actual checks; keep every interactive element keyboard-accessible with a visible focus state; respect `prefers-reduced-motion`; prefer semantic HTML and use ARIA as a supplement; and keep copy readable at approximately an eighth-grade level except where precise design terminology is necessary.
