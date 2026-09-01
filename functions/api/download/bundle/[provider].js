@@ -7,23 +7,25 @@ export async function onRequestGet(context) {
 		return Response.json({ error: "Invalid provider" }, { status: 400 });
 	}
 
-	const url = new URL(context.request.url);
-	url.pathname = `/_data/dist/${provider}.zip`;
+	const versionUrl = new URL('/_data/api/version.json', context.request.url);
+	const versionResponse = await context.env.ASSETS.fetch(versionUrl);
 
-	const response = await context.env.ASSETS.fetch(url);
-
-	if (!response.ok) {
-		return Response.json({ error: "Bundle not found" }, { status: 404 });
+	if (!versionResponse.ok) {
+		return Response.json({ error: "Bundle release metadata not found" }, { status: 502 });
 	}
 
-	const content = await response.arrayBuffer();
-	const safeProvider = provider.replace(/[^a-zA-Z0-9._-]/g, '');
+	const { skills: version } = await versionResponse.json();
+	if (typeof version !== 'string' || !/^[0-9A-Za-z.+-]+$/.test(version)) {
+		return Response.json({ error: "Invalid bundle release metadata" }, { status: 502 });
+	}
 
-	return new Response(content, {
+	const releaseUrl = `https://github.com/pbakaus/impeccable/releases/download/skill-v${version}/${provider}.zip`;
+
+	return new Response(null, {
+		status: 302,
 		headers: {
-			'Content-Type': 'application/zip',
-			'Content-Disposition': `attachment; filename="impeccable-style-${safeProvider}.zip"`,
-			'Cache-Control': 'public, s-maxage=86400, stale-while-revalidate=3600',
+			'Location': releaseUrl,
+			'Cache-Control': 'public, max-age=300, s-maxage=3600',
 		}
 	});
 }
