@@ -1,18 +1,28 @@
 // Build-time GitHub star count for the header pill. The literal used to be
 // hardcoded and drifted (it read 48k, then 57k, while the repo moved on), so
-// production builds ask the GitHub API once and fall back to the last known
-// value when the API is unreachable or rate-limited. Dev builds skip the
+// production builds ask the GitHub API once and fall back to the last verified
+// milestone when the API is unreachable or rate-limited. The floor also keeps
+// a stale response from moving the public count backward. Dev builds skip the
 // network entirely; nobody wants an API call per hot reload.
 
-const FALLBACK = '57k';
+export const STAR_COUNT_FLOOR = 64_000;
 let cached;
 
-function formatStars(count) {
+export function formatStars(count) {
   if (count < 1000) return String(count);
   const thousands = count / 1000;
   const label = thousands < 10 ? thousands.toFixed(1).replace(/\.0$/, '') : String(Math.round(thousands));
   return `${label}k`;
 }
+
+export function starsLabelForCount(count) {
+  const verifiedCount = typeof count === 'number' && Number.isFinite(count)
+    ? Math.max(count, STAR_COUNT_FLOOR)
+    : STAR_COUNT_FLOOR;
+  return formatStars(verifiedCount);
+}
+
+const FALLBACK = starsLabelForCount();
 
 export async function githubStarsLabel() {
   if (cached !== undefined) return cached;
@@ -28,7 +38,7 @@ export async function githubStarsLabel() {
     if (!response.ok) throw new Error(`github api ${response.status}`);
     const repo = await response.json();
     if (typeof repo.stargazers_count !== 'number') throw new Error('no stargazers_count');
-    cached = formatStars(repo.stargazers_count);
+    cached = starsLabelForCount(repo.stargazers_count);
   } catch {
     cached = FALLBACK;
   }
