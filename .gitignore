@@ -119,25 +119,35 @@ site/public/_routes.json
 site/public/js/detect-antipatterns-browser.js
 site/public/js/generated/
 
-# Harness skill directories are NOT tracked here (unlike the public repo,
-# where they're committed for npx-skills installs). The skill is owned by
-# pbakaus/impeccable; a local install lands as a machine-specific symlink
-# via `npx impeccable skills link --source=<checkout>`.
+# Harness distributions are NOT tracked here (unlike the public repo, where
+# they're committed for direct installs). Release-style skill builds may still
+# materialize them locally, so keep every generated provider shape out of this
+# site's worktree. The skill itself is owned by pbakaus/impeccable.
 #
 # `.claude/skills/*` rather than `.claude/skills/`, so git still descends into
 # the directory and the negation below can take effect: a skill this repo owns
 # and writes itself is tracked, while installed copies stay ignored.
+.agent/
 .claude/skills/*
 !.claude/skills/changelog/
-.cursor/skills/
+.claude/agents/
+.codex/
+.cursor/
 .gemini/skills/
 .agents/skills/
-
-# Codex CLI consumes `.agents/skills/`; the asset-producer subagent ships
-# nested inside that skill (agents/*.toml), auto-discovered on install.
-# The project-local hook manifest is the one tracked `.codex/` artifact.
-.codex/*
-!.codex/hooks.json
+.github/agents/
+.github/hooks/impeccable.json
+.github/skills/
+.grok/
+.hermes/
+.kiro/
+.opencode/
+.pi/
+.qoder/
+.rovodev/
+.trae-cn/
+.trae/
+.vibe/
 .astro/
 
 # Local-only scratch for exploratory scripts, parked pages, and unused asset candidates.

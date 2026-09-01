@@ -81,3 +81,17 @@ test('each catalog section states the number of rule cards it contains', () => {
   }
   assert.deepEqual(mismatches, []);
 });
+
+test('the catalog sidebar counts match their sections', () => {
+  const source = fs.readFileSync(new URL('../site/pages/slop/index.astro', import.meta.url), 'utf8');
+  const sectionCounts = new Map(
+    [...source.matchAll(/<section class="anti-patterns-section[^>]*" id="section-([^"]+)"[\s\S]*?anti-patterns-section-count">(\d+) rules?/g)]
+      .map((match) => [match[1], Number(match[2])]),
+  );
+  const sidebarCounts = new Map(
+    [...source.matchAll(/href="#section-([^"]+)"[^>]*><span>[^<]+<\/span><span class="anti-patterns-sidebar-count">(\d+)<\/span>/g)]
+      .map((match) => [match[1], Number(match[2])]),
+  );
+
+  assert.deepEqual(sidebarCounts, sectionCounts);
+});
