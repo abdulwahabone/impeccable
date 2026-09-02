@@ -8,11 +8,43 @@
       "reviewedAt": "2026-07-21T20:50:28.147Z",
       "formHash": "9ee954e794ff"
     },
+    "airbrushed-night-garden-stage-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:56.764Z",
+      "formHash": "d5fa631962a4",
+      "pro": true,
+      "rating": 2
+    },
+    "airbrushed-risograph-aura-poster-single": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:14.677Z",
+      "formHash": "8af10b496457",
+      "pro": true,
+      "rating": 2
+    },
     "animated-terminal-hero": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:22:58.548Z",
       "formHash": "0c1234261355"
+    },
+    "antiquarian-s-examination-table-seen": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:12.513Z",
+      "formHash": "05784a56c751",
+      "pro": true,
+      "rating": 1
+    },
+    "arcade-cabinet-marquee-screened-two": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:01.485Z",
+      "formHash": "26fc319a6e92",
+      "pro": true,
+      "rating": 2
     },
     "architecture-inhabitable-space-daylight-section": {
       "status": "approved",
@@ -61,11 +93,65 @@
       "reviewedAt": "2026-07-27T23:10:31.145Z",
       "formHash": "cea4f5770bb5"
     },
+    "aww-pavilion-route-band": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T21:19:33.677Z",
+      "formHash": "2fae8f25a964",
+      "note": "it's a complete failure. it looks absolutely nothing like the inspiration.  I expected a bubbly aesthetic close to the original (while not being an exact copy, of course), with interesting characters that are animated, a continous scroll path of sorts, rounded friendly shapes, colorful, etc... i got none of that."
+    },
+    "aww2-zoo-gardens-guide-map": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-07T17:47:28.657Z",
+      "formHash": "38f9a85fb54d",
+      "rating": 2
+    },
+    "balloon-ascent-panorama-painted-at": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:59.586Z",
+      "formHash": "f1b79df66643",
+      "pro": true,
+      "rating": 2
+    },
     "black-gold-augmentation": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:21:48.438Z",
       "formHash": "2bbe8208a852"
+    },
+    "blacklight-head-shop-poster-day": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:08.799Z",
+      "formHash": "c3c01bbf7ae4",
+      "pro": true,
+      "rating": 2
+    },
+    "botanical-engraver-s-night-proof": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:31.385Z",
+      "formHash": "8141718126a4",
+      "pro": true,
+      "rating": 2
+    },
+    "bottler-s-hoarding-painted-one": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:13.687Z",
+      "formHash": "956f057026c3",
+      "pro": true,
+      "rating": 2
+    },
+    "boutique-window-dressed-as-diagonal": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:52:41.253Z",
+      "formHash": "6ac0cb4af3f5",
+      "pro": true,
+      "rating": 2
     },
     "brand-identity-canon-allnighter-patch-lexicon": {
       "status": "rejected",
@@ -252,6 +338,22 @@
         "experience"
       ]
     },
+    "brush-ink-picture-book-spread": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:48.921Z",
+      "formHash": "8e3f5dd4f67f",
+      "pro": true,
+      "rating": 3
+    },
+    "chiaroscuro-still-life-staged-inside": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:41.548Z",
+      "formHash": "ede3a5e33522",
+      "pro": true,
+      "rating": 2
+    },
     "cinema-cinematography-editing-hand-processed-film-bloom": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -273,6 +375,13 @@
         "persuade",
         "experience"
       ]
+    },
+    "civic-bureau-prospectus-late-modern": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:16.506Z",
+      "formHash": "18d68f105a5f",
+      "rating": 2
     },
     "clay-ceramics-fracture-celadon-ice-crackle": {
       "status": "rejected",
@@ -363,6 +472,21 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:25:49.996Z",
       "formHash": "2b49c25232c2"
+    },
+    "co-operative-workshop-noticeboard-rendered": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:32.653Z",
+      "formHash": "501bcafd3482",
+      "note": "too boring after all"
+    },
+    "coach-s-chalkboard-hung-beside": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:58.821Z",
+      "formHash": "84d59ac84ab6",
+      "pro": true,
+      "rating": 2
     },
     "cooper-information-landscape": {
       "status": "rejected",
@@ -508,6 +632,45 @@
         "persuade",
         "experience"
       ]
+    },
+    "dark-field-studio-table-machined": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:45.787Z",
+      "formHash": "1563e6d73b19",
+      "pro": true,
+      "rating": 1
+    },
+    "darkroom-product-plate-precision-control": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:42.696Z",
+      "formHash": "bfa60daf9952",
+      "pro": true,
+      "rating": 2
+    },
+    "demoscene-disk-magazine-title-screen": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:03.172Z",
+      "formHash": "ae71b0d1e5dc",
+      "pro": true,
+      "rating": 3
+    },
+    "department-store-catalogue-plate-blown": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:06.498Z",
+      "formHash": "6e7a711d6a7c",
+      "pro": true,
+      "rating": 2
+    },
+    "design-annual-s-plate-section": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:01.261Z",
+      "formHash": "7ece64837fbd",
+      "rating": 2
     },
     "design-canon-after-hours-galleria": {
       "status": "rejected",
@@ -761,10 +924,12 @@
       ]
     },
     "design-canon-manueline-maritime-ornament": {
-      "status": "rejected",
+      "status": "approved",
       "reviewedBy": "pbakaus",
-      "reviewedAt": "2026-07-27T02:02:59.720Z",
-      "formHash": "2a918023b840"
+      "reviewedAt": "2026-08-05T01:57:48.545Z",
+      "formHash": "2a918023b840",
+      "breadth": "niche",
+      "rating": 2
     },
     "design-canon-memphis-showroom-morning": {
       "status": "approved",
@@ -876,10 +1041,15 @@
       "formHash": "2b5346ae95a6"
     },
     "design-canon-precisionist-industrial-plate": {
-      "status": "rejected",
+      "status": "approved",
       "reviewedBy": "pbakaus",
-      "reviewedAt": "2026-07-27T02:02:43.850Z",
-      "formHash": "efee7909282c"
+      "reviewedAt": "2026-08-05T01:57:30.319Z",
+      "formHash": "efee7909282c",
+      "allowedModes": [
+        "operate",
+        "read"
+      ],
+      "rating": 1
     },
     "design-canon-punk-pasteup-table": {
       "status": "approved",
@@ -1035,6 +1205,14 @@
         "experience"
       ]
     },
+    "die-cut-sticker-sheet-peeled": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:04.012Z",
+      "formHash": "53ac55114dba",
+      "pro": true,
+      "rating": 3
+    },
     "digital-design-canon-antialiased-racing-league": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -1104,10 +1282,11 @@
       "formHash": "3b029bbeb0ec"
     },
     "digital-design-canon-console-dashboard-atmosphere": {
-      "status": "rejected",
+      "status": "approved",
       "reviewedBy": "pbakaus",
-      "reviewedAt": "2026-07-20T17:08:20.460Z",
-      "formHash": "6364dec2bc9e"
+      "reviewedAt": "2026-08-05T01:58:34.513Z",
+      "formHash": "6364dec2bc9e",
+      "rating": 2
     },
     "digital-design-canon-dark-first-developer-console": {
       "status": "approved",
@@ -1497,6 +1676,14 @@
         "experience"
       ]
     },
+    "dusk-travel-poster-gouache-its": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:44.985Z",
+      "formHash": "49e54c68e281",
+      "pro": true,
+      "rating": 2
+    },
     "earth-water-worlds-banded-agate-slice": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -1548,6 +1735,19 @@
         "read",
         "experience"
       ]
+    },
+    "fairground-lot-sale-broadside-pasted": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:12.945Z",
+      "formHash": "9f79ff741490",
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ],
+      "pro": true,
+      "rating": 2
     },
     "fashion-folded-worlds-adire-eleko-resist": {
       "status": "rejected",
@@ -1653,6 +1853,18 @@
       "formHash": "b30ca219f1c6",
       "rating": 1,
       "breadth": "niche"
+    },
+    "fly-posted-festival-hoarding-built": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:00.426Z",
+      "formHash": "4ec124b59cf2",
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ],
+      "rating": 3
     },
     "food-fermentation-culinary-theater-pickling-brine-calendar": {
       "status": "approved",
@@ -1789,6 +2001,14 @@
       "reviewedAt": "2026-07-21T01:31:16.970Z",
       "formHash": "91e17131f456",
       "note": "a bit too gimmicky / confusing"
+    },
+    "gouache-still-life-vignette-from": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:39.404Z",
+      "formHash": "fbd916169b20",
+      "pro": true,
+      "rating": 1
     },
     "graphic-worlds-publishing-album-leaf-and-seal": {
       "status": "rejected",
@@ -1935,6 +2155,38 @@
         "experience"
       ]
     },
+    "hand-painted-stage-flat-single": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:33.546Z",
+      "formHash": "8c2b67a7e527",
+      "pro": true,
+      "rating": 2
+    },
+    "hand-tinted-botanical-plate-floated": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:58.427Z",
+      "formHash": "fe95424077bd",
+      "pro": true,
+      "rating": 2
+    },
+    "hazard-yellow-product-plate-from": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:04.837Z",
+      "formHash": "6bc58cfa3fda",
+      "pro": true,
+      "rating": 2
+    },
+    "hazed-black-box-stage-lit": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:43.483Z",
+      "formHash": "d455ccbfadff",
+      "pro": true,
+      "rating": 2
+    },
     "highlife-sleeve": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -1968,7 +2220,8 @@
       "allowedModes": [
         "persuade",
         "experience"
-      ]
+      ],
+      "pro": true
     },
     "ink-pigment-printmaking-handscroll-and-seal": {
       "status": "rejected",
@@ -2010,6 +2263,18 @@
         "persuade",
         "experience"
       ]
+    },
+    "isometric-axonometric-diorama-city-stacked": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:05.548Z",
+      "formHash": "3889cbb1b0d4",
+      "allowedModes": [
+        "persuade",
+        "experience"
+      ],
+      "pro": true,
+      "rating": 2
     },
     "isotype-quantity-atlas": {
       "status": "rejected",
@@ -2088,6 +2353,35 @@
         "operate",
         "experience"
       ]
+    },
+    "late-modern-letterpress-broadside-compressed": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:55.619Z",
+      "formHash": "892c62208268",
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ],
+      "pro": true,
+      "rating": 2
+    },
+    "late-night-station-identification-bumper": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:50.564Z",
+      "formHash": "1f5947305eb2",
+      "pro": true,
+      "rating": 2
+    },
+    "letterboxed-key-art-title-card": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:32.467Z",
+      "formHash": "dbd7b733f544",
+      "pro": true,
+      "rating": 3
     },
     "light-shadow-caustics-indoor-weather-sun": {
       "status": "approved",
@@ -2398,12 +2692,52 @@
       "reviewedAt": "2026-07-20T22:39:16.440Z",
       "formHash": "8fc97c9c3397"
     },
+    "mid-century-soda-fountain-product": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:56.676Z",
+      "formHash": "2e40615cf5af",
+      "pro": true,
+      "rating": 2
+    },
+    "midnight-attraction-card-for-travelling": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:56.011Z",
+      "formHash": "bbf085234326",
+      "pro": true,
+      "rating": 2
+    },
+    "midnight-tarot-back-plate-cream": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:07.514Z",
+      "formHash": "33406dd86fed",
+      "pro": true,
+      "rating": 2
+    },
     "molnar-plotter-suite": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T20:52:38.545Z",
       "formHash": "4e9f2023cd6a",
       "note": "a bit too basic"
+    },
+    "moonlit-matte-painting-title-card": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:30.141Z",
+      "formHash": "96d03cf318a3",
+      "pro": true,
+      "rating": 2
+    },
+    "museum-specimen-board-laid-out": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:27.681Z",
+      "formHash": "bc7402708de5",
+      "pro": true,
+      "rating": 2
     },
     "music-rhythm-sound-resonance-harmonic-lantern-field": {
       "status": "rejected",
@@ -2435,6 +2769,22 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-21T21:51:03.436Z",
       "formHash": "7ef21bacd221"
+    },
+    "night-sky-trade-poster-for": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:54.337Z",
+      "formHash": "6e79f60678a2",
+      "pro": true,
+      "rating": 2
+    },
+    "nocturne-interior-tableau-kind-staged": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:23.331Z",
+      "formHash": "53c1f3130552",
+      "pro": true,
+      "rating": 2
     },
     "notation-diagram-systems-adinkra-symbol-cloth": {
       "status": "rejected",
@@ -2540,6 +2890,134 @@
       "formHash": "59a78bf5fef7",
       "note": "we have a route map already somewhere"
     },
+    "operate-a-calibre-interchange-sheet": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:25:40.294Z",
+      "formHash": "84bf2661c509",
+      "note": "imo, we have a  lot of similar worlds that look a bit like tinted paper with some double lines or something like that segmenting them. there's nothing that makes this one particularly interesting."
+    },
+    "operate-a-cutting-bench-select-rail": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:26:34.145Z",
+      "formHash": "df92a7c50295",
+      "rating": 2
+    },
+    "operate-a-insert-lamp-ladder": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:28:41.783Z",
+      "formHash": "ad82a3be276d",
+      "note": "some of the design language is neat, but it's way too heavily influenced by specific objects that must be on screen"
+    },
+    "operate-a-jacquard-card-chain-deck": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:26:14.165Z",
+      "formHash": "ce8a1ff9c9c9",
+      "note": "this is way too extremely skeuomorphic"
+    },
+    "operate-a-mimic-fascia": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:28:03.926Z",
+      "formHash": "223172fbb1ce",
+      "note": "this is just too strange, all over the place"
+    },
+    "operate-a-tally-bus-gallery": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:27:32.324Z",
+      "formHash": "b5044f3c8f0e",
+      "note": "gpt-image-2 loves screws to begin with, and imo more screws will not help. the rest is pretty good"
+    },
+    "operate-b-bridge-watch-log-monitor": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:54:49.915Z",
+      "formHash": "35cef42e896a",
+      "note": "also not a particularly interesting world"
+    },
+    "operate-b-caret-chart-queue": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:54:33.257Z",
+      "formHash": "bb7095d035e3",
+      "note": "there's nothing interesting about this world"
+    },
+    "operate-b-die-struck-enamel-plate": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:54:15.052Z",
+      "formHash": "c8b89b60347f",
+      "note": "this is interesting but doesn't quite work - don't read too much into it, might be an exception"
+    },
+    "operate-b-exposure-record-zone-sheets": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:53:27.109Z",
+      "formHash": "6fac7c389697",
+      "note": "borderline, but approved",
+      "rating": 1
+    },
+    "operate-b-normalled-jackfield": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:55:41.788Z",
+      "formHash": "3e1a84436c05",
+      "rating": 1
+    },
+    "operate-b-struck-cathode-gauze": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T23:55:22.908Z",
+      "formHash": "74c5b49fd47a",
+      "rating": 1
+    },
+    "operate-c-cracktro-scroller-queue": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T01:24:42.008Z",
+      "formHash": "8f3f1f607926",
+      "rating": 2
+    },
+    "operate-c-depot-blind-courses": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T01:24:57.459Z",
+      "formHash": "a753552e3525",
+      "rating": 1
+    },
+    "operate-c-emission-line-rail": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T01:25:09.039Z",
+      "formHash": "d4f4c0dd718c",
+      "rating": 1
+    },
+    "operate-c-greenbar-result-rail": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T01:24:31.966Z",
+      "formHash": "e9c505d167a1",
+      "note": "this looks pretty clean, but it's just way too monocolored"
+    },
+    "operate-c-selection-strip-rack": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T01:23:59.289Z",
+      "formHash": "11c5a259bf3e",
+      "note": "doesn't quite come together as a world"
+    },
+    "overhead-produce-still-life-seamless": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:43.544Z",
+      "formHash": "4fbe683a1bbc",
+      "pro": true,
+      "rating": 2
+    },
     "painted-ledger-dialogue": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -2583,11 +3061,27 @@
       "formHash": "45179e408ffa",
       "rating": 3
     },
+    "patent-draughtsman-s-plate-held": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:52:52.580Z",
+      "formHash": "009511561a4f",
+      "pro": true,
+      "rating": 2
+    },
     "performance-spectacle-pardeh-storyteller-canvas": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-28T02:29:29.837Z",
       "formHash": "3eddde5b341b"
+    },
+    "photomontage-plate-pulled-for-modernist": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:58.036Z",
+      "formHash": "d0e707fbcf11",
+      "pro": true,
+      "rating": 2
     },
     "pintori-olivetti-poster": {
       "status": "rejected",
@@ -2595,6 +3089,14 @@
       "reviewedAt": "2026-07-21T20:51:09.511Z",
       "formHash": "3120fdc94201",
       "note": "doesn't translate that well into a visual system"
+    },
+    "pistachio-paper-atelier-lookbook-grotesk": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:18.323Z",
+      "formHash": "fa05b94bce4b",
+      "pro": true,
+      "rating": 2
     },
     "pop-culture-shelf-acid-rave-flyer": {
       "status": "rejected",
@@ -3410,16 +3912,22 @@
       "rating": 3,
       "allowedModes": [
         "persuade",
-        "read",
         "experience"
-      ]
+      ],
+      "readAuditNote": "too gimmicky for read, works really well as persuade"
     },
     "posters-covers-sleeves-festival-lineup-poster": {
       "status": "approved",
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-27T22:55:20.711Z",
       "formHash": "28661f2469ea",
-      "rating": 2
+      "rating": 2,
+      "allowedModes": [
+        "persuade",
+        "operate",
+        "experience"
+      ],
+      "readAuditNote": "all-caps body does not work at length"
     },
     "posters-covers-sleeves-fight-poster": {
       "status": "approved",
@@ -3429,9 +3937,9 @@
       "rating": 2,
       "allowedModes": [
         "persuade",
-        "read",
         "experience"
-      ]
+      ],
+      "readAuditNote": "borderline, cut from read"
     },
     "posters-covers-sleeves-fillmore-handbill": {
       "status": "approved",
@@ -3446,10 +3954,11 @@
       ]
     },
     "posters-covers-sleeves-flash-scrawl-club-sleeve": {
-      "status": "rejected",
+      "status": "approved",
       "reviewedBy": "pbakaus",
-      "reviewedAt": "2026-07-26T01:16:33.352Z",
-      "formHash": "c86f7eca7d10"
+      "reviewedAt": "2026-08-05T01:52:58.736Z",
+      "formHash": "c86f7eca7d10",
+      "rating": 1
     },
     "posters-covers-sleeves-hand-painted-ghana-film-poster": {
       "status": "approved",
@@ -3524,11 +4033,16 @@
       ]
     },
     "posters-covers-sleeves-museum-exhibition-identity": {
-      "status": "rejected",
+      "status": "approved",
       "reviewedBy": "pbakaus",
-      "reviewedAt": "2026-07-27T22:55:56.513Z",
+      "reviewedAt": "2026-08-05T01:53:35.448Z",
       "formHash": "e85e93773d64",
-      "note": "a bit too simple, the models would get there on their own"
+      "note": "a bit too simple, the models would get there on their own",
+      "allowedModes": [
+        "read",
+        "experience"
+      ],
+      "rating": 1
     },
     "posters-covers-sleeves-noir-one-sheet-duotone": {
       "status": "approved",
@@ -3591,10 +4105,14 @@
       "formHash": "18a0c12beaac"
     },
     "posters-covers-sleeves-plakatstil-object-poster": {
-      "status": "rejected",
+      "status": "approved",
       "reviewedBy": "pbakaus",
-      "reviewedAt": "2026-07-26T02:19:23.206Z",
-      "formHash": "f6bed52b6ae3"
+      "reviewedAt": "2026-08-05T01:52:40.494Z",
+      "formHash": "f6bed52b6ae3",
+      "allowedModes": [
+        "read"
+      ],
+      "rating": 1
     },
     "posters-covers-sleeves-polish-film-poster": {
       "status": "approved",
@@ -3710,7 +4228,8 @@
       "allowedModes": [
         "persuade",
         "experience"
-      ]
+      ],
+      "pro": true
     },
     "posters-covers-sleeves-taller-grafica-linocut": {
       "status": "approved",
@@ -3781,6 +4300,22 @@
       "formHash": "a3ddf4d902ed",
       "rating": 2
     },
+    "pressed-paper-studio-moodboard-photographic": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:07.862Z",
+      "formHash": "89c63598bdd0",
+      "pro": true,
+      "rating": 3
+    },
+    "printed-tin-label-plate-scaled": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:06.022Z",
+      "formHash": "39b20dbeb8df",
+      "pro": true,
+      "rating": 2
+    },
     "reefs-bioluminescent-nocturnal-chromatophore-skin-language": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -3808,6 +4343,14 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-20T22:30:47.551Z",
       "formHash": "4171d1bd201b"
+    },
+    "rendered-night-plaza-staged-as": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:07.049Z",
+      "formHash": "3de8ebf41812",
+      "pro": true,
+      "rating": 1
     },
     "risograph-web-system": {
       "status": "approved",
@@ -3863,6 +4406,83 @@
       "formHash": "4f4fc26744fe",
       "rating": 2
     },
+    "roadside-guide-sign-board-multiplied": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:12.712Z",
+      "formHash": "361e5bf4df5d",
+      "pro": true,
+      "rating": 1
+    },
+    "rw-botteghe-quarterly-interior": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:13:54.137Z",
+      "formHash": "9edd90c01e2f",
+      "allowedModes": [
+        "read"
+      ],
+      "rating": 2
+    },
+    "rw-boxed-manual-colour-tab-page": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:16:03.941Z",
+      "formHash": "92ab730aac52"
+    },
+    "rw-broadsheet-leader-flat": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:14:31.824Z",
+      "formHash": "d769cbd17269"
+    },
+    "rw-centre-rail-reference-setting": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:13:41.023Z",
+      "formHash": "d03be6dd119c",
+      "rating": 2
+    },
+    "rw-copy-shop-zine-interior": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:15:37.254Z",
+      "formHash": "e12c683b8870",
+      "rating": 1
+    },
+    "rw-feelie-handbook-lightplate": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:15:51.986Z",
+      "formHash": "042d5a6ef757"
+    },
+    "rw-lexicon-shoulder-and-plate": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:14:19.840Z",
+      "formHash": "9572496a209a",
+      "rating": 1
+    },
+    "rw-manual-acetate-tab-board": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:14:05.267Z",
+      "formHash": "b8202ad4fb6a",
+      "rating": 2
+    },
+    "rw-stitch-grammar-terrain": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:15:08.200Z",
+      "formHash": "fcbbeb558a70"
+    },
+    "rw-timetable-slide-rack": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-04T17:14:52.653Z",
+      "formHash": "1e0e01d66ccc",
+      "rating": 2
+    },
     "scientific-notation-oscilloscope-signal-bench": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -3891,6 +4511,27 @@
       "reviewedBy": "pbakaus",
       "reviewedAt": "2026-07-22T07:22:48.917Z",
       "formHash": "6f03bcf033f0"
+    },
+    "sd-lobed-field-cast": {
+      "status": "rejected",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-07T17:48:00.854Z",
+      "formHash": "07d37c8985f5"
+    },
+    "sd-seedbed-lobes": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-07T17:47:57.173Z",
+      "formHash": "035261356598",
+      "rating": 2
+    },
+    "ship-bottle-diorama-photographed-seamless": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:21.457Z",
+      "formHash": "a01a3aa7c9ba",
+      "pro": true,
+      "rating": 2
     },
     "signals-instruments-darkroom-safelight-bay": {
       "status": "approved",
@@ -4043,6 +4684,38 @@
         "experience"
       ]
     },
+    "silkscreened-resort-placard-flat-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:06.247Z",
+      "formHash": "abacfad787c6",
+      "pro": true,
+      "rating": 2
+    },
+    "single-flood-colour-transit-safety": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:10.493Z",
+      "formHash": "697068aca359",
+      "pro": true,
+      "rating": 1
+    },
+    "single-plate-risograph-fly-poster": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:44.278Z",
+      "formHash": "ea40ce87602a",
+      "pro": true,
+      "rating": 3
+    },
+    "soft-lit-render-studio-tableau": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:53.736Z",
+      "formHash": "08dadc4bef5e",
+      "pro": true,
+      "rating": 1
+    },
     "stagecraft-theater-lighting-cyclorama-dawn": {
       "status": "approved",
       "reviewedBy": "pbakaus",
@@ -4050,11 +4723,65 @@
       "formHash": "b15be17ef77a",
       "rating": 3
     },
-    "studio-dumbar-identity": {
-      "status": "rejected",
+    "station-s-daily-transmission-sheet": {
+      "status": "approved",
       "reviewedBy": "pbakaus",
-      "reviewedAt": "2026-07-22T07:21:10.854Z",
-      "formHash": "ab066d6d28da"
+      "reviewedAt": "2026-08-09T23:54:38.558Z",
+      "formHash": "e8ab72e8e711",
+      "pro": true,
+      "rating": 1
+    },
+    "sticker-sheet-garden-cut-paper": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:50.610Z",
+      "formHash": "53d4eac52faa",
+      "pro": true,
+      "rating": 3
+    },
+    "studio-dumbar-identity": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-05T02:01:19.063Z",
+      "formHash": "ab066d6d28da",
+      "rating": 2
+    },
+    "studio-equipment-catalogue-plate-shot": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:29.174Z",
+      "formHash": "4572258d1b9e",
+      "pro": true,
+      "rating": 2
+    },
+    "studio-pin-wall-assembled-from": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:47.331Z",
+      "formHash": "0aa2be392e8c",
+      "pro": true,
+      "rating": 2
+    },
+    "surrealist-levitation-plate-ordinary-objects": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:19.223Z",
+      "formHash": "c365c8aa9cbf",
+      "pro": true,
+      "rating": 2
+    },
+    "swiss-modern-exhibition-wall-panel": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:52:57.171Z",
+      "formHash": "285ba72b7d5d",
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ],
+      "pro": true,
+      "rating": 2
     },
     "tabular-fintech-typographic": {
       "status": "rejected",
@@ -4199,6 +4926,38 @@
         "experience"
       ]
     },
+    "three-ink-risograph-poster-heap": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:08.093Z",
+      "formHash": "80fa9f63671b",
+      "pro": true,
+      "rating": 2
+    },
+    "two-colour-screenprinted-civic-broadside": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:11.707Z",
+      "formHash": "66733084a516",
+      "pro": true,
+      "rating": 1
+    },
+    "two-ink-freight-timetable-jacket": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:35.009Z",
+      "formHash": "f346379e3a51",
+      "pro": true,
+      "rating": 1
+    },
+    "two-ink-harbour-nocturne-lithographed": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:55:02.444Z",
+      "formHash": "614bad435873",
+      "pro": true,
+      "rating": 3
+    },
     "typography-calligraphy-writing-copperplate-pressure-ribbon": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -4310,10 +5069,11 @@
       ]
     },
     "vernacular-ephemera-calendar-pinup-pad": {
-      "status": "rejected",
+      "status": "approved",
       "reviewedBy": "pbakaus",
-      "reviewedAt": "2026-07-25T01:34:36.834Z",
-      "formHash": "10b61d8874f1"
+      "reviewedAt": "2026-08-05T02:02:15.952Z",
+      "formHash": "10b61d8874f1",
+      "rating": 1
     },
     "vernacular-ephemera-cancellation-stamp-album": {
       "status": "approved",
@@ -4452,11 +5212,17 @@
       ]
     },
     "vernacular-ephemera-layered-sticker-accretion": {
-      "status": "rejected",
+      "status": "approved",
       "reviewedBy": "pbakaus",
-      "reviewedAt": "2026-07-27T02:09:20.683Z",
+      "reviewedAt": "2026-08-05T02:02:50.721Z",
       "formHash": "6c6d8ba7ef8b",
-      "note": "too busy / confusing"
+      "note": "too busy / confusing",
+      "allowedModes": [
+        "persuade",
+        "read",
+        "experience"
+      ],
+      "rating": 2
     },
     "vernacular-ephemera-library-due-date-card": {
       "status": "approved",
@@ -4627,6 +5393,22 @@
       "reviewedAt": "2026-07-28T02:20:00.533Z",
       "formHash": "db7be2ebab2f"
     },
+    "warm-ground-exhibition-campaign-kit": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:52.086Z",
+      "formHash": "0f6244855f06",
+      "pro": true,
+      "rating": 1
+    },
+    "warm-ground-plate-from-mid": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:53:08.868Z",
+      "formHash": "21b20a7bece2",
+      "pro": true,
+      "rating": 2
+    },
     "wayfinding-cartography-signage-emergency-light-braid": {
       "status": "rejected",
       "reviewedBy": "pbakaus",
@@ -4660,9 +5442,9 @@
       "rating": 3,
       "allowedModes": [
         "persuade",
-        "read",
         "experience"
-      ]
+      ],
+      "readAuditNote": "reads as a document but not for more than a few minutes"
     },
     "wayfinding-cartography-signage-terminal-yellow-wayfinding": {
       "status": "approved",
@@ -4681,6 +5463,22 @@
         "persuade",
         "experience"
       ]
+    },
+    "wimmelbild-fold-out-panorama-mitgutsch": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:39.884Z",
+      "formHash": "08f6da99fbc3",
+      "pro": true,
+      "rating": 2
+    },
+    "workshop-open-day-broadside-pinned": {
+      "status": "approved",
+      "reviewedBy": "pbakaus",
+      "reviewedAt": "2026-08-09T23:54:26.331Z",
+      "formHash": "e9336fad01ef",
+      "pro": true,
+      "rating": 2
     }
   }
 }
