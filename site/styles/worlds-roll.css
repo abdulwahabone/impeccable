@@ -1,5 +1,5 @@
 /*
- * Worlds section — the live roll on the homepage.
+ * Worlds section: the live roll on the homepage.
  *
  * One coherent moment: six flagship worlds dealt onto the table with a
  * slight fan, Neo Mirai pinned beside them as the played card. Deal-in and
@@ -68,16 +68,13 @@
 	gap: 16px;
 }
 
+/* Zone labels are small text, so they take the text-safe patina, not gold. */
 .worlds-zone-label {
 	font-family: var(--ks-mono);
 	font-size: 0.625rem;
 	letter-spacing: 0.28em;
 	text-transform: uppercase;
-	color: var(--ks-kinpaku);
-}
-
-.worlds-played-zone > .worlds-zone-label {
-	color: var(--ks-patina);
+	color: var(--ks-state-ink);
 }
 
 /* ============================================================
@@ -98,10 +95,10 @@
 .worlds-card {
 	position: relative;
 	overflow: hidden;
-	background: var(--ks-lacquer-raised);
+	background: var(--ks-paper-raised);
 	border: 1px solid var(--ks-rule);
-	border-radius: 10px;
-	box-shadow: 0 18px 40px oklch(0% 0 0 / 0.35);
+	border-radius: var(--ks-radius-md);
+	box-shadow: var(--ks-lift-2);
 	transform: rotate(var(--fan, 0deg));
 }
 
@@ -112,18 +109,18 @@
 	aspect-ratio: 16 / 9;
 	object-fit: cover;
 	/* Same shimmer as the skeletons: the art area reads as loading, not as a
-	   black void, while a slow render decodes. */
+	   void, while a slow render decodes. */
 	background:
-		linear-gradient(100deg, var(--ks-graphite) 35%, var(--ks-graphite-2) 50%, var(--ks-graphite) 65%);
+		linear-gradient(100deg, var(--ks-gray) 35%, var(--ks-gray-2) 50%, var(--ks-gray) 65%);
 	background-size: 220% 100%;
 	animation: worlds-shimmer 1.4s linear infinite;
 }
 
 /* Once the render arrives (or definitively fails) the shimmer stops; a failed
-   card settles on flat graphite and the browser's alt text names the world. */
+   card settles on flat gray and the browser's alt text names the world. */
 .worlds-card.is-loaded img,
 .worlds-card.is-missing img {
-	background: var(--ks-graphite);
+	background: var(--ks-gray);
 	background-size: auto;
 	animation: none;
 }
@@ -154,7 +151,7 @@
 	font-weight: 600;
 	line-height: 1.15;
 	letter-spacing: 0.01em;
-	color: var(--ks-champagne);
+	color: var(--ks-ink);
 }
 
 /* Spark: the world's one-line scene, revealed over the art on hover.
@@ -167,9 +164,8 @@
    own `aspect-ratio` makes the overlay cover exactly the art region, so it
    lands on the art/caption seam and is the same size on every card.
 
-   Colors are fixed rather than themed. The scrim is always dark, so --ks-text
-   (near-white on lacquer, near-black on paper) rendered as 25% ink on a 7%
-   scrim in light mode. */
+   Colors are fixed rather than themed: the scrim sits on the world's own art,
+   which is always the world's design, never the page's. */
 .worlds-card-spark {
 	position: absolute;
 	top: 0;
@@ -181,11 +177,11 @@
 	padding: 14px;
 	font-size: 0.875rem;
 	line-height: 1.5;
-	color: oklch(95% 0.008 90);
+	color: oklch(95% 0 0);
 	background: linear-gradient(
 		to top,
-		oklch(7% 0.006 95 / 0.94),
-		oklch(7% 0.006 95 / 0.74)
+		oklch(7% 0 0 / 0.94),
+		oklch(7% 0 0 / 0.74)
 	);
 	opacity: 0;
 	transition: opacity 0.25s ease;
@@ -204,7 +200,7 @@
 
 	.worlds-card:hover {
 		transform: rotate(0deg) translateY(-5px);
-		border-color: var(--ks-kinpaku-deep);
+		border-color: var(--ks-edge);
 	}
 }
 
@@ -224,7 +220,7 @@
 	}
 
 	.worlds-card.is-dealt,
-	.worlds-card--skeleton {
+.worlds-card--skeleton {
 		opacity: 1;
 	}
 
@@ -254,7 +250,7 @@
 .worlds-skeleton-line {
 	display: block;
 	height: 10px;
-	border-radius: 4px;
+	border-radius: var(--ks-radius-sm);
 }
 
 .worlds-skeleton-line--tier { width: 38%; }
@@ -264,9 +260,9 @@
 .worlds-skeleton-line {
 	background: linear-gradient(
 		100deg,
-		var(--ks-graphite) 35%,
-		var(--ks-graphite-2) 50%,
-		var(--ks-graphite) 65%
+		var(--ks-gray) 35%,
+		var(--ks-gray-2) 50%,
+		var(--ks-gray) 65%
 	);
 	background-size: 220% 100%;
 	animation: worlds-shimmer 1.4s linear infinite;
@@ -279,8 +275,8 @@
 
 @media (prefers-reduced-motion: reduce) {
 	.worlds-skeleton-media,
-	.worlds-skeleton-line,
-	.worlds-card img {
+.worlds-skeleton-line,
+.worlds-card img {
 		animation: none;
 	}
 }
@@ -308,18 +304,18 @@
 	font-size: 0.72rem;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
-	color: var(--ks-kinpaku);
+	color: var(--ks-link-on-paper);
 	background: transparent;
-	border: 1px solid var(--ks-rule);
-	border-radius: 6px;
+	border: 1px solid var(--ks-edge);
+	border-radius: var(--ks-radius-md);
 	cursor: pointer;
 	transition: border-color 0.2s ease, color 0.2s ease;
 }
 
 .worlds-reroll:hover:not(:disabled),
 .worlds-reroll:focus-visible {
-	color: var(--ks-kinpaku-pale);
-	border-color: var(--ks-kinpaku-deep);
+	color: var(--ks-link-on-paper-hover);
+	border-color: var(--ks-patina);
 }
 
 .worlds-reroll:disabled {
@@ -375,28 +371,24 @@
 }
 
 /* ============================================================
-   The played card: Neo Mirai, committed and built.
+   The played card: Neo Mirai, committed and built. The one gold
+   on the table is its hairline frame.
    ============================================================ */
 
 .worlds-played-card {
 	position: relative;
 	display: block;
 	overflow: hidden;
-	background: var(--ks-lacquer-raised);
-	border: 1px solid var(--ks-kinpaku-deep);
-	border-radius: 10px;
-	box-shadow:
-		0 0 0 1px oklch(84% 0.19 80.46 / 0.14),
-		0 22px 48px oklch(0% 0 0 / 0.4);
+	background: var(--ks-paper-raised);
+	border: 1px solid var(--ks-gold-line);
+	border-radius: var(--ks-radius-md);
+	box-shadow: var(--ks-lift-2);
 	text-decoration: none;
 	transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 
 .worlds-played-card:hover {
 	transform: translateY(-5px);
-	box-shadow:
-		0 0 0 1px oklch(84% 0.19 80.46 / 0.28),
-		0 26px 56px oklch(0% 0 0 / 0.45);
 }
 
 .worlds-played-chip {
@@ -409,9 +401,10 @@
 	font-size: 0.625rem;
 	letter-spacing: 0.24em;
 	text-transform: uppercase;
-	color: var(--ks-dark-ink);
-	background: var(--ks-kinpaku);
-	border-radius: 4px;
+	color: var(--ks-ink);
+	background: var(--ks-paper-raised);
+	border: 1px solid var(--ks-rule);
+	border-radius: var(--ks-radius-sm);
 }
 
 .worlds-played-card img {
@@ -421,9 +414,9 @@
 	aspect-ratio: 16 / 10;
 	object-fit: cover;
 	object-position: top;
-	/* Graphite ground while the fold render loads, so the gold-framed card
-	   never presents an empty black window. */
-	background: var(--ks-graphite);
+	/* Gray ground while the fold render loads, so the framed card never
+	   presents an empty window. */
+	background: var(--ks-gray);
 }
 
 .worlds-played-caption {
@@ -439,7 +432,7 @@
 	font-size: 1.5rem;
 	font-weight: 600;
 	line-height: 1.1;
-	color: var(--ks-champagne);
+	color: var(--ks-ink);
 }
 
 .worlds-played-caption > span:not(.worlds-played-cta) {
@@ -454,7 +447,7 @@
 	font-size: 0.625rem;
 	letter-spacing: 0.22em;
 	text-transform: uppercase;
-	color: var(--ks-kinpaku);
+	color: var(--ks-state-ink);
 }
 
 .worlds-played-meta {
@@ -470,55 +463,34 @@
 }
 
 .worlds-played-meta a:hover {
-	color: var(--ks-kinpaku);
+	color: var(--ks-link-on-paper-hover);
 }
 
 /* ============================================================
    The Pro whisper. One line under the table, weighted like a
    footnote: Pro has no date and no price yet, so it must not
    read as loud as the worlds it is talking about.
-   ============================================================ */
-
-/* Both themes live in this file rather than in light-mode.css, the way
-   home-refresh.css handles its own light rules. A light override placed in
-   light-mode.css loses to these selectors in practice despite scoring higher,
-   so keeping the pair adjacent makes the winner obvious and order-determined.
 
    `.home-kinpaku p` and `.home-kinpaku a { color: inherit }` are both (0,1,1),
-   so every rule here needs the .home-kinpaku prefix to land at all. */
+   so every rule here needs the .home-kinpaku prefix to land at all. Quiet is
+   a size and weight decision, not a contrast one: text-faint sits just under
+   AA at 13px, so the line takes text-muted.
+   ============================================================ */
+
 .home-kinpaku .worlds-psst {
 	margin-top: 34px;
 	font-size: 0.8125rem;
-	color: var(--ks-text-faint);
-}
-
-/* text-faint sits at 4.41:1 on paper, just under AA for 13px, so paper steps up
-   one stop. Dark mode already clears it at 5.7:1. */
-html.light .home-kinpaku .worlds-psst {
 	color: var(--ks-text-muted);
 }
 
-/* kinpaku-deep (61%) only reaches 3.5:1 against the lacquer, so the link takes
-   the richer gold. Quiet is a size and weight decision here, not a contrast one:
-   a 13px link still has to be readable. */
 .home-kinpaku .worlds-psst a {
-	color: var(--ks-kinpaku-rich);
+	color: var(--ks-link-on-paper);
 	text-decoration: none;
 	border-bottom: 1px solid transparent;
 	transition: color 180ms var(--ks-ease, ease), border-color 180ms var(--ks-ease, ease);
 }
 
 .home-kinpaku .worlds-psst a:hover {
-	color: var(--ks-kinpaku);
-	border-bottom-color: var(--ks-kinpaku-deep);
-}
-
-/* Fill gold is for fills on paper, never text: patina is the link color there. */
-html.light .home-kinpaku .worlds-psst a {
-	color: var(--ks-link-on-paper);
-}
-
-html.light .home-kinpaku .worlds-psst a:hover {
 	color: var(--ks-link-on-paper-hover);
 	border-bottom-color: var(--ks-link-on-paper-line);
 }
@@ -562,76 +534,4 @@ html.light .home-kinpaku .worlds-psst a:hover {
 		flex-wrap: wrap;
 	}
 
-}
-
-/* ---------------------------------------------------------------------------
-   Light mode: lift the shadows off the paper.
-
-   The dealt cards and the played card carry a 35-45% pure-black drop shadow,
-   which is right on the lacquer ground and far too heavy on cream. Light mode
-   elsewhere on the site uses a warm ink tint at 0.08-0.14 alpha, so match that
-   and shorten the blur; the border and the card art carry the edge here, the
-   shadow only needs to seat them.
-   --------------------------------------------------------------------------- */
-
-html.light .home-kinpaku .worlds-card {
-	box-shadow: 0 10px 24px oklch(25% 0.02 95 / 0.10);
-}
-
-html.light .home-kinpaku .worlds-card--skeleton {
-	box-shadow: none;
-}
-
-/* The shimmer is built from graphite, which is a dark surface token. On paper
-   it would drop two near-black blocks into the grid, so tint the placeholder
-   off the paper instead. */
-html.light .home-kinpaku .worlds-skeleton-media,
-html.light .home-kinpaku .worlds-skeleton-line {
-	background: linear-gradient(
-		100deg,
-		oklch(25% 0.02 95 / 0.07) 35%,
-		oklch(25% 0.02 95 / 0.13) 50%,
-		oklch(25% 0.02 95 / 0.07) 65%
-	);
-	background-size: 220% 100%;
-}
-
-html.light .home-kinpaku .worlds-played-card {
-	box-shadow:
-		0 0 0 1px oklch(77% 0.13 82 / 0.18),
-		0 12px 30px oklch(25% 0.02 95 / 0.12);
-}
-
-html.light .home-kinpaku .worlds-played-card:hover {
-	box-shadow:
-		0 0 0 1px oklch(77% 0.13 82 / 0.3),
-		0 16px 36px oklch(25% 0.02 95 / 0.16);
-}
-
-/* Kinpaku gold is a light gold (84% L), authored to glow against the lacquer
-   ground. On cream paper it drops to roughly 1.6:1 and the zone labels, the
-   re-roll control, and the played card's step cue all wash out. Patina is the
-   paper accent, which is why "02 - COMMIT" was already legible while
-   "01 - IMAGINE" was not; give the rest of them the same treatment. */
-
-html.light .home-kinpaku .worlds-zone-label,
-html.light .home-kinpaku .worlds-played-cta {
-	color: var(--ks-state-ink);
-}
-
-html.light .home-kinpaku .worlds-reroll {
-	color: var(--ks-link-on-paper);
-	border-color: oklch(25% 0.02 95 / 0.22);
-}
-
-html.light .home-kinpaku .worlds-reroll:hover:not(:disabled),
-html.light .home-kinpaku .worlds-reroll:focus-visible {
-	color: var(--ks-accent-ink);
-	border-color: var(--ks-patina);
-}
-
-html.light .home-kinpaku .worlds-played-meta a:hover,
-html.light .home-kinpaku .worlds-psst a,
-html.light .home-kinpaku .worlds-psst a:hover {
-	color: var(--ks-accent-ink);
 }

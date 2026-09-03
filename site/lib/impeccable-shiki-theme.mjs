@@ -1,29 +1,19 @@
-// Shiki themes mapped to DESIGN.md / site/styles/kinpaku-tokens.css.
+// Shiki theme mapped to DESIGN.md / site/styles/kinpaku-tokens.css.
 // TextMate themes use sRGB hex; each value below is the browser sRGB result
 // of the corresponding OKLCH token so design-system detection can match it.
 
-const dark = {
-  bg: '#000000',          // lacquer-deep
-  fg: '#D7D7D7',          // text
-  strong: '#E1E1E1',      // champagne
-  muted: '#A4A4A4',       // text-muted
-  faint: '#868686',       // text-faint
-  gold: '#DDAB46',        // kinpaku-rich
-  goldDeep: '#9F7D45',    // kinpaku-deep
-  patina: '#68C3BD',      // patina-text
-  patinaPale: '#8ED3CC',  // patina-pale
-};
-
-const light = {
-  bg: '#FDFCF6',          // light-paper-raised
-  fg: '#242218',          // light-text
-  strong: '#141207',      // light-ink
-  muted: '#58554C',       // light-muted
-  faint: '#74726A',       // light-faint
-  patina: '#146F69',      // patina-deep
-  warning: '#B23B1D',     // vermilion-warning-light
-  success: '#1D5522',     // success-on-paper
-  neutral: '#3A3A3A',     // neutral-35
+// One theme: the paper system. Each value is the sRGB result of the token
+// named beside it, so design-system detection can match it against DESIGN.md.
+// Gold never appears here: it fails contrast as text on paper.
+const paper = {
+  bg: '#EEEEEE',          // paper-deep (code-block-bg)
+  fg: '#1B1B1B',          // text
+  strong: '#070707',      // ink
+  muted: '#585858',       // text-muted
+  faint: '#747474',       // text-faint
+  patina: '#006660',      // patina-deep
+  patinaInk: '#004F4A',   // patina-ink
+  warning: '#B23B1D',     // vermilion
 };
 
 function theme(name, type, colors) {
@@ -60,7 +50,7 @@ function theme(name, type, colors) {
           'constant.other.symbol',
           'markup.inline.raw.string',
         ],
-        settings: { foreground: colors.success || colors.patinaPale },
+        settings: { foreground: colors.patinaInk },
       },
       {
         scope: [
@@ -69,7 +59,7 @@ function theme(name, type, colors) {
           'constant.character',
           'variable.language',
         ],
-        settings: { foreground: colors.warning || colors.gold },
+        settings: { foreground: colors.warning },
       },
       {
         scope: [
@@ -86,7 +76,7 @@ function theme(name, type, colors) {
           'entity.name.type',
           'entity.other.attribute-name',
         ],
-        settings: { foreground: colors.goldDeep || colors.gold || colors.patina },
+        settings: { foreground: colors.patina },
       },
       {
         scope: [
@@ -95,7 +85,7 @@ function theme(name, type, colors) {
           'support.variable',
           'support.constant',
         ],
-        settings: { foreground: colors.patinaPale || colors.neutral },
+        settings: { foreground: colors.fg },
       },
       {
         scope: [
@@ -104,7 +94,7 @@ function theme(name, type, colors) {
           'meta.delimiter',
           'keyword.operator',
         ],
-        settings: { foreground: colors.faint },
+        settings: { foreground: colors.muted },
       },
       {
         scope: [
@@ -132,6 +122,7 @@ function theme(name, type, colors) {
 }
 
 export const impeccableShikiThemes = {
-  light: theme('impeccable-kinpaku-light', 'light', light),
-  dark: theme('impeccable-kinpaku-dark', 'dark', dark),
+  paper: theme('impeccable-paper', 'light', paper),
 };
+
+export const impeccableShikiTheme = impeccableShikiThemes.paper;

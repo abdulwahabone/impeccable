@@ -37,7 +37,7 @@ Impeccable is expert, decisive, and editorial. Its voice is authoritative, direc
 
 The site and brand avoid generic AI-tool marketing, purple-to-blue gradients, neon accents, glassmorphism, glowing particles, SaaS landing-page clichés, interchangeable feature-card grids, educational framing for an already problem-aware audience, and decoration that has no function.
 
-The name Impeccable, the Neo Kinpaku identity, the existing logo and material assets, and the project’s direct command vocabulary are durable brand assets. Visual implementation details remain governed by `DESIGN.md` and the source tokens rather than this product record.
+The name Impeccable, the logo mark, kinpaku gold as the brand mark and signal color, and the project’s direct command vocabulary are durable brand assets. The site itself is a quiet paper surface: it is a vessel for the design Impeccable produces, so the chrome stays neutral and the demos, worlds and case studies carry the color. Visual implementation details remain governed by `DESIGN.md` and the source tokens rather than this product record.
 
 ## Evidence on Hand
 

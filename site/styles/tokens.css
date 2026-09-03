@@ -1,5 +1,5 @@
 /*
- * impeccable.style — design tokens + minimal reset
+ * impeccable.style legacy tokens + minimal reset
  *
  * Shared by every page on the site (landing + generated sub-pages).
  * Keep this file small and dependency-free.
@@ -62,63 +62,46 @@ button, input, textarea, select {
   --duration-slower: 0.8s;
   --duration-slowest: 1.2s;
 
-  /* Core colors — kinpaku is the default surface. The legacy token names now
-     carry dark-lacquer values (mirroring the per-page kinpaku remaps), so any
-     rule still reading --color-* renders on the kinpaku surface. Surfaces are
-     literal oklch; ink/text/accent point at the --ks-* brand tokens. */
-  --color-ink: var(--ks-champagne);
+  /* Core colors. Legacy names, kept because sub-pages.css and the older
+     homepage partials still read them. They alias the paper system. */
+  --color-ink: var(--ks-ink);
   --color-text: var(--ks-text);
-  --color-paper: oklch(7% 0.006 95);
-  --color-cream: oklch(9% 0.006 95);
-  --color-charcoal: var(--ks-text-muted);
-  --color-ash: var(--ks-text-faint);
-  --color-mist: var(--ks-rule);
-  --color-bg: oklch(11% 0.006 95);
-
-  /* Accent — kinpaku gold (was magenta). */
-  --color-accent: var(--ks-kinpaku);
-  --color-accent-hover: var(--ks-kinpaku-pale);
-  --color-accent-dim: oklch(78% 0.12 82 / 0.18);
-  --color-accent-soft: oklch(78% 0.12 82 / 0.32);
-
-  /* Framework category colors - Light mode */
-  --cat-create-bg: #fdf2f8;
-  --cat-create-border: #ec4899;
-  --cat-create-text: #be185d;
-
-  --cat-evaluate-bg: #fdf4ff;
-  --cat-evaluate-border: #d946ef;
-  --cat-evaluate-text: #a21caf;
-
-  --cat-refine-bg: #eff6ff;
-  --cat-refine-border: #3b82f6;
-  --cat-refine-text: #1d4ed8;
-
-  --cat-simplify-bg: #fffbeb;
-  --cat-simplify-border: #f59e0b;
-  --cat-simplify-text: #b45309;
-
-  --cat-harden-bg: #f0fdf4;
-  --cat-harden-border: #22c55e;
-  --cat-harden-text: #15803d;
-
-  --cat-system-bg: #f5f5f4;
-  --cat-system-border: #78716c;
-  --cat-system-text: #44403c;
-}
-
-/* Light mode legacy aliases — mirror html.light --ks-* tokens. */
-html.light {
-  --color-ink: var(--ks-champagne);
-  --color-text: var(--ks-text);
-  --color-paper: var(--ks-lacquer);
-  --color-cream: var(--ks-lacquer-raised);
+  --color-paper: var(--ks-paper);
+  --color-cream: var(--ks-paper-raised);
   --color-charcoal: var(--ks-text);
   --color-ash: var(--ks-text-muted);
   --color-mist: var(--ks-rule);
-  --color-bg: var(--ks-lacquer-raised);
+  --color-bg: var(--ks-paper-raised);
+
+  /* Accent. Gold is a mark and a line; the text-safe accent is patina. */
   --color-accent: var(--ks-kinpaku);
-  --color-accent-hover: var(--ks-kinpaku-pale);
+  --color-accent-hover: var(--ks-kinpaku-vivid);
   --color-accent-dim: oklch(77% 0.13 82 / 0.14);
   --color-accent-soft: oklch(77% 0.13 82 / 0.24);
+
+  /* Command category colors. On paper every category is a hairline plus a
+     text-safe accent; the tint is barely there. */
+  --cat-create-bg: var(--ks-paper-raised);
+  --cat-create-border: var(--ks-kinpaku-deep);
+  --cat-create-text: var(--ks-patina-deep);
+
+  --cat-evaluate-bg: var(--ks-paper-raised);
+  --cat-evaluate-border: var(--ks-patina);
+  --cat-evaluate-text: var(--ks-patina-deep);
+
+  --cat-refine-bg: var(--ks-paper-raised);
+  --cat-refine-border: var(--ks-kinpaku-rich);
+  --cat-refine-text: var(--ks-patina-deep);
+
+  --cat-simplify-bg: var(--ks-paper-raised);
+  --cat-simplify-border: var(--ks-kinpaku-deep);
+  --cat-simplify-text: var(--ks-patina-deep);
+
+  --cat-harden-bg: var(--ks-paper-raised);
+  --cat-harden-border: var(--ks-patina-deep);
+  --cat-harden-text: var(--ks-patina-deep);
+
+  --cat-system-bg: var(--ks-paper-raised);
+  --cat-system-border: var(--ks-edge);
+  --cat-system-text: var(--ks-text-muted);
 }

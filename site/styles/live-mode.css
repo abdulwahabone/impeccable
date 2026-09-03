@@ -1,16 +1,11 @@
 /* ============================================
-   LIVE MODE — interactive demo loop
+   LIVE MODE: interactive demo loop (structure)
+
+   Shared by the homepage steering demo and /live-mode. The mock browser
+   and the page under edit are paper; the Impeccable picker (global bar,
+   context bar) is a dark instrument with a gold indicator. Page files
+   layer content-specific bits on top.
    ============================================ */
-
-.live-section {
-  padding: var(--spacing-2xl) 0;
-  border-top: 1px solid var(--color-mist);
-}
-
-.live-content .section-lead {
-  max-width: 64ch;
-  margin-bottom: var(--spacing-xl);
-}
 
 .live-demo {
   display: grid;
@@ -31,13 +26,13 @@
 
 .live-demo-frame {
   position: relative;
-  background: var(--color-cream);
-  border: 1px solid var(--color-mist);
-  border-radius: 12px;
+  background: var(--ks-paper-raised);
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-md);
   overflow: hidden;
   aspect-ratio: 16 / 9;
   max-width: 960px;
-  box-shadow: 0 20px 50px oklch(0% 0 0 / 0.08);
+  box-shadow: var(--ks-lift-2);
   user-select: none;
 }
 
@@ -46,24 +41,24 @@
   align-items: center;
   gap: 7px;
   padding: 10px 14px;
-  border-bottom: 1px solid var(--color-mist);
-  background: var(--color-paper);
+  border-bottom: 1px solid var(--ks-rule);
+  background: var(--ks-paper-deep);
 }
 .live-demo-dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--color-mist);
+  background: var(--ks-gray-2);
 }
 .live-demo-url {
   margin-left: 14px;
   padding: 4px 14px;
-  background: var(--color-cream);
-  border: 1px solid var(--color-mist);
-  border-radius: 5px;
-  font-family: var(--font-mono);
+  background: var(--ks-paper-raised);
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-sm);
+  font-family: var(--ks-mono);
   font-size: 11px;
-  color: var(--color-charcoal);
+  color: var(--ks-text-muted);
 }
 
 .live-demo-stage {
@@ -79,6 +74,7 @@
 /* Target card */
 .live-demo-target {
   position: relative;
+  z-index: 1;
   width: min(360px, 80%);
   min-height: 200px;
 }
@@ -100,95 +96,228 @@
   flex-direction: column;
   gap: 10px;
   padding: 22px 24px;
-  background: var(--color-paper);
-  border: 1px solid var(--color-mist);
+  background: var(--ks-paper-raised);
+  border: 1px solid var(--ks-rule);
   border-radius: 8px;
   height: 100%;
   box-sizing: border-box;
 }
 .live-demo-card-kicker {
-  font-family: var(--font-mono);
+  font-family: var(--ks-mono);
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-ash);
+  color: var(--ks-text-muted);
 }
 .live-demo-card .live-demo-card-h {
-  font-family: var(--font-display);
-  font-weight: 400;
+  font-family: var(--ks-font);
+  font-weight: 500;
   font-size: 20px;
   line-height: 1.2;
-  color: var(--color-ink);
+  letter-spacing: -0.01em;
+  color: var(--ks-ink);
   margin: 0;
 }
 .live-demo-card p {
-  font-family: var(--font-body);
+  font-family: var(--ks-font);
   font-size: 13px;
   line-height: 1.5;
-  color: var(--color-charcoal);
+  color: var(--ks-text);
   margin: 0;
 }
 .live-demo-card button {
   align-self: flex-start;
   margin-top: auto;
-  font-family: var(--font-body);
+  font-family: var(--ks-font);
   font-weight: 500;
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   padding: 9px 16px;
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--ks-ink);
+  color: var(--ks-paper-raised);
   border: 0;
   border-radius: 0;
   cursor: pointer;
 }
 
-/* Per-variant look */
-.live-demo-card--plain {}
-.live-demo-card--v1 {
-  background: var(--color-cream);
-}
-.live-demo-card--v1 .live-demo-card-h { font-style: italic; }
-.live-demo-card--v1 .live-demo-card-h em { color: var(--color-accent); font-style: italic; }
-.live-demo-card--v2 {
-  background: var(--color-paper);
-  border: 1px dashed var(--color-accent);
-}
-.live-demo-card--v2 .live-demo-card-kicker { color: var(--color-accent); }
-.live-demo-card--v2 .live-demo-card-h { font-family: var(--font-display); font-style: italic; }
-.live-demo-card--v2 button {
-  background: var(--color-accent);
-}
-.live-demo-card--v3 {
-  background: var(--color-cream);
-  border: 1px solid var(--color-accent-soft);
-}
-.live-demo-card--v3 .live-demo-card-h em { color: var(--color-accent); font-style: italic; }
-.live-demo-card--v3 .live-demo-card-kicker { color: var(--color-accent-hover); }
+/* ---- Card variants: three distinct directions for the same card.
+   These are the user's page, not Impeccable's chrome, so each one is
+   allowed its own look. ---- */
 
-/* Highlight outline over the target */
+/* Variant 1: editorial column. Ink top rule, large light headline,
+   underlined text button. */
+.live-demo-card--v1 {
+  background: var(--ks-paper);
+  padding: 18px 22px;
+  border: 0;
+  box-shadow: inset 0 2px 0 var(--ks-ink);
+  border-radius: 0;
+  gap: 6px;
+}
+.live-demo-card--v1 .live-demo-card-kicker {
+  color: var(--ks-accent-ink);
+  letter-spacing: 0.28em;
+}
+.live-demo-card--v1 .live-demo-card-h {
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-top: 4px;
+}
+.live-demo-card--v1 .live-demo-card-h em {
+  color: var(--ks-accent-ink);
+  font-style: italic;
+}
+.live-demo-card--v1 p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ks-text-muted);
+}
+.live-demo-card--v1 button {
+  margin-top: 6px;
+  background: transparent;
+  color: var(--ks-ink);
+  border: 0;
+  border-bottom: 1.5px solid var(--ks-ink);
+  padding: 4px 0;
+  border-radius: 0;
+  letter-spacing: 0.08em;
+}
+
+/* Variant 2: brutalist ticket. Ink block, gold side bar and stamp,
+   heavy headline, gold CTA. */
+.live-demo-card--v2 {
+  position: relative;
+  background: var(--ks-ink);
+  color: var(--ks-instrument-text);
+  padding: 20px 24px;
+  border: 0;
+  border-radius: 0;
+  overflow: hidden;
+  gap: 8px;
+}
+.live-demo-card--v2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: var(--ks-kinpaku);
+}
+.live-demo-card-stamp {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 28px;
+  line-height: 1;
+  color: var(--ks-accent-ink);
+  transform: rotate(-8deg);
+}
+.live-demo-card--v2 .live-demo-card-kicker {
+  color: var(--ks-instrument-muted);
+  letter-spacing: 0.3em;
+  font-weight: 600;
+}
+.live-demo-card--v2 .live-demo-card-h {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 1.1;
+  color: var(--ks-instrument-text);
+  letter-spacing: -0.02em;
+}
+.live-demo-card--v2 button {
+  font-family: var(--ks-mono);
+  font-weight: 500;
+  margin-top: 6px;
+  background: var(--ks-kinpaku);
+  color: var(--ks-on-gold);
+  border: 0;
+  border-radius: 0;
+  padding: 9px 14px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-size: 12px;
+}
+
+/* Variant 3: playful postcard. Patina tint, dashed edge, sticker stars,
+   pill button. */
+.live-demo-card--v3 {
+  position: relative;
+  background: color-mix(in oklch, var(--ks-patina-pale) 30%, var(--ks-paper-raised));
+  border: 1px dashed var(--ks-patina-deep);
+  border-radius: var(--ks-radius-md);
+  padding: 22px 24px 20px;
+  gap: 8px;
+}
+.live-demo-card-sticker {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  display: flex;
+  gap: 3px;
+  color: var(--ks-patina-deep);
+  font-size: 14px;
+  line-height: 1;
+  transform: rotate(6deg);
+}
+.live-demo-card--v3 .live-demo-card-kicker {
+  font-family: var(--ks-font);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--ks-patina-deep);
+  text-transform: none;
+}
+.live-demo-card--v3 .live-demo-card-h {
+  font-weight: 500;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+.live-demo-card--v3 button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ks-ink);
+  color: var(--ks-paper-raised);
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: none;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+/* Highlight outline over the picked element. Patina is the selection
+   color on paper; gold cannot be read on white. */
 .live-demo-outline {
   position: absolute;
-  border: 2px solid var(--color-accent);
+  border: 2px solid var(--ks-patina-deep);
   border-radius: 8px;
   pointer-events: none;
   opacity: 0;
   transition: opacity 200ms var(--ease-out);
-  box-shadow: 0 0 0 4px var(--color-accent-dim);
+  box-shadow: 0 0 0 4px oklch(46% 0.08 188 / 0.14);
 }
 .live-demo-outline.is-visible {
   opacity: 1;
 }
 
-/* Annotations */
+/* Annotations: a stroke and a comment tag over the picked element. Sits
+   above the target (z-index 1) or the card hides the note. */
 .live-demo-annotations {
   position: absolute;
   inset: 0;
+  z-index: 2;
   pointer-events: none;
   opacity: 0;
   transition: opacity 280ms var(--ease-out);
-  color: var(--color-accent);
+  color: var(--ks-patina-deep);
 }
 .live-demo-annotations.is-visible { opacity: 1; }
 .live-demo-stroke {
@@ -216,16 +345,18 @@
   left: 50%;
   transform: translate(-50%, 0);
   padding: 5px 10px;
-  background: var(--color-ink);
-  color: var(--color-paper);
-  font-family: var(--font-mono);
+  background: var(--ks-instrument);
+  color: var(--ks-instrument-text);
+  font-family: var(--ks-mono);
   font-size: 11px;
-  border-radius: 4px;
+  border-radius: var(--ks-radius-sm);
   white-space: nowrap;
   opacity: 0;
   transition: opacity 200ms var(--ease-out);
 }
-.live-demo-annotations.is-comment-visible .live-demo-comment { opacity: 1; }
+/* The loop sets is-note-visible on the annotation layer when it types
+   the note, on both pages. */
+.live-demo-annotations.is-note-visible .live-demo-comment { opacity: 1; }
 
 /* Simulated cursor */
 .live-demo-cursor {
@@ -251,7 +382,9 @@
   40% { transform: scale(0.78); }
 }
 
-/* Global bar — mirrors live-browser.js initGlobalBar (brand + inner toggles). */
+/* Global bar: mirrors live-browser.js initGlobalBar (brand + inner toggles).
+   A dark instrument floating over the page; the active tool carries the
+   gold indicator. */
 .live-demo-gbar {
   position: absolute;
   bottom: 14px;
@@ -266,14 +399,14 @@
   box-sizing: border-box;
   min-height: 36px;
   padding: 0;
-  background: oklch(14% 0 0);
-  color: oklch(92% 0 0);
-  border: 1px solid oklch(22% 0 0);
-  border-radius: 10px;
-  font-family: var(--font-body);
+  background: var(--ks-instrument);
+  color: var(--ks-instrument-text);
+  border: 1px solid var(--ks-instrument-deep);
+  border-radius: var(--ks-radius-md);
+  font-family: var(--ks-font);
   font-size: 12px;
   line-height: 1;
-  box-shadow: 0 8px 24px oklch(0% 0 0 / 0.2);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-2);
   z-index: 4;
 }
 .live-demo-gbar-brand {
@@ -283,7 +416,7 @@
   align-self: stretch;
   flex-shrink: 0;
   padding: 0 6px 0 14px;
-  color: var(--color-accent);
+  color: var(--ks-kinpaku);
 }
 .live-demo-gbar-brand-mark {
   display: block;
@@ -307,8 +440,8 @@
   padding: 6px 8px;
   background: transparent;
   border: 0;
-  border-radius: 7px;
-  color: oklch(75% 0 0);
+  border-radius: var(--ks-radius-md);
+  color: var(--ks-instrument-muted);
   font: inherit;
   font-size: 11.5px;
   font-weight: 500;
@@ -332,7 +465,7 @@
   transition: opacity 0.2s ease;
 }
 .live-demo-gbar-btn-label--mono {
-  font-family: var(--font-mono);
+  font-family: var(--ks-mono);
 }
 .live-demo-gbar:hover .live-demo-gbar-btn:not(.is-active) .live-demo-gbar-btn-label,
 .live-demo-gbar-btn.is-active .live-demo-gbar-btn-label {
@@ -341,8 +474,12 @@
   margin-left: 6px;
 }
 .live-demo-gbar-btn.is-active {
-  background: var(--color-accent-dim);
-  color: var(--color-accent);
+  background: var(--ks-instrument-raised);
+  color: var(--ks-instrument-text);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-edge);
+}
+.live-demo-gbar-btn.is-active > svg {
+  color: var(--ks-kinpaku);
 }
 .live-demo-gbar-dmd {
   display: inline-grid;
@@ -353,12 +490,12 @@
   flex-shrink: 0;
   border-radius: 3px;
   overflow: hidden;
-  box-shadow: inset 0 0 0 1px var(--color-mist);
+  box-shadow: inset 0 0 0 1px var(--ks-instrument-rule);
 }
-.live-demo-gbar-dmd span:nth-child(1) { background: oklch(84% 0.19 80.46); }
-.live-demo-gbar-dmd span:nth-child(2) { background: oklch(70% 0.12 188); }
-.live-demo-gbar-dmd span:nth-child(3) { background: oklch(91% 0 0); }
-.live-demo-gbar-dmd span:nth-child(4) { background: oklch(34% 0.014 82); }
+.live-demo-gbar-dmd span:nth-child(1) { background: var(--ks-kinpaku); }
+.live-demo-gbar-dmd span:nth-child(2) { background: var(--ks-patina); }
+.live-demo-gbar-dmd span:nth-child(3) { background: var(--ks-instrument-text); }
+.live-demo-gbar-dmd span:nth-child(4) { background: var(--ks-instrument-raised); }
 .live-demo-gbar-x {
   display: inline-flex;
   align-items: center;
@@ -371,32 +508,32 @@
   padding: 0;
   background: transparent;
   border: 0;
-  border-radius: 6px;
-  color: oklch(60% 0 0);
+  border-radius: var(--ks-radius-md);
+  color: var(--ks-instrument-muted);
   font-size: 0;
   line-height: 0;
   cursor: pointer;
   transition: color 0.12s ease, background 0.12s ease;
 }
 .live-demo-gbar-x:hover {
-  color: oklch(58% 0.15 35);
+  color: var(--ks-instrument-text);
 }
 
-/* Contextual bar — LIGHT paper-backed pill that floats near the picked
-   element during a session. Matches live-browser.js's buildConfigureRow
-   look (dark command pill, transparent input, ×N count, magenta Go). */
+/* Contextual bar: floats next to the picked element during a session.
+   Same instrument as the global bar. Mirrors live-browser.js's
+   buildConfigureRow (selection chip, transparent input, xN count, Go). */
 .live-demo-ctx {
   position: absolute;
   left: 50%;
   transform: translate(-50%, 6px);
   padding: 6px;
-  background: var(--color-paper);
-  border: 1px solid var(--color-mist);
-  border-radius: 10px;
-  box-shadow: 0 4px 20px oklch(0% 0 0 / 0.08), 0 1px 3px oklch(0% 0 0 / 0.06);
-  font-family: var(--font-body);
+  background: var(--ks-instrument);
+  border: 1px solid var(--ks-instrument-deep);
+  border-radius: var(--ks-radius-md);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-2);
+  font-family: var(--ks-font);
   font-size: 12px;
-  color: var(--color-ink);
+  color: var(--ks-instrument-text);
   display: none;
   opacity: 0;
   transition: opacity 260ms var(--ease-out), transform 260ms var(--ease-out);
@@ -425,11 +562,12 @@
 
 .live-demo-ctx[data-phase="configuring"] {
   padding: 0;
-  background: oklch(15% 0.008 95);
-  overflow: hidden;
+  /* Stays visible so the command palette can open above the bar; the Go
+     button rounds its own outer corners instead. */
+  overflow: visible;
 }
 
-/* Configure row: [h1 pill | input …] | [adapt ▾ ×3 | voice →] */
+/* Configure row: [h1 chip | input ...] | [adapt v x3 | voice ->] */
 .live-demo-ctx-row--configure {
   width: 100%;
   min-height: 36px;
@@ -449,7 +587,7 @@
   display: inline-flex;
   align-items: stretch;
   flex-shrink: 0;
-  border-left: 1px solid oklch(92% 0 0 / 0.12);
+  border-left: 1px solid var(--ks-instrument-rule);
 }
 .live-demo-ctx-modifiers {
   display: inline-flex;
@@ -468,11 +606,11 @@
   height: auto;
   padding: 1px 4px;
   background: transparent;
-  color: oklch(70% 0.12 188);
-  border: 1px solid oklch(70% 0.12 188);
-  border-radius: 7px;
+  color: var(--ks-instrument-text);
+  border: 1px solid var(--ks-kinpaku);
+  border-radius: var(--ks-radius-md);
   flex-shrink: 0;
-  font-family: var(--font-mono);
+  font-family: var(--ks-mono);
   font-size: 12px;
   font-weight: 600;
   line-height: 18px;
@@ -481,7 +619,7 @@
   transition: background 0.15s ease, color 0.15s ease;
 }
 .live-demo-ctx-selection:hover {
-  background: oklch(27% 0 0);
+  background: var(--ks-instrument-raised);
 }
 .live-demo-ctx-action,
 .live-demo-ctx-count {
@@ -493,10 +631,10 @@
   height: 18px;
   padding: 0;
   background: transparent;
-  color: var(--color-ash);
+  color: var(--ks-instrument-muted);
   border: 0;
   border-radius: 0;
-  font-family: var(--font-body);
+  font-family: var(--ks-font);
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
@@ -505,12 +643,12 @@
   transition: color 0.12s ease;
 }
 .live-demo-ctx-count {
-  font-family: var(--font-mono);
+  font-family: var(--ks-mono);
   font-weight: 600;
 }
 .live-demo-ctx-action:hover,
 .live-demo-ctx-count:hover {
-  color: var(--color-ink);
+  color: var(--ks-instrument-text);
 }
 .live-demo-ctx-action-caret {
   font-size: 10px;
@@ -525,11 +663,11 @@
   min-width: 0;
   height: 18px;
   padding: 0;
-  font-family: var(--font-body);
+  font-family: var(--ks-font);
   font-size: 12px;
   font-weight: 500;
   line-height: 18px;
-  color: oklch(94% 0.02 82);
+  color: var(--ks-instrument-text);
   background: transparent;
   border: 0;
 }
@@ -537,7 +675,7 @@
   display: inline-flex;
   align-items: stretch;
   flex-shrink: 0;
-  border-left: 1px solid oklch(92% 0 0 / 0.12);
+  border-left: 1px solid var(--ks-instrument-rule);
 }
 .live-demo-ctx-voice {
   display: inline-flex;
@@ -547,9 +685,9 @@
   height: 36px;
   padding: 0;
   background: transparent;
-  color: var(--color-ash);
+  color: var(--ks-instrument-muted);
   border: 0;
-  box-shadow: inset -1px 0 0 oklch(22% 0 0);
+  box-shadow: inset -1px 0 0 var(--ks-instrument-rule);
   border-radius: 0;
   cursor: pointer;
 }
@@ -557,7 +695,7 @@
   display: inline-block;
   width: 1px;
   height: 13px;
-  background: var(--color-ink);
+  background: var(--ks-instrument-text);
   margin-left: 2px;
   animation: liveDemoCaret 1s steps(1) infinite;
 }
@@ -572,12 +710,11 @@
   height: 36px;
   box-sizing: border-box;
   padding: 0;
-  background: var(--color-accent);
-  color: var(--color-paper);
+  background: var(--ks-kinpaku);
+  color: var(--ks-on-gold);
   border: 0;
-  box-shadow: inset 1px 0 0 oklch(22% 0 0);
-  border-radius: 0;
-  font-family: var(--font-body);
+  border-radius: 0 9px 9px 0;
+  font-family: var(--ks-font);
   font-size: 0;
   line-height: 0;
   cursor: pointer;
@@ -588,16 +725,16 @@
 .live-demo-ctx-row--generating {
   gap: 10px;
   padding: 4px 12px 4px 6px;
-  font-family: var(--font-body);
+  font-family: var(--ks-font);
   font-size: 12px;
-  color: var(--color-charcoal);
+  color: var(--ks-instrument-text);
 }
 .live-demo-ctx-spinner {
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  border: 1.5px solid var(--color-mist);
-  border-top-color: var(--color-accent);
+  border: 1.5px solid var(--ks-instrument-rule);
+  border-top-color: var(--ks-kinpaku);
   animation: liveDemoSpin 700ms linear infinite;
 }
 @keyframes liveDemoSpin { to { transform: rotate(360deg); } }
@@ -608,15 +745,18 @@
   padding: 4px 10px;
   background: transparent;
   border: 0;
-  border-radius: 5px;
-  color: var(--color-charcoal);
+  border-radius: var(--ks-radius-sm);
+  color: var(--ks-instrument-muted);
   font-size: 14px;
   cursor: pointer;
 }
+.live-demo-ctx-nav:hover {
+  color: var(--ks-instrument-text);
+}
 .live-demo-ctx-counter {
-  font-family: var(--font-mono);
+  font-family: var(--ks-mono);
   font-size: 11px;
-  color: var(--color-ink);
+  color: var(--ks-instrument-text);
   padding: 0 6px;
   min-width: 40px;
   text-align: center;
@@ -624,111 +764,48 @@
 .live-demo-ctx-divider {
   width: 1px;
   height: 18px;
-  background: var(--color-mist);
+  background: var(--ks-instrument-rule);
   margin: 0 4px;
 }
 .live-demo-ctx-discard {
   padding: 4px 10px;
   background: transparent;
   border: 0;
-  border-radius: 5px;
-  color: var(--color-ash);
+  border-radius: var(--ks-radius-sm);
+  color: var(--ks-instrument-muted);
   font-size: 13px;
   cursor: pointer;
 }
+.live-demo-ctx-discard:hover {
+  color: var(--ks-instrument-text);
+}
 .live-demo-ctx-accept {
   padding: 5px 14px;
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--ks-kinpaku);
+  color: var(--ks-on-gold);
   border: 0;
-  border-radius: 6px;
-  font-family: var(--font-body);
+  border-radius: var(--ks-radius-md);
+  font-family: var(--ks-font);
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
 }
 
-/* Accepted confirmation row */
+/* Accepted confirmation row: the check is the indicator, the text is not. */
 .live-demo-ctx-row--accepted {
   gap: 8px;
   padding: 6px 14px;
-  font-family: var(--font-body);
+  font-family: var(--ks-font);
   font-size: 12px;
-  color: oklch(45% 0.18 145);
+  color: var(--ks-instrument-text);
 }
-
-/* Phase caption under the frame */
-.live-demo-caption {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-ash);
-}
-.live-demo-caption::before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--color-accent);
-  animation: liveDemoPulse 1.6s var(--ease-out) infinite;
-}
-@keyframes liveDemoPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.7); }
-}
-.live-demo-caption-label { color: var(--color-ink); }
-
-/* Supporting row under the demo */
-.live-demo-support {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-  align-self: stretch;
-}
-.live-demo-support-cell {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 4px;
-  padding-bottom: var(--spacing-md);
-  border-bottom: 1px dashed var(--color-mist);
-}
-.live-demo-support-cell:last-child {
-  border-bottom: 0;
-  padding-bottom: 0;
-}
-.live-demo-support-k {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--color-accent);
-}
-.live-demo-support-v {
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--color-ink);
-}
-.live-demo-support-v code {
-  font-family: var(--font-mono);
-  font-size: 0.875em;
-  background: var(--color-mist);
-  padding: 1px 6px;
-  border-radius: 3px;
-  color: var(--color-ink);
+.live-demo-ctx-row--accepted svg {
+  color: var(--ks-kinpaku);
 }
 
 @media (max-width: 760px) {
   .live-demo-frame { aspect-ratio: 4 / 5; }
   .live-demo-target { width: 90%; }
-  .live-demo-bar { font-size: 11px; min-height: 32px; }
-  .live-demo-support { grid-template-columns: 1fr; gap: var(--spacing-md); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -740,222 +817,56 @@
     transition: none !important;
     animation: none !important;
   }
-  .live-demo-caption::before { animation: none; }
 }
-/* ============================================
-   LIVE MODE — skeleton page + richer variants
-   ============================================ */
 
-/* Skeleton elements behind the target card — suggest "this is a real page" */
+/* ============================================
+   Skeleton page behind the target card: suggests "this is a real page"
+   ============================================ */
 .live-demo-skeleton {
   position: absolute;
   inset: 24px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  opacity: 0.3;
+  opacity: 0.5;
   pointer-events: none;
-  filter: blur(0.3px);
 }
 .live-demo-skel-nav {
   display: flex;
   align-items: center;
   gap: 10px;
   padding-bottom: 12px;
-  border-bottom: 1px solid var(--color-mist);
+  border-bottom: 1px solid var(--ks-rule);
 }
 .live-demo-skel-logo {
   width: 22px;
   height: 22px;
-  border-radius: 4px;
-  background: var(--color-charcoal);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-gray-2);
 }
 .live-demo-skel-link {
   width: 48px;
   height: 8px;
   border-radius: 2px;
-  background: var(--color-mist);
+  background: var(--ks-gray);
 }
 .live-demo-skel-cta {
   margin-left: auto;
   width: 72px;
   height: 24px;
-  border-radius: 4px;
-  background: var(--color-charcoal);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-gray-2);
 }
 .live-demo-skel-heading {
   width: 60%;
   height: 18px;
   border-radius: 3px;
-  background: var(--color-mist);
+  background: var(--ks-gray);
   margin-top: 20px;
 }
 .live-demo-skel-line {
   height: 8px;
   border-radius: 2px;
-  background: var(--color-mist);
+  background: var(--ks-gray);
 }
 .live-demo-skel-line--short { width: 40%; }
-
-/* Target stays above skeleton */
-.live-demo-target { position: relative; z-index: 1; }
-
-/* ---- Card variants — sharper, more distinct ---- */
-
-/* Variant 1: magazine column — italic serif, rule lines, off-white */
-.live-demo-card--v1 {
-  background: var(--color-cream);
-  padding: 18px 22px;
-  border: 0;
-  box-shadow: inset 0 3px 0 var(--color-ink);
-  border-radius: 0;
-  gap: 6px;
-}
-.live-demo-card--v1 .live-demo-card-kicker {
-  color: var(--color-accent);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.28em;
-}
-.live-demo-card--v1 .live-demo-card-h {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 28px;
-  line-height: 1.05;
-  letter-spacing: -0.01em;
-  margin-top: 4px;
-}
-.live-demo-card--v1 .live-demo-card-h em { color: var(--color-accent); font-style: italic; }
-.live-demo-card--v1 p {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--color-charcoal);
-}
-.live-demo-card--v1 button {
-  font-family: var(--font-body);
-  align-self: flex-start;
-  margin-top: 6px;
-  background: transparent;
-  color: var(--color-ink);
-  border: 0;
-  border-bottom: 1.5px solid var(--color-ink);
-  padding: 4px 0;
-  border-radius: 0;
-  letter-spacing: 0.08em;
-}
-
-/* Variant 2: brutalist ticket — thick ink block, stamp glyph, mono */
-.live-demo-card--v2 {
-  position: relative;
-  background: var(--color-ink);
-  color: var(--color-paper);
-  padding: 20px 24px;
-  border: 0;
-  border-radius: 0;
-  overflow: hidden;
-  gap: 8px;
-}
-.live-demo-card--v2::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 6px;
-  background: var(--color-accent);
-}
-.live-demo-card-stamp {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  font-size: 28px;
-  line-height: 1;
-  color: var(--color-accent);
-  transform: rotate(-8deg);
-}
-.live-demo-card--v2 .live-demo-card-kicker {
-  color: var(--color-accent);
-  letter-spacing: 0.3em;
-  font-weight: 600;
-}
-.live-demo-card--v2 .live-demo-card-h {
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 1.1;
-  color: var(--color-paper);
-  letter-spacing: -0.02em;
-}
-.live-demo-card--v2 button {
-  font-family: var(--font-mono);
-  font-weight: 500;
-  align-self: flex-start;
-  margin-top: 6px;
-  background: var(--color-accent);
-  color: var(--color-paper);
-  border: 0;
-  border-radius: 0;
-  padding: 9px 14px;
-  letter-spacing: 0.04em;
-  text-transform: none;
-  font-size: 12px;
-}
-
-/* Variant 3: playful ticket — accent background, sticker stars, postcard vibe */
-.live-demo-card--v3 {
-  position: relative;
-  background:
-    radial-gradient(circle at 20% 80%, oklch(77% 0.13 82 / 0.16) 0, transparent 45%),
-    var(--color-cream);
-  border: 1px dashed var(--color-accent);
-  border-radius: 10px;
-  padding: 22px 24px 20px;
-  gap: 8px;
-}
-.live-demo-card-sticker {
-  position: absolute;
-  top: 10px;
-  right: 14px;
-  display: flex;
-  gap: 3px;
-  color: var(--color-accent);
-  font-size: 14px;
-  line-height: 1;
-  transform: rotate(6deg);
-}
-.live-demo-card--v3 .live-demo-card-kicker {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  color: var(--color-accent-hover);
-  text-transform: none;
-}
-.live-demo-card--v3 .live-demo-card-h {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.25rem;
-  line-height: 1.2;
-  color: var(--color-ink);
-}
-.live-demo-card--v3 button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  align-self: flex-start;
-  background: var(--color-ink);
-  color: var(--color-paper);
-  border: 0;
-  border-radius: 999px;
-  padding: 10px 18px;
-  font-family: var(--font-body);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: none;
-  font-size: 12px;
-  margin-top: 6px;
-}

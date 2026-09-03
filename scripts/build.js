@@ -383,51 +383,55 @@ function validateSkillProse(rootDir) {
 }
 
 /**
- * Guard the kinpaku default. Kinpaku is the site-wide default theme: the legacy
- * --color-* names in tokens.css now carry dark-lacquer / gold-accent values, and
- * the per-page kinpaku styling assumes that. If someone reintroduces the retired
- * light-mode palette (white --color-paper, magenta --color-accent) the whole site
- * silently regresses to light. Fail the build instead. Scoped to the token source
- * — that's where the default lives; page CSS may still use light values locally
- * for the deliberate AI-slop demonstrations.
+ * Guard the single-theme paper system. The site has one theme: neutral paper,
+ * ink type, gold as mark and line. Two things used to creep back and both are
+ * caught here: a dark or warm page ground in the legacy tokens.css aliases,
+ * and theme-conditional CSS (html.light / html.dark / prefers-color-scheme),
+ * which reintroduces the second system this build retired.
  */
 function validateTheme(rootDir) {
-  const tokensPath = path.join(rootDir, 'site', 'styles', 'tokens.css');
-  if (!fs.existsSync(tokensPath)) {
-    console.log('✓ Theme guard skipped (tokens.css not found)');
+  const stylesDir = path.join(rootDir, 'site', 'styles');
+  if (!fs.existsSync(stylesDir)) {
+    console.log('✓ Theme guard skipped (site/styles not found)');
     return 0;
   }
-  const css = fs.readFileSync(tokensPath, 'utf8');
   let errors = 0;
 
-  // Surfaces must be dark lacquer: either a --ks-* reference or a dark oklch
-  // (lightness < 35%). A high-lightness oklch means the light palette is back.
-  for (const name of ['color-paper', 'color-cream', 'color-bg']) {
-    const m = css.match(new RegExp(`--${name}:\\s*([^;]+);`));
-    if (!m) continue; // token removed entirely is fine
-    const val = m[1].trim();
-    if (val.includes('var(--ks-')) continue;
-    const light = val.match(/oklch\(\s*([\d.]+)%/);
-    if (light && Number(light[1]) >= 35) {
-      console.error(`  ❌ tokens.css: --${name} is light (${val}). Kinpaku is the default; surfaces must be dark lacquer (var(--ks-lacquer*) or oklch < 35%).`);
-      errors++;
+  const tokensPath = path.join(stylesDir, 'tokens.css');
+  if (fs.existsSync(tokensPath)) {
+    const css = fs.readFileSync(tokensPath, 'utf8');
+    // Page surfaces must be paper: a --ks-paper* reference or a light neutral.
+    for (const name of ['color-paper', 'color-cream', 'color-bg']) {
+      const m = css.match(new RegExp(`--${name}:\\s*([^;]+);`));
+      if (!m) continue;
+      const val = m[1].trim();
+      if (val.includes('var(--ks-')) continue;
+      const light = val.match(/oklch\(\s*([\d.]+)%/);
+      if (light && Number(light[1]) < 90) {
+        console.error(`  ❌ tokens.css: --${name} is dark (${val}). The page ground is paper: use var(--ks-paper*) or a neutral above 90%.`);
+        errors++;
+      }
     }
   }
 
-  // Accent must be kinpaku gold, not the retired magenta (hue ~350).
-  const accent = css.match(/--color-accent:\s*([^;]+);/);
-  if (accent && !accent[1].includes('var(--ks-')) {
-    const hue = accent[1].match(/oklch\(\s*[\d.]+%?\s+[\d.]+\s+([\d.]+)/);
-    if (hue && Number(hue[1]) >= 300 && Number(hue[1]) <= 360) {
-      console.error(`  ❌ tokens.css: --color-accent is magenta (${accent[1].trim()}). The accent is kinpaku gold — use var(--ks-kinpaku).`);
-      errors++;
-    }
+  // No theme-conditional CSS anywhere under site/styles.
+  const walk = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
+    e.isDirectory() ? walk(path.join(dir, e.name)) : e.name.endsWith('.css') ? [path.join(dir, e.name)] : []);
+  const conditional = /html\.(light|dark)\b|prefers-color-scheme/;
+  for (const file of walk(stylesDir)) {
+    const lines = fs.readFileSync(file, 'utf8').split('\n');
+    lines.forEach((line, i) => {
+      if (conditional.test(line) && !line.trim().startsWith('/*') && !line.trim().startsWith('*')) {
+        console.error(`  ❌ ${path.relative(rootDir, file)}:${i + 1}: theme-conditional CSS (${line.trim().slice(0, 60)}). The site has one theme.`);
+        errors++;
+      }
+    });
   }
 
   if (errors > 0) {
-    console.error(`\n❌ ${errors} theme regression(s): light-mode defaults reintroduced in tokens.css.`);
+    console.error(`\n❌ ${errors} theme regression(s).`);
   } else {
-    console.log('✓ Theme defaults are kinpaku (dark surfaces, gold accent)');
+    console.log('✓ One theme: paper surfaces, no theme-conditional CSS');
   }
   return errors;
 }
@@ -857,7 +861,7 @@ async function build() {
   // match root plugin.json so marketplace installs never ship a stale version.
   const versionErrors = validatePluginVersions(ROOT_DIR, { syncedRootOutputs: BUILD_OPTIONS.syncRootOutputs });
 
-  // Guard the kinpaku default: fail if light-mode token values are reintroduced
+  // Guard the single paper theme: no dark ground, no theme-conditional CSS
   const themeErrors = validateTheme(ROOT_DIR);
 
   // Scan user-facing copy for AI tells (em dashes, marketing fluff, denylisted phrases)

@@ -46,21 +46,29 @@ Where a command's native guidance diverges too much to share a file, it gets a *
 
 Plain hand-written CSS, no Tailwind. Imported into Astro pages/layouts via frontmatter `import` statements; Vite resolves `@import` chains automatically.
 
-The CSS architecture (under `site/styles/`):
-- `main.css` — Main entry point, imports the partials and defines tokens/reset
-- `workflow.css` — Commands section, glass terminal, magazine spread styles
-- `sub-pages.css` — `/docs`, `/anti-patterns`, `/tutorials`, detail pages
-- `tokens.css` — OKLCH color tokens (ink, charcoal, ash, mist, cream, accent)
-- `footer.css` — shared across all pages, imported in `Base.astro`
+### One theme: paper and instruments
+
+The site has **one theme**, light. There is no theme toggle, no `html.light` / `html.dark`, no `prefers-color-scheme`; the build's `validateTheme` step fails on any of them under `site/styles/`. The system, in one paragraph: the page is neutral paper, type is ink, kinpaku gold appears only as the logo mark, a one-pixel rule, or an indicator on a dark control surface; verdigris patina carries links and state wherever color has to be read as text. The only dark surfaces are **instruments**: controls the reader operates (tab strips, segmented controls, the live picker, terminals), on the `--ks-instrument*` tokens. Nothing decorative is dark. The reasoning is in `DESIGN.md`: the site is a vessel for the design Impeccable produces, so the chrome stays quiet and the demos, worlds and case studies carry the color.
+
+The kit's reusable dark control is `.ks-instrument-strip` / `.ks-instrument-key` (hero command switcher, Palette/Periodic toggle, era switch on /slop, the phase strip on /designing). Use it for anything tab-shaped; do not invent a fourth dark surface.
+
+### Files (under `site/styles/`)
+
+- `kinpaku-tokens.css`: **the single source of truth** for color, type, radius, control heights, motion. Loaded globally by `Base.astro`. Every page reads `var(--ks-*)`; hand-typed `oklch()` is for one-off alphas of an existing token or for demos of someone else's design.
+- `kinpaku-kit.css`: shared primitives (buttons, forms, tabs, badges, header and footer chrome, bento, segmented control, instrument strip, the live picker mock). Loaded globally.
+- `tokens.css`: legacy `--color-*` / `--font-*` / `--spacing-*` aliases onto the `--ks-*` system, plus the reset. Older partials still read them.
+- `footer.css`: shared footer, imported in `Base.astro`.
+- Page files: `home-kinpaku.css`, `home-rebuild.css`, `home-refresh.css`, `main.css`, `workflow.css`, `testimonials.css`, `worlds-roll.css` (homepage); `docs-kinpaku.css`, `docs-visuals.css`, `sub-pages.css` (docs, tutorials, and the shared sub-page shell); one `<page>-kinpaku.css` each for designing, slop, live-mode, research, changelog/faq; `design-system.css`; the lab files.
 
 Edit any of these directly and the dev server hot-reloads. No rebuild needed for CSS changes.
 
 ## Color token rule
 
-- **`--color-ink`** (10% lightness) is for body copy. Use it even for small text.
-- **`--color-charcoal`** (25% lightness) reads as washed-out gray in small text. Only use for headings or larger body copy at ≥16px.
-- **`--color-ash`** (55%) is for secondary labels, captions, relationship meta lines.
-- **Never use pure black or pure white.** Use the tinted tokens.
+- **`--ks-ink`** (13%) for headlines and `<strong>`; **`--ks-text`** (22%) for body copy. **`--ks-text-muted`** (46%) for captions, eyebrows and meta; **`--ks-text-faint`** (56%) for subdued meta.
+- **Gold never carries text.** `--ks-kinpaku` is 84% lightness and fails contrast on paper. Text that needs an accent uses `--ks-accent-ink` / `--ks-link-on-paper` (patina). Gold is the mark, `--ks-gold-line`, and indicators on instruments.
+- **No gold fills on paper.** No gold buttons, chips, or panels, and none of the retired textures (gold leaf, kintsugi, lacquer grain, verdigris). The primary button is ink with a gold arrow.
+- **Surfaces are neutral.** `--ks-paper`, `--ks-paper-raised`, `--ks-paper-deep`, `--ks-gray`, `--ks-gray-2`. Never reintroduce a warm cast (`oklch(... 0.012 95)` was the old cream).
+- **Never use pure black or pure white.** Use the tokens.
 
 ## Prose: read docs/STYLE.md before writing user-facing copy
 
@@ -164,7 +172,7 @@ Traps worth remembering if the reveal ever looks wrong:
 
 The page is dark-only and has no theme toggle: the paper and plasma are authored for the lacquer ground.
 
-**Brand comes from the main site, not copies.** The page imports `site/styles/kinpaku-tokens.css`, `site/styles/tokens.css`, `site/styles/footer.css`, and `site/components/Footer.astro` directly, so a token change on impeccable.style lands here too. `Footer.astro` takes an `origin` prop for exactly this: Pro passes `https://impeccable.style` so the footer links resolve across domains. Do **not** import `kinpaku-kit.css` or `light-mode.css`; they are ~3,500 lines whose selectors never match this page, and `light-mode.css` pulls two multi-megabyte hero PNGs into the bundle.
+**Brand comes from the main site, not copies.** The page imports `site/styles/kinpaku-tokens.css`, `site/styles/tokens.css`, `site/styles/footer.css`, and `site/components/Footer.astro` directly, so a token change on impeccable.style lands here too. The main site is now light-only; `pro.css` carries its own dark surface and text values under the old `--ks-lacquer*` / `--ks-champagne` names at the top of the file, because this page and its shader are authored for a lacquer ground. `Footer.astro` takes an `origin` prop for exactly this: Pro passes `https://impeccable.style` so the footer links resolve across domains. Do **not** import `kinpaku-kit.css` or `light-mode.css`; they are ~3,500 lines whose selectors never match this page, and `light-mode.css` pulls two multi-megabyte hero PNGs into the bundle.
 
 **Prose is gated.** `pro/src` is in `validateProse`'s target list in `scripts/build.js`, so the copy is held to `docs/STYLE.md` like the rest of the site. Note this catches em dashes in **code comments** too.
 
@@ -284,14 +292,14 @@ this site once pushed.
 The OG / Twitter card is generated, not hand-drawn. To regenerate after a brand or copy change:
 
 ```bash
-bun run og-image   # → site/public/og-image-v2.jpg
+bun run og-image   # → site/public/og-image-v3.jpg
 ```
 
-`scripts/generate-og-image.js` renders an inline HTML card with Playwright (Neo Kinpaku brand: lacquer ground, champagne Alumni Sans headline, kinpaku-gold accent, the kintsugi-seam art from `site/public/assets/neo-kinpaku/candidates/finalists/m-01-v2-01.png`). It renders at 2× and downscales to 1200×630 with `sharp` for crisp text. The "N commands" figure is read live from `command-metadata.json`, so it never goes stale; don't hardcode it.
+`scripts/generate-og-image.js` renders an inline HTML card with Playwright on the paper system (neutral paper ground, ink headline in Albert Sans, the gold mark and one gold hairline, no art). It renders at 2× and downscales to 1200×630 with `sharp` for crisp text. The "N commands" figure is read live from `command-metadata.json`, so it never goes stale; don't hardcode it.
 
 The card is referenced as a **sitewide default** in `site/layouts/Base.astro` (every page emits `og:image` + a `summary_large_image` Twitter card; pages may override via the `ogImage` prop). The homepage sets its own `ogImage` in `site/pages/index.astro`.
 
-**Cache-busting:** social scrapers cache by URL, so the filename carries a `-v2` suffix. When you ship a visibly different card, bump the suffix in three places together (`scripts/generate-og-image.js` `OUTPUT_PATH`, `Base.astro` `SITE_OG_IMAGE`, `index.astro` `ogImage`) so X/LinkedIn/Slack re-fetch instead of serving the stale image. After deploy, prime the caches by running the URL through X's Post Inspector and LinkedIn's Post Inspector once.
+**Cache-busting:** social scrapers cache by URL, so the filename carries a `-v3` suffix. When you ship a visibly different card, bump the suffix in three places together (`scripts/generate-og-image.js` `OUTPUT_PATH`, `Base.astro` `SITE_OG_IMAGE`, `index.astro` `ogImage`) so X/LinkedIn/Slack re-fetch instead of serving the stale image. After deploy, prime the caches by running the URL through X's Post Inspector and LinkedIn's Post Inspector once.
 
 ## Build System
 

@@ -39,13 +39,14 @@ const tutorials = (await getCollection('tutorials'))
     .tutorials-list { display: flex; flex-direction: column; gap: 1rem; }
     .tutorial-card {
       display: flex; gap: 0.75rem; align-items: flex-start;
-      padding: 1.25rem; border-radius: 8px; border: 1px solid var(--color-mist);
+      padding: 1.25rem; border-radius: var(--ks-radius-md);
+      background: var(--ks-paper-raised); border: 1px solid var(--ks-rule);
       text-decoration: none; color: inherit;
-      transition: border-color 0.15s ease;
+      transition: border-color var(--ks-quick) var(--ks-ease);
     }
-    .tutorial-card:hover { border-color: var(--color-accent); }
-    .tutorial-card-num { font-family: var(--font-mono); font-size: 0.8125rem; color: var(--color-ash); flex-shrink: 0; padding-top: 0.125rem; }
-    .tutorial-card-title { font-family: var(--font-body); font-style: normal; font-size: 1.125rem; font-weight: 600; margin: 0 0 0.25rem; color: var(--color-ink); }
-    .tutorial-card-desc { font-size: 0.875rem; color: var(--color-ash); margin: 0; line-height: 1.5; }
+    .tutorial-card:hover { border-color: var(--ks-edge); }
+    .tutorial-card-num { font-family: var(--ks-mono); font-size: var(--ks-type-ui-size); color: var(--ks-text-muted); flex-shrink: 0; padding-top: 0.125rem; }
+    .tutorial-card-title { font-family: var(--ks-font); font-style: normal; font-size: var(--ks-type-title-size); font-weight: var(--ks-type-title-weight); line-height: var(--ks-type-title-line); margin: 0 0 0.25rem; color: var(--ks-ink); }
+    .tutorial-card-desc { font-size: 0.875rem; color: var(--ks-text-muted); margin: 0; line-height: 1.5; }
   </style>
 </Base>

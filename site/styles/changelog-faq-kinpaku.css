@@ -1,14 +1,16 @@
 /* ============================================================================
-   /changelog and /faq — Neo Kinpaku redesign
+   /changelog and /faq
 
-   Two self-contained support pages on a kinpaku surface. Both share the same
-   container + header treatment; only the content differs.
+   Two self-contained support pages on paper. Both share the same container
+   and header treatment; only the content differs. Cards sit raised on the
+   page ground, gold appears only as a hairline on the current release, and
+   every accent that carries text is patina.
    ============================================================================ */
 
 @import "./kinpaku-tokens.css";
 
-/* Page scope — kinpaku-surface (set on body via Base) provides the dark bg;
-   this class wraps the article content for the centered measure. */
+/* Page scope. The body paints the paper ground; this class wraps the article
+   content for the centered measure. */
 .cf-page {
   max-width: 760px;
   margin: 0 auto;
@@ -21,7 +23,7 @@
   font-size: var(--ks-type-eyebrow-size);
   letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
   margin: 0 0 18px;
 }
 
@@ -31,7 +33,7 @@
   font-size: var(--ks-type-display-size);
   line-height: var(--ks-type-display-line);
   letter-spacing: var(--ks-type-display-track);
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   margin: 0 0 20px;
   text-wrap: balance;
 }
@@ -44,39 +46,11 @@
   max-width: 60ch;
 }
 
-/* Component filter (Skill / CLI / Extension / All) */
+/* Component filter (Skill / CLI / Extension / All). The control itself is
+   the kit's segmented control (.ks-segmented in kinpaku-kit.css, keyed on
+   aria-pressed); this only places it. */
 .cf-filter {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  padding: 4px;
   margin: 0 0 clamp(40px, 5vw, 64px);
-  background: var(--ks-lacquer-raised);
-  border: 1px solid color-mix(in oklab, var(--ks-champagne) 12%, transparent);
-  border-radius: 999px;
-}
-.cf-filter-btn {
-  font-family: var(--ks-font-body, inherit);
-  font-size: 0.86rem;
-  font-weight: 500;
-  color: var(--ks-text-muted);
-  background: transparent;
-  border: 0;
-  padding: 7px 18px;
-  min-height: 36px;
-  border-radius: 999px;
-  cursor: pointer;
-  transition: color 160ms ease, background 160ms ease;
-}
-.cf-filter-btn:hover { color: var(--ks-text); }
-.cf-filter-btn.is-active {
-  color: var(--ks-dark-ink);
-  background: var(--ks-kinpaku);
-  font-weight: 600;
-}
-.cf-filter-btn:focus-visible {
-  outline: 2px solid var(--ks-kinpaku);
-  outline-offset: 2px;
 }
 
 .cf-entry--hidden { display: none; }
@@ -95,7 +69,7 @@
   margin: 0 0 12px;
 }
 .cf-items li:last-child { margin-bottom: 0; }
-.cf-items strong { color: var(--ks-champagne); font-weight: 600; }
+.cf-items strong { color: var(--ks-ink); font-weight: 600; }
 .cf-items code {
   font-family: var(--ks-mono);
   font-size: 0.84em;
@@ -106,11 +80,11 @@
   overflow-wrap: anywhere;
 }
 .cf-items a {
-  color: var(--ks-patina);
+  color: var(--ks-link-on-paper);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.cf-items a:hover { color: var(--ks-patina-pale); }
+.cf-items a:hover { color: var(--ks-link-on-paper-hover); }
 
 /* Group label inside a large release, so a dozen items read as four themes
    rather than one wall. */
@@ -127,10 +101,8 @@
   margin: 0 0 22px;
   padding: 20px 24px;
   border: 1px solid var(--ks-rule);
-  border-radius: 4px;
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.04), transparent 44%),
-    oklch(8% 0.006 95 / 0.84);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
 }
 .cf-entry-head {
   display: flex;
@@ -140,26 +112,23 @@
   font-family: var(--ks-mono);
   font-size: 0.86rem;
 }
-.cf-version { color: var(--ks-kinpaku); }
+.cf-version { color: var(--ks-accent-ink); }
 .cf-date    { color: var(--ks-text-muted); }
 
-/* Current release — brighter kinpaku border, a gold wash, and a glow so the
-   newest version reads as the one you're on at a glance. */
+/* Current release: a gold hairline and a lift, so the newest version reads
+   as the one you're on at a glance. */
 .cf-entry--current {
-  border-color: oklch(78% 0.12 82 / 0.5);
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.10), transparent 52%),
-    oklch(11% 0.01 82 / 0.92);
-  box-shadow: 0 0 30px oklch(78% 0.12 82 / 0.14);
+  border-color: var(--ks-gold-line);
+  box-shadow: var(--ks-lift-1);
 }
 .cf-current-badge {
   margin-left: auto;
   align-self: center;
   padding: 3px 11px;
-  border: 1px solid oklch(78% 0.12 82 / 0.5);
-  border-radius: 999px;
-  background: oklch(78% 0.12 82 / 0.12);
-  color: var(--ks-kinpaku);
+  border: 1px solid var(--ks-gold-line);
+  border-radius: var(--ks-radius-pill);
+  background: var(--ks-paper-raised);
+  color: var(--ks-accent-ink);
   font-size: 0.64rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -169,12 +138,12 @@
    gist reads before the detail. */
 .cf-entry-lead {
   margin: 0 0 20px;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-size: 1.125rem;
   line-height: 1.5;
 }
 
-/* Before/after proof pair — two real eval screenshots side by side. */
+/* Before/after proof pair: two real eval screenshots side by side. */
 .cf-ba {
   margin: 0 0 22px;
 }
@@ -189,37 +158,38 @@
 .cf-ba-shot {
   position: relative;
   border: 1px solid var(--ks-rule);
-  border-radius: 5px;
+  border-radius: var(--ks-radius-sm);
   overflow: hidden;
-  background: oklch(8% 0.006 95);
+  background: var(--ks-paper-raised);
 }
 .cf-ba-shot img {
   display: block;
   width: 100%;
   height: auto;
 }
+/* The tags float over screenshots of someone else's page, so they sit on a
+   translucent paper chip rather than trusting the art underneath. */
 .cf-ba-tag {
   position: absolute;
   top: 10px;
   left: 10px;
   padding: 3px 10px;
-  border-radius: 999px;
+  border-radius: var(--ks-radius-pill);
   font-family: var(--ks-mono);
   font-size: 0.64rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  background: oklch(99.5% 0 0 / 0.82);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
 .cf-ba-tag--before {
   color: var(--ks-text-muted);
-  background: oklch(8% 0.006 95 / 0.7);
-  border: 1px solid var(--ks-rule);
+  border: 1px solid var(--ks-edge);
 }
 .cf-ba-tag--after {
   color: var(--ks-accent-ink);
-  background: oklch(78% 0.12 82 / 0.14);
-  border: 1px solid oklch(78% 0.12 82 / 0.4);
+  border: 1px solid var(--ks-gold-line);
 }
 .cf-ba figcaption,
 .cf-cards figcaption {
@@ -229,7 +199,7 @@
   line-height: 1.55;
 }
 
-/* Dealt hand — real world cards straight off the roll, three across. */
+/* Dealt hand: real world cards straight off the roll, three across. */
 .cf-cards {
   margin: 0 0 22px;
 }
@@ -243,33 +213,30 @@
   .cf-cards-row { grid-template-columns: 1fr; }
 }
 .cf-card {
-  position: relative;
   border: 1px solid var(--ks-rule);
-  border-radius: 5px;
+  border-radius: var(--ks-radius-sm);
   overflow: hidden;
-  background: oklch(8% 0.006 95);
+  background: var(--ks-paper-raised);
 }
 .cf-card img {
   display: block;
   width: 100%;
   height: auto;
 }
-/* The strip always sits on its own dark scrim over the card art, so its
-   colors are fixed rather than themed: the light-mode champagne token is a
-   near-black and would disappear here. */
+/* The world's name is a caption strip under the art, the way the homepage
+   deck labels its cards, rather than a scrim painted over it. */
 .cf-card-name {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: 34px 12px 9px;
+  display: block;
+  padding: 9px 12px;
+  border-top: 1px solid var(--ks-rule);
   font-family: var(--ks-mono);
   font-size: 0.66rem;
   letter-spacing: 0.13em;
   text-transform: uppercase;
-  color: oklch(95% 0.012 88);
-  background: linear-gradient(to top, oklch(8% 0.006 95 / 0.96) 40%, transparent);
+  color: var(--ks-text-muted);
 }
 
-/* Stat row — three big numbers from the bias-mining sweep. */
+/* Stat row: three big numbers from the bias-mining sweep. */
 .cf-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -277,10 +244,8 @@
   margin: 0 0 30px;
   padding: 22px 24px;
   border: 1px solid var(--ks-rule);
-  border-radius: 5px;
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.04), transparent 50%),
-    oklch(8% 0.006 95 / 0.84);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
 }
 @media (max-width: 560px) {
   .cf-stats { grid-template-columns: 1fr; gap: 18px; }
@@ -295,7 +260,7 @@
   font-weight: var(--ks-type-display-weight);
   font-size: clamp(2rem, 5vw, 3rem);
   line-height: 1;
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
 }
 .cf-stat-label {
   color: var(--ks-text);
@@ -312,11 +277,11 @@
   line-height: 1.5;
 }
 .cf-stats-note a {
-  color: var(--ks-state-ink);
+  color: var(--ks-link-on-paper);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.cf-stats-note a:hover { color: var(--ks-state-ink); }
+.cf-stats-note a:hover { color: var(--ks-link-on-paper-hover); }
 
 /* ============================================================================
    FAQ
@@ -329,19 +294,18 @@
 
 .cf-faq-item {
   border: 1px solid var(--ks-rule);
-  border-radius: 4px;
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.045), transparent 44%),
-    oklch(8% 0.006 95 / 0.84);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
 }
 
 .cf-faq-question {
   position: relative;
   padding: 22px 64px 22px 26px;
   font-family: var(--ks-font);
-  font-size: 1.02rem;
-  font-weight: 500;
-  color: var(--ks-kinpaku);
+  font-size: var(--ks-type-title-size);
+  font-weight: var(--ks-type-title-weight);
+  line-height: var(--ks-type-title-line);
+  color: var(--ks-ink);
   cursor: pointer;
   list-style: none;
 }
@@ -352,16 +316,17 @@
   right: 24px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--ks-patina);
+  color: var(--ks-accent-ink);
   font-size: 1.5rem;
+  font-weight: 400;
   line-height: 1;
-  transition: transform 160ms ease;
+  transition: transform var(--ks-settle) var(--ks-ease);
 }
 .cf-faq-item[open] > .cf-faq-question::after {
   transform: translateY(-50%) rotate(45deg);
 }
 .cf-faq-question:hover {
-  color: var(--ks-patina);
+  color: var(--ks-link-on-paper-hover);
 }
 .cf-faq-question code {
   font-family: var(--ks-mono);
@@ -386,7 +351,7 @@
   margin: 0 0 6px;
   line-height: 1.6;
 }
-.cf-faq-answer strong { color: var(--ks-champagne); font-weight: 600; }
+.cf-faq-answer strong { color: var(--ks-ink); font-weight: 600; }
 .cf-faq-answer code {
   font-family: var(--ks-mono);
   font-size: 0.84em;
@@ -396,8 +361,8 @@
   border-radius: var(--ks-code-radius);
 }
 .cf-faq-answer a {
-  color: var(--ks-patina);
+  color: var(--ks-link-on-paper);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.cf-faq-answer a:hover { color: var(--ks-patina-pale); }
+.cf-faq-answer a:hover { color: var(--ks-link-on-paper-hover); }

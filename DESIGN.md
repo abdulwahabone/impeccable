@@ -1,602 +1,662 @@
 ---
 name: Impeccable
-description: Neo kinpaku system. Two brand anchors, kinpaku gold and verdigris patina, sit on dark warm-black lacquer. Restraint in chrome, brilliance in texture.
+description: Paper and instruments. Neutral paper, ink type in one family, and kinpaku gold held to a mark, a line, or an indicator on a dark control. One light theme, no dark mode.
 
-# Brand values below mirror site/styles/kinpaku-tokens.css; implemented
-# page-local utility roles are included where the portable component samples
-# need them. The token file remains the source of truth for shared values.
+# Every value below mirrors site/styles/kinpaku-tokens.css, which stays the
+# source of truth. Names here are the token names without the --ks- prefix.
+# A handful of entries are literals the kit ships rather than tokens; each of
+# those says so in its comment.
 colors:
-  # Brand anchors
-  kinpaku-gold: "oklch(84% 0.19 80.46)"       # primary accent
-  verdigris-patina: "oklch(70% 0.12 188)"     # secondary accent / state
-  dark-ink: "oklch(14% 0.018 95)"             # foreground on gold; never theme-remapped
+  # Brand anchors. Gold is the mark and the signal, never text.
+  kinpaku-gold: "oklch(84% 0.19 80.46)"        # --ks-kinpaku: mark, indicators, gold fills on instruments
+  kinpaku-vivid: "oklch(87% 0.20 85)"          # lit hover on a gold fill
+  kinpaku-pale: "oklch(86% 0.07 84)"           # pale tint; rarely needed on paper
+  kinpaku-rich: "oklch(77% 0.13 82)"           # hairline gold on paper, active rule
+  kinpaku-deep: "oklch(61% 0.085 78)"          # gold border against paper
+  on-gold: "oklch(14% 0.018 95)"               # foreground on a gold fill
+  gold-line: "oklch(77% 0.13 82)"              # --ks-gold-line, the one-pixel gold rule (aliases kinpaku-rich)
 
-  # Surfaces
-  lacquer-black: "oklch(15% 0.006 95)"        # page ground
-  lacquer-deep: "oklch(10% 0.006 95)"         # deepest inset
-  raised-lacquer: "oklch(20% 0.006 95)"       # panels and inputs
-  graphite: "oklch(25% 0.008 95)"             # inactive states
-  graphite-2: "oklch(30% 0.008 95)"           # one step up from graphite
+  # Verdigris patina. State, links, selection. The color that carries text.
+  patina: "oklch(70% 0.12 188)"                # indicator on instruments, focus ring
+  patina-pale: "oklch(82% 0.07 188)"           # soft fill behind a selected row
+  patina-deep: "oklch(46% 0.08 188)"           # text-safe patina on paper; --ks-accent-ink, --ks-state-ink, --ks-link-on-paper
+  patina-ink: "oklch(38% 0.08 188)"            # hover on patina text; --ks-link-on-paper-hover
+  link-line: "oklch(46% 0.08 188 / 0.4)"       # --ks-link-on-paper-line, underline under a link
 
-  # Text
-  champagne: "oklch(91% 0 0)"                 # headlines, <strong> — neutral white (name kept for compat)
-  text-warm: "oklch(88% 0 0)"                 # body — neutral near-white
-  text-muted: "oklch(72% 0 0)"                # captions, meta
-  text-faint: "oklch(62% 0 0)"                # subdued
-  text-mute-deep: "oklch(52% 0 0)"            # disabled
+  # Warning. Failures and warnings only.
+  vermilion: "oklch(52% 0.16 35)"
 
-  # Neutral ramp and light-mode paper/ink tokens. These mirror html.light in
-  # site/styles/kinpaku-tokens.css plus neutral utility stops used in docs and
-  # the live overlay.
-  neutral-100: "oklch(100% 0 0)"
-  neutral-99: "oklch(99% 0 0)"
-  neutral-98: "oklch(98% 0 0)"
-  neutral-96: "oklch(96% 0 0)"
-  neutral-94: "oklch(94% 0 0)"
-  neutral-85: "oklch(85% 0 0)"
-  neutral-80: "oklch(80% 0 0)"
-  neutral-75: "oklch(75% 0 0)"
-  neutral-55: "oklch(55% 0 0)"
-  neutral-45: "oklch(45% 0 0)"
-  neutral-35: "oklch(35% 0 0)"
-  neutral-34: "oklch(34% 0 0)"
-  neutral-30: "oklch(30% 0 0)"
-  neutral-25: "oklch(25% 0 0)"
-  neutral-24: "oklch(24% 0 0)"
-  neutral-22: "oklch(22% 0 0)"
-  light-paper: "oklch(97% 0.012 95)"
-  light-paper-deep: "oklch(94% 0.014 95)"
-  light-paper-raised: "oklch(99% 0.008 95)"
-  light-graphite: "oklch(91% 0.012 95)"
-  light-graphite-2: "oklch(88% 0.014 95)"
-  light-ink: "oklch(18% 0.02 95)"
-  light-text: "oklch(25% 0.018 95)"
-  light-muted: "oklch(45% 0.015 95)"
-  light-faint: "oklch(55% 0.012 95)"
-  light-disabled: "oklch(65% 0.01 95)"
-  light-rule: "oklch(25% 0.02 95)"
+  # Paper. A hair below white so a raised card can read as raised. Chroma 0.
+  paper: "oklch(97.8% 0 0)"                    # page ground
+  paper-raised: "oklch(99.5% 0 0)"             # cards, panels, inputs
+  paper-deep: "oklch(95% 0 0)"                 # sunk wells, code blocks, footer
+  gray: "oklch(92% 0 0)"                       # chips, inactive fills, inline code
+  gray-2: "oklch(88% 0 0)"                     # one step down from gray
+  paper-veil: "oklch(97.8% 0 0 / 0.92)"        # kit literal: the sticky header, paper at 92% over a 12px blur
 
-  # Gold ramp
-  kinpaku-vivid: "oklch(87% 0.20 85)"         # lit hover on gold fills
-  kinpaku-pale: "oklch(86% 0.07 84)"          # pale fills and tints
-  kinpaku-rich: "oklch(77% 0.13 82)"          # active CTA, severity-medium
-  kinpaku-deep: "oklch(61% 0.085 78)"         # borders against the brand
-  kinpaku-rule: "oklch(78% 0.12 82)"          # alpha-friendly rule/glow base
-  kinpaku-rule-rich: "oklch(77% 0.14 82)"     # secondary button soft fill base
-  kinpaku-glint: "oklch(95% 0.04 84)"         # leaf texture highlight overlay
-  kinpaku-glint-bright: "oklch(98% 0.04 84)"  # animated leaf sheen highlight
-  kinpaku-glint-rich: "oklch(94% 0.07 82)"    # warmer leaf sheen edge
-  kinpaku-glint-soft: "oklch(98% 0.035 84)"   # hover glint on gold CTAs
-  gold-hairline: "oklch(78% 0 0 / 0.22)"      # default rule — neutral (name kept for compat)
-  gold-hairline-strong: "oklch(74% 0.09 82 / 0.6)" # active rule — gold
+  # Instrument. Dark control surfaces on the paper, like a device on a desk.
+  instrument: "oklch(24% 0 0)"                 # face
+  instrument-deep: "oklch(17% 0 0)"            # track, well, strip border
+  instrument-raised: "oklch(31% 0 0)"          # key cap, thumb, active picker toggle
+  instrument-text: "oklch(93% 0 0)"            # text on instruments
+  instrument-muted: "oklch(68% 0 0)"           # muted text on instruments
+  instrument-rule: "oklch(100% 0 0 / 0.12)"    # divider and inset highlight on an instrument
+  instrument-edge: "oklch(100% 0 0 / 0.3)"     # inset edge on an active key
 
-  # Patina ramp
-  patina-pale: "oklch(82% 0.07 188)"          # hover lift on patina
-  patina-deep: "oklch(49% 0.08 188)"          # deep oxide, dark variants
-  patina-rule: "oklch(70% 0.105 190)"         # alpha-friendly glow/rule base
-  patina-text: "oklch(76% 0.088 190)"         # small readable patina text
+  # Ink. Neutral. Body copy is text; headlines and <strong> are ink.
+  ink: "oklch(13% 0 0)"                        # headlines, <strong>, active nav, the primary button fill
+  text: "oklch(22% 0 0)"                       # body; also the primary button's hover fill in the kit
+  text-muted: "oklch(46% 0 0)"                 # captions, meta, eyebrows, nav at rest
+  text-faint: "oklch(56% 0 0)"                 # subdued meta, segmented labels at rest
+  text-mute-deep: "oklch(66% 0 0)"             # disabled only
 
-  # Legacy command category colors still used by homepage proof modules.
-  category-create-text: "oklch(86% 0.075 82)"
-  category-evaluate-text: "oklch(76% 0.088 190)"
-  category-refine-bg: "oklch(89% 0.055 84)"
-  category-refine-border: "oklch(84% 0.055 84)"
-  category-refine-text: "oklch(88% 0.047 84)"
-  category-simplify-bg: "oklch(61% 0.085 78)"
-  category-simplify-border: "oklch(70% 0.096 72)"
-  category-simplify-text: "oklch(82% 0.095 76)"
-  category-harden-border: "oklch(58% 0.085 185)"
-  category-harden-text: "oklch(71% 0.082 184)"
-  category-system-border: "oklch(58% 0.028 82)"
-  category-system-text: "oklch(71% 0.028 82)"
-
-  # Conventional terminal chrome. Used only for faux terminal window dots.
-  terminal-red: "#ff5f56"
-  terminal-yellow: "#ffbd2e"
-  terminal-green: "#27c93f"
-
-  # State (warning only, used sparingly)
-  vermilion-warning: "oklch(62% 0.15 35)"
-  vermilion-warning-light: "oklch(52% 0.16 35)"
-  success: "oklch(45% 0.18 145)"
-  success-on-paper: "oklch(40% 0.10 145)"
-  success-bg: "oklch(58% 0.12 145)"
-  success-border: "oklch(75% 0.12 145)"
-  success-soft: "oklch(95% 0.05 145)"
+  # Rules. A divider is faint; the boundary of a control is not.
+  rule: "oklch(13% 0 0 / 0.12)"                # --ks-rule, divides content
+  edge: "oklch(13% 0 0 / 0.45)"                # --ks-edge, bounds a control, clears 3:1 for WCAG 1.4.11
 
 typography:
-  scale:
-    # The enumerated type ramp, at a 16px root. Keys are the px value; values
-    # are the rem form to author with. Every literal font-size in the codebase
-    # lands on one of these steps, and the detector allows +/-0.5px around each,
-    # so the px and rem spellings of a step are interchangeable.
-    #
-    # The named roles below pick from this ramp. The two fluid roles (display,
-    # headline) are the exception: they interpolate between clamp endpoints and
-    # are free to land between steps, which is what makes them fluid.
-    #
-    # Adding a step is a design decision, not a convenience. The tail this ramp
-    # replaced had 86 distinct sizes, including six near-identical steps between
-    # 13.7px and 15.4px that no reader could tell apart.
-    "8": "0.5rem"        # decorative micro-type: badges, superscript markers
-    "9": "0.5625rem"     # dense chrome, viz tick labels
-    "10": "0.625rem"     # overline, smallest legible caps
-    "11": "0.6875rem"    # eyebrow, badge, tag
-    "12": "0.75rem"      # meta lines, table chrome, inline code
-    "13": "0.8125rem"    # secondary UI text, card meta
-    "14": "0.875rem"     # dense body, list rows, controls
-    "15": "0.9375rem"    # long-form secondary text
-    "16": "1rem"         # default body
-    "18": "1.125rem"     # lead paragraph, card heading
-    "20": "1.25rem"      # card and panel titles
-    "24": "1.5rem"       # subsection heads
-    "28": "1.75rem"      # section heads
-    "32": "2rem"         # large section heads
-    "40": "2.5rem"       # sub-display
-    "48": "3rem"         # small display
-    "56": "3.5rem"       # display
-    "64": "4rem"         # large display
-    "72": "4.5rem"       # hero display
-    "80": "5rem"         # hero display, wide viewports
-    "88": "5.5rem"       # largest hero display
+  # One family for everything that is read. Google Fonts loads Albert Sans at
+  # 400, 500, 600, 700 and Alumni Sans at 400 only (site/layouts/Base.astro).
+  # A weight not in that list is synthesized by the browser, so do not ask
+  # for it.
   wordmark:
-    # Alumni Sans (token --ks-font-wordmark), the same face as display, held
-    # at weight 400 for the small brand lockup where the thin display cut
-    # would read too light.
+    # The only place Alumni Sans appears. Part of the logo lockup, not a
+    # display face.
     fontFamily: "Alumni Sans, Albert Sans, Arial, sans-serif"
     fontSize: "1.125rem"
     fontWeight: 400
     letterSpacing: "0.15em"
     lineHeight: 1
   display:
-    fontFamily: "Alumni Sans, Albert Sans, Arial, sans-serif"
-    fontSize: "clamp(3.4rem, 6.5vw, 5.6rem)"
-    fontWeight: 100
-    letterSpacing: "-0.01em"
-    lineHeight: 1.02
-  headline:
-    fontFamily: "Alumni Sans, Albert Sans, Arial, sans-serif"
-    fontSize: "clamp(2.6rem, 4vw, 3.4rem)"
-    fontWeight: 300
-    letterSpacing: "0"
-    lineHeight: 1.04
-  title:
+    # Page h1. --ks-type-display-*.
     fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "1.125rem"
+    fontSize: "clamp(2.6rem, 4.4vw, 3.9rem)"
     fontWeight: 500
+    letterSpacing: "-0.025em"
+    lineHeight: 1.08
+  headline:
+    # Section h2. --ks-type-headline-*. The kit styles any h2 inside
+    # .ks-section-head to this role.
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "clamp(1.85rem, 2.7vw, 2.5rem)"
+    fontWeight: 500
+    letterSpacing: "-0.02em"
+    lineHeight: 1.15
+  title:
+    # Card and panel headings, h3. --ks-type-title-*.
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "1.0625rem"
+    fontWeight: 600
     lineHeight: 1.35
   body:
     fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
-    lineHeight: 1.8
-  eyebrow:
-    fontFamily: "SFMono-Regular, Roboto Mono, Consolas, monospace"
-    fontSize: "0.6875rem"
-    fontWeight: 500
-    letterSpacing: "0.18em"
-  mono:
-    fontFamily: "SFMono-Regular, Roboto Mono, Consolas, monospace"
-    fontSize: "0.6875rem"
-    fontWeight: 500
-    letterSpacing: "0.22em"
-  label:
-    # Micro caps chrome label, one step below eyebrow: tile numbers
-    # (.ks-bento-num), zone labels, tier tags, chips. For UI chrome that
-    # must whisper next to imagery; never for running copy.
-    fontFamily: "SFMono-Regular, Roboto Mono, Consolas, monospace"
-    fontSize: "0.625rem"
-    fontWeight: 500
-    letterSpacing: "0.24em"
-  caption:
-    # Small supporting text: card captions, meta link rows, inline status
-    # lines. One step, so near-duplicate 0.78-0.85rem literals don't creep.
+    lineHeight: 1.65
+  control:
+    # Button label. The .ks-button literal: --ks-type-ui-lead size at 500.
     fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "0.875rem"
+    fontSize: "0.9375rem"
+    fontWeight: 500
+    letterSpacing: "-0.005em"
+    lineHeight: 1
+  eyebrow:
+    # Small mono labels above titles. --ks-type-eyebrow-*. Color is
+    # text-muted, not gold and not patina.
+    fontFamily: "SFMono-Regular, Roboto Mono, JetBrains Mono, Consolas, monospace"
+    fontSize: "0.6875rem"
     fontWeight: 400
-    lineHeight: 1.55
+    letterSpacing: "0.14em"
+  mono:
+    # Code, terminal, audit lines. --ks-type-mono-*.
+    fontFamily: "SFMono-Regular, Roboto Mono, JetBrains Mono, Consolas, monospace"
+    fontSize: "0.6875rem"
+    fontWeight: 400
+    letterSpacing: "0.12em"
+  # Dense UI ramp for application surfaces (labs, the review workbench).
+  # Micro is the floor for anything functional; nothing readable goes below.
+  micro:
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "0.6875rem"
+    fontWeight: 400
+  label:
+    # Control text and caps section heads. Instrument keys and segmented
+    # controls set this size in the mono family.
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 500
+  ui:
+    # List rows and any sentence someone reads to make a decision.
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "0.8125rem"
+    fontWeight: 400
+  ui-lead:
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 400
 
+# Exactly the three radii the tokens define. Nothing else is a radius; a
+# control nested inside another subtracts 1px from its parent's value.
 rounded:
-  none: "0"
-  xs: "2px"
   sm: "3px"
   md: "8px"
   pill: "999px"
 
+# There is no spacing token in kinpaku-tokens.css. These are the rhythm
+# values the kit ships, read from kinpaku-kit.css, so a new page lands on the
+# same steps.
 spacing:
-  xs: "8px"
-  sm: "16px"
-  md: "24px"
-  lg: "32px"
-  xl: "48px"
-  "2xl": "80px"
-  "3xl": "112px"
+  xs: "8px"      # form label to input, badge gap
+  sm: "14px"     # section head grid gap, toast gap, input padding
+  md: "22px"     # subsection label to content, form row gap, button padding
+  lg: "48px"     # bento tile padding
+  xl: "56px"     # section gutter, section head to content, subsection top
+  "2xl": "110px" # section vertical padding
 
 components:
   button-primary:
-    backgroundColor: "{colors.kinpaku-gold}"
-    textColor: "{colors.dark-ink}"
-    typography: "{typography.title}"
-    rounded: "{rounded.xs}"
-    padding: "0 28px"
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper-raised}"
+    typography: "{typography.control}"
+    rounded: "{rounded.sm}"
+    height: "44px"
+    padding: "0 22px"
   button-primary-hover:
-    backgroundColor: "{colors.kinpaku-pale}"
-    textColor: "{colors.dark-ink}"
+    backgroundColor: "{colors.text}"
+    textColor: "{colors.paper-raised}"
   button-secondary:
+    backgroundColor: "{colors.paper-raised}"
+    textColor: "{colors.ink}"
+    borderColor: "{colors.edge}"
+    typography: "{typography.control}"
+    rounded: "{rounded.sm}"
+    height: "44px"
+    padding: "0 22px"
+  button-secondary-hover:
+    borderColor: "{colors.ink}"
+  button-ghost:
     backgroundColor: "transparent"
-    textColor: "{colors.kinpaku-gold}"
-    borderColor: "{colors.kinpaku-gold}"
-    rounded: "{rounded.xs}"
-    padding: "0 28px"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.sm}"
+    height: "44px"
+    padding: "0 12px"
+  button-ghost-hover:
+    textColor: "{colors.patina-deep}"
+  button-disabled:
+    backgroundColor: "transparent"
+    textColor: "{colors.text-mute-deep}"
+    borderColor: "{colors.rule}"
   input-text:
-    backgroundColor: "{colors.raised-lacquer}"
-    textColor: "{colors.champagne}"
-    borderColor: "{colors.gold-hairline}"
-    rounded: "{rounded.xs}"
+    backgroundColor: "{colors.paper-raised}"
+    textColor: "{colors.ink}"
+    borderColor: "{colors.rule}"
+    rounded: "2px"                # kit literal, one below {rounded.sm}
+    height: "46px"
     padding: "0 14px"
-  card:
-    backgroundColor: "{colors.lacquer-black}"
-    textColor: "{colors.text-warm}"
-    rounded: "{rounded.none}"
+  input-text-focus:
+    borderColor: "{colors.patina}"
+  toggle-on:
+    backgroundColor: "{colors.patina}"
+    rounded: "{rounded.pill}"
+    width: "44px"
+    height: "24px"
+  checkbox-on:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper-raised}"
+    rounded: "2px"
+    size: "18px"
+  segmented:
+    backgroundColor: "{colors.paper-deep}"
+    borderColor: "{colors.edge}"
+    rounded: "{rounded.sm}"
+    height: "32px"
+    padding: "3px"
+  segmented-thumb:
+    backgroundColor: "{colors.paper-raised}"
+    textColor: "{colors.ink}"
+    typography: "{typography.label}"
+    rounded: "2px"                # parent radius minus 1px
+  instrument-strip:
+    backgroundColor: "{colors.instrument}"
+    borderColor: "{colors.instrument-deep}"
+    rounded: "{rounded.pill}"
+    padding: "3px"
+  instrument-key:
+    backgroundColor: "transparent"
+    textColor: "{colors.instrument-muted}"
+    typography: "{typography.label}"
+    rounded: "{rounded.pill}"
+    height: "32px"
+    padding: "0 14px 0 12px"
+  instrument-key-active:
+    backgroundColor: "{colors.instrument-raised}"
+    textColor: "{colors.instrument-text}"
+  tab-active:
+    textColor: "{colors.patina-deep}"
+    borderColor: "{colors.kinpaku-gold}"
+  badge:
+    textColor: "{colors.patina-deep}"
+    rounded: "2px"
+    height: "30px"
+    padding: "0 14px"
+  tag:
+    textColor: "{colors.text-muted}"
+    rounded: "{rounded.pill}"
+    height: "26px"
+    padding: "0 12px"
+  bento-tile:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.text}"
+    rounded: "0"
     padding: "48px"
+  modal:
+    backgroundColor: "{colors.paper-raised}"
+    textColor: "{colors.ink}"
+    borderColor: "{colors.rule}"
+    rounded: "2px"
+    padding: "28px"
+  tooltip:
+    backgroundColor: "{colors.paper-deep}"
+    textColor: "{colors.ink}"
+    borderColor: "{colors.rule}"
+    rounded: "2px"
+    padding: "10px 12px"
+  code-inline:
+    backgroundColor: "{colors.gray}"
+    textColor: "{colors.ink}"
+    rounded: "3px"
+    padding: "0.2em 0.45em"
+  code-block:
+    backgroundColor: "{colors.paper-deep}"
+    textColor: "{colors.text}"
+    borderColor: "{colors.rule}"
+    rounded: "3px"
+  header:
+    backgroundColor: "{colors.paper-veil}"
+    textColor: "{colors.text-muted}"
+    borderColor: "{colors.rule}"
+    padding: "18px 56px"
   nav-link:
-    textColor: "{colors.champagne}"
+    textColor: "{colors.text-muted}"
     typography: "{typography.body}"
   nav-link-hover:
-    textColor: "{colors.kinpaku-gold}"
+    textColor: "{colors.ink}"
+  github-pill:
+    backgroundColor: "{colors.paper-raised}"
+    textColor: "{colors.ink}"
+    borderColor: "{colors.edge}"
+    rounded: "{rounded.pill}"
+    height: "36px"
+    padding: "0 12px 0 10px"
+  footer:
+    backgroundColor: "{colors.paper-deep}"
+    textColor: "{colors.text-muted}"
+    borderColor: "{colors.rule}"
   live-picker-bar:
-    backgroundColor: "oklch(4% 0.004 95)"
-    textColor: "{colors.champagne}"
-    borderColor: "oklch(92% 0 0 / 0.13)"
+    backgroundColor: "{colors.instrument}"
+    textColor: "{colors.instrument-text}"
+    borderColor: "{colors.instrument-rule}"
     rounded: "{rounded.md}"
-    padding: "4px 5px"
   live-picker-toggle-active:
-    backgroundColor: "oklch(27% 0 0)"
+    backgroundColor: "{colors.instrument-raised}"
     textColor: "{colors.kinpaku-gold}"
+    rounded: "6px"                # kit literal, md minus 2px
+  live-picker-go:
+    backgroundColor: "{colors.kinpaku-gold}"
+    textColor: "{colors.on-gold}"
+    size: "36px"
+  skip-link:
+    backgroundColor: "{colors.patina}"
+    textColor: "{colors.on-gold}"
+    borderColor: "{colors.patina}"
+    rounded: "4px"
 ---
 
 # Design System: Impeccable
 
 ## Overview
 
-**Creative North Star: "Neo Kinpaku"**
+**Creative North Star: "Paper and instruments"**
 
-Impeccable is now a dark lacquer interface marked by Japanese gold leaf and precise technical geometry. The brand should feel like a crafted object: black urushi, irregular kinpaku seams, quiet measurement marks, circuit traces, and controlled verdigris oxidation. It is refined, technical, and physical.
+The site is a vessel for the design Impeccable produces. Every world card, case study, slop specimen and live demo on it arrives with its own loud visual system, so the chrome has one job: get out of the way. A gallery wall is white so the art can be loud. The page is neutral paper, the type is ink in one family, and the brand shows up as jewelry rather than upholstery: a gold mark in the header, a one-pixel gold rule, a gold dot on a dark control.
 
-This direction replaces the old warm-paper editorial system. No italic serif hero. No magenta accent. No generic AI-tool neon. The page should feel expensive and deliberate, but still useful: comparisons, command demos, live audit tables, and documentation modules remain the product proof.
+This replaces the dark Neo Kinpaku system. No lacquer ground, no gold-leaf texture, no kintsugi hero art, no theme toggle. The proof still has to work: comparisons, command demos, audit tables and docs modules carry the color now, and the chrome around them stays quiet so they can.
 
-**Key Characteristics:**
+`site/styles/kinpaku-tokens.css` names three families of surface:
 
-- Dark mineral and lacquer surfaces, never pure black.
-- Kinpaku gold as the primary accent, with true leaf texture where an element carries brand weight.
-- Verdigris patina as the secondary accent for state, contrast, and "improved" signals.
-- A geometric sans voice with a widely tracked wordmark, not a serif editorial voice.
-- Thin calibration lines, circuit geometry, and gold seams used as functional structure.
-- Small radii, restrained borders, and almost no decorative shadow.
+- **Paper**: the page and everything that sits flat on it.
+- **Gray**: chips, inactive fills, sunk wells.
+- **Instrument**: dark control surfaces. The only place the site goes dark, and the only place gold reads as a signal rather than a mark.
+
+**Key characteristics:**
+
+- One light theme. `:root` sets `color-scheme: light`; there is no `html.dark`, no `prefers-color-scheme` block, no toggle.
+- Paper is neutral, chroma 0. Gold on cream is gold on gold.
+- Gold never carries text and never fills an area on paper.
+- Patina carries links, state and selection wherever color has to be read as text.
+- One family, Albert Sans, at 400 to 600. Alumni Sans exists for the wordmark and nothing else.
+- Three radii, three control heights, two lifts. Nothing else casts a shadow.
 
 ## Layout
 
-The site ships a global component kit at `site/styles/kinpaku-kit.css`, imported from `Base.astro` so every page gets it for free. The kit primitives are listed below. The live demos are on `/design-system`.
+The kit lives at `site/styles/kinpaku-kit.css` and is imported from `Base.astro` together with the tokens, so every page has both. `/design-system` renders every primitive with no page overrides and reads token values live from the stylesheet; if it looks wrong there, it looks wrong everywhere.
 
 ### The Kit Consumption Rule
 
-When building a new page or refactoring an existing one, reach for a kit primitive before inventing a new class. Specifically:
+Reach for a kit primitive before inventing a class. Specifically:
 
-- **Buttons**: use `.ks-button` + a variant (`.ks-button-primary`, `-secondary`, `-ghost`, `-disabled`). Do not write a new `.hero-cta-primary` / `.footer-cta` / `.section-action-button` class — those are the bespoke vocabularies the kit is meant to replace.
-- **Grouping content**: use `.ks-bento` + `.ks-bento-tile` (with `--span-4` / `--span-6` / `--span-8` across a 12-column grid). This is the canonical answer to "how do I group 2-6 items without nesting cards?" Do not invent yet another card class.
-- **Section scaffolding**: use `.ks-section` for the container, `.ks-section-head` for the header, `<h2>` inside that (the kit styles it), and `.ks-section-sub` for the subhead. Eyebrow above the h2 is optional via `.ks-section-eyebrow` — skip it on editorial walkthroughs where every-section eyebrows read as AI scaffolding.
-- **Status, tags, toasts, modals, tooltips, empty states, pagination, skeletons, changelog rows**: use the kit primitive. Listed in the cheatsheet below.
+- **Buttons**: `.ks-button` plus a variant (`.ks-button-primary`, `-secondary`, `-ghost`, `-disabled`). Both classes are required; the chained selector is what beats page-level anchor resets. Do not write another `.hero-cta` or `.footer-cta`.
+- **Grouping content**: `.ks-bento` with `.ks-bento-tile` (`--span-4` / `--span-6` / `--span-8` on a 12-column grid). This is the answer to "how do I group 2 to 6 items without nesting cards".
+- **Section scaffolding**: `.ks-section` as the container, `.ks-section-head` for the header with an `<h2>` inside it (the kit styles it to the headline role), `.ks-section-sub` for the subhead. `.ks-section-eyebrow` above the h2 is optional; skip it on editorial pages where an eyebrow on every section reads as scaffolding.
+- **Anything the reader operates**: `.ks-instrument-strip` for a dark tab strip or command switcher, `.ks-segmented` for a paper single-select. Do not build a fifth segmented control; the kit's exists because five bespoke ones did.
+- **Status, tags, toasts, modals, tooltips, empty states, pagination, skeletons, changelog rows**: the kit primitive, listed below.
 
-Invent only when the kit truly doesn't cover the shape. When you do invent, flag it — a new pattern that solves a real recurring need belongs in the kit, not in page-specific CSS. Page CSS is for genuinely page-specific scenery (hero illustrations, unique editorial visuals), not for reinventing primitives the kit already has.
+Invent only when the kit truly does not cover the shape, and flag it when you do. A pattern that solves a recurring need belongs in the kit, not in page CSS. Page CSS is for page-specific scenery.
 
 ### What's In The Kit (cheatsheet)
 
-Every class below is a global primitive. Drop it on any element on any page using `<Base.astro>`; the styles resolve through `kinpaku-tokens.css` so they inherit the current brand values automatically.
-
 **Brand lockup**
 
-- `.ks-brand` — wrapper for the brand mark + wordmark lockup (anchor or div).
-- `.ks-mark` — the carved-tile glyph (a solid kinpaku square split by a diagonal slash), 38×38, no container border.
-- `.ks-wordmark` — the IMPECCABLE wordmark text, solid Alumni Sans (`--ks-font-wordmark`), uppercase, weight 400, letter-spacing 0.15em.
+- `.ks-brand`: wrapper for mark plus wordmark, 4px gap.
+- `.ks-mark`: the carved tile split by the slash, 38px box with a 32px glyph, filled `--ks-kinpaku`. This is the one place gold fills a shape on paper.
+- `.ks-wordmark`: IMPECCABLE in `--ks-font-wordmark`, `--ks-ink`, weight 400, 0.15em tracking, uppercase.
 
 **Section scaffolding**
 
-- `.ks-section` — page-level section container, 1320px max-width, kit gutters.
-- `.ks-section-head` — the section header block.
-- `.ks-section-eyebrow` — small mono eyebrow above the h2 (optional).
-- `.ks-section-head h2` — auto-styles any h2 inside `.ks-section-head` to the section title scale (weight 300, kit display family).
-- `.ks-section-sub` — subhead paragraph below the h2.
-- `.ks-subsection` — nested grouping inside a section.
-- `.ks-subsection-label` — small mono label above a subsection's content.
+- `.ks-section`: 1320px max width, 110px vertical and 56px horizontal padding. Consecutive sections get a 1px `--ks-rule` between them.
+- `.ks-section-head`: 720px max width, 14px grid gap, 56px below.
+- `.ks-section-head h2`: the headline role.
+- `.ks-section-eyebrow`: mono caps above the h2, `--ks-text-muted`.
+- `.ks-section-sub`: the subhead, `--ks-text-muted`, 60ch.
+- `.ks-subsection` and `.ks-subsection-label`: 56px above a nested group, mono label 22px above its content.
 
 **Buttons**
 
-- `.ks-button.ks-button-primary` — filled kinpaku CTA, dark text. Both classes required.
-- `.ks-button.ks-button-secondary` — outlined kinpaku CTA.
-- `.ks-button.ks-button-ghost` — text-only kinpaku button.
-- `.ks-button[disabled]` or `.ks-button.ks-button-disabled` — disabled state.
-- `.ks-button-arrow` — wrapper for an arrow SVG inside a button (sized correctly).
-- `.ks-button-row` — flex row helper for horizontal button groups.
+- `.ks-button.ks-button-primary`: ink fill, paper text, gold arrow.
+- `.ks-button.ks-button-secondary`: paper-raised fill, `--ks-edge` border, ink text.
+- `.ks-button.ks-button-ghost`: no fill, ink text, patina on hover.
+- `.ks-button[disabled]` or `.ks-button.ks-button-disabled`.
+- `.ks-button-arrow`: the 16x8 arrow SVG wrapper.
+- `.ks-button-row`: flex row, 18px gap.
 
 **Form controls**
 
-- `.ks-form-sample` — vertical form layout.
-- `.ks-toggle` — switch (checkbox underneath, label visible).
-- `.ks-checkbox` — checkbox with label.
-- `.ks-select` — dropdown.
+- `.ks-form-sample`: vertical form layout, 22px row gap, 360px max.
+- `.ks-toggle`: 44x24 pill switch, patina when on.
+- `.ks-checkbox`: 18px square, ink when on.
+- `.ks-select`: paper-raised with an ink chevron.
 
-**Tabs**
+**Tabs and switches**
 
-- `.ks-tabs` — tab container.
-- `.ks-tab-list` — tab buttons row.
-- `.ks-tab-panel` — tab content panel.
+- `.ks-tabs`, `.ks-tab-list`, `.ks-tab-panel`: underline tabs. Selected tab is patina text on a 2px gold underline.
+- `.ks-segmented` (with `--lg`, `--dense`, `--wrap`): paper track, raised thumb.
+- `.ks-instrument-strip` with `.ks-instrument-key` (`.is-active` or `aria-selected`): the site's one dark control.
 
 **Status, tags, and feedback**
 
-- `.ks-badge` + `.is-detected` / `.is-improved` / `.is-ready` — pill badge with dot.
-- `.ks-badge-row` — flex row helper.
-- `.ks-tag` + `.is-detected` / `.is-improved` / `.is-neutral` / `.is-ready` — slim tag, no dot.
-- `.ks-tag-row` — flex row helper.
-- `.ks-toast` + `.is-success` / `.is-warning` — alert toast with icon + dismiss.
-- `.ks-toast-icon` / `.ks-toast-close` — inner parts.
-- `.ks-modal` + `.ks-modal-actions` / `.ks-modal-close` — dialog box.
-- `.ks-empty` + `.ks-empty-icon` — empty-state block.
-- `.ks-skeleton` — loading shimmer.
-- `.ks-pagination` — paged-list nav.
-- `.ks-icon-button` + `.ks-tooltip` — circular icon button with hover tooltip.
+- `.ks-badge` + `.is-detected` / `.is-improved` / `.is-ready`: 30px chip with a 6px dot.
+- `.ks-tag` + `.is-detected` / `.is-improved` / `.is-neutral` / `.is-ready`: 26px pill, no dot.
+- `.ks-badge-row`, `.ks-tag-row`: flex row helpers.
+- `.ks-toast` + `.is-success` / `.is-warning`, with `.ks-toast-icon` and `.ks-toast-close`.
+- `.ks-modal` with `.ks-modal-actions` and `.ks-modal-close`.
+- `.ks-empty` with `.ks-empty-icon`: dashed `--ks-rule` border.
+- `.ks-skeleton`: gray shimmer bars.
+- `.ks-pagination`: 36px square buttons, gold border on the current page.
+- `.ks-icon-button` + `.ks-tooltip`: round icon button, tooltip on `--ks-paper-deep`.
 
 **Containers**
 
-- `.ks-bento` — 12-column grid with dark plinth + 8px gutters.
-- `.ks-bento-tile` — single tile within a bento.
-- `.ks-bento-tile--span-4` / `--span-6` / `--span-8` — sizing (e.g. 8/4, 6/6, 4/8).
-- `.ks-bento-num` — tiny mono caps marker for tile numbering. Add `data-color="patina"` to flip to verdigris.
+- `.ks-bento`: 12-column grid. Tiles are separated by a 1px `--ks-rule` grid (gap 1px over a rule-colored background) with a rule above and below.
+- `.ks-bento-tile`, `.ks-bento-tile--span-4` / `--span-6` / `--span-8`: paper tiles, 48px padding, square corners. Collapse to full width under 980px.
+- `.ks-bento-num`: tiny mono caps marker, patina.
 
 **Changelog**
 
-- `.ks-changelog` — vertical list wrapper.
-- `.ks-changelog-entry` — single dated entry.
-- `.ks-changelog-date` — left-column date.
-- `.ks-changelog-body` — right-column content. Use `<em>` inside `<strong>` for a small "NEW" badge.
+- `.ks-changelog`, `.ks-changelog-entry`, `.ks-changelog-date`, `.ks-changelog-body`. An `<em>` inside the `<strong>` renders as a small caps badge with a gold border and patina text.
+
+**Site chrome**
+
+- `body.kinpaku-chrome`: opts a page into the shared header and footer treatment. Header is `--ks-paper` at 92% over a 12px blur with a rule below; nav links are `--ks-text-muted`, ink on hover and on `aria-current`; the GitHub pill is a paper-raised pill with an `--ks-edge` border and a gold star. Under 760px the right cluster becomes a drawer behind `.site-header-menu`.
+- `body.kinpaku-surface`: remaps the legacy `--color-*` tokens onto the paper system for pages whose content still reads them.
+- `.kinpaku-chrome .site-footer`: `--ks-paper-deep` with a rule above. Links `--ks-text-muted`, ink on hover.
+- `.kinpaku-chrome .skip-link`: patina pill with `--ks-on-gold` text.
+
+**Live picker mock**
+
+- `.live-demo-gbar` and `.live-demo-ctx` under `body.home-kinpaku` or `body.live-mode-kinpaku`: the picker chrome the homepage and `/live-mode` show. Structure comes from `site/styles/live-mode.css`; the kit paints it on `--ks-instrument`.
 
 ### Tokens vs Classes
 
-The kit primitives consume the tokens from `site/styles/kinpaku-tokens.css`. When you need a color, type scale value, easing, or rule alpha outside a kit primitive, read the token directly:
+Outside a kit primitive, read the token, never the value:
 
-- Colors: `var(--ks-kinpaku)`, `var(--ks-patina)`, `var(--ks-lacquer)`, `var(--ks-champagne)`, etc.
-- Type scale: `var(--ks-type-display-size)`, `var(--ks-type-headline-weight)`, etc.
-- Rules: `var(--ks-rule)` for decorative separation, `var(--ks-edge)` for operable boundaries, and `var(--ks-kinpaku)` for active brand borders.
-- Motion: `var(--ks-ease)`, `var(--ks-quick)`, and `var(--ks-settle)`.
+- Surfaces: `var(--ks-paper)`, `var(--ks-paper-raised)`, `var(--ks-paper-deep)`, `var(--ks-gray)`, `var(--ks-gray-2)`, and `var(--ks-instrument*)` for a control.
+- Text: `var(--ks-ink)`, `var(--ks-text)`, `var(--ks-text-muted)`, `var(--ks-text-faint)`. Colored text is `var(--ks-accent-ink)`, `var(--ks-state-ink)` or `var(--ks-link-on-paper)`; all three resolve to patina-deep.
+- Rules: `var(--ks-rule)` to divide, `var(--ks-edge)` to bound a control, `var(--ks-gold-line)` for the one gold hairline.
+- Type: `var(--ks-type-display-*)`, `var(--ks-type-headline-*)`, `var(--ks-type-title-*)`, the dense ramp `--ks-type-micro-size` through `--ks-type-ui-lead`.
+- Shape and depth: `var(--ks-radius-sm|md|pill)`, `var(--ks-control-sm|md|lg)`, `var(--ks-lift-1|2)`.
+- Motion: `var(--ks-quick)`, `var(--ks-settle)`, `var(--ks-ease)`.
 
-Do not hand-type oklch values or font sizes in page CSS. If a value isn't in the token file, it's either a token that needs adding or a sign that the visual moment is bespoke enough to live page-locally — either way, the decision needs to be deliberate.
+A hand-typed `oklch()` in page CSS is acceptable in two cases: a one-off alpha of an existing token color, or a demo of someone else's design. Everything else is either a token that needs adding or a sign the moment is bespoke enough to live page-locally, and either way the decision has to be deliberate.
 
 ## Colors
 
-### Ground and Surface
+### Paper
 
-- **Lacquer Black** (`oklch(15% 0.006 95)`): Default page ground. It is warm and mineral, not neutral black.
-- **Lacquer Deep** (`oklch(10% 0.006 95)`): Deepest shared inset surface, never pure black.
-- **Raised Lacquer** (`oklch(20% 0.006 95)`): Panels, inputs, demo frames, and dark UI surfaces.
-- **Graphite** (`oklch(25% 0.008 95)`): Inactive tiles and subtle internal surfaces.
-- **Graphite 2** (`oklch(30% 0.008 95)`): One step above graphite; context pills and inactive chrome.
+- **Paper** (`oklch(97.8% 0 0)`): the page ground. A hair below white so a raised card can read as raised.
+- **Paper Raised** (`oklch(99.5% 0 0)`): cards, panels, inputs, the secondary button, the segmented thumb.
+- **Paper Deep** (`oklch(95% 0 0)`): sunk wells, code blocks, the segmented track, the footer, tooltips.
+- **Gray** (`oklch(92% 0 0)`): chips, inactive fills, inline code, the toggle at rest.
+- **Gray 2** (`oklch(88% 0 0)`): one step down from gray.
 
-### Gold System
+All five are chroma 0. The old paper had a warm cast at hue 95; gold on that read as gold on gold.
 
-- **Kinpaku Gold** (`oklch(84% 0.19 80.46)`): Primary accent. CTAs, active state, wordmark, key rules, command focus.
-- **Kinpaku Vivid** (`oklch(87% 0.20 85)`): Lit hover state on gold fills.
-- **Kinpaku Rich** (`oklch(77% 0.13 82)`): Active CTA fill and severity-medium markers.
-- **Kinpaku Deep** (`oklch(61% 0.085 78)`): Secondary gold for borders, subdued icons, and large technical diagrams.
-- **Kinpaku Pale** (`oklch(86% 0.07 84)`): Pale fills and tints on dark surfaces.
-- **Default Hairline** (`oklch(78% 0 0 / 0.22)`): Default border and divider. Neutral, so borders and labels don't carry warmth (token name `gold-hairline` / `--ks-rule` is legacy).
-- **Strong Gold Hairline** (`oklch(74% 0.09 82 / 0.6)`): Active borders, focus outlines, and structural anchors. Stays gold — this is where the hairline is meant to read as brand.
+### Ink
 
-### Text
+- **Ink** (`oklch(13% 0 0)`): headlines, `<strong>`, active nav, and the fill of the primary button.
+- **Text** (`oklch(22% 0 0)`): body copy.
+- **Muted** (`oklch(46% 0 0)`): captions, meta, eyebrows, section subheads, nav links at rest.
+- **Faint** (`oklch(56% 0 0)`): subdued meta, segmented labels at rest, counts.
+- **Mute Deep** (`oklch(66% 0 0)`): disabled only. It measures under 4.5:1 on paper by design; a live figure using it is a bug.
 
-- **Champagne** (`oklch(91% 0 0)`): Headlines, `<strong>`, important labels. The brightest text tier, fully neutral (token name is legacy). Text carries no warmth at any tier; the gold accents and surfaces do.
-- **Body Text** (`oklch(88% 0 0)`): Body copy on dark surfaces. Neutral and bright so reading copy reads crisp, not mushy.
-- **Muted Text** (`oklch(72% 0 0)`): Metadata, captions, secondary labels.
-- **Faint Text** (`oklch(62% 0 0)`): Subdued labels.
-- **Mute Deep** (`oklch(52% 0 0)`): Disabled copy.
+### Instrument
 
-### Secondary and State
+- **Instrument** (`oklch(24% 0 0)`): the face of a strip, a terminal, a picker bar.
+- **Instrument Deep** (`oklch(17% 0 0)`): a track, a well, the strip's border.
+- **Instrument Raised** (`oklch(31% 0 0)`): a key cap, a thumb, the active picker toggle.
+- **Instrument Text** (`oklch(93% 0 0)`) and **Instrument Muted** (`oklch(68% 0 0)`): the two foregrounds on an instrument.
+- **Instrument Rule** (`oklch(100% 0 0 / 0.12)`) and **Instrument Edge** (`oklch(100% 0 0 / 0.3)`): dividers and the inset highlight that gives a key its top edge.
 
-- **Verdigris Patina** (`oklch(70% 0.12 188)`): Secondary accent. Improved states, live indicators, hover emphasis, and contrast point.
-- **Patina Pale** (`oklch(82% 0.07 188)`): Hover lift on patina surfaces.
-- **Patina Deep** (`oklch(49% 0.08 188)`): Deep oxide. Background texture and dark patina variants.
-- **Vermilion Warning** (`oklch(62% 0.15 35)`): Error or anti-pattern warning only. Use sparingly.
+### Gold
+
+- **Kinpaku** (`oklch(84% 0.19 80.46)`): the mark, the arrow in the primary button, the dot on an active instrument key, the gold underline on a selected tab, the Go and Accept fills in the picker. At 84% lightness it lands under 2:1 against paper, which is why it never carries text there.
+- **Kinpaku Vivid** (`oklch(87% 0.20 85)`): lit hover on a gold fill.
+- **Kinpaku Rich** (`oklch(77% 0.13 82)`): the one-pixel gold rule (`--ks-gold-line` aliases it).
+- **Kinpaku Deep** (`oklch(61% 0.085 78)`): a gold border against paper.
+- **On Gold** (`oklch(14% 0.018 95)`): the foreground on a gold fill.
+
+### Patina
+
+- **Patina** (`oklch(70% 0.12 188)`): indicator on instruments, the focus ring, the toggle when on.
+- **Patina Pale** (`oklch(82% 0.07 188)`): a soft fill behind a selected row.
+- **Patina Deep** (`oklch(46% 0.08 188)`): patina as text. Links, the selected tab, `.is-improved` and `.is-ready` badges, the ghost button on hover. Clears 4.5:1 on paper.
+- **Patina Ink** (`oklch(38% 0.08 188)`): hover on patina text.
+- **Vermilion** (`oklch(52% 0.16 35)`): `.is-detected`, the warning toast, the picker's exit and discard hovers. Failures and warnings only.
+
+### Rules
+
+- **Rule** (`oklch(13% 0 0 / 0.12)`): divides content.
+- **Edge** (`oklch(13% 0 0 / 0.45)`): bounds something you can operate. WCAG 1.4.11 asks 3:1 of anything that tells you where a control is, and `--ks-rule` does not clear it.
+- **Gold Line** (`oklch(77% 0.13 82)`): the one gold hairline. Use one, not a set.
 
 ### Color Rules
 
-**The Gold Carries Brand Rule.** Kinpaku gold is the primary brand signal. If a single accent must represent Impeccable, use gold, not magenta or cyan.
+**The Gold Is Jewelry Rule.** Gold is a mark, a line, or an indicator on an instrument. It never carries text at any size and never fills a surface on paper. The primary button is ink with a gold arrow; a gold button is the hotel-lobby read. The one exception is a demo that deliberately shows someone else's design.
 
-**The Patina Has Meaning Rule.** Verdigris is secondary. It marks improvement, live state, or contrast against gold. Do not use it as a generic decoration field.
+**The Patina Carries Text Rule.** When color has to be read as text, it is `--ks-patina-deep`, reached through `--ks-accent-ink`, `--ks-state-ink` or `--ks-link-on-paper`. Active nav is ink, not patina, and eyebrows are muted ink.
 
-**The Texture Budget Rule.** Leaf and patina textures are for brand-bearing moments: hero seams, CTA fills, dividers, major swatches, and select system modules. Generic cards stay mostly flat.
+**The Instruments Only Rule.** A dark surface is a control the reader operates: a tab strip, a segmented picker, a slider, a terminal, the live picker bar. No dark section backgrounds, no dark cards, no dark footer.
 
-**The OKLCH-Only Rule.** New colors are declared in OKLCH. Hex appears only inside third-party examples or imported assets.
+**The Neutral Paper Rule.** Every paper and ink token is chroma 0. Do not reintroduce a warm cast.
 
-**The Gold-By-Size-On-Paper Rule.** In light mode, gold usage is gated by size, not banned. **Large display accents stay gold** — the hero's gold accent word reads beautifully at display scale (see the Designing hero: "with Impeccable" in kinpaku gold on paper). But **at body and label sizes gold fails contrast on the bright ground, so it is never used for small accent text on paper.** There, the roles swap to verdigris: links, active nav, and inline command code use `--ks-link-on-paper` (patina-deep, `oklch(49% 0.08 188)`) for contrast, and small labels fall back to muted ink. Verdigris also carries state on paper (active nav, "you are here"), consistent with the Patina Has Meaning rule. Gold otherwise stays on fills and marks (logo, CTA fills, nodes, active rules). Reach for the light-mode tokens (`--ks-link-on-paper`, `--ks-nav-active`, the `light-*` surfaces) when building on paper — the token list below is dark-first, so a naive read pulls you toward gold *body* text that the light theme forbids.
+**The Tokens Over Literals Rule.** New colors are `--ks-*` tokens in OKLCH. A literal is a one-off alpha of a token or a specimen of someone else's design.
 
 ## Typography
 
-**Display Font:** Alumni Sans, Albert Sans, Arial, sans-serif
-**Body Font:** Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif
-**Label/Mono Font:** SFMono-Regular, Roboto Mono, Consolas, monospace
+**Family:** Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif
+**Wordmark:** Alumni Sans, Albert Sans, Arial, sans-serif
+**Mono:** SFMono-Regular, Roboto Mono, JetBrains Mono, Consolas, monospace
 
-The voice is geometric and restrained. The Alumni Sans display face is reserved for the hero h1 and section h2s; the brand wordmark uses the same face at a heavier weight. Everything else (body, UI labels, controls, code) uses Albert Sans. The faces pair cleanly because they share humanist proportions without fighting for attention.
+One family for everything that is read, at normal weights. `--ks-font-display` aliases `--ks-font` so old rules keep resolving; it is not a second face. Google Fonts loads Albert Sans at 400, 500, 600 and 700 and Alumni Sans at 400 only.
 
 ### Hierarchy
 
-- **Wordmark** (Alumni Sans, weight 400, `1.125rem`, letter-spacing `0.15em`): Brand lockup only. The thin display cut reads too light at lockup size, so the wordmark holds weight 400.
-- **Display · h1** (Alumni Sans, weight 100, `3.4rem` to `5.6rem` via responsive clamp, line-height 1.02, letter-spacing `-0.01em`): Hero and major statements.
-- **Headline · h2** (Alumni Sans, weight 300, `2.6rem` to `3.4rem` via responsive clamp, line-height 1.04): Section titles.
-- **Title · h3** (Albert Sans, weight 500, `1.125rem`, line-height 1.35): Component and panel headings.
-- **Body** (Albert Sans, weight 400, `1rem`, line-height 1.8): Long copy on dark surfaces needs air.
-- **Eyebrow** (Mono, weight 500, `0.6875rem`, uppercase, letter-spacing `0.18em`): Small markers above titles.
-- **Mono label** (Mono, weight 500, `0.6875rem`, letter-spacing `0.22em`): Category labels, nav metadata, table headers, and audit lines.
+- **Wordmark** (Alumni Sans, 400, `1.125rem`, 0.15em tracking, uppercase): the header lockup and the footer logo. Nowhere else.
+- **Display, h1** (Albert Sans, 500, `clamp(2.6rem, 4.4vw, 3.9rem)`, line 1.08, tracking -0.025em).
+- **Headline, h2** (Albert Sans, 500, `clamp(1.85rem, 2.7vw, 2.5rem)`, line 1.15, tracking -0.02em).
+- **Title, h3** (Albert Sans, 600, `1.0625rem`, line 1.35).
+- **Body** (Albert Sans, 400, `1rem`, line 1.65). Long copy holds a 65ch measure.
+- **Control** (Albert Sans, 500, `0.9375rem`, line 1): button labels.
+- **Eyebrow** (mono, `0.6875rem`, 0.14em, uppercase, muted ink).
+- **Mono** (mono, `0.6875rem`, 0.12em): code, terminal, audit lines.
+- **Dense ramp**: micro `0.6875rem` (11px), label `0.75rem` (12px), ui `0.8125rem` (13px), ui-lead `0.9375rem` (15px). Instrument keys and segmented labels set the label size in the mono family.
 
 ### Typography Rules
 
-**The Weight-Inversion Rule.** Section h2s read heavier (300) than the hero h1 (100). This is deliberate: the hero is elegant and thin so the page can breathe; section anchors carry more weight to ground each block. Do not normalize the two weights.
+**The One Family Rule.** Alumni Sans is part of the logo, not a display face. If a heading wants a condensed face, it wants the wrong thing.
 
-**The Two-Face Rule.** Display sizes use Alumni Sans — thin (100) for the h1, heavier (300) for h2s. Anything sized below `1.2rem` uses Albert Sans. The thin display cut reads too light at small sizes, so it never carries body or UI text.
+**The No Hairline Rule.** Display and headline sit at 500, titles at 600. Never 100 or 300 on a heading; those were the condensed face's weights and Albert Sans at 300 is not even loaded.
 
-**The Tracked Labels Are Short Rule.** Tracked uppercase labels are for short system markers. Do not write full sentences in tracked caps.
+**The Micro Floor Rule.** Nothing functional goes below 11px. Being on the ramp does not exempt a value; 10px fails on high-DPI and on small viewports whatever the token is called.
 
-**The Dark Type Needs Air Rule.** Body text on lacquer uses line-height 1.65 to 1.8 and a max width of 65 to 75ch.
+**The Tracked Labels Are Short Rule.** Tracked mono caps are for eyebrows, section labels and tile numbers. Never a sentence.
 
-## Elevation & Depth
+## Elevation and Depth
 
-The system is mostly flat. Depth comes from material contrast, hairline borders, texture, and subtle inset light.
+The system is flat. Depth comes from the surface ladder, hairlines, and two shadows.
 
 ### Shadow Vocabulary
 
-- **Panel Setback** (`0 24px 70px oklch(2% 0.004 95 / 0.34)`): Large framed modules only.
-- **CTA Lift** (`0 18px 48px oklch(2% 0.004 95 / 0.4)`): Primary calls to action, with a small inset highlight.
-- **Control Lift 1** (`0 2px 6px oklch(0% 0 0 / 0.35)`): Compact floating controls.
-- **Control Lift 2** (`0 10px 28px oklch(0% 0 0 / 0.45)`): Detached controls and overlays.
-- **Patina Glow** (`0 0 22px oklch(70% 0.12 188)`): Tiny live indicators only.
-- **Picker Drop** (`0 16px 36px -12px oklch(0% 0 0 / 0.6)`): Live Mode picker chrome.
-- **No Default Card Shadow:** Cards rest on borders and background shifts.
+- **Lift 1** (`0 1px 2px oklch(13% 0 0 / 0.06), 0 2px 8px oklch(13% 0 0 / 0.06)`): a raised card, the segmented thumb, the instrument strip on the paper.
+- **Lift 2** (`0 2px 6px oklch(13% 0 0 / 0.08), 0 12px 32px oklch(13% 0 0 / 0.12)`): a popover, a modal, a picker bar.
+- **No default card shadow.** Cards and tiles rest on `--ks-rule` and a surface step.
+
+### Instrument Depth
+
+An instrument gets its form from three ink-free moves: a 1px `--ks-instrument-deep` border, an inset `--ks-instrument-rule` highlight along the top of the face, and an active key on `--ks-instrument-raised` with an inset `--ks-instrument-edge` top edge. The key lifts off the face; it does not tint.
 
 ### Control Scales
 
-Application surfaces (the labs, the review workbench) need scales the marketing
-pages never asked for, because a page with four elements can improvise each one
-and a page with four hundred cannot. These are the values; anything off them is
-a mistake, not a smaller size.
+Application surfaces (the labs, the review workbench) need scales the marketing pages never asked for, because a page with four elements can improvise each one and a page with four hundred cannot. These are the values; anything off them is a mistake, not a smaller size.
 
-**Radius: three values.** `--ks-radius-sm` 3px for chips, inputs and dense
-chrome. `--ks-radius-md` 8px for panels and cards. `--ks-radius-pill` for
-toggles and anything round. A control nested inside another subtracts 1px
-rather than picking a fourth value.
+**Radius: three values.** `--ks-radius-sm` 3px for buttons, inputs, chips and the segmented track. `--ks-radius-md` 8px for cards, the picker bar and its palette. `--ks-radius-pill` for the instrument strip and its keys, toggles, tags. A control nested inside another subtracts 1px rather than picking a fourth value.
 
-**Control height: three rungs.** `--ks-control-sm` 26px for dense chrome in a
-rail, `--ks-control-md` 32px for the default, `--ks-control-lg` 44px for a
-primary action. A segmented track lands on a rung by construction: 3px inset
-plus segment plus 3px plus two borders.
+**Control height: three rungs.** `--ks-control-sm` 26px for dense chrome in a rail, `--ks-control-md` 32px for the default (instrument keys, the segmented control), `--ks-control-lg` 44px for a button. A segmented track lands on a rung by construction: 3px inset plus a 24px segment plus 3px plus two borders is `--ks-control-md`.
 
-**Dense type: four steps.** The marketing ramp steps 11px straight to 16px, so
-an application surface has nothing between a caption and body copy and puts
-every label, list row and control on the same 11px. `--ks-type-micro-size` 11px
-is the floor for row numbers and counts, `--ks-type-label-size` 12px for control
-text and caps section heads, `--ks-type-ui-size` 13px for list rows and any
-sentence someone reads to make a decision, `--ks-type-ui-lead` 15px for
-subheads. **Nothing functional goes below 11px.** Being on the ramp does not
-exempt a value: 10px fails on high-DPI and on small viewports whatever the token
-is called.
+**Motion: one duration pair, one curve.** `--ks-quick` 120ms for a state change, `--ks-settle` 200ms for something arriving, `--ks-ease` (`cubic-bezier(0.2, 0.8, 0.2, 1)`) for both. Declare the transition once per surface.
 
-**Motion: one duration pair, one curve.** `--ks-quick` 120ms for state changes,
-`--ks-settle` 200ms for something arriving, `--ks-ease` for both. Controls
-declare their transition once per surface rather than per family, or you get
-one family that acknowledges a press and eleven that look broken.
-
-**Surfaces: a ladder that can be seen.** `--ks-lacquer` is the ground,
-`--ks-lacquer-deep` the recessed step (never pure black), `--ks-lacquer-raised`,
-`--ks-graphite` and `--ks-graphite-2` the raised ones. Steps are ~1.05 to 1.09
-apart in luminance; below about 1.02 a surface change is invisible and the page
-reads as one plane. `--ks-rule` is decorative separation; `--ks-edge` is the
-boundary of a control and clears 3:1 for WCAG 1.4.11.
-
-**`--ks-text-mute-deep` is the disabled colour.** It measures under 4.5:1 on
-these grounds by design. Live content takes `--ks-text-faint` or above; if a
-figure or a label is using mute-deep, that is the bug.
-
-**Flush means pick one, spaced means tick any.** A row of segments butted
-together reads as navigation whatever it does. Reserve it for single-select and
-give multi-selects visible gaps.
-
-`tests/css-contradictions.test.mjs` enforces the radius, control-height and type
-floor for the files listed in its `SCALE_ENFORCED` set, and flags any selector
-that sets the same geometry property twice in one context.
+**Surfaces: a ladder that can be seen.** Paper steps 97.8, 99.5, 95, 92, 88. Instruments step 17, 24, 31. Below about 1.02 in luminance a surface change is invisible and the page reads as one plane.
 
 ### Material Rules
 
-**The Hairline First Rule.** Use 1px hairlines before adding shadow; keep default separators neutral and reserve gold borders for active brand structure.
+**The Hairline First Rule.** A 1px `--ks-rule` before any shadow. `--ks-edge` when the line bounds something operable.
 
-**The No Glass Rule.** Translucency can exist in overlays, but decorative blur/glass panels are not part of this system.
+**The One Veil Rule.** The sticky header is paper at 92% over a 12px blur. That is the only translucency on the site; there are no glass panels.
 
-**The Texture Needs Contrast Rule.** Text never sits directly on high-contrast leaf texture. Add a lacquer veil or move the texture to an edge.
-
-**The Asset-Led Material Rule.** Brand-bearing material accents use raster assets or generated images, not hand-drawn SVG approximations of leaf, dust, oxidation, or clockwork. Code-native geometry is reserved for simple hairlines, layout grids, and functional UI structure.
+**The No Texture Rule.** No leaf, dust, grain, seam or oxidation images anywhere in the chrome. Depth is geometry.
 
 ## Shapes
 
-The shared form language uses 3px radii for chips, inputs, and dense chrome; 8px radii for panels and cards; and pill radii only for toggles or truly round controls. A control nested inside another subtracts 1px rather than introducing another scale step. Bento tiles and structural slabs may remain square when their edges are the layout.
+Three radii and nothing else. Small (3px) for buttons, inputs, chips and the segmented track; medium (8px) for cards, the picker bar and its command palette; pill for the instrument strip and its keys, the toggle, tags, the GitHub pill. A control nested inside another subtracts 1px from its parent (the segmented thumb is 2px inside a 3px track; the `--lg` variant is 6px inside 8px). Bento tiles and the structural slabs stay square because their edges are the layout.
 
-**The Three-Radius Rule.** Use the small, medium, or pill token. Treat the 2px nested-control adjustment as derived geometry, not a fourth radius.
+**The Three-Radius Rule.** Use `--ks-radius-sm`, `--ks-radius-md` or `--ks-radius-pill`. Treat a nested-control subtraction as derived geometry, not a fourth radius. The older kit primitives (inputs, checkbox, badge, toast, tooltip, modal, pagination, empty state) still carry a literal 2px; when one is touched, it moves to the token.
 
 ## Components
 
 ### Buttons
 
-- **Primary:** Kinpaku texture or gold fill, dark text, 1px border, 2px radius, min-height 52px, and 28px horizontal padding.
-- **Secondary:** Transparent lacquer, gold border, gold text. Use for secondary commands only.
-- **Hover:** Slight upward transform, brighter gold position, or patina border. No bounce.
-- **Focus:** Patina outline with a 3px offset.
+- **Primary** (`.ks-button.ks-button-primary`): `--ks-ink` fill and border, `--ks-paper-raised` text, the arrow in `--ks-kinpaku`. Hover darkens to `oklch(22% 0 0)`, press to `oklch(8% 0 0)`. The brand is the arrow, not the fill.
+- **Secondary** (`.ks-button.ks-button-secondary`): `--ks-paper-raised` fill, `--ks-edge` border, ink text. Border goes to ink on hover, fill to `--ks-gray` on press.
+- **Ghost** (`.ks-button.ks-button-ghost`): no fill or border, 12px padding, ink text that turns `--ks-accent-ink` on hover.
+- **Disabled**: `--ks-text-mute-deep` text on a `--ks-rule` border, no fill.
+- All variants: 44px min height (`--ks-control-lg`), `--ks-radius-sm`, 22px horizontal padding, control type at 500, transitions on `--ks-quick`.
+- **Focus**: a 2px `--ks-patina` outline offset 3px. The same ring, offset 2px, sits on every instrument key.
 
-### Hero Compare
+### Form controls
 
-The before/after comparison is a proof object. It uses a dark grid field, a straight kinpaku seam, a gold handle, and readable labels. The "before" side can show AI slop colors, but the frame itself stays in the neo-kinpaku system.
+- **Text input**: 46px, `--ks-paper-raised` on a `--ks-rule` border, ink text. Focus swaps the border to `--ks-patina`.
+- **Toggle** (`.ks-toggle`): 44x24 pill, `--ks-gray` track with a `--ks-text-muted` knob; on, the border and knob go patina and the track takes a 20% patina wash.
+- **Checkbox** (`.ks-checkbox`): 18px, ink fill with a paper check when on.
+- **Select** (`.ks-select`): matches the input, with an ink chevron.
 
-### Command Rail
+### Tabs and switches
 
-The first-viewport rail should map to workflow or high-value commands, not abstract design categories. Items use full-width dark bands, gold icons, and patina hover state.
+- **Tabs** (`.ks-tabs`): flat buttons on a `--ks-rule` baseline, `--ks-text-muted` at rest, ink on hover. The selected tab is `--ks-accent-ink` text over a 2px `--ks-kinpaku` underline: patina carries the text, gold carries the line.
+- **Segmented** (`.ks-segmented`): a paper instrument. `--ks-paper-deep` track inset 3px inside an `--ks-edge` border at `--ks-radius-sm`; mono label type in `--ks-text-faint`; the thumb is `--ks-paper-raised` with an inset `--ks-rule` and `--ks-lift-1`, ink text. Hover lifts to paper-raised, press drops to `--ks-gray`. `--lg` moves to the reading face at ui size on an 8px radius, `--dense` lands the whole control on `--ks-control-sm`, `--wrap` lets a long group wrap.
+- **Instrument strip** (`.ks-instrument-strip`): the site's one dark control. Pill track on `--ks-instrument` with a `--ks-instrument-deep` border, inset top highlight and `--ks-lift-1`; keys are 32px pills in mono label type, `--ks-instrument-muted` at rest with a 6px `--ks-instrument-raised` dot. The active key is `--ks-instrument-raised` with `--ks-instrument-text` and a `--ks-kinpaku` dot. Patina takes the dot when the state is selection rather than position. For tab strips, view switches and command pickers; never for decoration and never for a link list.
 
-### Periodic Table
+### Status and feedback
 
-The command table uses dark category cells. Kinpaku covers Create, Refine, and Simplify variants; patina covers Evaluate and Harden; System is muted graphite. No light pastel category tints remain on the homepage.
+- **Badge** (`.ks-badge`): 30px, 1px border in `currentColor`, 6px dot. Detected is vermilion, improved is `--ks-state-ink`, ready is `--ks-accent-ink`.
+- **Tag** (`.ks-tag`): 26px pill, same colors plus `.is-neutral` in muted ink.
+- **Toast** (`.ks-toast`): bordered in `currentColor`, ink title, muted body, 420px max. `.is-success` is patina, `.is-warning` vermilion.
+- **Modal** (`.ks-modal`): `--ks-paper-raised` on a `--ks-rule` border, 28px padding, 440px max, actions right-aligned.
+- **Tooltip** (`.ks-tooltip`): 200px on `--ks-paper-deep`, shown on `:focus-visible` of the `.ks-icon-button` beside it.
+- **Empty state** (`.ks-empty`): dashed `--ks-rule` border, centered, patina icon.
+- **Pagination** (`.ks-pagination`): 36px squares on `--ks-rule`; hover and the current page take a gold border with patina text.
+- **Skeleton** (`.ks-skeleton`): 8px pills shimmering between `--ks-gray` and `--ks-paper-raised`.
 
-### DESIGN.md Panel
+### Bento
 
-The DESIGN.md visualization must show kinpaku as the primary color, patina as the secondary color, Alumni Sans and Albert Sans as the display and body families, and dark component samples. Magenta is not representative of the current system.
+`.ks-bento` is the canonical alternative to a card in a card: paper tiles on a 12-column grid, 48px padding, square corners, separated by a 1px `--ks-rule` grid with a rule above and below the whole block. Tiles collapse to full width under 980px. `.ks-bento-num` is a mono caps marker in patina.
 
-### Dividers and Material Accents
+### Site chrome
 
-Dividers use real kinpaku, dust, or verdigris texture assets when they need to carry the brand. Simple CSS dividers are limited to straight hairlines. Avoid synthetic dot rails, fake dust strokes, or pseudo-circuit motifs that create rendering artifacts.
+- **Header**: `--ks-paper` at 92% over a 12px blur, a `--ks-rule` below, 18px vertical padding with fluid gutters. The lockup is `.ks-mark` in gold beside the wordmark in ink. Nav links are `--ks-text-muted`, ink on hover and on `aria-current="page"`. The GitHub pill is `--ks-paper-raised` with an `--ks-edge` border and a `--ks-kinpaku` star. Under 760px the nav becomes a drawer with hairline-separated rows.
+- **Footer**: `--ks-paper-deep` with a `--ks-rule` above. Links and credit in `--ks-text-muted`, ink on hover. No texture, no dark band.
+- **Code**: inline code is an ink-on-`--ks-gray` chip at 3px. Blocks and CLI commands are `--ks-paper-deep` wells with a `--ks-rule` hairline. A command that is itself a link reads as a link.
 
-### Footer
+### Live picker
 
-The footer can carry the strongest oxidation accent. Use the gold seam plus patina edge as a final brand signature.
-
-### Live Mode Picker
-
-The global bottom bar and the contextual bar (configure / cycling / accept) share one chrome treatment. Source of truth: `skill/scripts/live-browser.js` (`barPaletteForTheme`, `initGlobalBar`, `initBar`). Homepage and `/live-mode` demos mirror it via `.live-demo-gbar` and `.live-demo-ctx` in `site/styles/kinpaku-kit.css`.
-
-- **Surface:** Dedicated overlay lacquer (`oklch(4% 0.004 95)`), always. Picker chrome does not adapt to the host page's light/dark theme; this is intentionally deeper than the shared `--ks-lacquer-deep` site token.
-- **Border:** 1px solid neutral hairline (`oklch(92% 0 0 / 0.13)`), radius 8px. The bar reads as a quiet precise tool; gold is reserved for the brand mark and the active control, not the container outline.
-- **Shadow:** `0 16px 36px -12px oklch(0% 0 0 / 0.6)` (tight neutral drop, no gold halo ring).
-- **Brand mark:** Impeccable carved-tile icon (same SVG paths as `site/components/Header.astro` / `favicon.svg`), kinpaku fill on transparent ground. Not a "/" slash or rounded-square placeholder.
-- **Default controls:** Champagne labels at rest (`oklch(84% 0.035 82)`), muted icons (`oklch(63% 0.024 82)`).
-- **Active toggle:** Crisp graphite pill (`oklch(27% 0 0)`) with kinpaku text/icon. The gold carries the "selected" signal; the pill itself is neutral, not a kinpaku-dim wash.
-- **Exit hover:** Vermilion (`oklch(58% 0.15 35)`), not a neutral gray lift.
-- **Context bar internals:** Graphite-2 pills, gold hairline dividers, kinpaku Go/Accept CTAs with lacquer-deep text.
-- **DESIGN.md toggle icon:** Four-quadrant swatch; bottom-right uses warm charcoal (`oklch(34% 0.014 82)`) so the tile reads against lacquer-deep, not void-black.
-
-**The Picker Is Brand Rule.** Live mode UI is Impeccable product chrome, not host-page chrome. It always ships the lacquer-deep fill, the carved-tile mark, and gold on the mark + active control. Brand reads through the mark and the gold accent rather than a gold border ringing the bar; the container itself stays a quiet neutral-edged tool.
+The real picker injects into user dev servers from `skill/scripts/live-browser.js`; the site's mock (`.live-demo-gbar`, `.live-demo-ctx`) mirrors it from the kit. It is an instrument: `--ks-instrument` face, `--ks-instrument-rule` border, 8px radius, `--ks-instrument-text`. The brand mark is `--ks-kinpaku` on transparent; controls are `--ks-instrument-muted`; the active toggle is an `--ks-instrument-raised` chip with gold text and icon; Go and Accept are `--ks-kinpaku` fills with `--ks-on-gold`; exit and discard hover to vermilion. The selection outline on the page is a 1.5px `--ks-patina-deep` line with no glow. Picker chrome does not adapt to the host page.
 
 ## Do's and Don'ts
 
 ### Do
 
-- Do use kinpaku gold as the primary brand color.
-- Do use verdigris patina for secondary state and contrast.
-- Do keep surfaces dark, warm, and mineral.
-- Do use real texture assets for gold leaf and oxidation when the element is brand-bearing.
-- Do use circuit/calibration geometry as structure, especially around product proof.
-- Do keep cards compact, flat, and sharply bounded.
-- Do preserve utility: demos, sliders, audit tables, command examples, docs, and pricing must remain understandable.
-- Do keep live mode picker bars on dedicated overlay lacquer with a neutral hairline, using kinpaku on the brand mark and active control regardless of host page theme.
+- Do keep the chrome quiet so the demos can be loud.
+- Do put gold on the mark, a one-pixel rule, or an indicator on an instrument.
+- Do use `--ks-accent-ink`, `--ks-state-ink` or `--ks-link-on-paper` whenever color has to be read as text.
+- Do reserve `--ks-instrument*` for something the reader operates.
+- Do set headings in Albert Sans at 500 and 600 through the type tokens.
+- Do land every radius, control height and shadow on the ladder.
+- Do reach for the kit primitive first, and flag it when a new pattern earns a place in the kit.
+- Do keep the proof readable: comparisons, sliders, audit tables, command examples and docs are the product.
 
 ### Don't
 
-- Do not use editorial magenta as a brand accent.
-- Do not use italic serif display typography.
-- Do not use purple gradients, neon cyan fields, glassmorphism, or generic AI-tool glow.
-- Do not put gold texture under long text.
-- Do not use beige, paper, or cream as the page ground **in the default (dark) theme**. (Light mode intentionally uses a warm paper ground — see the Gold-Is-A-Mark-On-Paper rule.)
-- Do not add decorative calibration marks that do not align with real content.
-- Do not use wide rounded cards or nested cards.
+- Do not add a dark mode, a theme toggle, an `html.dark` selector or a `prefers-color-scheme` block.
+- Do not set gold as a text color, at any size, on paper.
+- Do not fill a button, chip, slab or panel with gold on paper.
+- Do not give a decorative section, card or footer a dark background.
+- Do not tint paper or ink; every surface and text token is chroma 0.
+- Do not use Alumni Sans outside the wordmark, or weight 100 or 300 anywhere.
+- Do not add a fourth radius, a fourth control height or a third shadow.
+- Do not hand-type an `oklch()` value in page CSS except as a one-off alpha of a token or inside a specimen of someone else's design.
 - Do not use pure black or pure white.
-- Do not let the visual system hide the product proof.
-- Do not theme-adapt live mode picker chrome to match arbitrary host pages. The picker is always neo-kinpaku.
+- Do not theme-adapt the live picker to a host page.
+
+### What was retired
+
+Gone with the Neo Kinpaku system, and not to come back:
+
+- The dark lacquer ground and its ladder (`--ks-lacquer`, `--ks-lacquer-deep`, `--ks-lacquer-raised`, `--ks-graphite`, `--ks-graphite-2`). The names now resolve nowhere; paper and instrument tokens replaced them.
+- The light theme as an override (`html.light`), the dark default, and the theme toggle. One theme, unconditional.
+- Warm-cast paper and ink (`oklch(... 0.012 95)` and friends). Paper is neutral.
+- Gold as text: `--ks-champagne`, `--ks-kinpaku-ink` as a gold value, gold display accent words on paper, gold eyebrows and tile numbers. `--ks-kinpaku-ink` survives only as an alias of patina-deep.
+- Gold fills on paper: gold CTAs, gold chips, gold category cells in the periodic table, the gold-bordered picker bar with its halo.
+- Textures and art: gold-leaf overlays (`kinpaku-gold-leaf.png`), kintsugi hero art (`m-01-v2-01*`), `gold-dust-rule.png`, `hero-seam-field*.png`, lacquer grain, verdigris patina textures, the textured footer divider.
+- Alumni Sans as the display face, and the thin headings that came with it (h1 at 100, h2 at 300, the weight inversion rule).
+- The enumerated 8px to 88px type ramp. The tokens define the roles and the dense ramp; nothing else.
+- The four-shadow vocabulary (panel setback, CTA lift, control lifts, patina glow). Two lifts remain.
+- Calibration marks, circuit geometry and gold seams as structure.
+- The 2px and `none` entries in the radius scale. Three radii remain.

@@ -172,9 +172,8 @@ describe('docs integrity', () => {
     expect(stale).toEqual([]);
   });
 
-  test('command demo theme rules stay scoped to their page and theme', () => {
+  test('command demo rules stay scoped to their page and carry no theme conditionals', () => {
     const homeCss = fs.readFileSync(path.join(ROOT, 'site/styles/home-kinpaku.css'), 'utf8');
-    const lightCss = fs.readFileSync(path.join(ROOT, 'site/styles/light-mode.css'), 'utf8');
     const docsCss = fs.readFileSync(path.join(ROOT, 'site/styles/docs-kinpaku.css'), 'utf8');
     const demoScope = ':is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison';
     const affectedDemos = {
@@ -192,27 +191,17 @@ describe('docs integrity', () => {
       for (const label of labels) expect(markup).toContain(label);
     }
 
-    expect(homeCss).toContain(
-      `html.dark .home-kinpaku ${demoScope} [style*="color: #92400e"]`
-    );
-    expect(homeCss).toContain(
-      `html.dark .home-kinpaku ${demoScope} [style*="background: var(--color-ink)"]`
-    );
-    expect(homeCss).toContain(
-      `html.light .home-kinpaku ${demoScope} [style*="color: var(--color-accent)"]`
-    );
-    expect(homeCss).not.toContain(
-      `\n.home-kinpaku ${demoScope} [style*="color: #92400e"]`
-    );
-    expect(homeCss).not.toContain(
-      `\n.home-kinpaku ${demoScope} [style*="background: var(--color-ink)"]`
-    );
+    // The site has one theme. No rule may be gated on html.light / html.dark.
+    for (const css of [homeCss, docsCss]) {
+      expect(css).not.toMatch(/html\.(light|dark)\b/);
+    }
 
-    expect(docsCss).toMatch(
-      /\.docs-kinpaku \.docs-command-demo \.split-after\s*\{[^}]*background:\s*var\(--ks-lacquer\);/
+    // The demo accent override is page-scoped, not global.
+    expect(homeCss).toContain(
+      `.home-kinpaku ${demoScope} [style*="color: var(--color-accent)"]`
     );
-    expect(lightCss).toMatch(
-      /html\.light \.docs-kinpaku \.docs-command-demo \.split-after\s*\{[^}]*background:\s*var\(--ks-lacquer-raised\);/
+    expect(docsCss).toMatch(
+      /\.docs-kinpaku \.docs-command-demo \.split-after\s*\{[^}]*background:\s*var\(--ks-paper/
     );
   });
 });

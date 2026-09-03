@@ -10,6 +10,35 @@
  * so there is no light variant and no theme toggle here.
  */
 
+/* impeccable.style moved to a single light paper system and renamed its
+   surface tokens. This page is dark by design (the shader is authored for a
+   lacquer ground), so it carries its own dark values under the names the
+   rest of this stylesheet and the shader were written against. Brand gold,
+   patina, faces and the type scale still come from the shared token file. */
+.pro-page {
+	--ks-lacquer:        oklch(15% 0.006 95);
+	--ks-lacquer-deep:   oklch(10% 0.006 95);
+	--ks-lacquer-raised: oklch(20% 0.006 95);
+	--ks-graphite:       oklch(25% 0.008 95);
+	--ks-graphite-2:     oklch(30% 0.008 95);
+	--ks-champagne:      oklch(91% 0 0);
+	--ks-dark-ink:       var(--ks-on-gold);
+	--ks-text:           oklch(88% 0 0);
+	--ks-text-muted:     oklch(72% 0 0);
+	--ks-text-faint:     oklch(62% 0 0);
+	--ks-text-mute-deep: oklch(52% 0 0);
+	--ks-rule:           oklch(78% 0 0 / 0.22);
+	--ks-edge:           oklch(80% 0 0 / 0.5);
+	--ks-patina-deep:    oklch(70% 0.12 188);
+	--ks-accent-ink:     var(--ks-kinpaku);
+	--ks-link-on-paper:  var(--ks-kinpaku);
+	--ks-font-display:   var(--ks-font-wordmark);
+	--ks-type-display-weight: 100;
+	--ks-type-display-size:   clamp(3.4rem, 6.5vw, 5.6rem);
+	--ks-type-display-line:   1.02;
+	--ks-type-display-track:  -0.01em;
+}
+
 .pro-page {
 	min-height: 100vh;
 	min-height: 100dvh;

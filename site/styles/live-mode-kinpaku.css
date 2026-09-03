@@ -1,21 +1,24 @@
 /* ============================================================================
-   /live-mode — Neo Kinpaku redesign
+   /live-mode: paper page, instrument picker
 
-   Same page-scope pattern as docs-kinpaku.css and slop-kinpaku.css. The
-   interactive demo at the top of the page simulates a real dev server with
-   Impeccable's picker overlaid. The simulated user-app surface inside the
-   browser mock stays light (it represents any app, not Impeccable itself).
-   The Impeccable-branded picker bar at the bottom of the mock — which IS
-   Impeccable's UI — gets the kinpaku treatment.
+   The page is paper. The mock browser at the top simulates a real dev
+   server: the page under edit stays white, and Impeccable's picker (the
+   global bar, the context bar, the command palette) sits on it as a dark
+   instrument with a gold indicator. Nothing else on the page is dark.
+
+   Base structure for the picker lives in live-mode.css (shared with the
+   homepage). kinpaku-kit.css still carries a `.live-mode-kinpaku
+   .live-demo-*` skin from the dark era that renders the picker on light
+   surfaces; section 3 here re-asserts the instrument values at the same
+   specificity, later in the cascade.
 
    Sections of this file:
      1. Page scope + base
      2. Hero
-     3. Demo frame chrome + Impeccable picker bar re-skin
+     3. Demo frame + picker as instrument
      4. Stages (3-up "What happens")
      5. Pathways (3-up "Where next")
      6. Frameworks list
-     7. Footer
    ============================================================================ */
 
 @import "./kinpaku-tokens.css";
@@ -26,12 +29,9 @@
    ============================================================================ */
 
 .live-mode-kinpaku {
-  /* Surface/text/accent/font tokens default to kinpaku at :root now; only
-     the --ks-muted alias and the page shell remain here. */
   --ks-muted: var(--ks-text-muted);
 
-  background:
-    linear-gradient(180deg, oklch(7% 0.006 95), oklch(4% 0.004 95));
+  background: var(--ks-paper);
   color: var(--ks-text);
   font-family: var(--ks-font);
   min-height: 100vh;
@@ -44,8 +44,7 @@
 .live-mode-kinpaku .live-mode-page {
   max-width: 1180px;
   margin: 0 auto;
-  /* Tighter top so the auto-playing demo lands closer to the fold — the
-     demo is the page's main asset; preamble shouldn't push it away. */
+  /* Tight top so the auto-playing demo lands near the fold. */
   padding: clamp(32px, 4vw, 64px) clamp(22px, 4vw, 56px) clamp(80px, 10vw, 140px);
 }
 
@@ -56,35 +55,7 @@
 
 .live-mode-kinpaku .live-mode-page-header {
   max-width: 760px;
-  /* Pulled in from clamp(64px, 8vw, 96px). The demo viewport carries its
-     own margin-bottom; we don't need a big gap on both sides. */
   margin: 0 0 clamp(32px, 4vw, 48px);
-}
-
-.live-mode-kinpaku .live-mode-page-eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-eyebrow-size);
-  letter-spacing: var(--ks-type-eyebrow-track);
-  text-transform: uppercase;
-  color: var(--ks-kinpaku);
-  margin: 0 0 18px;
-}
-
-.live-mode-kinpaku .live-mode-page-eyebrow-badge {
-  display: inline-flex;
-  align-items: center;
-  font-family: var(--ks-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
-  padding: 2px 8px;
-  border: 1px solid oklch(70% 0.12 188 / 0.4);
-  border-radius: 2px;
-  color: var(--ks-state-ink);
-  background: oklch(70% 0.12 188 / 0.10);
-  text-transform: uppercase;
 }
 
 .live-mode-kinpaku .live-mode-page-title {
@@ -92,13 +63,13 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  font-family: var(--ks-font-display);
+  font-family: var(--ks-font);
   font-style: normal;
   font-weight: var(--ks-type-display-weight);
   font-size: var(--ks-type-display-size);
   line-height: var(--ks-type-display-line);
   letter-spacing: var(--ks-type-display-track);
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   margin: 0 0 22px;
   text-wrap: balance;
 }
@@ -108,12 +79,12 @@
   align-items: center;
   align-self: center;
   padding: 3px 9px;
-  border: 1px solid oklch(70% 0.12 188 / 0.4);
-  border-radius: 2px;
-  background: oklch(70% 0.12 188 / 0.10);
+  border: 1px solid var(--ks-patina-pale);
+  border-radius: var(--ks-radius-sm);
+  background: color-mix(in oklch, var(--ks-patina-pale) 35%, var(--ks-paper-raised));
   color: var(--ks-state-ink);
   font-family: var(--ks-mono);
-  font-size: 0.6875rem;
+  font-size: var(--ks-type-micro-size);
   font-weight: 500;
   letter-spacing: 0.18em;
   line-height: 1.2;
@@ -128,17 +99,15 @@
   max-width: 56ch;
 }
 
-/* Alpha note — quiet inline footnote below the command pill, not a card.
-   Previously a bordered callout, but it ate vertical space above the
-   demo without earning it. Compact form keeps the disclaimer honest
-   without blocking the demo. */
+/* Beta note: a quiet footnote under the command, held by a gold rule. */
 .live-mode-kinpaku .live-mode-page-alpha-note {
   margin: 14px 0 0;
   padding: 0 0 0 14px;
   background: transparent;
   border: 0;
+  border-left: 1px solid var(--ks-gold-line);
   border-radius: 0;
-  box-shadow: inset 2px 0 0 var(--ks-kinpaku);
+  box-shadow: none;
   font-size: 0.82rem;
   line-height: 1.5;
   color: var(--ks-text-muted);
@@ -146,11 +115,12 @@
 }
 
 .live-mode-kinpaku .live-mode-page-alpha-note strong {
-  color: var(--ks-state-ink);
+  color: var(--ks-ink);
   font-weight: 500;
 }
 
-/* Start command — matches the homepage's runnable terminal frame. */
+/* Start command: a CLI block, so an instrument. The prompt glyph is the
+   gold indicator; the command itself is instrument text. */
 .live-mode-kinpaku .live-mode-start {
   display: flex;
   align-items: center;
@@ -159,17 +129,20 @@
   max-width: 600px;
   min-width: 0;
   box-sizing: border-box;
-  padding: 15px 14px 15px 22px;
-  background: var(--ks-code-block-bg);
-  border: 1px solid var(--ks-kinpaku);
-  border-radius: 2px;
+  margin: 0;
+  padding: 12px 12px 12px 20px;
+  background: var(--ks-instrument);
+  color: var(--ks-instrument-text);
+  border: 1px solid var(--ks-instrument-deep);
+  border-radius: var(--ks-radius-md);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-1);
   font-family: var(--ks-mono);
 }
 
 .live-mode-kinpaku .live-mode-start-prompt {
   flex: none;
-  color: var(--ks-accent-ink);
-  font-size: 1.18rem;
+  color: var(--ks-kinpaku);
+  font-size: 1.1rem;
   font-weight: 500;
   line-height: 1;
   user-select: none;
@@ -180,8 +153,8 @@
   min-width: 0;
   overflow-x: auto;
   white-space: nowrap;
-  color: var(--ks-code-block-fg);
-  font-size: 1.22rem;
+  color: var(--ks-instrument-text);
+  font-size: 1.1rem;
   letter-spacing: 0;
   background: transparent;
   border: 0;
@@ -195,13 +168,13 @@
   position: relative;
   display: inline-grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   background: transparent;
-  border: 1px solid var(--ks-rule);
-  color: var(--ks-accent-ink);
+  border: 1px solid var(--ks-instrument-rule);
+  color: var(--ks-instrument-muted);
   cursor: pointer;
-  border-radius: 2px;
+  border-radius: var(--ks-radius-sm);
   transition:
     background 180ms var(--ks-ease),
     border-color 180ms var(--ks-ease),
@@ -210,8 +183,9 @@
 }
 
 .live-mode-kinpaku .live-mode-start-copy:hover {
-  background: oklch(77% 0.14 82 / 0.08);
-  border-color: currentColor;
+  background: var(--ks-instrument-raised);
+  border-color: var(--ks-instrument-edge);
+  color: var(--ks-instrument-text);
 }
 
 .live-mode-kinpaku .live-mode-start-copy:active {
@@ -242,9 +216,9 @@
 }
 
 .live-mode-kinpaku .live-mode-start-copy.copied {
-  background: oklch(77% 0.14 82 / 0.08);
-  border-color: currentColor;
-  color: var(--ks-accent-ink);
+  background: var(--ks-instrument-raised);
+  border-color: var(--ks-instrument-edge);
+  color: var(--ks-kinpaku);
 }
 
 .live-mode-kinpaku .live-mode-start-copy.copied .live-mode-start-copy-icon {
@@ -281,11 +255,11 @@
 @media (max-width: 520px) {
   .live-mode-kinpaku .live-mode-start {
     gap: 10px;
-    padding: 13px 12px 13px 16px;
+    padding: 11px 10px 11px 14px;
   }
 
   .live-mode-kinpaku .live-mode-start-prompt {
-    font-size: 1.05rem;
+    font-size: 1rem;
   }
 
   .live-mode-kinpaku .live-mode-start-cmd {
@@ -297,19 +271,17 @@
   }
 
   .live-mode-kinpaku .live-mode-start-copy {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
   }
 }
 
 
 /* ============================================================================
-   3. INTERACTIVE DEMO — frame chrome + Impeccable picker bar re-skin
+   3. INTERACTIVE DEMO: frame chrome + picker as instrument
 
-   The mock represents: a real user dev server (light "app" inside) with
-   Impeccable's picker bar (kinpaku) layered on top. Only the Impeccable
-   chrome flips dark; the simulated app stays cream so it reads as a
-   generic dev preview, not as Impeccable-themed.
+   The mock is a real user dev server (white page inside a paper browser
+   frame) with Impeccable's picker layered on top. Only the picker is dark.
    ============================================================================ */
 
 .live-mode-kinpaku .live-mode-demo-wrap {
@@ -317,150 +289,245 @@
 }
 
 .live-mode-kinpaku .live-demo-frame {
-  background: var(--ks-lacquer-deep);
-  /* Crisp neutral hairline + tighter, deeper shadow that registers, instead of
-     a warm gold edge and a broad soft shadow that washes out on dark. */
-  border: 1px solid oklch(92% 0 0 / 0.1);
-  border-radius: 4px;
+  background: var(--ks-paper-raised);
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-md);
   overflow: hidden;
-  box-shadow:
-    inset 0 1px 0 oklch(100% 0 0 / 0.05),
-    0 20px 48px -14px oklch(0% 0 0 / 0.6);
+  box-shadow: var(--ks-lift-2);
 }
 
-/* All .live-demo-* picker chrome (chrome bar, gbar, ctx, outline,
-   annotations, comment, stroke) lives in kinpaku-kit.css under the
-   "Live picker (kinpaku theme)" section so the homepage and this page
-   share one source of truth. Only the page-specific bits below remain:
-   the demo frame surface and the simulated user-app stage. */
-
-/* The simulated user-app stage in the middle of the mock previously
-   re-established light token values to read as "a generic light dev
-   preview", but on the dark page chrome that white slab between two
-   dark surfaces hurts the eye. Pull it into the kinpaku dark palette
-   so the demo reads as one coherent surface. The cost is the metaphor
-   shifts from "any user's app" to "a dark-themed user's app"; the
-   payoff is the page no longer flashes white at scroll. */
-.live-mode-kinpaku .live-demo-stage {
-  background: var(--ks-lacquer);
-  color: var(--ks-text);
+/* Browser chrome: a sunk paper bar with a raised URL pill. */
+.live-mode-kinpaku .live-demo-chrome {
+  padding: 9px 14px;
+  background: var(--ks-paper-deep);
+  border-bottom: 1px solid var(--ks-rule);
 }
 
-/* The three card variants in the cycling demo were authored for the old
-   magenta editorial brand: v1 italic-serif column, v2 brutalist ticket
-   on `--color-ink`, v3 pastel-pink card. None of those survive the
-   kinpaku remap (champagne reads as sand, pink reads off-brand, italic
-   display is banned by DESIGN.md). Re-skin each variant to feel like a
-   distinct design direction inside the kinpaku world.
-
-   - v1: editorial — lacquer-raised with a kinpaku top rule, display
-     headline at weight 600.
-   - v2: brutalist ticket — deeper lacquer with a chunky kinpaku
-     side-bar (rendered via ::before, not a CSS side-stripe accent on a
-     card), all-caps body face, kinpaku CTA.
-   - v3: soft — slightly tinted lacquer with a hairline kinpaku border,
-     body-face heading.
-
-   The cycling animation also temporarily applies these as `.is-active`
-   variants; the kinpaku styling holds in both static and animated states. */
-
-.live-mode-kinpaku .live-demo-card--v1,
-.live-mode-kinpaku .live-demo-card--v2,
-.live-mode-kinpaku .live-demo-card--v3 {
-  color: var(--ks-text);
+.live-mode-kinpaku .live-demo-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--ks-gray-2);
 }
 
-.live-mode-kinpaku .live-demo-card--v1 {
-  background: var(--ks-lacquer-raised);
-  border: 0;
-  border-radius: 0;
-  box-shadow: inset 0 3px 0 var(--ks-kinpaku);
-}
-
-.live-mode-kinpaku .live-demo-card--v1 .live-demo-card-kicker {
-  color: var(--ks-kinpaku);
-}
-
-.live-mode-kinpaku .live-demo-card--v1 .live-demo-card-h {
-  font-family: var(--ks-font-display);
-  font-style: normal;
-  font-weight: var(--ks-type-headline-weight);
-  color: var(--ks-champagne);
-}
-
-.live-mode-kinpaku .live-demo-card--v1 .live-demo-card-h em {
-  color: var(--ks-kinpaku);
-  font-style: normal;
-}
-
-.live-mode-kinpaku .live-demo-card--v1 p {
-  font-family: var(--ks-font);
-  font-style: normal;
+.live-mode-kinpaku .live-demo-url {
+  margin-left: 12px;
+  font-family: var(--ks-mono);
+  font-size: 0.72rem;
   color: var(--ks-text-muted);
+  letter-spacing: 0.04em;
+  background: var(--ks-paper-raised);
+  border: 1px solid var(--ks-rule);
 }
 
-.live-mode-kinpaku .live-demo-card--v1 button {
+/* The page under edit: white, so the variants and the picker both read. */
+.live-mode-kinpaku .live-demo-stage {
+  background: var(--ks-paper-raised);
+  color: var(--ks-text);
+}
+
+/* ---- Picker instrument. Each rule below re-asserts a value the kit's
+   dark-era skin sets on a light surface. ---- */
+
+.live-mode-kinpaku .live-demo-gbar,
+.live-mode-kinpaku .live-demo-ctx {
+  background: var(--ks-instrument);
+  border: 1px solid var(--ks-instrument-deep);
+  border-radius: var(--ks-radius-md);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-2);
+  color: var(--ks-instrument-text);
+}
+
+.live-mode-kinpaku .live-demo-gbar-brand {
+  color: var(--ks-kinpaku);
   background: transparent;
-  color: var(--ks-kinpaku);
-  border-bottom: 1.5px solid var(--ks-kinpaku);
-  border-radius: 0;
 }
 
-.live-mode-kinpaku .live-demo-card--v2 {
-  background: var(--ks-lacquer-deep);
-  color: var(--ks-champagne);
-  border: 0;
-  border-radius: 0;
-}
-
-.live-mode-kinpaku .live-demo-card--v2::before {
-  background: var(--ks-kinpaku);
-}
-
-.live-mode-kinpaku .live-demo-card--v2 .live-demo-card-kicker,
-.live-mode-kinpaku .live-demo-card--v2 .live-demo-card-stamp {
-  color: var(--ks-kinpaku);
-}
-
-.live-mode-kinpaku .live-demo-card--v2 .live-demo-card-h {
-  font-family: var(--ks-font);
-  font-style: normal;
-  font-weight: 600;
-  color: var(--ks-champagne);
-}
-
-.live-mode-kinpaku .live-demo-card--v2 button {
-  background: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
-}
-
-.live-mode-kinpaku .live-demo-card--v3 {
-  background: oklch(11% 0.012 82);
-  border: 1px solid oklch(78% 0 0 / 0.16);
-  color: oklch(88% 0 0);
-}
-
-.live-mode-kinpaku .live-demo-card--v3 .live-demo-card-kicker {
-  color: var(--ks-kinpaku);
-}
-
-.live-mode-kinpaku .live-demo-card--v3 .live-demo-card-h {
-  font-family: var(--ks-font);
-  font-style: normal;
-  font-weight: 600;
-  color: oklch(91% 0 0);
-}
-
-.live-mode-kinpaku .live-demo-card--v3 .live-demo-card-h em {
-  color: var(--ks-kinpaku);
-  font-style: normal;
-}
-
-.live-mode-kinpaku .live-demo-card--v3 button {
+.live-mode-kinpaku .live-demo-gbar-btn {
+  color: var(--ks-instrument-muted);
   background: transparent;
+}
+
+.live-mode-kinpaku .live-demo-gbar-btn.is-active {
+  background: var(--ks-instrument-raised);
+  color: var(--ks-instrument-text);
+  border-radius: var(--ks-radius-md);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-edge);
+}
+
+.live-mode-kinpaku .live-demo-gbar-btn.is-active > svg {
   color: var(--ks-kinpaku);
+}
+
+/* Page chat: a sunk well inside the instrument. */
+.live-mode-kinpaku .live-demo-gbar-chat {
+  background: var(--ks-instrument-deep);
+  border: 1px solid transparent;
+}
+
+.live-mode-kinpaku .live-demo-gbar-chat.is-expanded {
+  border-color: var(--ks-instrument-rule);
+}
+
+.live-mode-kinpaku .live-demo-gbar-chat-icon,
+.live-mode-kinpaku .live-demo-gbar-chat-hint,
+.live-mode-kinpaku .live-demo-gbar-chat-voice {
+  color: var(--ks-instrument-muted);
+}
+
+.live-mode-kinpaku .live-demo-gbar-chat-input {
+  color: var(--ks-instrument-text);
+  caret-color: var(--ks-kinpaku);
+}
+
+.live-mode-kinpaku .live-demo-gbar-chat-input::placeholder {
+  color: var(--ks-instrument-muted);
+}
+
+.live-mode-kinpaku .live-demo-gbar-chat-voice:hover,
+.live-mode-kinpaku .live-demo-gbar-chat-voice.is-active {
+  color: var(--ks-instrument-text);
+  background: var(--ks-instrument-raised);
+}
+
+.live-mode-kinpaku .live-demo-gbar-divider {
+  background: var(--ks-instrument-rule);
+}
+
+.live-mode-kinpaku .live-demo-gbar-x {
+  color: var(--ks-instrument-muted);
+  background: transparent;
+}
+
+.live-mode-kinpaku .live-demo-gbar-x:hover {
+  color: var(--ks-instrument-text);
+}
+
+/* Context bar rows. */
+.live-mode-kinpaku .live-demo-ctx[data-phase="configuring"] {
+  padding: 0;
+  background: var(--ks-instrument);
+  overflow: visible;
+}
+
+.live-mode-kinpaku .live-demo-ctx-actions .live-demo-ctx-go {
+  border-radius: 0 9px 9px 0;
+}
+
+.live-mode-kinpaku .live-demo-ctx-trailing,
+.live-mode-kinpaku .live-demo-ctx-actions {
+  border-left: 1px solid var(--ks-instrument-rule);
+}
+
+.live-mode-kinpaku .live-demo-ctx-selection {
   border: 1px solid var(--ks-kinpaku);
-  border-radius: 2px;
+  color: var(--ks-instrument-text);
+  background: transparent;
+}
+
+.live-mode-kinpaku .live-demo-ctx-selection:hover {
+  background: var(--ks-instrument-raised);
+}
+
+.live-mode-kinpaku .live-demo-ctx-action,
+.live-mode-kinpaku .live-demo-ctx-count {
+  color: var(--ks-instrument-muted);
+}
+
+.live-mode-kinpaku .live-demo-ctx-action:hover,
+.live-mode-kinpaku .live-demo-ctx-count:hover {
+  color: var(--ks-instrument-text);
+}
+
+.live-mode-kinpaku .live-demo-ctx-input {
+  color: var(--ks-instrument-text);
+}
+
+.live-mode-kinpaku .live-demo-ctx-caret {
+  background: var(--ks-instrument-text);
+}
+
+.live-mode-kinpaku .live-demo-ctx-voice {
+  border-right: 1px solid var(--ks-instrument-rule);
+  color: var(--ks-instrument-muted);
+}
+
+.live-mode-kinpaku .live-demo-ctx-go,
+.live-mode-kinpaku .live-demo-ctx-accept {
+  background: var(--ks-kinpaku);
+  color: var(--ks-on-gold);
+  border: 0;
+}
+
+/* Command palette: the design vocabulary, a 4-column grid of chips that
+   opens above the context bar. The highlighted chip is the raised key
+   with the gold icon. */
+.live-mode-kinpaku .live-demo-ctx-palette {
+  background: var(--ks-instrument);
+  border: 1px solid var(--ks-instrument-deep);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-2);
+}
+
+.live-mode-kinpaku .live-demo-ctx-palette-chip {
+  color: var(--ks-instrument-muted);
+}
+
+.live-mode-kinpaku .live-demo-ctx-palette-chip.is-highlight {
+  background: var(--ks-instrument-raised);
+  color: var(--ks-instrument-text);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-edge);
+}
+
+.live-mode-kinpaku .live-demo-ctx-palette-chip.is-highlight .live-demo-ctx-palette-ico {
+  color: var(--ks-kinpaku);
+}
+
+.live-mode-kinpaku .live-demo-ctx-nav,
+.live-mode-kinpaku .live-demo-ctx-discard {
+  background: transparent;
+  color: var(--ks-instrument-muted);
+}
+
+.live-mode-kinpaku .live-demo-ctx-nav:hover,
+.live-mode-kinpaku .live-demo-ctx-discard:hover {
+  color: var(--ks-instrument-text);
+}
+
+.live-mode-kinpaku .live-demo-ctx-counter {
+  color: var(--ks-instrument-text);
+}
+
+.live-mode-kinpaku .live-demo-ctx-divider {
+  background: var(--ks-instrument-rule);
+}
+
+.live-mode-kinpaku .live-demo-ctx-spinner {
+  border-color: var(--ks-instrument-rule);
+  border-top-color: var(--ks-kinpaku);
+}
+
+.live-mode-kinpaku .live-demo-ctx-row--accepted {
+  color: var(--ks-instrument-text);
+}
+
+/* Selection marks drawn on the white page: patina, since gold cannot be
+   read on paper. The comment tag is a small instrument. */
+.live-mode-kinpaku .live-demo-outline {
+  border-color: var(--ks-patina-deep);
+  border-width: 2px;
+  border-radius: 8px;
+  color: var(--ks-patina-deep);
+  box-shadow: 0 0 0 4px oklch(46% 0.08 188 / 0.14);
+}
+
+.live-mode-kinpaku .live-demo-annotations,
+.live-mode-kinpaku .live-demo-stroke {
+  color: var(--ks-patina-deep);
+  border-color: var(--ks-patina-deep);
+}
+
+.live-mode-kinpaku .live-demo-comment {
+  background: var(--ks-instrument);
+  color: var(--ks-instrument-text);
 }
 
 .live-mode-kinpaku .live-mode-demo-caption {
@@ -472,19 +539,20 @@
   font-style: normal;
 }
 
-.live-mode-kinpaku .live-mode-demo-caption code {
+.live-mode-kinpaku .live-mode-demo-caption code,
+.live-mode-kinpaku .live-mode-pathway-desc code {
   font-family: var(--ks-mono);
   font-size: 0.86em;
-  color: var(--ks-champagne);
-  background: var(--ks-graphite-2);
-  border: 1px solid var(--ks-rule);
-  padding: 1px 6px;
-  border-radius: 2px;
+  color: var(--ks-code-fg);
+  background: var(--ks-code-bg);
+  border: 0;
+  padding: var(--ks-code-pad);
+  border-radius: var(--ks-code-radius);
 }
 
 
 /* ============================================================================
-   4. STAGES — 3-up "What happens, in three moves"
+   4. STAGES: 3-up "What happens, in three moves"
    ============================================================================ */
 
 .live-mode-kinpaku .live-mode-stages {
@@ -493,13 +561,13 @@
 
 .live-mode-kinpaku .live-mode-stages-title,
 .live-mode-kinpaku .live-mode-pathways-title {
-  font-family: var(--ks-font-display);
+  font-family: var(--ks-font);
   font-style: normal;
   font-weight: var(--ks-type-headline-weight);
   font-size: var(--ks-type-headline-size);
   line-height: var(--ks-type-headline-line);
-  letter-spacing: -0.005em;
-  color: var(--ks-champagne);
+  letter-spacing: var(--ks-type-headline-track);
+  color: var(--ks-ink);
   margin: 0 0 28px;
   text-wrap: balance;
 }
@@ -516,75 +584,68 @@
   }
 }
 
-/* Flex column so the viz band can stick to the bottom (margin-top: auto)
-   and all three cards align their viz bands at the same baseline,
-   regardless of how many lines of body copy each one has. */
+/* Flex column so the viz band sticks to the bottom (margin-top: auto) and
+   all three cards align their bands regardless of copy length. */
 .live-mode-kinpaku .live-mode-stage {
   display: flex;
   flex-direction: column;
   gap: 12px;
   padding: 24px 24px 0;
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   border: 1px solid var(--ks-rule);
-  border-radius: 2px;
+  border-radius: var(--ks-radius-md);
   overflow: hidden;
 }
 
-/* Numbered markers are allowed here — one deliberate sequence on a single
-   page is not the saturated "every section has 01/02/03/04 numbers" tell.
-   See the relaxed wording in DESIGN.md §7. Restyle as a mono caps
-   eyebrow in kinpaku, paired with the kinpaku flow shape. */
-.live-mode-kinpaku .live-mode-stage-num {
+.live-mode-kinpaku .live-mode-stage-num,
+.live-mode-kinpaku .live-mode-pathway-kind,
+.live-mode-kinpaku .live-mode-frameworks-label {
   display: block;
   font-family: var(--ks-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
+  font-size: var(--ks-type-eyebrow-size);
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
-  color: var(--ks-accent-ink);
+  color: var(--ks-text-muted);
   margin: 0;
 }
 
-.live-mode-kinpaku .live-mode-stage-name {
+.live-mode-kinpaku .live-mode-stage-name,
+.live-mode-kinpaku .live-mode-pathway-title {
   font-family: var(--ks-font);
   font-style: normal;
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--ks-champagne);
+  font-size: var(--ks-type-title-size);
+  font-weight: var(--ks-type-title-weight);
+  line-height: var(--ks-type-title-line);
+  color: var(--ks-ink);
   margin: 0;
 }
 
-.live-mode-kinpaku .live-mode-stage-desc {
+.live-mode-kinpaku .live-mode-stage-desc,
+.live-mode-kinpaku .live-mode-pathway-desc {
   font-size: 0.92rem;
   line-height: 1.55;
   color: var(--ks-text);
   margin: 0;
 }
 
-/* Stage viz — a dark inset band that anchors to the bottom of the card.
-   `margin-top: auto` (with the parent flex column) pushes it down so all
-   three cards align their viz at the same baseline. Fixed height so the
-   bands are visually equal regardless of mock content size. */
+/* Stage viz: a sunk well at the bottom of the card. Fixed height so the
+   three bands are equal regardless of mock content. */
 .live-mode-kinpaku .live-mode-stage-viz {
   margin: 14px -24px 0;
   margin-top: auto;
   padding: 20px 24px;
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
   border-top: 1px solid var(--ks-rule);
+  border-radius: 0;
   height: 132px;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* No border-radius — the card's overflow:hidden + 2px corner radius is
-     enough; the band should look flush against the card sides. */
 }
 
-/* Re-skin the docs-viz-* mini-mocks inside the viz band for the dark
-   kinpaku surface. docs-visuals.css gives them light-theme backgrounds
-   and borders that don't read on lacquer. Match the patterns used in
-   /docs and /slop so the same mock vocabulary feels consistent.
-
-   Picker-target pin (PICK card) — kinpaku outline on lacquer. */
+/* Pick: the selected element with a comment pin. docs-visuals.css gives
+   these an italic display face and a gold halo; reset to the page's
+   selection language. */
 .live-mode-kinpaku .live-mode-stage-viz .docs-viz-picker-row {
   background: transparent;
   border: 0;
@@ -592,87 +653,83 @@
 }
 
 .live-mode-kinpaku .live-mode-stage-viz .docs-viz-picker-target {
-  background: var(--ks-lacquer-raised);
-  border: 1.5px solid var(--ks-kinpaku);
-  color: var(--ks-champagne);
-  /* The thin Alumni Sans display cut loses legibility below ~1.2rem (Two-Face
-     Rule). The mock renders at 12px, so force the body face here. */
+  background: var(--ks-paper-raised);
+  border: 2px solid var(--ks-patina-deep);
+  border-radius: var(--ks-radius-md);
+  color: var(--ks-ink);
   font-family: var(--ks-font);
   font-style: normal;
   font-weight: 500;
-  box-shadow: 0 0 0 4px oklch(78% 0.12 82 / 0.16);
+  box-shadow: 0 0 0 4px oklch(46% 0.08 188 / 0.14);
 }
 
 .live-mode-kinpaku .live-mode-stage-viz .docs-viz-picker-pin {
-  background: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
-  box-shadow: none;
+  background: var(--ks-instrument);
+  color: var(--ks-instrument-text);
+  box-shadow: var(--ks-lift-1);
 }
 
-/* Generate card — measured rail with one clearly active take. The active
-   state uses solid kinpaku instead of a patina wash so it stays crisp in
-   light mode. */
-.live-mode-kinpaku .live-mode-stage-viz--rail {
-  background: var(--ks-lacquer-deep);
-}
-
+/* Generate: a rail of three takes, one active. A control, so an
+   instrument: the active key is raised and its mark is gold. */
 .live-mode-kinpaku .viz-rail {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
+  gap: 2px;
   width: 100%;
-  min-height: 62px;
-  border: 1px solid var(--ks-rule);
-  border-radius: 3px;
-  overflow: hidden;
-  background: var(--ks-lacquer-raised);
+  padding: 3px;
+  box-sizing: border-box;
+  border: 1px solid var(--ks-instrument-deep);
+  border-radius: var(--ks-radius-md);
+  background: var(--ks-instrument);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-1);
 }
 
 .live-mode-kinpaku .viz-rail-cell {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 14px;
   padding: 8px;
-  color: var(--ks-text-muted);
+  border-radius: var(--ks-radius-sm);
+  color: var(--ks-instrument-muted);
   font-family: var(--ks-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.live-mode-kinpaku .viz-rail-cell + .viz-rail-cell {
-  box-shadow: inset 1px 0 0 var(--ks-rule);
-}
-
 .live-mode-kinpaku .viz-rail-cell.is-active {
-  background: var(--ks-kinpaku);
-  color: oklch(8% 0.006 95);
+  background: var(--ks-instrument-raised);
+  color: var(--ks-instrument-text);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-edge);
 }
 
 .live-mode-kinpaku .viz-rail-mark {
   width: 18px;
   height: 2px;
-  background: currentColor;
+  background: var(--ks-instrument-rule);
 }
 
-/* Accept pill (ACCEPT card) — patina on lacquer, not a pale gold wash. */
+.live-mode-kinpaku .viz-rail-cell.is-active .viz-rail-mark {
+  background: var(--ks-kinpaku);
+}
+
+/* Accept: the confirmation row of the context bar, as a readout. */
 .live-mode-kinpaku .live-mode-stage-viz .docs-viz-accept-pill {
-  background: oklch(8% 0.006 95);
-  border: 1px solid oklch(70% 0.12 188 / 0.58);
-  color: oklch(82% 0.07 188);
-  box-shadow: inset 0 1px 0 oklch(100% 0 0 / 0.05);
+  background: var(--ks-instrument);
+  border: 1px solid var(--ks-instrument-deep);
+  border-radius: var(--ks-radius-md);
+  color: var(--ks-instrument-text);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-1);
 }
 
-html.light .live-mode-kinpaku .live-mode-stage-viz .docs-viz-accept-pill {
-  background: color-mix(in oklch, var(--ks-lacquer-raised) 90%, var(--ks-patina) 10%);
-  border-color: color-mix(in oklch, var(--ks-state-ink) 45%, transparent);
-  color: var(--ks-state-ink);
-  box-shadow: none;
+.live-mode-kinpaku .live-mode-stage-viz .docs-viz-accept-pill::before {
+  color: var(--ks-kinpaku);
 }
 
 
 /* ============================================================================
-   5. PATHWAYS — 3-up "Where next"
+   5. PATHWAYS: 3-up "Where next"
    ============================================================================ */
 
 .live-mode-kinpaku .live-mode-pathways {
@@ -696,61 +753,31 @@ html.light .live-mode-kinpaku .live-mode-stage-viz .docs-viz-accept-pill {
   align-content: start;
   gap: 10px;
   padding: 28px 28px 32px;
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   border: 1px solid var(--ks-rule);
-  border-radius: 2px;
+  border-radius: var(--ks-radius-md);
   text-decoration: none;
   color: inherit;
   transition: border-color 180ms var(--ks-ease),
-              background 180ms var(--ks-ease);
+              box-shadow 180ms var(--ks-ease);
 }
 
 .live-mode-kinpaku .live-mode-pathway:hover {
-  border-color: var(--ks-kinpaku);
-  background: oklch(13% 0.012 82);
-}
-
-.live-mode-kinpaku .live-mode-pathway-kind {
-  font-family: var(--ks-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ks-accent-ink);
-  margin: 0;
-}
-
-.live-mode-kinpaku .live-mode-pathway-title {
-  font-family: var(--ks-font);
-  font-style: normal;
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.25;
-  color: var(--ks-champagne);
-  margin: 0;
-}
-
-.live-mode-kinpaku .live-mode-pathway-desc {
-  font-size: 0.92rem;
-  line-height: 1.55;
-  color: var(--ks-text-muted);
-  margin: 0;
-}
-
-.live-mode-kinpaku .live-mode-pathway-desc code {
-  font-family: var(--ks-mono);
-  font-size: 0.86em;
-  color: var(--ks-champagne);
-  background: var(--ks-graphite-2);
-  border: 1px solid var(--ks-rule);
-  padding: 1px 6px;
-  border-radius: 2px;
+  border-color: var(--ks-edge);
+  background: var(--ks-paper-raised);
+  box-shadow: var(--ks-lift-1);
 }
 
 .live-mode-kinpaku .live-mode-pathway-cta {
   margin-top: 4px;
-  font-family: var(--ks-mono);
-  font-size: 0.78rem;
-  color: var(--ks-accent-ink);
+  font-family: var(--ks-font);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--ks-link-on-paper);
+}
+
+.live-mode-kinpaku .live-mode-pathway:hover .live-mode-pathway-cta {
+  color: var(--ks-link-on-paper-hover);
 }
 
 
@@ -758,12 +785,7 @@ html.light .live-mode-kinpaku .live-mode-stage-viz .docs-viz-accept-pill {
    6. FRAMEWORKS
    ============================================================================ */
 
-/* docs-visuals.css sets `background: cream; border: 1px solid mist;
-   border-radius: 8px; padding: 18px 20px` here. My previous override only
-   touched border-top + zeroed padding, leaving the inherited box border
-   in place with no inset — text and pills landed flush against the
-   border. Strip the entire box: background, all sides of the border,
-   and the radius. Keep just a top hairline rule as a separator. */
+/* docs-visuals.css wraps this in a cream box; strip it to a top rule. */
 .live-mode-kinpaku .live-mode-frameworks {
   padding: 28px 0 0;
   background: transparent;
@@ -773,73 +795,58 @@ html.light .live-mode-kinpaku .live-mode-stage-viz .docs-viz-accept-pill {
 }
 
 .live-mode-kinpaku .live-mode-frameworks-label {
-  display: block;
-  font-family: var(--ks-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ks-accent-ink);
   margin: 0 0 14px;
 }
 
-.live-mode-kinpaku .live-mode-frameworks-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.live-mode-kinpaku .live-mode-frameworks-list li {
-  font-family: var(--ks-mono);
-  font-size: 0.82rem;
-  color: var(--ks-champagne);
-  padding: 6px 12px;
-  background: var(--ks-graphite-2);
-  border: 1px solid var(--ks-rule);
-  border-radius: 2px;
-}
-
 .live-mode-kinpaku .framework-list--matrix {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--ks-rule);
+  gap: 0;
+  background: var(--ks-paper-raised);
   border: 1px solid var(--ks-rule);
-  border-radius: 3px;
+  border-radius: var(--ks-radius-sm);
   overflow: hidden;
 }
 
+/* Cell dividers as a shadow on each cell: the container's overflow clips
+   the last column and row, so the outer edge stays a single hairline and
+   an unfilled grid slot stays plain paper. */
 .live-mode-kinpaku .framework-list--matrix li {
   display: grid;
   gap: 4px;
   min-height: 54px;
   padding: 9px 10px;
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   border: 0;
   border-radius: 0;
+  box-shadow: 1px 1px 0 0 var(--ks-rule);
+  font-family: var(--ks-font);
+}
+
+/* No accent dot before each entry (docs-visuals.css adds one in gold). */
+.live-mode-kinpaku .framework-list--matrix li::before {
+  content: none;
 }
 
 .live-mode-kinpaku .framework-list--matrix small {
-  color: var(--ks-patina-pale);
-  font-size: 0.6875rem;
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.16em;
   text-transform: uppercase;
-}
-
-html.light .live-mode-kinpaku .framework-list--matrix small {
-  color: var(--ks-state-ink);
+  color: var(--ks-text-muted);
 }
 
 .live-mode-kinpaku .framework-list--matrix strong {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
+  font-size: 0.9rem;
   font-weight: 500;
 }
 
-
-/* ============================================================================
-   7. FOOTER on dark surface
-   ============================================================================ */
-
-/* Footer chrome moved to kinpaku-kit.css (.kinpaku-chrome .site-footer). */
+@media (max-width: 520px) {
+  .live-mode-kinpaku .framework-list--matrix {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

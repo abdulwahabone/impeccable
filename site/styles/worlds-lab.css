@@ -1,11 +1,15 @@
 /*
- * World Catalog — public browser + local source-writing review workbench.
+ * World Catalog: public browser + local source-writing review workbench.
  * The fixed rail follows Detector Lab; the review stage is purpose-built for
  * one-at-a-time human judgment over a very large challenger corpus.
+ *
+ * Paper chrome. The only dark surfaces are instruments the reviewer operates
+ * (the catalog switch, the rating control, the primary decision button), and
+ * gold appears there as an indicator, never as text or as a fill on paper.
  */
 
 .worlds-lab-page {
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
   color: var(--ks-text);
   font-family: var(--ks-font);
   overflow: hidden;
@@ -62,7 +66,7 @@
   --worlds-rail-width: 292px;
   display: grid;
   grid-template-columns: var(--worlds-rail-width) minmax(0, 1fr);
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
 }
 
 .worlds-skip-links {
@@ -82,10 +86,10 @@
 .worlds-skip-links a {
   min-height: var(--ks-control-lg);
   padding: 12px var(--spacing-sm);
-  border: 1px solid var(--ks-kinpaku);
+  border: 1px solid var(--ks-edge);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer-deep);
-  color: var(--ks-kinpaku);
+  background: var(--ks-paper-raised);
+  color: var(--ks-ink);
   font: 600 var(--ks-type-mono-size)/1.2 var(--ks-font);
   text-decoration: none;
 }
@@ -98,7 +102,7 @@
   flex-direction: column;
   width: var(--worlds-rail-width);
   border-right: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
 }
 
 .worlds-rail-head {
@@ -108,7 +112,7 @@
 }
 
 .worlds-home-link {
-  color: var(--ks-kinpaku);
+  color: var(--ks-ink);
   text-decoration: none;
 }
 
@@ -150,41 +154,71 @@
 
 .worlds-title-lockup h1 {
   margin-top: 4px;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-size: var(--ks-type-title-size);
   font-weight: 600;
   line-height: var(--ks-type-title-line);
 }
 
+/* The catalog switch is the one thing in the rail head the reviewer operates,
+   so it is the rail's instrument: a dark strip with the current catalog on a
+   raised key and a gold indicator, the same device the kit draws for
+   .ks-instrument-strip. */
 .worlds-catalog-switch {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
   margin-top: var(--spacing-md);
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-sm);
-  overflow: hidden;
+  padding: 3px;
+  border: 1px solid var(--ks-instrument-deep);
+  border-radius: var(--ks-radius-pill);
+  background: var(--ks-instrument);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-1);
 }
 
 .worlds-catalog-switch a {
-  padding: 9px 10px;
-  color: var(--ks-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: calc(var(--ks-control-md) - 8px);
+  padding: 0 10px;
+  border-radius: var(--ks-radius-pill);
+  color: var(--ks-instrument-muted);
   font: 500 var(--ks-type-mono-size)/1 var(--ks-font);
   text-align: center;
   text-decoration: none;
+  transition: color var(--ks-quick) var(--ks-ease), background-color var(--ks-quick) var(--ks-ease);
 }
 
-.worlds-catalog-switch a + a {
-  border-left: 1px solid var(--ks-rule);
+.worlds-catalog-switch a::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ks-instrument-raised);
+  box-shadow: inset 0 0 0 1px var(--ks-instrument-rule);
 }
 
 .worlds-catalog-switch a:hover {
-  background: var(--ks-graphite);
-  color: var(--ks-champagne);
+  color: var(--ks-instrument-text);
 }
 
 .worlds-catalog-switch a[aria-current="page"] {
+  background: var(--ks-instrument-raised);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-edge), 0 1px 2px oklch(0% 0 0 / 0.4);
+  color: var(--ks-instrument-text);
+}
+
+.worlds-catalog-switch a[aria-current="page"]::before {
   background: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
+  box-shadow: 0 0 0 1px oklch(0% 0 0 / 0.3);
+}
+
+.worlds-catalog-switch a:focus-visible {
+  outline: 2px solid var(--ks-patina);
+  outline-offset: 2px;
 }
 
 .worlds-progress-block {
@@ -201,7 +235,7 @@
 }
 
 .worlds-progress-copy strong {
-  color: var(--ks-patina);
+  color: var(--ks-patina-deep);
   font-family: var(--ks-mono);
 }
 
@@ -209,7 +243,7 @@
   height: 3px;
   margin-top: var(--spacing-xs);
   overflow: hidden;
-  background: var(--ks-graphite-2);
+  background: var(--ks-gray-2);
 }
 
 .worlds-progress-track span {
@@ -279,24 +313,24 @@
 .worlds-status-grid button strong {
   display: block;
   margin-top: 3px;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-size: var(--ks-type-mono-size);
   font-weight: 500;
 }
 
 .worlds-status-grid button:hover {
-  background: var(--ks-graphite);
+  background: var(--ks-gray);
   color: var(--ks-text-muted);
 }
 
 .worlds-status-grid button[aria-pressed="true"] {
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 88%);
-  box-shadow: inset 0 -2px 0 var(--ks-kinpaku);
-  color: var(--ks-kinpaku);
+  background: var(--ks-paper-raised);
+  box-shadow: inset 0 -2px 0 var(--ks-gold-line);
+  color: var(--ks-text-muted);
 }
 
 .worlds-status-grid button[aria-pressed="true"] strong {
-  color: var(--ks-kinpaku);
+  color: var(--ks-ink);
 }
 
 /* One rule, not two. There were two .worlds-family-button blocks 95 lines
@@ -322,8 +356,8 @@
 }
 
 .worlds-family-button:hover {
-  background: var(--ks-graphite);
-  color: var(--ks-champagne);
+  background: var(--ks-gray);
+  color: var(--ks-ink);
 }
 
 .worlds-status-grid button:focus-visible,
@@ -357,7 +391,7 @@
   min-height: 0;
   overflow: auto;
   padding: var(--spacing-sm);
-  scrollbar-color: var(--ks-graphite-2) transparent;
+  scrollbar-color: var(--ks-gray-2) transparent;
 }
 
 /* Not uppercased. These are family names out of the catalog, so their length is
@@ -397,8 +431,8 @@
   padding: 0 11px;
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer-raised);
-  color: var(--ks-champagne);
+  background: var(--ks-paper-raised);
+  color: var(--ks-ink);
   font: 500 var(--ks-type-mono-size)/1.2 var(--ks-font);
 }
 
@@ -419,12 +453,12 @@
 
 .worlds-family-button[aria-pressed="true"] {
   border-color: var(--ks-rule);
-  background: var(--ks-graphite-2);
-  color: var(--ks-champagne);
+  background: var(--ks-gray-2);
+  color: var(--ks-ink);
 }
 
 .worlds-family-button[aria-pressed="true"] > span:last-child {
-  color: var(--ks-patina);
+  color: var(--ks-patina-deep);
 }
 
 .worlds-family-expand {
@@ -435,14 +469,14 @@
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
   background: transparent;
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
   font: 500 var(--ks-type-mono-size)/1.25 var(--ks-font);
   text-align: left;
   cursor: pointer;
 }
 
 .worlds-family-expand:hover {
-  background: var(--ks-graphite);
+  background: var(--ks-gray);
 }
 
 .worlds-family-empty {
@@ -470,7 +504,7 @@
   gap: var(--spacing-md);
   padding: 12px var(--spacing-md);
   border-bottom: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
 }
 
 .worlds-search {
@@ -497,8 +531,8 @@
   padding: 0 48px;
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer-raised);
-  color: var(--ks-champagne);
+  background: var(--ks-paper-raised);
+  color: var(--ks-ink);
   font: 400 var(--ks-type-body-size)/1.2 var(--ks-font);
 }
 
@@ -536,7 +570,7 @@
 }
 
 .worlds-runtime-state strong {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-size: var(--ks-type-mono-size);
   font-weight: 600;
 }
@@ -571,7 +605,7 @@
   min-height: 0;
   flex-direction: column;
   border-right: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
 }
 
 .worlds-queue-head,
@@ -602,7 +636,7 @@
 
 .worlds-queue-head strong {
   overflow: hidden;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-size: var(--ks-type-ui-lead);
   font-weight: 600;
   text-overflow: ellipsis;
@@ -623,7 +657,7 @@
   flex: 1 1 auto;
   /* Matches the grid it swaps with, so the rail does not shift width on V. */
   scrollbar-width: thin;
-  scrollbar-color: var(--ks-graphite-2) transparent;
+  scrollbar-color: var(--ks-gray-2) transparent;
 }
 
 .worlds-queue-item {
@@ -644,12 +678,12 @@
 }
 
 .worlds-queue-item:hover {
-  background: var(--ks-graphite);
+  background: var(--ks-gray);
 }
 
 .worlds-queue-item[aria-pressed="true"] {
-  background: var(--ks-graphite-2);
-  box-shadow: inset 3px 0 0 var(--ks-kinpaku);
+  background: var(--ks-gray-2);
+  box-shadow: inset 3px 0 0 var(--ks-patina);
 }
 
 .worlds-queue-item > span:first-child {
@@ -707,7 +741,7 @@
 }
 
 .worlds-queue-empty strong {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-size: var(--ks-type-title-size);
 }
 
@@ -750,8 +784,8 @@
 }
 
 .worlds-queue-foot button:hover:not(:disabled) {
-  background: var(--ks-graphite);
-  color: var(--ks-champagne);
+  background: var(--ks-gray);
+  color: var(--ks-ink);
 }
 
 .worlds-queue-foot button:disabled {
@@ -767,7 +801,7 @@ kbd {
   justify-content: center;
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-graphite-2);
+  background: var(--ks-gray-2);
   color: currentColor;
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
 }
@@ -809,11 +843,11 @@ button:disabled kbd {
   min-width: 0;
   min-height: 0;
   overflow: hidden;
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
 }
 
 .worlds-review-stage[aria-busy="true"] .worlds-review-actions {
-  background: var(--ks-graphite);
+  background: var(--ks-gray);
 }
 
 .worlds-review-head {
@@ -825,7 +859,7 @@ button:disabled kbd {
   gap: 8px;
   padding: 10px var(--spacing-md);
   border-bottom: 1px solid var(--ks-rule);
-  background: color-mix(in oklch, var(--ks-lacquer), transparent 4%);
+  background: color-mix(in oklch, var(--ks-paper), transparent 4%);
 }
 
 /* Line one: context. Read-only, so it yields space rather than taking it. */
@@ -862,8 +896,8 @@ button:disabled kbd {
  * The band is its own surface, which is the part that does not depend on anyone
  * reading a label: writable controls physically sit on a different plane from
  * the facts. It is raised rather than recessed because the header ground is
- * already within a few percent of black and sinking further had nowhere to go
- * — the first attempt measured 1.047 against its surround, which is the bottom
+ * already within a few percent of black and sinking further had nowhere to go:
+ * the first attempt measured 1.047 against its surround, which is the bottom
  * of what an eye resolves. Direction matters less here than difference, and a
  * raised tool tray is just as conventional as a sunken one.
  *
@@ -879,7 +913,7 @@ button:disabled kbd {
   padding: 7px var(--spacing-sm);
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
 }
 
 .worlds-review-controls > * {
@@ -911,7 +945,7 @@ button:disabled kbd {
 }
 
 @keyframes worlds-field-written {
-  0%   { background: color-mix(in oklch, var(--ks-kinpaku), transparent 74%); }
+  0%   { background: color-mix(in oklch, var(--ks-patina), transparent 74%); }
   100% { background: transparent; }
 }
 
@@ -1036,15 +1070,24 @@ button:disabled kbd {
 }
 
 .worlds-status-badge.is-approved {
-  color: var(--ks-patina);
+  color: var(--ks-patina-deep);
+}
+
+.worlds-status-badge.is-approved::before {
+  background: var(--ks-patina);
 }
 
 .worlds-status-badge.is-rejected {
   color: var(--ks-vermilion);
 }
 
+/* Pending keeps gold on the dot only: gold at 84% is not a text colour. */
 .worlds-status-badge.is-pending {
-  color: var(--ks-kinpaku);
+  color: var(--ks-text-muted);
+}
+
+.worlds-status-badge.is-pending::before {
+  background: var(--ks-kinpaku-deep);
 }
 
 .worlds-concept-body {
@@ -1062,35 +1105,49 @@ button:disabled kbd {
 
 .worlds-review-folio {
   color: var(--ks-text-faint);
-  font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
-  letter-spacing: 0.08em;
+  font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
+.worlds-review-folio strong {
+  color: var(--ks-text-muted);
+  font: inherit;
+  font-weight: 500;
+}
+
+/* The rating is an instrument: a dark strip on the paper with the lit stars in
+   gold. It is the one place on the stage gold is read as a signal, and a dark
+   face is the only ground the 84% gold reads on. */
 .worlds-rating {
   display: inline-flex;
-  gap: 2px;
+  gap: 0;
+  padding: 0 5px;
+  border: 1px solid var(--ks-instrument-deep);
+  border-radius: var(--ks-radius-pill);
+  background: var(--ks-instrument);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-rule);
 }
 
 .worlds-rating button {
-  min-height: var(--ks-control-sm);
+  min-height: calc(var(--ks-control-sm) - 2px);
   padding: 0 3px;
   border: 0;
   background: transparent;
-  color: var(--ks-text-faint);
+  color: var(--ks-instrument-raised);
   font-size: 15px;
   line-height: 1;
   cursor: pointer;
 }
 
 .worlds-rating button:hover:not(:disabled) {
-  color: var(--ks-text-muted);
+  color: var(--ks-instrument-muted);
 }
 
 .worlds-rating button[aria-pressed="true"],
 .worlds-rating button[aria-pressed="true"]:hover:not(:disabled) {
-  color: var(--ks-patina);
+  color: var(--ks-kinpaku);
 }
 
 .worlds-rating button[aria-pressed="true"]:hover:not(:disabled) {
@@ -1113,16 +1170,11 @@ button:disabled kbd {
   box-shadow:
     inset 0 0 0 1px color-mix(in oklch, var(--ks-patina), transparent 62%),
     var(--ks-lift-1);
-  color: var(--ks-patina);
+  color: var(--ks-patina-deep);
 }
 
 .worlds-strength-toggle button:disabled[aria-pressed="false"] {
   color: var(--ks-text-mute-deep);
-}
-
-.worlds-review-folio strong {
-  color: var(--ks-kinpaku);
-  font: inherit;
 }
 
 .worlds-concept-copy {
@@ -1130,13 +1182,13 @@ button:disabled kbd {
 }
 
 .worlds-concept-kicker {
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
 }
 
 .worlds-concept-copy h2 {
   max-width: 44ch;
   margin-top: var(--spacing-xs);
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-family: var(--ks-font);
   font-size: calc(var(--ks-type-title-size) * 1.6);
   font-weight: 400;
@@ -1149,12 +1201,12 @@ button:disabled kbd {
   max-width: 74ch;
   margin-top: var(--spacing-md);
   padding: var(--spacing-sm) var(--spacing-md);
-  border-left: 2px solid var(--ks-kinpaku);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 94%);
+  border-left: 2px solid var(--ks-gold-line);
+  background: var(--ks-paper-deep);
 }
 
 .worlds-creative-spark p {
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
   letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
@@ -1163,7 +1215,7 @@ button:disabled kbd {
 .worlds-creative-spark strong {
   display: block;
   margin-top: var(--spacing-xs);
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-size: var(--ks-type-body-size);
   font-weight: 500;
   line-height: var(--ks-type-body-line);
@@ -1175,7 +1227,7 @@ button:disabled kbd {
 
 .worlds-concept-card {
   border: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
 }
 
 .worlds-concept-card + .worlds-concept-card {
@@ -1189,17 +1241,6 @@ button:disabled kbd {
 /* The hero is a landing page and the docs render is a reference page. Reviewing
    a world for read mode off the hero alone is judging it on the wrong job, so
    the docs render is labelled rather than left to be guessed at. */
-/* The question a reviewer answers from the render, not from the text. Every
-   other gate in the pipeline reads what a world claims; this one reads what it
-   produced, which is the only evidence that has held up. It catches the
-   anonymous end of the band; breadth:niche catches the other. */
-.worlds-concept-ask {
-  margin: 0 0 var(--spacing-xs);
-  color: var(--ks-text-muted);
-  font-size: 0.8125rem;
-  font-style: italic;
-}
-
 .worlds-concept-avoid {
   margin: 0;
   padding-left: 1.1em;
@@ -1268,31 +1309,17 @@ button:disabled kbd {
   margin-bottom: 5px;
 }
 
-/* The folio is orientation, not identity: it says where you are in a queue, and
-   the id beside it is the real name. It was set at the same weight as the
-   status badge and taking a third of the header. */
-.worlds-review-folio {
-  color: var(--ks-text-faint);
-  font-size: var(--ks-type-micro-size);
-  letter-spacing: 0.06em;
-}
-
-.worlds-review-folio strong {
-  color: var(--ks-text-muted);
-  font-weight: 500;
-}
-
 .worlds-lead-card {
   margin: 0;
   border: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
 }
 
 .worlds-card-stale {
   padding: 2px 6px;
   border-radius: var(--ks-radius-sm);
   background: color-mix(in oklch, var(--ks-patina), transparent 84%);
-  color: var(--ks-patina);
+  color: var(--ks-patina-deep);
   font-size: var(--ks-type-micro-size);
   letter-spacing: 0.08em;
 }
@@ -1315,7 +1342,7 @@ button:disabled kbd {
   display: block;
   width: 100%;
   height: auto;
-  background: #fff;
+  background: var(--ks-paper-raised);
 }
 
 /* Variant chips appear only when there is a choice. Hovering previews, clicking
@@ -1343,14 +1370,14 @@ button:disabled kbd {
 }
 
 .worlds-lead-variants button:hover {
-  border-color: var(--ks-kinpaku);
-  color: var(--ks-champagne);
+  border-color: var(--ks-edge);
+  color: var(--ks-ink);
 }
 
 .worlds-lead-variants button.is-current {
-  border-color: var(--ks-kinpaku);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 82%);
-  color: var(--ks-champagne);
+  border-color: var(--ks-ink);
+  background: var(--ks-ink);
+  color: var(--ks-paper-raised);
 }
 
 .worlds-card-pair {
@@ -1387,20 +1414,11 @@ button:disabled kbd {
 .worlds-card-pair a {
   display: block;
   border: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
 }
 
 .worlds-card-pair a:hover {
-  border-color: var(--ks-kinpaku);
-}
-
-.worlds-concept-card-label {
-  padding: var(--spacing-xs);
-  border-bottom: 1px solid var(--ks-rule);
-  color: var(--ks-text-faint);
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  border-color: var(--ks-edge);
 }
 
 .worlds-concept-card img {
@@ -1412,7 +1430,7 @@ button:disabled kbd {
 .worlds-concept-card figcaption {
   padding: var(--spacing-xs) var(--spacing-sm);
   border-top: 1px solid var(--ks-rule);
-  color: var(--ks-patina);
+  color: var(--ks-patina-deep);
   font: 500 var(--ks-type-eyebrow-size)/1.4 var(--ks-mono);
   letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
@@ -1429,7 +1447,7 @@ button:disabled kbd {
   padding: 6px 9px;
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   color: var(--ks-text-muted);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
 }
@@ -1450,7 +1468,7 @@ button:disabled kbd {
    with the rest of the contract. Restating them later meant the later block won
    and the single treatment never actually applied. */
 .worlds-system-contract li::marker {
-  color: var(--ks-patina);
+  color: var(--ks-patina-deep);
   font-family: var(--ks-mono);
 }
 
@@ -1498,13 +1516,13 @@ button:disabled kbd {
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
   background: transparent;
-  color: var(--ks-kinpaku);
+  color: var(--ks-ink);
   font: 500 var(--ks-type-mono-size)/1 var(--ks-font);
   cursor: pointer;
 }
 
 .worlds-concept-meta button:hover:not(:disabled) {
-  background: var(--ks-graphite);
+  background: var(--ks-gray);
 }
 
 .worlds-concept-meta button:disabled {
@@ -1519,9 +1537,9 @@ button:disabled kbd {
   width: min(640px, calc(100% - 24px));
   overflow: auto;
   padding: var(--spacing-md);
-  border-left: 1px solid var(--ks-kinpaku);
-  background: var(--ks-lacquer-deep);
-  box-shadow: -24px 0 70px color-mix(in oklch, var(--ks-lacquer-deep), transparent 18%);
+  border-left: 1px solid var(--ks-gold-line);
+  background: var(--ks-paper-deep);
+  box-shadow: var(--ks-lift-2);
 }
 
 .worlds-edit-form[hidden] {
@@ -1543,7 +1561,7 @@ button:disabled kbd {
 }
 
 .worlds-edit-form header p {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-size: var(--ks-type-title-size);
   font-weight: 600;
 }
@@ -1586,7 +1604,7 @@ button:disabled kbd {
   margin-top: var(--spacing-xs);
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   color: var(--ks-text);
   font: 400 var(--ks-type-body-size)/1.55 var(--ks-font);
 }
@@ -1645,9 +1663,14 @@ button:disabled kbd {
 }
 
 .worlds-button-primary {
-  border: 1px solid var(--ks-kinpaku);
-  background: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
+  border: 1px solid var(--ks-ink);
+  background: var(--ks-ink);
+  color: var(--ks-paper-raised);
+}
+
+.worlds-button-primary:hover {
+  background: var(--ks-text);
+  border-color: var(--ks-text);
 }
 
 .worlds-review-actions {
@@ -1660,7 +1683,7 @@ button:disabled kbd {
   gap: var(--spacing-md);
   padding: 12px var(--spacing-md);
   border-top: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
 }
 
 .worlds-decision-note {
@@ -1670,8 +1693,8 @@ button:disabled kbd {
   padding: 0 12px;
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer-deep);
-  color: var(--ks-champagne);
+  background: var(--ks-paper-deep);
+  color: var(--ks-ink);
   font-size: var(--ks-type-mono-size);
 }
 
@@ -1680,7 +1703,7 @@ button:disabled kbd {
 }
 
 .worlds-decision-note:disabled {
-  background: var(--ks-graphite);
+  background: var(--ks-gray);
   cursor: not-allowed;
 }
 
@@ -1729,7 +1752,7 @@ button:disabled kbd {
   padding: 0 12px 0 16px;
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   color: var(--ks-text);
   font: 600 var(--ks-type-mono-size)/1 var(--ks-font);
   white-space: nowrap;
@@ -1737,7 +1760,7 @@ button:disabled kbd {
 }
 
 .worlds-review-actions button:hover:not(:disabled) {
-  background: var(--ks-graphite-2);
+  background: var(--ks-gray-2);
 }
 
 /* Each action carries its own accent so the current-state treatment below can
@@ -1751,15 +1774,23 @@ button:disabled kbd {
   --worlds-action-accent: var(--ks-text-muted);
 }
 
+/* Approve is the primary decision: ink on paper, the shortcut hint lit in gold
+   the way the kit lights the arrow on its primary button. Its readout state
+   takes patina, which is what approved means everywhere else on the page. */
 .worlds-review-actions .worlds-action-approve {
-  --worlds-action-accent: var(--ks-kinpaku);
-  border-color: var(--ks-kinpaku);
-  background: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
+  --worlds-action-accent: var(--ks-patina-deep);
+  border-color: var(--ks-ink);
+  background: var(--ks-ink);
+  color: var(--ks-paper-raised);
+}
+
+.worlds-review-actions .worlds-action-approve:not(.is-current):not(:disabled) kbd {
+  color: var(--ks-kinpaku);
 }
 
 .worlds-review-actions .worlds-action-approve:hover:not(:disabled):not(.is-current) {
-  background: var(--ks-kinpaku-pale);
+  border-color: var(--ks-text);
+  background: var(--ks-text);
 }
 
 /* The current status is a readout, not an invitation. This used to be a 3px
@@ -1770,19 +1801,19 @@ button:disabled kbd {
    reads on any of the three, and the accent moves to the text. */
 .worlds-review-actions button.is-current {
   border-color: var(--worlds-action-accent);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   box-shadow: inset 3px 0 0 var(--worlds-action-accent);
   color: var(--worlds-action-accent);
   cursor: default;
 }
 
 .worlds-review-actions button.is-current:hover:not(:disabled) {
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
 }
 
 .worlds-review-actions button:disabled {
   border-color: var(--ks-rule);
-  background: var(--ks-graphite);
+  background: var(--ks-gray);
   color: var(--ks-text-mute-deep);
   cursor: not-allowed;
 }
@@ -1803,14 +1834,14 @@ button:disabled kbd {
      selection duty in the queue. */
   border: 0;
   border-radius: var(--ks-radius-sm);
-  background: color-mix(in oklch, var(--ks-patina), var(--ks-graphite-2) 82%);
-  color: var(--ks-champagne);
+  background: color-mix(in oklch, var(--ks-patina), var(--ks-gray-2) 82%);
+  color: var(--ks-ink);
   box-shadow: var(--ks-lift-2);
   font-size: var(--ks-type-label-size);
 }
 
 .worlds-toast[data-kind="error"] {
-  background: color-mix(in oklch, var(--ks-vermilion), var(--ks-graphite-2) 80%);
+  background: color-mix(in oklch, var(--ks-vermilion), var(--ks-gray-2) 80%);
 }
 
 @media (max-width: 1500px) {
@@ -2053,12 +2084,12 @@ button:disabled kbd {
      parent's corner rather than inventing a fourth value. */
   border-radius: calc(var(--ks-radius-sm) - 1px);
   background: currentColor;
-  box-shadow: inset 0 0 0 1px var(--ks-lacquer-deep);
+  box-shadow: inset 0 0 0 1px var(--ks-paper-deep);
 }
 
 .worlds-mode-option:hover:not(:disabled) {
   border-color: var(--ks-edge);
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 .worlds-mode-option[aria-pressed="false"] {
@@ -2160,8 +2191,8 @@ button:disabled kbd {
 }
 
 .worlds-edit-button:hover:not(:disabled) {
-  border-color: var(--ks-kinpaku);
-  color: var(--ks-champagne);
+  border-color: var(--ks-edge);
+  color: var(--ks-ink);
 }
 
 .worlds-edit-button:disabled {
@@ -2232,7 +2263,7 @@ button:disabled kbd {
      on each side, and thin keeps what it reserves down to a few pixels. */
   scrollbar-gutter: stable both-edges;
   scrollbar-width: thin;
-  scrollbar-color: var(--ks-graphite-2) transparent;
+  scrollbar-color: var(--ks-gray-2) transparent;
 }
 
 .worlds-card-grid-items {
@@ -2267,7 +2298,7 @@ button:disabled kbd {
 
 .worlds-card:hover,
 .worlds-card:focus-visible {
-  border-color: color-mix(in oklch, var(--ks-champagne), transparent 60%);
+  border-color: color-mix(in oklch, var(--ks-ink), transparent 60%);
 }
 
 .worlds-card[aria-current="true"] {
@@ -2280,7 +2311,7 @@ button:disabled kbd {
   align-items: center;
   justify-content: center;
   aspect-ratio: 16 / 9;
-  background: var(--ks-graphite);
+  background: var(--ks-gray);
   color: var(--ks-text-mute-deep);
   font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
   text-transform: uppercase;
@@ -2302,18 +2333,18 @@ button:disabled kbd {
    Static on purpose: a shimmer is a background-position animation, it does not
    composite, and several hundred of them repaint the rail every frame. */
 .worlds-card-thumb[data-state="pending"] {
-  background-color: var(--ks-lacquer-raised);
+  background-color: var(--ks-paper-raised);
   background-image: repeating-linear-gradient(
     -45deg,
-    var(--ks-graphite) 0 6px,
-    var(--ks-graphite-2) 6px 12px
+    var(--ks-gray) 0 6px,
+    var(--ks-gray-2) 6px 12px
   );
 }
 
 /* Requested and refused. Vermilion is the one alarm colour in the set, and the
    glyph carries it for anyone who cannot use the hue. */
 .worlds-card-thumb[data-state="failed"] {
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
   box-shadow: inset 0 0 0 1px color-mix(in oklch, var(--ks-vermilion), transparent 55%);
   color: var(--ks-vermilion);
 }
@@ -2337,7 +2368,7 @@ button:disabled kbd {
 /* No card was ever generated for this concept, which is a fact about the
    catalog rather than a fault in the page. */
 .worlds-card-thumb[data-state="unrendered"] {
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
   box-shadow: inset 0 0 0 1px var(--ks-rule);
 }
 
@@ -2388,8 +2419,8 @@ button:disabled kbd {
   gap: 3px;
   padding: 2px 5px;
   border-radius: var(--ks-radius-pill);
-  background: color-mix(in oklch, var(--ks-lacquer), transparent 15%);
-  color: var(--ks-champagne);
+  background: color-mix(in oklch, var(--ks-paper), transparent 15%);
+  color: var(--ks-ink);
   font: 500 var(--ks-type-micro-size)/1 var(--ks-mono);
   letter-spacing: 0.06em;
 }
@@ -2402,7 +2433,7 @@ button:disabled kbd {
   background: currentColor;
 }
 
-.worlds-card-mark[data-status="approved"] { color: var(--ks-patina); }
+.worlds-card-mark[data-status="approved"] { color: var(--ks-patina-deep); }
 .worlds-card-mark[data-status="rejected"] { color: var(--ks-text-mute-deep); }
 
 /* Coverage view. A read-only map of where the catalog is crowded and where it is
@@ -2423,7 +2454,7 @@ button:disabled kbd {
   overflow-y: auto;
   padding: var(--spacing-md);
   scrollbar-width: thin;
-  scrollbar-color: var(--ks-graphite-2) transparent;
+  scrollbar-color: var(--ks-gray-2) transparent;
 }
 
 .worlds-sites-add {
@@ -2447,14 +2478,14 @@ button:disabled kbd {
   padding: 10px 12px;
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   color: var(--ks-text);
   font: 400 var(--ks-type-mono-size)/1.5 var(--ks-mono);
   resize: vertical;
 }
 
 .worlds-sites-add textarea:focus-visible {
-  border-color: var(--ks-kinpaku);
+  border-color: var(--ks-patina);
   outline: none;
 }
 
@@ -2473,16 +2504,17 @@ button:disabled kbd {
 
 .worlds-sites-add-foot button {
   padding: 7px 14px;
-  border: 1px solid var(--ks-kinpaku);
+  border: 1px solid var(--ks-ink);
   border-radius: var(--ks-radius-sm);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 84%);
-  color: var(--ks-champagne);
+  background: var(--ks-ink);
+  color: var(--ks-paper-raised);
   font: 500 var(--ks-type-mono-size)/1 var(--ks-mono);
   cursor: pointer;
 }
 
 .worlds-sites-add-foot button:hover {
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 70%);
+  border-color: var(--ks-text);
+  background: var(--ks-text);
 }
 
 .worlds-sites-section {
@@ -2510,14 +2542,14 @@ button:disabled kbd {
   white-space: nowrap;
 }
 
-.worlds-sites-row a:hover { color: var(--ks-champagne); }
+.worlds-sites-row a:hover { color: var(--ks-ink); }
 
 .worlds-sites-meta {
   color: var(--ks-text-faint);
   font-size: var(--ks-type-mono-size);
 }
 
-.worlds-sites-meta[data-status="done"] { color: var(--ks-patina); }
+.worlds-sites-meta[data-status="done"] { color: var(--ks-patina-deep); }
 
 .worlds-sites-row.is-closed a { color: var(--ks-text-muted); }
 
@@ -2537,14 +2569,14 @@ button:disabled kbd {
 }
 
 .worlds-sites-actions button:hover {
-  border-color: var(--ks-kinpaku);
-  color: var(--ks-champagne);
+  border-color: var(--ks-edge);
+  color: var(--ks-ink);
 }
 
 /* Keep is the affirmative of the pair, and the one pressed most. */
 .worlds-sites-actions button.is-keep {
   border-color: color-mix(in oklch, var(--ks-patina), transparent 55%);
-  color: var(--ks-patina);
+  color: var(--ks-patina-deep);
 }
 
 .worlds-sites-actions button.is-keep:hover {
@@ -2552,16 +2584,16 @@ button:disabled kbd {
   background: color-mix(in oklch, var(--ks-patina), transparent 86%);
 }
 
-.worlds-sites-row.is-kept a { color: var(--ks-patina); }
+.worlds-sites-row.is-kept a { color: var(--ks-patina-deep); }
 
 /* Takes the place of the two buttons, so the row does not reflow while a
    verdict is being typed and the URL stays readable beside it. */
 .worlds-sites-actions input {
   width: 22ch;
   padding: 4px 7px;
-  border: 1px solid var(--ks-kinpaku);
+  border: 1px solid var(--ks-patina);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
   color: var(--ks-text);
   font: 400 var(--ks-type-mono-size)/1 var(--ks-mono);
 }
@@ -2627,7 +2659,7 @@ button:disabled kbd {
 .worlds-triage-progress i {
   display: block;
   height: 100%;
-  background: var(--ks-kinpaku);
+  background: var(--ks-patina);
 }
 
 .worlds-triage-frames {
@@ -2649,13 +2681,13 @@ button:disabled kbd {
   aspect-ratio: 16 / 9;
   height: auto;
   border: 2px solid transparent;
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   object-fit: cover;
   object-position: top;
   cursor: zoom-in;
 }
 
-.worlds-triage-frames .is-current img { border-color: var(--ks-kinpaku); }
+.worlds-triage-frames .is-current img { border-color: var(--ks-patina); }
 
 .worlds-triage-frames figcaption {
   margin-top: 6px;
@@ -2665,7 +2697,7 @@ button:disabled kbd {
   text-transform: uppercase;
 }
 
-.worlds-triage-frames .is-current figcaption { color: var(--ks-champagne); }
+.worlds-triage-frames .is-current figcaption { color: var(--ks-ink); }
 .worlds-triage-frames figcaption em { font-style: normal; opacity: 0.75; }
 
 .worlds-triage-frames kbd {
@@ -2761,7 +2793,7 @@ button:disabled kbd {
   aspect-ratio: 16 / 9;
   height: auto;
   border: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   object-fit: cover;
   object-position: top;
   cursor: zoom-in;
@@ -2777,7 +2809,7 @@ button:disabled kbd {
   justify-content: center;
   gap: var(--spacing-sm);
   padding: var(--spacing-lg);
-  background: color-mix(in oklch, var(--ks-lacquer), transparent 6%);
+  background: color-mix(in oklch, var(--ks-paper), transparent 6%);
   cursor: zoom-out;
 }
 
@@ -2807,7 +2839,7 @@ button:disabled kbd {
 
 .worlds-coverage h3 {
   margin: var(--spacing-md) 0 6px;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font: 500 var(--ks-type-eyebrow-size)/1.3 var(--ks-mono);
   letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
@@ -2825,9 +2857,9 @@ button:disabled kbd {
 .worlds-coverage-warn {
   margin-bottom: 8px;
   padding: 8px 10px;
-  border-left: 2px solid var(--ks-kinpaku);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 92%);
-  color: var(--ks-text-muted);
+  border-left: 2px solid var(--ks-vermilion);
+  background: var(--ks-paper-deep);
+  color: var(--ks-text);
   font-size: var(--ks-type-mono-size);
 }
 
@@ -2862,12 +2894,13 @@ button:disabled kbd {
 }
 
 .worlds-coverage-table .is-empty {
-  color: var(--ks-kinpaku);
+  color: var(--ks-accent-ink);
+  font-weight: 600;
 }
 
 .worlds-coverage-table .is-opening th,
 .worlds-coverage-table .is-opening td {
-  color: var(--ks-patina);
+  color: var(--ks-patina-deep);
 }
 
 /* Coverage: the editable parts. A value expands to show what it caught, because
@@ -2887,7 +2920,7 @@ button:disabled kbd {
 }
 
 .worlds-coverage-link:hover {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 .worlds-coverage-note {
@@ -2953,16 +2986,16 @@ button:disabled kbd {
   position: sticky;
   bottom: 0;
   padding: var(--spacing-md) 0 0;
-  background: linear-gradient(to top, var(--ks-lacquer) 60%, transparent);
+  background: linear-gradient(to top, var(--ks-paper) 60%, transparent);
 }
 
 .worlds-coverage-save {
   min-height: var(--ks-control-md);
   padding: 0 14px;
-  border: 1px solid var(--ks-kinpaku);
+  border: 1px solid var(--ks-ink);
   border-radius: var(--ks-radius-pill);
-  background: color-mix(in oklch, var(--ks-kinpaku), transparent 88%);
-  color: var(--ks-kinpaku);
+  background: var(--ks-ink);
+  color: var(--ks-paper-raised);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
   text-transform: uppercase;
   cursor: pointer;
@@ -2996,24 +3029,6 @@ button:disabled kbd {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.worlds-telemetry-block {
-  margin-top: var(--spacing-sm);
-  padding-top: var(--spacing-sm);
-  border-top: 1px solid var(--ks-rule);
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-xs);
-}
-.worlds-telemetry-line {
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-eyebrow-size);
-  letter-spacing: 0.04em;
-  color: var(--ks-text-muted);
-  margin: 0;
-}
-.worlds-telemetry-line.is-muted {
-  color: var(--ks-text-faint);
-}
 
 /* Several strategies drawn from one capture, laid out so the source stays first
    and the alternatives read as a set to choose between rather than a gallery. */
@@ -3033,7 +3048,7 @@ button:disabled kbd {
   border: 1px solid color-mix(in oklch, var(--ks-patina), transparent 55%);
   border-radius: var(--ks-radius-sm);
   background: transparent;
-  color: var(--ks-patina);
+  color: var(--ks-patina-deep);
   font: 500 var(--ks-type-eyebrow-size)/1 var(--ks-mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -3089,7 +3104,7 @@ button:disabled kbd {
   flex: 0 0 auto;
   padding: var(--spacing-sm);
   border-top: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
 }
 
 .worlds-telemetry-foot p {
@@ -3130,10 +3145,12 @@ button:disabled kbd {
   border-top: 1px solid var(--ks-rule);
 }
 
-/* Rating on the row, so an order sorted by it can be read back. */
+/* Rating on the row, so an order sorted by it can be read back. Deep gold: the
+   84% gold vanished on the rail, and a glyph that reports a rating has to be
+   read like text. */
 .worlds-queue-stars {
   align-self: center;
-  color: var(--ks-kinpaku);
+  color: var(--ks-kinpaku-deep);
   font: 400 var(--ks-type-micro-size)/1 var(--ks-mono);
   font-style: normal;
   letter-spacing: -0.5px;

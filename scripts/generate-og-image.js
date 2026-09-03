@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
 /**
- * Generate OG Image (Neo Kinpaku brand)
+ * Generate OG Image (paper brand)
  *
- * Renders the social sharing card with Playwright using the real Kinpaku
- * tokens (lacquer ground, champagne headline, kinpaku-gold accent) and the
- * kintsugi-seam hero art. Renders at 2x and downscales with sharp for crisp
- * text. The command count is read live from command-metadata.json so it can
- * never go stale.
+ * Renders the social sharing card with Playwright using the site's paper
+ * tokens: neutral paper ground, ink headline in Albert Sans, the gold mark
+ * and one gold hairline. No art, no texture. Renders at 2x and downscales
+ * with sharp for crisp text. The command count is read live from
+ * command-metadata.json so it can never go stale.
  *
- * Output: site/public/og-image-v2.jpg (the cache-busted filename Base.astro
+ * Output: site/public/og-image-v3.jpg (the cache-busted filename Base.astro
  * and index.astro reference). Bump the version suffix here and in those two
  * files together when you want social scrapers to re-fetch a fresh card.
  *
@@ -26,11 +26,7 @@ import { fileURLToPath, pathToFileURL } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
-const OUTPUT_PATH = path.join(ROOT_DIR, 'site', 'public', 'og-image-v2.jpg');
-const ART_PATH = path.join(
-  ROOT_DIR,
-  'site', 'public', 'assets', 'neo-kinpaku', 'candidates', 'finalists', 'm-01-v2-01.png',
-);
+const OUTPUT_PATH = path.join(ROOT_DIR, 'site', 'public', 'og-image-v3.jpg');
 
 // Count sub-commands from skill/scripts/command-metadata.json (the post-v3.0
 // single source of truth), so the card's "N commands" tracks the real total.
@@ -43,10 +39,6 @@ function getCommandCount() {
 
 async function generateOgImage() {
   const commands = getCommandCount();
-  // Reference the art by file:// URL (not base64): goto + networkidle then
-  // genuinely waits for it to load, where a data URL emits no network event
-  // and paints black before it decodes.
-  const artUrl = pathToFileURL(ART_PATH).href;
   console.log(`Detected ${commands} command(s)`);
 
   const html = `<!DOCTYPE html>
@@ -55,70 +47,58 @@ async function generateOgImage() {
 <meta charset="utf-8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700&family=Alumni+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&family=Alumni+Sans:wght@400&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ks-kinpaku:    oklch(84% 0.19 80.46);
-    --ks-lacquer:    oklch(7% 0.006 95);
-    --ks-champagne:  oklch(84% 0.035 82);
-    --ks-text:       oklch(81% 0.03 82);
-    --ks-muted:      oklch(63% 0.024 82);
-    --ks-font:       "Albert Sans", system-ui, sans-serif;
-    --ks-display:    "Alumni Sans", "Albert Sans", sans-serif;
+    --ks-kinpaku:   oklch(84% 0.19 80.46);
+    --ks-gold-line: oklch(77% 0.13 82);
+    --ks-paper:     oklch(97.8% 0 0);
+    --ks-ink:       oklch(13% 0 0);
+    --ks-text:      oklch(22% 0 0);
+    --ks-muted:     oklch(46% 0 0);
+    --ks-rule:      oklch(13% 0 0 / 0.12);
+    --ks-font:      "Albert Sans", system-ui, sans-serif;
+    --ks-wordmark:  "Alumni Sans", "Albert Sans", sans-serif;
   }
   * { margin: 0; box-sizing: border-box; }
   html, body { width: 1200px; height: 630px; }
   body {
     position: relative; overflow: hidden;
-    background: var(--ks-lacquer);
+    background: var(--ks-paper);
     font-family: var(--ks-font);
+    color: var(--ks-text);
     -webkit-font-smoothing: antialiased;
   }
-  /* Kintsugi seam art, full bleed, with a left-to-right lacquer scrim so the
-     text column stays legible while the gold seam reads on the right. */
-  .art {
-    position: absolute; inset: 0; z-index: 0;
-    background:
-      linear-gradient(101deg,
-        var(--ks-lacquer) 0%,
-        var(--ks-lacquer) 30%,
-        oklch(7% 0.006 95 / 0.55) 50%,
-        oklch(7% 0.006 95 / 0) 78%),
-      url("${artUrl}") center / cover no-repeat;
-    filter: saturate(1.18) contrast(1.06);
-  }
-  /* Hairline gold frame inset, the kit's "oxidation edge" cue. */
-  .frame { position: absolute; inset: 0; z-index: 2; box-shadow: inset 0 0 0 1px oklch(84% 0.19 80.46 / 0.16); }
-  .stage { position: absolute; inset: 0; z-index: 1; padding: 76px 80px; display: flex; flex-direction: column; }
-  .brand { display: flex; align-items: center; gap: 6px; }
-  .mark { width: 40px; height: 40px; color: var(--ks-kinpaku); display: grid; place-items: center; }
-  .mark svg { width: 34px; height: 34px; display: block; }
+  .stage { position: absolute; inset: 0; padding: 72px 80px; display: flex; flex-direction: column; }
+  .brand { display: flex; align-items: center; gap: 8px; }
+  .mark { width: 44px; height: 44px; color: var(--ks-kinpaku); display: grid; place-items: center; }
+  .mark svg { width: 38px; height: 38px; display: block; }
   .wordmark {
-    color: var(--ks-kinpaku); font-family: var(--ks-display); font-weight: 600;
-    font-size: 27px; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1;
+    color: var(--ks-ink); font-family: var(--ks-wordmark); font-weight: 400;
+    font-size: 26px; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1;
   }
   .headline-wrap { margin-top: auto; margin-bottom: auto; }
   .headline {
-    color: var(--ks-champagne); font-family: var(--ks-display); font-weight: 500;
-    font-size: 82px; line-height: 1.0; letter-spacing: -0.012em; max-width: 720px;
+    color: var(--ks-ink); font-weight: 500;
+    font-size: 76px; line-height: 1.04; letter-spacing: -0.025em; max-width: 860px;
   }
   .sub {
-    margin-top: 26px; color: var(--ks-muted); font-size: 27px; font-weight: 400;
-    line-height: 1.38; max-width: 540px; letter-spacing: 0.005em;
+    margin-top: 28px; color: var(--ks-muted); font-size: 26px; font-weight: 400;
+    line-height: 1.4; max-width: 640px;
   }
-  .meta { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; }
+  .meta {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 24px;
+    padding-top: 28px; border-top: 1px solid var(--ks-rule); position: relative;
+  }
+  /* One gold hairline: the brand as a line, sitting on the rule. */
+  .meta::before { content: ""; position: absolute; left: 0; top: -1px; width: 88px; height: 2px; background: var(--ks-gold-line); }
   .meta-left { color: var(--ks-text); font-size: 21px; font-weight: 500; letter-spacing: 0.01em; }
-  .meta-left .dot { color: var(--ks-kinpaku); padding: 0 10px; }
-  .meta-left .lead { color: var(--ks-champagne); font-weight: 600; }
-  .domain {
-    color: var(--ks-kinpaku); font-family: var(--ks-display); font-weight: 600;
-    font-size: 23px; letter-spacing: 0.06em;
-  }
+  .meta-left .dot { color: var(--ks-gold-line); padding: 0 12px; }
+  .meta-left .lead { color: var(--ks-ink); font-weight: 600; }
+  .domain { color: var(--ks-muted); font-size: 21px; font-weight: 500; letter-spacing: 0.02em; }
 </style>
 </head>
 <body>
-  <div class="art"></div>
-  <div class="frame"></div>
   <div class="stage">
     <div class="brand">
       <span class="mark">
@@ -130,8 +110,8 @@ async function generateOgImage() {
       <span class="wordmark">Impeccable</span>
     </div>
     <div class="headline-wrap">
-      <h1 class="headline">Design fluency for<br>every AI harness.</h1>
-      <p class="sub">Stop shipping generic frontend. A design skill, CLI, and Chrome extension for the tools you already build with.</p>
+      <h1 class="headline">The missing design<br>vocabulary for agents.</h1>
+      <p class="sub">Strips the slop from AI-generated interfaces, gives you precise commands to steer, and iterates variants live in your product.</p>
     </div>
     <div class="meta">
       <div class="meta-left"><span class="lead">${commands} commands</span><span class="dot">&middot;</span>Skill<span class="dot">&middot;</span>CLI<span class="dot">&middot;</span>Extension</div>
@@ -147,8 +127,7 @@ async function generateOgImage() {
     deviceScaleFactor: 2,
   });
 
-  // Write to a temp file and load via file:// so networkidle waits for the
-  // art (a file:// page can reference file:// resources; data: cannot).
+  // Write to a temp file and load via file:// so networkidle waits for fonts.
   const tmpHtml = path.join(os.tmpdir(), `impeccable-og-${process.pid}.html`);
   fs.writeFileSync(tmpHtml, html);
   try {

@@ -1,7 +1,6 @@
-/* All brand-bearing tokens (kinpaku, patina, lacquer, graphite, champagne,
-   text, rules, type scale, motion) come from kinpaku-tokens.css. The block
-   below only keeps the home page's two intentional divergences and the
-   legacy --color-* aliasing layer that older shared CSS still reads from. */
+/* All brand-bearing tokens (kinpaku, patina, paper, instrument, ink, rules,
+   type scale, motion) come from kinpaku-tokens.css. The block below only
+   keeps the legacy aliases that older shared CSS still reads from. */
 
 @import "./kinpaku-tokens.css";
 
@@ -25,45 +24,24 @@
   --font-display: var(--ks-font);
   --font-body: var(--ks-font);
   --font-mono: var(--ks-mono);
-  --color-ink: var(--ks-champagne);
+  --color-ink: var(--ks-ink);
   --color-text: var(--ks-text);
-  --color-paper: var(--ks-lacquer);
-  --color-cream: var(--ks-lacquer-raised);
+  --color-paper: var(--ks-paper);
+  --color-cream: var(--ks-paper-raised);
   --color-charcoal: var(--ks-text);
   --color-ash: var(--ks-muted);
   --color-mist: var(--ks-rule);
-  --color-bg: var(--ks-lacquer-raised);
+  --color-bg: var(--ks-paper-raised);
   --color-accent: var(--ks-kinpaku);
   --color-accent-hover: var(--ks-patina);
-  --color-accent-dim: oklch(78% 0.12 82 / 0.16);
-  --color-accent-soft: oklch(78% 0.12 82 / 0.26);
 
-  --cat-create-bg: linear-gradient(155deg, oklch(78% 0.12 82 / 0.13), transparent 56%), oklch(10% 0.009 95);
-  --cat-create-border: oklch(78% 0.12 82 / 0.7);
-  --cat-create-text: oklch(86% 0.075 82);
-  --cat-evaluate-bg: linear-gradient(155deg, oklch(70% 0.105 190 / 0.15), transparent 58%), oklch(9% 0.009 95);
-  --cat-evaluate-border: oklch(70% 0.105 190 / 0.74);
-  --cat-evaluate-text: oklch(76% 0.088 190);
-  --cat-refine-bg: linear-gradient(155deg, oklch(89% 0.055 84 / 0.11), transparent 58%), oklch(10% 0.008 95);
-  --cat-refine-border: oklch(84% 0.055 84 / 0.58);
-  --cat-refine-text: oklch(88% 0.047 84);
-  --cat-simplify-bg: linear-gradient(155deg, oklch(61% 0.085 78 / 0.14), transparent 58%), oklch(9% 0.009 95);
-  --cat-simplify-border: oklch(70% 0.096 72 / 0.72);
-  --cat-simplify-text: oklch(82% 0.095 76);
-  --cat-harden-bg: linear-gradient(155deg, oklch(49% 0.08 188 / 0.16), transparent 58%), oklch(8% 0.01 95);
-  --cat-harden-border: oklch(58% 0.085 185 / 0.74);
-  --cat-harden-text: oklch(71% 0.082 184);
-  --cat-system-bg: linear-gradient(155deg, oklch(91% 0 0 / 0.08), transparent 58%), oklch(10% 0.007 95);
-  --cat-system-border: oklch(58% 0.028 82 / 0.5);
-  --cat-system-text: oklch(71% 0.028 82);
+  /* The command category tokens (--cat-*) come from tokens.css; the homepage
+     no longer diverges on them. */
 
   color: var(--ks-text);
-  /* Pure lacquer black. Previously had lacquer-grain.png on top of a 180deg
-     gradient + two faded gold/patina radial washes; with the washes removed
-     the grain texture itself read as scratched stone/asphalt, not lacquer.
-     The brand lives off the contrast of clean black against gold, not on
-     low-contrast surface texture. */
-  background: linear-gradient(180deg, var(--ks-lacquer), var(--ks-lacquer-deep));
+  /* Flat paper. A gradient down to paper-deep put a gray band behind the
+     last section, which read as a plinth the Get Started card did not ask for. */
+  background: var(--ks-paper);
   font-family: var(--ks-font);
 }
 
@@ -74,7 +52,7 @@
 }
 
 .home-kinpaku body {
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
 }
 
 .home-kinpaku a {
@@ -82,7 +60,7 @@
 }
 
 .home-kinpaku strong {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 /* Inline code in body text. Three things to balance against the surrounding
@@ -102,20 +80,15 @@
 }
 
 .home-kinpaku ::selection {
-  color: var(--ks-lacquer);
+  color: var(--ks-paper-raised);
   background: var(--ks-patina);
-}
-
-.home-kinpaku .grain-overlay {
-  opacity: 0.055;
-  mix-blend-mode: soft-light;
 }
 
 .home-kinpaku .skip-link {
   background: var(--ks-patina);
-  color: var(--ks-dark-ink);
+  color: var(--ks-on-gold);
   border: 1px solid var(--ks-patina);
-  border-radius: 4px;
+  border-radius: var(--ks-radius-sm);
 }
 
 .home-kinpaku .site-content {
@@ -145,13 +118,13 @@
 
 .home-kinpaku .site-header-nav a:hover,
 .home-kinpaku .site-header-nav a[aria-current="page"] {
-  color: var(--ks-kinpaku);
+  color: var(--ks-ink);
 }
 
 .home-kinpaku .site-header-nav a[aria-current="page"]::after {
   bottom: -7px;
-  height: 1px;
-  background: var(--ks-kinpaku);
+  height: 2px;
+  background: var(--ks-gold-line);
   border-radius: 0;
 }
 
@@ -164,10 +137,10 @@
 .home-kinpaku h4,
 .home-kinpaku h5,
 .home-kinpaku h6 {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-family: var(--ks-font);
   font-style: normal;
-  font-weight: 300;
+  font-weight: var(--ks-type-headline-weight);
   letter-spacing: 0;
 }
 
@@ -176,7 +149,7 @@
    ink here. */
 .home-kinpaku .proof-h {
   margin: 0;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-family: var(--ks-font);
   font-style: normal;
   font-weight: 300;
@@ -194,16 +167,8 @@
   margin-bottom: 34px;
 }
 
-.home-kinpaku .section-number,
-.home-kinpaku .section-eyebrow,
-.home-kinpaku .hero-included-title,
-.home-kinpaku .spread-category-label,
-.home-kinpaku .gallery-stack-title,
-.home-kinpaku .install-alts-label,
-.home-kinpaku .install-tool-preview-caption,
-.home-kinpaku .changelog-highlights-label,
-.home-kinpaku .live-demo-support-k {
-  color: var(--ks-kinpaku);
+.home-kinpaku .spread-category-label {
+  color: var(--ks-accent-ink);
   font-family: var(--ks-mono);
   font-size: 0.7rem;
   font-weight: 500;
@@ -214,14 +179,14 @@
 .home-kinpaku .section-title {
   font-family: var(--ks-font-display);
   font-weight: var(--ks-type-headline-weight);
-  font-size: clamp(2.6rem, 4vw, 3.4rem);
-  line-height: 1.04;
-  color: var(--ks-champagne);
+  font-size: var(--ks-type-headline-size);
+  line-height: var(--ks-type-headline-line);
+  letter-spacing: var(--ks-type-headline-track);
+  color: var(--ks-ink);
   text-wrap: balance;
 }
 
-.home-kinpaku .section-lead,
-.home-kinpaku .section-subtitle {
+.home-kinpaku .section-lead {
   max-width: 62ch; /* 68ch rendered ~86 actual chars/line; tighten into the band */
   color: var(--ks-text);
   font-size: 1.02rem;
@@ -235,12 +200,10 @@
    paragraphs use text-wrap: pretty (smarter end-of-paragraph orphan handling
    without the cost of full balancing). */
 .home-kinpaku .hero-rebuild-title,
-.home-kinpaku .hero-rebuild-meta,
 .home-kinpaku .slop-teaser-title,
 .home-kinpaku .downloads-rebuild-title,
 .home-kinpaku .downloads-rebuild-note,
 .home-kinpaku .why-panel-title,
-.home-kinpaku .live-demo-support-v,
 .home-kinpaku .downloads-rebuild-extras strong,
 .home-kinpaku .downloads-rebuild-extras span {
   text-wrap: balance;
@@ -253,489 +216,44 @@
 }
 
 .home-kinpaku .cheatsheet-link,
-.home-kinpaku .why-panel-meta a,
-.home-kinpaku .install-howto-link,
-.home-kinpaku .gallery-stack-link,
-.home-kinpaku .install-cmd-note a,
-.home-kinpaku .faq-answer a,
-.home-kinpaku .consulting-desc a {
-  color: var(--ks-kinpaku);
+.home-kinpaku .why-panel-meta a {
+  color: var(--ks-link-on-paper);
   text-decoration: none;
-  border-bottom: 1px solid oklch(78% 0.12 82 / 0.42);
+  border-bottom: 1px solid var(--ks-link-on-paper-line);
 }
 
 .home-kinpaku .cheatsheet-link:hover,
-.home-kinpaku .why-panel-meta a:hover,
-.home-kinpaku .install-howto-link:hover,
-.home-kinpaku .gallery-stack-link:hover,
-.home-kinpaku .install-cmd-note a:hover,
-.home-kinpaku .faq-answer a:hover,
-.home-kinpaku .consulting-desc a:hover {
-  color: var(--ks-patina);
-  border-bottom-color: var(--ks-patina);
-}
-
-.home-kinpaku .hero-combined {
-  min-height: calc(100svh - 101px);
-  display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  padding: clamp(44px, 6vh, 84px) 0 0;
-  overflow: clip;
-  background:
-    linear-gradient(90deg, oklch(5% 0.004 95 / 0.96) 0%, oklch(5% 0.004 95 / 0.86) 48%, oklch(5% 0.004 95 / 0.72) 100%),
-    radial-gradient(circle at 76% 34%, oklch(78% 0.12 82 / 0.055), transparent 30rem),
-    url("/assets/neo-kinpaku/lacquer-grain.png") center / 1700px auto,
-    var(--ks-lacquer);
-  isolation: isolate;
-}
-
-.home-kinpaku .hero-combined::before {
-  content: "";
-  position: absolute;
-  inset: -10% -4% 92px 44%;
-  z-index: -2;
-  background:
-    linear-gradient(90deg, oklch(5% 0.004 95 / 0.98) 0%, transparent 46%, transparent 100%),
-    linear-gradient(180deg, transparent 0%, oklch(5% 0.004 95 / 0.52) 74%, oklch(5% 0.004 95 / 0.94) 100%),
-    url("/assets/neo-kinpaku/hero-seam-field-v2.png") center right / cover no-repeat;
-  filter: contrast(1.1) saturate(1.16) brightness(0.98);
-  opacity: 0.72;
-}
-
-.home-kinpaku .hero-combined::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 91px;
-  height: 20px;
-  background: url("/assets/neo-kinpaku/gold-dust-rule.png") center / cover no-repeat;
-  opacity: 0.56;
-  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
-  pointer-events: none;
-}
-
-.home-hero-art {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.home-circuit-field {
-  position: absolute;
-  right: -14%;
-  top: 2%;
-  width: min(760px, 48vw);
-  height: min(560px, 64vh);
-  opacity: 0.18;
-  mix-blend-mode: screen;
-}
-
-.home-circuit-lines path {
-  fill: none;
-  stroke: var(--ks-kinpaku-deep);
-  stroke-width: 1.1;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-}
-
-.home-circuit-nodes circle {
-  fill: oklch(5% 0.004 95 / 0.78);
-  stroke: var(--ks-kinpaku);
-  stroke-width: 1.2;
-  vector-effect: non-scaling-stroke;
-}
-
-.home-calibration {
-  position: absolute;
-  border: 1px solid var(--ks-rule);
-  opacity: 0.56;
-}
-
-.home-calibration::before,
-.home-calibration::after {
-  content: "";
-  position: absolute;
-  background: var(--ks-kinpaku-deep);
-}
-
-.home-calibration-one {
-  right: -2px;
-  top: 19%;
-  width: 340px;
-  height: 240px;
-  border-left: 0;
-}
-
-.home-calibration-one::before {
-  top: 54%;
-  left: -120px;
-  width: 220px;
-  height: 1px;
-}
-
-.home-calibration-one::after {
-  top: -24px;
-  left: 42%;
-  width: 1px;
-  height: 286px;
-}
-
-.home-patina-dot {
-  position: absolute;
-  width: 7px;
-  height: 7px;
-  border-radius: 999px;
-  background: var(--ks-patina);
-  box-shadow: 0 0 22px var(--ks-patina);
-  opacity: 0.85;
-}
-
-.home-patina-dot-one {
-  right: 6.5%;
-  top: 47%;
-}
-
-.home-kinpaku .hero-combined-container {
-  position: relative;
-  z-index: 1;
-  align-self: center;
-  max-width: 1500px;
-  grid-template-columns: minmax(0, 0.95fr) minmax(430px, 0.82fr);
-  gap: clamp(36px, 5vw, 78px);
-  align-items: center;
-  padding: 0 clamp(22px, 4vw, 56px) clamp(34px, 5vh, 70px);
-}
-
-.home-kinpaku .hero-combined-left {
-  gap: 22px;
-}
-
-.home-kinpaku .hero-title-combined {
-  max-width: 760px;
-  color: var(--ks-champagne);
-  font-size: clamp(3.4rem, 5.5vw, 5rem);
-  font-weight: 300;
-  line-height: 1.02;
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-.home-kinpaku .hero-tagline-combined {
-  color: var(--ks-kinpaku);
-  font-size: 1.12rem;
-  font-style: normal;
-  font-weight: 300;
-  letter-spacing: 0.08em;
-  line-height: 1.65;
-}
-
-.home-kinpaku .hero-tagline-combined::before {
-  content: "";
-  display: block;
-  width: 172px;
-  height: 1px;
-  margin: 0 0 24px;
-  background: linear-gradient(90deg, var(--ks-kinpaku), var(--ks-kinpaku-deep));
-  box-shadow: 0 0 14px oklch(78% 0.12 82 / 0.3);
-}
-
-.home-kinpaku .hero-hook-text {
-  max-width: 54ch;
-  color: var(--ks-text);
-  font-size: 1.02rem;
-  line-height: 1.78;
-}
-
-.home-kinpaku .hero-included-box {
-  max-width: 560px;
-  padding: 16px 18px;
-  border: 1px solid var(--ks-rule);
-  background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.055), transparent),
-    oklch(8% 0.005 95 / 0.82);
-}
-
-.home-kinpaku .hero-included-items {
-  color: var(--ks-text);
-  font-size: 0.88rem;
-}
-
-.home-kinpaku .hero-included-items em {
-  color: var(--ks-kinpaku-pale);
-  font-family: var(--ks-mono);
-}
-
-.home-kinpaku .hero-included-sep {
-  color: var(--ks-kinpaku-deep);
-}
-
-.home-kinpaku .hero-cta-group {
-  gap: 28px;
-  flex-wrap: wrap;
-}
-
-.home-kinpaku .hero-cta-combined,
-.home-kinpaku .btn-primary,
-.home-kinpaku .install-tool-cta {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 58px;
-  padding: 0 38px;
-  border: 1px solid transparent;
-  border-radius: 2px;
-  color: var(--ks-dark-ink);
-  background:
-    linear-gradient(90deg, oklch(95% 0.04 84 / 0.36), oklch(78% 0.12 82 / 0.72)),
-    url("/assets/neo-kinpaku/kinpaku-gold-leaf.png") center / 160% auto;
-  background-size: auto, 220% auto;
-  animation: home-kinpaku-button-pan 24s ease-in-out infinite alternate;
-  box-shadow:
-    inset 0 0 18px oklch(100% 0 0 / 0.12),
-    0 18px 48px oklch(2% 0.004 95 / 0.4);
-  font-family: var(--ks-font);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
-}
-
-.home-kinpaku .hero-cta-combined::after,
-.home-kinpaku .btn-primary::after,
-.home-kinpaku .install-tool-cta::after {
-  content: "";
-  position: absolute;
-  inset: -12px -32%;
-  z-index: -1;
-  background:
-    linear-gradient(
-      105deg,
-      transparent 0%,
-      transparent 28%,
-      oklch(98% 0.04 84 / 0.56) 48%,
-      oklch(94% 0.07 82 / 0.32) 53%,
-      transparent 72%,
-      transparent 100%
-    );
-  mix-blend-mode: screen;
-  filter: blur(1.2px);
-  animation: home-kinpaku-sheen 6.8s linear infinite;
-  pointer-events: none;
-}
-
-.home-kinpaku .hero-cta-combined:hover,
-.home-kinpaku .btn-primary:hover,
-.home-kinpaku .install-tool-cta:hover {
-  color: var(--ks-dark-ink);
-  background:
-    linear-gradient(90deg, oklch(98% 0.035 84 / 0.38), oklch(78% 0.12 82 / 0.58)),
-    url("/assets/neo-kinpaku/kinpaku-gold-leaf.png") 60% 46% / 140% auto;
-  transform: translateY(-2px);
-}
-
-.home-kinpaku .hero-logos-inline {
-  gap: 8px;
-}
-
-@keyframes home-kinpaku-button-pan {
-  0% { background-position: center, 0% 50%; }
-  100% { background-position: center, 100% 60%; }
-}
-
-@keyframes home-kinpaku-sheen {
-  0% { transform: translateX(-58%); }
-  100% { transform: translateX(58%); }
-}
-
-.home-kinpaku .hero-logos-label {
-  color: var(--ks-muted);
-  font-size: 0.72rem;
-}
-
-.home-kinpaku .hero-logo-icon {
-  display: inline-grid;
-  place-items: center;
-  width: 24px;
-  height: 24px;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  opacity: 0.68;
-  transition:
-    opacity 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 180ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.home-kinpaku .hero-logos-row img {
-  opacity: 0.74;
-  filter: grayscale(1) saturate(0) invert(1) brightness(1.18) contrast(0.72);
-  transition:
-    opacity 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    filter 180ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.home-kinpaku .hero-logo-icon:hover,
-.home-kinpaku .hero-logo-icon:focus-visible {
-  opacity: 1;
-  transform: translateY(-1px);
-}
-
-.home-kinpaku .hero-logo-icon:hover img,
-.home-kinpaku .hero-logo-icon:focus-visible img {
-  opacity: 1;
-  filter: none;
-}
-
-.home-kinpaku .hero-version-link {
-  margin: 4px 0 0;
-  color: var(--ks-muted);
-  font-size: 0.85rem;
-}
-
-.home-kinpaku .hero-version-link a {
-  color: inherit;
-  text-decoration: none;
-}
-
-.home-kinpaku .hero-version-link a:hover {
-  color: var(--ks-patina);
-}
-
-.home-hero-rail {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0;
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  min-height: 92px;
-  margin-top: 0;
-  border-top: 1px solid oklch(78% 0.12 82 / 0.2);
-  background:
-    linear-gradient(180deg, oklch(5% 0.004 95 / 0.76), oklch(4% 0.004 95 / 0.94)),
-    url("/assets/neo-kinpaku/lacquer-grain.png") center bottom / 1500px auto;
-}
-
-.home-hero-rail a {
-  min-height: 92px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 16px;
-  padding: 0 clamp(16px, 3.2vw, 46px);
-  color: var(--ks-champagne);
-  text-decoration: none;
-  border-right: 1px solid oklch(78% 0.12 82 / 0.18);
-  font-size: 0.94rem;
-  transition:
-    color 180ms cubic-bezier(0.16, 1, 0.3, 1),
-    background 180ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.home-hero-rail a:last-child {
-  border-right: 0;
-}
-
-.home-hero-rail a:hover {
-  color: var(--ks-patina);
-  background: oklch(70% 0.105 190 / 0.045);
-}
-
-.home-hero-rail strong,
-.home-hero-rail small {
-  display: block;
-}
-
-.home-hero-rail strong {
-  color: inherit;
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.home-hero-rail small {
-  margin-top: 4px;
-  color: var(--ks-muted);
-  font-size: 0.66rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.home-rail-index {
-  color: var(--ks-kinpaku);
-  font-family: var(--ks-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-}
-
-.home-kinpaku .hero-combined-right {
-  position: relative;
-  isolation: isolate;
-  justify-content: flex-end;
-}
-
-.home-kinpaku .hero-combined-right::before {
-  content: "";
-  position: absolute;
-  inset: -88px -126px -124px -116px;
-  z-index: -1;
-  background:
-    radial-gradient(ellipse at center, oklch(5% 0.004 95 / 0.98) 0%, oklch(5% 0.004 95 / 0.94) 52%, oklch(5% 0.004 95 / 0.54) 68%, transparent 84%);
-  filter: blur(8px);
-  pointer-events: none;
-}
-
-.home-kinpaku .hero-combined-right .split-comparison {
-  max-width: 468px;
-  width: 100%;
-  padding: 0;
-  margin: 0;
+.home-kinpaku .why-panel-meta a:hover {
+  color: var(--ks-link-on-paper-hover);
+  border-bottom-color: var(--ks-link-on-paper-hover);
 }
 
 .home-kinpaku .split-container {
   height: 352px;
   max-width: 448px;
-  border-radius: 4px;
+  border-radius: var(--ks-radius-sm);
   border: 1px solid var(--ks-rule);
-  background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.04) 1px, transparent 1px),
-    linear-gradient(180deg, oklch(78% 0.12 82 / 0.035) 1px, transparent 1px),
-    var(--ks-lacquer-raised);
-  background-size: 24px 24px;
-  box-shadow:
-    0 28px 80px oklch(2% 0.004 95 / 0.44),
-    inset 0 0 0 1px oklch(78% 0.12 82 / 0.05);
+  background: var(--ks-paper-raised);
+  box-shadow: var(--ks-lift-1);
 }
 
 .home-kinpaku .split-before {
-  background:
-    linear-gradient(90deg, oklch(10% 0.006 95 / 0.92), oklch(12% 0.012 330 / 0.72)),
-    radial-gradient(circle at 28% 25%, oklch(60% 0.25 350 / 0.22), transparent 11rem);
+  background: var(--ks-paper-raised);
   justify-content: center;
   padding-left: 0;
 }
 
 .home-kinpaku .split-after {
-  background:
-    linear-gradient(90deg, oklch(8% 0.006 95 / 0.92), oklch(10% 0.006 95 / 0.96)),
-    radial-gradient(circle at 82% 26%, oklch(78% 0.12 82 / 0.12), transparent 12rem);
+  background: var(--ks-paper-deep);
   justify-content: center;
   padding-right: 0;
 }
 
+/* The seam is a plain one-pixel patina line, straight up and down. */
 .home-kinpaku .split-divider {
-  top: -9%;
-  bottom: auto;
-  width: 112px;
-  height: 118%;
-  background: url("/assets/neo-kinpaku/before-after-seam.png") center / auto 100% no-repeat;
-  filter: drop-shadow(0 0 11px oklch(78% 0.12 82 / 0.28));
+  width: 1px;
+  background: var(--ks-patina);
+  filter: none;
   box-shadow: none;
   transform: translateX(-50%);
 }
@@ -744,162 +262,42 @@
   content: none;
 }
 
-.home-kinpaku .split-badge {
-  position: absolute;
-  top: 16px;
-  z-index: 4;
-  padding: 7px 10px;
-  border: 1px solid var(--ks-rule);
-  color: var(--ks-kinpaku);
-  background: oklch(6% 0.004 95 / 0.84);
-  font-family: var(--ks-mono);
-  font-size: 0.64rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.home-kinpaku .split-badge--before {
-  left: 16px;
-}
-
-.home-kinpaku .split-badge--after {
-  right: 16px;
-  color: var(--ks-patina);
-  border-color: oklch(70% 0.105 190 / 0.42);
-}
-
-.home-kinpaku .slop-card,
-.home-kinpaku .impeccable-card {
-  width: 244px;
-  min-height: 252px;
-  border-radius: 6px;
-}
-
-.home-kinpaku .slop-card {
-  background:
-    linear-gradient(135deg, oklch(96% 0.04 303), oklch(86% 0.12 300) 52%, oklch(78% 0.16 283));
-  color: oklch(19% 0.02 285);
-  box-shadow: 0 20px 50px oklch(2% 0.004 95 / 0.4);
-}
-
-.home-kinpaku .slop-callout {
-  color: var(--ks-vermilion);
-  background: oklch(8% 0.006 95 / 0.9);
-  border-color: var(--ks-vermilion);
-}
-
-.home-kinpaku .impeccable-card {
-  border: 1px solid var(--ks-kinpaku);
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.11), transparent 42%),
-    linear-gradient(180deg, oklch(14% 0.008 95 / 0.98), oklch(9% 0.006 95 / 0.98));
-  box-shadow:
-    inset 0 0 0 1px oklch(78% 0.12 82 / 0.08),
-    0 18px 42px oklch(2% 0.004 95 / 0.32);
-}
-
-.home-kinpaku .impeccable-eyebrow {
-  color: var(--ks-patina);
-  font-family: var(--ks-mono);
-  letter-spacing: 0.18em;
-}
-
-.home-kinpaku .impeccable-title {
-  color: var(--ks-kinpaku-pale);
-  font-family: var(--ks-font);
-  font-size: 1.75rem;
-  font-style: normal;
-  font-weight: 400;
-}
-
-.home-kinpaku .impeccable-body {
-  color: var(--ks-text);
-}
-
-.home-kinpaku .impeccable-button {
-  background: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
-}
-
-.home-kinpaku .split-labels {
-  justify-content: space-between;
-  gap: 18px;
-  max-width: 448px;
-  margin: 16px auto 0;
-  padding: 0 2px;
-}
-
-.home-kinpaku .split-label-item {
-  color: var(--ks-champagne);
-  font-family: var(--ks-mono);
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-shadow:
-    0 1px 1px var(--ks-lacquer-deep),
-    0 0 16px oklch(5% 0.004 95 / 0.9);
-}
-
-.home-kinpaku .split-label-dot {
-  background: var(--ks-faint);
-}
-
-.home-kinpaku .split-label-dot--accent {
-  background: var(--ks-patina);
-}
-
 .home-kinpaku .section-nav {
-  background: oklch(7% 0.006 95 / 0.86);
+  background: color-mix(in oklch, var(--ks-paper-raised) 92%, transparent);
   border: 1px solid var(--ks-rule);
   border-radius: 999px;
-  box-shadow: 0 16px 50px oklch(2% 0.004 95 / 0.52);
+  box-shadow: var(--ks-lift-2);
 }
 
 .home-kinpaku .section-nav-item:hover {
-  background: oklch(78% 0.12 82 / 0.09);
+  background: var(--ks-gray);
 }
 
 .home-kinpaku .section-nav-item.is-active {
-  background: var(--ks-kinpaku);
+  background: var(--ks-ink);
 }
 
-.home-kinpaku .section-nav-num,
-.home-kinpaku .section-nav-label {
-  color: var(--ks-muted);
-}
-
-.home-kinpaku .section-nav-item.is-active .section-nav-num,
-.home-kinpaku .section-nav-item.is-active .section-nav-label {
-  color: var(--ks-dark-ink);
-}
-
-/* Sections sit on clean lacquer. The earlier faded radial gold wash
-   (0.075 alpha) was sub-perceptual yet contributed visual noise; the muddy
-   gold-dust streak at the top (opacity 0.48 with mask) read as a dirty
-   horizontal smear, not a brand accent. Removed. Where we want a section
-   divider, use a full-vibrancy treatment (see kinpaku accent strip below). */
-.home-kinpaku .foundation-section,
+/* Sections sit flat on the paper: no washes, no streaks, no dividers of
+   their own. Transitions read on layout alone. */
 .home-kinpaku .language-section,
-.home-kinpaku .why-section,
-.home-kinpaku .live-section,
-.home-kinpaku .platforms-section,
-.home-kinpaku .consulting-section {
+.home-kinpaku .why-section {
   position: relative;
   isolation: isolate;
   padding: 112px 0;
 }
 
-
-/* Ready-to-drop-in section — kill the global .why-section hairline (set by
-   workflow.css for the generic light treatment). No radial spotlight: the
-   soft glowing wash that style is associated with generic SaaS heroes, and
-   it reads as off-brand against kinpaku's material/editorial aesthetic. */
+/* Ready-to-drop-in section: kill the global .why-section hairline set by
+   workflow.css; the bento rail carries its own top rule. */
 .home-kinpaku .why-section {
   border-top: 0;
 }
 
-.home-kinpaku :is(.foundation-section, .language-section, .why-section, .live-section, .platforms-section, .consulting-section) > * {
+.home-kinpaku :is(.foundation-section,
+.language-section,
+.why-section,
+.live-section,
+.platforms-section,
+.consulting-section) > * {
   position: relative;
   z-index: 1;
 }
@@ -913,132 +311,110 @@
   min-height: 284px;
   padding: 24px;
   border: 1px solid var(--ks-rule);
-  border-radius: 4px;
-  /* Was 9% on a 7% ground (~1 level in sRGB): the card body vanished into the
-     page and only the hairline hinted at an edge. Lift to a clear raised
-     neutral tone so the specimen card reads as a crisp object. */
-  background: oklch(15% 0 0);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
 }
 
 .home-kinpaku .foundation-column:hover .foundation-card {
   border-color: var(--ks-patina);
-  box-shadow:
-    inset 0 0 0 1px oklch(70% 0.105 190 / 0.08),
-    0 24px 58px oklch(2% 0.004 95 / 0.34);
+  box-shadow: var(--ks-lift-2);
 }
 
 .home-kinpaku .foundation-card-viz {
-  color: var(--ks-kinpaku);
+  color: var(--ks-ink);
 }
 
 .home-kinpaku .foundation-card-label {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-family: var(--ks-font);
   font-size: 1.125rem;
   font-weight: 400;
 }
 
 .home-kinpaku .foundation-card-count {
-  color: var(--ks-patina);
+  color: var(--ks-state-ink);
   font-family: var(--ks-mono);
 }
 
-.home-kinpaku .foundation-card-detail,
-.home-kinpaku .foundation-cta-text {
+.home-kinpaku .foundation-card-detail {
   color: var(--ks-muted);
 }
 
 .home-kinpaku .foundation-plinth {
   border-color: var(--ks-rule);
-  /* Neutral hatch (was kinpaku gold, which washed the section champagne) on a
-     neutral base, for a crisp pedestal that matches the de-warmed section. */
+  /* Neutral hatch on a sunk paper well. */
   background:
-    repeating-linear-gradient(45deg, oklch(80% 0 0 / 0.07), oklch(80% 0 0 / 0.07) 1px, transparent 1px, transparent 9px),
-    oklch(10% 0 0 / 0.42);
+    repeating-linear-gradient(45deg, var(--ks-rule), var(--ks-rule) 1px, transparent 1px, transparent 9px),
+    var(--ks-paper-deep);
 }
 
 .home-kinpaku .language-intro-row {
   align-items: end;
 }
 
-.home-kinpaku .language-view-toggle {
-  border: 1px solid var(--ks-rule);
-  border-radius: 999px;
-  background: oklch(8% 0.006 95 / 0.78);
-}
-
-.home-kinpaku .language-view-tab {
-  color: var(--ks-muted);
-  border-radius: 999px;
-}
-
-.home-kinpaku .language-view-tab.is-active {
-  background: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
-}
-
 /* Divider accent follows the section's category identity (the same gold/teal
-   grouping the category labels use) and stays vibrant — no muddy kinpaku-pale/
-   -deep or undefined oxide. The brand's decorative accents are exactly two:
-   kinpaku gold (create/refine/simplify) and patina verdigris (evaluate/harden);
-   system stays neutral as the meta category. */
-.home-kinpaku .magazine-spread[data-category="create"] { --spread-accent: var(--ks-kinpaku); }
+   grouping the category labels use). The accent is only ever a line here:
+   the gold hairline for create/refine/simplify, patina for evaluate/harden,
+   and the neutral edge for system as the meta category. */
+.home-kinpaku .magazine-spread[data-category="create"] { --spread-accent: var(--ks-gold-line); }
 .home-kinpaku .magazine-spread[data-category="evaluate"] { --spread-accent: var(--ks-patina); }
-.home-kinpaku .magazine-spread[data-category="refine"] { --spread-accent: var(--ks-kinpaku); }
-.home-kinpaku .magazine-spread[data-category="simplify"] { --spread-accent: var(--ks-kinpaku); }
+.home-kinpaku .magazine-spread[data-category="refine"] { --spread-accent: var(--ks-gold-line); }
+.home-kinpaku .magazine-spread[data-category="simplify"] { --spread-accent: var(--ks-gold-line); }
 .home-kinpaku .magazine-spread[data-category="harden"] { --spread-accent: var(--ks-patina); }
-.home-kinpaku .magazine-spread[data-category="system"] { --spread-accent: var(--ks-muted); }
+.home-kinpaku .magazine-spread[data-category="system"] { --spread-accent: var(--ks-edge); }
 
 /* Keep gold and patina for the spread's decorative marks, but use their
    accessible semantic ink roles for small text inside rendered demos. */
 .home-kinpaku .magazine-spread:is(
   [data-category="create"],
-  [data-category="refine"],
-  [data-category="simplify"]
+[data-category="refine"],
+[data-category="simplify"]
 ) .demo-viewport,
 .home-kinpaku .mobile-commands-layout:is(
   [data-category="create"],
-  [data-category="refine"],
-  [data-category="simplify"]
+[data-category="refine"],
+[data-category="simplify"]
 ) .demo-viewport {
   --spread-accent: var(--ks-gold-ink);
 }
 
 .home-kinpaku .magazine-spread:is(
   [data-category="evaluate"],
-  [data-category="harden"]
+[data-category="harden"]
 ) .demo-viewport,
 .home-kinpaku .mobile-commands-layout:is(
   [data-category="evaluate"],
-  [data-category="harden"]
+[data-category="harden"]
 ) .demo-viewport {
   --spread-accent: var(--ks-state-ink);
 }
 
-html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
+.home-kinpaku .mobile-commands-layout .demo-craft-note {
   color: var(--ks-text-muted);
   opacity: 1 !important;
 }
 
-/* Command titles and category labels follow the current category accent. The
-   slash before /impeccable stays muted punctuation. */
-.home-kinpaku .magazine-container :is(.spread-command-name, .spread-category-label) {
-  color: var(--spread-accent, var(--ks-kinpaku));
+/* The command name is a headline in ink; the category label above it is the
+   one accent, in text-safe patina. The slash before /impeccable stays muted
+   punctuation. */
+.home-kinpaku .magazine-container .spread-category-label {
+  color: var(--spread-ink, var(--ks-accent-ink));
+}
+
+.home-kinpaku .magazine-container .spread-command-name {
+  color: var(--ks-ink);
 }
 
 .home-kinpaku .magazine-container .spread-command-name .spread-slash {
   color: var(--color-ash);
 }
 
-/* Card-swap to G pattern: the OUTER spread carries the single tinted-plinth
-   surface (flat oklch(0.17 0 0), no border, no shadow). All inner demo
-   surfaces sit transparently on top — no plinth-in-plinth, no nested rings. */
+/* The outer spread is one raised paper panel. All inner demo surfaces sit
+   transparently on top: no panel-in-panel, no nested rings. */
 .home-kinpaku .magazine-container {
-  /* Solid panel, no border. The demo preview inside gets its own thin border
-     (see .spread-demo-area below) and inherits this fill. */
   border: 0;
   border-radius: 2px;
-  background: oklch(0.17 0 0);
+  background: var(--ks-paper-raised);
   box-shadow: none;
 }
 
@@ -1048,17 +424,12 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
   font-size: 1.125rem;
 }
 
-.home-kinpaku .fisheye-slash,
-.home-kinpaku .fisheye-item.is-active .fisheye-slash {
-  color: var(--ks-patina);
-}
-
 .home-kinpaku .spread-command-name {
-  color: var(--spread-accent, var(--ks-kinpaku));
+  color: var(--ks-ink);
   font-family: var(--ks-font-display);
-  font-size: 4rem;
-  font-weight: 100;
-  letter-spacing: 0;
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: var(--ks-type-headline-weight);
+  letter-spacing: var(--ks-type-headline-track);
 }
 
 .home-kinpaku .spread-command-name .spread-namespace,
@@ -1072,11 +443,8 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
 }
 
 .home-kinpaku .spread-flow-cmd {
-  color: var(--spread-accent, var(--ks-code-cmd));
-}
-
-.home-kinpaku .spread-flow-cmd {
-  background: var(--ks-code-bg);
+  color: var(--spread-ink, var(--ks-code-cmd));
+  background: transparent;
   border: 0;
   border-radius: var(--ks-code-radius);
 }
@@ -1093,7 +461,6 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
 /* Inner demo surfaces are transparent — they sit on the panel inside the
    framed .split-container, with no chrome of their own. */
 .home-kinpaku .spread-demo-area .demo-split-comparison .split-container,
-.home-kinpaku .terminal-preview .demo-split-comparison .split-container,
 .home-kinpaku .demo-container,
 .home-kinpaku .demo-viewport,
 .home-kinpaku .solution-visual-interactive {
@@ -1126,19 +493,16 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
   text-align: center;
 }
 
-/* Periodic table container — G plinth. Previously had six layered backgrounds
-   (grid lines, two radial washes, lacquer-grain, dark fill, plus the dust-
-   accent pseudo and the oxidation-edge accent), which read as a stone-tile
-   background instead of a clean canvas. Stripped to the same tonal-lift
-   surface we use on the magazine spread: flat oklch(0.17 0 0), no border,
-   no box-shadow, no inner imagery. */
+/* Periodic table container: a sunk paper well, no border, no imagery. The
+   framework-viz script styles tiles with !important, so the tile rules below
+   have to match it. */
 .home-kinpaku .language-view--periodic .solution-visual-interactive {
   min-height: clamp(520px, 44vw, 680px);
   position: relative;
   isolation: isolate;
   overflow: visible;
   border: 0;
-  background: oklch(0.17 0 0);
+  background: var(--ks-paper-deep);
   box-shadow: none;
 }
 
@@ -1182,16 +546,14 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
   --ptable-accent: var(--ks-kinpaku);
   width: clamp(64px, 5vw, 76px) !important;
   height: clamp(76px, 5.8vw, 90px) !important;
-  /* Crisp neutral card. Was a category-tinted gradient bg + strong colored
-     border + muddy multi-inset shadow that read as dim blobs; now a clean
-     graphite tile with a neutral hairline. Category is cued by the group label
-     and the accent line below, not a muddy fill. */
-  background: oklch(15% 0 0) !important;
+  /* Crisp raised paper tile with a neutral hairline. Category is cued by the
+     group label, not by a tinted fill. */
+  background: var(--ks-paper-raised) !important;
   border: 1px solid var(--ks-rule) !important;
-  border-radius: 4px !important;
+  border-radius: var(--ks-radius-sm) !important;
   overflow: hidden;
   isolation: isolate;
-  box-shadow: none !important;
+  box-shadow: var(--ks-lift-1) !important;
 }
 
 .home-kinpaku #framework-viz-container .ptable-element--create {
@@ -1228,10 +590,11 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
   content: none;
 }
 
-.home-kinpaku #framework-viz-container .ptable-element:is(:hover, :focus-visible) {
+.home-kinpaku #framework-viz-container .ptable-element:is(:hover,
+:focus-visible) {
   transform: translateY(-3px) !important;
-  border-color: oklch(85% 0 0 / 0.4) !important;
-  box-shadow: none !important;
+  border-color: var(--ks-edge) !important;
+  box-shadow: var(--ks-lift-2) !important;
 }
 
 .home-kinpaku #framework-viz-container .ptable-number,
@@ -1252,7 +615,7 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
   font-size: clamp(1.5rem, 1.8vw, 1.75rem) !important;
   font-weight: 400 !important;
   letter-spacing: 0.01em;
-  color: var(--ks-champagne) !important;
+  color: var(--ks-ink) !important;
 }
 
 .home-kinpaku #framework-viz-container .ptable-name {
@@ -1270,179 +633,252 @@ html.light .home-kinpaku .mobile-commands-layout .demo-craft-note {
   opacity: 0.54 !important;
 }
 
-.home-kinpaku .spread-demo-area .demo-split-comparison .split-before,
-.home-kinpaku .terminal-preview .demo-split-comparison .split-before {
+.home-kinpaku .spread-demo-area .demo-split-comparison .split-before {
   /* Left half inherits the panel fill — no separate background. */
   background: transparent;
 }
 
-.home-kinpaku .spread-demo-area .demo-split-comparison .split-after,
-.home-kinpaku .terminal-preview .demo-split-comparison .split-after {
-  /* Right half is near-black: the clean before/after contrast. */
-  background: oklch(2% 0 0);
+.home-kinpaku .spread-demo-area .demo-split-comparison .split-after {
+  /* Right half is a sunk paper well: the before/after contrast. */
+  background: var(--ks-paper-deep);
 }
 
 .home-kinpaku .demo-caption,
-.home-kinpaku .demo-toggle-label,
-.home-kinpaku .terminal-line,
-.home-kinpaku .terminal-output {
+.home-kinpaku .demo-toggle-label {
   color: var(--ks-muted);
 }
 
+/* The before/after toggle is a control, so it sits on the instrument. */
 .home-kinpaku .demo-toggle-switch {
-  background: oklch(10% 0.006 95);
-  border-color: var(--ks-rule);
+  background: var(--ks-instrument);
+  border-color: var(--ks-instrument-deep);
 }
 
 .home-kinpaku .demo-toggle-switch.active {
-  background: var(--ks-kinpaku);
+  background: var(--ks-patina-deep);
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison {
-  --demo-panel: oklch(13% 0.008 95);
-  --demo-panel-raised: oklch(17% 0.01 95);
-  --demo-panel-soft: oklch(20% 0.012 95);
+/* Demo markup carries inline `color: var(--color-accent)` for its own
+   accent text. On paper that resolves to gold, which cannot be read, so the
+   page maps it to the text-safe accent. Scoped to the demo areas only. */
+.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: var(--color-accent)"] {
+  color: var(--ks-accent-ink);
+}
+
+/* Demo surfaces inside the spread. The warning panel keeps its amber: it is
+   the demo's own warning state, not a page tint. */
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison {
+  --demo-panel: var(--ks-paper-raised);
+  --demo-panel-raised: var(--ks-paper-deep);
+  --demo-panel-soft: var(--ks-gray);
   --demo-border: var(--ks-rule);
   --demo-text: var(--ks-text);
   --demo-muted: var(--ks-text-muted);
   --demo-dim: var(--ks-text-faint);
-  --demo-warning-panel: oklch(22% 0.04 78);
-  --demo-danger-panel: oklch(22% 0.04 35);
-  --demo-info-panel: oklch(22% 0.04 188);
-  --demo-purple: var(--ks-kinpaku-rich);
-  --demo-purple-soft: oklch(22% 0.04 78);
+  --demo-warning-panel: oklch(89% 0.055 84);
+  --demo-danger-panel: color-mix(in oklch, var(--ks-vermilion) 10%, transparent);
+  --demo-info-panel: color-mix(in oklch, var(--ks-patina) 10%, transparent);
+  --demo-purple: var(--ks-ink);
+  --demo-purple-soft: var(--ks-ink);
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison .split-container {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison .split-container {
   /* No grid lines, no radial glow — the container is transparent so the before
      half shows the panel fill and the after half its own near-black. A thin
      neutral border frames the demo itself (the caption sits outside it). */
   background: transparent;
   border: 1px solid var(--ks-rule);
-  border-radius: 4px;
+  border-radius: var(--ks-radius-sm);
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison .split-before,
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison .split-after {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison .split-before,
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison .split-after {
   color: var(--demo-text);
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison .split-after {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison .split-after {
   clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison .split-divider {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison .split-divider {
   transform: translateX(-50%) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fafafa"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #f8f8f8"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #f5f5f5"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #f0f0f0"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: white"] {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fafafa"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #f8f8f8"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #f5f5f5"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #f0f0f0"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: white"] {
   color: var(--demo-text) !important;
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.055), transparent 48%),
-    var(--demo-panel) !important;
+  background: var(--demo-panel) !important;
   border-color: var(--demo-border) !important;
-  box-shadow:
-    inset 0 0 0 1px oklch(78% 0.12 82 / 0.035),
-    0 18px 44px oklch(2% 0.004 95 / 0.24) !important;
+  box-shadow: var(--ks-lift-1) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fef3c7"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fff8e1"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fff3e0"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fff8f8"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fff0f0"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fee2e2"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #e3f2fd"] {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fef3c7"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fff8e1"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fff3e0"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fff8f8"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fff0f0"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fee2e2"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #e3f2fd"] {
   color: var(--demo-text) !important;
   background: var(--demo-panel-soft) !important;
   border-color: var(--demo-border) !important;
-  box-shadow: inset 0 0 0 1px oklch(78% 0.12 82 / 0.035) !important;
+  box-shadow: none !important;
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fef3c7"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fff8e1"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fff3e0"] {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fef3c7"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fff8e1"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fff3e0"] {
   background: var(--demo-warning-panel) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fff8f8"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fff0f0"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #fee2e2"] {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fff8f8"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fff0f0"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #fee2e2"] {
   background: var(--demo-danger-panel) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #e3f2fd"] {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #e3f2fd"] {
   background: var(--demo-info-panel) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #ddd"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #eee"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #e0e0e0"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #ccc"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: #333"] {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #ddd"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #eee"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #e0e0e0"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #ccc"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="background: #333"] {
   color: var(--demo-text) !important;
   background: var(--demo-panel-raised) !important;
   border-color: var(--demo-border) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison button[style*="#4F46E5"] {
-  background: linear-gradient(180deg, var(--demo-purple), var(--demo-purple-soft)) !important;
-  color: var(--ks-dark-ink) !important;
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison button[style*="#4F46E5"] {
+  background: var(--demo-purple) !important;
+  color: var(--ks-paper) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #ddd"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="border: 2px solid #ddd"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #e0e0e0"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #e5e5e5"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #fca5a5"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #ffcccc"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #ffcc80"] {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #ddd"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="border: 2px solid #ddd"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #e0e0e0"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #e5e5e5"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #fca5a5"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #ffcccc"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #ffcc80"] {
   border-color: var(--demo-border) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: #333"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: #444"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: #666"] {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="color: #333"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="color: #444"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="color: #666"] {
   color: var(--demo-text) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: #888"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: #999"],
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: #aaa"] {
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="color: #888"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="color: #999"],
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="color: #aaa"] {
   color: var(--demo-muted) !important;
 }
 
-/* In dark mode, hardcoded amber warning text becomes brown-on-brown when its
-   light panel is swapped for --demo-warning-panel. Map those colors to readable
-   amber tones on the dark plinth; light mode keeps the original brown text. */
-html.dark .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: #92400e"],
-html.dark .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: #854d0e"],
-html.dark .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: #78350f"] {
-  color: var(--ks-kinpaku-pale) !important;
-}
-
-/* In dark mode, primary CTAs using background: var(--color-ink) would resolve
-   to champagne on lacquer. Keep the intended dark button and light label on
-   the dark plinth; light mode already resolves the inline ink/paper pairing. */
-html.dark .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison button[style*="background: var(--color-ink)"],
-html.dark .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="background: var(--color-ink)"] {
-  background: oklch(13% 0.008 95) !important;
-  color: var(--ks-champagne) !important;
-  border-color: var(--demo-border) !important;
-}
-
-/* Gold remains a fill and display accent on paper. Small demo labels use the
-   paper-safe patina text token so they retain readable contrast. */
-html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: var(--color-accent)"] {
+/* Small demo labels use the paper-safe patina text token so they retain
+   readable contrast. */
+.home-kinpaku :is(.spread-demo-area,
+.terminal-preview,
+.mobile-demo-area) .demo-split-comparison [style*="color: var(--color-accent)"] {
   color: var(--ks-link-on-paper) !important;
 }
 
 .home-kinpaku .ptable-tooltip {
-  background: var(--ks-lacquer-raised) !important;
+  background: var(--ks-paper-raised) !important;
   border-color: var(--ks-rule) !important;
 }
 
@@ -1453,7 +889,7 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 
 .home-kinpaku .why-tabs {
   border: 1px solid var(--ks-rule);
-  background: oklch(8% 0.006 95 / 0.82);
+  background: var(--ks-paper-raised);
 }
 
 .home-kinpaku .why-tabs li + li {
@@ -1466,29 +902,15 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 }
 
 .home-kinpaku .why-tab:hover {
-  color: var(--ks-champagne);
-  background: oklch(78% 0.12 82 / 0.06);
+  color: var(--ks-ink);
+  background: var(--ks-paper-deep);
 }
 
-/* Active tab: subtle patina-tinted dark wash. Single flat color so the
-   `transition: background 180ms` on .why-tab can interpolate from
-   transparent to here — multi-layer gradients can't be transitioned, which
-   was breaking the activation animation. Teal-tinted bg + warm gold tab-num
-   gives the kinpaku-meets-verdigris pairing the section needed. */
+/* Active tab: a single flat color so the `transition: background 180ms` on
+   .why-tab can interpolate from transparent. */
 .home-kinpaku .why-tab.is-active {
-  color: var(--ks-champagne);
-  background: oklch(22% 0.04 188 / 0.42);
-}
-
-.home-kinpaku .why-tab-num {
-  color: var(--ks-kinpaku);
-}
-
-/* Progress bar runs in verdigris instead of kinpaku — the gold accent
-   already lives in the tab number, so the running bar reads as a second
-   tonal voice rather than a duplicate. */
-.home-kinpaku .why-tab-progress {
-  background: var(--ks-patina);
+  color: var(--ks-ink);
+  background: var(--ks-gray);
 }
 
 /* Bento layout — full-bleed, no card chrome. Six tiles on a 12-col grid
@@ -1539,139 +961,82 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
   grid-row: 1 / 3;
 }
 
-/* Inner mockups (the actual visual content of each tile — terminal,
-   PRODUCT.md file, browser, etc.) get a flat raised-dark surface so they
-   read as distinct UI elements raised above the tile bg. Previous treatment
-   had a kinpaku diagonal gradient that produced a smudgy glow on top-left
-   — dropped, the bento structure carries the brand voice now. */
-.home-kinpaku .why-terminal,
+/* Inner mockups (the PRODUCT.md file, the hook window, the DESIGN.md grid)
+   are raised paper above the tile. The terminal is the exception: a CLI
+   block is a control surface, so it sits on the instrument. */
 .home-kinpaku .why-productmd-file,
 .home-kinpaku .why-ci-window,
-.home-kinpaku .why-browser,
 .home-kinpaku .why-dm-grid,
-.home-kinpaku .patterns-tabbed,
 .home-kinpaku .gallery-stack-container {
   border-color: var(--ks-rule);
-  background: var(--ks-lacquer-raised);
-  border-radius: 4px;
+  background: var(--ks-paper-raised);
+  border-radius: var(--ks-radius-sm);
 }
 
-.home-kinpaku .why-register {
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  gap: 10px;
-}
-
-.home-kinpaku .why-register-label {
-  color: var(--ks-text-muted);
-  font-family: var(--ks-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-}
-
-.home-kinpaku .why-register-mock--brand,
-.home-kinpaku .why-register-mock--product {
-  border: 1px solid var(--ks-rule);
-  border-radius: 4px;
-  background: var(--ks-lacquer-raised);
-}
-
-.home-kinpaku .why-brand-hero-mono {
-  color: var(--ks-text-muted);
-}
-
-.home-kinpaku .why-brand-hero-title {
-  color: var(--ks-champagne);
-  font-family: var(--ks-font-wordmark);
-  font-weight: 300;
-}
-
-.home-kinpaku .why-brand-hero-title em {
-  color: var(--ks-kinpaku);
-  font-style: italic;
-}
-
-.home-kinpaku .why-product-k {
-  color: var(--ks-text-muted);
-}
-
-.home-kinpaku .why-product-v {
-  color: var(--ks-champagne);
-}
-
-.home-kinpaku .why-product-row {
-  border-color: var(--ks-rule);
-}
-
-.home-kinpaku .why-productmd-file,
-.home-kinpaku .why-terminal {
+.home-kinpaku .why-productmd-file {
   overflow: hidden;
   border: 1px solid var(--ks-rule);
 }
 
+.home-kinpaku .why-terminal {
+  overflow: hidden;
+  border: 1px solid var(--ks-instrument-deep);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-instrument-deep);
+  color: var(--ks-instrument-text);
+}
+
 .home-kinpaku .why-productmd-header,
-.home-kinpaku .why-productmd-footer,
 .home-kinpaku .why-terminal-header {
   border-radius: 0;
 }
 
-/* Bento window chrome dots — one subtle traffic-light set across mocks. */
-.home-kinpaku :is(
-  .why-terminal-dot,
-  .why-live-dot,
-  .why-visual--extension .why-browser-dot,
-  .why-visual--v2 .v2-new-browser-dot
-) {
+.home-kinpaku .why-productmd-header {
+  background: var(--ks-paper-deep);
+  border-bottom-color: var(--ks-rule);
+}
+
+/* Terminal chrome dots: one muted set, the first carrying the gold signal. */
+.home-kinpaku .why-terminal-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   flex-shrink: 0;
-  opacity: 0.5;
-  background: oklch(58% 0.012 95);
+  background: var(--ks-instrument-raised);
 }
 
-.home-kinpaku :is(
-  .why-terminal-dot,
-  .why-live-dot,
-  .why-visual--extension .why-browser-dot,
-  .why-visual--v2 .v2-new-browser-dot
-):nth-child(1) {
-  background: var(--ks-kinpaku-deep);
+.home-kinpaku .why-terminal-dot:nth-child(1) {
+  background: var(--ks-kinpaku);
 }
 
-.home-kinpaku :is(
-  .why-terminal-dot,
-  .why-live-dot,
-  .why-visual--extension .why-browser-dot,
-  .why-visual--v2 .v2-new-browser-dot
-):nth-child(2) {
-  background: var(--ks-patina-deep);
+.home-kinpaku .why-terminal-dot:nth-child(2) {
+  background: var(--ks-patina);
 }
 
-.home-kinpaku .why-terminal-header,
-.home-kinpaku .why-live-chrome {
+.home-kinpaku .why-terminal-header {
   gap: 5px;
 }
 
 .home-kinpaku .why-panel-title {
-  color: var(--ks-champagne);
-  font-size: 2rem;
-  font-weight: 300;
+  color: var(--ks-ink);
+  font-size: clamp(1.5rem, 2vw, 1.85rem);
+  font-weight: var(--ks-type-headline-weight);
+  line-height: var(--ks-type-headline-line);
+  letter-spacing: var(--ks-type-headline-track);
 }
 
 .home-kinpaku .why-panel-body,
 .home-kinpaku .why-panel-meta,
-.home-kinpaku .why-terminal-line,
 .home-kinpaku .why-productmd-v,
-.home-kinpaku .why-productmd-status,
-.home-kinpaku .why-dm-foot {
+.home-kinpaku .why-productmd-status {
   color: var(--ks-text);
 }
 
+.home-kinpaku .why-dm-foot {
+  color: var(--ks-text-muted);
+}
+
 .home-kinpaku .why-productmd-k,
-.home-kinpaku .why-terminal-ok,
-.home-kinpaku .why-terminal-path,
 .home-kinpaku .why-dm-badge {
   color: var(--ks-state-ink);
 }
@@ -1679,26 +1044,22 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 .home-kinpaku .why-visual--ci {
   padding: 0;
   overflow: hidden;
-  /* Calibration grid only; the decorative teal corner spotlight it used to
-     carry was exactly the radial-glow tell the tile demos detecting. */
+  /* Calibration grid only; a corner spotlight here would be the radial-glow
+     tell the tile demos detecting. */
   background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.018) 1px, transparent 1px),
-    linear-gradient(180deg, oklch(78% 0.12 82 / 0.015) 1px, transparent 1px),
-    oklch(5% 0.004 95 / 0.92);
+    linear-gradient(90deg, color-mix(in oklch, var(--ks-rule) 50%, transparent) 1px, transparent 1px),
+    linear-gradient(180deg, color-mix(in oklch, var(--ks-rule) 50%, transparent) 1px, transparent 1px),
+    var(--ks-paper-raised);
   background-size: 34px 34px, 34px 34px, auto;
 }
 
 .home-kinpaku .why-ci-window {
   min-height: 270px;
-  border: 1px solid oklch(78% 0.12 82 / 0.26);
-  border-radius: 5px;
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-sm);
   overflow: hidden;
-  background:
-    linear-gradient(135deg, oklch(100% 0 0 / 0.025), transparent 38%),
-    oklch(4% 0.004 95 / 0.94);
-  box-shadow:
-    inset 0 0 0 1px oklch(100% 0 0 / 0.02),
-    0 24px 70px oklch(2% 0.004 95 / 0.34);
+  background: var(--ks-paper-raised);
+  box-shadow: var(--ks-lift-2);
 }
 
 .home-kinpaku .why-ci-header {
@@ -1709,7 +1070,7 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
   min-height: 54px;
   padding: 14px 18px 14px 72px;
   border-bottom: 1px solid var(--ks-rule);
-  background: oklch(13% 0.006 95);
+  background: var(--ks-paper-deep);
 }
 
 .home-kinpaku .why-ci-header::before {
@@ -1723,28 +1084,27 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
   background:
     radial-gradient(circle at 3.5px 50%, var(--ks-kinpaku-deep) 0 3.5px, transparent 3.6px),
     radial-gradient(circle at 13.5px 50%, var(--ks-patina-deep) 0 3.5px, transparent 3.6px),
-    radial-gradient(circle at 23.5px 50%, oklch(58% 0.012 95) 0 3.5px, transparent 3.6px);
-  opacity: 0.5;
+    radial-gradient(circle at 23.5px 50%, var(--ks-text-faint) 0 3.5px, transparent 3.6px);
+  opacity: 0.62;
 }
 
 .home-kinpaku .why-ci-branch {
   font-family: var(--ks-mono);
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-size: 0.78rem;
   letter-spacing: 0.03em;
 }
 
-.home-kinpaku .why-ci-status,
-.home-kinpaku .why-ci-status--fail {
+.home-kinpaku .why-ci-status {
   font-family: var(--ks-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 5px 13px;
   border-radius: 999px;
-  border: 1px solid oklch(58% 0.15 35 / 0.42);
+  border: 1px solid color-mix(in oklch, var(--ks-vermilion) 32%, transparent);
   color: var(--ks-vermilion);
-  background: oklch(58% 0.15 35 / 0.14);
+  background: color-mix(in oklch, var(--ks-vermilion) 10%, transparent);
   box-shadow: none;
 }
 
@@ -1755,410 +1115,11 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
   line-height: 1.92;
 }
 
-.home-kinpaku .why-ci-line {
-  color: var(--ks-champagne);
-}
-
-.home-kinpaku .why-ci-cmd {
-  color: var(--ks-accent-ink);
-  margin-right: 10px;
-}
-
-.home-kinpaku .why-ci-issue {
-  gap: 12px;
-  padding-left: 6px;
-  color: var(--ks-text);
-}
-
-.home-kinpaku .why-ci-issue code {
-  display: inline-flex;
-  align-items: center;
-  min-height: 26px;
-  padding: 2px 10px 3px;
-  color: var(--ks-kinpaku);
-  background: oklch(78% 0.12 82 / 0.08);
-  border: 1px solid oklch(78% 0.12 82 / 0.25);
-  border-radius: 4px;
-  line-height: 1;
-}
-
-.home-kinpaku .why-ci-x {
-  color: var(--ks-vermilion);
-}
-
 .home-kinpaku .why-ci-summary {
   margin-top: 14px;
   padding-top: 14px;
-  border-top-color: oklch(78% 0.12 82 / 0.18);
-  color: var(--ks-champagne);
-}
-
-/* ============================================================
-   T7 Live Mode visual — condensed picker + steer bar mock.
-   The full demo lives on /live-mode; this tile shows the
-   essential beat (pick + comment + steer bar) in one glance.
-   ============================================================ */
-
-.home-kinpaku .why-panel-badge {
-  display: inline-block;
-  margin-left: 8px;
-  padding: 3px 8px;
-  border: 1px solid oklch(78% 0.12 82 / 0.4);
-  border-radius: 3px;
-  font-family: var(--ks-mono);
-  font-size: 0.62rem;
-  letter-spacing: 0.18em;
-  color: var(--ks-accent-ink);
-  vertical-align: middle;
-  transform: translateY(-3px);
-}
-
-.home-kinpaku .why-visual--live {
-  flex: 1;
-  padding: clamp(16px, 2vw, 22px);
-  overflow: hidden;
-  min-height: min(280px, 42vw);
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.018) 1px, transparent 1px),
-    linear-gradient(180deg, oklch(78% 0.12 82 / 0.015) 1px, transparent 1px),
-    radial-gradient(circle at 18% 100%, oklch(78% 0.12 82 / 0.07), transparent 16rem),
-    oklch(5% 0.004 95 / 0.92);
-  background-size: 34px 34px, 34px 34px, auto, auto;
-}
-
-.home-kinpaku .why-live-frame {
-  position: relative;
-  width: 100%;
-  margin: 0;
-  border: 1px solid oklch(78% 0.12 82 / 0.22);
-  border-radius: 6px;
-  background:
-    linear-gradient(135deg, oklch(100% 0 0 / 0.025), transparent 38%),
-    oklch(4% 0.004 95 / 0.94);
-  box-shadow:
-    inset 0 0 0 1px oklch(100% 0 0 / 0.02),
-    0 18px 50px oklch(2% 0.004 95 / 0.32);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.home-kinpaku .why-live-chrome {
-  display: flex;
-  align-items: center;
-  padding: 9px 14px;
-  border-bottom: 1px solid var(--ks-rule);
-  background: oklch(13% 0.006 95);
-}
-.home-kinpaku .why-live-url {
-  margin-left: 12px;
-  padding: 3px 10px;
-  background: oklch(8% 0.006 95);
-  border: 1px solid oklch(78% 0.12 82 / 0.14);
-  border-radius: 3px;
-  color: var(--ks-text-muted);
-  font-family: var(--ks-mono);
-  font-size: 0.72rem;
-}
-
-.home-kinpaku .why-live-stage {
-  position: relative;
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 148px;
-  padding: 32px 28px;
-  background:
-    repeating-linear-gradient(0deg, transparent 0 9px, oklch(100% 0 0 / 0.012) 9px 10px),
-    oklch(8% 0.006 95);
-}
-
-.home-kinpaku .why-live-pick {
-  position: relative;
-  width: max-content;
-  max-width: min(100%, 320px);
-  padding: 20px 24px;
-  margin: 0;
-  border: 2px solid var(--ks-kinpaku);
-  border-radius: 3px;
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.05), transparent 60%),
-    oklch(10% 0.006 95 / 0.7);
-  box-shadow:
-    0 0 0 1px oklch(78% 0.12 82 / 0.18),
-    0 0 24px oklch(78% 0.12 82 / 0.18);
-}
-.home-kinpaku .why-live-pick-tag {
-  display: block;
-  font-family: var(--ks-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.06em;
-  color: var(--ks-kinpaku);
-}
-.home-kinpaku .why-live-pick-note {
-  position: absolute;
-  top: -12px;
-  right: -14px;
-  padding: 6px 11px;
-  background: var(--ks-kinpaku);
-  border-radius: 2px;
-  color: oklch(8% 0.006 95);
-  font-family: var(--ks-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.02em;
-  white-space: nowrap;
-  box-shadow: 0 4px 14px oklch(78% 0.12 82 / 0.25);
-}
-.home-kinpaku .why-live-pick-caret {
-  display: inline-block;
-  width: 1.5px;
-  height: 0.85em;
-  margin-left: 3px;
-  background: oklch(8% 0.006 95);
-  vertical-align: middle;
-  animation: why-live-caret 1s steps(2, end) infinite;
-}
-@keyframes why-live-caret {
-  50% { opacity: 0; }
-}
-
-.home-kinpaku .why-live-frame > .why-live-ctx.live-demo-ctx {
-  position: static;
-  left: auto;
-  transform: none;
-  display: block;
-  opacity: 1;
-  z-index: auto;
-  width: 100%;
-  max-width: none;
-  padding: 10px 14px;
-  border: 0;
-  border-top: 1px solid var(--ks-rule);
-  border-radius: 0;
-  box-shadow: none;
-  background: oklch(13% 0.006 95);
-}
-
-.home-kinpaku .why-live-frame > .why-live-ctx .live-demo-ctx-row--configure {
-  display: flex;
-  gap: 6px;
-}
-
-.home-kinpaku .why-live-frame > .why-live-ctx .live-demo-ctx-input {
-  flex: 1;
-  min-width: 0;
-}
-
-.home-kinpaku .why-live-frame > .why-live-ctx .live-demo-ctx-caret {
-  animation: why-live-caret 1s steps(2, end) infinite;
-}
-
-/* ============================================================
-   T8 Writes-to-source visual — file write + small diff.
-   The "Accept" beat made visible: not a mock, a real edit.
-   ============================================================ */
-
-.home-kinpaku .why-visual--writes {
-  padding: 0;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 80% 14%, oklch(78% 0.12 82 / 0.05), transparent 14rem),
-    oklch(5% 0.004 95 / 0.92);
-}
-
-.home-kinpaku .why-writes-card {
-  margin: 24px;
-  border: 1px solid oklch(78% 0.12 82 / 0.22);
-  border-radius: 5px;
-  overflow: hidden;
-  background: oklch(4% 0.004 95 / 0.94);
-  box-shadow: 0 14px 40px oklch(2% 0.004 95 / 0.32);
-}
-
-.home-kinpaku .why-writes-head {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 11px 14px;
-  background: oklch(13% 0.006 95);
-  border-bottom: 1px solid var(--ks-rule);
-  font-family: var(--ks-mono);
-  font-size: 0.78rem;
-}
-.home-kinpaku .why-writes-check {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  background: var(--ks-kinpaku);
-  color: oklch(8% 0.006 95);
-  border-radius: 50%;
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-.home-kinpaku .why-writes-label {
-  color: var(--ks-text-muted);
-  letter-spacing: 0.04em;
-}
-.home-kinpaku .why-writes-file {
-  color: var(--ks-champagne);
-  letter-spacing: 0.01em;
-}
-
-.home-kinpaku .why-writes-diff {
-  padding: 14px 14px 16px;
-  font-family: var(--ks-mono);
-  font-size: 0.74rem;
-  line-height: 1.75;
-}
-.home-kinpaku .why-writes-line {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.home-kinpaku .why-writes-line--del {
-  color: var(--ks-vermilion);
-  background: oklch(58% 0.15 35 / 0.06);
-}
-.home-kinpaku .why-writes-line--add {
-  color: var(--ks-kinpaku);
-  background: oklch(78% 0.12 82 / 0.07);
-}
-
-.home-kinpaku .why-visual--extension {
-  min-height: 332px;
-  padding: 0;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 82% 18%, oklch(70% 0.105 190 / 0.05), transparent 18rem),
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.04), transparent 48%),
-    oklch(5% 0.004 95 / 0.94);
-}
-
-.home-kinpaku .why-visual--extension .why-browser {
-  min-height: 332px;
-  border: 1px solid oklch(78% 0.12 82 / 0.26);
-  border-radius: 5px;
-  background: oklch(4% 0.004 95 / 0.96);
-  box-shadow:
-    inset 0 0 0 1px oklch(100% 0 0 / 0.02),
-    0 24px 70px oklch(2% 0.004 95 / 0.34);
-}
-
-.home-kinpaku .why-visual--extension .why-browser-chrome {
-  min-height: 56px;
-  padding: 14px 18px;
-  gap: 10px;
-  border-bottom: 1px solid oklch(78% 0.12 82 / 0.28);
-  background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.105), transparent 34%),
-    linear-gradient(180deg, oklch(13% 0.006 95), oklch(8% 0.005 95));
-}
-
-.home-kinpaku .why-visual--extension .why-browser-url {
-  min-height: 30px;
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  padding: 0 14px;
-  color: var(--ks-text);
-  border: 1px solid oklch(78% 0.12 82 / 0.16);
-  border-radius: 4px;
-  background: oklch(4% 0.004 95 / 0.9);
-}
-
-.home-kinpaku .why-visual--extension .why-browser-body {
-  min-height: 276px;
-  padding: 24px;
-  overflow: hidden;
-  background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.026) 1px, transparent 1px),
-    linear-gradient(180deg, oklch(78% 0.12 82 / 0.02) 1px, transparent 1px),
-    radial-gradient(circle at 72% 52%, oklch(70% 0.105 190 / 0.05), transparent 13rem),
-    oklch(6% 0.005 95);
-  background-size: 42px 42px, 42px 42px, auto, auto;
-}
-
-.home-kinpaku .why-visual--extension .why-browser-body::before,
-.home-kinpaku .why-visual--extension .why-browser-body::after {
-  content: "";
-  position: absolute;
-  left: 36px;
-  border: 1px solid var(--ks-rule);
-  border-radius: 4px;
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.05), transparent 46%),
-    oklch(9% 0.006 95 / 0.72);
-  pointer-events: none;
-}
-
-.home-kinpaku .why-visual--extension .why-browser-body::before {
-  top: 38px;
-  width: min(420px, 48%);
-  height: 92px;
-}
-
-.home-kinpaku .why-visual--extension .why-browser-body::after {
-  bottom: 36px;
-  width: min(320px, 36%);
-  height: 50px;
-}
-
-.home-kinpaku .why-visual--extension .why-ext-popup {
-  top: 34px;
-  right: 28px;
-  width: min(300px, 42%);
-  border: 1px solid oklch(78% 0.12 82 / 0.38);
-  border-radius: 5px;
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.055), transparent 48%),
-    oklch(5% 0.004 95 / 0.96);
-  box-shadow:
-    inset 0 0 0 1px oklch(100% 0 0 / 0.025),
-    0 24px 60px oklch(2% 0.004 95 / 0.48);
-}
-
-.home-kinpaku .why-visual--extension .why-ext-popup-header {
-  color: var(--ks-champagne);
-  border-bottom: 1px solid oklch(78% 0.12 82 / 0.22);
-  background: oklch(9% 0.006 95 / 0.86);
-}
-
-.home-kinpaku .why-visual--extension .why-ext-popup-row {
-  color: var(--ks-text);
-  border-bottom-color: oklch(78% 0.12 82 / 0.12);
-}
-
-.home-kinpaku .why-visual--extension .why-ext-sev {
-  color: var(--ks-vermilion);
-}
-
-.home-kinpaku .why-visual--extension .why-ext-overlay-a,
-.home-kinpaku .why-visual--extension .why-ext-overlay-b {
-  z-index: 1;
-  border-color: var(--ks-kinpaku);
-  box-shadow:
-    0 0 0 1px oklch(4% 0.004 95 / 0.64),
-    0 0 24px oklch(78% 0.12 82 / 0.18);
-}
-
-.home-kinpaku .why-visual--extension .why-ext-overlay-a {
-  left: 36px;
-  top: 38px;
-  width: min(420px, 48%);
-  height: 92px;
-}
-
-.home-kinpaku .why-visual--extension .why-ext-overlay-b {
-  left: 36px;
-  bottom: 36px;
-  width: min(320px, 36%);
-  height: 50px;
+  border-top-color: var(--ks-rule);
+  color: var(--ks-ink);
 }
 
 .home-kinpaku .why-visual--designmd-v2 {
@@ -2175,15 +1136,15 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 }
 
 .home-kinpaku .why-dm-filename {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-family: var(--ks-mono);
   font-size: 0.88rem;
   letter-spacing: 0.06em;
 }
 
 .home-kinpaku .why-dm-badge {
-  border-color: oklch(70% 0.105 190 / 0.42);
-  background: oklch(70% 0.105 190 / 0.08);
+  border-color: color-mix(in oklch, var(--ks-patina) 42%, transparent);
+  background: color-mix(in oklch, var(--ks-patina) 8%, transparent);
 }
 
 /* Mockup chrome labels hold the 11px floor: they carry read content (field
@@ -2204,7 +1165,7 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 
 .home-kinpaku .why-dm-tile {
   border: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   box-shadow: none;
 }
 
@@ -2216,34 +1177,22 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
   color: var(--ks-state-ink);
 }
 
+/* The primary swatch is the demo's own color, shown flat: a DESIGN.md records
+   a value, not a texture. */
 .home-kinpaku .why-dm-color-hero {
   position: relative;
   overflow: hidden;
-  border: 1px solid oklch(100% 0 0 / 0.08);
-  background:
-    linear-gradient(180deg, oklch(95% 0.04 84 / 0.14), oklch(61% 0.085 78 / 0.22)),
-    url("/assets/neo-kinpaku/kinpaku-gold-leaf.png") center / cover,
-    var(--c);
-  box-shadow: inset 0 0 28px oklch(100% 0 0 / 0.06);
-}
-
-.home-kinpaku .why-dm-color-hero::after {
-  content: "";
-  position: absolute;
-  inset: auto -8% -14% 42%;
-  height: 52%;
-  background: url("/assets/neo-kinpaku/verdigris-patina.png") center / cover no-repeat;
-  opacity: 0.42;
-  mix-blend-mode: screen;
-  transform: rotate(-4deg);
+  border: 1px solid var(--ks-rule);
+  background: var(--c);
+  box-shadow: none;
 }
 
 .home-kinpaku .why-dm-color-ramp span {
-  border: 1px solid oklch(100% 0 0 / 0.05);
+  border: 1px solid var(--ks-rule);
 }
 
 .home-kinpaku .why-dm-type-specimen {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-family: var(--ks-font);
   font-style: normal;
   font-weight: 300;
@@ -2255,227 +1204,22 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
 }
 
 .home-kinpaku .why-dm-comp-chip {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   border-color: var(--ks-rule);
   background: transparent;
 }
 
+/* The demo's primary button uses its own primary color, flat. */
 .home-kinpaku .why-dm-comp-chip--primary {
-  color: var(--ks-dark-ink);
+  color: var(--ks-on-gold);
   border-color: var(--ks-kinpaku);
-  background:
-    linear-gradient(90deg, oklch(95% 0.04 84 / 0.34), oklch(78% 0.12 82 / 0.72)),
-    url("/assets/neo-kinpaku/kinpaku-gold-leaf.png") center / 160% auto;
+  background: var(--ks-kinpaku);
 }
 
 .home-kinpaku .why-dm-comp-input {
   color: var(--ks-muted);
   border-color: var(--ks-rule);
-  background: oklch(5% 0.004 95 / 0.74);
-}
-
-.home-kinpaku .why-visual--v2 {
-  min-height: 284px;
-  overflow: hidden;
-  background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.018) 1px, transparent 1px),
-    linear-gradient(180deg, oklch(78% 0.12 82 / 0.015) 1px, transparent 1px),
-    radial-gradient(circle at 78% 20%, oklch(70% 0.105 190 / 0.05), transparent 18rem),
-    oklch(6% 0.005 95 / 0.94);
-  background-size: 34px 34px, 34px 34px, auto, auto;
-}
-
-.home-kinpaku .why-visual--v2 .v2-side {
-  position: relative;
-  padding: clamp(18px, 2vw, 28px);
-  gap: 16px;
-}
-
-.home-kinpaku .why-visual--v2 .v2-side--old {
-  background:
-    linear-gradient(135deg, oklch(84% 0.035 82 / 0.04), transparent 58%),
-    oklch(8% 0.005 95 / 0.88);
-}
-
-.home-kinpaku .why-visual--v2 .v2-side--old::after {
-  background:
-    repeating-linear-gradient(0deg, transparent 0 32px, oklch(78% 0.12 82 / 0.055) 32px 33px),
-    linear-gradient(90deg, transparent, oklch(2% 0.004 95 / 0.52));
-}
-
-.home-kinpaku .why-visual--v2 .v2-side--new {
-  border-left: 1px solid var(--ks-rule);
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.07), transparent 44%),
-    radial-gradient(circle at 86% 18%, oklch(70% 0.105 190 / 0.065), transparent 12rem),
-    oklch(9% 0.006 95 / 0.9);
-}
-
-.home-kinpaku .why-visual--v2 .v2-side--new::before {
-  content: "";
-  position: absolute;
-  top: 16px;
-  bottom: 16px;
-  left: -1px;
-  width: 1px;
-  background: url("/assets/neo-kinpaku/before-after-seam.png") center / 18px 100% no-repeat;
-  opacity: 0.7;
-  pointer-events: none;
-}
-
-.home-kinpaku .why-visual--v2 .v2-label {
-  color: var(--ks-text);
-  font-family: var(--ks-mono);
-  font-size: 0.68rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
-}
-
-.home-kinpaku .why-visual--v2 .v2-side--new .v2-label {
-  color: var(--ks-patina);
-}
-
-.home-kinpaku .why-visual--v2 .v2-canvas-chrome {
-  gap: 8px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid oklch(78% 0.12 82 / 0.18);
-}
-
-.home-kinpaku .why-visual--v2 .v2-canvas-tool {
-  color: var(--ks-muted);
-  border: 1px solid var(--ks-rule);
-  border-radius: 3px;
-  background:
-    linear-gradient(180deg, oklch(100% 0 0 / 0.025), transparent),
-    oklch(4% 0.004 95 / 0.92);
-  box-shadow: inset 0 -10px 16px oklch(2% 0.004 95 / 0.42);
-}
-
-.home-kinpaku .why-visual--v2 .v2-canvas-art {
-  gap: 10px;
-}
-
-.home-kinpaku .why-visual--v2 .v2-canvas-file {
-  max-width: 100%;
-  color: var(--ks-text);
-  font-size: clamp(0.62rem, 0.82vw, 0.72rem);
-  letter-spacing: 0.04em;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.home-kinpaku .why-visual--v2 .v2-canvas-mock {
-  position: relative;
-  width: min(100%, 188px);
-  max-width: none;
-  height: 78px;
-  overflow: hidden;
-  border: 1px solid var(--ks-rule);
-  border-radius: 4px;
-  background:
-    radial-gradient(circle at 82% 18%, oklch(78% 0.12 82 / 0.08), transparent 44%),
-    oklch(4% 0.004 95 / 0.96);
-  box-shadow:
-    inset 0 0 0 1px oklch(100% 0 0 / 0.02),
-    0 18px 48px oklch(2% 0.004 95 / 0.34);
-}
-
-.home-kinpaku .why-visual--v2 .v2-canvas-mock::before,
-.home-kinpaku .why-visual--v2 .v2-canvas-mock::after {
-  content: "";
-  position: absolute;
-  border: 1px solid var(--ks-rule);
-  border-radius: 2px;
-}
-
-.home-kinpaku .why-visual--v2 .v2-canvas-mock::before {
-  left: 18px;
-  top: 18px;
-  width: 58px;
-  height: 40px;
-  background: oklch(10% 0.006 95);
-}
-
-.home-kinpaku .why-visual--v2 .v2-canvas-mock::after {
-  right: 18px;
-  top: 18px;
-  width: 72px;
-  height: 40px;
-  background:
-    repeating-linear-gradient(180deg, oklch(91% 0 0 / 0.32) 0 2px, transparent 2px 9px),
-    transparent;
-}
-
-.home-kinpaku .why-visual--v2 .v2-canvas-stamp {
-  color: var(--ks-muted);
-  font-family: var(--ks-font);
-  font-size: 0.72rem;
-  font-style: normal;
-  letter-spacing: 0.04em;
-}
-
-.home-kinpaku .why-visual--v2 .v2-new-surface {
-  gap: 12px;
-}
-
-.home-kinpaku .why-visual--v2 .v2-new-line {
-  color: var(--ks-kinpaku-pale);
-  border: 1px solid var(--ks-rule);
-  border-radius: 4px;
-  background:
-    linear-gradient(90deg, oklch(70% 0.105 190 / 0.07), transparent),
-    oklch(5% 0.004 95 / 0.88);
-  box-shadow: inset 0 0 0 1px oklch(78% 0.12 82 / 0.035);
-}
-
-.home-kinpaku .why-visual--v2 .v2-new-line::before {
-  color: var(--ks-patina);
-}
-
-.home-kinpaku .why-visual--v2 .v2-new-browser {
-  min-height: 102px;
-  border-color: var(--ks-rule);
-  border-radius: 4px;
-  background: oklch(5% 0.004 95 / 0.92);
-  box-shadow: 0 18px 44px oklch(2% 0.004 95 / 0.26);
-}
-
-.home-kinpaku .why-visual--v2 .v2-new-browser-dots {
-  display: flex;
-  gap: 5px;
-  border-bottom: 1px solid var(--ks-rule);
-  background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.08), transparent),
-    oklch(8% 0.006 95);
-}
-
-.home-kinpaku .why-visual--v2 .v2-new-browser-frame {
-  background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, oklch(78% 0.12 82 / 0.026) 1px, transparent 1px),
-    radial-gradient(circle at 72% 58%, oklch(70% 0.105 190 / 0.06), transparent 7rem),
-    oklch(7% 0.005 95);
-  background-size: 26px 26px, 26px 26px, auto, auto;
-}
-
-.home-kinpaku .why-visual--v2 .v2-new-browser-frame::after {
-  left: 14px;
-  top: 14px;
-  width: 48%;
-  height: 12px;
-  border-color: var(--ks-patina);
-  border-radius: 2px;
-  box-shadow:
-    0 20px 0 -4px oklch(78% 0.12 82 / 0.46),
-    86px 0 0 -4px oklch(78% 0.12 82 / 0.34),
-    86px 20px 0 -4px oklch(78% 0.12 82 / 0.24);
-}
-
-.home-kinpaku .why-visual--v2 .v2-new-bar {
-  color: var(--ks-dark-ink);
-  border-radius: 999px;
-  background: var(--ks-kinpaku);
-  box-shadow: 0 12px 28px oklch(78% 0.12 82 / 0.16);
+  background: var(--ks-paper-deep);
 }
 
 .home-kinpaku .patterns-tab {
@@ -2484,16 +1228,21 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
   background: transparent;
 }
 
-.home-kinpaku .patterns-tab:hover,
+.home-kinpaku .patterns-tab:hover {
+  color: var(--ks-ink);
+  background: var(--ks-gray);
+  border-color: var(--ks-gray);
+}
+
 .home-kinpaku .patterns-tab.is-active {
-  color: var(--ks-dark-ink);
-  background: var(--ks-kinpaku);
-  border-color: var(--ks-kinpaku);
+  color: var(--ks-instrument-text);
+  background: var(--ks-instrument);
+  border-color: var(--ks-instrument);
 }
 
 .home-kinpaku .patterns-col li {
   color: var(--ks-text);
-  border-color: oklch(78% 0.12 82 / 0.12);
+  border-color: var(--ks-rule);
 }
 
 .home-kinpaku .patterns-col--do li::before {
@@ -2504,390 +1253,66 @@ html.light .home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-
   color: var(--ks-vermilion);
 }
 
-.home-kinpaku .gallery-stack-btn {
-  color: var(--ks-kinpaku);
-  border-color: var(--ks-rule);
-  background: oklch(9% 0.006 95);
-}
-
 .home-kinpaku .gallery-stack-card {
   border: 1px solid var(--ks-rule);
-  border-radius: 4px;
-  background: var(--ks-lacquer-raised);
-}
-
-.home-kinpaku .gallery-stack-label {
-  color: var(--ks-champagne);
-  background: oklch(5% 0.004 95 / 0.82);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
 }
 
 .home-kinpaku .live-demo-frame {
-  border: 1px solid oklch(92% 0 0 / 0.1);
-  border-radius: 4px;
-  background: var(--ks-lacquer-raised);
-  box-shadow:
-    inset 0 1px 0 oklch(100% 0 0 / 0.05),
-    0 20px 48px -14px oklch(0% 0 0 / 0.6);
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
+  box-shadow: var(--ks-lift-1);
 }
 
 /* Picker chrome (chrome bar, gbar, ctx, outline, comment, stroke, etc.)
    shares one source of truth in kinpaku-kit.css under the "Live picker
    (kinpaku theme)" section, so this page and /live-mode stay in lockstep.
-   Only the page-specific bits below remain: the stylized gold-grid stage
-   and the simulated card content. */
+   The homepage makes the bars instruments in home-refresh.css. Only the
+   page-specific bits below remain: the stage and the simulated card content. */
 
 .home-kinpaku .live-demo-stage {
-  background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.035) 1px, transparent 1px),
-    linear-gradient(180deg, oklch(78% 0.12 82 / 0.028) 1px, transparent 1px),
-    oklch(8% 0.006 95);
-  background-size: 28px 28px;
+  background: var(--ks-paper-raised);
 }
 
-.home-kinpaku .live-demo-card,
-.home-kinpaku .live-demo-support-cell {
-  color: var(--ks-text);
-  border-color: var(--ks-rule);
-  background: oklch(10% 0.006 95 / 0.92);
-}
-
-.home-kinpaku .live-demo-card .live-demo-card-h {
-  color: var(--ks-champagne);
-  font-family: var(--ks-font);
-  font-style: normal;
-}
-
-.home-kinpaku .live-demo-card p,
-.home-kinpaku .live-demo-support-v {
-  color: var(--ks-muted);
-}
-
-.home-kinpaku .live-demo-card button {
-  background: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
-}
-
-.home-kinpaku .live-demo-card--v2,
-.home-kinpaku .live-demo-card--v3 {
-  border-color: var(--ks-patina);
-  background: oklch(9% 0.006 95 / 0.95);
-}
-
-.home-kinpaku .platforms-section {
-  overflow: hidden;
-}
-
-.home-kinpaku .install-row-primary,
-.home-kinpaku .install-accordion,
-.home-kinpaku .changelog-faq-row,
-.home-kinpaku .consulting-content {
-  gap: 28px;
-}
-
-.home-kinpaku .install-row-primary {
-  padding: 0;
-  background: transparent;
-  border-radius: 0;
-}
-
-.home-kinpaku .install-primary-main,
-.home-kinpaku .install-primary-howto,
-.home-kinpaku .install-step,
-.home-kinpaku .install-cmd-block,
-.home-kinpaku .install-tool-preview,
-.home-kinpaku .install-updated-x,
-.home-kinpaku .changelog-highlights,
-.home-kinpaku .changelog-entry,
-.home-kinpaku .faq-item,
-.home-kinpaku .consulting-content,
 .home-kinpaku .load-error {
   border: 1px solid var(--ks-rule);
-  border-radius: 4px;
-  background:
-    linear-gradient(135deg, oklch(78% 0.12 82 / 0.045), transparent 44%),
-    oklch(8% 0.006 95 / 0.84);
-  box-shadow: inset 0 0 0 1px oklch(78% 0.12 82 / 0.04);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
+  box-shadow: none;
 }
 
-.home-kinpaku .install-primary-main,
-.home-kinpaku .install-primary-howto {
-  padding: 32px;
-}
-
-.home-kinpaku .consulting-content {
-  align-items: center;
-  gap: clamp(32px, 6vw, 96px);
-  padding: clamp(28px, 4vw, 52px);
-}
-
-.home-kinpaku .consulting-text {
-  max-width: 54ch;
-}
-
-.home-kinpaku .consulting-title {
-  margin-bottom: 18px;
-}
-
-.home-kinpaku .consulting-desc {
-  max-width: 52ch;
-  line-height: 1.75;
-}
-
-.home-kinpaku .consulting-actions {
-  margin-left: auto;
-}
-
-.home-kinpaku .consulting-actions .btn {
-  min-width: 220px;
-}
-
-.home-kinpaku .install-cmd-block {
-  gap: 16px;
-  padding: 18px;
-  margin-bottom: 0;
-}
-
-.home-kinpaku .install-cmd-line {
-  padding: 14px 18px;
-}
-
-.home-kinpaku .install-cmd-note {
-  display: block;
-  max-width: 76ch;
-  padding: 0 4px 2px;
-  line-height: 1.75;
-}
-
-.home-kinpaku .install-primary-howto {
-  border-left: 1px solid var(--ks-rule);
-  background:
-    linear-gradient(135deg, oklch(70% 0.105 190 / 0.05), transparent 44%),
-    oklch(8% 0.006 95 / 0.84);
-}
-
-.home-kinpaku .install-path-title,
-.home-kinpaku .consulting-title,
 .home-kinpaku .load-error-title {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-family: var(--ks-font);
   font-size: 1.5rem;
   font-weight: 400;
 }
 
-.home-kinpaku .install-path-step {
-  color: var(--ks-dark-ink);
-  background: var(--ks-kinpaku);
-  border: 0;
-}
-
-.home-kinpaku .install-path-desc,
-.home-kinpaku .install-howto-row dd,
-.home-kinpaku .install-cmd-note,
-.home-kinpaku .install-terminal-note,
-.home-kinpaku .install-alt-note,
-.home-kinpaku .consulting-desc,
 .home-kinpaku .load-error-text {
   color: var(--ks-text);
 }
 
-.home-kinpaku .glass-terminal,
-.home-kinpaku .terminal-window,
-.home-kinpaku .install-terminal-cmd,
-.home-kinpaku .install-cmd-line {
+.home-kinpaku .glass-terminal {
   border-color: var(--ks-rule);
-  background: oklch(5% 0.004 95 / 0.9);
+  background: var(--ks-paper-raised);
 }
 
-.home-kinpaku .terminal-header {
-  border-color: var(--ks-rule);
-  background: oklch(8% 0.006 95 / 0.95);
-}
-
-.home-kinpaku .terminal-prompt,
-.home-kinpaku .install-path-slash {
-  color: var(--ks-patina);
-}
-
-.home-kinpaku .copy-btn,
-.home-kinpaku .install-zip-link,
-.home-kinpaku .install-alts-summary,
-.home-kinpaku .install-step-summary,
-.home-kinpaku .changelog-older-toggle,
-.home-kinpaku .faq-question,
 .home-kinpaku .btn-secondary {
-  color: var(--ks-kinpaku);
-  border-color: var(--ks-rule);
+  color: var(--ks-accent-ink);
+  border-color: var(--ks-edge);
   background: transparent;
 }
 
-.home-kinpaku .copy-btn:hover,
-.home-kinpaku .copy-btn.copied,
-.home-kinpaku .install-zip-link:hover,
-.home-kinpaku .install-alts-summary:hover,
-.home-kinpaku .install-step-summary:hover,
-.home-kinpaku .changelog-older-toggle:hover,
-.home-kinpaku .faq-question:hover,
 .home-kinpaku .btn-secondary:hover {
-  color: var(--ks-patina);
+  color: var(--ks-link-on-paper-hover);
   border-color: var(--ks-patina);
-  background: oklch(70% 0.105 190 / 0.07);
+  background: color-mix(in oklch, var(--ks-patina) 7%, transparent);
 }
 
-.home-kinpaku .install-howto-row {
-  border-color: var(--ks-rule);
-}
-
-.home-kinpaku .install-howto-row dt code,
-.home-kinpaku .install-terminal-cmd code,
-.home-kinpaku .install-cmd-line code {
-  color: var(--ks-kinpaku-pale);
-  background: transparent;
-  border: 0;
-}
-
-.home-kinpaku .install-path-badge {
-  border-color: oklch(70% 0.105 190 / 0.42);
-  color: var(--ks-patina);
-  background: oklch(70% 0.105 190 / 0.08);
-}
-
-.home-kinpaku .install-updated-substack {
-  border-color: var(--ks-rule);
-  border-radius: 4px;
-  filter: sepia(0.24) saturate(0.74) brightness(0.82);
-}
-
-.home-kinpaku .changelog-faq-row {
-  border-top: 1px solid var(--ks-rule);
-  padding: 112px 0;
-}
-
-.home-kinpaku .changelog-section,
-.home-kinpaku .faq-section {
-  border-top: 0;
-  padding: 0;
-}
-
-@media (min-width: 1024px) {
-  .home-kinpaku .changelog-faq-row {
-    column-gap: 0;
-  }
-
-  .home-kinpaku .changelog-faq-row > .changelog-section {
-    padding-right: clamp(40px, 4vw, 72px);
-  }
-
-  .home-kinpaku .changelog-faq-row > .faq-section {
-    margin-left: 0;
-    padding-left: clamp(40px, 4vw, 72px);
-    border-left-color: var(--ks-rule);
-  }
-}
-
-.home-kinpaku .changelog-highlights {
-  padding: 24px 28px;
-  overflow: hidden;
-}
-
-.home-kinpaku .changelog-highlights-label {
-  margin-bottom: 20px;
-}
-
-.home-kinpaku .changelog-items {
-  padding-left: 1.1rem;
-}
-
-.home-kinpaku .faq-list {
-  gap: 8px;
-}
-
-.home-kinpaku .faq-question {
-  padding: 24px 64px 24px 28px;
-}
-
-.home-kinpaku .faq-question::after {
-  right: 28px;
-}
-
-.home-kinpaku .faq-answer {
-  padding: 0 28px 24px;
-}
-
-.home-kinpaku .changelog-version {
-  color: var(--ks-kinpaku);
-}
-
-.home-kinpaku .changelog-date,
-.home-kinpaku .changelog-items li,
-.home-kinpaku .faq-answer,
-.home-kinpaku .faq-answer p,
-.home-kinpaku .faq-answer li {
-  color: var(--ks-text);
-}
-
-.home-kinpaku .faq-question::after,
-.home-kinpaku .changelog-older-toggle::before {
-  color: var(--ks-patina);
-}
-
-/* The home footer layers a textured verdigris divider over the shared
-   kinpaku footer. `body.` prefix raises specificity above
-   .kinpaku-chrome .site-footer so this wins regardless of import order. */
-body.home-kinpaku .site-footer {
-  position: relative;
-  border-top: 0;
-  background:
-    linear-gradient(180deg, oklch(5% 0.004 95 / 0.92), oklch(3% 0.004 95)),
-    url("/assets/neo-kinpaku/lacquer-grain.png") center bottom / 1500px auto;
-}
-
-/* Oxidation edge accent moved to the Get Started card — see
-   .downloads-rebuild-card::before in home-rebuild.css. */
-
-/* D3 dot grid masked over the verdigris-patina texture — the same tex-patina
-   variant from /design-system. Each dot is a tiny window of the patina image
-   so the row reads as oxidized copper rather than flat green-blue. */
-body.home-kinpaku .site-footer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 18px;
-  background-image: url("/assets/neo-kinpaku/verdigris-patina.png");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: saturate(1.18) contrast(1.06);
-  -webkit-mask-image: radial-gradient(circle, black 0.9px, transparent 1.4px);
-          mask-image: radial-gradient(circle, black 0.9px, transparent 1.4px);
-  -webkit-mask-size: 7px 6px;
-          mask-size: 7px 6px;
-  -webkit-mask-repeat: repeat;
-          mask-repeat: repeat;
-  -webkit-mask-position: 0 1px;
-          mask-position: 0 1px;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.home-kinpaku .footer-row {
-  position: relative;
-  z-index: 1;
-}
-
-body.home-kinpaku .footer-links a,
-body.home-kinpaku .footer-credit,
-body.home-kinpaku .footer-credit a,
-body.home-kinpaku .footer-social-link {
-  color: var(--ks-muted);
-}
-
-body.home-kinpaku .footer-links a:hover,
-body.home-kinpaku .footer-credit a:hover,
-body.home-kinpaku .footer-social-link:hover {
-  color: var(--ks-patina);
-}
+/* The footer is the shared paper footer from footer.css and the kit; the
+   homepage adds nothing to it. */
 
 .home-kinpaku .btn:focus-visible,
 .home-kinpaku a:focus-visible,
@@ -2898,28 +1323,6 @@ body.home-kinpaku .footer-social-link:hover {
 }
 
 @media (max-width: 1100px) {
-  .home-kinpaku .hero-combined-container {
-    grid-template-columns: 1fr;
-    text-align: left;
-  }
-
-  .home-kinpaku .hero-combined-left {
-    align-items: flex-start;
-  }
-
-  .home-kinpaku .hero-combined-right {
-    justify-content: flex-start;
-    order: 0;
-  }
-
-  .home-circuit-field,
-  .home-calibration {
-    opacity: 0.32;
-  }
-
-  .home-kinpaku .hero-title-combined {
-    font-size: 4.5rem;
-  }
 
   .home-kinpaku .why-layout {
     grid-template-columns: 1fr;
@@ -2948,38 +1351,6 @@ body.home-kinpaku .footer-social-link:hover {
     gap: 18px;
   }
 
-  .home-kinpaku .hero-combined {
-    padding-top: 40px;
-  }
-
-  .home-kinpaku .hero-combined::before {
-    inset: -8% -28% 0 20%;
-    opacity: 0.36;
-    filter: contrast(1.02) saturate(0.96) brightness(0.72);
-  }
-
-  .home-kinpaku .hero-combined-container {
-    padding-bottom: 60px;
-  }
-
-  .home-kinpaku .hero-title-combined {
-    font-size: 3rem;
-    letter-spacing: 0;
-  }
-
-  .home-kinpaku .hero-tagline-combined {
-    font-size: 1.125rem;
-    letter-spacing: 0.08em;
-  }
-
-  .home-hero-rail {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .home-hero-rail a {
-    border-bottom: 1px solid oklch(78% 0.12 82 / 0.12);
-  }
-
   .home-kinpaku .split-container {
     height: 356px;
   }
@@ -2992,24 +1363,8 @@ body.home-kinpaku .footer-social-link:hover {
     padding-right: 0;
   }
 
-  .home-kinpaku .slop-card,
-  .home-kinpaku .impeccable-card {
-    width: 240px;
-  }
-
-  .home-circuit-field,
-  .home-calibration,
-  .home-patina-dot {
-    display: none;
-  }
-
-  .home-kinpaku .foundation-section,
   .home-kinpaku .language-section,
-  .home-kinpaku .why-section,
-  .home-kinpaku .live-section,
-  .home-kinpaku .platforms-section,
-  .home-kinpaku .consulting-section,
-  .home-kinpaku .changelog-faq-row {
+.home-kinpaku .why-section {
     padding: 72px 0;
   }
 
@@ -3043,93 +1398,9 @@ body.home-kinpaku .footer-social-link:hover {
     width: 64px !important;
     height: 76px !important;
   }
-
-  .home-kinpaku .why-visual--v2 {
-    grid-template-columns: 1fr;
-  }
-
-  .home-kinpaku .why-visual--v2 .v2-side--new {
-    border-top: 1px solid var(--ks-rule);
-    border-left: 0;
-  }
-
-  .home-kinpaku .why-visual--v2 .v2-side--new::before {
-    top: -1px;
-    bottom: auto;
-    left: 16px;
-    right: 16px;
-    width: auto;
-    height: 1px;
-    background: url("/assets/neo-kinpaku/gold-dust-rule.png") center / cover no-repeat;
-  }
-
-  .home-kinpaku .why-visual--v2 .v2-canvas-file {
-    white-space: normal;
-  }
-
-  .home-kinpaku .why-visual--extension,
-  .home-kinpaku .why-visual--extension .why-browser {
-    min-height: 420px;
-  }
-
-  .home-kinpaku .why-visual--extension .why-browser-body {
-    min-height: 364px;
-  }
-
-  .home-kinpaku .why-visual--extension .why-ext-popup {
-    top: 154px;
-    right: 22px;
-    left: 22px;
-    width: auto;
-  }
-
-  .home-kinpaku .why-visual--extension .why-browser-body::before,
-  .home-kinpaku .why-visual--extension .why-ext-overlay-a {
-    top: 28px;
-    left: 22px;
-    width: calc(100% - 44px);
-    height: 82px;
-  }
-
-  .home-kinpaku .why-visual--extension .why-browser-body::after,
-  .home-kinpaku .why-visual--extension .why-ext-overlay-b {
-    bottom: 24px;
-    left: 22px;
-    width: calc(100% - 44px);
-    height: 44px;
-  }
 }
 
 @media (max-width: 560px) {
-  /* (The hamburger drawer in Header.astro now handles the mobile nav.
-     The old display:none hacks for github / designing / live were removed
-     because they hid items the drawer is meant to show.) */
-
-  .home-kinpaku .hero-title-combined {
-    font-size: 2.5rem;
-    letter-spacing: 0;
-  }
-
-  .home-kinpaku .hero-cta-group {
-    align-items: stretch;
-    width: 100%;
-  }
-
-  .home-kinpaku .hero-included-box,
-  .home-kinpaku .hero-logos-inline,
-  .home-kinpaku .hero-version-link,
-  .home-hero-rail {
-    display: none;
-  }
-
-  .home-kinpaku .hero-cta-combined {
-    width: 100%;
-  }
-
-  .home-kinpaku .hero-combined-right {
-    width: 100%;
-    margin-top: 4px;
-  }
 
   .home-kinpaku .split-container {
     height: 300px;
@@ -3142,33 +1413,12 @@ body.home-kinpaku .footer-social-link:hover {
   .home-kinpaku .split-after {
     padding-right: 0;
   }
-
-  .home-kinpaku .slop-card,
-  .home-kinpaku .impeccable-card {
-    width: 214px;
-    min-height: 250px;
-    padding: 18px;
-  }
-
-  .home-kinpaku .slop-callout {
-    display: none;
-  }
-
-  .home-hero-rail {
-    grid-template-columns: 1fr;
-  }
-
-  .home-hero-rail a {
-    justify-content: flex-start;
-    padding: 0 18px;
-    border-right: 0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .home-kinpaku *,
-  .home-kinpaku *::before,
-  .home-kinpaku *::after {
+.home-kinpaku *::before,
+.home-kinpaku *::after {
     animation-duration: 1ms !important;
     transition-duration: 1ms !important;
     scroll-behavior: auto !important;

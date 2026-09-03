@@ -10,18 +10,16 @@
      spans the full viewport. */
   width: 100vw;
   margin-left: calc(50% - 50vw);
-  /* No background of its own: the body's lacquer gradient is the page ground,
-     so the section sits on it directly and an opaque fill here would only
-     duplicate (and, when overlapped, mask) it. */
+  /* No background of its own: the section sits on the page paper directly,
+     and an opaque fill here would only duplicate it. */
   padding: 0 0 1em;
   color: var(--ks-text);
   border-top: 0;
   overflow: hidden;
 }
 
-/* Dotted accent at the bottom edge — a deliberate separator between the
-   testimonials and the section below. Neutral dots, matching the de-warmed
-   borders. (This is the dot rail that used to sit above the section.) */
+/* Dotted accent at the bottom edge, a deliberate separator between the
+   testimonials and the section below. Neutral dots on the neutral paper. */
 .home-kinpaku .testimonials-section::after {
   content: "";
   position: absolute;
@@ -30,7 +28,7 @@
   width: 100vw;
   height: 18px;
   transform: translateX(-50%);
-  background-image: radial-gradient(circle, oklch(0.45 0 0) 0.9px, transparent 1.4px);
+  background-image: radial-gradient(circle, var(--ks-edge) 0.9px, transparent 1.4px);
   background-size: 7px 6px;
   background-repeat: repeat;
   pointer-events: none;
@@ -38,8 +36,7 @@
 
 /* ---------------------------------------------------------------------------
    Marquee engine. The cards are outlined and ride directly on the section
-   ground — the old graphite plinth wrapper was removed once it stopped being
-   a visible shelf, so the marquee carries its own vertical inset here.
+   ground, so the marquee carries its own vertical inset here.
    --------------------------------------------------------------------------- */
 
 .home-kinpaku .t-marquee {
@@ -93,22 +90,20 @@
   height: 168px;
   flex: none;
   padding: 18px 18px 14px;
-  border-radius: 10px;
+  border-radius: var(--ks-radius-md);
   color: var(--ks-text);
   text-decoration: none;
   transition: transform 200ms ease, background 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
 }
 
-/* Outlined card: no fill, just a solid neutral border on the page ground.
-   On dark, a clean outline separates more honestly than a near-invisible
-   fill or a dead drop-shadow ever did. */
+/* Outlined card: raised paper with a hairline, no shadow. */
 .home-kinpaku .t-card--plinth {
-  background: none;
-  border: 1px solid oklch(0.64 0 0 / 0.22);
+  background: var(--ks-paper-raised);
+  border: 1px solid var(--ks-rule);
   box-shadow: none;
 }
 .home-kinpaku .t-card--plinth:hover {
-  border-color: oklch(0.64 0 0 / 0.42);
+  border-color: var(--ks-edge);
   transform: translateY(-1px);
 }
 
@@ -158,15 +153,16 @@
   letter-spacing: 0.02em;
 }
 
-/* Avatar + coin fallback */
+/* Avatar + coin fallback. The coin's deep-patina initial needs the raised
+   ground to clear AA at this size. */
 .home-kinpaku .testimonials-section .t-avatar {
   width: 28px;
   height: 28px;
   border-radius: 50%;
   object-fit: cover;
   flex: none;
-  background: var(--ks-graphite-2);
-  box-shadow: inset 0 0 0 1px oklch(78% 0.12 82 / 0.22);
+  background: var(--ks-gray-2);
+  box-shadow: inset 0 0 0 1px var(--ks-rule);
 }
 .home-kinpaku .testimonials-section .t-coin {
   display: inline-flex;
@@ -175,11 +171,11 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--ks-graphite-2);
-  border: 1px solid oklch(78% 0.12 82 / 0.32);
-  font-family: var(--ks-font-display);
-  font-weight: 400;
+  background: var(--ks-paper-raised);
+  border: 1px solid var(--ks-link-on-paper-line);
+  font-family: var(--ks-font);
+  font-weight: 500;
   font-size: 0.95rem;
-  color: var(--ks-kinpaku);
+  color: var(--ks-link-on-paper);
   flex: none;
 }

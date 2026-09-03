@@ -17,10 +17,6 @@ import '../styles/home-rebuild.css';
 import '../styles/home-refresh.css';
 import '../styles/testimonials.css';
 import '../styles/worlds-roll.css';
-
-// Hero background is the locked /design-system finalist referenced from CSS:
-// /assets/neo-kinpaku/candidates/finalists/m-01-v2-01.png.
-// Previous hero: /assets/neo-kinpaku/kintsugi-hero-v3.png
 ---
 
 <Base
@@ -33,7 +29,7 @@ import '../styles/worlds-roll.css';
   mainClass="site-content"
   ogTitle="Impeccable: The missing design vocabulary for agents"
   ogDescription="1 skill, 23 commands, and curated anti-patterns for impeccable frontend design. Works with Cursor, Claude Code, GitHub Copilot, Gemini CLI, and Codex CLI."
-  ogImage="https://impeccable.style/og-image-v2.jpg"
+  ogImage="https://impeccable.style/og-image-v3.jpg"
   twitterSite="@pbakaus"
   twitterCreator="@pbakaus"
 >
@@ -47,17 +43,12 @@ import '../styles/worlds-roll.css';
     gtag('config', 'G-TEXGHC7V34');
   </script>
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <meta name="theme-color" content="#070604">
-</Fragment>
-
-<Fragment slot="before-header">
-  <div class="grain-overlay" aria-hidden="true"></div>
+  <meta name="theme-color" content="#f9f9f9">
 </Fragment>
 
 <Fragment slot="after-header">
   <!-- 1. HERO -->
   <section id="hero" class="hero-rebuild">
-    <div class="hero-rebuild-art" aria-hidden="true"></div>
     <div class="hero-rebuild-container">
       <div class="hero-rebuild-left">
         <h1 class="hero-rebuild-title">The missing design vocabulary for agents.</h1>
@@ -118,9 +109,9 @@ import '../styles/worlds-roll.css';
       <div class="language-content">
         <div class="language-intro-row" data-reveal>
           <p class="section-lead">23 commands give you a shared design vocabulary with your AI. Each names one kind of intervention: <code>/typeset</code> for type, <code>/distill</code> for complexity, <code>/audit</code> for production quality. Pick any to see it in action, or <a href="/docs" class="cheatsheet-link">browse the full reference &rarr;</a></p>
-          <div class="language-view-toggle" role="tablist" aria-label="Commands view">
-            <button type="button" role="tab" class="language-view-tab is-active" data-view="palette" aria-selected="true">Palette</button>
-            <button type="button" role="tab" class="language-view-tab" data-view="periodic" aria-selected="false">Periodic</button>
+          <div class="language-view-toggle ks-instrument-strip" role="tablist" aria-label="Commands view">
+            <button type="button" role="tab" class="language-view-tab ks-instrument-key is-active" data-view="palette" aria-selected="true">Palette</button>
+            <button type="button" role="tab" class="language-view-tab ks-instrument-key" data-view="periodic" aria-selected="false">Periodic</button>
           </div>
         </div>
 
@@ -153,9 +144,9 @@ import '../styles/worlds-roll.css';
               <span class="steering-desktop-brand"><i aria-hidden="true"></i> Claudex Cocursor</span>
             </div>
 
-            <div class="steering-mobile-tabs" role="tablist" aria-label="Steering demo view">
-              <button type="button" role="tab" class="is-active" data-steering-mobile-tab="agent" aria-selected="true">Agent thread</button>
-              <button type="button" role="tab" data-steering-mobile-tab="browser" aria-selected="false">In-app browser</button>
+            <div class="steering-mobile-tabs ks-instrument-strip" role="tablist" aria-label="Steering demo view">
+              <button type="button" role="tab" class="ks-instrument-key is-active" data-steering-mobile-tab="agent" aria-selected="true">Agent thread</button>
+              <button type="button" role="tab" class="ks-instrument-key" data-steering-mobile-tab="browser" aria-selected="false">In-app browser</button>
             </div>
 
             <div class="steering-desktop-panes">

@@ -1,15 +1,16 @@
 /*
- * Detector Lab — internal fixture browser + timing dashboard.
+ * Detector Lab: internal fixture browser + timing dashboard.
  *
- * Neo-kinpaku tool shell. This is a genuinely page-specific app layout
- * (fixed sidebar + workspace + iframe + metrics), so it keeps its bespoke
- * structure rather than forcing the marketing kit's .ks-section grid onto it.
- * Every color, rule, and type value reads from kinpaku-tokens.css (--ks-*).
- * The fixture iframe renders untouched test HTML — only the lab chrome is themed.
+ * Paper tool shell. This is a genuinely page-specific app layout (fixed
+ * sidebar + workspace + iframe + metrics), so it keeps its bespoke structure
+ * rather than forcing the marketing kit's .ks-section grid onto it. Every
+ * color, rule, and type value reads from kinpaku-tokens.css (--ks-*). The
+ * fixture iframe renders untouched test HTML; only the lab chrome is themed.
+ * The selected fixture is the one dark surface: a key the reader pressed.
  */
 
 .detector-lab-page {
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
   color: var(--ks-text);
   font-family: var(--ks-font);
   overflow: hidden;
@@ -24,7 +25,7 @@
   --detector-sidebar-width: 320px;
   height: 100vh;
   min-height: 0;
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
 }
 
 .detector-fixture-nav {
@@ -35,7 +36,7 @@
   flex-direction: column;
   width: var(--detector-sidebar-width);
   border-right: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
 }
 
 .detector-nav-head {
@@ -45,7 +46,7 @@
 }
 
 .detector-home-link {
-  color: var(--ks-kinpaku);
+  color: var(--ks-ink);
   text-decoration: none;
 }
 
@@ -53,13 +54,14 @@
 .detector-home-link .ks-mark svg { width: 26px; height: 26px; }
 
 .detector-home-link .ks-wordmark {
+  color: var(--ks-ink);
   font-size: 1rem;
   letter-spacing: 0.16em;
 }
 
 .detector-nav-head h1 {
   margin-top: var(--spacing-md);
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-family: var(--ks-font);
   font-size: 1.25rem;
   font-weight: 600;
@@ -111,7 +113,7 @@
 .detector-summary-grid dd {
   margin-top: 4px;
   overflow-wrap: anywhere;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.15;
@@ -145,14 +147,14 @@
 
 .detector-fixture-button {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: var(--spacing-sm);
   align-items: center;
   width: 100%;
   min-height: 38px;
   padding: 8px 10px;
   border: 1px solid transparent;
-  border-radius: 4px;
+  border-radius: var(--ks-radius-sm);
   background: transparent;
   color: var(--ks-text-muted);
   font-family: var(--ks-font);
@@ -165,19 +167,35 @@
 }
 
 .detector-fixture-button:hover {
-  background: var(--ks-graphite);
-  color: var(--ks-champagne);
+  background: var(--ks-gray);
+  color: var(--ks-ink);
 }
 
 .detector-fixture-button:focus-visible {
-  outline: 2px solid var(--ks-kinpaku);
+  outline: 2px solid var(--ks-patina);
   outline-offset: 2px;
 }
 
+/* The pressed fixture is an instrument key: dark face, gold indicator dot,
+   the same signal the kit's instrument strip uses. */
 .detector-fixture-button[aria-pressed="true"] {
+  background: var(--ks-instrument);
+  border-color: var(--ks-instrument-deep);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-edge);
+  color: var(--ks-instrument-text);
+}
+
+.detector-fixture-button::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ks-gray-2);
+}
+
+.detector-fixture-button[aria-pressed="true"]::before {
   background: var(--ks-kinpaku);
-  border-color: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
+  box-shadow: 0 0 0 1px oklch(0% 0 0 / 0.3), 0 0 6px oklch(84% 0.19 80 / 0.6);
 }
 
 .detector-fixture-button span:first-child {
@@ -217,7 +235,7 @@
   min-height: 72px;
   padding: 12px var(--spacing-md);
   border-bottom: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
 }
 
 .detector-preview-head h2,
@@ -228,7 +246,7 @@
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: 0;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 .detector-preview-head p:not(.detector-panel-label) {
@@ -253,10 +271,10 @@
   justify-content: center;
   min-height: 36px;
   padding: 0 16px;
-  border: 1px solid var(--ks-kinpaku);
-  border-radius: 2px;
-  background: transparent;
-  color: var(--ks-accent-ink);
+  border: 1px solid var(--ks-edge);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
+  color: var(--ks-ink);
   font-family: var(--ks-font);
   font-size: 0.8125rem;
   font-weight: 500;
@@ -272,20 +290,21 @@
 
 .detector-preview-actions a:hover,
 .detector-preview-actions button:hover {
-  background: oklch(77% 0.14 82 / 0.1);
+  border-color: var(--ks-ink);
   transform: translateY(-1px);
 }
 
-/* Run browser scan is the primary action: gold fill, dark text. */
+/* Run browser scan is the primary action: ink on paper, as the kit's primary
+   button. */
 .detector-preview-actions button[data-rerun-browser] {
-  background: var(--ks-kinpaku);
-  border-color: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
+  background: var(--ks-ink);
+  border-color: var(--ks-ink);
+  color: var(--ks-paper-raised);
 }
 
 .detector-preview-actions button[data-rerun-browser]:hover {
-  background: var(--ks-kinpaku-pale);
-  border-color: var(--ks-kinpaku-pale);
+  background: var(--ks-text);
+  border-color: var(--ks-text);
 }
 
 .detector-preview-actions a:focus-visible,
@@ -307,11 +326,11 @@
 .detector-table-panel {
   min-width: 0;
   border: 1px solid var(--ks-rule);
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
 }
 
 .detector-frame-wrap {
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
 }
 
 .detector-frame-wrap iframe {
@@ -320,7 +339,7 @@
   height: max(360px, calc(100vh - 156px));
   min-height: 0;
   border: 0;
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
 }
 
 .detector-workspace-scroll {
@@ -366,7 +385,7 @@
   margin-top: 4px;
   font-size: 1.125rem;
   font-weight: 600;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 .detector-rule-pills {
@@ -384,8 +403,8 @@
   max-width: 100%;
   padding: 5px 8px;
   border: 1px solid var(--ks-rule);
-  border-radius: 2px;
-  background: var(--ks-graphite);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-gray);
   color: var(--ks-text);
   font-size: 0.75rem;
   line-height: 1.2;
@@ -459,7 +478,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   font-family: var(--ks-mono);
   font-size: 0.6875rem;
   font-weight: 500;

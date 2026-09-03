@@ -156,54 +156,57 @@ const skillLinked = Boolean(skillSource?.linked);
   .decision-lab h1 { margin: 0.4rem 0 0.5rem; }
   .dl-dek { color: var(--ks-text-muted); max-width: 46rem; margin: 0; }
   .dl-source { flex: none; text-align: right; font-family: var(--ks-mono); font-size: 0.6875rem; line-height: 1.7; color: var(--ks-text-faint); margin: 0; }
-  .dl-source.is-linked strong { color: var(--ks-patina); }
+  .dl-source.is-linked strong { color: var(--ks-patina-deep); }
 
   /* The pipeline board: one column per greenfield stage, in flow order.
      Agent-side stages are narrow, quiet markers; the stages this lab can
      actually deal are working columns. */
   .dl-flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 11rem minmax(0, 1fr) 11rem; gap: 1.25rem; align-items: stretch; }
   .dl-stage { border-top: 2px solid var(--ks-rule); padding-top: 0.9rem; min-width: 0; }
-  .dl-stage:not(.is-agent) { border-top-color: var(--ks-kinpaku-deep); }
-  .dl-stage-n { font-family: var(--ks-mono); font-size: 0.75rem; letter-spacing: 0.14em; color: var(--ks-kinpaku); }
+  .dl-stage:not(.is-agent) { border-top-color: var(--ks-gold-line); }
+  .dl-stage-n { font-family: var(--ks-mono); font-size: 0.75rem; letter-spacing: 0.14em; color: var(--ks-accent-ink); }
   .dl-stage.is-agent .dl-stage-n { color: var(--ks-text-faint); }
-  .dl-stage-head h2 { font-size: 1.125rem; margin: 0.3rem 0 0.35rem; color: var(--ks-champagne); }
+  .dl-stage-head h2 { font-size: 1.125rem; margin: 0.3rem 0 0.35rem; color: var(--ks-ink); }
   .dl-stage.is-agent .dl-stage-head h2 { color: var(--ks-text-muted); }
   .dl-stage-head p { margin: 0; font-size: 0.8125rem; line-height: 1.5; color: var(--ks-text-faint); }
   .dl-agent-tag { margin-top: 0.6rem !important; font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.12em; text-transform: uppercase; }
 
   .dl-cards { list-style: none; margin: 1.1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(21rem, 1fr)); gap: 0.9rem; align-items: start; }
-  .dl-scenario { border: 1px solid var(--ks-rule); border-radius: 10px; padding: 0.95rem 1.05rem 1rem; display: flex; flex-direction: column; gap: 0.4rem; background: var(--ks-lacquer-raised); }
+  .dl-scenario { border: 1px solid var(--ks-rule); border-radius: 10px; padding: 0.95rem 1.05rem 1rem; display: flex; flex-direction: column; gap: 0.4rem; background: var(--ks-paper-raised); }
   .dl-head { display: flex; align-items: baseline; justify-content: space-between; gap: 0.8rem; }
-  .dl-scenario h3 { font-size: 1rem; margin: 0; color: var(--ks-champagne); display: flex; align-items: center; gap: 0.45rem; }
+  .dl-scenario h3 { font-size: 1rem; margin: 0; color: var(--ks-ink); display: flex; align-items: center; gap: 0.45rem; }
   /* The degraded state announces itself: a vermilion warning triangle and a
      matching hairline, so the fallback is never mistaken for a happy path. */
   .dl-warn { flex: none; width: 15px; height: 15px; color: var(--ks-vermilion); }
   .dl-scenario.is-warn { border-color: color-mix(in oklab, var(--ks-vermilion) 30%, var(--ks-rule)); }
   .dl-scenario.is-warn .dl-when span { color: var(--ks-vermilion); border-color: color-mix(in oklab, var(--ks-vermilion) 35%, transparent); }
   .dl-status { flex: none; font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 999px; border: 1px solid var(--ks-rule); color: var(--ks-text-muted); white-space: nowrap; }
-  .dl-status[data-tone='wait'] { color: var(--ks-kinpaku-rich); border-color: color-mix(in oklab, var(--ks-kinpaku-rich) 45%, transparent); }
-  .dl-status[data-tone='done'] { color: var(--ks-patina); border-color: color-mix(in oklab, var(--ks-patina) 40%, transparent); }
+  .dl-status[data-tone='wait'] { color: var(--ks-ink); border-color: var(--ks-gold-line); }
+  .dl-status[data-tone='done'] { color: var(--ks-patina-deep); border-color: color-mix(in oklab, var(--ks-patina) 40%, transparent); }
   .dl-status[data-tone='err'] { color: var(--ks-vermilion); border-color: color-mix(in oklab, var(--ks-vermilion) 45%, transparent); }
   .dl-when { margin: 0; font-size: 0.8125rem; line-height: 1.5; color: var(--ks-text); }
-  .dl-when span { display: inline-block; font-family: var(--ks-mono); font-size: 0.5625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ks-patina); border: 1px solid color-mix(in oklab, var(--ks-patina) 35%, transparent); border-radius: 4px; padding: 0.05rem 0.35rem; margin-right: 0.5rem; transform: translateY(-1px); }
+  .dl-when span { display: inline-block; font-family: var(--ks-mono); font-size: 0.5625rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ks-patina-deep); border: 1px solid color-mix(in oklab, var(--ks-patina) 35%, transparent); border-radius: 4px; padding: 0.05rem 0.35rem; margin-right: 0.5rem; transform: translateY(-1px); }
   .dl-desc { margin: 0; color: var(--ks-text-faint); font-size: 0.75rem; line-height: 1.5; }
   .dl-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.35rem; margin: 0.1rem 0 0; }
   .dl-file { font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.08em; color: var(--ks-text-faint); margin-right: 0.3rem; }
   .dl-chip { font-family: var(--ks-mono); font-size: 0.5625rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ks-text-muted); border: 1px solid var(--ks-rule); border-radius: 4px; padding: 0.12rem 0.4rem; }
   .dl-actions { display: flex; gap: 0.5rem; margin-top: 0.45rem; }
-  .dl-actions button { font-family: var(--ks-mono); font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.45rem 0.85rem; border-radius: 6px; border: 1px solid var(--ks-rule); background: transparent; color: var(--ks-kinpaku); cursor: pointer; transition: border-color 0.2s ease; }
-  .dl-actions button:hover:not([disabled]) { border-color: var(--ks-kinpaku-deep); }
+  .dl-actions button { font-family: var(--ks-mono); font-size: 0.6875rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.45rem 0.85rem; border-radius: 6px; border: 1px solid var(--ks-edge); background: var(--ks-paper-raised); color: var(--ks-ink); cursor: pointer; transition: border-color 0.2s ease, background-color 0.2s ease; }
+  .dl-actions button:hover:not([disabled]) { border-color: var(--ks-ink); }
+  /* Dealing is the primary act on the card: ink on paper, as the kit's primary button. */
+  .dl-actions button[data-start] { border-color: var(--ks-ink); background: var(--ks-ink); color: var(--ks-paper-raised); }
+  .dl-actions button[data-start]:hover:not([disabled]) { border-color: var(--ks-text); background: var(--ks-text); }
   .dl-actions button[disabled] { opacity: 0.35; cursor: default; }
   .dl-log { margin-top: 0.4rem; display: flex; flex-direction: column; gap: 0.45rem; }
   .dl-log[hidden] { display: none; }
   /* The answer rows are built by the script below, so they carry no Astro
      scope attribute; style them through :global under the static container. */
   .dl-answers { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.35rem; }
-  .dl-answers :global(li) { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.45rem; font-size: 0.8125rem; color: var(--ks-text); background: var(--ks-lacquer); border: 1px solid var(--ks-rule); border-radius: 7px; padding: 0.45rem 0.7rem; }
-  .dl-answers :global(code) { font-family: var(--ks-mono); font-size: 0.75rem; color: var(--ks-patina); }
+  .dl-answers :global(li) { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.45rem; font-size: 0.8125rem; color: var(--ks-text); background: var(--ks-paper); border: 1px solid var(--ks-rule); border-radius: 7px; padding: 0.45rem 0.7rem; }
+  .dl-answers :global(code) { font-family: var(--ks-mono); font-size: 0.75rem; color: var(--ks-patina-deep); }
   .dl-answers :global(.dl-tag) { font-family: var(--ks-mono); font-size: 0.5625rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ks-text-faint); border: 1px solid var(--ks-rule); border-radius: 4px; padding: 0.1rem 0.35rem; }
   .dl-raw summary { font-family: var(--ks-mono); font-size: 0.625rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ks-text-faint); cursor: pointer; }
-  .dl-raw pre { margin: 0.4rem 0 0; padding: 0.7rem 0.85rem; border-radius: 8px; background: var(--ks-lacquer); border: 1px solid var(--ks-rule); font-size: 0.75rem; line-height: 1.5; white-space: pre-wrap; overflow-x: auto; max-height: 16rem; overflow-y: auto; }
+  .dl-raw pre { margin: 0.4rem 0 0; padding: 0.7rem 0.85rem; border-radius: 8px; background: var(--ks-paper); border: 1px solid var(--ks-rule); font-size: 0.75rem; line-height: 1.5; white-space: pre-wrap; overflow-x: auto; max-height: 16rem; overflow-y: auto; }
 
   @media (max-width: 1280px) {
     .dl-flow { grid-template-columns: 1fr; gap: 1.5rem; }

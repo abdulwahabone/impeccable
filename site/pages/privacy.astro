@@ -6,15 +6,55 @@ import '../styles/sub-pages.css';
 <Base title="Privacy Policy - Impeccable" noIndex={true} bodyClass="sub-page kinpaku-chrome kinpaku-surface">
 
 <style>
-  .privacy-content { max-width: 680px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
-  .privacy-content h1 { font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; letter-spacing: -0.01em; color: var(--color-ink); }
-  .privacy-content h2 { font-size: 1.125rem; margin-top: 2rem; font-weight: 600; color: var(--color-ink); }
-  .privacy-content p, .privacy-content ul { color: var(--color-charcoal); margin-top: 0.5rem; }
+  /* A plain reading column on paper, on the same rhythm as /changelog and /faq. */
+  .privacy-content {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: clamp(48px, 6vw, 96px) clamp(20px, 4vw, 48px) clamp(80px, 10vw, 140px);
+    color: var(--ks-text);
+    font-family: var(--ks-font);
+    line-height: var(--ks-type-body-line);
+  }
+  .privacy-content h1 {
+    margin: 0 0 0.5rem;
+    font-family: var(--ks-font-display);
+    font-size: var(--ks-type-display-size);
+    font-weight: var(--ks-type-display-weight);
+    line-height: var(--ks-type-display-line);
+    letter-spacing: var(--ks-type-display-track);
+    color: var(--ks-ink);
+  }
+  .privacy-content h2 {
+    margin: 2.5rem 0 0.5rem;
+    font-family: var(--ks-font-display);
+    font-size: var(--ks-type-headline-size);
+    font-weight: var(--ks-type-headline-weight);
+    line-height: var(--ks-type-headline-line);
+    letter-spacing: var(--ks-type-headline-track);
+    color: var(--ks-ink);
+    text-wrap: balance;
+  }
+  .privacy-content p, .privacy-content ul { margin: 0.75rem 0 0; }
   .privacy-content ul { padding-left: 1.25rem; }
-  .privacy-content li { margin-top: 0.25rem; }
+  .privacy-content li { margin-top: 0.35rem; }
+  .privacy-content strong { color: var(--ks-ink); font-weight: 600; }
+  .privacy-content code {
+    padding: var(--ks-code-pad);
+    font-family: var(--ks-mono);
+    font-size: 0.85em;
+    color: var(--ks-code-fg);
+    background: var(--ks-code-bg);
+    border-radius: var(--ks-code-radius);
+  }
   .privacy-content a { color: var(--ks-link-on-paper); text-decoration: underline; text-underline-offset: 3px; }
-  .privacy-content a:hover { color: var(--ks-accent-ink); }
-  .privacy-content .updated { color: var(--color-ash); font-size: 0.875rem; margin-bottom: 2rem; font-style: italic; }
+  .privacy-content a:hover { color: var(--ks-link-on-paper-hover); }
+  .privacy-content .updated {
+    margin: 0 0 2.5rem;
+    font-family: var(--ks-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--ks-text-muted);
+  }
 </style>
 
 <div class="privacy-content">

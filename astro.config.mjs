@@ -1,5 +1,5 @@
 import { defineConfig } from 'astro/config';
-import { impeccableShikiThemes } from './site/lib/impeccable-shiki-theme.mjs';
+import { impeccableShikiTheme } from './site/lib/impeccable-shiki-theme.mjs';
 import { worldsReviewPlugin } from './scripts/worlds-review-vite-plugin.mjs';
 import { worldRollDevPlugin } from './scripts/world-roll-dev-plugin.mjs';
 import { decisionLabPlugin } from './scripts/decision-lab-vite-plugin.mjs';
@@ -10,8 +10,7 @@ export default defineConfig({
   output: 'static',
   markdown: {
     shikiConfig: {
-      themes: impeccableShikiThemes,
-      defaultColor: false,
+      theme: impeccableShikiTheme,
     },
   },
   devToolbar: {

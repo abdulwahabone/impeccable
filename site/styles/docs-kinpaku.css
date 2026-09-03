@@ -1,23 +1,21 @@
 /* ============================================================================
-   /docs — Neo Kinpaku redesign
+   /docs on paper
 
-   Re-skins the docs index (/docs) and per-command detail (/docs/:slug) on the
-   dark lacquer kinpaku surface. Mirrors the /designing approach: remap the
-   generic light tokens (--color-paper, --color-cream, etc.) at the body class
-   so the inline visualizations from docs-visuals.css (.docs-viz-*) re-skin
-   into the dark theme without per-rule overrides.
+   Styles the docs index (/docs), the per-command and reference pages
+   (/docs/:slug) and tutorial pages (/tutorials/:slug). The shell reads the
+   --ks-* paper tokens; the inline visualizations from docs-visuals.css
+   (.docs-viz-*) already sit on paper, so only a few accent states are
+   re-tuned here.
 
    Structure of this file mirrors the page structure:
      1. Page scope + base
      2. Sidebar (commands rail)
-     3. /docs index — categories + command tiles
-     4. /docs/:slug — breadcrumb, hero, related-commands footer
-     5. Prose body — markdown rendering on lacquer
-     6. Footer
+     3. /docs index: starter rail, chooser, live callout, flow, pairs, reference
+     4. /docs/:slug: hero, command demo, related-commands footer
+     5. Prose body: markdown rendering on paper
    ============================================================================ */
 
 @import "./kinpaku-tokens.css";
-@import "./divider-patterns.css";
 
 
 /* ============================================================================
@@ -25,44 +23,22 @@
    ============================================================================ */
 
 .docs-kinpaku {
-  /* Surface/text/accent/font tokens default to kinpaku at :root now
-     (tokens.css), so the embedded docs-viz visualizations inherit dark
-     surfaces without a per-page remap. Only the --ks-muted alias (read by
-     name in this file) and the page shell remain. */
-  --ks-muted: var(--ks-text-muted);
-  --docs-accent: var(--ks-kinpaku);
-  --docs-accent-hover: var(--ks-kinpaku-pale);
-  --docs-accent-line: oklch(78% 0.12 82 / 0.42);
-  --docs-accent-wash: oklch(77% 0.13 82 / 0.10);
-  --docs-brand-accent: var(--ks-kinpaku);
-  --docs-panel-bg: var(--ks-lacquer-raised);
-  --docs-panel-hover-bg: oklch(11% 0.012 82);
-  --docs-row-bg: var(--ks-lacquer-raised);
-  --docs-row-hover-bg: oklch(13% 0.012 82);
+  /* The docs accent is patina: it carries every small label, link and
+     active state on paper. Gold never carries text here. The --docs-accent-*
+     lines and washes are alphas of the patina token. */
+  --docs-accent: var(--ks-accent-ink);
+  --docs-accent-hover: var(--ks-link-on-paper-hover);
+  --docs-accent-line: oklch(70% 0.12 188 / 0.36);
+  --docs-accent-wash: oklch(70% 0.12 188 / 0.08);
+  --docs-panel-bg: var(--ks-paper-raised);
+  --docs-panel-hover-bg: color-mix(in oklch, var(--ks-paper-raised), var(--ks-patina) 5%);
+  --docs-row-bg: var(--ks-paper-raised);
+  --docs-row-hover-bg: color-mix(in oklch, var(--ks-paper-raised), var(--ks-patina) 4%);
 
-  background:
-    linear-gradient(180deg, oklch(7% 0.006 95), oklch(4% 0.004 95));
+  background: linear-gradient(180deg, var(--ks-paper), var(--ks-paper-deep));
   color: var(--ks-text);
   font-family: var(--ks-font);
   min-height: 100vh;
-}
-
-html.light .docs-kinpaku {
-  --ks-champagne: oklch(16% 0 0);
-  --ks-text: oklch(24% 0 0);
-  --ks-text-muted: oklch(42% 0 0);
-  --ks-text-faint: oklch(55% 0 0);
-  --ks-rule: oklch(20% 0 0 / 0.12);
-  --docs-accent: var(--ks-state-ink);
-  --docs-accent-hover: var(--ks-patina-deep);
-  --docs-accent-line: oklch(70% 0.12 188 / 0.36);
-  --docs-accent-wash: oklch(70% 0.12 188 / 0.08);
-  --docs-brand-accent: var(--ks-kinpaku);
-  --docs-panel-bg: oklch(100% 0 0);
-  --docs-panel-hover-bg: color-mix(in oklch, oklch(100% 0 0), var(--docs-accent) 4%);
-  --docs-row-bg: oklch(100% 0 0);
-  --docs-row-hover-bg: color-mix(in oklch, oklch(100% 0 0), var(--docs-accent) 3%);
-  background: linear-gradient(180deg, var(--ks-lacquer), var(--ks-lacquer-deep));
 }
 
 .docs-kinpaku a {
@@ -96,7 +72,7 @@ html.light .docs-kinpaku {
 
 
 /* ============================================================================
-   2. SIDEBAR — commands rail
+   2. SIDEBAR: commands rail
 
    Sticky rail. Command names use the main UI family; monospace is reserved
    for literal commands and code, not navigation.
@@ -301,7 +277,7 @@ html.light .docs-kinpaku {
   font-size: 2.6rem;
   line-height: 1.12;
   letter-spacing: 0;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   margin: 0;
   text-wrap: balance;
 }
@@ -348,7 +324,7 @@ html.light .docs-kinpaku {
   font-size: 1.5rem;
   line-height: 1.25;
   letter-spacing: 0;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   margin: 0 0 12px;
   text-wrap: balance;
 }
@@ -474,7 +450,7 @@ html.light .docs-kinpaku {
 
 @media (max-width: 940px) {
   .docs-kinpaku .docs-start-rail-step,
-  .docs-kinpaku .docs-start-rail-step:last-child {
+.docs-kinpaku .docs-start-rail-step:last-child {
     border: 1px solid transparent;
   }
 
@@ -523,7 +499,7 @@ html.light .docs-kinpaku {
   font-size: 0.98rem;
   font-weight: 600;
   line-height: 1.35;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 .docs-kinpaku .docs-chooser-list-command {
@@ -582,11 +558,11 @@ html.light .docs-kinpaku {
 
 .docs-kinpaku .docs-live-frame {
   position: relative;
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   border: 1px solid var(--ks-rule);
   border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 14px 30px oklch(0% 0 0 / 0.08);
+  box-shadow: var(--ks-lift-2);
 }
 
 .docs-kinpaku .docs-live-chrome {
@@ -594,7 +570,7 @@ html.light .docs-kinpaku {
   align-items: center;
   gap: 8px;
   padding: 12px 14px;
-  background: transparent;
+  background: var(--ks-gray);
   border-bottom: 1px solid var(--ks-rule);
 }
 
@@ -617,7 +593,7 @@ html.light .docs-kinpaku {
   position: relative;
   padding: 38px 28px 28px;
   min-height: 220px;
-  background: transparent;
+  background: var(--ks-paper);
 }
 
 .docs-kinpaku .docs-live-target {
@@ -625,7 +601,7 @@ html.light .docs-kinpaku {
   padding: 22px 24px;
   border: 1px solid var(--docs-accent-line);
   border-radius: 2px;
-  background: var(--ks-lacquer);
+  background: var(--ks-paper-raised);
   box-shadow: none;
 }
 
@@ -635,7 +611,7 @@ html.light .docs-kinpaku {
   font-weight: var(--ks-type-headline-weight);
   font-size: 1.5rem;
   line-height: 1.15;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 .docs-kinpaku .docs-live-target-sub {
@@ -653,7 +629,7 @@ html.light .docs-kinpaku {
   align-items: center;
   gap: 14px;
   padding: 10px 14px;
-  background: var(--ks-lacquer);
+  background: var(--ks-gray);
   border: 1px solid var(--ks-rule);
   border-radius: 2px;
   font-family: var(--ks-mono);
@@ -664,7 +640,7 @@ html.light .docs-kinpaku {
 }
 
 .docs-kinpaku .docs-live-bar-counter {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 .docs-kinpaku .docs-live-bar-accept {
@@ -738,7 +714,7 @@ html.light .docs-kinpaku {
 .docs-kinpaku .docs-flow-cmd {
   font-family: var(--ks-mono);
   font-size: 0.94rem;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 .docs-kinpaku .docs-flow-tag {
@@ -777,17 +753,17 @@ html.light .docs-kinpaku {
 }
 
 .docs-kinpaku .docs-flow-alt a {
-  color: var(--docs-accent);
+  color: var(--ks-link-on-paper);
   font-family: var(--ks-mono);
   font-size: 0.88em;
   text-decoration: none;
-  border-bottom: 1px solid var(--docs-accent-line);
+  border-bottom: 1px solid var(--ks-link-on-paper-line);
   transition: border-color 160ms var(--ks-ease);
 }
 
 .docs-kinpaku .docs-flow-alt a:hover {
-  color: var(--docs-accent-hover);
-  border-bottom-color: var(--docs-accent-hover);
+  color: var(--ks-link-on-paper-hover);
+  border-bottom-color: var(--ks-link-on-paper-hover);
 }
 
 
@@ -888,7 +864,7 @@ html.light .docs-kinpaku {
   font-size: 0.72rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 .docs-kinpaku .docs-reference-count {
@@ -920,7 +896,7 @@ html.light .docs-kinpaku {
 }
 
 .docs-kinpaku .docs-reference-row:hover .docs-reference-line {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 .docs-kinpaku .docs-reference-name {
@@ -939,7 +915,7 @@ html.light .docs-kinpaku {
 
 
 /* ============================================================================
-   4. /docs/:slug — breadcrumb, hero, related-commands footer
+   4. /docs/:slug: hero, command demo, related-commands footer
    ============================================================================ */
 
 .docs-kinpaku .skills-main {
@@ -955,63 +931,23 @@ html.light .docs-kinpaku {
   max-width: 900px;
 }
 
-.docs-kinpaku .skills-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--ks-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ks-text-muted);
-  margin: 0 0 36px;
-}
 
-.docs-kinpaku .skills-breadcrumb a {
-  color: var(--ks-kinpaku);
-  text-decoration: none;
-  transition: color 160ms var(--ks-ease);
-}
-
-.docs-kinpaku .skills-breadcrumb a:hover {
-  color: var(--ks-champagne);
-}
-
-.docs-kinpaku .skills-breadcrumb span[aria-hidden] {
-  color: var(--ks-text-faint);
-}
-
-
-/* Hero — eyebrow (category), title (/impeccable name), lede. */
+/* Hero: title (the command name) and lede. */
 .docs-kinpaku .sub-page-header {
   margin-bottom: clamp(40px, 5vw, 64px);
 }
 
-.docs-kinpaku .sub-page-eyebrow {
-  display: block;
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-eyebrow-size);
-  letter-spacing: var(--ks-type-eyebrow-track);
-  text-transform: uppercase;
-  color: var(--ks-kinpaku);
-  margin: 0 0 16px;
-}
-
-/* Command name (h1) — display scale, kinpaku gold so it carries the
-   page identity. */
+/* Command name (h1): display scale in ink, same voice as the docs index
+   title, so a command page reads as a page of the same site. */
 .docs-kinpaku .sub-page-title {
   font-family: var(--ks-font-display);
   font-weight: var(--ks-type-display-weight);
   font-size: var(--ks-type-display-size);
   line-height: var(--ks-type-display-line);
   letter-spacing: var(--ks-type-display-track);
-  color: var(--ks-kinpaku);
+  color: var(--ks-ink);
   margin: 0 0 20px;
   text-wrap: balance;
-}
-
-html.light .docs-kinpaku .sub-page-title {
-  color: var(--ks-accent-ink);
 }
 
 .docs-kinpaku .sub-page-lede {
@@ -1023,7 +959,7 @@ html.light .docs-kinpaku .sub-page-title {
 }
 
 
-/* Related commands footer — chips with relation label + command name. */
+/* Related commands footer: chips with relation label + command name. */
 .docs-kinpaku .skills-relationships {
   margin-top: clamp(56px, 7vw, 88px);
   padding-top: 32px;
@@ -1054,15 +990,15 @@ html.light .docs-kinpaku .sub-page-title {
   padding: 10px 14px;
   border: 1px solid var(--ks-rule);
   border-radius: 2px;
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   text-decoration: none;
   transition: border-color 180ms var(--ks-ease),
               background 180ms var(--ks-ease);
 }
 
 .docs-kinpaku .skills-relationship-chip:hover {
-  border-color: var(--ks-kinpaku);
-  background: oklch(11% 0.012 82);
+  border-color: var(--docs-accent-line);
+  background: var(--docs-panel-hover-bg);
 }
 
 .docs-kinpaku .skills-relationship-label {
@@ -1080,12 +1016,12 @@ html.light .docs-kinpaku .sub-page-title {
 }
 
 .docs-kinpaku .prose h3.docs-viz-live-title {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 
 /* ============================================================================
-   5. PROSE BODY — markdown rendering on lacquer
+   5. PROSE BODY: markdown rendering on paper
    ============================================================================ */
 
 /* Vertical rhythm.
@@ -1140,15 +1076,15 @@ html.light .docs-kinpaku .sub-page-title {
 }
 
 /* Note / callout block for prose docs (e.g. the GitHub Copilot built-in
-   aside under Step 1). Full hairline frame + faint gold-tinted ground so it
-   reads as an aside without a one-sided accent stripe (the side-tab tell the
-   detector flags). The gold icon carries the accent. */
+   aside under Step 1). Full hairline frame on a raised card so it reads as
+   an aside without a one-sided accent stripe (the side-tab tell the detector
+   flags). The icon is the product mark, in ink. */
 .docs-kinpaku .prose .docs-note {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 14px 16px;
-  background: color-mix(in oklch, var(--ks-kinpaku) 6%, var(--ks-lacquer-raised));
+  background: var(--ks-paper-raised);
   border: 1px solid var(--ks-rule);
   border-radius: 4px;
   font-size: 0.95rem;
@@ -1160,7 +1096,7 @@ html.light .docs-kinpaku .sub-page-title {
   width: 20px;
   height: 20px;
   margin-top: 1px;
-  color: var(--ks-kinpaku);
+  color: var(--ks-ink);
 }
 .docs-kinpaku .prose .docs-note-icon svg {
   display: block;
@@ -1173,7 +1109,7 @@ html.light .docs-kinpaku .sub-page-title {
   min-width: 0;
 }
 .docs-kinpaku .prose .docs-note-text strong {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-weight: 600;
 }
 
@@ -1182,7 +1118,7 @@ html.light .docs-kinpaku .sub-page-title {
 .docs-kinpaku .prose h3,
 .docs-kinpaku .prose h4 {
   font-family: var(--ks-font-display);
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-style: normal;
   line-height: 1.2;
   scroll-margin-top: 96px;
@@ -1207,10 +1143,10 @@ html.light .docs-kinpaku .sub-page-title {
   margin-top: 0.4em;
 }
 
-/* h2/h3 follow the DESIGN.md type scale exactly:
-   - h2 (Headline): Alumni Sans, clamp 2.6-3.4rem, weight 600
-   - h3 (Title):    Albert Sans,           1.18rem,            weight 500
-   - h4:            Albert Sans,           1rem,               weight 600 (utility)
+/* h2/h3 follow the kit type scale:
+   - h2: headline tokens (--ks-type-headline-*)
+   - h3: title tokens (--ks-type-title-*), patina
+   - h4: 1rem, weight 600 (utility)
 */
 .docs-kinpaku .prose h2 {
   font-family: var(--ks-font-display);
@@ -1234,7 +1170,7 @@ html.light .docs-kinpaku .sub-page-title {
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
 /* Lists. Margins are handled by the universal `> *` reset + sibling rule
@@ -1262,33 +1198,33 @@ html.light .docs-kinpaku .sub-page-title {
 }
 
 .docs-kinpaku .prose a {
-  color: var(--ks-kinpaku);
+  color: var(--ks-link-on-paper);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 4px;
-  text-decoration-color: oklch(78% 0.12 82 / 0.4);
-  transition: text-decoration-color 160ms var(--ks-ease);
+  text-decoration-color: var(--ks-link-on-paper-line);
+  transition: color 160ms var(--ks-ease),
+              text-decoration-color 160ms var(--ks-ease);
 }
 
 .docs-kinpaku .prose a:hover {
-  text-decoration-color: var(--ks-kinpaku);
+  color: var(--ks-link-on-paper-hover);
+  text-decoration-color: var(--ks-link-on-paper-hover);
 }
 
 .docs-kinpaku .prose strong {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-weight: 600;
 }
 
 .docs-kinpaku .prose em {
   font-style: italic;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
 }
 
-/* Inline code — champagne mono on a graphite chip. The chip is the
-   affordance; color stays neutral so a paragraph full of inline
-   references doesn't vibrate. Kinpaku is reserved for links, h3s,
-   eyebrows, and CTAs. `--ks-graphite-2` (≈19% lightness) reads as the
-   neutral gray the chip wants without picking up cool tint. */
+/* Inline code: ink mono on a neutral gray chip (the kit code tokens).
+   The chip is the affordance; color stays neutral so a paragraph full of
+   inline references does not vibrate. */
 .docs-kinpaku .prose code {
   font-family: var(--ks-mono);
   font-size: 0.84em;
@@ -1303,19 +1239,16 @@ html.light .docs-kinpaku .sub-page-title {
   overflow-wrap: anywhere;
 }
 
-html.light .docs-kinpaku .prose code {
-  background: oklch(25% 0.02 95 / 0.08);
-}
-
-/* Inline code that is itself a link — get the kinpaku cue back, since
-   the link semantic is the meaningful one. */
+/* Inline code that is itself a link keeps the link color, since the link
+   semantic is the meaningful one. */
 .docs-kinpaku .prose a code {
   color: var(--ks-code-cmd);
 }
 
-/* Fenced code blocks — deep lacquer terminal. Astro/Shiki emits dual-theme
-   CSS variables from site/lib/impeccable-shiki-theme.mjs; the wrapper keeps
-   the surface in the kinpaku token system while token spans swap by theme. */
+/* Fenced code blocks: a sunk paper well (the kit code-block tokens).
+   Astro/Shiki emits per-token CSS variables from
+   site/lib/impeccable-shiki-theme.mjs; the wrapper owns the surface and the
+   spans read the light palette. */
 .docs-kinpaku .prose pre,
 .docs-kinpaku .prose .code-block,
 .docs-kinpaku .prose pre.astro-code {
@@ -1332,21 +1265,17 @@ html.light .docs-kinpaku .prose code {
   max-width: 100%;
 }
 
-.docs-kinpaku .prose pre.astro-code span {
-  color: var(--shiki-dark, var(--ks-code-block-fg));
-}
-
-html.light .docs-kinpaku .prose pre.astro-code span {
-  color: var(--shiki-light, var(--ks-code-block-fg));
-}
-
 .docs-kinpaku .prose > * + pre.astro-code,
 .docs-kinpaku .prose > * + pre,
 .docs-kinpaku .prose > * + .code-block-wrap {
   margin-top: 1.25em;
 }
 
-.docs-kinpaku .prose :is(p, ul, ol) + :is(pre.astro-code, pre, .code-block-wrap) {
+.docs-kinpaku .prose :is(p,
+ul,
+ol) + :is(pre.astro-code,
+pre,
+.code-block-wrap) {
   margin-top: 1.25em;
 }
 
@@ -1360,23 +1289,18 @@ html.light .docs-kinpaku .prose pre.astro-code span {
   border-radius: 0;
 }
 
-html.light .docs-kinpaku .prose pre code,
-html.light .docs-kinpaku .prose .code-block code {
-  background: transparent;
-}
-
 .docs-kinpaku .prose .code-block-wrap {
   position: relative;
   margin: 0;
 }
 
-/* Copy button on dark — match the kinpaku button voice. */
+/* Copy button: quiet on the well, an instrument once it has copied. */
 .docs-kinpaku .code-block-copy {
   position: absolute;
   top: 10px;
   right: 10px;
   padding: 4px 10px;
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
   border: 1px solid var(--ks-rule);
   color: var(--ks-text-muted);
   border-radius: 2px;
@@ -1401,15 +1325,15 @@ html.light .docs-kinpaku .prose .code-block code {
 }
 
 .docs-kinpaku .code-block-copy:hover {
-  border-color: var(--ks-kinpaku);
-  color: var(--ks-kinpaku);
+  border-color: var(--ks-edge);
+  color: var(--ks-ink);
 }
 
 .docs-kinpaku .code-block-copy.is-copied {
   opacity: 1;
-  border-color: var(--ks-kinpaku);
-  color: var(--ks-dark-ink);
-  background: var(--ks-kinpaku);
+  border-color: var(--ks-instrument);
+  color: var(--ks-instrument-text);
+  background: var(--ks-instrument);
 }
 
 .docs-kinpaku .code-block-copy.is-copied::before {
@@ -1420,14 +1344,14 @@ html.light .docs-kinpaku .prose .code-block code {
   margin: 0;
   padding: 6px 0 6px 22px;
   border-block: 0;
-  border-left: 2px solid var(--ks-kinpaku);
+  border-left: 2px solid var(--ks-gold-line);
   color: var(--ks-text);
   font-style: italic;
 }
 
 .docs-kinpaku .prose .docs-context-note {
   padding: 4px 0 4px 20px;
-  border-left: 2px solid var(--ks-kinpaku);
+  border-left: 2px solid var(--ks-gold-line);
   color: var(--ks-text-muted);
 }
 
@@ -1457,9 +1381,9 @@ html.light .docs-kinpaku .prose .code-block code {
   font-size: 0.7rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--ks-kinpaku);
+  color: var(--docs-accent);
   font-weight: 500;
-  border-bottom-color: var(--ks-kinpaku);
+  border-bottom-color: var(--docs-accent-line);
 }
 
 .docs-kinpaku .prose #what-goes-where + table td:first-child code {
@@ -1475,7 +1399,7 @@ html.light .docs-kinpaku .prose .code-block code {
   }
 
   .docs-kinpaku .prose th,
-  .docs-kinpaku .prose td {
+.docs-kinpaku .prose td {
     min-width: 11rem;
   }
 }
@@ -1503,11 +1427,11 @@ html.light .docs-kinpaku .prose .code-block code {
   gap: 8px;
   min-width: 0;
   padding: 18px;
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
 }
 
 .docs-kinpaku .prose .docs-context-flow-source--generated {
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
 }
 
 .docs-kinpaku .prose .docs-context-flow-output {
@@ -1515,7 +1439,7 @@ html.light .docs-kinpaku .prose .code-block code {
   grid-template-columns: minmax(0, 0.74fr) minmax(0, 1.26fr);
   column-gap: 20px;
   align-items: center;
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
 }
 
 .docs-kinpaku .prose .docs-context-flow-label {
@@ -1529,7 +1453,7 @@ html.light .docs-kinpaku .prose .code-block code {
 
 .docs-kinpaku .prose .docs-context-flow-source strong,
 .docs-kinpaku .prose .docs-context-flow-output strong {
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-family: var(--ks-mono);
   font-size: 0.84rem;
   line-height: 1.35;
@@ -1620,61 +1544,72 @@ html.light .docs-kinpaku .prose .code-block code {
   outline-offset: 4px;
 }
 
-.docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details) {
+.docs-kinpaku .prose :is(.docs-context-details,
+.docs-prose-details) {
   border-top: 1px solid var(--ks-rule);
   border-bottom: 1px solid var(--ks-rule);
   padding: 0;
 }
 
-.docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details) + :is(.docs-context-details, .docs-prose-details) {
+.docs-kinpaku .prose :is(.docs-context-details,
+.docs-prose-details) + :is(.docs-context-details,
+.docs-prose-details) {
   margin-top: 0;
   border-top: 0;
 }
 
-.docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details) summary {
+.docs-kinpaku .prose :is(.docs-context-details,
+.docs-prose-details) summary {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 14px;
   align-items: center;
   padding: 16px 0;
-  color: var(--ks-champagne);
+  color: var(--ks-ink);
   font-weight: 600;
   cursor: pointer;
   list-style: none;
 }
 
-.docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details) summary::-webkit-details-marker {
+.docs-kinpaku .prose :is(.docs-context-details,
+.docs-prose-details) summary::-webkit-details-marker {
   display: none;
 }
 
-.docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details) summary::after {
+.docs-kinpaku .prose :is(.docs-context-details,
+.docs-prose-details) summary::after {
   content: "+";
   font-family: var(--ks-mono);
   color: var(--docs-accent);
   font-weight: 500;
 }
 
-.docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details)[open] summary::after {
+.docs-kinpaku .prose :is(.docs-context-details,
+.docs-prose-details)[open] summary::after {
   content: "-";
 }
 
-.docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details) summary:focus-visible {
+.docs-kinpaku .prose :is(.docs-context-details,
+.docs-prose-details) summary:focus-visible {
   outline: 2px solid var(--ks-patina);
   outline-offset: 4px;
 }
 
-.docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details) > div {
+.docs-kinpaku .prose :is(.docs-context-details,
+.docs-prose-details) > div {
   display: grid;
   gap: 0.8em;
   padding: 0 0 18px;
   color: var(--ks-text);
 }
 
-.docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details) > div > * {
+.docs-kinpaku .prose :is(.docs-context-details,
+.docs-prose-details) > div > * {
   margin: 0;
 }
 
-.docs-kinpaku .prose :is(.docs-context-details, .docs-prose-details) ul {
+.docs-kinpaku .prose :is(.docs-context-details,
+.docs-prose-details) ul {
   padding-left: 1.4rem;
 }
 
@@ -1690,7 +1625,7 @@ html.light .docs-kinpaku .prose .code-block code {
   }
 
   .docs-kinpaku .prose .docs-hook-flow-source,
-  .docs-kinpaku .prose .docs-hook-flow-source--half {
+.docs-kinpaku .prose .docs-hook-flow-source--half {
     grid-column: auto;
   }
 
@@ -1698,13 +1633,12 @@ html.light .docs-kinpaku .prose .code-block code {
 
 
 /* Two-column editorial hero (when the command has a registered demo).
-   Demo on the left, h1 + lede on the right. Mirrors the old pre-Astro
-   layout: a slightly wider demo column (1.15fr) against a comfortable
-   text measure on the right (1fr). Collapses to single-column below
-   the breakpoint where the demo would be too cramped.
+   h1 + lede on the left, demo on the right: a comfortable text measure
+   (1fr) against a slightly wider demo column (1.15fr). Collapses to a
+   single column below the breakpoint where the demo would be too cramped.
 
-   When there's no demo, the page renders the existing single-column
-   sub-page-header — no docs-hero wrapper, no grid. */
+   When there is no demo, the page renders the plain single-column
+   sub-page-header: no docs-hero wrapper, no grid. */
 .docs-kinpaku .docs-hero--with-demo {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
@@ -1731,21 +1665,19 @@ html.light .docs-kinpaku .prose .code-block code {
    command carousel uses — one source of truth in the demo JS, two
    surfaces that render from it.
 
-   Matches the homepage's dark dual-tone treatment: lacquer-raised
-   container with a subtle kinpaku-grid backing, then `before` and
-   `after` sides each picking up a different radial glow. The demo
-   content's `--color-*` tokens stay remapped to kinpaku (no local
-   light override) — shapes render light-on-dark and the kinpaku
-   accent shines. */
+   Two paper tones: the "before" half sits on the sunk paper well and the
+   "after" half on raised paper, so the seam reads as rough-to-refined
+   without a dark panel. The seam itself is the one gold line. */
 .docs-kinpaku .docs-command-demo {
   margin: 0;
   border: 1px solid var(--ks-rule);
   border-radius: 4px;
   overflow: hidden;
-  background: var(--ks-lacquer-raised);
+  background: var(--ks-paper-raised);
 }
 
-.docs-kinpaku .docs-command-demo :is(.split-comparison, .demo-split-comparison) {
+.docs-kinpaku .docs-command-demo :is(.split-comparison,
+.demo-split-comparison) {
   max-width: none;
   margin: 0;
   padding: 0;
@@ -1757,29 +1689,23 @@ html.light .docs-kinpaku .prose .code-block code {
   border-radius: 0;
   border: 0;
   border-bottom: 1px solid var(--ks-rule);
-  background:
-    linear-gradient(90deg, oklch(78% 0.12 82 / 0.04) 1px, transparent 1px),
-    linear-gradient(180deg, oklch(78% 0.12 82 / 0.035) 1px, transparent 1px),
-    var(--ks-lacquer-raised);
-  background-size: 24px 24px;
+  background: var(--ks-paper-raised);
 }
 
 .docs-kinpaku .docs-command-demo .split-before {
-  background:
-    linear-gradient(90deg, oklch(10% 0.006 95 / 0.92), oklch(12% 0.012 60 / 0.72)),
-    radial-gradient(circle at 28% 25%, oklch(78% 0.12 82 / 0.12), transparent 11rem);
+  background: var(--ks-paper-deep);
 }
 
 .docs-kinpaku .docs-command-demo .split-after {
   /* Doc.astro initSplitCompare uses skewAngle: 0 — vertical seam, not the
      angled default from sub-pages.css / main.css. */
   clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
-  background: var(--ks-lacquer);
+  background: var(--ks-paper-raised);
 }
 
 .docs-kinpaku .docs-command-demo .split-divider {
-  background: var(--ks-kinpaku);
-  box-shadow: 0 0 20px oklch(78% 0.12 82 / 0.4);
+  background: var(--ks-gold-line);
+  box-shadow: var(--ks-lift-1);
   transform: translateX(-50%) !important;
 }
 
@@ -1789,22 +1715,22 @@ html.light .docs-kinpaku .prose .code-block code {
   font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--ks-text-muted);
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-gray);
   text-align: center;
 }
 
 
 /* Visualization wrappers inside the markdown body.
 
-   Default: .docs-viz-hero is a transparent layout container — no card
+   Default: .docs-viz-hero is a transparent layout container, no card
    chrome, no border. The inner mock owns its own surface treatment, so
-   we don't get card-in-card.
+   we do not get card-in-card.
 
    When the wrapper contains a multi-tile group (.docs-viz-flow), apply
-   the tinted-plinth pattern from .ks-bento on the homepage:
-   - the wrapper becomes a graphite mat
-   - tiles sit on top in flat lacquer with no borders
-   - the gap between tiles is the plinth showing through as inset gutters
+   the plinth pattern from .ks-bento on the homepage:
+   - the wrapper becomes a gray mat
+   - tiles sit on top in flat paper with no borders
+   - the gap between tiles is the mat showing through as inset gutters
    - depth contrast carries the edges; no double borders required */
 
 .docs-kinpaku .prose .docs-viz-hero {
@@ -1818,7 +1744,7 @@ html.light .docs-kinpaku .prose .code-block code {
 .docs-kinpaku .prose .docs-viz-hero:has(.docs-viz-flow),
 .docs-kinpaku .prose .docs-viz-hero:has(.docs-viz-variants) {
   padding: 24px;
-  background: var(--ks-graphite-2);
+  background: var(--ks-gray-2);
   border-radius: 2px;
 }
 
@@ -1828,7 +1754,7 @@ html.light .docs-kinpaku .prose .code-block code {
 
 .docs-kinpaku .prose .docs-viz-flow-step,
 .docs-kinpaku .prose .docs-viz-variant {
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
   border: 0;
   border-radius: 2px;
 }
@@ -1842,27 +1768,21 @@ html.light .docs-kinpaku .prose .code-block code {
   width: 8px;
 }
 
-/* Accent / active states get a kinpaku-tinted fill instead of the
+/* Accent / active states get a patina-tinted fill instead of the
    bordered/glow treatment from docs-visuals.css. */
 .docs-kinpaku .prose .docs-viz-flow-step--accent,
 .docs-kinpaku .prose .docs-viz-variant.is-active {
-  background: oklch(78% 0.12 82 / 0.16);
+  background: color-mix(in oklch, var(--ks-paper-raised) 88%, var(--ks-patina) 12%);
   box-shadow: none;
 }
 
-html.light .docs-kinpaku .prose .docs-viz-flow-step--accent,
-html.light .docs-kinpaku .prose .docs-viz-variant.is-active {
-  background: color-mix(in oklch, var(--ks-lacquer-raised) 92%, var(--ks-kinpaku) 8%);
-}
-
-/* Per-variant theming in docs-visuals.css uses paper/cream/light-magenta
-   on the v1/v3 backgrounds — both off-brand here. Re-skin to lacquer
-   ramps so the variants still differ but stay kinpaku. */
+/* The three variant tiles step through the paper ramp so they still
+   differ without a hue change. */
 .docs-kinpaku .prose .docs-viz-variant--v1 {
-  background: var(--ks-lacquer);
+  background: var(--ks-paper);
 }
 .docs-kinpaku .prose .docs-viz-variant--v3 {
-  background: var(--ks-lacquer-deep);
+  background: var(--ks-paper-deep);
 }
 
 .docs-kinpaku .prose .docs-viz-caption {
@@ -1871,8 +1791,4 @@ html.light .docs-kinpaku .prose .docs-viz-variant.is-active {
 }
 
 
-/* ============================================================================
-   6. FOOTER on dark surface
-   ============================================================================ */
-
-/* Footer chrome moved to kinpaku-kit.css (.kinpaku-chrome .site-footer). */
+/* Footer chrome lives in kinpaku-kit.css (.kinpaku-chrome .site-footer). */

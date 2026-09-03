@@ -149,12 +149,12 @@ const proofs = [
     ))}
   </div>
 
-  <div class="hero-proof-tabs" data-impeccable-ignore="cramped-padding" role="tablist" aria-label="Preview Impeccable commands">
+  <div class="hero-proof-tabs ks-instrument-strip" data-impeccable-ignore="cramped-padding" role="tablist" aria-label="Preview Impeccable commands">
     {proofs.map((proof, index) => (
       <button
         type="button"
         role="tab"
-        class:list={['hero-proof-tab', { 'is-active': index === 0 }]}
+        class:list={['hero-proof-tab', 'ks-instrument-key', { 'is-active': index === 0 }]}
         id={`hero-proof-tab-${proof.id}`}
         aria-controls={`hero-proof-panel-${proof.id}`}
         aria-label={`${proof.command} ${proof.label}`}
