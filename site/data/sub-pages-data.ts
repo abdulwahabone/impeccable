@@ -1,7 +1,4 @@
-/**
- * Command category and relationship data for docs pages.
- * Extracted from scripts/lib/sub-pages-data.js for use in Astro templates.
- */
+/** Command category and relationship data for Astro docs pages. */
 
 export const SKILL_CATEGORIES: Record<string, string> = {
   impeccable: 'create',

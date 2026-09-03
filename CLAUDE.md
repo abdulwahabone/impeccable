@@ -88,7 +88,7 @@ bun run dev        # Bun dev server at http://localhost:4321
 bun run preview    # Build + Cloudflare Pages local preview
 ```
 
-The dev server runs Astro (`astro dev`). Editing files in `site/content/skills/`, `skill/`, or `scripts/lib/sub-pages-data.js` requires a **server restart** (not just a browser reload) to see the change. CSS, components, and pages hot-reload fine without a restart.
+The dev server runs Astro (`astro dev`). Editing files in `site/content/skills/` or `skill/` requires a **server restart** (not just a browser reload) to see the change. CSS, components, and pages hot-reload fine without a restart.
 
 **Legacy URL redirects** are emitted to `_redirects` by `scripts/build.js` (via `generateCFConfig`); the dynamic `/skills/:id → /docs/:id` redirect lives in `site/public/_redirects` (Cloudflare Pages reads both at deploy). Current redirects: `/skills` → `/docs`, `/skills/:id` → `/docs/:id`, `/cheatsheet` → `/docs`, `/gallery` → `/visual-mode#try-it-live`.
 
@@ -297,7 +297,7 @@ The card is referenced as a **sitewide default** in `site/layouts/Base.astro` (e
 
 ### Materialized from the public repo (do not edit here)
 
-`skill/`, `cli/`, `.claude-plugin/`, and the shared bundle builder under `scripts/lib/` (`transformers/`, `assets/`, `utils.js`, `zip.js`, `openai-plugin.js`, `codex-plugin.js`, `validate-plugin-versions.js`, `skill-categories.js`) are **owned by the public pbakaus/impeccable repo** and gitignored here. `scripts/fetch-public-skill.mjs` materializes them (from public main by default, or symlinked from a sibling checkout via `IMPECCABLE_SKILL_SRC`); provenance lands in `.skill-source.json`. Run `bun run skill:refresh` to re-materialize. Edits to any of these belong in the public repo, not this one. `scripts/build.js` and the site-only libs (`api-data.js`, `sub-pages-data.js`) stay tracked and site-owned.
+`skill/`, `cli/`, `.claude-plugin/`, and the shared bundle builder under `scripts/lib/` (`transformers/`, `assets/`, `utils.js`, `zip.js`, `openai-plugin.js`, `codex-plugin.js`, `validate-plugin-versions.js`, `skill-categories.js`) are **owned by the public pbakaus/impeccable repo** and gitignored here. `scripts/fetch-public-skill.mjs` materializes them (from public main by default, or symlinked from a sibling checkout via `IMPECCABLE_SKILL_SRC`); provenance lands in `.skill-source.json`. Run `bun run skill:refresh` to re-materialize. Edits to any of these belong in the public repo, not this one. `scripts/build.js` and the site-only `api-data.js` stay tracked and site-owned.
 
 The build system compiles the impeccable skill from `skill/` to provider-specific formats in `dist/`. The default build is source-first and does not sync tracked root harness folders; the release build performs the tracked distribution sync:
 
@@ -486,8 +486,8 @@ All commands live under `/impeccable`. To add a new one:
 4. Add the command name to `IMPECCABLE_SUB_COMMANDS` in `scripts/lib/utils.js` (in the public pbakaus/impeccable repo; the copy here is materialized)
 5. Add it to `VALID_COMMANDS` in `skill/scripts/pin.mjs`
 6. Add its metadata (description + argumentHint) to `skill/scripts/command-metadata.json`
-7. Add its category to `SKILL_CATEGORIES` in **both** `scripts/lib/skill-categories.js` (public repo, drives the generated `argument-hint`) and `scripts/lib/sub-pages-data.js` (site-owned, drives the docs pages; has a missing-entries guard)
-8. Add its relationships (leadsTo / pairs / combinesWith) to `COMMAND_RELATIONSHIPS` in the same file
+7. Add its category to `SKILL_CATEGORIES` in **both** `scripts/lib/skill-categories.js` (public repo, drives the generated `argument-hint`) and `site/data/sub-pages-data.ts` (site-owned, drives the docs pages)
+8. Add its relationships (leadsTo / pairs / combinesWith) to `COMMAND_RELATIONSHIPS` in `site/data/sub-pages-data.ts`
 9. Add the same category entry to `site/scripts/data.js` `commandCategories` and `commandProcessSteps` (for the homepage carousel)
 10. Add symbol + number to `commandSymbols` and `commandNumbers` in `site/scripts/components/framework-viz.js` (periodic table)
 11. Optional: write an editorial wrapper at `site/content/skills/<command>.md` with a short `tagline` and expanded body (When to use it / How it works / Try it / Pitfalls)

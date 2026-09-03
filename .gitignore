@@ -172,8 +172,8 @@ tmp/
 # as the seeder dealt three gated ones, and the served bundles were compiled
 # by a builder frozen at the July 2026 repo split, shipping dangling
 # reference/degraded/ links (pbakaus/impeccable#475). Run `bun run
-# skill:refresh` to re-materialize. scripts/build.js and the site-only libs
-# (api-data.js, sub-pages-data.js) stay tracked and site-owned.
+# skill:refresh` to re-materialize. scripts/build.js and the site-only
+# api-data.js stay tracked and site-owned.
 /skill
 /cli
 /.claude-plugin
