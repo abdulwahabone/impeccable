@@ -276,7 +276,7 @@
 .home-kinpaku .why-section {
   position: relative;
   isolation: isolate;
-  padding: 112px 0;
+  padding: var(--ks-section-pad) 0;
 }
 
 /* Ready-to-drop-in section: kill the global .why-section hairline set by
@@ -420,7 +420,7 @@
 .home-kinpaku .spread-command-name {
   color: var(--ks-ink);
   font-family: var(--ks-font-display);
-  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-size: 2.25rem;
   font-weight: var(--ks-type-headline-weight);
   letter-spacing: var(--ks-type-headline-track);
 }
@@ -1351,11 +1351,6 @@
 
   .home-kinpaku .split-after {
     padding-right: 0;
-  }
-
-  .home-kinpaku .language-section,
-.home-kinpaku .why-section {
-    padding: 72px 0;
   }
 
   .home-kinpaku .section-title {

@@ -44,6 +44,44 @@
   background: transparent;
   border: 0;
   width: 100%;
+  /* A grid item's min-width is auto, and the 4:3 ratio against the mobile
+     min-height resolved to 401px on a 346px column, so the After label ran
+     past the viewport. Let the column win; the ratio is a preference. */
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Same drag chip the Language demo's .split-container::after carries, so the
+   two comparisons read as one control. Above the range input (z 8) but inert,
+   so it never steals a drag. Hides on hover, as the Language chip does. */
+.hero-proof-stage::after {
+  content: '← Drag →';
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  z-index: 10;
+  transform: translateX(-50%);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ash);
+  background: var(--color-paper);
+  padding: 4px 12px;
+  border-radius: 4px;
+  opacity: 0.8;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.hero-proof-stage:hover::after {
+  opacity: 0;
+}
+
+@media (hover: none) {
+  .hero-proof-stage::after {
+    content: '← Swipe →';
+  }
 }
 
 .hero-proof-panel,
@@ -790,7 +828,7 @@
 .home-kinpaku .slop-pattern-section {
   max-width: 1500px;
   margin: 0 auto;
-  padding: clamp(96px, 11vw, 160px) 0 0;
+  padding: var(--ks-section-pad) 0;
 }
 
 .slop-pattern-head {

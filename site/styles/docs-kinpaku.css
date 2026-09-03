@@ -388,7 +388,7 @@
   font-family: var(--ks-mono);
   font-size: 0.6875rem;
   line-height: 1.1;
-  letter-spacing: 0.24em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   color: var(--ks-text-muted);
 }
@@ -398,10 +398,13 @@
   font-family: var(--ks-mono);
   font-size: 0.94rem;
   line-height: 1.45;
-  color: var(--docs-accent-hover);
   min-height: 2.8em;
   white-space: normal;
   overflow-wrap: anywhere;
+
+  color: var(--ks-ink);
+  background: var(--ks-gray);
+  border: 0;
 }
 
 .docs-kinpaku .docs-start-rail-steps--number-gutter .docs-start-rail-step {
@@ -456,7 +459,11 @@
 
   .docs-kinpaku .docs-start-rail-command {
     min-height: 0;
-  }
+  
+  color: var(--ks-ink);
+  background: var(--ks-gray);
+  border: 0;
+}
 }
 
 
@@ -507,13 +514,14 @@
   justify-self: end;
   font-family: var(--ks-mono);
   font-size: 0.74rem;
-  color: var(--docs-accent-hover);
   line-height: 1.3;
   padding: 5px 8px;
-  background: var(--docs-accent-wash);
-  border: 1px solid var(--docs-accent-line);
   border-radius: 5px;
   white-space: nowrap;
+
+  color: var(--ks-ink);
+  background: var(--ks-gray);
+  border: 0;
 }
 
 @media (max-width: 520px) {
@@ -524,7 +532,11 @@
   .docs-kinpaku .docs-chooser-list-command {
     justify-self: start;
     white-space: normal;
-  }
+  
+  color: var(--ks-ink);
+  background: var(--ks-gray);
+  border: 0;
+}
 }
 
 
@@ -618,7 +630,7 @@
   margin-top: 8px;
   font-family: var(--ks-mono);
   font-size: 0.7rem;
-  letter-spacing: 0.22em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   color: var(--docs-accent-hover);
 }
@@ -706,7 +718,7 @@
 .docs-kinpaku .docs-flow-verb {
   font-family: var(--ks-mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.24em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   color: var(--docs-accent);
 }
@@ -862,7 +874,7 @@
   border-bottom: 1px solid var(--ks-rule);
   font-family: var(--ks-mono);
   font-size: 0.72rem;
-  letter-spacing: 0.22em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   color: var(--ks-ink);
 }
@@ -939,7 +951,14 @@
 
 /* Command name (h1): display scale in ink, same voice as the docs index
    title, so a command page reads as a page of the same site. */
+.docs-kinpaku .prose > p,
+.docs-kinpaku .prose > ul,
+.docs-kinpaku .prose > ol {
+  max-width: 68ch;
+}
+
 .docs-kinpaku .sub-page-title {
+  font-size: clamp(2.25rem, 3.4vw, 3rem);
   font-family: var(--ks-font-display);
   font-weight: var(--ks-type-display-weight);
   font-size: var(--ks-type-display-size);
@@ -969,7 +988,7 @@
 .docs-kinpaku .skills-relationships-title {
   font-family: var(--ks-mono);
   font-size: 0.7rem;
-  letter-spacing: 0.24em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   color: var(--ks-accent-ink);
   font-weight: 400;
@@ -1004,7 +1023,7 @@
 .docs-kinpaku .skills-relationship-label {
   font-family: var(--ks-mono);
   font-size: 0.64rem;
-  letter-spacing: 0.22em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   color: var(--ks-text-faint);
 }
@@ -1704,7 +1723,7 @@ pre,
 }
 
 .docs-kinpaku .docs-command-demo .split-divider {
-  background: var(--ks-gold-line);
+  background: var(--ks-ink);
   box-shadow: var(--ks-lift-1);
   transform: translateX(-50%) !important;
 }

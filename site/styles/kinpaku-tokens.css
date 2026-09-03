@@ -112,6 +112,10 @@
 	--ks-control-md:     32px;
 	--ks-control-lg:     44px;
 
+	/* Section cadence. Every top-level section on a page takes this vertical
+	   padding, so the seams between sections are one rhythm. */
+	--ks-section-pad:    clamp(72px, 8vw, 120px);
+
 	--ks-lift-1:         0 1px 2px oklch(13% 0 0 / 0.06), 0 2px 8px oklch(13% 0 0 / 0.06);
 	--ks-lift-2:         0 2px 6px oklch(13% 0 0 / 0.08), 0 12px 32px oklch(13% 0 0 / 0.12);
 
@@ -145,10 +149,10 @@
 	--ks-font:          "Albert Sans", "Avenir Next", "Helvetica Neue", Arial, system-ui, sans-serif;
 	--ks-font-display:  var(--ks-font);
 	--ks-font-wordmark: "Alumni Sans", "Albert Sans", Arial, sans-serif;
-	--ks-mono:          "SFMono-Regular", "Roboto Mono", "JetBrains Mono", Consolas, monospace;
+	--ks-mono:          "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
 	/* Display: page h1. */
-	--ks-type-display-size:   clamp(2.6rem, 4.4vw, 3.9rem);
+	--ks-type-display-size:   clamp(2.25rem, 4.4vw, 3.9rem);
 	--ks-type-display-weight: 500;
 	--ks-type-display-line:   1.08;
 	--ks-type-display-track:  -0.025em;
@@ -173,8 +177,8 @@
 	--ks-type-eyebrow-track: 0.14em;
 
 	/* Wordmark: IMPECCABLE in the header. */
-	--ks-type-wordmark-size:  1.125rem;
-	--ks-type-wordmark-track: 0.15em;
+	--ks-type-wordmark-size:  1.25rem;
+	--ks-type-wordmark-track: 0.18em;
 
 	/* Mono: code, terminal, audit lines. */
 	--ks-type-mono-size:  0.6875rem;

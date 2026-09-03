@@ -306,7 +306,7 @@
 .designing-kinpaku .designing-loop-wheel-center-label {
   font-family: var(--ks-mono);
   font-size: var(--ks-type-micro-size);
-  letter-spacing: 0.28em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   color: var(--ks-text-muted);
 }
@@ -702,7 +702,7 @@
   font-family: var(--ks-mono);
   font-size: var(--ks-type-micro-size);
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
 }
 .designing-kinpaku .designing-visualize-plate-note {
@@ -1054,7 +1054,7 @@
   color: var(--ks-state-ink);
   font-family: var(--ks-mono);
   font-size: var(--ks-type-micro-size);
-  letter-spacing: 0.24em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
 }
 .designing-kinpaku .designing-iterate-table tbody tr {
@@ -1110,7 +1110,7 @@
   color: var(--ks-state-ink);
   font-family: var(--ks-mono);
   font-size: var(--ks-type-micro-size);
-  letter-spacing: 0.28em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
 }
 .designing-kinpaku .designing-polish-band-cmds {
@@ -1258,7 +1258,7 @@
   color: var(--ks-state-ink);
   font-family: var(--ks-mono);
   font-size: var(--ks-type-micro-size);
-  letter-spacing: 0.24em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
 }
 .designing-kinpaku .designing-maintain-name {

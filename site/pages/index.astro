@@ -540,11 +540,13 @@ import '../styles/worlds-roll.css';
               <p class="downloads-rebuild-method-note">The general-purpose skills installer. It installs one shared build for every harness rather than the one compiled for yours, so you give up the provider-native command files and paths tuned to your tool. Functionally complete, just not tailored.</p>
             </div>
 
-            <div class="downloads-rebuild-tabs" role="tablist" aria-label="Install method">
-              <span class="downloads-rebuild-tabs-label">Install via</span>
-              <button class="downloads-rebuild-tab" type="button" role="tab" id="install-tab-impeccable" aria-controls="install-panel-impeccable update-panel-impeccable" aria-selected="true" data-method="impeccable" title="Recommended">impeccable<svg class="downloads-rebuild-tab-rec" width="11" height="11" viewBox="0 0 24 24" role="img" aria-label="Recommended"><title>Recommended</title><path d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.871 1.401-8.169L.132 9.211l8.2-1.193z"/></svg></button>
-              <button class="downloads-rebuild-tab" type="button" role="tab" id="install-tab-marketplace" aria-controls="install-panel-marketplace update-panel-marketplace" aria-selected="false" tabindex="-1" data-method="marketplace"><img class="downloads-rebuild-tab-logo" src="assets/claude-mark.png" alt="" width="13" height="13" loading="lazy" aria-hidden="true">marketplace</button>
-              <button class="downloads-rebuild-tab" type="button" role="tab" id="install-tab-skills" aria-controls="install-panel-skills update-panel-skills" aria-selected="false" tabindex="-1" data-method="skills">skills.sh</button>
+            <div class="downloads-rebuild-tabs">
+              <span class="downloads-rebuild-tabs-label" id="install-tabs-label">Install via</span>
+              <div class="downloads-rebuild-method-strip ks-instrument-strip is-paper" role="tablist" aria-labelledby="install-tabs-label">
+                <button class="downloads-rebuild-tab ks-instrument-key is-active" type="button" role="tab" id="install-tab-impeccable" aria-controls="install-panel-impeccable update-panel-impeccable" aria-selected="true" data-method="impeccable" title="Recommended">impeccable<svg class="downloads-rebuild-tab-rec" width="11" height="11" viewBox="0 0 24 24" role="img" aria-label="Recommended"><title>Recommended</title><path d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.871 1.401-8.169L.132 9.211l8.2-1.193z"/></svg></button>
+                <button class="downloads-rebuild-tab ks-instrument-key" type="button" role="tab" id="install-tab-marketplace" aria-controls="install-panel-marketplace update-panel-marketplace" aria-selected="false" tabindex="-1" data-method="marketplace"><img class="downloads-rebuild-tab-logo" src="assets/claude-mark.png" alt="" width="13" height="13" loading="lazy" aria-hidden="true">marketplace</button>
+                <button class="downloads-rebuild-tab ks-instrument-key" type="button" role="tab" id="install-tab-skills" aria-controls="install-panel-skills update-panel-skills" aria-selected="false" tabindex="-1" data-method="skills">skills.sh</button>
+              </div>
             </div>
 
             <p class="downloads-rebuild-copilot-note">
@@ -640,6 +642,7 @@ import '../styles/worlds-roll.css';
           tabs.forEach((tab) => {
             const on = tab.dataset.method === method;
             tab.setAttribute('aria-selected', String(on));
+            tab.classList.toggle('is-active', on);
             tab.tabIndex = on ? 0 : -1;
             if (on && focus) tab.focus();
           });

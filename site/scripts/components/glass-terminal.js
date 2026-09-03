@@ -14,6 +14,66 @@ const MOBILE_BREAKPOINT = 900;
 // periodic table (rendered separately by framework-viz.js).
 const PALETTE_EXCLUDED = new Set(['impeccable', 'init', 'extract', 'document', 'live']);
 
+// Deprecated shims and compatibility aliases. `craft` is an alias for an
+// ordinary build request and adds no behavior, so it has no place on the
+// palette; teach and extract were filtered once too but are now first-class.
+const PALETTE_DEPRECATED = new Set(['craft', 'teach-impeccable', 'frontend-design', 'arrange', 'normalize', 'onboard', 'impeccable craft', 'impeccable teach', 'impeccable extract']);
+
+const PALETTE_CATEGORY_ORDER = ['create', 'evaluate', 'refine', 'simplify', 'harden', 'system'];
+const PALETTE_CATEGORY_LABELS = {
+    'create': 'Create', 'evaluate': 'Evaluate', 'refine': 'Refine',
+    'simplify': 'Simplify', 'harden': 'Harden', 'system': 'System'
+};
+// Preferred order within each category (unlisted commands append at end)
+const PALETTE_COMMAND_ORDER = {
+    'create': ['impeccable', 'craft', 'shape'],
+    'evaluate': ['critique', 'audit'],
+    'refine': ['typeset', 'layout', 'colorize', 'animate', 'delight', 'bolder', 'quieter', 'overdrive'],
+    'simplify': ['distill', 'clarify', 'adapt'],
+    'harden': ['polish', 'optimize', 'harden'],
+    'system': ['init', 'extract']
+};
+
+// The one palette list, shared by the desktop fisheye and the mobile picker:
+// filtered, grouped by category, ordered within each group. Returns the
+// ordered commands plus where each category starts.
+function paletteCommands(commands) {
+    const filtered = commands.filter(c => !PALETTE_DEPRECATED.has(c.id) && !PALETTE_EXCLUDED.has(c.id));
+    const grouped = {};
+    filtered.forEach(cmd => {
+        const cat = commandCategories[cmd.id] || 'other';
+        if (!grouped[cat]) grouped[cat] = [];
+        grouped[cat].push(cmd);
+    });
+    Object.entries(grouped).forEach(([cat, cmds]) => {
+        const order = PALETTE_COMMAND_ORDER[cat] || [];
+        cmds.sort((a, b) => {
+            const ai = order.indexOf(a.id);
+            const bi = order.indexOf(b.id);
+            return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+        });
+    });
+    const ordered = [];
+    const headerIndices = [];
+    PALETTE_CATEGORY_ORDER.forEach(cat => {
+        if (!grouped[cat]) return;
+        headerIndices.push({ index: ordered.length, label: PALETTE_CATEGORY_LABELS[cat] || cat });
+        ordered.push(...grouped[cat]);
+    });
+    return { ordered, headerIndices };
+}
+
+// Starting command: a #cmd- hash wins, otherwise clarify. Both layouts open
+// on the same command so a resize across the breakpoint keeps its place.
+function paletteStartIndex(commands) {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#cmd-')) {
+        const idx = commands.findIndex(c => c.id === hash.slice(5));
+        if (idx >= 0) return idx;
+    }
+    return Math.max(0, commands.findIndex(c => c.id === 'clarify'));
+}
+
 function isMobile() {
     return window.innerWidth <= MOBILE_BREAKPOINT;
 }
@@ -72,66 +132,10 @@ const categoryLabels = {
 };
 
 function renderDesktopLayout(container, commands) {
-    magazineState.commands = commands;
-
-    let startIndex = -1;
-
-    // Filter out deprecated shims. craft, teach, extract used to be filtered
-    // too (when they were rendered as 'impeccable craft' etc.) but are now
-    // first-class sub-commands that should appear in the gallery.
-    const deprecated = new Set(['teach-impeccable', 'frontend-design', 'arrange', 'normalize', 'onboard', 'impeccable craft', 'impeccable teach', 'impeccable extract']);
-    const filteredCommands = commands.filter(c => !deprecated.has(c.id) && !PALETTE_EXCLUDED.has(c.id));
-
-    const categoryOrder = ['create', 'evaluate', 'refine', 'simplify', 'harden', 'system'];
-    const categoryLabelsShort = {
-        'create': 'Create', 'evaluate': 'Evaluate', 'refine': 'Refine',
-        'simplify': 'Simplify', 'harden': 'Harden', 'system': 'System'
-    };
-    // Preferred order within each category (unlisted commands append at end)
-    const categoryCommandOrder = {
-        'create': ['impeccable', 'craft', 'shape'],
-        'evaluate': ['critique', 'audit'],
-        'refine': ['typeset', 'layout', 'colorize', 'animate', 'delight', 'bolder', 'quieter', 'overdrive'],
-        'simplify': ['distill', 'clarify', 'adapt'],
-        'harden': ['polish', 'optimize', 'harden'],
-        'system': ['init', 'extract']
-    };
-    const grouped = {};
-    filteredCommands.forEach(cmd => {
-        const cat = commandCategories[cmd.id] || 'other';
-        if (!grouped[cat]) grouped[cat] = [];
-        grouped[cat].push(cmd);
-    });
-    // Sort each group by preferred order
-    Object.entries(grouped).forEach(([cat, cmds]) => {
-        const order = categoryCommandOrder[cat] || [];
-        cmds.sort((a, b) => {
-            const ai = order.indexOf(a.id);
-            const bi = order.indexOf(b.id);
-            return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
-        });
-    });
-    const orderedCommands = [];
-    const headerIndices = [];
-    categoryOrder.forEach(cat => {
-        if (!grouped[cat]) return;
-        headerIndices.push({ index: orderedCommands.length, label: categoryLabelsShort[cat] || cat });
-        orderedCommands.push(...grouped[cat]);
-    });
-    // Use ordered list for everything
-    filteredCommands.length = 0;
-    filteredCommands.push(...orderedCommands);
+    const { ordered: filteredCommands, headerIndices } = paletteCommands(commands);
     magazineState.commands = filteredCommands;
 
-    // Determine starting index: URL hash takes priority, otherwise default to "clarify"
-    const hash = window.location.hash;
-    if (hash && hash.startsWith('#cmd-')) {
-        const idx = filteredCommands.findIndex(c => c.id === hash.slice(5));
-        if (idx >= 0) startIndex = idx;
-    }
-    if (startIndex < 0) {
-        startIndex = Math.max(0, filteredCommands.findIndex(c => c.id === 'clarify'));
-    }
+    const startIndex = paletteStartIndex(filteredCommands);
     magazineState.currentIndex = startIndex;
 
     // Build spreads HTML (after ordering so indices match fisheye)
@@ -486,15 +490,20 @@ function truncateDescription(text, maxLen = 120) {
 // ============================================
 
 function renderMobileLayout(container, commands) {
-    // Keep setup/management commands off the palette (they stay in the periodic
-    // table); match the desktop fisheye filter.
-    commands = commands.filter(c => !PALETTE_EXCLUDED.has(c.id));
-    const initialCategory = commandCategories[commands[0]?.id] || 'other';
-    // Build carousel pills
-    // Carousel pills show bare command names for sub-commands, and /impeccable
-    // for the root entry.
+    // Same list, same order and same starting command as the desktop
+    // fisheye; only the chrome differs.
+    commands = paletteCommands(commands).ordered;
+    magazineState.commands = commands;
+    const startIndex = paletteStartIndex(commands);
+    magazineState.currentIndex = startIndex;
+    const startCommand = commands[startIndex];
+    const initialCategory = commandCategories[startCommand?.id] || 'other';
+
+    // The picker is the kit's paper instrument strip: one key per command,
+    // the active key raised with the gold dot. Keys show bare command names
+    // for sub-commands, and /impeccable for the root entry.
     const carouselHTML = commands.map((cmd, i) => `
-        <button class="mobile-cmd-pill${i === 0 ? ' active' : ''}" data-id="${cmd.id}">
+        <button class="mobile-cmd-pill ks-instrument-key${i === startIndex ? ' is-active' : ''}" type="button" role="tab" aria-selected="${i === startIndex ? 'true' : 'false'}" data-id="${cmd.id}">
             ${cmd.id === 'impeccable' ? '/impeccable' : cmd.id}
         </button>
     `).join('');
@@ -519,7 +528,7 @@ function renderMobileLayout(container, commands) {
             : `<span class="mobile-cmd-namespace">/impeccable</span> ${cmd.id}`;
 
         return `
-            <div class="mobile-cmd-info${i === 0 ? ' active' : ''}" data-id="${cmd.id}">
+            <div class="mobile-cmd-info${i === startIndex ? ' active' : ''}" data-id="${cmd.id}">
                 <h3 class="mobile-cmd-name">${cardName}</h3>
                 <p class="mobile-cmd-desc">${cmd.tagline || cmd.description}</p>
                 ${relationshipHTML}
@@ -530,12 +539,12 @@ function renderMobileLayout(container, commands) {
     container.innerHTML = `
         <div class="mobile-commands-layout" data-category="${initialCategory}">
             <div class="mobile-carousel-wrapper">
-                <div class="mobile-carousel">
+                <div class="mobile-carousel ks-instrument-strip is-paper" role="tablist" aria-label="Pick a command">
                     ${carouselHTML}
                 </div>
             </div>
             <div class="mobile-demo-area" id="mobile-demo-content">
-                ${renderCommandDemo(commands[0]?.id || 'audit')}
+                ${renderCommandDemo(startCommand?.id || 'audit')}
             </div>
             <div class="mobile-info-area">
                 ${infoCardsHTML}
@@ -543,16 +552,16 @@ function renderMobileLayout(container, commands) {
         </div>
     `;
 
-    setupMobileInteractions(commands);
+    setupMobileInteractions(commands, startIndex);
 }
 
-function setupMobileInteractions(commands) {
+function setupMobileInteractions(commands, startIndex) {
     const layout = document.querySelector('.mobile-commands-layout');
     const pills = document.querySelectorAll('.mobile-cmd-pill');
     const demoArea = document.getElementById('mobile-demo-content');
     const infoCards = document.querySelectorAll('.mobile-cmd-info');
 
-    // Initialize first demo's split compare
+    // Initialize the starting demo's split compare
     const initialSplit = demoArea.querySelector('.demo-split-comparison');
     if (initialSplit) {
         currentSplitInstance = initSplitCompare(initialSplit, {
@@ -562,23 +571,39 @@ function setupMobileInteractions(commands) {
             maxPosition: 90
         });
     }
-    if (commands[0]) initCommandDemo(commands[0].id, demoArea);
+    const startCommand = commands[startIndex];
+    if (startCommand) {
+        currentCommandId = startCommand.id;
+        initCommandDemo(startCommand.id, demoArea);
+    }
+    // Bring the starting key into view without scrolling the page.
+    const startPill = pills[startIndex];
+    if (startPill && startPill.parentElement && startPill.parentElement.parentElement) {
+        const wrapper = startPill.parentElement.parentElement;
+        wrapper.scrollLeft = Math.max(0, startPill.offsetLeft - (wrapper.clientWidth - startPill.offsetWidth) / 2);
+    }
 
     // Pill click/tap handler
     pills.forEach(pill => {
         pill.addEventListener('click', () => {
             const cmdId = pill.dataset.id;
-            const cmd = commands.find(c => c.id === cmdId);
-            if (!cmd || currentCommandId === cmdId) return;
+            const cmdIndex = commands.findIndex(c => c.id === cmdId);
+            if (cmdIndex < 0 || currentCommandId === cmdId) return;
 
             currentCommandId = cmdId;
+            magazineState.currentIndex = cmdIndex;
+            history.replaceState(null, '', `#cmd-${cmdId}`);
             if (layout) layout.dataset.category = commandCategories[cmdId] || 'other';
 
-            // Update active pill
-            pills.forEach(p => p.classList.remove('active'));
-            pill.classList.add('active');
+            // Update active key
+            pills.forEach(p => {
+                p.classList.remove('is-active');
+                p.setAttribute('aria-selected', 'false');
+            });
+            pill.classList.add('is-active');
+            pill.setAttribute('aria-selected', 'true');
 
-            // Scroll pill into view horizontally
+            // Scroll the key into view horizontally
             pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
 
             // Update info card

@@ -2198,7 +2198,7 @@
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   opacity: 0.85;
 }

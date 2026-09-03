@@ -157,7 +157,7 @@
 }
 .live-demo-card--v1 .live-demo-card-kicker {
   color: var(--ks-accent-ink);
-  letter-spacing: 0.28em;
+  letter-spacing: var(--ks-type-eyebrow-track);
 }
 .live-demo-card--v1 .live-demo-card-h {
   font-weight: 400;

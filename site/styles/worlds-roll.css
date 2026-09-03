@@ -11,7 +11,7 @@
 .home-kinpaku .worlds-section {
 	position: relative;
 	isolation: isolate;
-	padding: 112px 0;
+	padding: var(--ks-section-pad) 0;
 }
 
 .home-kinpaku .worlds-section > * {
@@ -73,7 +73,7 @@
 .worlds-zone-label {
 	font-family: var(--ks-mono);
 	font-size: var(--ks-type-micro-size);
-	letter-spacing: 0.28em;
+	letter-spacing: var(--ks-type-eyebrow-track);
 	text-transform: uppercase;
 	color: var(--ks-text-muted);
 }
@@ -143,7 +143,7 @@
 .worlds-card-tier {
 	font-family: var(--ks-mono);
 	font-size: var(--ks-type-micro-size);
-	letter-spacing: 0.24em;
+	letter-spacing: var(--ks-type-eyebrow-track);
 	text-transform: uppercase;
 	color: var(--ks-text-muted);
 }
@@ -194,6 +194,14 @@
 .worlds-card:hover .worlds-card-spark,
 .worlds-card:focus-within .worlds-card-spark {
 	opacity: 1;
+}
+
+/* Keyboard focus, for the day a card carries a link or a tabindex: the
+   spark already reveals on focus-within, so the ring is the missing half. */
+.worlds-card:focus-visible,
+.worlds-card:has(:focus-visible) {
+	outline: 2px solid var(--ks-patina);
+	outline-offset: 3px;
 }
 
 @media (hover: hover) {
@@ -431,7 +439,7 @@
 	padding: 4px 10px;
 	font-family: var(--ks-mono);
 	font-size: var(--ks-type-micro-size);
-	letter-spacing: 0.24em;
+	letter-spacing: var(--ks-type-eyebrow-track);
 	text-transform: uppercase;
 	color: var(--ks-state-ink);
 	background: var(--ks-paper-raised);
@@ -479,7 +487,7 @@
 	margin-top: 6px;
 	font-family: var(--ks-mono);
 	font-size: var(--ks-type-micro-size);
-	letter-spacing: 0.22em;
+	letter-spacing: var(--ks-type-eyebrow-track);
 	text-transform: uppercase;
 	color: var(--ks-ink);
 }
@@ -517,7 +525,9 @@
    ============================================================ */
 
 .home-kinpaku .worlds-psst {
-	margin-top: 34px;
+	/* A footnote to the table, so it sits close under it; the section pad
+	   below carries the seam to the next section. */
+	margin-top: 20px;
 	font-size: 0.8125rem;
 	color: var(--ks-text-muted);
 }

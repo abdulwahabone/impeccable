@@ -564,7 +564,7 @@
    ============================================ */
 
 .why-section {
-  padding: var(--spacing-2xl) 0;
+  padding: var(--ks-section-pad) 0;
   border-top: 1px solid var(--color-mist);
 }
 

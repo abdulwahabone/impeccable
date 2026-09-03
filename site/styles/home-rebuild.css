@@ -18,7 +18,7 @@
   position: relative;
   display: grid;
   align-items: center;
-  padding: clamp(56px, 8vw, 104px) 0 clamp(48px, 6vw, 80px);
+  padding: var(--ks-section-pad) 0;
   overflow: hidden;
   border-bottom: 1px solid var(--ks-rule);
 }
@@ -99,6 +99,20 @@
   }
 }
 
+/* Ten logos at 24px plus 14px gaps need 366px; below ~410px the flex row
+   orphaned the tenth onto its own line. Two even rows of five instead. */
+@media (max-width: 420px) {
+  .hero-rebuild-logos {
+    display: grid;
+    grid-template-columns: repeat(5, 24px);
+    justify-content: start;
+    gap: 14px 20px;
+  }
+  .hero-rebuild-logos-caption {
+    grid-column: 1 / -1;
+  }
+}
+
 /* Harness logos: native assets, slightly dimmed; hover restores full color.
    Two sources are white-on-transparent or white-on-black and get inverted to
    ink so they read on paper. */
@@ -146,6 +160,7 @@
 .hero-rebuild-right {
   position: relative;
   width: 100%;
+  min-width: 0;
   max-width: 720px;
   justify-self: end;
 }
@@ -172,7 +187,6 @@
 }
 
 @media (max-width: 1080px) {
-  .hero-rebuild { padding: 108px 0 56px; }   /* keep top clear of the fixed header */
   /* minmax(0, 1fr), not 1fr: a plain 1fr track has an `auto` (min-content)
      floor, so the demo's 460px-wide browser frame held the column wider than a
      phone viewport and the hero clipped. minmax(0,…) lets it shrink and the
@@ -183,7 +197,6 @@
 }
 
 @media (max-width: 720px) {
-  .hero-rebuild { padding: 92px 0 48px; }   /* clear the compact mobile header */
   /* Title keeps its design-system clamp (floors at 3.4rem ≈ 54px here): the
      Alumni Sans display face is narrow, so "interfaces" stays well within a
      320px+ viewport. No mobile shrink — at 54px against 16.8px body it holds a
@@ -202,7 +215,7 @@
    ============================================================================ */
 
 .slop-teaser-section {
-  padding: 120px 0;
+  padding: var(--ks-section-pad) 0;
 }
 
 .home-kinpaku .slop-teaser-title {
@@ -213,7 +226,6 @@
   font-size: var(--ks-type-headline-size);
   line-height: var(--ks-type-headline-line);
   letter-spacing: var(--ks-type-headline-track);
-  letter-spacing: -0.005em;
 }
 
 .slop-teaser-body {
@@ -230,14 +242,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-}
-
-@media (max-width: 1080px) {
-  .slop-teaser-section { padding: 80px 0; }
-}
-
-@media (max-width: 720px) {
-  .slop-teaser-section { padding: 64px 0; }
 }
 
 /* ============================================================================
@@ -258,7 +262,7 @@
    ============================================================================ */
 
 .downloads-rebuild {
-  padding: 104px 0 112px;
+  padding: var(--ks-section-pad) 0;
   border-top: 1px solid var(--ks-rule);
   text-align: left;
   color: var(--ks-text);
@@ -515,72 +519,69 @@
 /* "Install via impeccable | marketplace | skills.sh": a text row of tabs
    under the block. The selected method is ink on a gold rule; the others are
    muted. It stays a tablist for the keyboard. */
+/* The method switch is a page control, so it takes the kit's paper strip
+   (rule 12): paper track, raised key, gold dot. The label sits beside it. */
 .downloads-rebuild-tabs {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 4px 12px;
+  gap: 8px 12px;
   margin-top: 6px;
+  min-width: 0;
+  max-width: 100%;
 }
 .downloads-rebuild-tabs-label {
   font-size: var(--ks-type-ui-size);
   color: var(--ks-text-muted);
 }
+/* The strip may run wider than a narrow phone; it scrolls sideways rather
+   than wrapping keys, and hides the scrollbar chrome like the mobile picker. */
+.downloads-rebuild-method-strip {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.downloads-rebuild-method-strip::-webkit-scrollbar {
+  display: none;
+}
 .downloads-rebuild-tab {
-  display: inline-block;
-  border: 0;
-  background: transparent;
-  padding: 2px 0 3px;
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-ui-size);
-  line-height: 1;
-  color: var(--ks-text-muted);
+  flex: none;
   cursor: pointer;
-  border-bottom: 1px solid transparent;
-  transition: color 160ms var(--ks-ease), border-color 160ms var(--ks-ease);
-}
-.downloads-rebuild-tab:hover { color: var(--ks-ink); }
-.downloads-rebuild-tab[aria-selected="true"] {
-  color: var(--ks-ink);
-  border-bottom-color: var(--ks-gold-line);
-}
-.downloads-rebuild-tab:focus-visible {
-  outline: 2px solid var(--ks-patina);
-  outline-offset: 3px;
-  border-radius: 2px;
+  white-space: nowrap;
 }
 
-/* Brand mark on the marketplace tab, dimmed until the tab is active. */
+/* Brand mark on the marketplace key, dimmed until the key is active. The
+   key's own gap separates it from the label. */
 .downloads-rebuild-tab-logo {
   display: inline-block;
   width: 13px;
   height: 13px;
-  margin-right: 5px;
-  vertical-align: middle;
+  margin-right: -2px;
   opacity: 0.7;
   transition: opacity 160ms var(--ks-ease);
 }
 .downloads-rebuild-tab:hover .downloads-rebuild-tab-logo,
+.downloads-rebuild-tab.is-active .downloads-rebuild-tab-logo,
 .downloads-rebuild-tab[aria-selected="true"] .downloads-rebuild-tab-logo {
   opacity: 1;
 }
 
-/* "Recommended" star on the impeccable tab. A gold mark, not gold text. */
+/* "Recommended" star on the impeccable key. A gold mark, not gold text. */
 .downloads-rebuild-tab-rec {
   display: inline-block;
   width: 11px;
   height: 11px;
-  margin-left: 5px;
-  vertical-align: middle;
+  margin-left: -2px;
   fill: var(--ks-kinpaku);
   opacity: 0.9;
 }
 
-/* Text tabs are about 20px tall; touch gets the full target without moving
-   the baseline row on pointer devices. */
+/* Keys are 32px on pointer devices; touch gets a full 44px target. */
 @media (pointer: coarse) {
   .downloads-rebuild-tab {
-    padding: 12px 0 13px;
+    min-height: 44px;
   }
 }
 
@@ -858,7 +859,6 @@
 }
 
 @media (max-width: 1080px) {
-  .downloads-rebuild { padding: 80px 0 88px; }
   .downloads-rebuild-top { grid-template-columns: 1fr; gap: 40px; }
   .downloads-rebuild-extras {
     margin-top: 64px;
@@ -876,7 +876,6 @@
 }
 
 @media (max-width: 720px) {
-  .downloads-rebuild { padding: 64px 0 72px; }
   .downloads-rebuild-install { gap: 32px; }
 }
 
@@ -1055,7 +1054,7 @@
   font-family: var(--h-serif);
   font-weight: 600;
   font-size: 18px;
-  letter-spacing: 0.22em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   color: var(--h-ink);
 }
 .hotel-nav-links {
@@ -1113,7 +1112,7 @@
   margin: 0;
   font-family: var(--h-sans);
   font-size: 10px;
-  letter-spacing: 0.26em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   color: oklch(91% 0.05 85);
 }
@@ -1210,7 +1209,7 @@
   margin: 0 0 11px;
   font-family: var(--h-sans);
   font-size: 10px;
-  letter-spacing: 0.24em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   color: var(--h-muted);
 }

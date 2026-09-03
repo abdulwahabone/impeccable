@@ -38,7 +38,7 @@
 .ks-wordmark {
   color: var(--ks-ink);
   font-family: var(--ks-font-wordmark);
-  font-weight: 400;
+  font-weight: 500;
   font-size: var(--ks-type-wordmark-size);
   letter-spacing: var(--ks-type-wordmark-track);
   text-transform: uppercase;
@@ -72,7 +72,7 @@
   color: var(--ks-accent-ink);
   font-family: var(--ks-mono);
   font-size: 0.7rem;
-  letter-spacing: 0.28em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   margin: 0;
 }
@@ -96,7 +96,7 @@
   color: var(--ks-accent-ink);
   font-family: var(--ks-mono);
   font-size: 0.66rem;
-  letter-spacing: 0.24em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   margin-bottom: 22px;
 }
@@ -891,7 +891,7 @@
 .kinpaku-chrome .footer-logo {
   color: var(--ks-ink);
   font-family: var(--ks-font-wordmark);
-  font-weight: 400;
+  font-weight: 500;
   font-size: var(--ks-type-wordmark-size);
   letter-spacing: var(--ks-type-wordmark-track);
   text-transform: uppercase;
@@ -1012,6 +1012,13 @@
   color: var(--ks-text);
 }
 
+/* Text links share one hover: the underline turns gold. Buttons, nav and
+   cards opt out by carrying a class; this catches the plain prose link. */
+main a[href]:not([class]):hover,
+main a.cheatsheet-link:hover {
+  text-decoration-color: var(--ks-link-on-paper-line-hover);
+}
+
 /* Eyebrows and small section labels on paper read as muted ink. Patina is
    for links and state; gold never carries text. */
 .ks-section-eyebrow,
@@ -1068,7 +1075,7 @@
 .ks-bento-num {
   font-family: var(--ks-mono);
   font-size: 0.62rem;
-  letter-spacing: 0.28em;
+  letter-spacing: var(--ks-type-eyebrow-track);
   text-transform: uppercase;
   color: var(--ks-accent-ink);
 }
