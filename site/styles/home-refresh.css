@@ -29,7 +29,7 @@
   --proof-body: var(--ks-text);
   --proof-muted: var(--ks-text-muted);
   --proof-rule: var(--ks-rule);
-  --proof-after-surface: oklch(100% 0 0);
+  --proof-after-surface: var(--ks-paper); /* opaque, so the after side masks the before, but the same paper */
   width: min(100%, 520px);
   margin-inline: auto;
   color: var(--proof-text);
@@ -245,7 +245,7 @@
   left: var(--proof-position);
   width: 2px;
   height: 100%;
-  background: var(--ks-patina);
+  background: var(--ks-ink);
   transform: translateX(-50%);
   pointer-events: none;
 }
@@ -259,9 +259,9 @@
   height: 28px;
   display: grid;
   place-items: center;
-  color: var(--ks-patina-deep);
-  background: var(--proof-after-surface);
-  border: 1px solid var(--ks-patina);
+  color: var(--ks-kinpaku);
+  background: var(--ks-ink);
+  border: 1px solid var(--ks-ink);
   border-radius: 50%;
   font-family: var(--ks-mono);
   font-size: 0.68rem;
@@ -828,19 +828,22 @@
 
 /* The detector toggle is a control, so it is a one-key instrument: dark pill,
    gold indicator when the detector is on. */
+/* A page toggle, so paper: it shares the secondary button's shape and
+   height, and only the lit dot says it is a switch. */
 .slop-scan-control {
-  min-height: var(--ks-control-md);
+  min-height: var(--ks-control-lg);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 0 14px 0 12px;
-  color: var(--ks-instrument-muted);
-  background: var(--ks-instrument);
-  border: 1px solid var(--ks-instrument-deep);
-  border-radius: var(--ks-radius-pill);
-  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-1);
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-label-size);
+  gap: 10px;
+  padding: 0 18px 0 16px;
+  color: var(--ks-text-muted);
+  background: var(--ks-paper-raised);
+  border: 1px solid var(--ks-edge);
+  border-radius: var(--ks-radius-sm);
+  box-shadow: none;
+  font-family: var(--ks-font);
+  font-size: 0.9375rem;
+  font-weight: 500;
   letter-spacing: 0.02em;
   cursor: pointer;
   transition: color var(--ks-quick) var(--ks-ease);
@@ -849,7 +852,11 @@
 .slop-scan-control:hover,
 .slop-scan-control:focus-visible,
 .slop-scan-control[aria-pressed="true"] {
-  color: var(--ks-instrument-text);
+  color: var(--ks-ink);
+}
+
+.slop-scan-control:hover {
+  border-color: var(--ks-ink);
 }
 
 .slop-scan-control:focus-visible {
@@ -860,15 +867,14 @@
 .slop-scan-control-dot {
   width: 6px;
   height: 6px;
-  background: var(--ks-instrument-raised);
+  background: var(--ks-gray-2);
   border-radius: 50%;
-  box-shadow: inset 0 0 0 1px var(--ks-instrument-rule);
   transition: background-color var(--ks-quick) var(--ks-ease), box-shadow var(--ks-quick) var(--ks-ease);
 }
 
 .slop-scan-control[aria-pressed="true"] .slop-scan-control-dot {
   background: var(--ks-kinpaku);
-  box-shadow: var(--ks-indicator-glow);
+  box-shadow: 0 0 0 1px oklch(84% 0.19 80 / 0.35);
 }
 
 .slop-pattern-board {
@@ -1388,9 +1394,9 @@
 
 .language-steering-head {
   display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
-  gap: clamp(28px, 6vw, 80px);
-  align-items: end;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
   margin-bottom: 36px;
 }
 
@@ -1409,18 +1415,20 @@
 .language-steering-head p {
   max-width: 42ch;
   margin: 0;
-  color: var(--ks-muted);
+  color: var(--ks-text-muted);
   font-size: var(--ks-type-body-size);
   line-height: var(--ks-type-body-line);
 }
 
-/* The window is neutral paper chrome with rule edges. Mixing gray with patina
-   in oklch used to give the title bar a lilac cast: an achromatic gray has no
-   hue, so the interpolation invented one. */
+/* The window is one raised object: a paper-deep title bar, one hairline
+   between the panes, and the lift on the window alone. Nothing inside it casts
+   a shadow except the two things that float, the command menu and the picker.
+   Mixing gray with patina in oklch used to give the title bar a lilac cast: an
+   achromatic gray has no hue, so the interpolation invented one. */
 .steering-desktop {
   overflow: hidden;
   color: var(--ks-text);
-  background: var(--ks-paper-deep);
+  background: var(--ks-paper-raised);
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-md);
   box-shadow: var(--ks-lift-2);
@@ -1428,18 +1436,17 @@
 
 .steering-desktop-bar,
 .steering-pane-head {
-  min-height: 42px;
   display: flex;
   align-items: center;
   gap: 16px;
-  color: var(--ks-muted);
+  color: var(--ks-text-muted);
   font-family: var(--ks-mono);
   font-size: var(--ks-type-eyebrow-size);
 }
 
 .steering-desktop-bar {
-  min-height: 54px;
-  padding: 0 18px;
+  min-height: 48px;
+  padding: 0 16px;
   background: var(--ks-paper-deep);
   border-bottom: 1px solid var(--ks-rule);
 }
@@ -1450,20 +1457,14 @@
   padding-right: 4px;
 }
 
+/* The three dots stay muted. This window is scenery on the page, not one of
+   the page's own controls, so it carries no colored signal in its chrome. */
 .steering-window-controls i {
   width: 11px;
   height: 11px;
   display: block;
-  background: var(--ks-muted);
+  background: var(--ks-gray-2);
   border-radius: 50%;
-}
-
-.steering-window-controls i:first-child {
-  background: var(--ks-kinpaku-deep);
-}
-
-.steering-window-controls i:last-child {
-  background: var(--ks-patina);
 }
 
 .steering-desktop-brand,
@@ -1510,11 +1511,12 @@
   box-shadow: inset 0 0 0 2px var(--ks-patina);
 }
 
+/* Pane heads sit on the same paper as the pane, so the title bar is the only
+   deep band in the window. */
 .steering-pane-head {
-  min-height: 46px;
+  min-height: 40px;
   padding: 0 18px;
   justify-content: space-between;
-  background: var(--ks-paper-deep);
   border-bottom: 1px solid var(--ks-rule);
 }
 
@@ -1523,9 +1525,10 @@
 }
 
 .steering-pane-title i {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
   background: var(--ks-patina);
+  border-radius: 50%;
 }
 
 .steering-agent {
@@ -1546,7 +1549,7 @@
 }
 
 .steering-thread-scene {
-  min-height: 604px;
+  min-height: 610px;
   display: grid;
   align-content: start;
   gap: 24px;
@@ -1557,71 +1560,78 @@
   align-content: center;
 }
 
+/* A turn is a small speaker label over a plain paragraph. No bubble, no
+   accent bar: an agent thread reads as text, the way Linear and Raycast set
+   theirs. */
 .steering-thread-user,
 .steering-thread-agent {
   display: grid;
-  gap: 8px;
+  gap: 5px;
 }
 
 .steering-thread-user > span,
 .steering-thread-agent > span {
-  color: var(--ks-text-faint);
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-eyebrow-size);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  color: var(--ks-text-muted);
+  font-size: var(--ks-type-label-size);
+  font-weight: 600;
+  line-height: 1.4;
 }
 
 .steering-thread-user > p,
 .steering-thread-agent > p {
   margin: 0;
-  font-size: var(--ks-type-body-size);
-  line-height: 1.6;
+  color: var(--ks-text);
+  font-size: var(--ks-type-ui-lead);
+  line-height: 1.55;
 }
 
-.steering-thread-user > p {
-  padding: 13px 14px;
-  background: var(--ks-paper-deep);
-  border-left: 2px solid var(--ks-patina);
-}
-
-.steering-thread code,
-.steering-composer code {
+.steering-thread code {
+  padding: 0.1em 0.4em;
   color: var(--ks-ink);
   font-family: var(--ks-mono);
-  font-size: var(--ks-type-mono-size);
+  font-size: 0.85em;
+  background: var(--ks-gray);
+  border-radius: var(--ks-code-radius);
 }
 
+/* The steps are a quiet list: hairlines between rows, a muted glyph in the
+   gutter, and patina only on the row that reports a state. */
 .steering-hook-log {
-  border-top: 1px solid var(--ks-rule);
+  margin-top: 6px;
 }
 
 .steering-hook-log p {
   display: grid;
-  grid-template-columns: 16px minmax(0, 1fr);
+  grid-template-columns: 18px minmax(0, 1fr);
   margin: 0;
-  padding: 10px 0;
-  border-bottom: 1px solid var(--ks-rule);
+  padding: 9px 0;
+  border-top: 1px solid var(--ks-rule);
 }
 
 .steering-hook-log i {
   grid-row: 1 / span 2;
-  color: var(--ks-link-on-paper);
+  color: var(--ks-text-faint);
   font-family: var(--ks-mono);
   font-size: var(--ks-type-eyebrow-size);
   font-style: normal;
+  line-height: 1.6;
+}
+
+.steering-hook-log p:last-child i {
+  color: var(--ks-state-ink);
 }
 
 .steering-hook-log strong {
   color: var(--ks-ink);
-  font-size: 0.75rem;
+  font-size: var(--ks-type-ui-size);
   font-weight: 500;
+  line-height: 1.4;
 }
 
 .steering-hook-log small {
-  margin-top: 2px;
-  color: var(--ks-muted);
-  font-size: 0.75rem;
+  margin-top: 1px;
+  color: var(--ks-text-muted);
+  font-size: var(--ks-type-label-size);
   line-height: 1.4;
 }
 
@@ -1633,13 +1643,16 @@
   left: 14px;
 }
 
+/* The command menu floats above the composer, so it is the one thing in the
+   agent pane that lifts. */
 .steering-command-menu {
-  margin-bottom: 9px;
-  padding: 6px;
+  margin-bottom: 8px;
+  padding: 4px;
   opacity: 0;
   visibility: hidden;
-  background: var(--ks-paper-deep);
+  background: var(--ks-paper-raised);
   border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-md);
   box-shadow: var(--ks-lift-2);
   pointer-events: none;
   transform: translateY(10px);
@@ -1665,15 +1678,16 @@
 .steering-command-query,
 .steering-command-menu button {
   width: 100%;
-  min-height: 34px;
+  min-height: 32px;
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 10px;
-  padding: 0 9px;
+  padding: 0 8px;
 }
 
 .steering-command-query {
+  margin-bottom: 4px;
   color: var(--ks-ink);
   font-family: var(--ks-mono);
   font-size: var(--ks-type-mono-size);
@@ -1687,10 +1701,11 @@
 
 .steering-command-menu button {
   grid-template-columns: 70px minmax(0, 1fr) auto;
-  color: var(--ks-muted);
+  color: var(--ks-text-muted);
   text-align: left;
   background: transparent;
   border: 0;
+  border-radius: var(--ks-radius-sm);
   cursor: pointer;
 }
 
@@ -1698,12 +1713,8 @@
 .steering-command-menu button:focus-visible,
 .steering-command-menu button.is-active {
   color: var(--ks-ink);
-  background: var(--ks-paper-raised);
+  background: var(--ks-paper-deep);
   outline: 0;
-}
-
-.steering-command-menu button.is-active strong {
-  color: var(--ks-accent-ink);
 }
 
 .steering-command-menu strong,
@@ -1711,6 +1722,10 @@
   font-family: var(--ks-mono);
   font-size: var(--ks-type-eyebrow-size);
   font-weight: 500;
+}
+
+.steering-command-menu strong {
+  color: var(--ks-ink);
 }
 
 .steering-command-menu span {
@@ -1725,25 +1740,29 @@
   background: transparent;
 }
 
+/* The composer is one input row with a crisp edge, an unboxed plus, and the
+   send control as the primary action: an ink disc with the gold arrow the
+   page's primary button uses. */
 .steering-composer {
   width: 100%;
-  min-height: 54px;
+  min-height: 48px;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: 10px;
-  padding: 0 12px;
+  gap: 8px;
+  padding: 0 9px 0 8px;
   color: var(--ks-text);
   font: inherit;
   text-align: left;
   background: var(--ks-paper-raised);
   border: 1px solid var(--ks-edge);
+  border-radius: var(--ks-radius-md);
   cursor: pointer;
   outline: 0;
 }
 
 .steering-composer:focus-visible {
-  outline: 1px solid var(--ks-patina);
+  outline: 2px solid var(--ks-patina);
   outline-offset: 2px;
 }
 
@@ -1751,31 +1770,48 @@
   min-width: 0;
   margin: 0;
   overflow: hidden;
+  font-size: var(--ks-type-ui-lead);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.steering-composer-plus,
-.steering-composer-send {
-  width: 24px;
-  height: 24px;
-  display: grid;
-  place-items: center;
-  color: var(--ks-muted);
-  border: 1px solid var(--ks-edge);
+.steering-composer code {
+  color: var(--ks-ink);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-ui-size);
 }
 
-/* Send is the primary action: ink, with the gold arrow, like the page's
-   primary button. */
+.steering-composer-plus,
+.steering-composer-send {
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+}
+
+.steering-composer-plus {
+  color: var(--ks-text-muted);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
 .steering-composer-send {
   color: var(--ks-kinpaku);
   background: var(--ks-ink);
-  border-color: var(--ks-ink);
+  border-radius: 50%;
+}
+
+.steering-composer-send svg {
+  width: 14px;
+  height: 7px;
+  display: block;
+  transform: rotate(-90deg);
 }
 
 .steering-composer-caret {
   width: 1px;
-  height: 16px;
+  height: 15px;
   display: inline-block;
   margin-left: 3px;
   vertical-align: -3px;
@@ -1788,13 +1824,13 @@
 }
 
 .steering-browser-toolbar {
-  min-height: 44px;
+  min-height: 40px;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  gap: 12px;
-  padding: 0 12px;
-  color: var(--ks-muted);
+  gap: 10px;
+  padding: 0 10px;
+  color: var(--ks-text-muted);
   background: var(--ks-paper-raised);
   border-bottom: 1px solid var(--ks-rule);
 }
@@ -1802,13 +1838,13 @@
 .steering-browser-nav {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 2px;
 }
 
 .steering-browser-nav i,
 .steering-browser-open {
-  width: 25px;
-  height: 25px;
+  width: 26px;
+  height: 26px;
   display: grid;
   place-items: center;
 }
@@ -1823,13 +1859,14 @@
   stroke-width: 1.35;
 }
 
+/* The address is a sunk well, no border: the fill is the boundary. */
 .steering-browser-address {
   min-width: 0;
-  height: 29px;
+  height: 26px;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 11px;
+  padding: 0 10px;
   overflow: hidden;
   /* One tier up from faint: the address has to clear AA at eyebrow size. */
   color: var(--ks-text-muted);
@@ -1838,7 +1875,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   background: var(--ks-paper-deep);
-  border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
 }
 
@@ -1886,8 +1922,11 @@
   max-width: none;
 }
 
+/* The kit gives the frame a 4:5 aspect on narrow screens; inside the window
+   it fills the pane instead. */
 .language-live-demo .live-demo-frame {
   max-height: none;
+  aspect-ratio: auto;
 }
 
 /* --------------------------------------------------------------------------
@@ -2049,258 +2088,87 @@
   background: var(--ks-paper-raised);
 }
 
+/* Tile 04: the mode table. One hairline container with a paper-deep header
+   band, then plain rows: mode in ink, the rest muted. No filled cells and no
+   framed previews; the table is read, not looked at. */
 .home-kinpaku .why-visual--modes {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1px;
-  min-height: 330px;
-  padding: 1px;
+  display: block;
   overflow: hidden;
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
-  background: var(--ks-rule);
-}
-
-.home-kinpaku .why-mode-card {
-  display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
-  min-width: 0;
-  min-height: 158px;
-  padding: 13px;
   background: var(--ks-paper-raised);
 }
 
-.home-kinpaku .why-mode-head {
-  display: flex;
+.home-kinpaku .why-modes-head,
+.home-kinpaku .why-modes-row {
+  display: grid;
+  grid-template-columns: minmax(84px, 0.8fr) 1fr 1fr;
+  gap: 14px;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-  min-width: 0;
-  margin-bottom: 10px;
+  padding: 13px 16px;
 }
 
-.home-kinpaku .why-mode-head strong {
-  color: var(--ks-ink);
-  font-family: var(--ks-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-}
-
-.home-kinpaku .why-mode-head span {
-  overflow: hidden;
+.home-kinpaku .why-modes-head {
+  background: var(--ks-paper-deep);
   color: var(--ks-text-muted);
   font-family: var(--ks-mono);
-  font-size: 0.6875rem;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.home-kinpaku .why-mode-preview {
-  position: relative;
-  min-height: 104px;
-  overflow: hidden;
-  border: 1px solid var(--ks-rule);
-  background: var(--ks-paper);
-}
-
-.home-kinpaku .why-mode-card--persuade .why-mode-preview {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 14px 16px;
-  background:
-    linear-gradient(116deg, transparent 54%, oklch(78% 0.12 82 / 0.12) 54.5%, transparent 55%),
-    var(--ks-paper);
-}
-
-.home-kinpaku .why-mode-kicker {
-  margin-bottom: 5px;
-  color: var(--ks-accent-ink);
-  font-family: var(--ks-mono);
-  font-size: 0.5rem;
-  letter-spacing: 0.16em;
+  font-size: var(--ks-type-micro-size);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-.home-kinpaku .why-mode-card--persuade b {
+.home-kinpaku .why-modes-row + .why-modes-row {
+  border-top: 1px solid var(--ks-rule);
+}
+
+.home-kinpaku .why-modes-row strong {
   color: var(--ks-ink);
-  font-family: var(--ks-font);
-  font-size: clamp(1.25rem, 2vw, 1.75rem);
-  font-weight: 300;
-  line-height: 0.92;
-}
-
-.home-kinpaku .why-mode-card--persuade i {
-  align-self: flex-start;
-  margin-top: 10px;
-  padding-bottom: 2px;
-  border-bottom: 1px solid var(--ks-kinpaku);
-  color: var(--ks-text);
-  font-family: var(--ks-mono);
-  font-size: 0.53rem;
-  font-style: normal;
-  letter-spacing: 0.05em;
-}
-
-.home-kinpaku .why-mode-card--operate .why-mode-preview {
-  display: grid;
-  grid-template-columns: 42px minmax(0, 1fr);
-  grid-template-rows: 26px minmax(0, 1fr);
-  background: var(--ks-paper);
-}
-
-.home-kinpaku .why-mode-toolbar {
-  grid-column: 1 / -1;
-  border-bottom: 1px solid var(--ks-rule);
-  background:
-    linear-gradient(90deg, var(--ks-patina) 0 34px, transparent 34px),
-    var(--ks-paper-raised);
-  opacity: 0.72;
-}
-
-.home-kinpaku .why-mode-card--operate .why-mode-preview::before {
-  content: "";
-  grid-row: 2;
-  border-right: 1px solid var(--ks-rule);
-  background: color-mix(in oklch, var(--ks-paper-raised) 96%, var(--ks-patina));
-}
-
-.home-kinpaku .why-mode-data {
-  display: grid;
-  gap: 8px;
-  align-content: center;
-  padding: 12px;
-}
-
-.home-kinpaku .why-mode-data i {
-  display: block;
-  height: 8px;
-  border: 1px solid var(--ks-rule);
-  background: var(--ks-paper-raised);
-}
-
-.home-kinpaku .why-mode-data i:nth-child(2) { width: 78%; }
-.home-kinpaku .why-mode-data i:nth-child(3) { width: 56%; }
-
-.home-kinpaku .why-mode-action {
-  position: absolute;
-  right: 9px;
-  bottom: 8px;
-  padding: 4px 7px;
-  background: var(--ks-patina-deep);
-  color: var(--ks-paper);
-  font-family: var(--ks-mono);
-  font-size: 0.5rem;
-}
-
-.home-kinpaku .why-mode-card--read .why-mode-preview {
-  padding: 14px 16px;
-}
-
-.home-kinpaku .why-mode-card--read b {
-  display: block;
-  margin-bottom: 12px;
-  color: var(--ks-ink);
-  font-family: var(--ks-font);
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.home-kinpaku .why-mode-copy {
-  display: grid;
-  gap: 6px;
-}
-
-.home-kinpaku .why-mode-copy i {
-  display: block;
-  width: 100%;
-  height: 3px;
-  background: var(--ks-rule-strong);
-}
-
-.home-kinpaku .why-mode-copy i:nth-child(2) { width: 88%; }
-.home-kinpaku .why-mode-copy i:nth-child(3) { width: 94%; }
-.home-kinpaku .why-mode-copy i:nth-child(4) { width: 60%; }
-
-.home-kinpaku .why-mode-card--experience .why-mode-preview {
-  display: grid;
-  place-items: end start;
-  padding: 12px;
-  background:
-    linear-gradient(132deg, transparent 48%, color-mix(in oklch, var(--ks-patina) 20%, transparent) 48.5% 70%, transparent 70.5%),
-    repeating-linear-gradient(90deg, transparent 0 17px, var(--ks-rule) 17px 18px),
-    var(--ks-paper);
-}
-
-.home-kinpaku .why-mode-art {
-  position: absolute;
-  inset: 14px 18px 30px 46%;
-  border: 1px solid var(--ks-gold-line);
-  background: linear-gradient(145deg, var(--ks-instrument), var(--ks-patina-deep));
-  transform: skewX(-8deg);
-}
-
-.home-kinpaku .why-mode-card--experience b {
-  position: relative;
-  z-index: 1;
-  color: var(--ks-ink);
-  font-family: var(--ks-font);
-  font-size: 1.28rem;
+  font-size: var(--ks-type-small-size);
   font-weight: 500;
-  letter-spacing: 0.08em;
-  line-height: 0.82;
+}
+
+.home-kinpaku .why-modes-row span {
+  color: var(--ks-text-muted);
+  font-size: var(--ks-type-ui-size);
+  line-height: 1.4;
+}
+
+.home-kinpaku .why-modes-foot {
+  margin: 0;
+  color: var(--ks-text-muted);
+  font-size: var(--ks-type-ui-size);
+  font-style: italic;
 }
 
 .home-kinpaku .why-ci-status--hook {
-  border-color: color-mix(in oklch, var(--ks-patina-deep) 34%, transparent);
-  color: var(--ks-state-ink);
-  background: transparent;
   white-space: nowrap;
 }
 
-.home-kinpaku #why-ci .why-ci-window {
-  min-height: 330px;
-}
-
+/* The hook loop is a plain list: numbered rows on hairlines, no stepper
+   circles, no connector line. */
 .home-kinpaku .why-hook-loop {
   display: grid;
-  padding: 22px 26px 20px;
+  padding: 4px 16px 6px;
   line-height: 1.35;
 }
 
 .home-kinpaku .why-hook-step {
-  position: relative;
   display: grid;
-  grid-template-columns: 28px minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
   align-items: start;
-  padding-bottom: 18px;
+  padding: 13px 0;
 }
 
-.home-kinpaku .why-hook-step:not(:nth-child(3))::after {
-  content: "";
-  position: absolute;
-  top: 28px;
-  bottom: 0;
-  left: 13px;
-  width: 1px;
-  background: var(--ks-rule-strong);
+.home-kinpaku .why-hook-step + .why-hook-step {
+  border-top: 1px solid var(--ks-rule);
 }
 
 .home-kinpaku .why-hook-mark {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  width: 28px;
-  height: 28px;
-  place-items: center;
-  border: 1px solid var(--ks-rule-strong);
-  border-radius: 50%;
-  background: var(--ks-paper-raised);
+  padding-top: 2px;
   color: var(--ks-text-muted);
   font-family: var(--ks-mono);
-  font-size: 0.65rem;
+  font-size: var(--ks-type-micro-size);
 }
 
 .home-kinpaku .why-hook-step strong,
@@ -2321,13 +2189,7 @@
   font-size: 0.75rem;
 }
 
-.home-kinpaku .why-hook-step--found .why-hook-mark {
-  border-color: var(--ks-gold-line);
-  color: var(--ks-accent-ink);
-}
-
 .home-kinpaku .why-hook-step--clean .why-hook-mark {
-  border-color: var(--ks-patina);
   color: var(--ks-state-ink);
 }
 
@@ -2337,10 +2199,11 @@
   justify-content: space-between;
   gap: 16px;
   margin-top: 0;
-  padding-top: 14px;
+  padding: 13px 0 8px;
+  border-top: 1px solid var(--ks-rule);
   color: var(--ks-text-muted);
   font-family: var(--ks-mono);
-  font-size: 0.75rem;
+  font-size: var(--ks-type-label-size);
 }
 
 .home-kinpaku .why-hook-loop .why-ci-summary strong {
@@ -2349,28 +2212,19 @@
 }
 
 @media (max-width: 520px) {
-  .home-kinpaku .why-mode-card {
-    padding: 10px;
+  .home-kinpaku .why-modes-head,
+  .home-kinpaku .why-modes-row {
+    grid-template-columns: minmax(72px, 0.8fr) 1fr;
   }
 
-  .home-kinpaku .why-mode-head {
-    display: block;
-  }
-
-  .home-kinpaku .why-mode-head span {
-    display: block;
-    margin-top: 3px;
+  .home-kinpaku .why-modes-head span:last-child,
+  .home-kinpaku .why-modes-row span:last-child {
+    display: none;
   }
 
   .home-kinpaku .why-hook-loop .why-ci-summary {
     display: grid;
     gap: 4px;
-  }
-
-  .home-kinpaku .why-ci-status--hook {
-    padding-inline: 8px;
-    font-size: 0.54rem;
-    letter-spacing: 0.08em;
   }
 }
 
@@ -2528,8 +2382,9 @@
     display: none;
   }
 
-  /* The pane switcher is the kit's instrument strip; here it only stretches
-     to two equal keys across the window. */
+  /* The pane switcher is the kit's paper strip (a page control, not product
+     chrome); here it only stretches to two equal keys across the window. It
+     names the pane, so the pane head below it would repeat it. */
   .steering-mobile-tabs {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2539,6 +2394,19 @@
   .steering-mobile-tabs .ks-instrument-key {
     justify-content: center;
     min-height: 38px;
+  }
+
+  .steering-pane-head {
+    display: none;
+  }
+
+  /* With the head gone, each pane loses its first grid row. */
+  .steering-agent {
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  .steering-browser {
+    grid-template-rows: auto minmax(0, 1fr);
   }
 
   .steering-desktop-panes {

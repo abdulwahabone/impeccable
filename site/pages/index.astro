@@ -109,7 +109,7 @@ import '../styles/worlds-roll.css';
       <div class="language-content">
         <div class="language-intro-row" data-reveal>
           <p class="section-lead">23 commands give you a shared design vocabulary with your AI. Each names one kind of intervention: <code>/typeset</code> for type, <code>/distill</code> for complexity, <code>/audit</code> for production quality. Pick any to see it in action, or <a href="/docs" class="cheatsheet-link">browse the full reference &rarr;</a></p>
-          <div class="language-view-toggle ks-instrument-strip" role="tablist" aria-label="Commands view">
+          <div class="language-view-toggle ks-instrument-strip is-paper" role="tablist" aria-label="Commands view">
             <button type="button" role="tab" class="language-view-tab ks-instrument-key is-active" data-view="palette" aria-selected="true">Palette</button>
             <button type="button" role="tab" class="language-view-tab ks-instrument-key" data-view="periodic" aria-selected="false">Periodic</button>
           </div>
@@ -144,7 +144,7 @@ import '../styles/worlds-roll.css';
               <span class="steering-desktop-brand"><i aria-hidden="true"></i> Claudex Cocursor</span>
             </div>
 
-            <div class="steering-mobile-tabs ks-instrument-strip" role="tablist" aria-label="Steering demo view">
+            <div class="steering-mobile-tabs ks-instrument-strip is-paper" role="tablist" aria-label="Steering demo view">
               <button type="button" role="tab" class="ks-instrument-key is-active" data-steering-mobile-tab="agent" aria-selected="true">Agent thread</button>
               <button type="button" role="tab" class="ks-instrument-key" data-steering-mobile-tab="browser" aria-selected="false">In-app browser</button>
             </div>
@@ -203,7 +203,7 @@ import '../styles/worlds-roll.css';
                   <button type="button" class="steering-composer" aria-label="Choose an Impeccable command">
                     <span class="steering-composer-plus" aria-hidden="true">+</span>
                     <p><code>/impeccable <span data-steering-active-command data-steering-composer-command>polish</span></code><span class="steering-composer-caret" aria-hidden="true"></span></p>
-                    <span class="steering-composer-send" aria-hidden="true">↑</span>
+                    <span class="steering-composer-send" aria-hidden="true"><svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"><path d="M0 4h14M10 0l4 4-4 4"/></svg></span>
                   </button>
                 </div>
               </article>
@@ -251,7 +251,7 @@ import '../styles/worlds-roll.css';
         <div class="ks-bento why-bento">
           <!-- T1: hero, wide. Respects your design system. -->
           <article class="ks-bento-tile ks-bento-tile--span-8" id="why-respects">
-            <span class="ks-bento-num" data-color="kinpaku" data-impeccable-ignore="undersized-ui-text">01</span>
+            <span class="ks-bento-num" data-impeccable-ignore="undersized-ui-text">01</span>
             <h3 class="why-panel-title">Respects your design system.</h3>
             <p class="why-panel-body">Inherits your tokens, components, and conventions instead of overwriting them. New work fits the system, not the model's defaults.</p>
             <div class="why-visual why-visual--terminal">
@@ -279,7 +279,7 @@ import '../styles/worlds-roll.css';
 
           <!-- T2: narrow. Real product context. -->
           <article class="ks-bento-tile ks-bento-tile--span-4" id="why-product">
-            <span class="ks-bento-num" data-color="patina" data-impeccable-ignore="undersized-ui-text">02</span>
+            <span class="ks-bento-num" data-impeccable-ignore="undersized-ui-text">02</span>
             <h3 class="why-panel-title">Real product context.</h3>
             <p class="why-panel-body">Captures the brief once, in <code>PRODUCT.md</code>. Every command reads it before designing.</p>
               <div class="why-visual why-visual--productmd">
@@ -313,7 +313,7 @@ import '../styles/worlds-roll.css';
           <!-- T3: narrow. DESIGN.md travels. Restored from the parked panel
                at site/_parked/the-case.astro. -->
           <article class="ks-bento-tile ks-bento-tile--span-4" id="why-designmd">
-            <span class="ks-bento-num" data-color="kinpaku" data-impeccable-ignore="undersized-ui-text">03</span>
+            <span class="ks-bento-num" data-impeccable-ignore="undersized-ui-text">03</span>
             <h3 class="why-panel-title">Travels as DESIGN.md.</h3>
             <p class="why-panel-body"><code>/impeccable document</code> writes one in the <a href="https://stitch.withgoogle.com/docs/design-md/overview/" target="_blank" rel="noopener">Google Stitch format</a>. Your visual system becomes portable.</p>
             <div class="why-visual why-visual--designmd-v2">
@@ -361,52 +361,50 @@ import '../styles/worlds-roll.css';
 
           <!-- T4: medium. Surface modes replace the old brand/product registers. -->
           <article class="ks-bento-tile ks-bento-tile--span-4" id="why-modes">
-            <span class="ks-bento-num" data-color="kinpaku" data-impeccable-ignore="undersized-ui-text">04</span>
+            <span class="ks-bento-num" data-impeccable-ignore="undersized-ui-text">04</span>
             <h3 class="why-panel-title">Knows what the surface is for.</h3>
             <p class="why-panel-body">A landing page should persuade. A dashboard should help someone work. Impeccable names the mode before it designs.</p>
 
               <div class="why-visual why-visual--modes">
-                <div class="why-mode-card why-mode-card--persuade">
-                  <div class="why-mode-head"><strong>Persuade</strong><span>Win attention</span></div>
-                  <div class="why-mode-preview" aria-hidden="true">
-                    <span class="why-mode-kicker">A sharp idea</span>
-                    <b>Make it<br />unmissable.</b>
-                    <i>See the story</i>
+                <div class="why-modes">
+                  <div class="why-modes-head" aria-hidden="true">
+                    <span>Mode</span>
+                    <span>The page exists to</span>
+                    <span>Typical surface</span>
                   </div>
-                </div>
-                <div class="why-mode-card why-mode-card--operate">
-                  <div class="why-mode-head"><strong>Operate</strong><span>Complete a task</span></div>
-                  <div class="why-mode-preview" aria-hidden="true">
-                    <span class="why-mode-toolbar"></span>
-                    <span class="why-mode-data"><i></i><i></i><i></i></span>
-                    <span class="why-mode-action">Resolve</span>
+                  <div class="why-modes-row">
+                    <strong>Persuade</strong>
+                    <span>Win attention</span>
+                    <span>Landing, pricing</span>
                   </div>
-                </div>
-                <div class="why-mode-card why-mode-card--read">
-                  <div class="why-mode-head"><strong>Read</strong><span>Build understanding</span></div>
-                  <div class="why-mode-preview" aria-hidden="true">
-                    <b>A clear argument.</b>
-                    <span class="why-mode-copy"><i></i><i></i><i></i><i></i></span>
+                  <div class="why-modes-row">
+                    <strong>Operate</strong>
+                    <span>Complete a task</span>
+                    <span>Dashboard, admin</span>
                   </div>
-                </div>
-                <div class="why-mode-card why-mode-card--experience">
-                  <div class="why-mode-head"><strong>Experience</strong><span>Let the work lead</span></div>
-                  <div class="why-mode-preview" aria-hidden="true">
-                    <span class="why-mode-art"></span>
-                    <b>NEO<br />MIRAI</b>
+                  <div class="why-modes-row">
+                    <strong>Read</strong>
+                    <span>Build understanding</span>
+                    <span>Docs, long-form</span>
+                  </div>
+                  <div class="why-modes-row">
+                    <strong>Experience</strong>
+                    <span>Let the work lead</span>
+                    <span>Portfolio, campaign</span>
                   </div>
                 </div>
               </div>
+              <p class="why-modes-foot">Set once in PRODUCT.md. Read by every command.</p>
 
           </article>
 
           <!-- T5: medium. Hooks keep the detector in the agent loop; CI is
                the final gate rather than the whole story. -->
           <article class="ks-bento-tile ks-bento-tile--span-4" id="why-ci">
-            <span class="ks-bento-num" data-color="patina" data-impeccable-ignore="undersized-ui-text">05</span>
+            <span class="ks-bento-num" data-impeccable-ignore="undersized-ui-text">05</span>
             <h3 class="why-panel-title">Block slop before it ships.</h3>
             <p class="why-panel-body">Hooks inspect each UI edit and send findings straight back to the agent. The same detector can fail a PR.</p>
-              <div class="why-visual why-visual--ci" data-impeccable-ignore="codex-grid-background">
+              <div class="why-visual why-visual--ci">
                 <div class="why-ci-window">
                   <div class="why-ci-header">
                     <span class="why-ci-branch">Edit &middot; Hero.tsx</span>
@@ -438,87 +436,129 @@ import '../styles/worlds-roll.css';
 
     <!-- 06. GET STARTED -->
     <section class="downloads-rebuild" id="downloads" aria-labelledby="downloads-title">
-      <div class="downloads-rebuild-card">
-      <div class="downloads-rebuild-head">
-        <h2 id="downloads-title" class="downloads-rebuild-title">Get started</h2>
-      </div>
+      <div class="downloads-rebuild-top">
+        <div class="downloads-rebuild-head">
+          <h2 id="downloads-title" class="downloads-rebuild-title">Get started</h2>
+          <p class="downloads-rebuild-lead">One command installs the build compiled for your harness and model. One more sets up your project.</p>
+        </div>
 
-      <div class="downloads-rebuild-install" data-install-tabs>
-        <div class="downloads-rebuild-cmd-group">
-          <div class="downloads-rebuild-tabs" role="tablist" aria-label="Install method">
-            <span class="downloads-rebuild-tabs-label">Install via</span>
-            <button class="downloads-rebuild-tab" type="button" role="tab" id="install-tab-impeccable" aria-controls="install-panel-impeccable update-panel-impeccable" aria-selected="true" data-method="impeccable" title="Recommended">impeccable<svg class="downloads-rebuild-tab-rec" width="11" height="11" viewBox="0 0 24 24" role="img" aria-label="Recommended"><title>Recommended</title><path d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.871 1.401-8.169L.132 9.211l8.2-1.193z"/></svg></button>
-            <button class="downloads-rebuild-tab" type="button" role="tab" id="install-tab-marketplace" aria-controls="install-panel-marketplace update-panel-marketplace" aria-selected="false" tabindex="-1" data-method="marketplace"><img class="downloads-rebuild-tab-logo" src="assets/claude-mark.png" alt="" width="13" height="13" loading="lazy" aria-hidden="true">marketplace</button>            <button class="downloads-rebuild-tab" type="button" role="tab" id="install-tab-skills" aria-controls="install-panel-skills update-panel-skills" aria-selected="false" tabindex="-1" data-method="skills">skills.sh</button>
-          </div>
+        <div class="downloads-rebuild-install" data-install-tabs>
+          <div class="downloads-rebuild-step">
+            <span class="downloads-rebuild-cmd-label"><span class="downloads-rebuild-cmd-num">01</span>Install</span>
 
-          <p class="downloads-rebuild-copilot-note">
-            <svg class="downloads-rebuild-copilot-note-logo" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.922 16.992c-.861 1.495-5.859 5.023-11.922 5.023-6.063 0-11.061-3.528-11.922-5.023A.641.641 0 0 1 0 16.736v-2.869a.841.841 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.195 10.195 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952 1.399-1.136 3.392-2.093 6.122-2.093 2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.832.832 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256ZM12.172 11h-.344a4.323 4.323 0 0 1-.355.508C10.703 12.455 9.555 13 7.965 13c-1.725 0-2.989-.359-3.782-1.259a2.005 2.005 0 0 1-.085-.104L4 11.741v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.323 4.323 0 0 1-.355-.508h-.016.016Zm.641-2.935c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"/><path d="M14.5 14.25a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Zm-5 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Z"/></svg>
-            <span>On the GitHub Copilot app? Impeccable is <strong>built in</strong>. Skip the install and enable it under <strong>Settings → Experimental</strong>.</span>
-          </p>
-
-          <div class="downloads-rebuild-method-panel" id="install-panel-impeccable" role="tabpanel" aria-labelledby="install-tab-impeccable" data-method-panel="impeccable">
-            <div class="downloads-rebuild-cmd">
-              <span class="downloads-rebuild-prompt" aria-hidden="true">$</span>
-              <code>npx impeccable install</code>
-              <button class="downloads-rebuild-copy" type="button" aria-label="Copy install command" data-copy="npx impeccable install">
-                <svg class="downloads-rebuild-copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-                  <rect x="9" y="9" width="13" height="13" rx="2"/>
-                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-                </svg>
-                <svg class="downloads-rebuild-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M20 6 9 17l-5-5"/>
-                </svg>
-                <span>Copy</span>
-              </button>
-            </div>
-            <p class="downloads-rebuild-method-note">Installs the build tailored to your harness and model. Requires <strong title="Node 22.12+ keeps npx on the current CLI instead of falling back to outdated releases.">Node 22.12+</strong>. <a class="downloads-rebuild-method-followup" href="/docs/hooks#allow-the-hook-in-your-harness">Some harnesses need one trust step after install &rarr;</a></p>
-
-            <details class="downloads-rebuild-branch">
-              <summary class="downloads-rebuild-branch-summary">
-                <svg class="downloads-rebuild-branch-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-                <span>Why one command, many builds</span>
-              </summary>
-              <div class="downloads-rebuild-branch-body">
-                <svg class="downloads-rebuild-branch-diagram" viewBox="0 0 430 210" role="img" aria-label="The impeccable source branches into a build tailored per harness. The Gemini and Codex builds carry extra model-specific slop rules that ban that model's known tells; every build also gets its native hook wiring and subagent where supported.">
-                  <path class="downloads-rebuild-branch-line" d="M104 105 C150 105 150 36 186 36"/>
-                  <path class="downloads-rebuild-branch-line" d="M104 105 C150 105 150 82 186 82"/>
-                  <path class="downloads-rebuild-branch-line" d="M104 105 C150 105 150 128 186 128"/>
-                  <path class="downloads-rebuild-branch-line" d="M104 105 C150 105 150 174 186 174"/>
-
-                  <rect class="downloads-rebuild-branch-root-box" x="6" y="83" width="96" height="44" rx="3"/>
-                  <text class="downloads-rebuild-branch-root-text" x="54" y="109" text-anchor="middle" textLength="84" lengthAdjust="spacingAndGlyphs">impeccable</text>
-
-                  <g class="downloads-rebuild-branch-target">
-                    <circle class="downloads-rebuild-branch-dot" cx="188" cy="36" r="3"/>
-                    <text class="downloads-rebuild-branch-name" x="200" y="33">Claude Code</text>
-                    <text class="downloads-rebuild-branch-tags" x="200" y="46">hooks + subagent</text>
-                  </g>
-                  <g class="downloads-rebuild-branch-target">
-                    <circle class="downloads-rebuild-branch-dot" cx="188" cy="82" r="3"/>
-                    <text class="downloads-rebuild-branch-name" x="200" y="79">Cursor</text>
-                    <text class="downloads-rebuild-branch-tags" x="200" y="92">pre-edit hook</text>
-                  </g>
-                  <g class="downloads-rebuild-branch-target">
-                    <circle class="downloads-rebuild-branch-dot" cx="188" cy="128" r="3"/>
-                    <text class="downloads-rebuild-branch-name" x="200" y="125">Gemini CLI</text>
-                    <text class="downloads-rebuild-branch-tags downloads-rebuild-branch-tags--slop" x="200" y="138">+ Gemini-tuned slop rules</text>
-                  </g>
-                  <g class="downloads-rebuild-branch-target">
-                    <circle class="downloads-rebuild-branch-dot" cx="188" cy="174" r="3"/>
-                    <text class="downloads-rebuild-branch-name" x="200" y="171">Codex CLI</text>
-                    <text class="downloads-rebuild-branch-tags downloads-rebuild-branch-tags--slop" x="200" y="184">+ Codex-tuned slop rules</text>
-                  </g>
-                </svg>
-                <p class="downloads-rebuild-branch-caption">Same skill, recompiled per target. The part that matters: builds for models with known tells carry extra slop rules banning that model's habits. The Gemini build kills its image-on-hover motion; the Codex build refuses ghost-cards and over-rounding. Native hook wiring and a subagent ship too, where the tool supports them.</p>
+            <div class="downloads-rebuild-method-panel" id="install-panel-impeccable" role="tabpanel" aria-labelledby="install-tab-impeccable" data-method-panel="impeccable">
+              <div class="downloads-rebuild-cmd">
+                <span class="downloads-rebuild-prompt" aria-hidden="true">$</span>
+                <code>npx impeccable install</code>
+                <button class="downloads-rebuild-copy" type="button" aria-label="Copy install command" data-copy="npx impeccable install">
+                  <svg class="downloads-rebuild-copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <svg class="downloads-rebuild-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
               </div>
-            </details>
+              <p class="downloads-rebuild-method-note">Installs the build tailored to your harness and model. Requires <strong title="Node 22.12+ keeps npx on the current CLI instead of falling back to outdated releases.">Node 22.12+</strong>. <a class="downloads-rebuild-method-followup" href="/docs/hooks#allow-the-hook-in-your-harness">Some harnesses need one trust step after install &rarr;</a></p>
+
+              <details class="downloads-rebuild-branch">
+                <summary class="downloads-rebuild-branch-summary">
+                  <svg class="downloads-rebuild-branch-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+                  <span>Why one command, many builds</span>
+                </summary>
+                <div class="downloads-rebuild-branch-body">
+                  <svg class="downloads-rebuild-branch-diagram" viewBox="0 0 430 210" role="img" aria-label="The impeccable source branches into a build tailored per harness. The Gemini and Codex builds carry extra model-specific slop rules that ban that model's known tells; every build also gets its native hook wiring and subagent where supported.">
+                    <path class="downloads-rebuild-branch-line" d="M104 105 C150 105 150 36 186 36"/>
+                    <path class="downloads-rebuild-branch-line" d="M104 105 C150 105 150 82 186 82"/>
+                    <path class="downloads-rebuild-branch-line" d="M104 105 C150 105 150 128 186 128"/>
+                    <path class="downloads-rebuild-branch-line" d="M104 105 C150 105 150 174 186 174"/>
+
+                    <rect class="downloads-rebuild-branch-root-box" x="6" y="83" width="96" height="44" rx="3"/>
+                    <text class="downloads-rebuild-branch-root-text" x="54" y="109" text-anchor="middle" textLength="84" lengthAdjust="spacingAndGlyphs">impeccable</text>
+
+                    <g class="downloads-rebuild-branch-target">
+                      <circle class="downloads-rebuild-branch-dot" cx="188" cy="36" r="3"/>
+                      <text class="downloads-rebuild-branch-name" x="200" y="33">Claude Code</text>
+                      <text class="downloads-rebuild-branch-tags" x="200" y="46">hooks + subagent</text>
+                    </g>
+                    <g class="downloads-rebuild-branch-target">
+                      <circle class="downloads-rebuild-branch-dot" cx="188" cy="82" r="3"/>
+                      <text class="downloads-rebuild-branch-name" x="200" y="79">Cursor</text>
+                      <text class="downloads-rebuild-branch-tags" x="200" y="92">pre-edit hook</text>
+                    </g>
+                    <g class="downloads-rebuild-branch-target">
+                      <circle class="downloads-rebuild-branch-dot" cx="188" cy="128" r="3"/>
+                      <text class="downloads-rebuild-branch-name" x="200" y="125">Gemini CLI</text>
+                      <text class="downloads-rebuild-branch-tags downloads-rebuild-branch-tags--slop" x="200" y="138">+ Gemini-tuned slop rules</text>
+                    </g>
+                    <g class="downloads-rebuild-branch-target">
+                      <circle class="downloads-rebuild-branch-dot" cx="188" cy="174" r="3"/>
+                      <text class="downloads-rebuild-branch-name" x="200" y="171">Codex CLI</text>
+                      <text class="downloads-rebuild-branch-tags downloads-rebuild-branch-tags--slop" x="200" y="184">+ Codex-tuned slop rules</text>
+                    </g>
+                  </svg>
+                  <p class="downloads-rebuild-branch-caption">Same skill, recompiled per target. The part that matters: builds for models with known tells carry extra slop rules banning that model's habits. The Gemini build kills its image-on-hover motion; the Codex build refuses ghost-cards and over-rounding. Native hook wiring and a subagent ship too, where the tool supports them.</p>
+                </div>
+              </details>
+            </div>
+
+            <div class="downloads-rebuild-method-panel" id="install-panel-marketplace" role="tabpanel" aria-labelledby="install-tab-marketplace" data-method-panel="marketplace" hidden>
+              <div class="downloads-rebuild-cmd">
+                <span class="downloads-rebuild-prompt downloads-rebuild-prompt--agent" aria-hidden="true">&rsaquo;</span>
+                <code>/plugin marketplace add pbakaus/impeccable</code>
+                <button class="downloads-rebuild-copy" type="button" aria-label="Copy Claude Code plugin command" data-copy="/plugin marketplace add pbakaus/impeccable">
+                  <svg class="downloads-rebuild-copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <svg class="downloads-rebuild-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <p class="downloads-rebuild-method-note">Claude Code only. After adding the marketplace, open <code>/plugin</code> and install Impeccable from the list.</p>
+            </div>
+
+            <div class="downloads-rebuild-method-panel" id="install-panel-skills" role="tabpanel" aria-labelledby="install-tab-skills" data-method-panel="skills" hidden>
+              <div class="downloads-rebuild-cmd">
+                <span class="downloads-rebuild-prompt" aria-hidden="true">$</span>
+                <code>npx skills add pbakaus/impeccable</code>
+                <button class="downloads-rebuild-copy" type="button" aria-label="Copy npx skills command" data-copy="npx skills add pbakaus/impeccable">
+                  <svg class="downloads-rebuild-copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                    <rect x="9" y="9" width="13" height="13" rx="2"/>
+                    <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                  </svg>
+                  <svg class="downloads-rebuild-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M20 6 9 17l-5-5"/>
+                  </svg>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <p class="downloads-rebuild-method-note">The general-purpose skills installer. It installs one shared build for every harness rather than the one compiled for yours, so you give up the provider-native command files and paths tuned to your tool. Functionally complete, just not tailored.</p>
+            </div>
+
+            <div class="downloads-rebuild-tabs" role="tablist" aria-label="Install method">
+              <span class="downloads-rebuild-tabs-label">Install via</span>
+              <button class="downloads-rebuild-tab" type="button" role="tab" id="install-tab-impeccable" aria-controls="install-panel-impeccable update-panel-impeccable" aria-selected="true" data-method="impeccable" title="Recommended">impeccable<svg class="downloads-rebuild-tab-rec" width="11" height="11" viewBox="0 0 24 24" role="img" aria-label="Recommended"><title>Recommended</title><path d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.787 1.401 8.169L12 18.896l-7.335 3.871 1.401-8.169L.132 9.211l8.2-1.193z"/></svg></button>
+              <button class="downloads-rebuild-tab" type="button" role="tab" id="install-tab-marketplace" aria-controls="install-panel-marketplace update-panel-marketplace" aria-selected="false" tabindex="-1" data-method="marketplace"><img class="downloads-rebuild-tab-logo" src="assets/claude-mark.png" alt="" width="13" height="13" loading="lazy" aria-hidden="true">marketplace</button>
+              <button class="downloads-rebuild-tab" type="button" role="tab" id="install-tab-skills" aria-controls="install-panel-skills update-panel-skills" aria-selected="false" tabindex="-1" data-method="skills">skills.sh</button>
+            </div>
+
+            <p class="downloads-rebuild-copilot-note">
+              <svg class="downloads-rebuild-copilot-note-logo" width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.922 16.992c-.861 1.495-5.859 5.023-11.922 5.023-6.063 0-11.061-3.528-11.922-5.023A.641.641 0 0 1 0 16.736v-2.869a.841.841 0 0 1 .053-.22c.372-.935 1.347-2.292 2.605-2.656.167-.429.414-1.055.644-1.517a10.195 10.195 0 0 1-.052-1.086c0-1.331.282-2.499 1.132-3.368.397-.406.89-.717 1.474-.952 1.399-1.136 3.392-2.093 6.122-2.093 2.731 0 4.767.957 6.166 2.093.584.235 1.077.546 1.474.952.85.869 1.132 2.037 1.132 3.368 0 .368-.014.733-.052 1.086.23.462.477 1.088.644 1.517 1.258.364 2.233 1.721 2.605 2.656a.832.832 0 0 1 .053.22v2.869a.641.641 0 0 1-.078.256ZM12.172 11h-.344a4.323 4.323 0 0 1-.355.508C10.703 12.455 9.555 13 7.965 13c-1.725 0-2.989-.359-3.782-1.259a2.005 2.005 0 0 1-.085-.104L4 11.741v6.585c1.435.779 4.514 2.179 8 2.179 3.486 0 6.565-1.4 8-2.179v-6.585l-.098-.104s-.033.045-.085.104c-.793.9-2.057 1.259-3.782 1.259-1.59 0-2.738-.545-3.508-1.492a4.323 4.323 0 0 1-.355-.508h-.016.016Zm.641-2.935c.136 1.057.403 1.913.878 2.497.442.544 1.134.938 2.344.938 1.573 0 2.292-.337 2.657-.751.384-.435.558-1.15.558-2.361 0-1.14-.243-1.847-.705-2.319-.477-.488-1.319-.862-2.824-1.025-1.487-.161-2.192.138-2.533.529-.269.307-.437.808-.438 1.578v.021c0 .265.021.562.063.893Zm-1.626 0c.042-.331.063-.628.063-.894v-.02c-.001-.77-.169-1.271-.438-1.578-.341-.391-1.046-.69-2.533-.529-1.505.163-2.347.537-2.824 1.025-.462.472-.705 1.179-.705 2.319 0 1.211.175 1.926.558 2.361.365.414 1.084.751 2.657.751 1.21 0 1.902-.394 2.344-.938.475-.584.742-1.44.878-2.497Z"/><path d="M14.5 14.25a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Zm-5 0a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1Z"/></svg>
+              <span>On the GitHub Copilot app? Impeccable is <strong>built in</strong>. Skip the install and enable it under <strong>Settings → Experimental</strong>.</span>
+            </p>
           </div>
 
-          <div class="downloads-rebuild-method-panel" id="install-panel-marketplace" role="tabpanel" aria-labelledby="install-tab-marketplace" data-method-panel="marketplace" hidden>
+          <div class="downloads-rebuild-step">
+            <span class="downloads-rebuild-cmd-label"><span class="downloads-rebuild-cmd-num">02</span>First run &middot; in your agent chat</span>
             <div class="downloads-rebuild-cmd">
               <span class="downloads-rebuild-prompt downloads-rebuild-prompt--agent" aria-hidden="true">&rsaquo;</span>
-              <code>/plugin marketplace add pbakaus/impeccable</code>
-              <button class="downloads-rebuild-copy" type="button" aria-label="Copy Claude Code plugin command" data-copy="/plugin marketplace add pbakaus/impeccable">
+              <code>/impeccable init</code>
+              <button class="downloads-rebuild-copy" type="button" aria-label="Copy first run command" data-copy="/impeccable init">
                 <svg class="downloads-rebuild-copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
                   <rect x="9" y="9" width="13" height="13" rx="2"/>
                   <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
@@ -529,99 +569,49 @@ import '../styles/worlds-roll.css';
                 <span>Copy</span>
               </button>
             </div>
-            <p class="downloads-rebuild-method-note">Claude Code only. After adding the marketplace, open <code>/plugin</code> and install Impeccable from the list.</p>
           </div>
 
-          <div class="downloads-rebuild-method-panel" id="install-panel-skills" role="tabpanel" aria-labelledby="install-tab-skills" data-method-panel="skills" hidden>
-            <div class="downloads-rebuild-cmd">
-              <span class="downloads-rebuild-prompt" aria-hidden="true">$</span>
-              <code>npx skills add pbakaus/impeccable</code>
-              <button class="downloads-rebuild-copy" type="button" aria-label="Copy npx skills command" data-copy="npx skills add pbakaus/impeccable">
-                <svg class="downloads-rebuild-copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <div class="downloads-rebuild-update">
+            <div class="downloads-rebuild-method-panel" id="update-panel-impeccable" role="tabpanel" aria-labelledby="install-tab-impeccable" data-method-panel="impeccable">
+              <p class="downloads-rebuild-update-line">Update later with <code>npx impeccable update</code><button class="downloads-rebuild-copy downloads-rebuild-copy--inline" type="button" aria-label="Copy update command" data-copy="npx impeccable update">
+                <svg class="downloads-rebuild-copy-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
                   <rect x="9" y="9" width="13" height="13" rx="2"/>
                   <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
                 </svg>
-                <svg class="downloads-rebuild-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <svg class="downloads-rebuild-check-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                   <path d="M20 6 9 17l-5-5"/>
                 </svg>
                 <span>Copy</span>
-              </button>
+              </button></p>
             </div>
-            <p class="downloads-rebuild-method-note">The general-purpose skills installer. It installs one shared build for every harness rather than the one compiled for yours, so you give up the provider-native command files and paths tuned to your tool. Functionally complete, just not tailored.</p>
+
+            <div class="downloads-rebuild-method-panel" id="update-panel-marketplace" role="tabpanel" aria-labelledby="install-tab-marketplace" data-method-panel="marketplace" hidden>
+              <p class="downloads-rebuild-update-line downloads-rebuild-update-menu">Update from the <code>/plugin</code> menu inside Claude Code.</p>
+            </div>
+
+            <div class="downloads-rebuild-method-panel" id="update-panel-skills" role="tabpanel" aria-labelledby="install-tab-skills" data-method-panel="skills" hidden>
+              <p class="downloads-rebuild-update-line">Update later with <code>npx skills update</code><button class="downloads-rebuild-copy downloads-rebuild-copy--inline" type="button" aria-label="Copy npx skills update command" data-copy="npx skills update">
+                <svg class="downloads-rebuild-copy-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                  <rect x="9" y="9" width="13" height="13" rx="2"/>
+                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+                </svg>
+                <svg class="downloads-rebuild-check-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5"/>
+                </svg>
+                <span>Copy</span>
+              </button></p>
+            </div>
           </div>
+
+          <p class="downloads-rebuild-note">Works with Cursor, Claude Code, GitHub Copilot, Gemini CLI, Codex CLI, Grok Build, and every other major AI coding harness.</p>
         </div>
-
-        <div class="downloads-rebuild-cmd-group">
-          <span class="downloads-rebuild-cmd-label">First run &middot; in your agent chat</span>
-          <div class="downloads-rebuild-cmd">
-            <span class="downloads-rebuild-prompt downloads-rebuild-prompt--agent" aria-hidden="true">&rsaquo;</span>
-            <code>/impeccable init</code>
-            <button class="downloads-rebuild-copy" type="button" aria-label="Copy first run command" data-copy="/impeccable init">
-              <svg class="downloads-rebuild-copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-                <rect x="9" y="9" width="13" height="13" rx="2"/>
-                <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-              </svg>
-              <svg class="downloads-rebuild-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M20 6 9 17l-5-5"/>
-              </svg>
-              <span>Copy</span>
-            </button>
-          </div>
-        </div>
-
-        <div class="downloads-rebuild-cmd-group">
-          <span class="downloads-rebuild-cmd-label downloads-rebuild-cmd-label--update">Update</span>
-
-          <div class="downloads-rebuild-method-panel" id="update-panel-impeccable" role="tabpanel" aria-labelledby="install-tab-impeccable" data-method-panel="impeccable">
-            <div class="downloads-rebuild-cmd downloads-rebuild-cmd--update">
-              <span class="downloads-rebuild-prompt" aria-hidden="true">$</span>
-              <code>npx impeccable update</code>
-              <button class="downloads-rebuild-copy" type="button" aria-label="Copy update command" data-copy="npx impeccable update">
-                <svg class="downloads-rebuild-copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-                  <rect x="9" y="9" width="13" height="13" rx="2"/>
-                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-                </svg>
-                <svg class="downloads-rebuild-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M20 6 9 17l-5-5"/>
-                </svg>
-                <span>Copy</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="downloads-rebuild-method-panel" id="update-panel-marketplace" role="tabpanel" aria-labelledby="install-tab-marketplace" data-method-panel="marketplace" hidden>
-            <p class="downloads-rebuild-update-menu">Update from the <code>/plugin</code> menu inside Claude Code.</p>
-          </div>
-
-          <div class="downloads-rebuild-method-panel" id="update-panel-skills" role="tabpanel" aria-labelledby="install-tab-skills" data-method-panel="skills" hidden>
-            <div class="downloads-rebuild-cmd downloads-rebuild-cmd--update">
-              <span class="downloads-rebuild-prompt" aria-hidden="true">$</span>
-              <code>npx skills update</code>
-              <button class="downloads-rebuild-copy" type="button" aria-label="Copy npx skills update command" data-copy="npx skills update">
-                <svg class="downloads-rebuild-copy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-                  <rect x="9" y="9" width="13" height="13" rx="2"/>
-                  <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
-                </svg>
-                <svg class="downloads-rebuild-check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M20 6 9 17l-5-5"/>
-                </svg>
-                <span>Copy</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <p class="downloads-rebuild-note">Works with Cursor, Claude Code, GitHub Copilot, Gemini CLI, Codex CLI, Grok Build, and every other major AI coding harness.</p>
-
-        <p class="downloads-rebuild-secondary"><a href="/tutorials/getting-started">Read the setup guide</a> &middot; <a href="/changelog">See what's new</a> &middot; <a href="/faq">Got questions?</a></p>
       </div>
-
 
       <ul class="downloads-rebuild-extras">
         <li>
           <strong>Chrome extension</strong>
           <span>Run the detector overlay on any page: your staging, a competitor, anything in the browser.</span>
-          <a href="https://chromewebstore.google.com/detail/impeccable/bdkgmiklpdmaojlpflclinlofgjfpabf" target="_blank" rel="noopener">Install from the<br />Chrome Web Store →</a>
+          <a href="https://chromewebstore.google.com/detail/impeccable/bdkgmiklpdmaojlpflclinlofgjfpabf" target="_blank" rel="noopener">Install from the Chrome Web Store →</a>
         </li>
         <li>
           <strong>CLI for CI</strong>
@@ -636,8 +626,7 @@ import '../styles/worlds-roll.css';
         </li>
       </ul>
 
-      <p class="downloads-rebuild-more">Learn more: <a href="/tutorials/getting-started">Getting started</a> &middot; <a href="/designing">Designing with Impeccable</a> &middot; <a href="/docs">command docs</a></p>
-      </div>
+      <p class="downloads-rebuild-more">Learn more: <a href="/tutorials/getting-started">Read the setup guide</a> &middot; <a href="/designing">Designing with Impeccable</a> &middot; <a href="/docs">command docs</a> &middot; <a href="/changelog">See what's new</a> &middot; <a href="/faq">Got questions?</a></p>
     </section>
 
 <Fragment slot="scripts">

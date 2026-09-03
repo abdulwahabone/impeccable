@@ -194,6 +194,21 @@
         "rule": "design-system-color",
         "value": "* site/pages/index.astro",
         "createdAt": "2026-09-03T19:35:27.737Z"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "* site/styles/home-rebuild.css",
+        "createdAt": "2026-09-03T23:11:53.103Z"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "* site/styles/home-kinpaku.css",
+        "createdAt": "2026-09-03T23:11:53.134Z"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "* site/styles/main.css",
+        "createdAt": "2026-09-03T23:11:53.164Z"
       }
     ]
   },

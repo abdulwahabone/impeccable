@@ -293,7 +293,7 @@
 .designing-kinpaku .designing-loop-wheel-arrow {
   background: var(--ks-paper);
   color: var(--ks-accent-ink);
-  font-size: 14px;
+  font-size: var(--ks-type-small-size);
   width: 22px;
   height: 22px;
 }
@@ -423,10 +423,10 @@
   width: fit-content;
   margin: 0 auto;
   padding: 3px;
-  background: var(--ks-instrument);
-  border: 1px solid var(--ks-instrument-deep);
+  background: var(--ks-paper-deep);
+  border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-pill);
-  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-1);
+  box-shadow: var(--ks-lift-1);
 }
 
 .designing-kinpaku .designing-phasenav-link {
@@ -440,7 +440,7 @@
   font-family: var(--ks-mono);
   font-size: var(--ks-type-label-size);
   letter-spacing: 0.02em;
-  color: var(--ks-instrument-muted);
+  color: var(--ks-text-muted);
   text-decoration: none;
   transition: color var(--ks-quick) var(--ks-ease), background-color var(--ks-quick) var(--ks-ease);
 }
@@ -450,24 +450,23 @@
   height: 6px;
   flex: none;
   border-radius: 50%;
-  background: var(--ks-instrument-raised);
-  box-shadow: inset 0 0 0 1px var(--ks-instrument-rule);
+  background: var(--ks-gray-2);
 }
 .designing-kinpaku .designing-phasenav-link:hover {
-  color: var(--ks-instrument-text);
+  color: var(--ks-ink);
 }
 .designing-kinpaku .designing-phasenav-link:focus-visible {
   outline: 2px solid var(--ks-patina);
   outline-offset: 2px;
 }
 .designing-kinpaku .designing-phasenav-link.is-active {
-  color: var(--ks-instrument-text);
-  background: var(--ks-instrument-raised);
-  box-shadow: inset 0 1px 0 var(--ks-instrument-edge), var(--ks-key-lift);
+  color: var(--ks-ink);
+  background: var(--ks-paper-raised);
+  box-shadow: inset 0 0 0 1px var(--ks-rule), var(--ks-lift-1);
 }
 .designing-kinpaku .designing-phasenav-link.is-active::before {
   background: var(--ks-kinpaku);
-  box-shadow: var(--ks-indicator-glow);
+  box-shadow: 0 0 0 1px oklch(84% 0.19 80 / 0.35);
 }
 
 @media (max-width: 600px) {

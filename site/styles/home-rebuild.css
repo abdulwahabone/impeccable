@@ -249,70 +249,40 @@
    ============================================================================ */
 
 /* ============================================================================
-   GET STARTED REBUILD
+   GET STARTED
+   No card. The section sits on the paper under one hairline, on the same
+   1500px rail as every other section (it is a child of .site-content). It is
+   a two-step sequence: install, then first run. The two command blocks are
+   the only dark surfaces on the page: a CLI command is product chrome, so it
+   takes the instrument well (rule 5). Everything else is type on paper.
    ============================================================================ */
 
 .downloads-rebuild {
-  padding: 120px 0;
-}
-
-/* The card wrapper holds everything: header, install command, examples,
-   extras. Raised paper with a hairline. The --card-* tokens are kept so inner
-   rules reference them once and the whole card can be re-themed in one place. */
-.downloads-rebuild-card {
-  --card-fg: var(--ks-text);
-  --card-fg-strong: var(--ks-ink);
-  --card-fg-muted: var(--ks-text-muted);
-  --card-accent: var(--ks-link-on-paper);
-  --card-cmd-bg: var(--ks-gray);
-  --card-cmd-fg: var(--ks-text);
-  --card-copy-border: var(--ks-rule);
-  --card-copy-fg: var(--ks-link-on-paper);
-  --card-copy-hover-bg: color-mix(in oklch, var(--ks-patina) 8%, transparent);
-  --card-link-color: var(--ks-link-on-paper);
-  --card-link-underline: var(--ks-link-on-paper-line);
-  --card-link-secondary: var(--ks-text-muted);
-
-  /* Command-frame accents. The install box is the primary CTA and carries
-     the one-pixel gold rule; the update box carries patina, which in this
-     system reads as the "improved / updated" state. Prompt glyphs are small
-     text, so both take the text-safe patina. */
-  --card-cmd-border: var(--ks-gold-line);
-  --card-prompt: var(--ks-patina-deep);
-  --card-cmd-border-update: var(--ks-patina-deep);
-  --card-prompt-update: var(--ks-patina-deep);
-
-  position: relative;
-  max-width: 1080px;
-  margin: 0 auto;
-  padding: 80px 56px;
-  border-radius: 2px;
-  background: var(--ks-paper-raised);
-  border: 1px solid var(--ks-rule);
-  box-shadow: var(--ks-lift-1);
-  color: var(--card-fg);
+  padding: 104px 0 112px;
+  border-top: 1px solid var(--ks-rule);
   text-align: left;
-  overflow: hidden;
+  color: var(--ks-text);
 }
 
-@media (max-width: 980px) {
-  .downloads-rebuild-card {
-    padding: 64px 40px;
-  }
+/* Headline column on the left, the sequence on the right. Below 1080 the
+   two stack and the sequence reads straight down. */
+.downloads-rebuild-top {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 48px 80px;
+  align-items: start;
 }
 
 .downloads-rebuild-head {
   display: grid;
   gap: 18px;
-  max-width: 760px;
-  margin: 0 0 40px;
-  text-align: left;
+  max-width: 34ch;
   justify-items: start;
 }
 
 .home-kinpaku .downloads-rebuild-title {
   margin: 0;
-  color: var(--card-fg-strong);
+  color: var(--ks-ink);
   font-family: var(--ks-font-display);
   font-weight: var(--ks-type-headline-weight);
   font-size: var(--ks-type-headline-size);
@@ -320,140 +290,201 @@
   letter-spacing: var(--ks-type-headline-track);
 }
 
-.downloads-rebuild-install {
-  display: grid;
-  gap: 22px;
-  margin: 0 0 48px;
-  width: 100%;
-  max-width: 600px;
-  min-width: 0;
-  text-align: left;
+.downloads-rebuild-lead {
+  margin: 0;
+  color: var(--ks-text);
+  font-size: var(--ks-type-lead-size);
+  line-height: 1.5;
 }
 
-/* Each command is a labeled group: a small mono cap above its box. */
-.downloads-rebuild-cmd-group {
+.downloads-rebuild-install {
   display: grid;
-  gap: 9px;
+  gap: 36px;
+  width: 100%;
+  max-width: 720px;
+  min-width: 0;
+}
+
+/* One step: a numbered mono label above its command block. */
+.downloads-rebuild-step {
+  display: grid;
+  gap: 12px;
   min-width: 0;
 }
 
 .downloads-rebuild-cmd-label {
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-micro-size);
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--card-prompt);
-}
-.downloads-rebuild-cmd-label--update {
-  color: var(--card-prompt-update);
-}
-
-/* "Install via [impeccable] [marketplace] [skills.sh]" — the method selector
-   that replaces the static "Install" label. Compact inline tabs that reuse the
-   design-system ks-tab selected-state language (kinpaku text + underline on the
-   active tab) beside the mono "Install via" cap. Baseline alignment so the tab
-   text sits on the same line as the "INSTALL VIA" label; the tabs are
-   inline-block (not flex) so their text baseline is what the row aligns to, and
-   marks ride along via vertical-align without dragging the baseline. */
-.downloads-rebuild-tabs {
   display: flex;
   align-items: baseline;
-  flex-wrap: wrap;
-  gap: 4px 12px;
-}
-.downloads-rebuild-tabs-label {
+  gap: 12px;
   font-family: var(--ks-mono);
   font-size: var(--ks-type-micro-size);
   font-weight: 500;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--card-prompt);
-  margin-right: 2px;
-}
-.downloads-rebuild-tab {
-  display: inline-block;
-  border: 0;
-  background: transparent;
-  padding: 2px 0 4px;
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-ui-size);
-  line-height: 1;
   color: var(--ks-text-muted);
+}
+.downloads-rebuild-cmd-num {
+  color: var(--ks-ink);
+  letter-spacing: 0.06em;
+}
+
+/* The command block. Instrument well, gold prompt, light mono text, a key-cap
+   copy control on the right. No border: the dark fill is the boundary. */
+.home-kinpaku .downloads-rebuild-cmd {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 16px 12px 16px 22px;
+  background: var(--ks-instrument-deep);
+  color: var(--ks-instrument-text);
+  border: 0;
+  border-radius: var(--ks-radius-sm);
+}
+
+/* The shell prompt that says "you run this". Gold on the instrument is the
+   one place gold is allowed to be more than a line. */
+.home-kinpaku .downloads-rebuild-prompt {
+  flex: none;
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-lead-size);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ks-kinpaku);
+  user-select: none;
+}
+/* Slash commands drop the "$" for a chevron so nobody pastes them into a
+   shell; same gold, the glyph carries the difference. */
+.home-kinpaku .downloads-rebuild-prompt--agent {
+  color: var(--ks-kinpaku);
+}
+
+.home-kinpaku .downloads-rebuild-cmd > code {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  color: var(--ks-instrument-text);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-lead-size);
+  letter-spacing: 0;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  user-select: all;
+}
+
+/* Copy control: a raised key on the instrument. Light glyph, no border; the
+   copied state swaps in a patina check (state, not decoration). */
+.home-kinpaku .downloads-rebuild-copy {
+  flex: none;
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: var(--ks-instrument-raised);
+  color: var(--ks-instrument-text);
+  border-radius: var(--ks-radius-sm);
   cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color 160ms var(--ks-ease), border-color 160ms var(--ks-ease);
+  transition:
+    background 180ms var(--ks-ease),
+    color 180ms var(--ks-ease),
+    transform 120ms var(--ks-ease);
 }
-.downloads-rebuild-tab:hover { color: var(--ks-ink); }
-
-/* Brand mark flags the marketplace tab as Claude-tied. Dimmed until the tab is
-   active so it reads as a quiet qualifier, not a CTA. vertical-align:middle
-   keeps it centered on the text without shifting the text baseline the row
-   aligns to. */
-.downloads-rebuild-tab-logo {
-  display: inline-block;
-  width: 13px;
-  height: 13px;
-  margin-right: 5px;
-  vertical-align: middle;
-  opacity: 0.7;
-  transition: opacity 160ms var(--ks-ease);
+.home-kinpaku .downloads-rebuild-copy:hover {
+  background: color-mix(in oklch, var(--ks-instrument-raised), var(--ks-instrument-text) 12%);
 }
-svg.downloads-rebuild-tab-logo {
-  fill: var(--ks-ink);
+.home-kinpaku .downloads-rebuild-copy:active {
+  transform: scale(0.96);
 }
-.downloads-rebuild-tab:hover .downloads-rebuild-tab-logo,
-.downloads-rebuild-tab[aria-selected="true"] .downloads-rebuild-tab-logo {
-  opacity: 1;
-}
-
-/* Persistent "Recommended" cue on the impeccable tab — a small gold star, the
-   conventional best/featured glyph. Stays visible even when another method is
-   selected, so the blessed path is always legible, and reads in a fraction of
-   the width the spelled-out word needed. Accessible name lives on the SVG. */
-.downloads-rebuild-tab-rec {
-  display: inline-block;
-  width: 11px;
-  height: 11px;
-  margin-left: 5px;
-  vertical-align: middle;
-  fill: var(--ks-kinpaku);
-  opacity: 0.9;
-}
-.downloads-rebuild-tab[aria-selected="true"] {
-  color: var(--ks-accent-ink);
-  border-bottom-color: var(--ks-kinpaku);
-}
-.downloads-rebuild-tab:focus-visible {
+.home-kinpaku .downloads-rebuild-copy:focus-visible {
   outline: 2px solid var(--ks-patina);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline-offset: 2px;
 }
 
-/* Method tabs are text buttons about 20px tall; on touch they need the full
-   44px target without shifting the baseline row on pointer devices. */
-@media (pointer: coarse) {
-  .downloads-rebuild-tab {
-    padding: 12px 0 14px;
-  }
+.home-kinpaku .downloads-rebuild-copy-icon,
+.home-kinpaku .downloads-rebuild-check-icon {
+  grid-area: 1 / 1;
+  transition:
+    opacity 140ms var(--ks-ease),
+    transform 180ms var(--ks-ease);
+}
+.home-kinpaku .downloads-rebuild-copy-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+.home-kinpaku .downloads-rebuild-check-icon {
+  opacity: 0;
+  transform: scale(0.86);
+  color: var(--ks-patina);
+}
+.home-kinpaku .downloads-rebuild-check-icon path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+}
+.home-kinpaku .downloads-rebuild-copy.copied .downloads-rebuild-copy-icon {
+  opacity: 0;
+  transform: scale(0.82);
+}
+.home-kinpaku .downloads-rebuild-copy.copied .downloads-rebuild-check-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+.home-kinpaku .downloads-rebuild-copy.copied .downloads-rebuild-check-icon path {
+  animation: downloads-check-draw 260ms var(--ks-ease) forwards;
+}
+@keyframes downloads-check-draw {
+  to { stroke-dashoffset: 0; }
 }
 
-/* Per-method explainer under the install box — carries the "what you give up"
-   note for the skills.sh path and the Claude-Code-only caveat for marketplace. */
+.home-kinpaku .downloads-rebuild-copy span {
+  /* The "Copy" label is for assistive tech; the icon carries it visually. */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Inline variant for the quiet update line: same control, paper-sized, ink
+   on paper instead of light on the instrument. */
+.home-kinpaku .downloads-rebuild-copy--inline {
+  width: 24px;
+  height: 24px;
+  margin-left: 6px;
+  vertical-align: middle;
+  background: transparent;
+  color: var(--ks-text-muted);
+}
+.home-kinpaku .downloads-rebuild-copy--inline:hover {
+  background: var(--ks-gray);
+  color: var(--ks-ink);
+}
+.home-kinpaku .downloads-rebuild-copy--inline .downloads-rebuild-check-icon {
+  color: var(--ks-state-ink);
+}
+
+/* Per-method explainer under the block: the Node floor, the Claude-Code-only
+   caveat, the skills.sh trade-off. */
 .downloads-rebuild-method-note {
-  margin: 9px 0 0;
-  max-width: 60ch;
-  font-size: var(--ks-type-ui-size);
-  line-height: 1.5;
+  margin: 0;
+  max-width: 62ch;
+  font-size: var(--ks-type-small-size);
+  line-height: 1.55;
   color: var(--ks-text-muted);
 }
 .home-kinpaku .downloads-rebuild-method-note code {
   font-family: var(--ks-mono);
   font-size: 0.9em;
-  color: var(--card-fg-muted);
+  color: var(--ks-text);
 }
 .downloads-rebuild-method-note strong {
-  color: var(--ks-accent-ink);
+  color: var(--ks-ink);
   font-weight: 600;
   cursor: help;
 }
@@ -465,37 +496,101 @@ svg.downloads-rebuild-tab-logo {
   text-decoration: underline;
   text-decoration-color: var(--ks-link-on-paper-line);
   text-underline-offset: 3px;
-  transition: text-decoration-color 160ms var(--ks-ease), color 160ms var(--ks-ease);
+  transition: text-decoration-color 160ms var(--ks-ease);
 }
 .downloads-rebuild-method-note .downloads-rebuild-method-followup:hover {
-  color: var(--ks-link-on-paper-hover);
-  text-decoration-color: var(--ks-link-on-paper-hover);
+  text-decoration-color: var(--ks-link-on-paper-line-hover);
 }
 
-/* Marketplace updates from a menu, not a shell command, so its Update slot is
-   quiet guidance text rather than a runnable box. */
-.downloads-rebuild-update-menu {
-  margin: 0;
-  font-size: var(--ks-type-small-size);
-  line-height: 1.5;
-  color: var(--card-fg-muted);
-  padding: 4px 0;
+/* The panel groups its block and note; the note sits close under the block,
+   the alternatives row sits a little further down. */
+.downloads-rebuild-method-panel {
+  display: grid;
+  gap: 10px;
 }
-.home-kinpaku .downloads-rebuild-update-menu code {
+.downloads-rebuild-method-panel[hidden] {
+  display: none;
+}
+
+/* "Install via impeccable | marketplace | skills.sh": a text row of tabs
+   under the block. The selected method is ink on a gold rule; the others are
+   muted. It stays a tablist for the keyboard. */
+.downloads-rebuild-tabs {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 6px;
+}
+.downloads-rebuild-tabs-label {
+  font-size: var(--ks-type-ui-size);
+  color: var(--ks-text-muted);
+}
+.downloads-rebuild-tab {
+  display: inline-block;
+  border: 0;
+  background: transparent;
+  padding: 2px 0 3px;
   font-family: var(--ks-mono);
-  color: var(--card-prompt-update);
+  font-size: var(--ks-type-ui-size);
+  line-height: 1;
+  color: var(--ks-text-muted);
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: color 160ms var(--ks-ease), border-color 160ms var(--ks-ease);
+}
+.downloads-rebuild-tab:hover { color: var(--ks-ink); }
+.downloads-rebuild-tab[aria-selected="true"] {
+  color: var(--ks-ink);
+  border-bottom-color: var(--ks-gold-line);
+}
+.downloads-rebuild-tab:focus-visible {
+  outline: 2px solid var(--ks-patina);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-/* Copilot is built in, so it isn't a tab — it's a quiet one-line aside right
-   under the method tabs, there to catch Copilot users BEFORE they copy an
-   install command they don't need. Deliberately NOT boxed: a bordered notice
-   competed with the real command boxes. Plain muted text + small glyph reads as
-   a footnote, not a step. */
+/* Brand mark on the marketplace tab, dimmed until the tab is active. */
+.downloads-rebuild-tab-logo {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  margin-right: 5px;
+  vertical-align: middle;
+  opacity: 0.7;
+  transition: opacity 160ms var(--ks-ease);
+}
+.downloads-rebuild-tab:hover .downloads-rebuild-tab-logo,
+.downloads-rebuild-tab[aria-selected="true"] .downloads-rebuild-tab-logo {
+  opacity: 1;
+}
+
+/* "Recommended" star on the impeccable tab. A gold mark, not gold text. */
+.downloads-rebuild-tab-rec {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-left: 5px;
+  vertical-align: middle;
+  fill: var(--ks-kinpaku);
+  opacity: 0.9;
+}
+
+/* Text tabs are about 20px tall; touch gets the full target without moving
+   the baseline row on pointer devices. */
+@media (pointer: coarse) {
+  .downloads-rebuild-tab {
+    padding: 12px 0 13px;
+  }
+}
+
+/* Copilot has Impeccable built in, so it is a footnote under the method row
+   rather than a fourth method. */
 .downloads-rebuild-copilot-note {
   display: flex;
   align-items: baseline;
   gap: 7px;
-  margin: 6px 0 18px;
+  margin: 2px 0 0;
   max-width: 62ch;
   font-size: var(--ks-type-ui-size);
   line-height: 1.5;
@@ -514,12 +609,10 @@ svg.downloads-rebuild-tab-logo {
   font-weight: 600;
 }
 
-/* "Why one command, many builds" — a collapsed disclosure that visualizes the
-   impeccable source fanning out into a build tailored per harness. The branch
-   lines draw themselves in when the section opens; the targets fade up behind
-   them, staggered, so the eye follows source → target. */
+/* "Why one command, many builds": a collapsed disclosure that draws the
+   source fanning out into a build per harness when opened. */
 .downloads-rebuild-branch {
-  margin: 16px 0 0;
+  margin: 2px 0 0;
 }
 .downloads-rebuild-branch-summary {
   display: inline-flex;
@@ -534,7 +627,7 @@ svg.downloads-rebuild-tab-logo {
 .downloads-rebuild-branch-summary::-webkit-details-marker { display: none; }
 .downloads-rebuild-branch-summary:hover { color: var(--ks-ink); }
 .downloads-rebuild-branch[open] > .downloads-rebuild-branch-summary {
-  color: var(--card-fg-strong);
+  color: var(--ks-ink);
   margin-bottom: 14px;
 }
 .downloads-rebuild-branch-arrow {
@@ -553,8 +646,8 @@ svg.downloads-rebuild-tab-logo {
   font-family: var(--ks-mono);
 }
 
-/* Connectors: hidden (fully dashed-out) until the section opens, then each
-   draws from the source node to its target. */
+/* Connectors hide (fully dashed out) until the section opens, then draw
+   from the source node to each target. */
 .downloads-rebuild-branch-line {
   fill: none;
   stroke: var(--ks-gold-line);
@@ -569,7 +662,6 @@ svg.downloads-rebuild-tab-logo {
 .downloads-rebuild-branch[open] .downloads-rebuild-branch-line:nth-of-type(2) { animation-delay: 130ms; }
 .downloads-rebuild-branch[open] .downloads-rebuild-branch-line:nth-of-type(3) { animation-delay: 200ms; }
 .downloads-rebuild-branch[open] .downloads-rebuild-branch-line:nth-of-type(4) { animation-delay: 270ms; }
-.downloads-rebuild-branch[open] .downloads-rebuild-branch-line:nth-of-type(5) { animation-delay: 340ms; }
 
 .downloads-rebuild-branch-root-box {
   fill: var(--ks-paper-deep);
@@ -594,10 +686,10 @@ svg.downloads-rebuild-tab-logo {
   font-size: 8.6px;
   letter-spacing: 0.01em;
 }
-/* The model-specific slop rules are the headline of this diagram, so the rows
-   that carry them take the accent while the plumbing tags stay muted. */
+/* The model-specific slop rules are the point of the diagram: those rows
+   take ink while the plumbing tags stay muted. */
 .downloads-rebuild-branch-tags--slop {
-  fill: var(--ks-accent-ink);
+  fill: var(--ks-ink);
   font-weight: 600;
 }
 
@@ -613,7 +705,6 @@ svg.downloads-rebuild-tab-logo {
 .downloads-rebuild-branch[open] .downloads-rebuild-branch-target:nth-of-type(2) { animation-delay: 290ms; }
 .downloads-rebuild-branch[open] .downloads-rebuild-branch-target:nth-of-type(3) { animation-delay: 360ms; }
 .downloads-rebuild-branch[open] .downloads-rebuild-branch-target:nth-of-type(4) { animation-delay: 430ms; }
-.downloads-rebuild-branch[open] .downloads-rebuild-branch-target:nth-of-type(5) { animation-delay: 500ms; }
 
 .downloads-rebuild-branch-caption {
   margin: 12px 0 0;
@@ -625,7 +716,7 @@ svg.downloads-rebuild-tab-logo {
 .home-kinpaku .downloads-rebuild-branch-caption code {
   font-family: var(--ks-mono);
   font-size: 0.9em;
-  color: var(--card-fg-muted);
+  color: var(--ks-text);
 }
 
 @keyframes branch-draw {
@@ -635,8 +726,126 @@ svg.downloads-rebuild-tab-logo {
   to { opacity: 1; transform: translateX(0); }
 }
 
-/* Reduced motion: skip the draw/rise, show the finished diagram immediately. */
+/* The update line: quiet prose with the command inline. It is not a third
+   step, so it gets no block. */
+.downloads-rebuild-update {
+  margin-top: -12px;
+}
+.downloads-rebuild-update-line {
+  margin: 0;
+  font-size: var(--ks-type-small-size);
+  line-height: 1.55;
+  color: var(--ks-text-muted);
+}
+.home-kinpaku .downloads-rebuild-update-line code {
+  font-family: var(--ks-mono);
+  font-size: 0.85em;
+  color: var(--ks-ink);
+  background: var(--ks-gray);
+  border: 0;
+  border-radius: var(--ks-radius-sm);
+  padding: 0.1em 0.4em;
+}
+
+/* Harness list: one quiet line. */
+.downloads-rebuild-note {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--ks-text-muted);
+  font-size: var(--ks-type-small-size);
+  line-height: 1.55;
+}
+
+/* Three text columns under a hairline, hairlines between them, no boxes. */
+.downloads-rebuild-extras {
+  list-style: none;
+  margin: 88px 0 0;
+  padding: 40px 0 0;
+  border-top: 1px solid var(--ks-rule);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+}
+.downloads-rebuild-extras li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 0 40px;
+}
+.downloads-rebuild-extras li:first-child { padding-left: 0; }
+.downloads-rebuild-extras li:last-child { padding-right: 0; }
+.downloads-rebuild-extras li + li {
+  border-left: 1px solid var(--ks-rule);
+}
+
+.downloads-rebuild-extras strong {
+  color: var(--ks-ink);
+  font-family: var(--ks-font);
+  font-weight: var(--ks-type-title-weight);
+  font-size: var(--ks-type-title-size);
+  line-height: var(--ks-type-title-line);
+}
+.downloads-rebuild-extras span {
+  color: var(--ks-text);
+  font-size: var(--ks-type-small-size);
+  line-height: 1.55;
+  max-width: 40ch;
+}
+.home-kinpaku .downloads-rebuild-extras span code {
+  background: var(--ks-gray);
+  border: 0;
+  border-radius: var(--ks-radius-sm);
+  padding: 0.1em 0.4em;
+  font-family: var(--ks-mono);
+  font-size: 0.85em;
+  color: var(--ks-ink);
+}
+.home-kinpaku .downloads-rebuild-extras a {
+  width: fit-content;
+  color: var(--ks-link-on-paper);
+  font-size: var(--ks-type-small-size);
+  text-decoration: underline;
+  text-decoration-color: var(--ks-link-on-paper-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 180ms var(--ks-ease);
+}
+.home-kinpaku .downloads-rebuild-extras a:hover {
+  text-decoration-color: var(--ks-link-on-paper-line-hover);
+}
+.home-kinpaku .downloads-rebuild-extras a.downloads-rebuild-link-secondary {
+  margin-top: -4px;
+}
+
+/* Closing line: the docs, the changelog, the FAQ. */
+.downloads-rebuild-more {
+  margin: 40px 0 0;
+  font-size: var(--ks-type-small-size);
+  color: var(--ks-text-muted);
+}
+.downloads-rebuild-more a {
+  color: var(--ks-link-on-paper);
+  text-decoration: underline;
+  text-decoration-color: var(--ks-link-on-paper-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 180ms var(--ks-ease);
+}
+.downloads-rebuild-more a:hover {
+  text-decoration-color: var(--ks-link-on-paper-line-hover);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .home-kinpaku .downloads-rebuild-copy,
+  .home-kinpaku .downloads-rebuild-copy-icon,
+  .home-kinpaku .downloads-rebuild-check-icon {
+    transition: none;
+  }
+  .home-kinpaku .downloads-rebuild-copy.copied .downloads-rebuild-check-icon path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
   .downloads-rebuild-branch[open] .downloads-rebuild-branch-line {
     animation: none;
     stroke-dashoffset: 0;
@@ -648,320 +857,48 @@ svg.downloads-rebuild-tab-logo {
   }
 }
 
-/* Install command is THE primary CTA of the Get Started section. A full
-   kinpaku hairline frame + gold prompt glyph + left-aligned mono make it read
-   as a runnable terminal line, not a decorative chip. Copy button nests on the
-   right. Full border, not a side-stripe (brand-ban). */
-.home-kinpaku .downloads-rebuild-cmd {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-  padding: 15px 14px 15px 22px;
-  background: var(--card-cmd-bg);
-  border: 1px solid var(--card-cmd-border);
-  border-radius: 2px;
-}
-
-/* The shell prompt that signals "this is a command you run." Carries the
-   row's accent (gold for install, patina for update). */
-.home-kinpaku .downloads-rebuild-prompt {
-  flex: none;
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-lead-size);
-  font-weight: 500;
-  line-height: 1;
-  color: var(--card-prompt);
-  user-select: none;
-}
-
-.home-kinpaku .downloads-rebuild-cmd > code {
-  flex: 1 1 auto;
-  min-width: 0;
-  overflow-x: auto;
-  white-space: nowrap;
-  color: var(--card-cmd-fg);
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-subhead-size);
-  letter-spacing: 0;
-  background: transparent;
-  border: 0;
-  padding: 0;
-  user-select: all;
-}
-
-/* Update box: same frame, quieter patina accent (the "improved" signal). */
-.home-kinpaku .downloads-rebuild-cmd--update {
-  border-color: var(--card-cmd-border-update);
-}
-.home-kinpaku .downloads-rebuild-cmd--update .downloads-rebuild-prompt {
-  color: var(--card-prompt-update);
-}
-
-/* Agent-chat commands (slash commands) drop the shell "$" so nobody pastes
-   them into a terminal: a chevron prompt in patina marks "type this in your
-   agent, not your shell." */
-.home-kinpaku .downloads-rebuild-prompt--agent {
-  color: var(--ks-patina-deep);
-}
-
-/* Compact icon-only copy button nested inside the cmd box, on the right. */
-.home-kinpaku .downloads-rebuild-copy {
-  flex: none;
-  position: relative;
-  display: inline-grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--card-copy-border);
-  background: transparent;
-  color: var(--card-copy-fg);
-  border-radius: 2px;
-  cursor: pointer;
-  transition:
-    background 180ms var(--ks-ease),
-    border-color 180ms var(--ks-ease),
-    color 180ms var(--ks-ease),
-    transform 120ms var(--ks-ease);
-}
-
-.home-kinpaku .downloads-rebuild-copy:active {
-  transform: scale(0.96);
-}
-
-.home-kinpaku .downloads-rebuild-copy-icon,
-.home-kinpaku .downloads-rebuild-check-icon {
-  grid-area: 1 / 1;
-  transition:
-    opacity 140ms var(--ks-ease),
-    transform 180ms var(--ks-ease);
-}
-
-.home-kinpaku .downloads-rebuild-copy-icon {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.home-kinpaku .downloads-rebuild-check-icon {
-  opacity: 0;
-  transform: scale(0.86);
-}
-
-.home-kinpaku .downloads-rebuild-check-icon path {
-  stroke-dasharray: 24;
-  stroke-dashoffset: 24;
-}
-
-.home-kinpaku .downloads-rebuild-copy.copied {
-  background: var(--card-copy-hover-bg);
-  border-color: currentColor;
-}
-
-.home-kinpaku .downloads-rebuild-copy.copied .downloads-rebuild-copy-icon {
-  opacity: 0;
-  transform: scale(0.82);
-}
-
-.home-kinpaku .downloads-rebuild-copy.copied .downloads-rebuild-check-icon {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.home-kinpaku .downloads-rebuild-copy.copied .downloads-rebuild-check-icon path {
-  animation: downloads-check-draw 260ms var(--ks-ease) forwards;
-}
-
-@keyframes downloads-check-draw {
-  to { stroke-dashoffset: 0; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .home-kinpaku .downloads-rebuild-copy,
-  .home-kinpaku .downloads-rebuild-copy-icon,
-  .home-kinpaku .downloads-rebuild-check-icon {
-    transition: none;
-  }
-
-  .home-kinpaku .downloads-rebuild-copy.copied .downloads-rebuild-check-icon path {
-    animation: none;
-    stroke-dashoffset: 0;
-  }
-}
-
-.home-kinpaku .downloads-rebuild-copy span {
-  /* Hide the "Copy" label — icon carries the meaning. Kept in markup for a11y. */
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
-.home-kinpaku .downloads-rebuild-copy:hover {
-  background: var(--card-copy-hover-bg);
-  border-color: var(--card-copy-fg);
-}
-
-/* Update copy button tracks the patina accent rather than gold. */
-.home-kinpaku .downloads-rebuild-cmd--update .downloads-rebuild-copy {
-  color: var(--card-prompt-update);
-}
-.home-kinpaku .downloads-rebuild-cmd--update .downloads-rebuild-copy:hover {
-  background: var(--card-copy-hover-bg);
-  border-color: var(--card-prompt-update);
-}
-
-.downloads-rebuild-note {
-  margin: 0;
-  max-width: 60ch;
-  text-align: left;
-  color: var(--card-fg-muted);
-  font-size: var(--ks-type-small-size);
-  line-height: 1.55;
-}
-.home-kinpaku .downloads-rebuild-note code {
-  font-family: var(--ks-mono);
-  font-size: 0.86em;
-  color: var(--card-fg-strong);
-}
-
-/* Quieter than the note — the changelog + FAQ hints sit just under the
-   primary "works with" line. Patina links so they read as related but
-   distinct from the kinpaku primary CTA above. */
-.downloads-rebuild-secondary {
-  margin: 6px 0 0;
-  text-align: left;
-  font-size: var(--ks-type-ui-size);
-  color: var(--ks-text-muted);
-}
-.downloads-rebuild-secondary a {
-  color: var(--ks-link-on-paper);
-  text-decoration: none;
-  border-bottom: 1px solid var(--ks-link-on-paper-line);
-}
-.downloads-rebuild-secondary a:hover {
-  color: var(--ks-link-on-paper-hover);
-  border-bottom-color: var(--ks-link-on-paper-hover);
-}
-
-/* Closing links under the setup extras — workflow + command docs. */
-.downloads-rebuild-more {
-  margin: 28px 0 0;
-  text-align: left;
-  font-size: var(--ks-type-small-size);
-  color: var(--ks-text-muted);
-}
-.downloads-rebuild-more a {
-  color: var(--ks-link-on-paper);
-  text-decoration: none;
-  border-bottom: 1px solid var(--ks-link-on-paper-line);
-}
-.downloads-rebuild-more a:hover {
-  color: var(--ks-link-on-paper-hover);
-  border-bottom-color: var(--ks-link-on-paper-hover);
-}
-
-.downloads-rebuild-extras {
-  list-style: none;
-  margin: 0;
-  padding: 40px 0 0;
-  border-top: 1px solid var(--ks-rule);
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 36px;
-  max-width: 820px;
-}
-
-/* Each cell is a flex column so primary links can be bottom-anchored.
-   Text is left-aligned within the cell — wrapping paragraphs read better
-   that way than centered. The grid as a whole stays centered on the page. */
-.downloads-rebuild-extras li {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: left;
-  align-items: stretch;
-}
-
-.downloads-rebuild-extras strong {
-  color: var(--card-fg-strong);
-  font-family: var(--ks-font);
-  font-weight: 400;
-  font-size: 1rem;
-}
-
-.downloads-rebuild-extras span {
-  color: var(--card-fg-muted);
-  font-size: var(--ks-type-small-size);
-  line-height: 1.5;
-}
-
-.home-kinpaku .downloads-rebuild-extras span code {
-  background: transparent;
-  border: 0;
-  border-radius: 0;
-  padding: 0;
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-ui-size);
-  color: var(--card-fg-strong);
-}
-
-.home-kinpaku .downloads-rebuild-extras a {
-  color: var(--card-link-color);
-  font-size: var(--ks-type-small-size);
-  text-decoration: underline;
-  text-decoration-color: var(--card-link-underline);
-  text-underline-offset: 4px;
-  text-decoration-thickness: 1px;
-  width: fit-content;
-  transition: color 180ms var(--ks-ease);
-}
-
-.home-kinpaku .downloads-rebuild-extras a.downloads-rebuild-link-secondary {
-  color: var(--card-link-secondary);
-  text-decoration-color: var(--card-link-secondary);
-  margin-top: 4px;
-}
-
-.home-kinpaku .downloads-rebuild-extras a.downloads-rebuild-link-secondary:hover {
-  color: var(--card-fg);
-  text-decoration-color: var(--card-fg);
-}
-
 @media (max-width: 1080px) {
-  .downloads-rebuild { padding: 80px 0; }
-  .downloads-rebuild-extras { grid-template-columns: 1fr; }
+  .downloads-rebuild { padding: 80px 0 88px; }
+  .downloads-rebuild-top { grid-template-columns: 1fr; gap: 40px; }
+  .downloads-rebuild-extras {
+    margin-top: 64px;
+    grid-template-columns: 1fr;
+  }
+  .downloads-rebuild-extras li {
+    padding: 28px 0;
+  }
+  .downloads-rebuild-extras li:first-child { padding-top: 0; }
+  .downloads-rebuild-extras li:last-child { padding-bottom: 0; }
+  .downloads-rebuild-extras li + li {
+    border-left: 0;
+    border-top: 1px solid var(--ks-rule);
+  }
 }
 
 @media (max-width: 720px) {
-  .downloads-rebuild { padding: 64px 0; }
-  .downloads-rebuild-install { grid-template-columns: 1fr; }
+  .downloads-rebuild { padding: 64px 0 72px; }
+  .downloads-rebuild-install { gap: 32px; }
 }
 
 @media (max-width: 520px) {
-  .home-kinpaku .downloads-rebuild-cmd {
-    gap: 10px;
-    padding: 13px 12px 13px 16px;
+  /* The label takes its own line so the three methods stay on one. */
+  .downloads-rebuild-tabs-label {
+    flex-basis: 100%;
   }
 
+  .home-kinpaku .downloads-rebuild-cmd {
+    gap: 10px;
+    padding: 14px 10px 14px 16px;
+  }
   .home-kinpaku .downloads-rebuild-cmd > code {
     overflow-x: visible;
     white-space: normal;
     overflow-wrap: anywhere;
-    font-size: var(--ks-type-ui-lead-size);
+    font-size: var(--ks-type-ui-lead);
     line-height: 1.35;
   }
-
   .home-kinpaku .downloads-rebuild-prompt {
     font-size: 1rem;
-  }
-
-  .home-kinpaku .downloads-rebuild-copy {
-    width: 34px;
-    height: 34px;
   }
 }
 
@@ -978,8 +915,7 @@ svg.downloads-rebuild-tab-logo {
    ============================================================================ */
 
 .home-kinpaku .slop-teaser-section,
-.home-kinpaku .language-section,
-.home-kinpaku .downloads-rebuild {
+.home-kinpaku .language-section {
   position: relative;
   /* Override stray border-tops applied by main.css → live-mode.css and any
      other transitive imports — section dividers are drawn via ::before. */
@@ -992,8 +928,8 @@ svg.downloads-rebuild-tab-logo {
    testimonials.css. The slop section no longer needs a top divider — its
    own padding and the testimonials section above carry the transition. */
 
-/* Slop → Live, Live → Language, Language → Get Started: intentionally no
-   dividers. The plinth dot grid at the top of Testimonials and the verdigris
+/* Slop → Live, Live → Language: intentionally no dividers. Get Started
+   carries its own --ks-rule hairline (see its block above). The plinth dot grid at the top of Testimonials and the verdigris
    dot grid at the top of the footer bracket the section stack — interior
    transitions read on layout alone. */
 
@@ -1227,7 +1163,7 @@ svg.downloads-rebuild-tab-logo {
 .hotel-hero--slop .hotel-hero-cta {
   background: linear-gradient(135deg, oklch(62% 0.2 300), oklch(56% 0.21 268));
   color: oklch(98% 0.01 300);
-  border-radius: 8px;
+  border-radius: var(--ks-radius-md);
 }
 
 /* v1 — warm dusk, text bottom-left (uses base photo) */

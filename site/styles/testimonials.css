@@ -28,7 +28,7 @@
   width: 100vw;
   height: 18px;
   transform: translateX(-50%);
-  background-image: radial-gradient(circle, var(--ks-edge) 0.9px, transparent 1.4px);
+  background-image: radial-gradient(circle, var(--ks-gray-2) 0.9px, transparent 1.4px);
   background-size: 7px 6px;
   background-repeat: repeat;
   pointer-events: none;
@@ -153,29 +153,29 @@
   letter-spacing: 0.02em;
 }
 
-/* Avatar + coin fallback. The coin's deep-patina initial needs the raised
-   ground to clear AA at this size. */
-.home-kinpaku .testimonials-section .t-avatar {
+/* Avatar + coin fallback. Both are the same 28px disc on the same gray with
+   the same hairline ring, so a row of cards reads as one row whether or not
+   a quote came with a photo. The coin's initial is ink. */
+.home-kinpaku .testimonials-section .t-avatar,
+.home-kinpaku .testimonials-section .t-coin {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  object-fit: cover;
   flex: none;
-  background: var(--ks-gray-2);
+  background: var(--ks-gray);
   box-shadow: inset 0 0 0 1px var(--ks-rule);
+}
+.home-kinpaku .testimonials-section .t-avatar {
+  object-fit: cover;
+  background: var(--ks-gray-2);
 }
 .home-kinpaku .testimonials-section .t-coin {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--ks-paper-raised);
-  border: 1px solid var(--ks-link-on-paper-line);
+  border: 0;
   font-family: var(--ks-font);
   font-weight: 500;
   font-size: 0.95rem;
-  color: var(--ks-link-on-paper);
-  flex: none;
+  color: var(--ks-ink);
 }

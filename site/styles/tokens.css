@@ -83,23 +83,23 @@ button, input, textarea, select {
      text-safe accent; the tint is barely there. */
   --cat-create-bg: var(--ks-paper-raised);
   --cat-create-border: var(--ks-kinpaku-deep);
-  --cat-create-text: var(--ks-patina-deep);
+  --cat-create-text: var(--ks-text-muted);
 
   --cat-evaluate-bg: var(--ks-paper-raised);
   --cat-evaluate-border: var(--ks-patina);
-  --cat-evaluate-text: var(--ks-patina-deep);
+  --cat-evaluate-text: var(--ks-text-muted);
 
   --cat-refine-bg: var(--ks-paper-raised);
   --cat-refine-border: var(--ks-kinpaku-rich);
-  --cat-refine-text: var(--ks-patina-deep);
+  --cat-refine-text: var(--ks-text-muted);
 
   --cat-simplify-bg: var(--ks-paper-raised);
   --cat-simplify-border: var(--ks-kinpaku-deep);
-  --cat-simplify-text: var(--ks-patina-deep);
+  --cat-simplify-text: var(--ks-text-muted);
 
   --cat-harden-bg: var(--ks-paper-raised);
   --cat-harden-border: var(--ks-patina-deep);
-  --cat-harden-text: var(--ks-patina-deep);
+  --cat-harden-text: var(--ks-text-muted);
 
   --cat-system-bg: var(--ks-paper-raised);
   --cat-system-border: var(--ks-edge);

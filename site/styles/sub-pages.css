@@ -152,16 +152,7 @@ a {
   font-weight: 600;
 }
 
-.site-header-nav a[aria-current="page"]::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -4px;
-  height: 2px;
-  background: var(--ks-gold-line);
-  border-radius: 2px;
-}
+/* The active-page indicator is the kit's gold dot (kinpaku-kit.css). */
 
 /* GitHub star pill: a quiet nudge, the star is the one gold mark */
 .site-header-github {

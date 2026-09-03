@@ -38,20 +38,24 @@
 	/* Verdigris patina. State, links, selection. */
 	--ks-patina:         oklch(70% 0.12 188);    /* indicator on instruments, focus */
 	--ks-patina-pale:    oklch(82% 0.07 188);    /* soft fill behind a selected row */
-	--ks-patina-deep:    oklch(46% 0.08 188);    /* text-safe patina on paper */
-	--ks-patina-ink:     oklch(38% 0.08 188);    /* hover on patina text */
+	--ks-patina-deep:    oklch(49% 0.11 190);    /* text-safe patina on paper: state only */
+	--ks-patina-ink:     oklch(41% 0.11 190);    /* hover on patina text */
 
-	/* Semantic foregrounds. Whenever color carries text, use these. */
-	--ks-gold-ink:       var(--ks-patina-deep);
-	--ks-accent-ink:     var(--ks-patina-deep);
+	/* Semantic foregrounds. Labels, eyebrows and category names are muted
+	   ink; color is not how this site labels things. Patina is reserved for
+	   state: selected, live, passed. */
+	--ks-gold-ink:       var(--ks-text-muted);
+	--ks-accent-ink:     var(--ks-text-muted);
 	--ks-state-ink:      var(--ks-patina-deep);
-	--ks-kinpaku-ink:    var(--ks-patina-deep);  /* legacy alias, same rule */
+	--ks-kinpaku-ink:    var(--ks-text-muted);   /* legacy alias, same rule */
 
-	/* Links and active navigation on paper. */
-	--ks-link-on-paper:       var(--ks-patina-deep);
-	--ks-link-on-paper-hover: var(--ks-patina-ink);
-	--ks-link-on-paper-line:  oklch(46% 0.08 188 / 0.4);
-	--ks-nav-active:          var(--ks-ink);
+	/* Links on paper are ink with a quiet underline; the underline turns
+	   gold on hover, which is the brand as a line. */
+	--ks-link-on-paper:            var(--ks-ink);
+	--ks-link-on-paper-hover:      var(--ks-ink);
+	--ks-link-on-paper-line:       oklch(13% 0 0 / 0.28);
+	--ks-link-on-paper-line-hover: var(--ks-kinpaku);
+	--ks-nav-active:               var(--ks-ink);
 
 	/* Warning. Failures and warnings only. */
 	--ks-vermilion:      oklch(52% 0.16 35);
@@ -94,7 +98,7 @@
 	   WCAG 1.4.11 asks 3:1 of anything that tells you where a control is.
 	   Use --ks-rule to divide, --ks-edge to bound something you can operate.
 	   ============================================================ */
-	--ks-rule:           oklch(13% 0 0 / 0.12);
+	--ks-rule:           oklch(13% 0 0 / 0.08);
 	--ks-edge:           oklch(13% 0 0 / 0.45);
 
 	/* ============================================================

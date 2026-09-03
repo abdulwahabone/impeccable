@@ -68,13 +68,14 @@
 	gap: 16px;
 }
 
-/* Zone labels are small text, so they take the text-safe patina, not gold. */
+/* Zone labels are labels, so they take muted ink. Patina on this table is
+   reserved for state: the live-roll dot and the played chip. */
 .worlds-zone-label {
 	font-family: var(--ks-mono);
 	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.28em;
 	text-transform: uppercase;
-	color: var(--ks-state-ink);
+	color: var(--ks-text-muted);
 }
 
 /* ============================================================
@@ -92,13 +93,15 @@
 	min-height: clamp(280px, 30vw, 420px);
 }
 
+/* A card is raised paper on the table: one hairline, the raised lift. The
+   art carries the color, so the frame never changes tone; hover only lifts it. */
 .worlds-card {
 	position: relative;
 	overflow: hidden;
 	background: var(--ks-paper-raised);
 	border: 1px solid var(--ks-rule);
 	border-radius: var(--ks-radius-md);
-	box-shadow: var(--ks-lift-2);
+	box-shadow: var(--ks-lift-1);
 	transform: rotate(var(--fan, 0deg));
 }
 
@@ -142,7 +145,7 @@
 	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.24em;
 	text-transform: uppercase;
-	color: var(--ks-text-faint);
+	color: var(--ks-text-muted);
 }
 
 .worlds-card-name {
@@ -195,12 +198,12 @@
 
 @media (hover: hover) {
 	.worlds-card {
-		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 	}
 
 	.worlds-card:hover {
 		transform: rotate(0deg) translateY(-5px);
-		border-color: var(--ks-edge);
+		box-shadow: var(--ks-lift-2);
 	}
 }
 
@@ -229,7 +232,7 @@
 			transform: rotate(0deg) translateY(-5px);
 			transition:
 				transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-				border-color 0.3s ease;
+				box-shadow 0.3s ease;
 		}
 	}
 }
@@ -292,6 +295,9 @@
 	min-width: 0;
 }
 
+/* A page control, so it is the kit's secondary button in miniature: raised
+   paper, a crisp edge, ink text, the edge going to ink on hover. Not a dark
+   strip; the primary action on this page is elsewhere. */
 .worlds-reroll {
 	display: inline-flex;
 	align-items: center;
@@ -304,22 +310,31 @@
 	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
-	color: var(--ks-link-on-paper);
-	background: transparent;
+	color: var(--ks-ink);
+	background: var(--ks-paper-raised);
 	border: 1px solid var(--ks-edge);
-	border-radius: var(--ks-radius-md);
+	border-radius: var(--ks-radius-sm);
 	cursor: pointer;
-	transition: border-color 0.2s ease, color 0.2s ease;
+	transition: border-color var(--ks-quick, 0.2s) var(--ks-ease, ease), color var(--ks-quick, 0.2s) var(--ks-ease, ease), background-color var(--ks-quick, 0.2s) var(--ks-ease, ease);
 }
 
-.worlds-reroll:hover:not(:disabled),
+.worlds-reroll:hover:not(:disabled) {
+	border-color: var(--ks-ink);
+}
+
+.worlds-reroll:active:not(:disabled) {
+	background: var(--ks-gray);
+}
+
 .worlds-reroll:focus-visible {
-	color: var(--ks-link-on-paper-hover);
-	border-color: var(--ks-patina);
+	outline: 2px solid var(--ks-patina);
+	outline-offset: 3px;
 }
 
 .worlds-reroll:disabled {
 	color: var(--ks-text-mute-deep);
+	background: transparent;
+	border-color: var(--ks-rule);
 	cursor: wait;
 }
 
@@ -343,9 +358,23 @@
 	font-family: var(--ks-mono);
 	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.04em;
-	color: var(--ks-text-mute-deep);
+	color: var(--ks-text-faint);
 	text-overflow: ellipsis;
 	white-space: nowrap;
+}
+
+/* The key is the proof that the hand was dealt live, so it carries the one
+   live-state mark on the table: a patina dot. The span is empty until a roll
+   lands and while a roll has failed, and the dot goes with it. */
+.worlds-roll-meta:not(:empty)::before {
+	content: "";
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	margin-right: 8px;
+	vertical-align: 1px;
+	border-radius: 50%;
+	background: var(--ks-state-ink);
 }
 
 .worlds-hand-status {
@@ -382,14 +411,17 @@
 	background: var(--ks-paper-raised);
 	border: 1px solid var(--ks-gold-line);
 	border-radius: var(--ks-radius-md);
-	box-shadow: var(--ks-lift-2);
+	box-shadow: var(--ks-lift-1);
 	text-decoration: none;
 	transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 
 .worlds-played-card:hover {
 	transform: translateY(-5px);
+	box-shadow: var(--ks-lift-2);
 }
+
+/* "Played" is a state, the one place on this card that patina belongs. */
 
 .worlds-played-chip {
 	position: absolute;
@@ -401,7 +433,7 @@
 	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.24em;
 	text-transform: uppercase;
-	color: var(--ks-ink);
+	color: var(--ks-state-ink);
 	background: var(--ks-paper-raised);
 	border: 1px solid var(--ks-rule);
 	border-radius: var(--ks-radius-sm);
@@ -441,13 +473,15 @@
 	color: var(--ks-text-muted);
 }
 
+/* The third zone label doubles as the card's action, so it is ink where the
+   other two are muted. */
 .worlds-played-cta {
 	margin-top: 6px;
 	font-family: var(--ks-mono);
 	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.22em;
 	text-transform: uppercase;
-	color: var(--ks-state-ink);
+	color: var(--ks-ink);
 }
 
 .worlds-played-meta {
@@ -457,13 +491,18 @@
 	font-size: var(--ks-type-small-size);
 }
 
-.worlds-played-meta a {
-	color: var(--ks-text-muted);
-	text-decoration: none;
+/* Links are ink with the quiet underline, gold on hover, same as the section
+   leads. Prefixed to outrank the homepage's `a { color: inherit }`. */
+.home-kinpaku .worlds-played-meta a {
+	color: var(--ks-link-on-paper);
+	text-decoration: underline;
+	text-decoration-color: var(--ks-link-on-paper-line);
+	text-underline-offset: 0.18em;
+	transition: text-decoration-color var(--ks-quick, 0.2s) var(--ks-ease, ease);
 }
 
-.worlds-played-meta a:hover {
-	color: var(--ks-link-on-paper-hover);
+.home-kinpaku .worlds-played-meta a:hover {
+	text-decoration-color: var(--ks-link-on-paper-line-hover);
 }
 
 /* ============================================================
@@ -485,14 +524,14 @@
 
 .home-kinpaku .worlds-psst a {
 	color: var(--ks-link-on-paper);
-	text-decoration: none;
-	border-bottom: 1px solid transparent;
-	transition: color 180ms var(--ks-ease, ease), border-color 180ms var(--ks-ease, ease);
+	text-decoration: underline;
+	text-decoration-color: var(--ks-link-on-paper-line);
+	text-underline-offset: 0.18em;
+	transition: text-decoration-color var(--ks-quick, 0.2s) var(--ks-ease, ease);
 }
 
 .home-kinpaku .worlds-psst a:hover {
-	color: var(--ks-link-on-paper-hover);
-	border-bottom-color: var(--ks-link-on-paper-line);
+	text-decoration-color: var(--ks-link-on-paper-line-hover);
 }
 
 /* ============================================================
