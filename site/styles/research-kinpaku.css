@@ -368,7 +368,7 @@
 .research-close-big {
 	max-width: none;
 	font-family: var(--ks-font-display);
-	font-size: clamp(1.5rem, 3.6vw, 2rem);
+	font-size: var(--ks-type-headline-size);
 	font-style: italic;
 	line-height: 1.35;
 	color: var(--ks-ink);

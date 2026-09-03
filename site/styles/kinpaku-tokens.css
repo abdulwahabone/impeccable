@@ -111,6 +111,12 @@
 	--ks-lift-1:         0 1px 2px oklch(13% 0 0 / 0.06), 0 2px 8px oklch(13% 0 0 / 0.06);
 	--ks-lift-2:         0 2px 6px oklch(13% 0 0 / 0.08), 0 12px 32px oklch(13% 0 0 / 0.12);
 
+	/* Instrument depth. A raised key sits a pixel off its dark strip, and the
+	   lit indicator throws a short gold glow. These are the only shadows that
+	   read against a dark surface. */
+	--ks-key-lift:       0 1px 2px oklch(0% 0 0 / 0.4);
+	--ks-indicator-glow: 0 0 0 1px oklch(0% 0 0 / 0.3), 0 0 6px oklch(84% 0.19 80 / 0.6);
+
 	/* ============================================================
 	   Code. Inline code is a gray chip. Blocks and CLI commands are a sunk
 	   paper well with a hairline. A command that is itself a link reads as

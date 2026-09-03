@@ -868,7 +868,7 @@
 
 .slop-scan-control[aria-pressed="true"] .slop-scan-control-dot {
   background: var(--ks-kinpaku);
-  box-shadow: 0 0 0 1px oklch(0% 0 0 / 0.3), 0 0 6px color-mix(in oklch, var(--ks-kinpaku) 60%, transparent);
+  box-shadow: var(--ks-indicator-glow);
 }
 
 .slop-pattern-board {

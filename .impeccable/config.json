@@ -199,6 +199,11 @@
           "site/styles/live-mode.css"
         ],
         "createdAt": "2026-08-10T04:06:30.851Z"
+      },
+      {
+        "rule": "design-system-color",
+        "value": "* site/pages/index.astro",
+        "createdAt": "2026-09-03T19:35:27.737Z"
       }
     ]
   },

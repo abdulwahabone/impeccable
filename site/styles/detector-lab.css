@@ -195,7 +195,7 @@
 
 .detector-fixture-button[aria-pressed="true"]::before {
   background: var(--ks-kinpaku);
-  box-shadow: 0 0 0 1px oklch(0% 0 0 / 0.3), 0 0 6px oklch(84% 0.19 80 / 0.6);
+  box-shadow: var(--ks-indicator-glow);
 }
 
 .detector-fixture-button span:first-child {

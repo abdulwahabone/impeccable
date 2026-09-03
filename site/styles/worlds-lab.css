@@ -207,7 +207,7 @@
 
 .worlds-catalog-switch a[aria-current="page"] {
   background: var(--ks-instrument-raised);
-  box-shadow: inset 0 1px 0 var(--ks-instrument-edge), 0 1px 2px oklch(0% 0 0 / 0.4);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-edge), var(--ks-key-lift);
   color: var(--ks-instrument-text);
 }
 
