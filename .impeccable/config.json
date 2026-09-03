@@ -192,23 +192,39 @@
       },
       {
         "rule": "design-system-color",
-        "value": "* site/pages/index.astro",
-        "createdAt": "2026-09-03T19:35:27.737Z"
+        "value": "*",
+        "createdAt": "2026-09-03T19:35:27.737Z",
+        "files": [
+          "site/pages/index.astro"
+        ],
+        "reason": "Inline demo swatches on the homepage show a user's design system, not the site's palette"
       },
       {
         "rule": "design-system-font-size",
-        "value": "* site/styles/home-rebuild.css",
-        "createdAt": "2026-09-03T23:11:53.103Z"
+        "value": "*",
+        "createdAt": "2026-09-03T23:11:53.103Z",
+        "files": [
+          "site/styles/home-rebuild.css"
+        ],
+        "reason": "Demo mocks (hotel, proof cards, command specimens) carry their own small type scale; the ramp describes the site chrome"
       },
       {
         "rule": "design-system-font-size",
-        "value": "* site/styles/home-kinpaku.css",
-        "createdAt": "2026-09-03T23:11:53.134Z"
+        "value": "*",
+        "createdAt": "2026-09-03T23:11:53.134Z",
+        "files": [
+          "site/styles/home-kinpaku.css"
+        ],
+        "reason": "Demo mocks (hotel, proof cards, command specimens) carry their own small type scale; the ramp describes the site chrome"
       },
       {
         "rule": "design-system-font-size",
-        "value": "* site/styles/main.css",
-        "createdAt": "2026-09-03T23:11:53.164Z"
+        "value": "*",
+        "createdAt": "2026-09-03T23:11:53.164Z",
+        "files": [
+          "site/styles/main.css"
+        ],
+        "reason": "Demo mocks (hotel, proof cards, command specimens) carry their own small type scale; the ramp describes the site chrome"
       }
     ]
   },
