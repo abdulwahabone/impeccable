@@ -89,7 +89,7 @@
 
 .research-dek {
 	max-width: 60ch;
-	font-size: 1.125rem;
+	font-size: var(--ks-type-lead-size);
 	color: var(--ks-text-muted);
 }
 
@@ -129,7 +129,7 @@
 	min-width: 60px;
 	height: 60px;
 	font-family: var(--ks-font-display);
-	font-size: 2.5rem;
+	font-size: var(--ks-type-display-size);
 	font-weight: 500;
 	color: var(--ks-ink);
 	background: var(--ks-paper-raised);
@@ -209,7 +209,7 @@
 .research-spec figcaption {
 	display: block;
 	margin-bottom: 10px;
-	font-size: 0.68rem;
+	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
 	color: var(--ks-accent-ink);
@@ -292,13 +292,13 @@
 	width: 100%;
 	margin: 20px 0;
 	border-collapse: collapse;
-	font-size: 0.9rem;
+	font-size: var(--ks-type-small-size);
 }
 
 .research-table th {
 	padding: 8px 14px 8px 0;
 	font-family: var(--ks-mono);
-	font-size: 0.625rem;
+	font-size: var(--ks-type-micro-size);
 	font-weight: 600;
 	letter-spacing: 0.1em;
 	text-align: left;

@@ -219,7 +219,7 @@
 .slop-teaser-body {
   margin: 0;
   color: var(--ks-text);
-  font-size: 1.02rem;
+  font-size: var(--ks-type-body-size);
   line-height: 1.6;
   /* Weight 400 + explicit smoothing for the same reason .hero-rebuild-body
      uses them: Avenir Next Light (weight 300) isn't installed on every system,
@@ -339,7 +339,7 @@
 
 .downloads-rebuild-cmd-label {
   font-family: var(--ks-mono);
-  font-size: 0.7rem;
+  font-size: var(--ks-type-micro-size);
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -364,7 +364,7 @@
 }
 .downloads-rebuild-tabs-label {
   font-family: var(--ks-mono);
-  font-size: 0.7rem;
+  font-size: var(--ks-type-micro-size);
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -377,7 +377,7 @@
   background: transparent;
   padding: 2px 0 4px;
   font-family: var(--ks-mono);
-  font-size: 0.84rem;
+  font-size: var(--ks-type-ui-size);
   line-height: 1;
   color: var(--ks-text-muted);
   cursor: pointer;
@@ -443,7 +443,7 @@ svg.downloads-rebuild-tab-logo {
 .downloads-rebuild-method-note {
   margin: 9px 0 0;
   max-width: 60ch;
-  font-size: 0.82rem;
+  font-size: var(--ks-type-ui-size);
   line-height: 1.5;
   color: var(--ks-text-muted);
 }
@@ -476,7 +476,7 @@ svg.downloads-rebuild-tab-logo {
    quiet guidance text rather than a runnable box. */
 .downloads-rebuild-update-menu {
   margin: 0;
-  font-size: 0.92rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.5;
   color: var(--card-fg-muted);
   padding: 4px 0;
@@ -497,7 +497,7 @@ svg.downloads-rebuild-tab-logo {
   gap: 7px;
   margin: 6px 0 18px;
   max-width: 62ch;
-  font-size: 0.8rem;
+  font-size: var(--ks-type-ui-size);
   line-height: 1.5;
   color: var(--ks-text-muted);
 }
@@ -527,7 +527,7 @@ svg.downloads-rebuild-tab-logo {
   gap: 7px;
   cursor: pointer;
   list-style: none;
-  font-size: 0.82rem;
+  font-size: var(--ks-type-ui-size);
   color: var(--ks-text-muted);
   transition: color 160ms var(--ks-ease);
 }
@@ -618,7 +618,7 @@ svg.downloads-rebuild-tab-logo {
 .downloads-rebuild-branch-caption {
   margin: 12px 0 0;
   max-width: 56ch;
-  font-size: 0.8rem;
+  font-size: var(--ks-type-ui-size);
   line-height: 1.5;
   color: var(--ks-text-muted);
 }
@@ -670,7 +670,7 @@ svg.downloads-rebuild-tab-logo {
 .home-kinpaku .downloads-rebuild-prompt {
   flex: none;
   font-family: var(--ks-mono);
-  font-size: 1.125rem;
+  font-size: var(--ks-type-lead-size);
   font-weight: 500;
   line-height: 1;
   color: var(--card-prompt);
@@ -684,7 +684,7 @@ svg.downloads-rebuild-tab-logo {
   white-space: nowrap;
   color: var(--card-cmd-fg);
   font-family: var(--ks-mono);
-  font-size: 1.22rem;
+  font-size: var(--ks-type-subhead-size);
   letter-spacing: 0;
   background: transparent;
   border: 0;
@@ -819,7 +819,7 @@ svg.downloads-rebuild-tab-logo {
   max-width: 60ch;
   text-align: left;
   color: var(--card-fg-muted);
-  font-size: 0.88rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.55;
 }
 .home-kinpaku .downloads-rebuild-note code {
@@ -834,7 +834,7 @@ svg.downloads-rebuild-tab-logo {
 .downloads-rebuild-secondary {
   margin: 6px 0 0;
   text-align: left;
-  font-size: 0.84rem;
+  font-size: var(--ks-type-ui-size);
   color: var(--ks-text-muted);
 }
 .downloads-rebuild-secondary a {
@@ -851,7 +851,7 @@ svg.downloads-rebuild-tab-logo {
 .downloads-rebuild-more {
   margin: 28px 0 0;
   text-align: left;
-  font-size: 0.9rem;
+  font-size: var(--ks-type-small-size);
   color: var(--ks-text-muted);
 }
 .downloads-rebuild-more a {
@@ -895,7 +895,7 @@ svg.downloads-rebuild-tab-logo {
 
 .downloads-rebuild-extras span {
   color: var(--card-fg-muted);
-  font-size: 0.88rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.5;
 }
 
@@ -905,13 +905,13 @@ svg.downloads-rebuild-tab-logo {
   border-radius: 0;
   padding: 0;
   font-family: var(--ks-mono);
-  font-size: 0.84rem;
+  font-size: var(--ks-type-ui-size);
   color: var(--card-fg-strong);
 }
 
 .home-kinpaku .downloads-rebuild-extras a {
   color: var(--card-link-color);
-  font-size: 0.88rem;
+  font-size: var(--ks-type-small-size);
   text-decoration: underline;
   text-decoration-color: var(--card-link-underline);
   text-underline-offset: 4px;
@@ -951,7 +951,7 @@ svg.downloads-rebuild-tab-logo {
     overflow-x: visible;
     white-space: normal;
     overflow-wrap: anywhere;
-    font-size: 0.96rem;
+    font-size: var(--ks-type-ui-lead-size);
     line-height: 1.35;
   }
 
@@ -1185,7 +1185,7 @@ svg.downloads-rebuild-tab-logo {
   margin: 0;
   font-family: var(--h-serif);
   font-weight: 500;
-  font-size: 2rem;
+  font-size: var(--ks-type-headline-size);
   line-height: 1.05;
   letter-spacing: -0.01em;
   color: oklch(98% 0.01 85);
@@ -1219,7 +1219,7 @@ svg.downloads-rebuild-tab-logo {
 .hotel-hero--slop .hotel-hero-title {
   font-family: ui-sans-serif, system-ui, sans-serif;
   font-weight: 800;
-  font-size: 1.75rem;
+  font-size: var(--ks-type-headline-size);
   letter-spacing: -0.02em;
   color: oklch(32% 0.02 285);
 }
@@ -1337,7 +1337,7 @@ svg.downloads-rebuild-tab-logo {
   margin: 0;
   font-family: var(--h-serif);
   font-weight: 600;
-  font-size: 1.5rem;
+  font-size: var(--ks-type-title-lg-size);
   line-height: 1.05;
   color: var(--c-ink);
 }

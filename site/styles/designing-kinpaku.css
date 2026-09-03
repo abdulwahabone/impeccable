@@ -174,7 +174,7 @@
 
 .designing-kinpaku .designing-page-lede {
   font-family: var(--ks-font);
-  font-size: 1.12rem;
+  font-size: var(--ks-type-lead-size);
   line-height: 1.7;
   color: var(--ks-text);
   max-width: 46ch;
@@ -244,7 +244,7 @@
   color: var(--ks-ink);
   font-family: var(--ks-font);
   font-weight: var(--ks-type-title-weight);
-  font-size: 1.25rem;
+  font-size: var(--ks-type-subhead-size);
   line-height: 1.15;
   letter-spacing: -0.01em;
   transition: color 180ms var(--ks-ease);
@@ -253,7 +253,7 @@
 .designing-kinpaku .designing-loop-hint {
   display: block;
   color: var(--ks-text-muted);
-  font-size: 0.82rem;
+  font-size: var(--ks-type-ui-size);
   line-height: 1.5;
   max-width: 22ch;
 }
@@ -305,7 +305,7 @@
 }
 .designing-kinpaku .designing-loop-wheel-center-label {
   font-family: var(--ks-mono);
-  font-size: 0.62rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--ks-text-muted);
@@ -375,12 +375,12 @@
   }
 
   .designing-kinpaku .designing-loop-name {
-    font-size: 1.25rem;
+    font-size: var(--ks-type-subhead-size);
   }
 
   .designing-kinpaku .designing-loop-hint {
     max-width: none;
-    font-size: 0.9rem;
+    font-size: var(--ks-type-small-size);
   }
 
   .designing-kinpaku .designing-loop-wheel {
@@ -549,7 +549,7 @@
   border-radius: 2px;
   color: var(--ks-ink);
   font-family: var(--ks-mono);
-  font-size: 0.84rem;
+  font-size: var(--ks-type-ui-size);
   text-decoration: none;
   transition: border-color 180ms var(--ks-ease), background 180ms var(--ks-ease), color 180ms var(--ks-ease);
 }
@@ -616,12 +616,12 @@
 .designing-kinpaku .docs-viz-file-name {
   color: var(--ks-ink);
   font-family: var(--ks-mono);
-  font-size: 0.82rem;
+  font-size: var(--ks-type-ui-size);
 }
 .designing-kinpaku .docs-viz-file-status {
   color: var(--ks-state-ink);
   font-family: var(--ks-mono);
-  font-size: 0.62rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
@@ -642,13 +642,13 @@
 .designing-kinpaku .docs-viz-file-k {
   color: var(--ks-accent-ink);
   font-family: var(--ks-mono);
-  font-size: 0.72rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 .designing-kinpaku .docs-viz-file-v {
   color: var(--ks-text);
-  font-size: 0.92rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.5;
 }
 
@@ -701,14 +701,14 @@
 .designing-kinpaku .designing-visualize-plate-kind {
   color: var(--ks-state-ink);
   font-family: var(--ks-mono);
-  font-size: 0.62rem;
+  font-size: var(--ks-type-micro-size);
   font-weight: 500;
   letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 .designing-kinpaku .designing-visualize-plate-note {
   color: var(--ks-text);
-  font-size: 0.92rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.6;
   margin: 0;
   text-wrap: pretty;
@@ -785,7 +785,7 @@
   color: var(--ks-ink);
   font-family: var(--ks-font);
   font-weight: var(--ks-type-title-weight);
-  font-size: 1.25rem;
+  font-size: var(--ks-type-subhead-size);
   line-height: 1.3;
   letter-spacing: -0.01em;
   margin: 0;
@@ -794,7 +794,7 @@
 
 .designing-kinpaku .designing-iterate-when {
   color: var(--ks-text);
-  font-size: 0.96rem;
+  font-size: var(--ks-type-ui-lead-size);
   line-height: 1.6;
   margin: 0;
   /* Base docs-visuals caps this at 36ch, which crams the paragraph into
@@ -815,7 +815,7 @@
   border-radius: var(--ks-radius-sm);
   box-shadow: none;
   font-family: var(--ks-mono);
-  font-size: 0.86rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.7;
   color: var(--ks-ink);
   display: grid;
@@ -858,7 +858,7 @@
   margin-left: 8px;
   color: var(--ks-text-muted);
   font-family: var(--ks-mono);
-  font-size: 0.74rem;
+  font-size: var(--ks-type-label-size);
 }
 /* The stage reserves a band at the bottom (padding-bottom) for the two
    stacked picker bars. Absolutely-positioned children offset from the padding
@@ -886,7 +886,7 @@
 .designing-kinpaku .docs-viz-live-kicker {
   color: var(--ks-accent-ink);
   font-family: var(--ks-mono);
-  font-size: 0.66rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
@@ -895,7 +895,7 @@
   font-family: var(--ks-font);
   font-style: normal;
   font-weight: 500;
-  font-size: 1.1rem;
+  font-size: var(--ks-type-lead-size);
   margin: 0;
 }
 .designing-kinpaku .docs-viz-live-title em {
@@ -909,7 +909,7 @@
   border: 0;
   border-radius: 2px;
   font-family: var(--ks-font);
-  font-size: 0.88rem;
+  font-size: var(--ks-type-small-size);
   cursor: pointer;
 }
 /* Selection outline hugs the target region (above the bar band): a gold
@@ -947,7 +947,7 @@
   border: 0;
   color: var(--ks-instrument-text);
   font-family: var(--ks-font);
-  font-size: 0.78rem;
+  font-size: var(--ks-type-ui-size);
   cursor: pointer;
 }
 .designing-kinpaku .docs-viz-live-ctx-discard {
@@ -968,7 +968,7 @@
 .designing-kinpaku .docs-viz-live-ctx-counter {
   color: var(--ks-instrument-muted);
   font-family: var(--ks-mono);
-  font-size: 0.74rem;
+  font-size: var(--ks-type-label-size);
   padding: 0 6px;
 }
 .designing-kinpaku .docs-viz-live-ctx-divider {
@@ -1007,7 +1007,7 @@
   border-radius: var(--ks-radius-md);
   color: var(--ks-instrument-muted);
   font-family: var(--ks-font);
-  font-size: 0.74rem;
+  font-size: var(--ks-type-label-size);
   white-space: nowrap;
 }
 .designing-kinpaku .docs-viz-live-gbar-btn svg {
@@ -1021,7 +1021,7 @@
 }
 .designing-kinpaku .docs-viz-live-gbar-btn-mono {
   font-family: var(--ks-mono);
-  font-size: 0.66rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.03em;
 }
 .designing-kinpaku .docs-viz-live-gbar-divider {
@@ -1054,7 +1054,7 @@
   padding-bottom: 18px;
   color: var(--ks-state-ink);
   font-family: var(--ks-mono);
-  font-size: 0.66rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.24em;
   text-transform: uppercase;
 }
@@ -1067,7 +1067,7 @@
   padding: 18px 16px;
   font-weight: 400;
   text-align: left;
-  font-size: 0.96rem;
+  font-size: var(--ks-type-ui-lead-size);
   line-height: 1.5;
 }
 .designing-kinpaku .designing-iterate-table th {
@@ -1079,7 +1079,7 @@
 }
 .designing-kinpaku .designing-iterate-table td a {
   font-family: var(--ks-mono);
-  font-size: 0.9rem;
+  font-size: var(--ks-type-small-size);
 }
 
 /* ============================================================================
@@ -1110,7 +1110,7 @@
 .designing-kinpaku .designing-polish-band-label {
   color: var(--ks-state-ink);
   font-family: var(--ks-mono);
-  font-size: 0.66rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.28em;
   text-transform: uppercase;
 }
@@ -1167,7 +1167,7 @@
   color: var(--ks-ink);
   font-family: var(--ks-font);
   font-weight: var(--ks-type-title-weight);
-  font-size: 1.25rem;
+  font-size: var(--ks-type-subhead-size);
   line-height: 1.3;
   letter-spacing: -0.01em;
   margin: 0;
@@ -1175,7 +1175,7 @@
 }
 .designing-kinpaku .designing-polish-desc {
   color: var(--ks-text);
-  font-size: 0.94rem;
+  font-size: var(--ks-type-ui-lead-size);
   line-height: 1.6;
   margin: 0;
   text-wrap: pretty;
@@ -1231,7 +1231,7 @@
   border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-sm);
   font-family: var(--ks-mono);
-  font-size: 0.84rem;
+  font-size: var(--ks-type-ui-size);
   color: var(--ks-ink);
 }
 .designing-kinpaku .designing-surface-cmd-prompt {
@@ -1258,7 +1258,7 @@
 .designing-kinpaku .designing-maintain-label {
   color: var(--ks-state-ink);
   font-family: var(--ks-mono);
-  font-size: 0.62rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.24em;
   text-transform: uppercase;
 }
@@ -1266,14 +1266,14 @@
   color: var(--ks-ink);
   font-family: var(--ks-font);
   font-weight: var(--ks-type-title-weight);
-  font-size: 1.25rem;
+  font-size: var(--ks-type-subhead-size);
   line-height: 1.3;
   letter-spacing: -0.01em;
   margin: 0;
 }
 .designing-kinpaku .designing-maintain-desc {
   color: var(--ks-text);
-  font-size: 0.94rem;
+  font-size: var(--ks-type-ui-lead-size);
   line-height: 1.6;
   margin: 0;
   text-wrap: pretty;
@@ -1301,12 +1301,12 @@
   border-radius: 3px;
   color: var(--ks-ink);
   font-family: var(--ks-mono);
-  font-size: 0.74rem;
+  font-size: var(--ks-type-label-size);
 }
 .designing-kinpaku .designing-extract-arrow {
   color: var(--ks-accent-ink);
   font-family: var(--ks-mono);
-  font-size: 1.25rem;
+  font-size: var(--ks-type-subhead-size);
 }
 .designing-kinpaku .designing-extract-after {
   justify-self: end;
@@ -1315,7 +1315,7 @@
   color: var(--ks-paper-raised);
   border-radius: 2px;
   font-family: var(--ks-font);
-  font-size: 0.9rem;
+  font-size: var(--ks-type-small-size);
 }
 
 /* DESIGN.md preview lines */
@@ -1332,13 +1332,13 @@
   padding: 6px 0;
   border-bottom: 1px solid var(--ks-rule);
   color: var(--ks-text);
-  font-size: 0.92rem;
+  font-size: var(--ks-type-small-size);
 }
 .designing-kinpaku .designing-designmd-preview-line:last-child { border-bottom: 0; }
 .designing-kinpaku .designing-designmd-preview-num {
   color: var(--ks-accent-ink);
   font-family: var(--ks-mono);
-  font-size: 0.7rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.16em;
 }
 
@@ -1437,7 +1437,7 @@
 }
 .designing-kinpaku .designing-lane-read-h {
   color: var(--ks-ink);
-  font-size: 0.95rem;
+  font-size: var(--ks-type-ui-lead-size);
   font-weight: 500;
   margin-bottom: 3px;
 }
@@ -1479,7 +1479,7 @@
 .designing-kinpaku .designing-lane-mock-label {
   color: var(--ks-state-ink);
   font-family: var(--ks-mono);
-  font-size: 0.62rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
@@ -1487,7 +1487,7 @@
   color: var(--ks-ink);
   font-family: var(--ks-font);
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: var(--ks-type-subhead-size);
   line-height: 1.15;
 }
 /* The brand mock's accent word: deep gold, the demo's own voice rather than
@@ -1508,14 +1508,14 @@
 }
 .designing-kinpaku .designing-lane-product-k {
   font-family: var(--ks-mono);
-  font-size: 0.62rem;
+  font-size: var(--ks-type-micro-size);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ks-text-muted);
 }
 .designing-kinpaku .designing-lane-product-v {
   font-family: var(--ks-font);
-  font-size: 0.92rem;
+  font-size: var(--ks-type-small-size);
   font-weight: 500;
   color: var(--ks-ink);
 }
@@ -1554,7 +1554,7 @@
   border-radius: 50%;
   color: var(--ks-vermilion);
   font-family: var(--ks-mono);
-  font-size: 0.8rem;
+  font-size: var(--ks-type-ui-size);
   font-weight: 700;
   line-height: 1;
 }
@@ -1569,7 +1569,7 @@
 .designing-kinpaku .designing-avoid-title code { color: var(--ks-code-fg); }
 .designing-kinpaku .designing-avoid-desc {
   color: var(--ks-text);
-  font-size: 0.94rem;
+  font-size: var(--ks-type-ui-lead-size);
   line-height: 1.65;
   margin: 0;
   text-wrap: pretty;
@@ -1626,7 +1626,7 @@
 
 .designing-kinpaku .designing-cta-card-desc {
   color: var(--ks-text);
-  font-size: 0.96rem;
+  font-size: var(--ks-type-ui-lead-size);
   line-height: 1.65;
   margin: 0;
   text-wrap: pretty;
@@ -1646,7 +1646,7 @@
   align-items: center;
   padding: 15px 0;
   color: var(--ks-ink);
-  font-size: 0.95rem;
+  font-size: var(--ks-type-ui-lead-size);
   font-weight: 600;
   cursor: pointer;
   list-style: none;
@@ -1675,6 +1675,6 @@
 .designing-kinpaku .designing-details > div p {
   margin: 0;
   color: var(--ks-text);
-  font-size: 0.95rem;
+  font-size: var(--ks-type-ui-lead-size);
   line-height: 1.65;
 }

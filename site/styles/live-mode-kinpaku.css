@@ -92,7 +92,7 @@
 }
 
 .live-mode-kinpaku .live-mode-page-lede {
-  font-size: 1.1rem;
+  font-size: var(--ks-type-lead-size);
   line-height: 1.65;
   color: var(--ks-text);
   margin: 0 0 22px;
@@ -108,7 +108,7 @@
   border-left: 1px solid var(--ks-gold-line);
   border-radius: 0;
   box-shadow: none;
-  font-size: 0.82rem;
+  font-size: var(--ks-type-ui-size);
   line-height: 1.5;
   color: var(--ks-text-muted);
   max-width: 60ch;
@@ -142,7 +142,7 @@
 .live-mode-kinpaku .live-mode-start-prompt {
   flex: none;
   color: var(--ks-kinpaku);
-  font-size: 1.1rem;
+  font-size: var(--ks-type-lead-size);
   font-weight: 500;
   line-height: 1;
   user-select: none;
@@ -154,7 +154,7 @@
   overflow-x: auto;
   white-space: nowrap;
   color: var(--ks-instrument-text);
-  font-size: 1.1rem;
+  font-size: var(--ks-type-lead-size);
   letter-spacing: 0;
   background: transparent;
   border: 0;
@@ -266,7 +266,7 @@
     overflow-x: visible;
     white-space: normal;
     overflow-wrap: anywhere;
-    font-size: 0.96rem;
+    font-size: var(--ks-type-ui-lead-size);
     line-height: 1.35;
   }
 
@@ -312,7 +312,7 @@
 .live-mode-kinpaku .live-demo-url {
   margin-left: 12px;
   font-family: var(--ks-mono);
-  font-size: 0.72rem;
+  font-size: var(--ks-type-micro-size);
   color: var(--ks-text-muted);
   letter-spacing: 0.04em;
   background: var(--ks-paper-raised);
@@ -533,7 +533,7 @@
 .live-mode-kinpaku .live-mode-demo-caption {
   margin: 18px 0 0;
   max-width: 62ch;
-  font-size: 0.92rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.55;
   color: var(--ks-text-muted);
   font-style: normal;
@@ -622,7 +622,7 @@
 
 .live-mode-kinpaku .live-mode-stage-desc,
 .live-mode-kinpaku .live-mode-pathway-desc {
-  font-size: 0.92rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.55;
   color: var(--ks-text);
   margin: 0;
@@ -771,7 +771,7 @@
 .live-mode-kinpaku .live-mode-pathway-cta {
   margin-top: 4px;
   font-family: var(--ks-font);
-  font-size: 0.875rem;
+  font-size: var(--ks-type-small-size);
   font-weight: 500;
   color: var(--ks-link-on-paper);
 }
@@ -841,7 +841,7 @@
 
 .live-mode-kinpaku .framework-list--matrix strong {
   color: var(--ks-ink);
-  font-size: 0.9rem;
+  font-size: var(--ks-type-small-size);
   font-weight: 500;
 }
 

@@ -71,7 +71,7 @@
 /* Zone labels are small text, so they take the text-safe patina, not gold. */
 .worlds-zone-label {
 	font-family: var(--ks-mono);
-	font-size: 0.625rem;
+	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.28em;
 	text-transform: uppercase;
 	color: var(--ks-state-ink);
@@ -139,7 +139,7 @@
 
 .worlds-card-tier {
 	font-family: var(--ks-mono);
-	font-size: 0.625rem;
+	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.24em;
 	text-transform: uppercase;
 	color: var(--ks-text-faint);
@@ -147,7 +147,7 @@
 
 .worlds-card-name {
 	font-family: var(--ks-font-display);
-	font-size: 1.125rem;
+	font-size: var(--ks-type-lead-size);
 	font-weight: 600;
 	line-height: 1.15;
 	letter-spacing: 0.01em;
@@ -175,7 +175,7 @@
 	display: flex;
 	align-items: flex-end;
 	padding: 14px;
-	font-size: 0.875rem;
+	font-size: var(--ks-type-small-size);
 	line-height: 1.5;
 	color: oklch(95% 0 0);
 	background: linear-gradient(
@@ -301,7 +301,7 @@
 	gap: 8px;
 	padding: 7px 14px;
 	font-family: var(--ks-mono);
-	font-size: 0.72rem;
+	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: var(--ks-link-on-paper);
@@ -341,7 +341,7 @@
 	text-align: right;
 	overflow: hidden;
 	font-family: var(--ks-mono);
-	font-size: 0.625rem;
+	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.04em;
 	color: var(--ks-text-mute-deep);
 	text-overflow: ellipsis;
@@ -366,7 +366,7 @@
 	margin: 14px 0 0;
 	clip: auto;
 	white-space: normal;
-	font-size: 0.875rem;
+	font-size: var(--ks-type-small-size);
 	color: var(--ks-text-muted);
 }
 
@@ -398,7 +398,7 @@
 	z-index: 1;
 	padding: 4px 10px;
 	font-family: var(--ks-mono);
-	font-size: 0.625rem;
+	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.24em;
 	text-transform: uppercase;
 	color: var(--ks-ink);
@@ -429,14 +429,14 @@
 
 .worlds-played-caption strong {
 	font-family: var(--ks-font-display);
-	font-size: 1.5rem;
+	font-size: var(--ks-type-title-lg-size);
 	font-weight: 600;
 	line-height: 1.1;
 	color: var(--ks-ink);
 }
 
 .worlds-played-caption > span:not(.worlds-played-cta) {
-	font-size: 0.875rem;
+	font-size: var(--ks-type-small-size);
 	line-height: 1.55;
 	color: var(--ks-text-muted);
 }
@@ -444,7 +444,7 @@
 .worlds-played-cta {
 	margin-top: 6px;
 	font-family: var(--ks-mono);
-	font-size: 0.625rem;
+	font-size: var(--ks-type-micro-size);
 	letter-spacing: 0.22em;
 	text-transform: uppercase;
 	color: var(--ks-state-ink);
@@ -454,7 +454,7 @@
 	display: flex;
 	gap: 18px;
 	margin: 14px 2px 0;
-	font-size: 0.875rem;
+	font-size: var(--ks-type-small-size);
 }
 
 .worlds-played-meta a {

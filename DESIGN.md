@@ -135,6 +135,26 @@ typography:
     fontSize: "0.9375rem"
     fontWeight: 400
 
+  # Reading ramp between body and headline. Small is secondary body copy and
+  # captions that are read rather than scanned; lead is the intro paragraph;
+  # subhead is a card-level heading; title-lg is a bento tile or panel heading.
+  small:
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 400
+  lead:
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 400
+  subhead:
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 500
+  title-lg:
+    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
+    fontSize: "1.5rem"
+    fontWeight: 500
+
 # Exactly the three radii the tokens define. Nothing else is a radius; a
 # control nested inside another subtracts 1px from its parent's value.
 rounded:
@@ -190,7 +210,7 @@ components:
     backgroundColor: "{colors.paper-raised}"
     textColor: "{colors.ink}"
     borderColor: "{colors.rule}"
-    rounded: "2px"                # kit literal, one below {rounded.sm}
+    rounded: "{rounded.sm}"
     height: "46px"
     padding: "0 14px"
   input-text-focus:
@@ -203,7 +223,7 @@ components:
   checkbox-on:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.paper-raised}"
-    rounded: "2px"
+    rounded: "{rounded.sm}"
     size: "18px"
   segmented:
     backgroundColor: "{colors.paper-deep}"
@@ -568,7 +588,7 @@ Application surfaces (the labs, the review workbench) need scales the marketing 
 
 Three radii and nothing else. Small (3px) for buttons, inputs, chips and the segmented track; medium (8px) for cards, the picker bar and its command palette; pill for the instrument strip and its keys, the toggle, tags, the GitHub pill. A control nested inside another subtracts 1px from its parent (the segmented thumb is 2px inside a 3px track; the `--lg` variant is 6px inside 8px). Bento tiles and the structural slabs stay square because their edges are the layout.
 
-**The Three-Radius Rule.** Use `--ks-radius-sm`, `--ks-radius-md` or `--ks-radius-pill`. Treat a nested-control subtraction as derived geometry, not a fourth radius. The older kit primitives (inputs, checkbox, badge, toast, tooltip, modal, pagination, empty state) still carry a literal 2px; when one is touched, it moves to the token.
+**The Three-Radius Rule.** Use `--ks-radius-sm`, `--ks-radius-md` or `--ks-radius-pill`. Treat a nested-control subtraction as derived geometry, not a fourth radius. Every kit primitive reads the token; a literal radius in page CSS is a finding, not a style.
 
 ## Components
 

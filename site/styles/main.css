@@ -204,7 +204,7 @@ code {
 .cheatsheet-link {
   color: var(--ks-link-on-paper);
   text-decoration: none;
-  font-size: 0.875rem;
+  font-size: var(--ks-type-small-size);
   margin-left: 0.5em;
 }
 
@@ -397,20 +397,20 @@ code {
 
 .foundation-card-label {
   font-family: var(--font-display);
-  font-size: 1.125rem;
+  font-size: var(--ks-type-lead-size);
   color: var(--color-ink);
   line-height: 1.16;
 }
 
 .foundation-card-count {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: var(--ks-type-micro-size);
   color: var(--ks-accent-ink);
   flex-shrink: 0;
 }
 
 .foundation-card-detail {
-  font-size: 0.875rem;
+  font-size: var(--ks-type-small-size);
   color: var(--color-ash);
   line-height: 1.4;
   margin: auto 0 0 0;
@@ -540,7 +540,7 @@ code {
     margin-bottom: 0;
   }
   .foundation-card-header { margin-bottom: 2px; }
-  .foundation-card-label { font-size: 1.1rem; }
+  .foundation-card-label { font-size: var(--ks-type-lead-size); }
   .foundation-card-detail { margin: 0; font-size: 0.8125rem; }
 }
 
@@ -702,7 +702,7 @@ code {
 
 .mobile-cmd-name {
   font-family: var(--font-mono);
-  font-size: 1.125rem;
+  font-size: var(--ks-type-lead-size);
   font-weight: 600;
   color: var(--color-ink);
   margin: 0 0 var(--spacing-xs) 0;
@@ -714,7 +714,7 @@ code {
 }
 
 .mobile-cmd-desc {
-  font-size: 0.875rem;
+  font-size: var(--ks-type-small-size);
   color: var(--color-charcoal);
   line-height: 1.5;
   margin: 0;
@@ -762,7 +762,7 @@ code {
 
 .footer-logo {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: var(--ks-type-subhead-size);
   font-weight: 400;
   color: var(--color-ink);
   text-decoration: none;
@@ -776,7 +776,7 @@ code {
 }
 
 .footer-links a {
-  font-size: 0.875rem;
+  font-size: var(--ks-type-small-size);
   color: var(--color-ash);
   text-decoration: none;
   transition: color var(--duration-fast) var(--ease-out);
@@ -790,7 +790,7 @@ code {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  font-size: 0.875rem;
+  font-size: var(--ks-type-small-size);
   color: var(--color-ash);
   white-space: nowrap;
 }
@@ -952,13 +952,13 @@ code {
 }
 
 .load-error-icon {
-  font-size: 2.5rem;
+  font-size: var(--ks-type-display-size);
   color: var(--ks-vermilion);
 }
 
 .load-error-title {
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: var(--ks-type-title-lg-size);
   font-weight: 400;
   color: var(--color-ink);
   margin: 0;

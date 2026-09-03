@@ -1,239 +1,430 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-01T00:52:37.762Z",
+  "generatedAt": "2026-09-03T19:33:21.000Z",
   "title": "Design System: Impeccable",
   "extensions": {
     "colorMeta": {
       "kinpaku-gold": {
         "role": "primary",
         "displayName": "Kinpaku Gold",
+        "cssVar": "--ks-kinpaku",
         "canonical": "oklch(84% 0.19 80.46)",
-        "description": "Primary accent for CTAs, wordmark, active states, and key brand structure.",
-        "tonalRamp": [
-          "oklch(22% 0.04 80)",
-          "oklch(34% 0.06 80)",
-          "oklch(48% 0.08 80)",
-          "oklch(61% 0.085 78)",
-          "oklch(77% 0.13 82)",
-          "oklch(84% 0.19 80.46)",
-          "oklch(87% 0.20 85)",
-          "oklch(95% 0.04 84)"
-        ]
+        "description": "The mark, the arrow in the primary button, the dot on an active instrument key, the gold underline on a selected tab, the Go and Accept fills in the picker. Under 2:1 against paper, so it never carries text there.",
+        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
       },
-      "verdigris-patina": {
+      "kinpaku-vivid": {
+        "role": "primary",
+        "displayName": "Kinpaku Vivid",
+        "cssVar": "--ks-kinpaku-vivid",
+        "canonical": "oklch(87% 0.20 85)",
+        "description": "Lit hover on a gold fill.",
+        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+      },
+      "kinpaku-pale": {
+        "role": "primary",
+        "displayName": "Kinpaku Pale",
+        "cssVar": "--ks-kinpaku-pale",
+        "canonical": "oklch(86% 0.07 84)",
+        "description": "Pale gold tint; rarely needed on paper.",
+        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+      },
+      "kinpaku-rich": {
+        "role": "primary",
+        "displayName": "Kinpaku Rich",
+        "cssVar": "--ks-kinpaku-rich",
+        "canonical": "oklch(77% 0.13 82)",
+        "description": "Hairline gold on paper, the active rule. --ks-gold-line aliases it.",
+        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+      },
+      "kinpaku-deep": {
+        "role": "primary",
+        "displayName": "Kinpaku Deep",
+        "cssVar": "--ks-kinpaku-deep",
+        "canonical": "oklch(61% 0.085 78)",
+        "description": "A gold border against paper.",
+        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+      },
+      "on-gold": {
+        "role": "primary",
+        "displayName": "On Gold",
+        "cssVar": "--ks-on-gold",
+        "canonical": "oklch(14% 0.018 95)",
+        "description": "The foreground on a gold fill (picker Go and Accept) and on the patina skip link.",
+        "tonalRamp": ["oklch(14% 0.018 95)", "oklch(26% 0.02 95)", "oklch(38% 0.02 95)", "oklch(50% 0.02 95)", "oklch(62% 0.02 95)", "oklch(74% 0.02 95)", "oklch(86% 0.02 95)", "oklch(96% 0.01 95)"]
+      },
+      "gold-line": {
+        "role": "primary",
+        "displayName": "Gold Line",
+        "cssVar": "--ks-gold-line",
+        "canonical": "oklch(77% 0.13 82)",
+        "description": "The one-pixel gold rule. Aliases kinpaku-rich. Use one, not a set.",
+        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+      },
+      "patina": {
         "role": "secondary",
         "displayName": "Verdigris Patina",
+        "cssVar": "--ks-patina",
         "canonical": "oklch(70% 0.12 188)",
-        "description": "Secondary accent for improved states, live indicators, focus, and contrast against gold.",
-        "tonalRamp": [
-          "oklch(18% 0.025 188)",
-          "oklch(30% 0.045 188)",
-          "oklch(40% 0.065 188)",
-          "oklch(49% 0.08 188)",
-          "oklch(60% 0.10 188)",
-          "oklch(70% 0.12 188)",
-          "oklch(82% 0.07 188)",
-          "oklch(94% 0.025 188)"
-        ]
+        "description": "Indicator on instruments, the focus ring, the toggle when on, the skip link fill.",
+        "tonalRamp": ["oklch(18% 0.04 188)", "oklch(28% 0.06 188)", "oklch(38% 0.08 188)", "oklch(46% 0.08 188)", "oklch(58% 0.10 188)", "oklch(70% 0.12 188)", "oklch(82% 0.07 188)", "oklch(94% 0.03 188)"]
       },
-      "lacquer-black": {
-        "role": "neutral",
-        "displayName": "Lacquer Black",
-        "canonical": "oklch(15% 0.006 95)",
-        "description": "Default warm mineral page ground; the shared surface ladder never reaches pure black.",
-        "tonalRamp": [
-          "oklch(10% 0.006 95)",
-          "oklch(15% 0.006 95)",
-          "oklch(20% 0.006 95)",
-          "oklch(25% 0.008 95)",
-          "oklch(30% 0.008 95)",
-          "oklch(45% 0.012 95)",
-          "oklch(65% 0.012 95)",
-          "oklch(90% 0.008 95)"
-        ]
+      "patina-pale": {
+        "role": "secondary",
+        "displayName": "Patina Pale",
+        "cssVar": "--ks-patina-pale",
+        "canonical": "oklch(82% 0.07 188)",
+        "description": "A soft fill behind a selected row.",
+        "tonalRamp": ["oklch(18% 0.04 188)", "oklch(28% 0.06 188)", "oklch(38% 0.08 188)", "oklch(46% 0.08 188)", "oklch(58% 0.10 188)", "oklch(70% 0.12 188)", "oklch(82% 0.07 188)", "oklch(94% 0.03 188)"]
       },
-      "champagne": {
-        "role": "neutral",
-        "displayName": "Neutral Text",
-        "canonical": "oklch(91% 0 0)",
-        "description": "Brightest dark-theme text tier; the legacy name remains for compatibility.",
-        "tonalRamp": [
-          "oklch(22% 0 0)",
-          "oklch(35% 0 0)",
-          "oklch(45% 0 0)",
-          "oklch(52% 0 0)",
-          "oklch(62% 0 0)",
-          "oklch(72% 0 0)",
-          "oklch(88% 0 0)",
-          "oklch(91% 0 0)"
-        ]
+      "patina-deep": {
+        "role": "secondary",
+        "displayName": "Patina Deep",
+        "cssVar": "--ks-patina-deep",
+        "canonical": "oklch(46% 0.08 188)",
+        "description": "Patina as text: links, the selected tab, .is-improved and .is-ready badges, the ghost button on hover. Clears 4.5:1 on paper. Reached through --ks-accent-ink, --ks-state-ink and --ks-link-on-paper.",
+        "tonalRamp": ["oklch(18% 0.04 188)", "oklch(28% 0.06 188)", "oklch(38% 0.08 188)", "oklch(46% 0.08 188)", "oklch(58% 0.10 188)", "oklch(70% 0.12 188)", "oklch(82% 0.07 188)", "oklch(94% 0.03 188)"]
       },
-      "light-paper": {
-        "role": "neutral",
-        "displayName": "Light Mode Paper",
-        "canonical": "oklch(97% 0.012 95)",
-        "description": "Warm paper ground for the intentional light theme.",
-        "tonalRamp": [
-          "oklch(18% 0.02 95)",
-          "oklch(30% 0.02 95)",
-          "oklch(45% 0.015 95)",
-          "oklch(65% 0.01 95)",
-          "oklch(88% 0.014 95)",
-          "oklch(94% 0.014 95)",
-          "oklch(97% 0.012 95)",
-          "oklch(99% 0.008 95)"
-        ]
+      "patina-ink": {
+        "role": "secondary",
+        "displayName": "Patina Ink",
+        "cssVar": "--ks-patina-ink",
+        "canonical": "oklch(38% 0.08 188)",
+        "description": "Hover on patina text. --ks-link-on-paper-hover aliases it.",
+        "tonalRamp": ["oklch(18% 0.04 188)", "oklch(28% 0.06 188)", "oklch(38% 0.08 188)", "oklch(46% 0.08 188)", "oklch(58% 0.10 188)", "oklch(70% 0.12 188)", "oklch(82% 0.07 188)", "oklch(94% 0.03 188)"]
       },
-      "vermilion-warning": {
+      "link-line": {
+        "role": "secondary",
+        "displayName": "Link Line",
+        "cssVar": "--ks-link-on-paper-line",
+        "canonical": "oklch(46% 0.08 188 / 0.4)",
+        "description": "The underline under a link on paper: patina-deep at 40%. The ramp shows the base color.",
+        "tonalRamp": ["oklch(18% 0.04 188)", "oklch(28% 0.06 188)", "oklch(38% 0.08 188)", "oklch(46% 0.08 188)", "oklch(58% 0.10 188)", "oklch(70% 0.12 188)", "oklch(82% 0.07 188)", "oklch(94% 0.03 188)"]
+      },
+      "vermilion": {
         "role": "state",
-        "displayName": "Vermilion Warning",
-        "canonical": "oklch(62% 0.15 35)",
-        "description": "Errors, anti-pattern warnings, and the Live Mode exit hover.",
-        "tonalRamp": [
-          "oklch(18% 0.035 35)",
-          "oklch(30% 0.07 35)",
-          "oklch(42% 0.11 35)",
-          "oklch(52% 0.16 35)",
-          "oklch(62% 0.15 35)",
-          "oklch(72% 0.12 35)",
-          "oklch(84% 0.075 35)",
-          "oklch(95% 0.025 35)"
-        ]
+        "displayName": "Vermilion",
+        "cssVar": "--ks-vermilion",
+        "canonical": "oklch(52% 0.16 35)",
+        "description": ".is-detected, the warning toast, the picker's exit and discard hovers. Failures and warnings only.",
+        "tonalRamp": ["oklch(18% 0.05 35)", "oklch(30% 0.09 35)", "oklch(42% 0.13 35)", "oklch(52% 0.16 35)", "oklch(63% 0.14 35)", "oklch(74% 0.11 35)", "oklch(85% 0.07 35)", "oklch(95% 0.025 35)"]
       },
-      "success": {
-        "role": "state",
-        "displayName": "Positive Success",
-        "canonical": "oklch(45% 0.18 145)",
-        "description": "Success, accepted states, diff additions, and positive status badges.",
-        "tonalRamp": [
-          "oklch(18% 0.04 145)",
-          "oklch(30% 0.08 145)",
-          "oklch(40% 0.10 145)",
-          "oklch(45% 0.18 145)",
-          "oklch(58% 0.12 145)",
-          "oklch(75% 0.12 145)",
-          "oklch(88% 0.08 145)",
-          "oklch(95% 0.05 145)"
-        ]
+      "paper": {
+        "role": "neutral",
+        "displayName": "Paper",
+        "cssVar": "--ks-paper",
+        "canonical": "oklch(97.8% 0 0)",
+        "description": "The page ground. A hair below white so a raised card can read as raised. Chroma 0.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "paper-raised": {
+        "role": "neutral",
+        "displayName": "Paper Raised",
+        "cssVar": "--ks-paper-raised",
+        "canonical": "oklch(99.5% 0 0)",
+        "description": "Cards, panels, inputs, the secondary button, the segmented thumb, the GitHub pill.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "paper-deep": {
+        "role": "neutral",
+        "displayName": "Paper Deep",
+        "cssVar": "--ks-paper-deep",
+        "canonical": "oklch(95% 0 0)",
+        "description": "Sunk wells, code blocks, the segmented track, the footer, tooltips.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "gray": {
+        "role": "neutral",
+        "displayName": "Gray",
+        "cssVar": "--ks-gray",
+        "canonical": "oklch(92% 0 0)",
+        "description": "Chips, inactive fills, inline code, the toggle at rest, the secondary button on press.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "gray-2": {
+        "role": "neutral",
+        "displayName": "Gray 2",
+        "cssVar": "--ks-gray-2",
+        "canonical": "oklch(88% 0 0)",
+        "description": "One step down from gray.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "paper-veil": {
+        "role": "neutral",
+        "displayName": "Paper Veil",
+        "cssVar": null,
+        "canonical": "oklch(97.8% 0 0 / 0.92)",
+        "description": "Kit literal, not a token: the sticky header, paper at 92% over a 12px blur. The only translucency on the site.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "instrument": {
+        "role": "neutral",
+        "displayName": "Instrument",
+        "cssVar": "--ks-instrument",
+        "canonical": "oklch(24% 0 0)",
+        "description": "The face of a strip, a terminal, a picker bar. The only place the site goes dark.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "instrument-deep": {
+        "role": "neutral",
+        "displayName": "Instrument Deep",
+        "cssVar": "--ks-instrument-deep",
+        "canonical": "oklch(17% 0 0)",
+        "description": "A track, a well, the strip's border.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "instrument-raised": {
+        "role": "neutral",
+        "displayName": "Instrument Raised",
+        "cssVar": "--ks-instrument-raised",
+        "canonical": "oklch(31% 0 0)",
+        "description": "A key cap, a thumb, the active picker toggle.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "instrument-text": {
+        "role": "neutral",
+        "displayName": "Instrument Text",
+        "cssVar": "--ks-instrument-text",
+        "canonical": "oklch(93% 0 0)",
+        "description": "Text on instruments.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "instrument-muted": {
+        "role": "neutral",
+        "displayName": "Instrument Muted",
+        "cssVar": "--ks-instrument-muted",
+        "canonical": "oklch(68% 0 0)",
+        "description": "Muted text on instruments; an instrument key at rest.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "instrument-rule": {
+        "role": "neutral",
+        "displayName": "Instrument Rule",
+        "cssVar": "--ks-instrument-rule",
+        "canonical": "oklch(100% 0 0 / 0.12)",
+        "description": "Divider and the inset highlight along the top of an instrument face. White at 12%; the ramp shows the neutral base.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "instrument-edge": {
+        "role": "neutral",
+        "displayName": "Instrument Edge",
+        "cssVar": "--ks-instrument-edge",
+        "canonical": "oklch(100% 0 0 / 0.3)",
+        "description": "The inset top edge on an active key. White at 30%; the ramp shows the neutral base.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "cssVar": "--ks-ink",
+        "canonical": "oklch(13% 0 0)",
+        "description": "Headlines, <strong>, active nav, and the fill of the primary button. --ks-nav-active aliases it.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Text",
+        "cssVar": "--ks-text",
+        "canonical": "oklch(22% 0 0)",
+        "description": "Body copy; also the primary button's hover fill in the kit.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "text-muted": {
+        "role": "neutral",
+        "displayName": "Text Muted",
+        "cssVar": "--ks-text-muted",
+        "canonical": "oklch(46% 0 0)",
+        "description": "Captions, meta, eyebrows, section subheads, nav links at rest, footer links.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "text-faint": {
+        "role": "neutral",
+        "displayName": "Text Faint",
+        "cssVar": "--ks-text-faint",
+        "canonical": "oklch(56% 0 0)",
+        "description": "Subdued meta, segmented labels at rest, counts.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "text-mute-deep": {
+        "role": "neutral",
+        "displayName": "Text Mute Deep",
+        "cssVar": "--ks-text-mute-deep",
+        "canonical": "oklch(66% 0 0)",
+        "description": "Disabled only. Measures under 4.5:1 on paper by design; a live figure using it is a bug.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "cssVar": "--ks-rule",
+        "canonical": "oklch(13% 0 0 / 0.12)",
+        "description": "Divides content. Ink at 12%; does not clear 3:1, so it never bounds a control. The ramp shows the base.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+      },
+      "edge": {
+        "role": "neutral",
+        "displayName": "Edge",
+        "cssVar": "--ks-edge",
+        "canonical": "oklch(13% 0 0 / 0.45)",
+        "description": "Bounds something you can operate. Ink at 45%, clears 3:1 for WCAG 1.4.11. The ramp shows the base.",
+        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
       }
     },
     "typographyMeta": {
-      "scale": {
-        "displayName": "Type Ramp",
-        "purpose": "The enumerated 21-step ramp at a 16px root. Roles use its steps; display and headline interpolate between clamp endpoints."
-      },
       "wordmark": {
         "displayName": "Wordmark",
-        "purpose": "IMPECCABLE lockup only. Alumni Sans at weight 400."
+        "cssVars": ["--ks-font-wordmark", "--ks-type-wordmark-size", "--ks-type-wordmark-track"],
+        "purpose": "IMPECCABLE in the header lockup and the footer logo. The only place Alumni Sans appears; part of the logo, not a display face."
       },
       "display": {
         "displayName": "Display",
-        "purpose": "Hero h1. Alumni Sans at weight 100."
+        "cssVars": ["--ks-type-display-size", "--ks-type-display-weight", "--ks-type-display-line", "--ks-type-display-track"],
+        "purpose": "Page h1. Albert Sans at 500; never 100 or 300."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Section h2. Alumni Sans at weight 300."
+        "cssVars": ["--ks-type-headline-size", "--ks-type-headline-weight", "--ks-type-headline-line", "--ks-type-headline-track"],
+        "purpose": "Section h2. The kit styles any h2 inside .ks-section-head to this role."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Panel and card headings. Albert Sans."
+        "cssVars": ["--ks-type-title-size", "--ks-type-title-weight", "--ks-type-title-line"],
+        "purpose": "Card and panel headings, h3. Albert Sans at 600."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Long copy. Albert Sans, line-height 1.8, max 65–75ch."
+        "cssVars": ["--ks-type-body-size", "--ks-type-body-line"],
+        "purpose": "Long copy at line-height 1.65. Holds a 65ch measure."
+      },
+      "control": {
+        "displayName": "Control",
+        "cssVars": [],
+        "purpose": "Button labels. A .ks-button literal: the ui-lead size at 500, line-height 1."
       },
       "eyebrow": {
         "displayName": "Eyebrow",
-        "purpose": "Short mono labels above titles. Uppercase and tracked."
+        "cssVars": ["--ks-mono", "--ks-type-eyebrow-size", "--ks-type-eyebrow-track"],
+        "purpose": "Small mono caps above titles. Color is text-muted, not gold and not patina. Short labels only, never a sentence."
       },
       "mono": {
-        "displayName": "Mono Label",
-        "purpose": "Command names, audit lines, table headers, and nav metadata."
+        "displayName": "Mono",
+        "cssVars": ["--ks-mono", "--ks-type-mono-size", "--ks-type-mono-track"],
+        "purpose": "Code, terminal, audit lines."
+      },
+      "micro": {
+        "displayName": "Micro",
+        "cssVars": ["--ks-type-micro-size"],
+        "purpose": "Dense ramp floor (11px). Nothing functional goes below it."
       },
       "label": {
-        "displayName": "Micro Label",
-        "purpose": "Tiny decorative chrome and compact system markers."
+        "displayName": "Label",
+        "cssVars": ["--ks-type-label-size"],
+        "purpose": "Control text and caps section heads (12px). Instrument keys and segmented controls set this size in the mono family."
       },
-      "caption": {
-        "displayName": "Caption",
-        "purpose": "Supporting card copy, metadata, and inline status."
+      "ui": {
+        "displayName": "UI",
+        "cssVars": ["--ks-type-ui-size"],
+        "purpose": "List rows and any sentence someone reads to make a decision (13px). The --lg segmented variant uses it in the reading face."
+      },
+      "ui-lead": {
+        "displayName": "UI Lead",
+        "cssVars": ["--ks-type-ui-lead"],
+        "purpose": "Top of the dense ramp (15px); the size the button label borrows."
+      },
+      "small": {
+        "displayName": "Small",
+        "cssVars": ["--ks-type-small-size"],
+        "purpose": "Reading ramp (14px): secondary body copy and captions that are read rather than scanned."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "cssVars": ["--ks-type-lead-size"],
+        "purpose": "Reading ramp (18px): the intro paragraph."
+      },
+      "subhead": {
+        "displayName": "Subhead",
+        "cssVars": ["--ks-type-subhead-size"],
+        "purpose": "Reading ramp (20px): a card-level heading at 500."
+      },
+      "title-lg": {
+        "displayName": "Title Large",
+        "cssVars": ["--ks-type-title-lg-size"],
+        "purpose": "Reading ramp (24px): a bento tile or panel heading that is larger than a card title but not a section."
       }
     },
     "shadows": [
       {
-        "name": "Panel Setback",
-        "value": "0 24px 70px oklch(2% 0.004 95 / 0.34)",
-        "purpose": "Large framed modules only."
+        "name": "ks-lift-1",
+        "value": "0 1px 2px oklch(13% 0 0 / 0.06), 0 2px 8px oklch(13% 0 0 / 0.06)",
+        "purpose": "A raised card, the segmented thumb, the instrument strip on the paper."
       },
       {
-        "name": "CTA Lift",
-        "value": "0 18px 48px oklch(2% 0.004 95 / 0.4)",
-        "purpose": "Primary calls to action, with a small inset highlight."
-      },
-      {
-        "name": "Control Lift 1",
-        "value": "0 2px 6px oklch(0% 0 0 / 0.35)",
-        "purpose": "Compact floating controls."
-      },
-      {
-        "name": "Control Lift 2",
-        "value": "0 10px 28px oklch(0% 0 0 / 0.45)",
-        "purpose": "Detached controls and overlays."
-      },
-      {
-        "name": "Patina Glow",
-        "value": "0 0 22px oklch(70% 0.12 188)",
-        "purpose": "Tiny live indicators only."
-      },
-      {
-        "name": "Picker Drop",
-        "value": "0 16px 36px -12px oklch(0% 0 0 / 0.6)",
-        "purpose": "Live Mode picker chrome."
+        "name": "ks-lift-2",
+        "value": "0 2px 6px oklch(13% 0 0 / 0.08), 0 12px 32px oklch(13% 0 0 / 0.12)",
+        "purpose": "A popover, a modal, a picker bar. No default card shadow: cards and tiles rest on --ks-rule and a surface step."
       }
     ],
     "motion": [
       {
-        "name": "ks-ease",
-        "value": "cubic-bezier(0.2, 0.8, 0.2, 1)",
-        "purpose": "Default easing for state and arrival transitions."
-      },
-      {
         "name": "ks-quick",
         "value": "120ms",
-        "purpose": "Fast state changes."
+        "purpose": "A state change."
       },
       {
         "name": "ks-settle",
         "value": "200ms",
-        "purpose": "Elements arriving or settling."
+        "purpose": "Something arriving."
+      },
+      {
+        "name": "ks-ease",
+        "value": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+        "purpose": "The one curve, for both durations. Declare the transition once per surface."
       }
     ],
     "breakpoints": [
       {
-        "name": "md",
-        "value": "980px"
+        "name": "sm",
+        "value": "760px",
+        "purpose": "Below it the header's nav and GitHub pill collapse into a drawer behind .site-header-menu."
       },
       {
-        "name": "lg",
-        "value": "1080px"
+        "name": "md",
+        "value": "980px",
+        "purpose": "Below it bento tiles collapse to full width."
+      }
+    ],
+    "controlHeights": [
+      {
+        "name": "ks-control-sm",
+        "value": "26px",
+        "purpose": "Dense chrome in a rail; the --dense segmented variant."
+      },
+      {
+        "name": "ks-control-md",
+        "value": "32px",
+        "purpose": "The default: instrument keys and the segmented control. A segmented track lands here by construction (3px inset, 24px segment, 3px, two borders)."
+      },
+      {
+        "name": "ks-control-lg",
+        "value": "44px",
+        "purpose": "A button."
       }
     ],
     "roundedMeta": {
-      "nested": {
-        "value": "2px",
-        "purpose": "Derived adjustment for a control nested inside another control."
-      },
       "sm": {
         "value": "3px",
-        "purpose": "Chips, inputs, code, and dense chrome."
+        "purpose": "Buttons, inputs, chips and the segmented track."
       },
       "md": {
         "value": "8px",
-        "purpose": "Panels, cards, and picker bars."
+        "purpose": "Cards, the picker bar and its command palette."
       },
       "pill": {
         "value": "999px",
-        "purpose": "Toggles and genuinely round controls."
+        "purpose": "The instrument strip and its keys, the toggle, tags, the GitHub pill."
+      },
+      "nested": {
+        "value": "2px",
+        "purpose": "Derived geometry, not a fourth radius: a control nested inside another subtracts 1px from its parent (the segmented thumb is 2px inside a 3px track; the --lg variant is 6px inside 8px)."
       }
     }
   },
@@ -242,165 +433,171 @@
       "name": "Primary Button",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Filled kinpaku CTA on lacquer. Both .ks-button and .ks-button-primary are required in the site kit.",
-      "html": "<button type=\"button\" class=\"ds-btn-primary\">Get started</button>",
-      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; font-family: \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif; font-size: 0.96rem; font-weight: 500; line-height: 1; color: oklch(14% 0.018 95); background: oklch(84% 0.19 80.46); border: 1px solid oklch(84% 0.19 80.46); border-radius: 2px; cursor: pointer; transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1), background-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1), border-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-btn-primary:hover { background: oklch(87% 0.20 85); border-color: oklch(87% 0.20 85); transform: translateY(-1px); } .ds-btn-primary:active { transform: translateY(0); background: oklch(77% 0.13 82); border-color: oklch(77% 0.13 82); } .ds-btn-primary:focus-visible { outline: 2px solid oklch(70% 0.12 188); outline-offset: 3px; }"
+      "description": "Ink fill, paper text, gold arrow. The brand is the arrow, not the fill. Both .ks-button and .ks-button-primary are required in the site kit.",
+      "html": "<button type=\"button\" class=\"ds-btn-primary\">Get started<span class=\"ds-btn-arrow\" aria-hidden=\"true\"><svg viewBox=\"0 0 16 8\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"square\"><path d=\"M0 4h14M10 0l4 4-4 4\"/></svg></span></button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: var(--ks-control-lg, 44px); padding: 0 22px; font-family: var(--ks-font, \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif); font-size: 0.9375rem; font-weight: 500; line-height: 1; letter-spacing: -0.005em; color: var(--ks-paper-raised, oklch(99.5% 0 0)); background: var(--ks-ink, oklch(13% 0 0)); border: 1px solid var(--ks-ink, oklch(13% 0 0)); border-radius: var(--ks-radius-sm, 3px); cursor: pointer; transition: background-color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)), border-color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)), color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-btn-primary .ds-btn-arrow { width: 16px; height: 8px; display: inline-block; flex: none; color: var(--ks-kinpaku, oklch(84% 0.19 80.46)); } .ds-btn-arrow svg { width: 100%; height: 100%; display: block; } .ds-btn-primary:hover { background: var(--ks-text, oklch(22% 0 0)); border-color: var(--ks-text, oklch(22% 0 0)); } .ds-btn-primary:active { background: oklch(8% 0 0); border-color: oklch(8% 0 0); } .ds-btn-primary:focus-visible { outline: 2px solid var(--ks-patina, oklch(70% 0.12 188)); outline-offset: 3px; }"
     },
     {
       "name": "Secondary Button",
       "kind": "button",
       "refersTo": "button-secondary",
-      "description": "Outlined kinpaku action on transparent lacquer.",
+      "description": "Paper-raised fill on an --ks-edge border, ink text. The border goes to ink on hover, the fill to gray on press.",
       "html": "<button type=\"button\" class=\"ds-btn-secondary\">See the rules</button>",
-      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 28px; font-family: \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif; font-size: 0.96rem; font-weight: 500; color: oklch(84% 0.19 80.46); background: transparent; border: 1px solid oklch(84% 0.19 80.46); border-radius: 2px; cursor: pointer; transition: transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1), background-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-btn-secondary:hover { background: oklch(77% 0.14 82 / 0.08); transform: translateY(-1px); } .ds-btn-secondary:active { background: oklch(77% 0.14 82 / 0.16); transform: translateY(0); } .ds-btn-secondary:focus-visible { outline: 2px solid oklch(70% 0.12 188); outline-offset: 3px; }"
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: var(--ks-control-lg, 44px); padding: 0 22px; font-family: var(--ks-font, \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif); font-size: 0.9375rem; font-weight: 500; line-height: 1; letter-spacing: -0.005em; color: var(--ks-ink, oklch(13% 0 0)); background: var(--ks-paper-raised, oklch(99.5% 0 0)); border: 1px solid var(--ks-edge, oklch(13% 0 0 / 0.45)); border-radius: var(--ks-radius-sm, 3px); cursor: pointer; transition: background-color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)), border-color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)), color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-btn-secondary:hover { border-color: var(--ks-ink, oklch(13% 0 0)); } .ds-btn-secondary:active { background: var(--ks-gray, oklch(92% 0 0)); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--ks-patina, oklch(70% 0.12 188)); outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "No fill or border, 12px padding, ink text that turns patina-deep on hover.",
+      "html": "<button type=\"button\" class=\"ds-btn-ghost\">How it works</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: var(--ks-control-lg, 44px); padding: 0 12px; font-family: var(--ks-font, \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif); font-size: 0.9375rem; font-weight: 500; line-height: 1; letter-spacing: -0.005em; color: var(--ks-ink, oklch(13% 0 0)); background: transparent; border: 1px solid transparent; border-radius: var(--ks-radius-sm, 3px); cursor: pointer; transition: color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-btn-ghost:hover { color: var(--ks-accent-ink, oklch(46% 0.08 188)); } .ds-btn-ghost:focus-visible { outline: 2px solid var(--ks-patina, oklch(70% 0.12 188)); outline-offset: 3px; }"
     },
     {
       "name": "Text Input",
       "kind": "input",
       "refersTo": "input-text",
-      "description": "Raised lacquer field with a neutral hairline and patina focus state.",
-      "html": "<input type=\"text\" class=\"ds-input-text\" placeholder=\"Search commands\">",
-      "css": ".ds-input-text { width: 100%; min-height: 46px; padding: 0 14px; font-family: \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif; font-size: 0.92rem; color: oklch(91% 0 0); background: oklch(20% 0.006 95); border: 1px solid oklch(78% 0 0 / 0.22); border-radius: 2px; outline: none; transition: border-color 180ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-input-text::placeholder { color: oklch(62% 0 0); } .ds-input-text:focus { border-color: oklch(70% 0.12 188); }"
+      "description": "46px paper-raised field on a --ks-rule hairline, ink text, muted label above. Focus swaps the border to patina.",
+      "html": "<label class=\"ds-field\"><span class=\"ds-field-label\">Search commands</span><input type=\"text\" class=\"ds-input-text\" placeholder=\"polish, audit, critique\"></label>",
+      "css": ".ds-field { display: grid; gap: 8px; max-width: 360px; font-family: var(--ks-font, \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif); } .ds-field-label { color: var(--ks-text-muted, oklch(46% 0 0)); font-size: 0.82rem; letter-spacing: 0.04em; } .ds-input-text { width: 100%; min-height: 46px; padding: 0 14px; font-family: inherit; font-size: 0.92rem; color: var(--ks-ink, oklch(13% 0 0)); background: var(--ks-paper-raised, oklch(99.5% 0 0)); border: 1px solid var(--ks-rule, oklch(13% 0 0 / 0.12)); border-radius: var(--ks-radius-sm, 3px); outline: none; transition: border-color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-input-text::placeholder { color: var(--ks-text-faint, oklch(56% 0 0)); } .ds-input-text:focus { border-color: var(--ks-patina, oklch(70% 0.12 188)); }"
     },
     {
-      "name": "Site Navigation",
-      "kind": "nav",
-      "refersTo": "nav-link",
-      "description": "Dark header navigation with neutral text at rest and kinpaku for hover and active state.",
-      "html": "<nav class=\"ds-nav\"><a href=\"/\" class=\"ds-nav-link ds-nav-active\">Home</a><a href=\"/docs\" class=\"ds-nav-link\">Docs</a></nav>",
-      "css": ".ds-nav { display: flex; gap: clamp(22px, 3vw, 48px); font-family: \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif; font-size: 0.95rem; } .ds-nav-link { color: oklch(91% 0 0); text-decoration: none; transition: color 180ms cubic-bezier(0.2, 0.8, 0.2, 1); } .ds-nav-link:hover, .ds-nav-active { color: oklch(84% 0.19 80.46); } .ds-nav-link:focus-visible { outline: 2px solid oklch(70% 0.12 188); outline-offset: 3px; }"
-    },
-    {
-      "name": "Bento Tile",
-      "kind": "card",
-      "refersTo": "card",
-      "description": "Flat lacquer tile inside the 12-column bento grid. No nested cards.",
-      "html": "<article class=\"ds-bento-tile\"><span class=\"ds-bento-num\">01</span><h3 class=\"ds-bento-title\">Respects your design system.</h3><p class=\"ds-bento-body\">Inherits tokens and conventions instead of overwriting them.</p></article>",
-      "css": ".ds-bento-tile { display: flex; flex-direction: column; gap: 14px; padding: 48px; background: oklch(15% 0.006 95); border: 0; border-radius: 0; font-family: \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif; } .ds-bento-num { font-family: \"SFMono-Regular\", \"Roboto Mono\", Consolas, monospace; font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: oklch(84% 0.19 80.46); } .ds-bento-title { margin: 0; font-size: 1.125rem; font-weight: 500; color: oklch(91% 0 0); } .ds-bento-body { margin: 0; font-size: 1rem; line-height: 1.8; color: oklch(88% 0 0); max-width: 65ch; }"
-    },
-    {
-      "name": "Live Picker Bar",
+      "name": "Segmented Control",
       "kind": "custom",
-      "refersTo": "live-picker-bar",
-      "description": "Always-dark Live Mode product chrome with a neutral border, carved-tile mark, and crisp graphite active control.",
-      "html": "<div class=\"ds-live-bar\"><span class=\"ds-live-mark\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"currentColor\" width=\"18\" height=\"18\"><path d=\"M5 2.5 L13.5 2.5 L5.5 21.5 L5 21.5 Q2.5 21.5 2.5 19 L2.5 5 Q2.5 2.5 5 2.5 Z\"/><path d=\"M16.5 2.5 L19 2.5 Q21.5 2.5 21.5 5 L21.5 19 Q21.5 21.5 19 21.5 L8.5 21.5 Z\"/></svg></span><button type=\"button\" class=\"ds-live-toggle is-active\">Pick</button><button type=\"button\" class=\"ds-live-toggle\">Detect</button></div>",
-      "css": ".ds-live-bar { display: inline-flex; align-items: center; gap: 2px; padding: 4px 5px; background: oklch(4% 0.004 95); border: 1px solid oklch(92% 0 0 / 0.13); border-radius: 8px; box-shadow: 0 16px 36px -12px oklch(0% 0 0 / 0.6); font-family: system-ui, -apple-system, sans-serif; font-size: 12px; color: oklch(91% 0 0); } .ds-live-mark { display: inline-flex; align-items: center; padding: 0 12px 0 14px; color: oklch(84% 0.19 80.46); } .ds-live-toggle { padding: 6px 8px; border: none; border-radius: 7px; background: transparent; color: oklch(72% 0 0); font-family: inherit; font-size: 11.5px; font-weight: 500; cursor: pointer; transition: background 120ms ease, color 120ms ease; } .ds-live-toggle:hover { color: oklch(91% 0 0); } .ds-live-toggle.is-active { background: oklch(27% 0 0); color: oklch(84% 0.19 80.46); } .ds-live-toggle:focus-visible { outline: none; box-shadow: 0 0 0 2px oklch(84% 0.19 80.46 / 0.18), 0 0 0 3px oklch(84% 0.19 80.46); }"
+      "refersTo": "segmented",
+      "description": "A paper instrument: --ks-paper-deep track inset 3px inside an --ks-edge border, mono label type in text-faint, a paper-raised thumb with an inset rule and lift-1. Lands on --ks-control-md by construction.",
+      "html": "<div class=\"ds-segmented\" role=\"group\" aria-label=\"View\"><button type=\"button\" aria-pressed=\"true\">Board <b>12</b></button><button type=\"button\" aria-pressed=\"false\">Hero <b>4</b></button><button type=\"button\" aria-pressed=\"false\">Docs</button></div>",
+      "css": ".ds-segmented { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--ks-edge, oklch(13% 0 0 / 0.45)); border-radius: var(--ks-radius-sm, 3px); background: var(--ks-paper-deep, oklch(95% 0 0)); } .ds-segmented button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 24px; padding: 0 9px; border: 0; border-radius: var(--ks-radius-sm, 3px); background: transparent; color: var(--ks-text-faint, oklch(56% 0 0)); font: 500 0.75rem/1 var(--ks-mono, \"SFMono-Regular\", \"Roboto Mono\", \"JetBrains Mono\", Consolas, monospace); letter-spacing: 0.02em; white-space: nowrap; cursor: pointer; transition: background var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)), color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-segmented button:hover { background: var(--ks-paper-raised, oklch(99.5% 0 0)); color: var(--ks-text, oklch(22% 0 0)); } .ds-segmented button:active { background: var(--ks-gray, oklch(92% 0 0)); } .ds-segmented button[aria-pressed=\"true\"] { background: var(--ks-paper-raised, oklch(99.5% 0 0)); box-shadow: inset 0 0 0 1px var(--ks-rule, oklch(13% 0 0 / 0.12)), var(--ks-lift-1, 0 1px 2px oklch(13% 0 0 / 0.06), 0 2px 8px oklch(13% 0 0 / 0.06)); color: var(--ks-ink, oklch(13% 0 0)); } .ds-segmented button:focus-visible { outline: 2px solid var(--ks-patina, oklch(70% 0.12 188)); outline-offset: 2px; } .ds-segmented b { color: var(--ks-text-faint, oklch(56% 0 0)); font-weight: 500; } .ds-segmented button[aria-pressed=\"true\"] b { color: var(--ks-ink, oklch(13% 0 0)); }"
+    },
+    {
+      "name": "Instrument Strip",
+      "kind": "custom",
+      "refersTo": "instrument-strip",
+      "description": "The site's one dark control. Pill track on --ks-instrument with a deep border, inset top highlight and lift-1; 32px mono keys, muted at rest with a raised dot, the active key raised with instrument-text and a gold dot. For tab strips, view switches and command pickers; never decoration, never a link list.",
+      "html": "<div class=\"ds-instrument-strip\" role=\"tablist\" aria-label=\"Command\"><button type=\"button\" role=\"tab\" class=\"ds-instrument-key\" aria-selected=\"true\">polish</button><button type=\"button\" role=\"tab\" class=\"ds-instrument-key\" aria-selected=\"false\">audit</button><button type=\"button\" role=\"tab\" class=\"ds-instrument-key\" aria-selected=\"false\">critique</button></div>",
+      "css": ".ds-instrument-strip { display: inline-flex; align-items: center; gap: 2px; padding: 3px; background: var(--ks-instrument, oklch(24% 0 0)); border: 1px solid var(--ks-instrument-deep, oklch(17% 0 0)); border-radius: var(--ks-radius-pill, 999px); box-shadow: inset 0 1px 0 var(--ks-instrument-rule, oklch(100% 0 0 / 0.12)), var(--ks-lift-1, 0 1px 2px oklch(13% 0 0 / 0.06), 0 2px 8px oklch(13% 0 0 / 0.06)); } .ds-instrument-key { display: inline-flex; align-items: center; gap: 8px; min-height: var(--ks-control-md, 32px); padding: 0 14px 0 12px; color: var(--ks-instrument-muted, oklch(68% 0 0)); background: transparent; border: 0; border-radius: var(--ks-radius-pill, 999px); font-family: var(--ks-mono, \"SFMono-Regular\", \"Roboto Mono\", \"JetBrains Mono\", Consolas, monospace); font-size: 0.75rem; letter-spacing: 0.02em; line-height: 1; white-space: nowrap; cursor: pointer; transition: color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)), background-color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-instrument-key::before { content: \"\"; width: 6px; height: 6px; flex: none; border-radius: 50%; background: var(--ks-instrument-raised, oklch(31% 0 0)); box-shadow: inset 0 0 0 1px var(--ks-instrument-rule, oklch(100% 0 0 / 0.12)); transition: background-color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)), box-shadow var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-instrument-key:hover, .ds-instrument-key:focus-visible { color: var(--ks-instrument-text, oklch(93% 0 0)); } .ds-instrument-key:focus-visible { outline: 2px solid var(--ks-patina, oklch(70% 0.12 188)); outline-offset: 2px; } .ds-instrument-key[aria-selected=\"true\"] { color: var(--ks-instrument-text, oklch(93% 0 0)); background: var(--ks-instrument-raised, oklch(31% 0 0)); box-shadow: inset 0 1px 0 var(--ks-instrument-edge, oklch(100% 0 0 / 0.3)), 0 1px 2px oklch(0% 0 0 / 0.4); } .ds-instrument-key[aria-selected=\"true\"]::before { background: var(--ks-kinpaku, oklch(84% 0.19 80.46)); box-shadow: 0 0 0 1px oklch(0% 0 0 / 0.3), 0 0 6px oklch(84% 0.19 80 / 0.6); }"
+    },
+    {
+      "name": "Site Header",
+      "kind": "nav",
+      "refersTo": "header",
+      "description": "Paper at 92% over a 12px blur with a rule below. Gold mark beside the ink wordmark; nav links muted, ink on hover and aria-current; the GitHub pill is paper-raised on an --ks-edge border with a gold star. Under 760px the right cluster becomes a drawer.",
+      "html": "<header class=\"ds-header\"><a href=\"#\" class=\"ds-brand\" aria-label=\"Impeccable home\"><span class=\"ds-mark\" aria-hidden=\"true\"><svg viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M5 2.5 L13.5 2.5 L5.5 21.5 L5 21.5 Q2.5 21.5 2.5 19 L2.5 5 Q2.5 2.5 5 2.5 Z\"/><path d=\"M16.5 2.5 L19 2.5 Q21.5 2.5 21.5 5 L21.5 19 Q21.5 21.5 19 21.5 L8.5 21.5 Z\"/></svg></span><span class=\"ds-wordmark\">Impeccable</span></a><nav class=\"ds-nav\" aria-label=\"Primary\"><a href=\"#\" aria-current=\"page\">Home</a><a href=\"#\">Designing</a><a href=\"#\">Docs</a><a href=\"#\">Slop</a><a href=\"#\">Live</a></nav><a href=\"#\" class=\"ds-github\" aria-label=\"Impeccable on GitHub\"><svg viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z\"/></svg><span>3.2k</span><svg class=\"ds-github-star\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M12 2l2.76 6.36L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.24-.91L12 2z\"/></svg></a></header>",
+      "css": ".ds-header { display: flex; align-items: center; gap: 28px; padding: 18px clamp(22px, 4vw, 56px); background: oklch(97.8% 0 0 / 0.92); border-bottom: 1px solid var(--ks-rule, oklch(13% 0 0 / 0.12)); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); font-family: var(--ks-font, \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif); } .ds-brand { display: inline-flex; align-items: center; gap: 4px; color: var(--ks-ink, oklch(13% 0 0)); text-decoration: none; } .ds-mark { width: 38px; height: 38px; display: grid; place-items: center; color: var(--ks-kinpaku, oklch(84% 0.19 80.46)); } .ds-mark svg { width: 32px; height: 32px; } .ds-wordmark { color: var(--ks-ink, oklch(13% 0 0)); font-family: var(--ks-font-wordmark, \"Alumni Sans\", \"Albert Sans\", Arial, sans-serif); font-weight: 400; font-size: 1.125rem; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1; } .ds-nav { display: flex; gap: clamp(22px, 3vw, 48px); margin-left: auto; font-size: 0.95rem; font-weight: 400; } .ds-nav a { color: var(--ks-text-muted, oklch(46% 0 0)); text-decoration: none; transition: color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-nav a:hover, .ds-nav a[aria-current=\"page\"] { color: var(--ks-ink, oklch(13% 0 0)); } .ds-nav a:focus-visible { outline: 2px solid var(--ks-patina, oklch(70% 0.12 188)); outline-offset: 3px; } .ds-github { display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px 0 10px; color: var(--ks-ink, oklch(13% 0 0)); background: var(--ks-paper-raised, oklch(99.5% 0 0)); border: 1px solid var(--ks-edge, oklch(13% 0 0 / 0.45)); border-radius: var(--ks-radius-pill, 999px); font-size: 0.8125rem; font-weight: 500; text-decoration: none; transition: border-color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-github svg { width: 16px; height: 16px; } .ds-github:hover { border-color: var(--ks-ink, oklch(13% 0 0)); } .ds-github-star { color: var(--ks-kinpaku, oklch(84% 0.19 80.46)); } .ds-github:focus-visible { outline: 2px solid var(--ks-patina, oklch(70% 0.12 188)); outline-offset: 3px; }"
+    },
+    {
+      "name": "Site Footer",
+      "kind": "custom",
+      "refersTo": "footer",
+      "description": "--ks-paper-deep with a rule above. Wordmark in ink; links and credit in text-muted, ink on hover. No texture, no dark band.",
+      "html": "<footer class=\"ds-footer\"><div class=\"ds-footer-row\"><a href=\"#\" class=\"ds-footer-logo\">Impeccable</a><nav class=\"ds-footer-links\" aria-label=\"Footer\"><a href=\"#\">Changelog</a><a href=\"#\">FAQ</a><a href=\"#\">Privacy</a><a href=\"#\">GitHub</a></nav><div class=\"ds-footer-credit\"><span>Created by <a href=\"#\">Paul Bakaus</a></span><a href=\"#\" class=\"ds-footer-social\" aria-label=\"Follow on X\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z\"/></svg></a></div></div></footer>",
+      "css": ".ds-footer { padding: 32px clamp(22px, 4vw, 56px); background: var(--ks-paper-deep, oklch(95% 0 0)); border-top: 1px solid var(--ks-rule, oklch(13% 0 0 / 0.12)); font-family: var(--ks-font, \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif); font-size: 0.875rem; color: var(--ks-text-muted, oklch(46% 0 0)); } .ds-footer-row { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; } .ds-footer-logo { color: var(--ks-ink, oklch(13% 0 0)); font-family: var(--ks-font-wordmark, \"Alumni Sans\", \"Albert Sans\", Arial, sans-serif); font-weight: 400; font-size: 1.125rem; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1; text-decoration: none; } .ds-footer-links { display: flex; gap: 22px; margin-left: auto; } .ds-footer-links a, .ds-footer-social { color: var(--ks-text-muted, oklch(46% 0 0)); text-decoration: none; transition: color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-footer-credit { display: inline-flex; align-items: center; gap: 12px; } .ds-footer-credit a { color: var(--ks-ink, oklch(13% 0 0)); text-decoration: none; } .ds-footer-social { display: inline-flex; } .ds-footer-links a:hover, .ds-footer-credit a:hover, .ds-footer-social:hover { color: var(--ks-ink, oklch(13% 0 0)); } .ds-footer a:focus-visible { outline: 2px solid var(--ks-patina, oklch(70% 0.12 188)); outline-offset: 3px; }"
     }
   ],
   "narrative": {
-    "northStar": "Neo Kinpaku",
-    "overview": "Impeccable is now a dark lacquer interface marked by Japanese gold leaf and precise technical geometry. The brand should feel like a crafted object: black urushi, irregular kinpaku seams, quiet measurement marks, circuit traces, and controlled verdigris oxidation. It is refined, technical, and physical.\n\nThis direction replaces the old warm-paper editorial system. No italic serif hero. No magenta accent. No generic AI-tool neon. The page should feel expensive and deliberate, but still useful: comparisons, command demos, live audit tables, and documentation modules remain the product proof.",
+    "northStar": "Paper and instruments",
+    "overview": "The site is a vessel for the design Impeccable produces. Every world card, case study, slop specimen and live demo on it arrives with its own loud visual system, so the chrome has one job: get out of the way. A gallery wall is white so the art can be loud. The page is neutral paper, the type is ink in one family, and the brand shows up as jewelry rather than upholstery: a gold mark in the header, a one-pixel gold rule, a gold dot on a dark control.\n\nThis replaces the dark Neo Kinpaku system. No lacquer ground, no gold-leaf texture, no kintsugi hero art, no theme toggle. The proof still has to work: comparisons, command demos, audit tables and docs modules carry the color now, and the chrome around them stays quiet so they can.\n\nsite/styles/kinpaku-tokens.css names three families of surface: Paper, the page and everything that sits flat on it. Gray, chips, inactive fills, sunk wells. Instrument, dark control surfaces: the only place the site goes dark, and the only place gold reads as a signal rather than a mark.",
     "keyCharacteristics": [
-      "Dark mineral and lacquer surfaces, never pure black.",
-      "Kinpaku gold as the primary accent, with true leaf texture where an element carries brand weight.",
-      "Verdigris patina as the secondary accent for state, contrast, and \"improved\" signals.",
-      "A geometric sans voice with a widely tracked wordmark, not a serif editorial voice.",
-      "Thin calibration lines, circuit geometry, and gold seams used as functional structure.",
-      "Small radii, restrained borders, and almost no decorative shadow."
+      "One light theme. `:root` sets `color-scheme: light`; there is no `html.dark`, no `prefers-color-scheme` block, no toggle.",
+      "Paper is neutral, chroma 0. Gold on cream is gold on gold.",
+      "Gold never carries text and never fills an area on paper.",
+      "Patina carries links, state and selection wherever color has to be read as text.",
+      "One family, Albert Sans, at 400 to 600. Alumni Sans exists for the wordmark and nothing else.",
+      "Three radii, three control heights, two lifts. Nothing else casts a shadow."
     ],
     "rules": [
       {
         "name": "The Kit Consumption Rule",
         "section": "layout",
-        "body": "When building a new page or refactoring an existing one, reach for a kit primitive before inventing a new class. Specifically: - Buttons: use `.ks-button` + a variant (`.ks-button-primary`, `-secondary`, `-ghost`, `-disabled`). Do not write a new `.hero-cta-primary` / `.footer-cta` / `.section-action-button` class — those are the bespoke vocabularies the kit is meant to replace. - Grouping content: use `.ks-bento` + `.ks-bento-tile` (with `--span-4` / `--span-6` / `--span-8` across a 12-column grid). This is the canonical answer to \"how do I group 2-6 items without nesting cards?\" Do not invent yet another card class. - Section scaffolding: use `.ks-section` for the container, `.ks-section-head` for the header, `<h2>` inside that (the kit styles it), and `.ks-section-sub` for the subhead. Eyebrow above the h2 is optional via `.ks-section-eyebrow` — skip it on editorial walkthroughs where every-section eyebrows read as AI scaffolding. - Status, tags, toasts, modals, tooltips, empty states, pagination, skeletons, changelog rows: use the kit primitive. Listed in the cheatsheet below. Invent only when the kit truly doesn't cover the shape. When you do invent, flag it — a new pattern that solves a real recurring need belongs in the kit, not in page-specific CSS. Page CSS is for genuinely page-specific scenery (hero illustrations, unique editorial visuals), not for reinventing primitives the kit already has."
+        "body": "Reach for a kit primitive before inventing a class. Buttons: `.ks-button` plus a variant (`.ks-button-primary`, `-secondary`, `-ghost`, `-disabled`). Both classes are required; the chained selector is what beats page-level anchor resets. Do not write another `.hero-cta` or `.footer-cta`. Grouping content: `.ks-bento` with `.ks-bento-tile` (`--span-4` / `--span-6` / `--span-8` on a 12-column grid). This is the answer to \"how do I group 2 to 6 items without nesting cards\". Section scaffolding: `.ks-section` as the container, `.ks-section-head` for the header with an `<h2>` inside it (the kit styles it to the headline role), `.ks-section-sub` for the subhead. `.ks-section-eyebrow` above the h2 is optional; skip it on editorial pages where an eyebrow on every section reads as scaffolding. Anything the reader operates: `.ks-instrument-strip` for a dark tab strip or command switcher, `.ks-segmented` for a paper single-select. Do not build a fifth segmented control; the kit's exists because five bespoke ones did. Status, tags, toasts, modals, tooltips, empty states, pagination, skeletons, changelog rows: the kit primitive. Invent only when the kit truly does not cover the shape, and flag it when you do. A pattern that solves a recurring need belongs in the kit, not in page CSS. Page CSS is for page-specific scenery."
       },
       {
-        "name": "The Gold Carries Brand Rule",
+        "name": "The Gold Is Jewelry Rule",
         "section": "colors",
-        "body": "Kinpaku gold is the primary brand signal. If a single accent must represent Impeccable, use gold, not magenta or cyan."
+        "body": "Gold is a mark, a line, or an indicator on an instrument. It never carries text at any size and never fills a surface on paper. The primary button is ink with a gold arrow; a gold button is the hotel-lobby read. The one exception is a demo that deliberately shows someone else's design."
       },
       {
-        "name": "The Patina Has Meaning Rule",
+        "name": "The Patina Carries Text Rule",
         "section": "colors",
-        "body": "Verdigris is secondary. It marks improvement, live state, or contrast against gold. Do not use it as a generic decoration field."
+        "body": "When color has to be read as text, it is `--ks-patina-deep`, reached through `--ks-accent-ink`, `--ks-state-ink` or `--ks-link-on-paper`. Active nav is ink, not patina, and eyebrows are muted ink."
       },
       {
-        "name": "The Texture Budget Rule",
+        "name": "The Instruments Only Rule",
         "section": "colors",
-        "body": "Leaf and patina textures are for brand-bearing moments: hero seams, CTA fills, dividers, major swatches, and select system modules. Generic cards stay mostly flat."
+        "body": "A dark surface is a control the reader operates: a tab strip, a segmented picker, a slider, a terminal, the live picker bar. No dark section backgrounds, no dark cards, no dark footer."
       },
       {
-        "name": "The OKLCH-Only Rule",
+        "name": "The Neutral Paper Rule",
         "section": "colors",
-        "body": "New colors are declared in OKLCH. Hex appears only inside third-party examples or imported assets."
+        "body": "Every paper and ink token is chroma 0. Do not reintroduce a warm cast."
       },
       {
-        "name": "The Gold-By-Size-On-Paper Rule",
+        "name": "The Tokens Over Literals Rule",
         "section": "colors",
-        "body": "In light mode, gold usage is gated by size, not banned. Large display accents stay gold — the hero's gold accent word reads beautifully at display scale (see the Designing hero: \"with Impeccable\" in kinpaku gold on paper). But at body and label sizes gold fails contrast on the bright ground, so it is never used for small accent text on paper. There, the roles swap to verdigris: links, active nav, and inline command code use `--ks-link-on-paper` (patina-deep, `oklch(49% 0.08 188)`) for contrast, and small labels fall back to muted ink. Verdigris also carries state on paper (active nav, \"you are here\"), consistent with the Patina Has Meaning rule. Gold otherwise stays on fills and marks (logo, CTA fills, nodes, active rules). Reach for the light-mode tokens (`--ks-link-on-paper`, `--ks-nav-active`, the `light-*` surfaces) when building on paper — the token list below is dark-first, so a naive read pulls you toward gold *body* text that the light theme forbids."
+        "body": "New colors are `--ks-*` tokens in OKLCH. A literal is a one-off alpha of a token or a specimen of someone else's design."
       },
       {
-        "name": "The Weight-Inversion Rule",
+        "name": "The One Family Rule",
         "section": "typography",
-        "body": "Section h2s read heavier (300) than the hero h1 (100). This is deliberate: the hero is elegant and thin so the page can breathe; section anchors carry more weight to ground each block. Do not normalize the two weights."
+        "body": "Alumni Sans is part of the logo, not a display face. If a heading wants a condensed face, it wants the wrong thing."
       },
       {
-        "name": "The Two-Face Rule",
+        "name": "The No Hairline Rule",
         "section": "typography",
-        "body": "Display sizes use Alumni Sans — thin (100) for the h1, heavier (300) for h2s. Anything sized below `1.2rem` uses Albert Sans. The thin display cut reads too light at small sizes, so it never carries body or UI text."
+        "body": "Display and headline sit at 500, titles at 600. Never 100 or 300 on a heading; those were the condensed face's weights and Albert Sans at 300 is not even loaded."
+      },
+      {
+        "name": "The Micro Floor Rule",
+        "section": "typography",
+        "body": "Nothing functional goes below 11px. Being on the ramp does not exempt a value; 10px fails on high-DPI and on small viewports whatever the token is called."
       },
       {
         "name": "The Tracked Labels Are Short Rule",
         "section": "typography",
-        "body": "Tracked uppercase labels are for short system markers. Do not write full sentences in tracked caps."
-      },
-      {
-        "name": "The Dark Type Needs Air Rule",
-        "section": "typography",
-        "body": "Body text on lacquer uses line-height 1.65 to 1.8 and a max width of 65 to 75ch."
+        "body": "Tracked mono caps are for eyebrows, section labels and tile numbers. Never a sentence."
       },
       {
         "name": "The Hairline First Rule",
         "section": "elevation",
-        "body": "Use 1px hairlines before adding shadow; keep default separators neutral and reserve gold borders for active brand structure."
+        "body": "A 1px `--ks-rule` before any shadow. `--ks-edge` when the line bounds something operable."
       },
       {
-        "name": "The No Glass Rule",
+        "name": "The One Veil Rule",
         "section": "elevation",
-        "body": "Translucency can exist in overlays, but decorative blur/glass panels are not part of this system."
+        "body": "The sticky header is paper at 92% over a 12px blur. That is the only translucency on the site; there are no glass panels."
       },
       {
-        "name": "The Texture Needs Contrast Rule",
+        "name": "The No Texture Rule",
         "section": "elevation",
-        "body": "Text never sits directly on high-contrast leaf texture. Add a lacquer veil or move the texture to an edge."
-      },
-      {
-        "name": "The Asset-Led Material Rule",
-        "section": "elevation",
-        "body": "Brand-bearing material accents use raster assets or generated images, not hand-drawn SVG approximations of leaf, dust, oxidation, or clockwork. Code-native geometry is reserved for simple hairlines, layout grids, and functional UI structure."
+        "body": "No leaf, dust, grain, seam or oxidation images anywhere in the chrome. Depth is geometry."
       },
       {
         "name": "The Three-Radius Rule",
         "section": "shapes",
-        "body": "Use the small, medium, or pill token. Treat the 2px nested-control adjustment as derived geometry, not a fourth radius."
-      },
-      {
-        "name": "The Picker Is Brand Rule",
-        "section": "components",
-        "body": "Live mode UI is Impeccable product chrome, not host-page chrome. It always ships the lacquer-deep fill, the carved-tile mark, and gold on the mark + active control. Brand reads through the mark and the gold accent rather than a gold border ringing the bar; the container itself stays a quiet neutral-edged tool."
+        "body": "Use `--ks-radius-sm`, `--ks-radius-md` or `--ks-radius-pill`. Treat a nested-control subtraction as derived geometry, not a fourth radius. The older kit primitives (inputs, checkbox, badge, toast, tooltip, modal, pagination, empty state) still carry a literal 2px; when one is touched, it moves to the token."
       }
     ],
     "dos": [
-      "Do use kinpaku gold as the primary brand color.",
-      "Do use verdigris patina for secondary state and contrast.",
-      "Do keep surfaces dark, warm, and mineral.",
-      "Do use real texture assets for gold leaf and oxidation when the element is brand-bearing.",
-      "Do use circuit/calibration geometry as structure, especially around product proof.",
-      "Do keep cards compact, flat, and sharply bounded.",
-      "Do preserve utility: demos, sliders, audit tables, command examples, docs, and pricing must remain understandable.",
-      "Do keep live mode picker bars on dedicated overlay lacquer with a neutral hairline, using kinpaku on the brand mark and active control regardless of host page theme."
+      "Do keep the chrome quiet so the demos can be loud.",
+      "Do put gold on the mark, a one-pixel rule, or an indicator on an instrument.",
+      "Do use `--ks-accent-ink`, `--ks-state-ink` or `--ks-link-on-paper` whenever color has to be read as text.",
+      "Do reserve `--ks-instrument*` for something the reader operates.",
+      "Do set headings in Albert Sans at 500 and 600 through the type tokens.",
+      "Do land every radius, control height and shadow on the ladder.",
+      "Do reach for the kit primitive first, and flag it when a new pattern earns a place in the kit.",
+      "Do keep the proof readable: comparisons, sliders, audit tables, command examples and docs are the product."
     ],
     "donts": [
-      "Do not use editorial magenta as a brand accent.",
-      "Do not use italic serif display typography.",
-      "Do not use purple gradients, neon cyan fields, glassmorphism, or generic AI-tool glow.",
-      "Do not put gold texture under long text.",
-      "Do not use beige, paper, or cream as the page ground **in the default (dark) theme**. (Light mode intentionally uses a warm paper ground — see the Gold-Is-A-Mark-On-Paper rule.)",
-      "Do not add decorative calibration marks that do not align with real content.",
-      "Do not use wide rounded cards or nested cards.",
+      "Do not add a dark mode, a theme toggle, an `html.dark` selector or a `prefers-color-scheme` block.",
+      "Do not set gold as a text color, at any size, on paper.",
+      "Do not fill a button, chip, slab or panel with gold on paper.",
+      "Do not give a decorative section, card or footer a dark background.",
+      "Do not tint paper or ink; every surface and text token is chroma 0.",
+      "Do not use Alumni Sans outside the wordmark, or weight 100 or 300 anywhere.",
+      "Do not add a fourth radius, a fourth control height or a third shadow.",
+      "Do not hand-type an `oklch()` value in page CSS except as a one-off alpha of a token or inside a specimen of someone else's design.",
       "Do not use pure black or pure white.",
-      "Do not let the visual system hide the product proof.",
-      "Do not theme-adapt live mode picker chrome to match arbitrary host pages. The picker is always neo-kinpaku."
+      "Do not theme-adapt the live picker to a host page."
     ]
   }
 }

@@ -63,7 +63,7 @@
   margin-top: var(--spacing-md);
   color: var(--ks-ink);
   font-family: var(--ks-font);
-  font-size: 1.25rem;
+  font-size: var(--ks-type-subhead-size);
   font-weight: 600;
   line-height: 1.15;
   letter-spacing: 0;
@@ -72,7 +72,7 @@
 .detector-nav-head > p {
   margin-top: 6px;
   color: var(--ks-text-muted);
-  font-size: 0.875rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.5;
 }
 
@@ -253,7 +253,7 @@
   max-width: 78ch;
   margin-top: 4px;
   color: var(--ks-text-muted);
-  font-size: 0.875rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.5;
 }
 
@@ -383,7 +383,7 @@
 
 .detector-live-stats dd {
   margin-top: 4px;
-  font-size: 1.125rem;
+  font-size: var(--ks-type-lead-size);
   font-weight: 600;
   color: var(--ks-ink);
 }

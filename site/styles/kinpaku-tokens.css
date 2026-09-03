@@ -176,6 +176,15 @@
 	--ks-type-ui-size:    0.8125rem;  /* 13px */
 	--ks-type-ui-lead:    0.9375rem;  /* 15px */
 
+	/* Reading ramp between body and headline. Small is secondary body copy
+	   and captions that are read, not scanned; lead and subhead are the
+	   intro paragraph and the card-level heading; title-lg is a bento tile
+	   or panel heading that is larger than a card title but not a section. */
+	--ks-type-small-size:    0.875rem;   /* 14px */
+	--ks-type-lead-size:     1.125rem;   /* 18px */
+	--ks-type-subhead-size:  1.25rem;    /* 20px */
+	--ks-type-title-lg-size: 1.5rem;     /* 24px */
+
 	/* ============================================================
 	   Motion. Quick is a state change, settle is something arriving.
 	   ============================================================ */

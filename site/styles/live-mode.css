@@ -274,7 +274,7 @@
 }
 .live-demo-card--v3 .live-demo-card-h {
   font-weight: 500;
-  font-size: 1.25rem;
+  font-size: var(--ks-type-subhead-size);
   line-height: 1.2;
 }
 .live-demo-card--v3 button {

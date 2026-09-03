@@ -170,7 +170,7 @@
 .home-kinpaku .spread-category-label {
   color: var(--ks-accent-ink);
   font-family: var(--ks-mono);
-  font-size: 0.7rem;
+  font-size: var(--ks-type-micro-size);
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -189,7 +189,7 @@
 .home-kinpaku .section-lead {
   max-width: 62ch; /* 68ch rendered ~86 actual chars/line; tighten into the band */
   color: var(--ks-text);
-  font-size: 1.02rem;
+  font-size: var(--ks-type-body-size);
   line-height: 1.8;
   text-wrap: pretty;
 }
@@ -327,7 +327,7 @@
 .home-kinpaku .foundation-card-label {
   color: var(--ks-ink);
   font-family: var(--ks-font);
-  font-size: 1.125rem;
+  font-size: var(--ks-type-lead-size);
   font-weight: 400;
 }
 
@@ -421,7 +421,7 @@
 .home-kinpaku .fisheye-item {
   color: var(--ks-text);
   font-family: var(--ks-font);
-  font-size: 1.125rem;
+  font-size: var(--ks-type-lead-size);
 }
 
 .home-kinpaku .spread-command-name {
@@ -1091,7 +1091,7 @@
 .home-kinpaku .why-ci-branch {
   font-family: var(--ks-mono);
   color: var(--ks-ink);
-  font-size: 0.78rem;
+  font-size: var(--ks-type-ui-size);
   letter-spacing: 0.03em;
 }
 
@@ -1111,7 +1111,7 @@
 .home-kinpaku .why-ci-body {
   padding: 24px 28px;
   color: var(--ks-text);
-  font-size: 0.88rem;
+  font-size: var(--ks-type-small-size);
   line-height: 1.92;
 }
 
@@ -1138,7 +1138,7 @@
 .home-kinpaku .why-dm-filename {
   color: var(--ks-ink);
   font-family: var(--ks-mono);
-  font-size: 0.88rem;
+  font-size: var(--ks-type-small-size);
   letter-spacing: 0.06em;
 }
 
@@ -1286,7 +1286,7 @@
 .home-kinpaku .load-error-title {
   color: var(--ks-ink);
   font-family: var(--ks-font);
-  font-size: 1.5rem;
+  font-size: var(--ks-type-title-lg-size);
   font-weight: 400;
 }
 
@@ -1369,11 +1369,11 @@
   }
 
   .home-kinpaku .section-title {
-    font-size: 2rem;
+    font-size: var(--ks-type-headline-size);
   }
 
   .home-kinpaku .spread-command-name {
-    font-size: 3rem;
+    font-size: var(--ks-type-display-size);
   }
 
   .home-kinpaku .language-view--periodic .solution-visual-interactive {
