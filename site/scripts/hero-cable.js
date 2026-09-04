@@ -134,33 +134,34 @@ function descenderTerminal(yEl, hero) {
 	const footTop = bottom - Math.round(stroke * scale * 1.6);
 	let left = W;
 	for (let y = footTop; y <= bottom; y++) for (let x = 0; x < W; x++) if (ink(x, y)) { if (x < left) left = x; break; }
-	// Thickness measured a little in from the tip, where the hook is a full
-	// stroke thick, as the vertical extent of ink in that column.
-	// Only the foot's own rows count: the y's left arm starts at the same x
-	// as the foot's tip, and a whole-column scan would span the glyph.
-	const xm = Math.min(W - 1, left + Math.round(stroke * scale * 1.5));
-	const footBand = footTop - Math.round(stroke * scale * 2);
-	let cTop = -1, cBot = -1;
-	for (let y = Math.max(0, footBand); y <= bottom; y++) if (ink(xm, y)) { if (cTop < 0) cTop = y; cBot = y; }
-	const thick = cTop >= 0 ? (cBot - cTop + 1) / scale : stroke;
-	// The terminal's centre, and the foot's direction from the centroids of
-	// the columns just inside the tip (alpha-weighted, sub-pixel).
-	const centroid = (x) => { let sw = 0, sy = 0; for (let y = footTop - Math.round(stroke * scale); y <= bottom; y++) { if (y < 0) continue; const a = img[(y * W + x) * 4 + 3]; if (a > 24) { sw += a; sy += a * y; } } return sw ? sy / sw : null; };
-	const xA = left + Math.round(stroke * scale * 0.8), xB = left + Math.round(stroke * scale * 2.6);
-	let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0, n = 0;
-	for (let x = xA; x <= xB && x < W; x++) { const c = centroid(x); if (c == null) continue; sumX += x; sumY += c; sumXY += x * c; sumXX += x * x; n++; }
-	let slope = 0; // dy per dx along the foot, fallback flat
-	if (n > 2) { const den = n * sumXX - sumX * sumX; if (den) slope = (n * sumXY - sumX * sumY) / den; }
-	// The foot's tip lifts a hair as it thins, so its own tangent, carried
-	// on, put a bump in the underline. The cable leaves dead level from the
-	// tip's centre instead; the fitted slope is kept only as a sanity check.
-	void slope;
-	const ux = -1, uy = 0;
-	const cy0 = centroid(xA);
-	const cx = (left + (thick * scale) * 0.5) / scale;
+	// The weight to match is the descender's stem, read where it runs
+	// straight, a little above the foot: the hook thins toward its tip, and
+	// a cable matched to the tip came out lighter than the letter.
+	const widths = [];
+	for (let y = bottom - Math.round(size * 0.22 * scale); y <= bottom - Math.round(size * 0.12 * scale); y++) {
+		if (y < 0) continue;
+		let x = 0; while (x < W && !ink(x, y)) x++;
+		const s0 = x; while (x < W && ink(x, y)) x++;
+		if (x > s0) widths.push(x - s0);
+	}
+	widths.sort((a, b) => a - b);
+	const runW = widths.length ? widths[widths.length >> 1] / scale : stroke;
+	// The raster's threshold reads a light stem wider than the screen draws
+	// it (measured: 4.5 in the raster against 3.7 on screen at 90px).
+	const stem = Math.max(1.5, runW * 0.82);
+	// The cable's centre line is the foot's belly, where the hook is full
+	// weight, not the tip, which lifts a hair as it thins. It starts just
+	// inside the tip, so its own round cap becomes the terminal: the hook's
+	// taper is under the cable's ink and the join shows no step.
+	const centroid = (x) => { let sw = 0, sy = 0; for (let y = footTop; y <= bottom; y++) { const a = img[(y * W + x) * 4 + 3]; if (a > 24) { sw += a; sy += a * y; } } return sw ? sy / sw : null; };
+	// Just inside the tip, before the hook meets the stem: a column further
+	// in picks up the stem's rows and pulls the centre up.
+	const xBelly = Math.min(W - 1, left + Math.round(stem * scale * 1.2));
+	const cy0 = centroid(xBelly);
 	const cy = (cy0 == null ? (footTop + bottom) / 2 : cy0) / scale;
-	const stem = Math.max(1.5, thick * 0.88);
-	const inset = stem * 1.3;
+	const cx = left / scale;
+	const ux = -1, uy = 0;
+	const inset = stem * 0.6;
 	return {
 		x: r.left - h.left + (cx - pad) - ux * inset,
 		y: (baselineP - h.top) + (cy - baselineC) - uy * inset,
