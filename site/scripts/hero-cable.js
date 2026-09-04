@@ -1,6 +1,12 @@
 // The hero's patch cable: the v of "vocabulary" becomes a cable that runs
 // into the command switcher.
 //
+// A second route, kept for comparison (?cable=y, or data-anchor="y" on the
+// svg): the cable grows from the foot of the y instead, runs level under
+// the word as an underline and turns down the spine. Tidier, but the v's
+// swoop reads more like a cable coming out of the letter, so the v stays
+// the default.
+//
 // The demo sits left of a centre spine and the text right of it. The left
 // arm of the v continues past its top terminal, swings round and drops as a
 // cable across the spine straight into the right end of the switcher
@@ -269,9 +275,9 @@ export function initHeroCable() {
 	const word = hero?.querySelector('[data-cable-from]');
 	const to = hero?.querySelector('[data-cable-to]');
 	if (!hero || !svg || !vEl || !to) return;
-	// Which letter the cable grows from: the y's foot by default, the v's
-	// arm on request (?cable=v, or data-anchor="v" on the svg).
-	let anchor = svg.dataset.anchor || 'y';
+	// Which letter the cable grows from: the v's arm by default, the y's
+	// foot on request (?cable=y, or data-anchor="y" on the svg).
+	let anchor = svg.dataset.anchor || 'v';
 	try { anchor = new URLSearchParams(location.search).get('cable') || anchor; } catch {}
 	if (anchor === 'y' && !(yEl && word)) anchor = 'v';
 	const lead = svg.querySelector('.hero-cable-lead');
@@ -293,12 +299,15 @@ export function initHeroCable() {
 			c = buildY(m);
 			lead.setAttribute('d', c.d);
 			if (svg.dataset.debug != null) window.__heroCable = { m, c };
-			// The fade starts at the foot and is done a little before the
-			// middle of the underline (the gradient's stops set the reach);
-			// the turn and the drop are all cable.
+			// The fade starts at the foot, with no ink hold, and is done a
+			// little before the middle of the underline; the turn and the drop
+			// are all cable. The stops are the v route's in the markup, so
+			// this route sets its own.
 			if (grad) {
 				grad.setAttribute('x1', m.t.x); grad.setAttribute('y1', c.lineY);
 				grad.setAttribute('x2', c.turnX); grad.setAttribute('y2', c.lineY);
+				const stops = grad.querySelectorAll('stop');
+				if (stops.length >= 3) { stops[1].setAttribute('offset', '0'); stops[2].setAttribute('offset', '0.45'); }
 			}
 		} else {
 			m = measure(hero, vEl, to, avoid);
