@@ -52,7 +52,9 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   column-gap: var(--hero-spine);
-  align-items: center;
+  /* Both columns hang from the same top edge, so the card's top meets the
+     headline's cap line across the spine instead of floating mid-column. */
+  align-items: start;
 }
 
 .hero-rebuild-left {

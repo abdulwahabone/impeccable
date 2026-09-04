@@ -51,7 +51,15 @@
 
 .hero-proof-stage {
   position: relative;
-  aspect-ratio: 4 / 3;
+  /* Just the card's height plus the room above and below it: 16px so the
+     card's top meets the headline's cap line across the spine, 42px for the
+     After mark with the switcher just under it. The stage carries no frame,
+     so it has no reason to be taller than that; the canvas padding and the
+     seam's overshoot read the same values. */
+  --proof-card-h: clamp(184px, 30vw, 236px);
+  --proof-pad-top: 16px;
+  --proof-pad-bottom: 42px;
+  height: calc(var(--proof-card-h) + var(--proof-pad-top) + var(--proof-pad-bottom));
   overflow: visible;
   background: transparent;
   border: 0;
@@ -101,14 +109,14 @@
   position: absolute;
   inset: 0;
   display: grid;
-  align-items: center;
+  align-items: start;
   justify-items: end;
-  padding: clamp(34px, 4.5vw, 54px) 0 clamp(34px, 4.5vw, 54px) clamp(34px, 4.5vw, 54px);
+  padding: var(--proof-pad-top) 0 var(--proof-pad-bottom) clamp(34px, 4.5vw, 54px);
 }
 
 .hero-proof-canvas > article {
   width: min(300px, calc(100% - 120px));
-  height: clamp(184px, 30vw, 236px);
+  height: var(--proof-card-h);
   overflow: visible;
 }
 
@@ -289,10 +297,12 @@
 .hero-proof-seam {
   position: absolute;
   z-index: 7;
-  top: 0;
+  /* Runs the card's height plus a short overshoot, not the whole stage. */
+  top: calc(var(--proof-pad-top) - 18px);
+  bottom: calc(var(--proof-pad-bottom) - 18px);
   left: var(--proof-position);
   width: 2px;
-  height: 100%;
+  height: auto;
   background: var(--ks-ink);
   transform: translateX(-50%);
   pointer-events: none;
@@ -2117,13 +2127,15 @@
     margin-inline: auto;
   }
 
-  .hero-proof-canvas {
-    justify-items: center;
-    padding: clamp(34px, 4.5vw, 54px) 0;
+  .hero-proof-stage {
+    --proof-card-h: 236px;
+    --proof-pad-top: clamp(34px, 4.5vw, 54px);
+    --proof-pad-bottom: clamp(34px, 4.5vw, 54px);
   }
 
-  .hero-proof-canvas > article {
-    height: 236px;
+  .hero-proof-canvas {
+    justify-items: center;
+    padding-inline: 0;
   }
 
   .hero-proof-tabs {
@@ -2154,13 +2166,14 @@
      narrow phones. Preserve enough room for each card and its vertical insets
      so the stage rule never cuts through the comparison content. */
   .hero-proof-stage {
+    --proof-pad-top: 30px;
+    --proof-pad-bottom: 26px;
     width: 100%;
-    min-height: 301px;
     margin-top: 72px;
   }
 
   .hero-proof-canvas {
-    padding: 30px 16px 26px;
+    padding-inline: 16px;
   }
 
   .proof-polish--before .proof-polish-kicker,
@@ -2393,7 +2406,9 @@
   height: 100%;
   overflow: visible;
   pointer-events: none;
-  z-index: 3;
+  /* Under the content: the end runs beneath the switcher's track and the
+     start sits under the letter's own ink. */
+  z-index: 0;
 }
 
 .hero-cable:not(.is-ready) { visibility: hidden; }

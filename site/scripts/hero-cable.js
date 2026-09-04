@@ -101,7 +101,7 @@ function measure(hero, vEl, to, avoid) {
 	const t = glyphTerminal(vEl, hero);
 	// The cable ends just inside the strip's right edge, mid height, so it
 	// reads as run straight into the bar.
-	const bx = b.right - h.left - 5;
+	const bx = b.right - h.left - 14;
 	const by = b.top - h.top + b.height / 2;
 	let keepOut = null;
 	if (avoid) {
@@ -124,10 +124,14 @@ function build(m, k) {
 	const ay = t.y + t.uy * armLen;
 	const dx = ax - bx;
 	const dy = by - ay;
-	const rise = Math.min(72, Math.max(36, dy * 0.28));
+	// The exit run and the entry pull both scale with the horizontal room: on
+	// a narrow spine a long run down the arm's line hugs the copy's left edge
+	// and cuts through the lead, so the curve bows into the gutter sooner.
+	const room = Math.min(1, dx / 130);
+	const rise = Math.min(72, Math.max(20, dy * 0.28 * room));
 	const c1x = ax + t.ux * rise * 1.1;
 	const c1y = ay + t.uy * rise * 1.1;
-	const c2x = bx + dx * k.enter;
+	const c2x = bx + dx * k.enter * room;
 	const c2y = by + 2 * k.sag;
 	const d = `M ${t.x.toFixed(1)} ${t.y.toFixed(1)} L ${ax.toFixed(1)} ${ay.toFixed(1)} C ${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${bx.toFixed(1)} ${by.toFixed(1)}`;
 	return { d, ax, ay, c1x, c1y, c2x, c2y };
