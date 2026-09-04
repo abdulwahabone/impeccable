@@ -147,8 +147,10 @@ function descenderTerminal(yEl, hero) {
 	widths.sort((a, b) => a - b);
 	const runW = widths.length ? widths[widths.length >> 1] / scale : stroke;
 	// The raster's threshold reads a light stem wider than the screen draws
-	// it (measured: 4.5 in the raster against 3.7 on screen at 90px).
-	const stem = Math.max(1.5, runW * 0.82);
+	// it (4.5 in the raster against 3.7 on screen at 90px), and an unbroken
+	// horizontal line reads heavier again than a glyph stem of the same
+	// width; two thirds is where the two look like one weight.
+	const stem = Math.max(1.5, runW * 0.67);
 	// The cable's centre line is the foot's belly, where the hook is full
 	// weight, not the tip, which lifts a hair as it thins. It starts just
 	// inside the tip, so its own round cap becomes the terminal: the hook's
