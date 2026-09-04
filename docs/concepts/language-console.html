@@ -1,0 +1,530 @@
+<title>The Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@400;500;600&family=Alumni+Sans:wght@200;300;400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:light;
+  --kinpaku:oklch(84% 0.19 80.46);--kinpaku-rich:oklch(77% 0.13 82);--on-gold:oklch(14% 0.018 95);
+  --patina:oklch(70% 0.12 188);--patina-deep:oklch(49% 0.11 190);
+  --paper:oklch(97.8% 0 0);--paper-raised:oklch(99.5% 0 0);--paper-deep:oklch(95% 0 0);--well:oklch(94.6% 0 0);--gray:oklch(92% 0 0);--gray-2:oklch(88% 0 0);--gray-3:oklch(82% 0 0);
+  --ink:oklch(13% 0 0);--text:oklch(22% 0 0);--muted:oklch(46% 0 0);--faint:oklch(56% 0 0);
+  --rule:oklch(13% 0 0 / 0.08);--edge:oklch(13% 0 0 / 0.45);
+  --font:"Albert Sans","Avenir Next","Helvetica Neue",Arial,sans-serif;--display:"Alumni Sans","Albert Sans",Arial,sans-serif;--mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --cap-lift:inset 0 1px 0 oklch(100% 0 0 / 0.9),0 1px 0 oklch(13% 0 0 / 0.14),0 2px 3px oklch(13% 0 0 / 0.08);
+  --cap-down:inset 0 1px 0 oklch(100% 0 0 / 0.9),0 1px 0 oklch(13% 0 0 / 0.18),0 1px 2px oklch(13% 0 0 / 0.1);
+  --track:inset 0 1px 3px oklch(13% 0 0 / 0.16),inset 0 -1px 0 oklch(100% 0 0 / 0.7);
+  /* a lit LED: a 1px seat plus a 4px bloom. Blur stays at 4 on purpose; the detector reads a wider zero-offset chromatic blur as a glow. */
+  --led:0 0 0 1px oklch(13% 0 0 / 0.12),0 0 4px oklch(84% 0.19 80 / 0.6);
+  --lift-1:0 1px 1px oklch(13% 0 0 / 0.05),0 2px 3px oklch(13% 0 0 / 0.04),0 6px 12px oklch(13% 0 0 / 0.05);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* deck geometry. Every label has to fit its cap at 1440 and at 1180; the compact set below is what makes 1180 work. */
+  --sec-x:56px;--con-x:32px;--readout:372px;--ch:56px;--ch-gap:6px;--key:72px;--key-gap:8px;--stage:1;--side-shift:0px;
+}
+@property --amt{syntax:'<number>';inherits:true;initial-value:0}
+@property --od-seat{syntax:'<number>';inherits:true;initial-value:0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--text);font-family:var(--font);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.055;mix-blend-mode:multiply;background:var(--grain);background-size:160px}
+.sec{width:1440px;max-width:100%;margin:0 auto;padding:72px var(--sec-x) 96px}
+.head{display:grid;gap:14px;margin-bottom:36px}
+h2{margin:0;font:300 clamp(2.4rem,3.6vw,3.4rem)/1.04 var(--display);color:var(--ink)}
+.lede{margin:0;max-width:64ch;font-size:16px;line-height:1.7;color:var(--text)}
+.lede code{font:500 .85em var(--mono);background:var(--gray);padding:.1em .4em;border-radius:3px;color:var(--ink)}
+.mono{font:500 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.tag{display:inline-flex;align-items:center;min-height:20px;padding:0 6px;border-radius:3px;background:var(--kinpaku);color:var(--on-gold);font:600 10px/1 var(--mono);letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.tag.quiet{background:var(--gray);color:var(--muted)}
+
+/* ---------- the console body ---------- */
+.console{position:relative;border-radius:18px;background:linear-gradient(180deg,oklch(98.6% 0 0),oklch(96.4% 0 0));box-shadow:var(--cap-lift),0 18px 40px oklch(13% 0 0 / .06);padding:26px var(--con-x) 30px;overflow:hidden}
+.console::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.08;mix-blend-mode:multiply;background:var(--grain);background-size:160px}
+.console>*{position:relative}
+.screw{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--paper-deep);box-shadow:var(--track)}
+.screw::after{content:"";position:absolute;left:50%;top:1px;bottom:1px;width:1px;background:oklch(13% 0 0 / .3);transform:rotate(38deg)}
+.plate{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.plate .brand{display:flex;align-items:center;gap:10px}
+.plate .mark{width:12px;height:12px;border-radius:50%;background:var(--kinpaku)}
+.plate .mark::after{content:"";display:block;width:4px;height:4px;margin:4px;border-radius:50%;background:var(--on-gold)}
+.plate .mono{color:var(--muted);letter-spacing:.18em}
+.plate .mono b{color:var(--ink);font-weight:600}
+
+.top{display:grid;grid-template-columns:minmax(0,1fr) var(--readout);gap:32px;align-items:stretch}
+/* display window */
+.well{position:relative;height:452px;border-radius:12px;background:var(--well);box-shadow:var(--track);overflow:hidden}
+.well::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.06;mix-blend-mode:multiply;background:var(--grain);background-size:160px}
+.well .corner{position:absolute;left:14px;top:12px;z-index:6}
+.well .corner.r{left:auto;right:14px}
+.stage{position:absolute;inset:0;display:grid;place-items:center}
+.bypass{position:absolute;right:14px;bottom:12px;z-index:6;height:26px;padding:0 10px;border:0;border-radius:5px;background:var(--paper-raised);box-shadow:var(--cap-lift);font:600 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:8px;user-select:none;-webkit-user-select:none;touch-action:none}
+.bypass i{width:6px;height:6px;border-radius:50%;background:var(--gray-2);box-shadow:inset 0 1px 1px oklch(13% 0 0 / .2)}
+.bypass.is-held{box-shadow:inset 0 1px 2px oklch(13% 0 0 / .16);transform:translateY(1px);color:var(--ink)}
+.bypass.is-held i{background:var(--kinpaku);box-shadow:var(--led)}
+.bypass:focus-visible{outline:2px solid var(--kinpaku);outline-offset:2px}
+
+/* readout */
+.readout{display:grid;grid-template-rows:auto auto auto 1fr auto;gap:12px;align-content:start}
+.lcd{display:flex;align-items:center;gap:12px;height:36px;padding:0 12px;border-radius:6px;background:var(--ink);color:oklch(90% 0 0);font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;font-variant-numeric:tabular-nums;box-shadow:inset 0 1px 0 oklch(100% 0 0 / .06),0 1px 0 oklch(100% 0 0 / .7)}
+.lcd .dot{width:7px;height:7px;border-radius:50%;background:var(--kinpaku);box-shadow:0 0 4px oklch(84% 0.19 80 / .7)}
+.lcd .grp{color:oklch(62% 0 0)}
+.lcd .val{margin-left:auto;color:oklch(98% 0 0)}
+.readout h3{margin:4px 0 0;font:300 62px/1 var(--display);color:var(--ink);letter-spacing:0}
+.readout .cmd{font:400 12px/1 var(--mono);color:var(--muted);letter-spacing:.02em}
+.readout p{margin:6px 0 0;font-size:15px;line-height:1.55;color:var(--text);max-width:36ch}
+.patch{display:flex;align-items:center;gap:18px;padding-top:14px;border-top:1px solid var(--rule);margin-top:6px}
+.patch .mono{letter-spacing:.12em}
+.patch .jacks{display:inline-flex;align-items:center;gap:18px}
+.jack{display:inline-flex;align-items:center;gap:8px;border:0;background:none;padding:0;border-radius:4px;cursor:pointer;font:500 13px/1 var(--mono);color:var(--ink)}
+.jack i{width:22px;height:22px;border-radius:50%;background:var(--paper-deep);box-shadow:var(--track);position:relative}
+.jack i::after{content:"";position:absolute;inset:6px;border-radius:50%;background:var(--paper-raised);box-shadow:inset 0 1px 2px oklch(13% 0 0 / .18)}
+.jack:hover span{text-decoration:underline;text-underline-offset:.2em;text-decoration-color:var(--kinpaku)}
+.jack:focus-visible{outline:2px solid var(--kinpaku);outline-offset:3px}
+.ref{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:end}
+.ref .mono{writing-mode:vertical-rl;transform:rotate(180deg);letter-spacing:.16em;color:var(--muted)}
+.ref .win{height:112px;border-radius:8px;background:var(--well);box-shadow:var(--track);position:relative;overflow:hidden}
+.ref .win .ui{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.28);transform-origin:center;pointer-events:none;transition:none}
+
+/* ---------- the deck ---------- */
+.deck{display:flex;justify-content:space-between;gap:16px;margin-top:28px;padding-top:22px;border-top:1px solid var(--rule)}
+.g{display:grid;grid-template-rows:auto 1fr;gap:12px}
+.g-l{position:relative;font:500 10px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted);text-shadow:0 1px 0 oklch(100% 0 0 / .9);padding-bottom:8px}
+.g-l::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--gray-2)}
+.g-b{display:flex;gap:var(--ch-gap);align-self:end}
+.g-b.keys{display:grid;grid-template-columns:repeat(2,var(--key));gap:var(--key-gap)}
+.g-b.keys.col{grid-template-columns:var(--key)}
+/* fader channel */
+.ch{--amt:0;width:var(--ch);display:grid;justify-items:center;gap:8px;cursor:ns-resize;user-select:none;-webkit-user-select:none;touch-action:none;outline:none;border-radius:6px;padding-top:2px;transition:--amt .5s var(--ease-out)}
+.ch.is-dragging{transition:none}
+.ch:focus-visible{box-shadow:0 0 0 2px var(--kinpaku)}
+.led{width:7px;height:7px;border-radius:50%;background:var(--gray-2);box-shadow:inset 0 1px 1px oklch(13% 0 0 / .18);transition:background .2s,box-shadow .2s}
+.is-on .led{background:var(--kinpaku);box-shadow:var(--led)}
+.trk{position:relative;width:100%;height:104px}
+.trk::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:6px;margin-left:-3px;border-radius:3px;background:var(--paper-deep);box-shadow:var(--track)}
+.trk::after{content:"";position:absolute;left:6px;top:7px;bottom:7px;width:5px;background:repeating-linear-gradient(180deg,var(--gray-3) 0 1px,transparent 1px 22.5px);opacity:.9}
+.cap{position:absolute;left:50%;bottom:0;width:30px;height:14px;margin-left:-15px;border-radius:3px;background:var(--paper-raised);box-shadow:var(--cap-lift);transform:translateY(calc(-90px * var(--amt)));will-change:transform}
+.cap::after{content:"";position:absolute;left:4px;right:4px;top:50%;height:1px;margin-top:-.5px;background:var(--gray-3)}
+.ch.is-dragging .cap{box-shadow:var(--cap-down)}
+.lbl{font:500 10px/1 var(--mono);letter-spacing:.02em;color:var(--muted);text-shadow:0 1px 0 oklch(100% 0 0 / .9);white-space:nowrap}
+.is-on .lbl{color:var(--ink)}
+/* key */
+.key{position:relative;width:var(--key);height:44px;border:0;border-radius:6px;background:var(--paper-raised);box-shadow:var(--cap-lift);cursor:pointer;display:grid;place-items:end start;padding:0 0 7px 6px;font:500 10px/1 var(--mono);letter-spacing:.02em;color:var(--muted);text-shadow:0 1px 0 oklch(100% 0 0 / .9);transition:transform .08s,box-shadow .08s;white-space:nowrap}
+.key .led{position:absolute;top:7px;right:7px}
+.key:active,.key.is-on{box-shadow:var(--cap-down);transform:translateY(1px)}
+.key.is-on{color:var(--ink)}
+.key:focus-visible{outline:2px solid var(--kinpaku);outline-offset:2px}
+
+/* ===================== the subject ===================== */
+/* Fieldnote's own palette. The "before" ships the purple gradient every generator ships; colorize replaces it with one deliberate accent, kept off the hue ranges the detector reads as an AI palette. */
+.ui{
+  --fx-impeccable:0;--fx-shape:0;--fx-critique:0;--fx-audit:0;--fx-typeset:0;--fx-layout:0;--fx-colorize:0;--fx-animate:0;--fx-delight:0;--fx-bolder:0;--fx-quieter:0;--fx-overdrive:0;--fx-distill:0;--fx-clarify:0;--fx-adapt:0;--fx-polish:0;--fx-optimize:0;--fx-harden:0;--fx-onboard:0;--fx-init:0;--fx-extract:0;--fx-document:0;--fx-live:0;
+  --sub-grad:linear-gradient(135deg,oklch(58% 0.2 300),oklch(62% 0.22 330));--sub-av-grad:linear-gradient(135deg,oklch(62% 0.18 300),oklch(70% 0.16 20));--sub-link:oklch(55% 0.2 300);--sub-ok:oklch(70% 0.17 150);--sub-err:oklch(48% 0.16 30);
+  --acc:oklch(40% 0.08 150);--acc-l:oklch(91% 0.045 150);--acc-p:oklch(94% 0.03 150);
+  --color-on:max(var(--fx-colorize),var(--fx-impeccable));--type-on:max(var(--fx-typeset),var(--fx-polish),var(--fx-impeccable));--flat-pill:max(var(--fx-quieter),var(--fx-distill));--no-dot:max(var(--fx-distill),var(--fx-adapt));
+  --amt:0;--side:0;transition:--amt .5s var(--ease-out);
+  position:relative;width:calc(560px - 220px * var(--fx-adapt));
+  padding:calc(22px + 2px * var(--fx-layout)) calc(18px + 6px * var(--fx-layout)) calc(16px + 8px * var(--fx-layout));
+  border-radius:calc(12px - 6px * var(--fx-polish) - 8px * var(--fx-bolder) + 16px * var(--fx-adapt));
+  border:1px solid color-mix(in oklch,var(--gray-2),var(--ink) calc(var(--fx-bolder) * 100%));
+  background:var(--paper-raised);
+  box-shadow:var(--lift-1);font:400 13px/1.45 var(--font);color:var(--text);
+  outline:calc(2px * var(--fx-adapt)) solid var(--ink);outline-offset:10px;
+  opacity:calc(1 - .5 * var(--fx-init) - .5 * var(--fx-document));
+  transform:translateX(calc(var(--side) * var(--side-shift) * var(--amt) - 80px * var(--fx-extract))) translateY(calc(-30px * var(--fx-optimize))) scale(calc(var(--stage) - .12 * var(--fx-extract) - .15 * var(--fx-adapt) - .1 * var(--fx-optimize)));
+  filter:grayscale(calc(var(--fx-shape) * 100%));
+  z-index:1;
+}
+.ui.is-dragging{transition:none}
+.ui[data-fx="impeccable"]{--fx-impeccable:var(--amt);--fx-typeset:var(--amt);--fx-layout:var(--amt);--fx-polish:var(--amt);--fx-colorize:var(--amt);--fx-clarify:var(--amt)}
+.ui[data-fx="shape"]{--fx-shape:var(--amt);--side:1}.ui[data-fx="critique"]{--fx-critique:var(--amt);--side:-1}.ui[data-fx="audit"]{--fx-audit:var(--amt);--side:-1}
+.ui[data-fx="typeset"]{--fx-typeset:var(--amt)}.ui[data-fx="layout"]{--fx-layout:var(--amt)}.ui[data-fx="colorize"]{--fx-colorize:var(--amt)}
+.ui[data-fx="animate"]{--fx-animate:var(--amt)}.ui[data-fx="delight"]{--fx-delight:var(--amt)}.ui[data-fx="bolder"]{--fx-bolder:var(--amt)}
+.ui[data-fx="quieter"]{--fx-quieter:var(--amt)}.ui[data-fx="overdrive"]{--fx-overdrive:var(--amt)}.ui[data-fx="distill"]{--fx-distill:var(--amt)}
+.ui[data-fx="clarify"]{--fx-clarify:var(--amt)}.ui[data-fx="adapt"]{--fx-adapt:var(--amt)}.ui[data-fx="polish"]{--fx-polish:var(--amt)}
+.ui[data-fx="optimize"]{--fx-optimize:var(--amt);--is-opt:1}.ui[data-fx="harden"]{--fx-harden:var(--amt);--side:1}.ui[data-fx="onboard"]{--fx-onboard:var(--amt)}
+.ui[data-fx="init"]{--fx-init:var(--amt)}.ui[data-fx="extract"]{--fx-extract:var(--amt)}.ui[data-fx="document"]{--fx-document:var(--amt)}.ui[data-fx="live"]{--fx-live:var(--amt)}
+/* swap: a before span and one or more after spans stacked */
+.sw{position:relative;display:inline-block;vertical-align:baseline}
+.sw>.a{position:absolute;left:0;top:0;white-space:nowrap;opacity:var(--o,0)}
+.sw>.b{opacity:calc(1 - var(--o,0))}
+.sw.wrap>.a{white-space:normal;width:100%}
+.sw.grow{display:inline-grid}
+.sw.grow>span{grid-area:1/1;position:static;white-space:nowrap}
+
+.ui-head{position:relative}
+.ui-head h4{margin:0 0 5px;padding-bottom:calc(30px * var(--fx-bolder) + 10px * var(--fx-typeset));font:600 18px/1.25 var(--font);color:var(--ink);letter-spacing:0;transform:translateX(calc(-1.5px * (1 - var(--fx-polish))))}
+.ui-head h4 .a.typeset{font:300 32px/1 var(--display);top:-3px;color:var(--ink)}
+.ui-head h4 .a.bolder{font:200 54px/.95 var(--display);top:-6px;color:var(--ink);letter-spacing:-.005em;text-transform:uppercase}
+.ui-head p{margin:0;max-height:calc(40px * (1 - var(--fx-distill)));opacity:calc(1 - var(--fx-distill));overflow:hidden;font-size:calc(13px + .5px * var(--fx-typeset));line-height:calc(1.45 + .2 * var(--fx-typeset));color:color-mix(in oklch,var(--faint),var(--muted) calc(var(--type-on) * 100%));max-width:calc(560px - 100px * var(--fx-typeset))}
+.ui-row{position:relative;display:flex;flex-wrap:wrap;gap:8px;margin-top:calc(16px + 6px * var(--fx-layout))}
+.fld{position:relative;display:flex;align-items:center;height:calc(36px + 8px * var(--fx-adapt));padding:0 10px;border-radius:calc(8px - 2px * var(--fx-polish));border:1px solid color-mix(in oklch,var(--gray-3),var(--gray-2) calc(var(--fx-quieter) * 100%));color:var(--faint);font-size:13px;background:var(--paper-raised);white-space:nowrap;overflow:hidden}
+.fld.email{flex:1 1 calc(160px + 400px * var(--fx-adapt))}
+.fld .typed{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--text);opacity:0}
+.fld.role{flex:0 1 calc(112px - 112px * var(--fx-distill));min-width:0;padding:0 calc(10px * (1 - var(--fx-distill)));opacity:calc(1 - var(--fx-distill));justify-content:space-between;color:var(--text)}
+.fld.role .a{color:var(--text)}
+.ui-btn{--hov:0;position:relative;display:inline-flex;align-items:center;justify-content:center;height:calc(36px + 8px * var(--fx-adapt) + 6px * var(--fx-bolder));padding:0 calc(14px + 6px * var(--fx-bolder));border-radius:calc(8px - 2px * var(--fx-polish) - 6px * var(--fx-bolder));font:600 13px/1 var(--font);color:oklch(99% 0 0);white-space:nowrap;background:var(--sub-grad);transform:translateY(calc(2px * (1 - var(--fx-polish)) - 1px * var(--hov)));box-shadow:0 calc(2px * var(--hov)) calc(6px * var(--hov)) oklch(13% 0 0 / calc(.14 * var(--hov)));transition:transform .15s var(--ease-out),box-shadow .15s var(--ease-out);overflow:visible}
+.ui[data-fx="animate"] .ui-btn:hover{--hov:var(--fx-animate)}
+.ui-btn::before{content:"";position:absolute;inset:0;border-radius:inherit;background:color-mix(in oklch,var(--acc),var(--ink) calc(var(--fx-bolder) * 100%));opacity:calc(max(var(--color-on),var(--fx-bolder)))}
+.ui-btn::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--paper-raised);box-shadow:inset 0 0 0 1px var(--gray-3);opacity:var(--fx-quieter)}
+.ui-btn .sw{position:relative;z-index:1;color:color-mix(in oklch,oklch(99% 0 0),var(--ink) calc(var(--fx-quieter) * 100%))}
+.err{max-height:calc(22px * var(--fx-harden));opacity:var(--fx-harden);overflow:hidden;flex:1 0 100%;margin-top:calc(-8px + 6px * var(--fx-harden));font-size:12px;color:var(--sub-err)}
+.coach{position:absolute;left:8px;top:calc(100% + 10px);padding:5px 9px;border-radius:5px;background:var(--ink);color:oklch(96% 0 0);font:500 11px/1.3 var(--font);opacity:var(--fx-onboard);transform:translateY(calc(6px * (1 - var(--fx-onboard))));pointer-events:none;white-space:nowrap;z-index:3}
+.coach::after{content:"";position:absolute;left:16px;top:-4px;width:8px;height:8px;background:var(--ink);transform:rotate(45deg)}
+
+.ui-list{list-style:none;margin:calc(16px + 6px * var(--fx-layout) + 44px * var(--fx-live)) 0 0;padding:0;position:relative}
+.row{position:relative;display:grid;grid-template-columns:32px minmax(0,1fr) calc(96px + 20px * var(--fx-layout) - 44px * var(--fx-adapt) - 34px * var(--fx-distill)) calc(70px - 20px * var(--fx-adapt) - 12px * var(--fx-distill));align-items:center;gap:10px;padding:calc(9px + 4px * var(--fx-layout)) 0;border-top:1px solid var(--gray);max-height:calc(64px * (1 - var(--fx-onboard)));opacity:calc(1 - var(--fx-onboard));overflow:hidden}
+.row.flaw{border-top-width:calc(2px - 1px * var(--fx-polish))}
+.av{position:relative;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font:600 11px/1 var(--font);color:oklch(99% 0 0);background:var(--sub-av-grad);filter:saturate(calc(1 - var(--fx-quieter)));transform:scale(calc(1 + .18 * var(--fx-bolder)))}
+.av span{position:relative;z-index:2;transform:translateY(calc(1.5px * (1 - var(--fx-polish))));color:color-mix(in oklch,oklch(99% 0 0),var(--acc) calc(var(--color-on) * 100%))}
+.av::before{content:"";position:absolute;inset:0;border-radius:50%;background:var(--acc-l);opacity:var(--color-on)}
+.av::after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(100deg,var(--gray-2) 30%,oklch(97% 0 0) 50%,var(--gray-2) 70%);background-size:200% 100%;animation:shimmer 1.2s linear infinite;opacity:calc(var(--is-opt,0) * (1 - var(--fx-optimize)));z-index:1;pointer-events:none;display:var(--skel,none)}
+@keyframes shimmer{to{background-position:-200% 0}}
+.nm{min-width:0;display:grid;gap:1px}
+.nm b{font-weight:500;color:var(--ink);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nm>span{font-size:12px;color:color-mix(in oklch,var(--faint),var(--muted) calc(var(--type-on) * 100%));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-height:calc(18px * (1 - var(--fx-distill)) * (1 - var(--fx-adapt)));opacity:calc((1 - var(--fx-distill)) * (1 - var(--fx-adapt)))}
+.rl{justify-self:start;padding:3px calc(8px * (1 - var(--flat-pill)));border-radius:calc(3px + 3px * var(--fx-polish));font-size:12px;color:color-mix(in oklch,var(--muted),var(--acc) calc(var(--color-on) * 100%));background:color-mix(in oklch,color-mix(in oklch,var(--gray),var(--acc-p) calc(var(--color-on) * 100%)),transparent calc(var(--flat-pill) * 100%));transform:translateY(calc(3px * (1 - var(--fx-layout))));white-space:nowrap}
+.st{display:flex;align-items:center;gap:calc(6px * (1 - var(--no-dot)));font-size:12px;color:color-mix(in oklch,var(--faint),var(--muted) calc(var(--type-on) * 100%));position:relative;white-space:nowrap}
+.st i{position:relative;width:calc(8px * (1 - var(--no-dot)));height:8px;border-radius:50%;background:var(--sub-ok);filter:saturate(calc(1 - var(--fx-quieter)));opacity:calc(1 - var(--no-dot))}
+.st i.p{background:var(--gray-3)}
+.row.ghost{border-top:1px dashed var(--gray-2);max-height:calc(64px * var(--fx-delight));opacity:var(--fx-delight);padding:calc(9px * var(--fx-delight)) 0}
+.row.ghost .av{background:none;border:1px dashed var(--gray-3);color:var(--muted);filter:none}
+.row.ghost .av span{color:var(--muted)}
+.row.ghost .nm{grid-column:2 / -1}.row.ghost .nm b{color:var(--muted);font-weight:400}
+/* overdrive: the invite lands in the list. The room it takes is one grid track on the wrapper, driven by the timeline. */
+.fresh-wrap{display:grid;grid-template-rows:0fr;list-style:none}
+.fresh-in{min-height:0;overflow:hidden}
+.row.fresh{opacity:0;border-top:0}
+.fly{position:absolute;left:11px;top:2px;display:flex;align-items:center;gap:10px;opacity:0;pointer-events:none;z-index:5;color:var(--text);white-space:nowrap}
+.empty{max-height:calc(130px * var(--fx-onboard));opacity:var(--fx-onboard);overflow:hidden;margin-top:calc(14px * var(--fx-onboard));text-align:center;color:var(--muted)}
+.empty .steps{display:inline-flex;gap:6px;margin-bottom:10px;align-items:center}
+.empty .steps i{width:18px;height:3px;border-radius:2px;background:var(--gray-2)}
+.empty .steps i:first-child{background:var(--ink)}
+.empty b{display:block;font-weight:500;color:var(--ink);font-size:14px;margin-bottom:2px}
+.ui-foot{display:flex;justify-content:space-between;align-items:baseline;margin-top:calc(12px + 4px * var(--fx-layout));font-size:12px;color:color-mix(in oklch,var(--faint),var(--muted) calc(var(--type-on) * 100%))}
+.ui-foot .lnk{color:color-mix(in oklch,color-mix(in oklch,var(--sub-link),var(--acc) calc(var(--color-on) * 100%)),var(--muted) calc(var(--fx-quieter) * 100%));text-decoration:underline;text-underline-offset:.15em;white-space:nowrap;opacity:calc(1 - var(--fx-distill));transform:translateY(calc(-2px * (1 - var(--fx-polish))))}
+.ui-foot .lnk .a{left:auto;right:0}
+.ui-foot .lnk .a.bolder{font:400 15px var(--display);color:var(--ink);top:-2px;text-transform:uppercase;letter-spacing:.04em}
+/* micro callouts: polish deltas, motion specs */
+.pc{position:absolute;font:500 10px/1 var(--mono);letter-spacing:.04em;color:var(--muted);background:var(--gray);padding:3px 5px;border-radius:3px;opacity:var(--pc,0);white-space:nowrap;pointer-events:none;z-index:3}
+/* audit tags */
+.ui .at{position:absolute;right:-6px;top:-9px;opacity:var(--fx-audit);transform:translateY(calc(4px * (1 - var(--fx-audit))));z-index:3;pointer-events:none}
+.ui .at.l{right:auto;left:-6px}
+/* shape wireframe */
+.ui .fld,.ui .ui-btn,.ui .av,.ui .rl,.ui .ui-head,.ui .ui-list,.ui .ui-foot{outline:1px dashed oklch(13% 0 0 / calc(.55 * var(--fx-shape)));outline-offset:2px}
+.ui[data-fx="adapt"] .ui-btn,.ui[data-fx="adapt"] .fld{outline:0}
+.wn{position:absolute;font:500 10px/1 var(--mono);letter-spacing:.04em;color:var(--ink);background:var(--paper-raised);border:1px solid var(--ink);padding:3px 5px;border-radius:2px;opacity:var(--fx-shape);white-space:nowrap;pointer-events:none;z-index:3}
+/* live picker */
+.ui[data-fx="live"] .ui-btn{outline:2px solid color-mix(in oklch,transparent,var(--patina-deep) calc(var(--fx-live) * 100%));outline-offset:3px}
+.lv{position:absolute;left:0;top:-34px;display:flex;align-items:center;gap:8px;padding:5px 8px;border-radius:5px;background:var(--ink);color:oklch(96% 0 0);font:500 10px/1 var(--mono);letter-spacing:.06em;opacity:var(--fx-live);transform:translateY(calc(6px * (1 - var(--fx-live))));white-space:nowrap;z-index:4}
+.lv i{width:6px;height:6px;border-radius:50%;background:var(--patina)}
+.lv-strip{position:absolute;left:auto;right:0;top:calc(100% + 10px);display:flex;gap:6px;opacity:var(--fx-live);transform:translateY(calc(-6px * (1 - var(--fx-live))));z-index:4}
+.lv-strip span{height:28px;padding:0 10px;border-radius:6px;font:600 11px/28px var(--font);white-space:nowrap}
+.lv-strip .v1{background:var(--ink);color:var(--paper-raised)}
+.lv-strip .v2{position:relative;background:var(--paper-raised);color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.lv-strip .v3{background:var(--paper-raised);color:var(--ink);border-radius:14px;box-shadow:var(--cap-lift)}
+.lv-strip .v2::after{content:"accept";position:absolute;left:0;right:0;top:100%;margin-top:3px;font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--patina-deep);text-align:center}
+
+/* ---------- overlays that live in the well, beside the subject ---------- */
+.ov{position:absolute;pointer-events:none;z-index:2}
+.ov.prompt{left:0;right:0;top:0;bottom:0;display:none;place-items:center;opacity:calc(1 - var(--p,0));z-index:5}
+.ov.prompt.on{display:grid}
+.ui[data-fx="impeccable"]{opacity:calc(.12 + .88 * var(--amt))}
+.ov.prompt .term{width:560px;height:44px;border-radius:8px;background:var(--ink);color:oklch(92% 0 0);font:400 13px/44px var(--mono);padding:0 16px;display:flex;gap:10px;align-items:center;box-shadow:0 10px 30px oklch(13% 0 0 / .18)}
+.ov.prompt .term .g{color:var(--kinpaku)}
+.ov.prompt .term .cur{width:7px;height:16px;background:oklch(92% 0 0 / .7)}
+.ov.notes{right:22px;top:36px;width:118px;display:grid;gap:10px;opacity:var(--p,0);transform:translateX(calc(8px * (1 - var(--p,0))))}
+.ov.notes .n{display:grid;grid-template-columns:18px 1fr;gap:6px;align-items:start;font:400 11px/1.3 var(--font);color:var(--text)}
+.ov.notes .n i{width:18px;height:18px;border-radius:50%;background:var(--ink);color:var(--paper-raised);font:600 10px/18px var(--mono);text-align:center;font-style:normal}
+.ov.notes .score{margin-top:4px;padding-top:8px;border-top:1px solid var(--rule);font:500 10px/1.5 var(--mono);letter-spacing:.04em;color:var(--muted)}
+.ov.notes .score b{display:block;font:300 34px/1 var(--display);color:var(--ink);letter-spacing:0}
+.ov.left{left:22px;top:36px;width:112px;transform:translateX(calc(-8px * (1 - var(--p,0))))}
+.ov.sheet{left:50%;bottom:-6px;width:400px;margin-left:-200px;padding:16px 18px 14px;border-radius:8px 8px 0 0;background:var(--paper-raised);box-shadow:var(--lift-1),0 -8px 24px oklch(13% 0 0 / .08);opacity:var(--p,0);transform:translateY(calc(30px * (1 - var(--p,0))));font:400 11.5px/1.5 var(--mono);color:var(--text);z-index:5}
+.ov.sheet .fn{display:flex;justify-content:space-between;font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ov.sheet h5{margin:6px 0 0;font:600 11.5px var(--mono);color:var(--ink)}
+.ov.sheet p{margin:0}
+.ov.sheet .sw-row{display:flex;gap:6px;margin:6px 0 2px}
+.ov.sheet .sw-row i{width:22px;height:22px;border-radius:4px;box-shadow:inset 0 0 0 1px var(--rule)}
+.ov.side{right:18px;top:24px;bottom:50px;width:150px;padding:12px;border-radius:8px;background:var(--paper-raised);box-shadow:var(--lift-1);opacity:var(--p,0);transform:translateX(calc(16px * (1 - var(--p,0))));font:400 10.5px/1.5 var(--mono);color:var(--text)}
+.ov.side .fn{font:500 10px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.ov.side .t{display:flex;justify-content:space-between;gap:6px;padding:5px 0;border-top:1px solid var(--rule)}
+.ov.side .t b{font-weight:600;color:var(--ink)}
+.ov.side .t span{color:var(--muted)}
+.ov.perf{left:50%;bottom:22px;width:560px;margin-left:-280px;display:grid;grid-template-columns:auto 1fr auto;gap:8px 12px;align-items:center;font:500 10px/1 var(--mono);letter-spacing:.06em;color:var(--muted);opacity:var(--p,0);transform:translateY(calc(8px * (1 - var(--p,0))))}
+.ov.perf .bar{height:6px;border-radius:3px;background:var(--paper-deep);box-shadow:var(--track);position:relative;overflow:hidden}
+.ov.perf .bar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px;background:var(--ink);width:calc(var(--w0) * 1% - (var(--w0) - var(--w1)) * 1% * var(--p,0))}
+.ov.perf b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+.ov.hardtag{left:22px;top:36px;opacity:var(--p,0);display:grid;gap:6px;justify-items:start}
+
+/* reduced motion: state changes stay, travel goes. The loops that remain are the skeleton shimmer, and it stops here. */
+@media (prefers-reduced-motion:reduce){
+  .ch,.ui{transition-duration:.15s}
+  .av::after{animation:none;background:var(--gray-2)}
+  .ui-btn{transition:none}
+  .key{transition:none}
+}
+/* compact (1180 and up to 1300): every label still fits its cap, the deck stays one row, side overlays step aside. Last in the sheet so it wins the cascade. */
+@media (max-width:1300px){
+  :root{--sec-x:40px;--con-x:24px;--readout:340px;--ch:46px;--ch-gap:6px;--key:70px;--key-gap:5px;--stage:.86;--side-shift:44px}
+  .key{padding-left:5px}
+  .deck{gap:12px}
+  .ov.perf{left:22px;margin-left:0;width:460px}
+  .ov.sheet{width:380px;margin-left:-190px}
+}
+</style>
+
+<section class="sec">
+  <div class="head">
+    <h2>The Language</h2>
+    <p class="lede">23 commands give you a shared design vocabulary with your AI. Each names one kind of intervention: <code>/typeset</code> for type, <code>/distill</code> for complexity, <code>/audit</code> for production quality. One design sits in the window. Every control touches it.</p>
+  </div>
+
+  <div class="console" id="console">
+    <span class="screw" style="left:12px;top:12px"></span><span class="screw" style="right:12px;top:12px"></span><span class="screw" style="left:12px;bottom:12px"></span><span class="screw" style="right:12px;bottom:12px"></span>
+    <div class="plate">
+      <div class="brand"><span class="mark"></span><span class="mono"><b>impeccable</b> · 23-channel design console</span></div>
+      <span class="mono">6 sections · 11 faders · 12 keys</span>
+    </div>
+
+    <div class="top">
+      <div class="well" id="well">
+        <span class="mono corner">display · one subject</span>
+        <span class="mono corner r" id="corner-r">/impeccable typeset</span>
+        <div class="stage" id="stage">
+          <!-- the subject -->
+          <div class="ui" id="ui" data-fx="typeset">
+            <div class="ui-head">
+              <h4><span class="sw" style="--o:max(var(--fx-typeset),var(--fx-bolder),var(--fx-clarify))"><span class="b">Invite your team</span><span class="a typeset" style="--o:calc(var(--fx-typeset) * (1 - var(--fx-clarify)))">Invite your team</span><span class="a typeset" style="--o:calc(var(--fx-typeset) * var(--fx-clarify))">Who should have access?</span><span class="a bolder" style="--o:var(--fx-bolder)">Invite the team</span><span class="a" style="--o:calc(var(--fx-clarify) * (1 - var(--fx-typeset)))">Who should have access?</span></span>
+                <span class="wn" style="left:0;top:-22px">1 · task + why, one line each</span>
+                <span class="at tag l" style="top:-12px;left:auto;right:-4px">P3 · heading level skips h2</span>
+              </h4>
+              <p><span class="sw wrap" style="--o:var(--fx-clarify);display:block"><span class="b">Add team members to your workspace to collaborate on projects.</span><span class="a">They get an email with a link. Access starts when they accept.</span></span></p>
+            </div>
+            <div class="ui-row">
+              <span class="coach">Start with the person you work with most</span>
+              <span class="fld email"><span class="sw" style="--o:var(--fx-clarify)"><span class="b">Enter email address</span><span class="a">Teammate's work email</span></span><span class="typed" id="typed">sam@fieldnote.app</span></span><span class="at tag l" style="left:-6px;top:-12px">P0 · no label, placeholder only</span>
+              <span class="fld role"><span class="sw grow" style="--o:max(var(--fx-clarify),var(--fx-harden))"><span class="b">Editor</span><span class="a" style="--o:var(--fx-clarify)">Can edit</span><span class="a" style="--o:var(--fx-harden)">Bearbeiter:in</span></span><span style="font-size:10px;color:var(--muted)">▾</span></span>
+              <span class="ui-btn" id="btn"><span class="lv"><i></i>send invite · 3 variants</span><span class="sw grow" style="--o:max(var(--fx-clarify),var(--od-seat))"><span class="b">Submit</span><span class="a" style="--o:var(--fx-clarify)">Send invite</span><span class="a" style="--o:var(--od-seat)">Sent</span></span><span class="at tag" style="top:-12px;right:-8px">P1 · contrast 3.9:1</span><span class="pc" style="right:-4px;top:-16px;--pc:calc(var(--fx-polish) * (1 - var(--fx-impeccable)))">Δy 2px → 0</span><span class="pc" style="right:-4px;top:-24px;--pc:var(--fx-animate)">hover · lift 1px · 150ms</span><span class="pc" style="right:-4px;top:-24px;--pc:var(--fx-overdrive)">press · 160ms · scale .96</span><span class="lv-strip"><span class="v1">Send invite</span><span class="v2">Send invite</span><span class="v3">Send invite</span></span></span>
+              <span class="err">We couldn't send that invite. Check the address and try again.</span>
+              <span class="wn" style="left:0;bottom:-20px">2 · email + role, one action</span>
+              <span class="fly" id="fly"><span class="av"><span>SO</span></span><span>sam@fieldnote.app</span></span>
+            </div>
+            <ul class="ui-list"><span class="at tag l" style="left:-6px;top:6px">P2 · initials 2.6:1 on gradient</span><span class="pc" style="left:-10px;top:-9px;--pc:var(--fx-animate)">rows · 380ms · 70ms apart · ease-out</span><span class="pc" style="right:-4px;top:-9px;--pc:var(--fx-overdrive)">spring · ζ 0.5 · 8px overshoot</span><span class="pc" style="left:-10px;top:44px;--pc:calc(var(--fx-polish) * (1 - var(--fx-impeccable)))">rule 2px → 1px</span>
+              <li class="fresh-wrap" id="fresh-wrap"><div class="fresh-in"><div class="row fresh" id="fresh"><span class="av"><span>SO</span></span><span class="nm"><b>Sam Ortega</b><span>sam@fieldnote.app</span></span><span class="rl">Viewer</span><span class="st"><i class="p"></i><span>Invited</span></span></div></div></li>
+              <li class="row" style="--skel:block"><span class="av"><span>MO</span></span><span class="nm"><b><span class="sw" style="--o:var(--fx-harden)"><span class="b">Mara Okafor</span><span class="a">Mara Okafor-Adebayo Oluwaseun</span></span></b><span>mara@fieldnote.app</span></span><span class="rl">Admin</span><span class="st"><i></i><span>Active</span></span></li>
+              <li class="row flaw" style="--skel:block"><span class="av"><span>JL</span></span><span class="nm"><b>Jonas Lindqvist</b><span>jonas@fieldnote.app</span></span><span class="rl">Editor</span><span class="st"><i></i><span>Active</span></span></li>
+              <li class="row" style="--skel:block"><span class="av"><span>PN</span></span><span class="nm"><b>Priya Nair</b><span>priya@fieldnote.app</span></span><span class="rl">Viewer</span><span class="st"><i class="p"></i><span>Pending</span></span></li>
+              <li class="row ghost"><span class="av"><span>+</span></span><span class="nm"><b>Two seats left. Who do you always end up cc'ing on this?</b></span><span class="rl" style="opacity:0"></span><span></span></li>
+            </ul>
+            <div class="empty"><div class="steps"><i></i><i></i><i></i></div><b>No teammates yet</b>Invite one and they show up here. Step 1 of 3.</div>
+            <div class="ui-foot">
+              <span><span class="sw" style="--o:max(var(--fx-clarify),var(--od-seat))"><span class="b">3/5 seats</span><span class="a" style="--o:calc(var(--fx-clarify) * (1 - var(--od-seat)))">2 more people can join on this plan</span><span class="a" style="--o:var(--od-seat)">4/5 seats</span></span></span>
+              <span class="lnk"><span class="sw" style="--o:max(var(--fx-clarify),var(--fx-bolder))"><span class="b">Upgrade</span><span class="a" style="--o:var(--fx-clarify)">Add seats</span><span class="a bolder" style="--o:var(--fx-bolder)">Add seats</span></span><span class="at tag" style="right:0;top:-18px">P3 · target 20px</span></span>
+              <span class="wn" style="left:0;bottom:-18px">3 · who has access, plan limit</span>
+            </div>
+          </div>
+
+          <!-- overlays beside the subject -->
+          <div class="ov prompt" id="ov-impeccable"><div class="term"><span class="g">›</span><span>/impeccable build the invite panel for Fieldnote</span><span class="cur"></span></div></div>
+          <div class="ov notes" id="ov-critique"><div class="n"><i>1</i>Title and button fight for the eye. Only one should win.</div><div class="n"><i>2</i>Emails add noise nobody scans.</div><div class="n"><i>3</i>Pending looks the same as Active. The row that needs a nudge never asks for one.</div><div class="score">Hierarchy 4 · Clarity 6 · Craft 5<b>5.2</b></div></div>
+          <div class="ov notes" id="ov-audit"><div class="score" style="border:0;padding:0;margin:0">1 P0 · 1 P1 · 1 P2 · 2 P3<b>61</b>of 100</div><div class="n" style="margin-top:6px"><i style="background:var(--kinpaku);color:var(--on-gold)">!</i>Fix the P0 first: a visible label on the email field.</div></div>
+          <div class="ov notes left" id="ov-shape"><div class="score" style="border:0;padding:0;margin:0">brief<b style="font-size:22px">Fieldnote</b></div><div class="n" style="margin-top:6px"><i>→</i>Teams of 2 to 10. Invite in under 30 seconds. Owner sees seats before paying.</div></div>
+          <div class="ov sheet" id="ov-init"><div class="fn"><span>PRODUCT.md</span><span>written</span></div><h5>## Register</h5><p>product</p><h5>## Platform</h5><p>web</p><h5>## Users</h5><p>Small teams keeping field notes together. Most invites happen in the first hour.</p><h5>## Principles</h5><p>Calm by default. One action per screen. Never hide the seat count.</p></div>
+          <div class="ov sheet" id="ov-document"><div class="fn"><span>DESIGN.md</span><span>from what ships</span></div><h5>## Color</h5><div class="sw-row"><i style="background:oklch(99.5% 0 0)"></i><i style="background:var(--gray)"></i><i style="background:var(--gray-3)"></i><i style="background:linear-gradient(135deg,oklch(58% 0.2 300),oklch(62% 0.22 330))"></i><i style="background:oklch(70% 0.17 150)"></i></div><p>paper, gray-1, gray-3, accent (gradient, flagged), success</p><h5>## Type</h5><p>Albert Sans · 18/600 title · 13/400 body · 12/400 meta</p><h5>## Shape</h5><p>radius 8 fields · 3 pills · 12 card (inconsistent)</p></div>
+          <div class="ov side" id="ov-extract"><div class="fn">Extracted</div><div class="t"><b>&lt;Avatar&gt;</b><span>×3</span></div><div class="t"><b>&lt;Field&gt;</b><span>×2</span></div><div class="t"><b>&lt;RolePill&gt;</b><span>×3</span></div><div class="t"><b>--radius-2</b><span>8px</span></div><div class="t"><b>--border</b><span>gray-3</span></div><div class="t"><b>--accent</b><span>1 use</span></div></div>
+          <div class="ov perf" id="ov-optimize"><span>LCP</span><span class="bar"><i style="--w0:100;--w1:32"></i></span><b>3.4s → 1.1s</b><span>JS</span><span class="bar"><i style="--w0:82;--w1:17"></i></span><b>412 kB → 86 kB</b><span>Avatars</span><span class="bar"><i style="--w0:60;--w1:9"></i></span><b>3 × 380 kB → webp</b></div>
+          <div class="ov hardtag" id="ov-harden"><span class="tag quiet">de-DE · 1.6× text</span><span class="tag quiet">name · 31 chars</span><span class="tag quiet">network · failed</span></div>
+        </div>
+        <button class="bypass" id="bypass" type="button" aria-pressed="false"><i></i>hold · before</button>
+      </div>
+
+      <div class="readout">
+        <div class="lcd"><span class="dot"></span><span class="grp" id="r-grp">refine · ch 05</span><span id="r-kind">fader</span><span class="val" id="r-val">100</span></div>
+        <div><h3 id="r-name">typeset</h3><div class="cmd" id="r-cmd">/impeccable typeset</div></div>
+        <p id="r-desc">Fix type: font choices, hierarchy, sizing, measure, readability.</p>
+        <div class="patch"><span class="mono">patch to</span><span class="jacks" id="r-patch"></span></div>
+        <div class="ref"><span class="mono">ref · untouched</span><div class="win" id="ref"></div></div>
+      </div>
+    </div>
+
+    <div class="deck" id="deck"></div>
+  </div>
+</section>
+
+<script>
+const CMDS=[
+ ['impeccable','create','key','Build new work from a brief: a direction rolled and committed before any code.',['shape','critique']],
+ ['shape','create','key','Plan before code. A discovery interview, then a brief you sign off on.',['impeccable','layout']],
+ ['critique','evaluate','key','A design review that scores hierarchy, structure and the things a person would notice.',['polish','distill']],
+ ['audit','evaluate','key','Technical checks: accessibility, performance, theming, responsiveness, anti-patterns.',['harden','optimize']],
+ ['typeset','refine','fader','Fix type: font choices, hierarchy, sizing, measure, readability.',['layout','polish']],
+ ['layout','refine','fader','Fix spacing, rhythm and alignment until the grid is felt, not seen.',['typeset','distill']],
+ ['colorize','refine','fader','Add strategic color to work that reads gray or landed on the default gradient.',['bolder','quieter']],
+ ['animate','refine','fader','Purposeful motion that shows state. Nothing decorative.',['delight','polish']],
+ ['delight','refine','fader','Small moments of personality where the flow can carry them.',['animate','bolder']],
+ ['bolder','refine','fader','Amplify a safe design until it has a point of view.',['colorize','overdrive']],
+ ['quieter','refine','fader','Turn a loud design down without losing what it meant.',['distill','colorize']],
+ ['overdrive','refine','fader','Push past convention: shaders, springs, scroll-driven reveals at 60fps.',['bolder','animate']],
+ ['distill','simplify','fader','Subtract until only what earns its place is left.',['clarify','quieter']],
+ ['clarify','simplify','fader','Rewrite labels, copy and errors so the interface explains itself.',['polish','onboard']],
+ ['adapt','simplify','fader','Make it work at every width and on every device without amputating features.',['layout','harden']],
+ ['polish','harden','key','The final pass: alignment, spacing, consistency, micro-detail.',['audit','typeset']],
+ ['optimize','harden','key','Find and fix what makes it slow, from LCP to bundle size.',['audit','harden']],
+ ['harden','harden','key','Production-ready: long names, other languages, errors, empty data.',['audit','onboard']],
+ ['onboard','harden','key','First runs and empty states that lead somewhere.',['clarify','delight']],
+ ['init','system','key','Set up a project once: PRODUCT.md, DESIGN.md, live mode, where to start.',['document','extract']],
+ ['extract','system','key','Pull repeated patterns and tokens into the design system.',['document','polish']],
+ ['document','system','key','Write DESIGN.md from what actually ships.',['extract','init']],
+ ['live','system','key','Pick an element in the browser, get three variants, accept one into source.',['polish','animate']],
+];
+const GROUPS=['create','evaluate','refine','simplify','harden','system'];
+const byId=Object.fromEntries(CMDS.map(c=>[c[0],c]));
+const ui=document.getElementById('ui');
+const deck=document.getElementById('deck');
+const ctl={};
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// build the deck
+GROUPS.forEach(g=>{
+  const items=CMDS.filter(c=>c[1]===g);
+  const el=document.createElement('div');el.className='g';
+  const isKeys=items[0][2]==='key';
+  el.innerHTML=`<div class="g-l">${g}</div><div class="g-b ${isKeys?'keys':''} ${items.length===2?'col':''}"></div>`;
+  const body=el.lastElementChild;
+  items.forEach(c=>{
+    let node;
+    if(c[2]==='fader'){
+      node=document.createElement('div');node.className='ch';node.tabIndex=0;node.setAttribute('role','slider');node.setAttribute('aria-label',c[0]);node.setAttribute('aria-valuemin','0');node.setAttribute('aria-valuemax','100');node.setAttribute('aria-valuenow','0');
+      node.innerHTML=`<i class="led"></i><div class="trk"><span class="cap"></span></div><b class="lbl">${c[0]}</b>`;
+      wireFader(node,c[0]);
+    }else{
+      node=document.createElement('button');node.type='button';node.className='key';node.setAttribute('aria-pressed','false');node.innerHTML=`<i class="led"></i><span>${c[0]}</span>`;
+      node.addEventListener('click',()=>pressKey(c[0]));
+    }
+    node.dataset.cmd=c[0];ctl[c[0]]=node;body.appendChild(node);
+  });
+  deck.appendChild(el);
+});
+// the reference monitor: an untouched clone of the subject
+const refUi=ui.cloneNode(true);refUi.removeAttribute('id');refUi.removeAttribute('data-fx');refUi.style.setProperty('--amt','0');
+refUi.querySelectorAll('[id]').forEach(n=>n.removeAttribute('id'));
+document.getElementById('ref').appendChild(refUi);
+
+/* ---- scrubbable timelines (animate, overdrive) ----
+   A fader is a timeline scrubber: dragging sets currentTime, a jump plays at real speed, exit runs faster than entrance. */
+function makeTimeline(build,duration){
+  let anims=null,cur=0,raf=0;
+  const ensure=()=>{if(!anims){anims=build().map(([el,k,o])=>{const a=el.animate(k,Object.assign({fill:'both'},o));a.pause();return a;});}};
+  const apply=t=>{ensure();cur=t;anims.forEach(a=>{a.currentTime=t;});};
+  return {
+    scrub(v){cancelAnimationFrame(raf);apply(v*duration);},
+    seek(v){cancelAnimationFrame(raf);const target=v*duration;let last=performance.now();
+      const step=now=>{const dt=now-last;last=now;const back=target<cur;const next=back?Math.max(target,cur-dt*1.6):Math.min(target,cur+dt);apply(next);if(next!==target)raf=requestAnimationFrame(step);};
+      raf=requestAnimationFrame(step);},
+    reset(){cancelAnimationFrame(raf);cur=0;if(anims){anims.forEach(a=>a.cancel());anims=null;}}
+  };
+}
+const rows=[...ui.querySelectorAll('.ui-list > .row:not(.ghost)')];
+const EO='cubic-bezier(.16,1,.3,1)';
+// spring: damping ratio .5, settles inside the window, overshoots by about 16% (8px on a 51px shift)
+const spring=t=>{const z=.5,w=10,wd=w*Math.sqrt(1-z*z),s=t*.75;return 1-Math.exp(-z*w*s)*(Math.cos(wd*s)+(z*w/wd)*Math.sin(wd*s));};
+const TL={
+  animate:makeTimeline(()=>rows.map((r,i)=>[r,RM?[{opacity:0},{opacity:1}]:[{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'translateY(0)'}],{duration:380,delay:i*70,easing:EO}]),520),
+  overdrive:makeTimeline(()=>{
+    const fly=document.getElementById('fly'),wrap=document.getElementById('fresh-wrap'),fresh=document.getElementById('fresh'),typed=document.getElementById('typed'),btn=document.getElementById('btn');
+    // measure the flight: where the chip starts against where the fresh row's avatar lands
+    wrap.style.gridTemplateRows='1fr';
+    const k=ui.getBoundingClientRect().width/ui.offsetWidth||1;
+    const D=RM?0:(fresh.querySelector('.av').getBoundingClientRect().top-fly.querySelector('.av').getBoundingClientRect().top)/k;
+    wrap.style.gridTemplateRows='';
+    const H=fresh.offsetHeight||51;
+    // the room the new row takes opens on the same spring the chip rides, so the list overshoots with it and the card breathes once
+    const N=32,flight=[],room=[];
+    for(let i=0;i<=N;i++){const u=i/N;const sv=RM?u:spring(u);flight.push({offset:u,transform:`translateY(${(D*sv).toFixed(2)}px)`});room.push({offset:u,gridTemplateRows:`${Math.max(0,H*sv).toFixed(2)}px`});}
+    const win={duration:750,delay:100,easing:'linear'};
+    const list=[
+      [btn,[{transform:'scale(1)'},{transform:'scale(.96)',offset:.5},{transform:'scale(1)'}],{duration:160,composite:'add'}],
+      [typed,[{opacity:1},{opacity:1,offset:.5},{opacity:0}],{duration:160}],
+      [fly,[{opacity:0},{opacity:1,offset:.12},{opacity:1,offset:.86},{opacity:0}],{duration:950,easing:'linear'}],
+      [fly,flight,win],
+      [wrap,room,win],
+      [fresh,[{opacity:0},{opacity:1}],{duration:180,delay:820}],
+      [ui,[{'--od-seat':0},{'--od-seat':1}],{duration:150,delay:850}],
+    ];
+    return list;
+  },1000),
+};
+
+let active=null;
+function setAmt(v,instant){
+  v=Math.max(0,Math.min(1,v));
+  ui.style.setProperty('--amt',v);
+  document.querySelectorAll('.ov').forEach(o=>o.style.setProperty('--p', o.id==='ov-'+active?v:0));
+  const node=ctl[active];
+  if(node&&node.classList.contains('ch')){node.style.setProperty('--amt',v);node.setAttribute('aria-valuenow',Math.round(v*100));}
+  if(node&&node.classList.contains('key'))node.setAttribute('aria-pressed',String(v>0.5));
+  document.getElementById('r-val').textContent=String(Math.round(v*100)).padStart(3,'0');
+  node&&node.classList.toggle('is-on',v>0.02);
+  const tl=TL[active];if(tl){(ui.classList.contains('is-dragging')||instant)?tl.scrub(v):tl.seek(v);}
+}
+function select(id){
+  if(active===id)return;
+  // solo: every other control glides home
+  Object.entries(ctl).forEach(([k,n])=>{if(k!==id){n.classList.remove('is-on');n.classList.remove('is-dragging');n.style.setProperty('--amt','0');if(n.classList.contains('ch'))n.setAttribute('aria-valuenow','0');else n.setAttribute('aria-pressed','false');}});
+  if(TL[active])TL[active].reset();
+  active=id;
+  const c=byId[id];const i=CMDS.indexOf(c);
+  ui.dataset.fx=id;document.getElementById('ov-impeccable').classList.toggle('on',id==='impeccable');
+  document.getElementById('r-grp').textContent=`${c[1]} · ch ${String(i+1).padStart(2,'0')}`;
+  document.getElementById('r-kind').textContent=c[2];
+  document.getElementById('r-name').textContent=id;
+  document.getElementById('r-cmd').textContent='/impeccable '+id;
+  document.getElementById('corner-r').textContent='/impeccable '+id;
+  document.getElementById('r-desc').textContent=c[3];
+  document.getElementById('r-patch').innerHTML=c[4].map(r=>`<button class="jack" type="button" data-to="${r}"><i></i><span>${r}</span></button>`).join('');
+}
+function pressKey(id){
+  const node=ctl[id];
+  if(active===id&&node.classList.contains('is-on')){setAmt(0);node.classList.remove('is-on');return;}
+  select(id);ui.classList.remove('is-dragging');setAmt(1);
+}
+function wireFader(node,id){
+  let drag=false,rect=null,off=0;
+  const fromY=y=>(rect.bottom-7-y)/90;
+  node.addEventListener('pointerdown',e=>{
+    drag=true;rect=node.querySelector('.trk').getBoundingClientRect();node.setPointerCapture(e.pointerId);
+    select(id);node.classList.add('is-dragging');ui.classList.add('is-dragging');
+    // grab the cap where it is and keep the hand's offset; a press elsewhere on the track jumps there
+    const cur=parseFloat(node.style.getPropertyValue('--amt')||0);const t=fromY(e.clientY);
+    if(Math.abs(t-cur)>0.12){off=0;setAmt(t,true);}else{off=cur-t;}
+  });
+  node.addEventListener('pointermove',e=>{if(!drag)return;setAmt(fromY(e.clientY)+off,true);});
+  const up=()=>{if(!drag)return;drag=false;node.classList.remove('is-dragging');ui.classList.remove('is-dragging');};
+  node.addEventListener('pointerup',up);node.addEventListener('pointercancel',up);
+  node.addEventListener('keydown',e=>{
+    const cur=active===id?parseFloat(node.style.getPropertyValue('--amt')||0):0;
+    const step=e.shiftKey?0.25:0.1;let v=null;
+    if(e.key==='ArrowUp'||e.key==='ArrowRight')v=cur+step;
+    if(e.key==='ArrowDown'||e.key==='ArrowLeft')v=cur-step;
+    if(e.key==='Home')v=0;if(e.key==='End')v=1;
+    if(v===null)return;e.preventDefault();select(id);node.classList.remove('is-dragging');ui.classList.remove('is-dragging');setAmt(v);
+  });
+  node.addEventListener('dblclick',()=>{select(id);setAmt(1);});
+}
+document.getElementById('r-patch').addEventListener('click',e=>{
+  const j=e.target.closest('.jack');if(!j)return;const to=j.dataset.to;
+  select(to);ui.classList.remove('is-dragging');setAmt(1);
+  ctl[to].focus({preventScroll:true});
+});
+// bypass: hold to see the untouched subject. Pointer and keyboard, press and release.
+const byp=document.getElementById('bypass');let held=0;
+const hold=on=>{if(on===held)return;held=on;byp.classList.toggle('is-held',!!on);byp.setAttribute('aria-pressed',String(!!on));
+  const node=ctl[active];const v=node&&node.classList.contains('ch')?parseFloat(node.style.getPropertyValue('--amt')||0):(node&&node.classList.contains('is-on')?1:0);
+  ui.classList.remove('is-dragging');ui.style.setProperty('--amt',on?0:v);
+  document.querySelectorAll('.ov').forEach(o=>o.style.setProperty('--p',o.id==='ov-'+active?(on?0:v):0));
+  const tl=TL[active];if(tl){on?tl.scrub(0):tl.seek(v);}
+};
+byp.addEventListener('pointerdown',e=>{byp.setPointerCapture(e.pointerId);hold(1);});
+byp.addEventListener('pointerup',()=>hold(0));byp.addEventListener('pointercancel',()=>hold(0));byp.addEventListener('lostpointercapture',()=>hold(0));
+byp.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();hold(1);}});
+byp.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter')hold(0);});byp.addEventListener('blur',()=>hold(0));
+// initial state: typeset, fader up
+select('typeset');setAmt(1);
+</script>
