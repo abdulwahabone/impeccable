@@ -8,15 +8,15 @@
  * one home.
  *
  * Each fader's engraved label performs its own command as the cap moves
- * (word-performances.js `set`), and a key's label performs once when it is
- * pressed. A few effects do not survive 10px and are skipped; see SKIP.
+ * (word-performances.js `set`). A few effects do not survive 10px and are
+ * skipped; see SKIP. Key labels stay static while the key itself moves.
  *
  * Deep links: #cmd-<name> selects that channel on load. Other components
  * select a channel by dispatching `impeccable:select-command` with the id;
  * the console answers every selection with `impeccable:command-selected`.
  */
 import { CONSOLE_COMMANDS, DEFAULT_CHANNEL } from '../../data/console-channels.mjs';
-import { set as poseWord, perform as performWord, COMMANDS as PERFORMED } from '../word-performances.js';
+import { set as poseWord, COMMANDS as PERFORMED } from '../word-performances.js';
 
 const byId = Object.fromEntries(CONSOLE_COMMANDS.map((c) => [c[0], c]));
 
@@ -75,12 +75,6 @@ export function initCommandConsole() {
     if (v <= 0.02) restLabel(node, id);
     else poseWord(el, id, v);
   };
-  const performLabel = (node, id) => {
-    const el = labelOf(node);
-    if (!el || !canPerform(id)) return;
-    performWord(el, id);
-  };
-
   /* ---- scrubbable timelines (animate, overdrive) ----
      A fader is a timeline scrubber: dragging sets currentTime, a jump plays
      at real speed, exit runs faster than entrance. */
@@ -237,7 +231,6 @@ export function initCommandConsole() {
     select(id);
     ui.classList.remove('is-dragging');
     setAmt(1);
-    performLabel(node, id);
   }
 
   function wireFader(node, id) {
@@ -297,7 +290,6 @@ export function initCommandConsole() {
     select(to);
     ui.classList.remove('is-dragging');
     setAmt(1);
-    if (!isFader(ctl[to])) performLabel(ctl[to], to);
     ctl[to].focus({ preventScroll: true });
   });
 
@@ -316,7 +308,6 @@ export function initCommandConsole() {
     select(id, { announce: false });
     ui.classList.remove('is-dragging');
     setAmt(1);
-    if (!isFader(ctl[id])) performLabel(ctl[id], id);
     if (scroll) root.scrollIntoView({ block: 'start', behavior: RM ? 'auto' : 'smooth' });
     if (focus) ctl[id].focus({ preventScroll: true });
     return true;
