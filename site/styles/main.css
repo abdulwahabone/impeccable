@@ -568,7 +568,7 @@ code {
   min-width: 0;
 }
 
-.language-content .section-lead {
+.language-section .section-lead {
   margin-bottom: 0;
 }
 
@@ -579,17 +579,6 @@ code {
 /* ============================================
    SOLUTION SECTION (legacy styles for periodic table)
    ============================================ */
-
-/* Interactive Framework Viz - Periodic Table */
-.solution-visual-interactive {
-  width: 100%;
-  min-height: 380px;
-  background: var(--color-paper);
-  border: 1px solid var(--color-mist);
-  border-radius: 8px;
-  position: relative;
-  overflow: visible;
-}
 
 /* ============================================
    SKILLS SECTION

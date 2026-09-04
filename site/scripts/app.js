@@ -1,8 +1,3 @@
-import {
-	initGlassTerminal,
-	renderTerminalLayout,
-} from "./components/glass-terminal.js";
-import { initFrameworkViz } from "./components/framework-viz.js";
 import { initScrollReveal } from "./utils/reveal.js";
 import { initAnchorScroll, initHashTracking } from "./utils/scroll.js";
 import { initCopyFeedback } from "./utils/copy-feedback.js";
@@ -14,7 +9,6 @@ import { initLiveDemo, initGbarPageChat } from "./components/live-demo.js";
 // STATE
 // ============================================
 
-let allCommands = [];
 
 // ============================================
 // CONTENT LOADING
@@ -32,24 +26,11 @@ function escapeHtml(value) {
 
 async function loadContent() {
 	try {
-		const [commandsRes, patternsRes] = await Promise.all([
-			fetch("/_data/api/commands.json"),
-			fetch("/_data/api/patterns.json"),
-		]);
-
-		// Check for HTTP errors
-		if (!commandsRes.ok) {
-			throw new Error(`Commands API failed: ${commandsRes.status}`);
-		}
+		const patternsRes = await fetch("/_data/api/patterns.json");
 		if (!patternsRes.ok) {
 			throw new Error(`Patterns API failed: ${patternsRes.status}`);
 		}
-
-		allCommands = await commandsRes.json();
 		const patternsData = await patternsRes.json();
-
-		// Render commands (Glass Terminal)
-		renderTerminalLayout(allCommands);
 
 		// Initialize gallery card stack
 		initGalleryStack();
@@ -63,21 +44,6 @@ async function loadContent() {
 }
 
 function showLoadError(error) {
-	// Show error in commands section
-	const commandsGallery = document.querySelector('.commands-gallery');
-	if (commandsGallery) {
-		commandsGallery.innerHTML = `
-			<div class="load-error" role="alert">
-				<div class="load-error-icon" aria-hidden="true">⚠</div>
-				<h3 class="load-error-title">Failed to load commands</h3>
-				<p class="load-error-text">There was a problem loading the content. Please check your connection and try again.</p>
-				<button class="btn btn-secondary load-error-retry" onclick="location.reload()">
-					Retry
-				</button>
-			</div>
-		`;
-	}
-
 	// Show error in patterns section
 	const patternsContainer = document.getElementById("patterns-categories");
 	if (patternsContainer) {
@@ -317,12 +283,9 @@ function init() {
 	initCopyFeedback();
 	initHeroProof();
 	initScrollReveal();
-	initGlassTerminal();
-	initFrameworkViz();
 	initFoundationGrid();
 	initSectionNav();
 	initWhyTabs();
-	initLanguageTabs();
 	initSteeringDesktop();
 	initLiveDemo();
 	initGbarPageChat();
@@ -417,41 +380,27 @@ function initSteeringDesktop() {
 		setBrowserUiQuiet(true);
 	}
 
+	const activateCommand = (button) => {
+		const command = button.dataset.steeringCommand;
+		commandButtons.forEach((item) => {
+			const selected = item === button;
+			item.classList.toggle('is-active', selected);
+			item.setAttribute('aria-pressed', selected ? 'true' : 'false');
+		});
+		activeCommands.forEach((item) => { item.textContent = command; });
+		if (agentCopy && button.dataset.agentCopy) agentCopy.textContent = button.dataset.agentCopy;
+	};
+
+	// The console above announces every channel it selects. When the menu
+	// has that command, the thread follows it.
+	window.addEventListener('impeccable:command-selected', (event) => {
+		const button = commandButtons.find((item) => item.dataset.steeringCommand === event.detail?.id);
+		if (button && !button.classList.contains('is-active')) activateCommand(button);
+	});
+
 	commandButtons.forEach((button) => {
 		button.addEventListener('click', () => {
-			const command = button.dataset.steeringCommand;
-			commandButtons.forEach((item) => {
-				const selected = item === button;
-				item.classList.toggle('is-active', selected);
-				item.setAttribute('aria-pressed', selected ? 'true' : 'false');
-			});
-			activeCommands.forEach((item) => { item.textContent = command; });
-			if (agentCopy && button.dataset.agentCopy) agentCopy.textContent = button.dataset.agentCopy;
-		});
-	});
-}
-
-function initLanguageTabs() {
-	const toggle = document.querySelector('.language-view-toggle');
-	if (!toggle) return;
-	const tabs = Array.from(toggle.querySelectorAll('.language-view-tab'));
-	const panels = Array.from(document.querySelectorAll('.language-view[data-view-panel]'));
-	if (!tabs.length || !panels.length) return;
-
-	tabs.forEach((tab) => {
-		tab.addEventListener('click', () => {
-			const view = tab.dataset.view;
-			tabs.forEach((t) => {
-				const on = t === tab;
-				t.classList.toggle('is-active', on);
-				t.setAttribute('aria-selected', on ? 'true' : 'false');
-			});
-			panels.forEach((p) => {
-				const on = p.dataset.viewPanel === view;
-				p.classList.toggle('is-active', on);
-				if (on) p.removeAttribute('hidden');
-				else p.setAttribute('hidden', '');
-			});
+			activateCommand(button);
 		});
 	});
 }

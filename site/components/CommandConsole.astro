@@ -1,0 +1,112 @@
+---
+/**
+ * The command console: 23 channels wired to one design in a display window.
+ *
+ * The deck is rendered here from site/data/console-channels.mjs so the page
+ * ships with every fader and key in place; command-console.js wires them.
+ * The subject in the window (Fieldnote's invite panel) is someone else's
+ * design and keeps its own palette, purple "before" included.
+ */
+import '../styles/console.css';
+import { CONSOLE_COMMANDS, CONSOLE_GROUPS, DEFAULT_CHANNEL } from '../data/console-channels.mjs';
+
+const faders = CONSOLE_COMMANDS.filter((c) => c[2] === 'fader').length;
+const keys = CONSOLE_COMMANDS.filter((c) => c[2] === 'key').length;
+const start = CONSOLE_COMMANDS.find((c) => c[0] === DEFAULT_CHANNEL);
+const startIndex = CONSOLE_COMMANDS.indexOf(start);
+const pad = (n) => String(n).padStart(2, '0');
+const groups = CONSOLE_GROUPS.map((g) => {
+  const items = CONSOLE_COMMANDS.filter((c) => c[1] === g);
+  return { id: g, items, isKeys: items[0][2] === 'key', isCol: items.length === 2 };
+});
+---
+
+<div class="command-console" id="command-console" data-command-console data-start={DEFAULT_CHANNEL}>
+  <div class="cc-anchors" aria-hidden="true">
+    {CONSOLE_COMMANDS.map((c) => <span id={`cmd-${c[0]}`}></span>)}
+  </div>
+  <div class="cc-top">
+    <!-- The window clips on purpose: it is a display, and the subject's states are sized to fit it. -->
+    <div class="cc-well" data-cc-well data-impeccable-ignore="clipped-overflow-container">
+      <div class="cc-stage" data-cc-stage>
+        <!-- The subject is a deliberate "before": the purple gradient is what
+             every generator ships, and the P0 to P3 tags quote the detector's
+             own labels. The detector is told so, and scans the console around it. -->
+        <div class="fn" data-cc-ui data-fx={DEFAULT_CHANNEL} data-impeccable-ignore="ai-color-palette all-caps-body wide-tracking">
+          <div class="fn-head">
+            <p class="fn-title"><span class="fn-sw" style="--o:max(var(--fx-typeset),var(--fx-bolder),var(--fx-clarify))"><span class="fn-b">Invite your team</span><span class="fn-a fn-a--typeset" style="--o:calc(var(--fx-typeset) * (1 - var(--fx-clarify)))">Invite your team</span><span class="fn-a fn-a--typeset" style="--o:calc(var(--fx-typeset) * var(--fx-clarify))">Who should have access?</span><span class="fn-a fn-a--bolder" style="--o:var(--fx-bolder)">Invite the team</span><span class="fn-a" style="--o:calc(var(--fx-clarify) * (1 - var(--fx-typeset)))">Who should have access?</span></span>
+              <span class="fn-wn" style="left:0;top:-22px">1 · task + why, one line each</span>
+              <span class="fn-at fn-at--l ks-tag" style="top:-12px;left:auto;right:-4px">P3 · heading level skips h2</span>
+            </p>
+            <p><span class="fn-sw is-wrap" style="--o:var(--fx-clarify);display:block"><span class="fn-b">Add team members to your workspace to collaborate on projects.</span><span class="fn-a">They get an email with a link. Access starts when they accept.</span></span></p>
+          </div>
+          <div class="fn-form">
+            <span class="fn-coach">Start with the person you work with most</span>
+            <span class="fn-fld fn-fld--email"><span class="fn-sw" style="--o:var(--fx-clarify)"><span class="fn-b">Enter email address</span><span class="fn-a">Teammate's work email</span></span><span class="fn-typed" data-cc-typed>sam@fieldnote.app</span></span><span class="fn-at fn-at--l ks-tag" style="left:-6px;top:-12px">P0 · no label, placeholder only</span>
+            <span class="fn-fld fn-fld--role"><span class="fn-sw is-grow" style="--o:max(var(--fx-clarify),var(--fx-harden))"><span class="fn-b">Editor</span><span class="fn-a" style="--o:var(--fx-clarify)">Can edit</span><span class="fn-a" style="--o:var(--fx-harden)">Bearbeiter:in</span></span><span class="fn-caret">▾</span></span>
+            <span class="fn-btn" data-cc-btn><span class="fn-lv"><i></i>send invite · 3 variants</span><span class="fn-sw is-grow" style="--o:max(var(--fx-clarify),var(--od-seat))"><span class="fn-b">Submit</span><span class="fn-a" style="--o:var(--fx-clarify)">Send invite</span><span class="fn-a" style="--o:var(--od-seat)">Sent</span></span><span class="fn-at ks-tag" style="top:-12px;right:-8px">P1 · contrast 3.9:1</span><span class="fn-pc" style="right:-4px;top:-16px;--pc:calc(var(--fx-polish) * (1 - var(--fx-impeccable)))">Δy 2px → 0</span><span class="fn-pc" style="right:-4px;top:-24px;--pc:var(--fx-animate)">hover · lift 1px · 150ms</span><span class="fn-pc" style="right:-4px;top:-24px;--pc:var(--fx-overdrive)">press · 160ms · scale .96</span><span class="fn-lv-strip"><span class="fn-v1">Send invite</span><span class="fn-v2">Send invite</span><span class="fn-v3">Send invite</span></span></span>
+            <span class="fn-err">We couldn't send that invite. Check the address and try again.</span>
+            <span class="fn-wn" style="left:0;bottom:-20px">2 · email + role, one action</span>
+            <span class="fn-fly" data-cc-fly><span class="fn-av"><span>SO</span></span><span>sam@fieldnote.app</span></span>
+          </div>
+          <ul class="fn-list"><span class="fn-at fn-at--l ks-tag" style="left:-6px;top:6px">P2 · initials 2.6:1 on gradient</span><span class="fn-pc" style="left:-10px;top:-9px;--pc:var(--fx-animate)">rows · 380ms · 70ms apart · ease-out</span><span class="fn-pc" style="right:-4px;top:-9px;--pc:var(--fx-overdrive)">spring · ζ 0.5 · 8px overshoot</span><span class="fn-pc" style="left:-10px;top:44px;--pc:calc(var(--fx-polish) * (1 - var(--fx-impeccable)))">rule 2px → 1px</span>
+            <li class="fn-fresh-wrap" data-cc-fresh-wrap><div class="fn-fresh-in"><div class="fn-li fn-li--fresh" data-cc-fresh><span class="fn-av"><span>SO</span></span><span class="fn-nm"><b>Sam Ortega</b><span>sam@fieldnote.app</span></span><span class="fn-rl">Viewer</span><span class="fn-st"><i class="is-pending"></i><span>Invited</span></span></div></div></li>
+            <li class="fn-li" style="--skel:block"><span class="fn-av"><span>MO</span></span><span class="fn-nm"><b><span class="fn-sw" style="--o:var(--fx-harden)"><span class="fn-b">Mara Okafor</span><span class="fn-a">Mara Okafor-Adebayo Oluwaseun</span></span></b><span>mara@fieldnote.app</span></span><span class="fn-rl">Admin</span><span class="fn-st"><i></i><span>Active</span></span></li>
+            <li class="fn-li fn-li--flaw" style="--skel:block"><span class="fn-av"><span>JL</span></span><span class="fn-nm"><b>Jonas Lindqvist</b><span>jonas@fieldnote.app</span></span><span class="fn-rl">Editor</span><span class="fn-st"><i></i><span>Active</span></span></li>
+            <li class="fn-li" style="--skel:block"><span class="fn-av"><span>PN</span></span><span class="fn-nm"><b>Priya Nair</b><span>priya@fieldnote.app</span></span><span class="fn-rl">Viewer</span><span class="fn-st"><i class="is-pending"></i><span>Pending</span></span></li>
+            <li class="fn-li fn-li--ghost"><span class="fn-av"><span>+</span></span><span class="fn-nm"><b>Two seats left. Who do you always end up cc'ing on this?</b></span><span class="fn-rl" style="opacity:0"></span><span></span></li>
+          </ul>
+          <div class="fn-empty"><div class="fn-steps"><i></i><i></i><i></i></div><b>No teammates yet</b>Invite one and they show up here. Step 1 of 3.</div>
+          <div class="fn-foot">
+            <span><span class="fn-sw" style="--o:max(var(--fx-clarify),var(--od-seat))"><span class="fn-b">3/5 seats</span><span class="fn-a" style="--o:calc(var(--fx-clarify) * (1 - var(--od-seat)))">2 more people can join on this plan</span><span class="fn-a" style="--o:var(--od-seat)">4/5 seats</span></span></span>
+            <span class="fn-lnk"><span class="fn-sw" style="--o:max(var(--fx-clarify),var(--fx-bolder))"><span class="fn-b">Upgrade</span><span class="fn-a" style="--o:var(--fx-clarify)">Add seats</span><span class="fn-a fn-a--bolder" style="--o:var(--fx-bolder)">Add seats</span></span><span class="fn-at ks-tag" style="right:0;top:-18px">P3 · target 20px</span></span>
+            <span class="fn-wn" style="left:0;bottom:-18px">3 · who has access, plan limit</span>
+          </div>
+        </div>
+
+        <!-- overlays beside the subject -->
+        <div class="cc-ov cc-ov--prompt" data-cc-ov="impeccable"><div class="cc-term"><span class="cc-term-g">›</span><span>/impeccable build the invite panel for Fieldnote</span><span class="cc-term-cur"></span></div></div>
+        <div class="cc-ov cc-ov--notes" data-cc-ov="critique"><div class="cc-note"><i>1</i>Title and button fight for the eye. Only one should win.</div><div class="cc-note"><i>2</i>Emails add noise nobody scans.</div><div class="cc-note"><i>3</i>Pending looks the same as Active. The row that needs a nudge never asks for one.</div><div class="cc-score">Hierarchy 4 · Clarity 6 · Craft 5<b>5.2</b></div></div>
+        <div class="cc-ov cc-ov--notes" data-cc-ov="audit"><div class="cc-score is-bare">1 P0 · 1 P1 · 1 P2 · 2 P3<b>61</b>of 100</div><div class="cc-note is-after"><i class="is-gold">!</i>Fix the P0 first: a visible label on the email field.</div></div>
+        <div class="cc-ov cc-ov--notes cc-ov--left" data-cc-ov="shape"><div class="cc-score is-bare">brief<b class="is-small">Fieldnote</b></div><div class="cc-note is-after"><i>→</i>Teams of 2 to 10. Invite in under 30 seconds. Owner sees seats before paying.</div></div>
+        <div class="cc-ov cc-ov--sheet" data-cc-ov="init"><div class="cc-ov-file"><span>PRODUCT.md</span><span>written</span></div><b class="cc-ov-h">## Register</b><p>product</p><b class="cc-ov-h">## Platform</b><p>web</p><b class="cc-ov-h">## Users</b><p>Small teams keeping field notes together. Most invites happen in the first hour.</p><b class="cc-ov-h">## Principles</b><p>Calm by default. One action per screen. Never hide the seat count.</p></div>
+        <div class="cc-ov cc-ov--sheet" data-cc-ov="document"><div class="cc-ov-file"><span>DESIGN.md</span><span>from what ships</span></div><b class="cc-ov-h">## Color</b><div class="cc-swatches" data-impeccable-ignore="ai-color-palette"><i style="background:oklch(99.5% 0 0)"></i><i style="background:var(--ks-gray)"></i><i style="background:var(--cc-gray-3)"></i><i style="background:linear-gradient(135deg,oklch(58% 0.2 300),oklch(62% 0.22 330))"></i><i style="background:oklch(70% 0.17 150)"></i></div><p>paper, gray-1, gray-3, accent (gradient, flagged), success</p><b class="cc-ov-h">## Type</b><p>Albert Sans · 18/600 title · 13/400 body · 12/400 meta</p><b class="cc-ov-h">## Shape</b><p>radius 8 fields · 3 pills · 12 card (inconsistent)</p></div>
+        <div class="cc-ov cc-ov--side" data-cc-ov="extract"><div class="cc-ov-file">Extracted</div><div class="cc-ov-t"><b>&lt;Avatar&gt;</b><span>×3</span></div><div class="cc-ov-t"><b>&lt;Field&gt;</b><span>×2</span></div><div class="cc-ov-t"><b>&lt;RolePill&gt;</b><span>×3</span></div><div class="cc-ov-t"><b>--radius-2</b><span>8px</span></div><div class="cc-ov-t"><b>--border</b><span>gray-3</span></div><div class="cc-ov-t"><b>--accent</b><span>1 use</span></div></div>
+        <div class="cc-ov cc-ov--perf" data-cc-ov="optimize"><span>LCP</span><span class="cc-bar"><i style="--w0:100;--w1:32"></i></span><b>3.4s → 1.1s</b><span>JS</span><span class="cc-bar"><i style="--w0:82;--w1:17"></i></span><b>412 kB → 86 kB</b><span>Avatars</span><span class="cc-bar"><i style="--w0:60;--w1:9"></i></span><b>3 × 380 kB → webp</b></div>
+        <div class="cc-ov cc-ov--hardtag" data-cc-ov="harden"><span class="ks-tag is-quiet">de-DE · 1.6× text</span><span class="ks-tag is-quiet">name · 31 chars</span><span class="ks-tag is-quiet">network · failed</span></div>
+      </div>
+      <button class="cc-bypass" type="button" aria-pressed="false" data-cc-bypass><i></i>hold · before</button>
+    </div>
+
+    <div class="cc-readout">
+      <div class="cc-lcd"><span class="cc-lcd-dot"></span><span class="cc-lcd-grp" data-cc-r-grp>ch {pad(startIndex + 1)}</span><span class="cc-lcd-val" data-cc-r-val>100</span></div>
+      <div class="cc-title">
+        <h3 class="cc-name" data-cc-r-name>{start[0]}</h3>
+        <div class="cc-cmd" data-cc-r-cmd>/impeccable {start[0]}</div>
+        <div class="cc-tags"><span class="ks-tag" data-cc-r-group>{start[1]}</span><span class="ks-tag is-quiet" data-cc-r-kind-tag>{start[2]}</span></div>
+      </div>
+      <p class="cc-desc" data-cc-r-desc>{start[3]}</p>
+      <a class="cc-docs" href={`/docs/${start[0]}`} data-cc-r-docs>Read the reference &rarr;</a>
+      <div class="cc-patch"><span class="cc-silk">patch to</span><span class="cc-jacks" data-cc-r-patch>{start[4].map((r) => <button class="cc-jack" type="button" data-to={r}><i></i><span>{r}</span></button>)}</span></div>
+    </div>
+  </div>
+
+  <div class="cc-deck" data-cc-deck>
+    {groups.map((g) => (
+      <div class="cc-g">
+        <span class="ks-tag is-quiet cc-g-l">{g.id}</span>
+        <div class:list={['cc-g-b', { 'cc-g-b--keys': g.isKeys, 'cc-g-b--col': g.isKeys && g.isCol }]}>
+          {g.items.map((c) => c[2] === 'fader'
+            ? <div class="cc-ch" tabindex="0" role="slider" aria-label={c[0]} aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-cmd={c[0]}><i class="cc-led"></i><div class="cc-trk"><span class="cc-cap"></span></div><b class="cc-lbl">{c[0]}</b></div>
+            : <button type="button" class="cc-key" aria-pressed="false" data-cmd={c[0]}><i class="cc-led"></i><span class="cc-lbl">{c[0]}</span></button>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+<script>
+  import { initCommandConsole } from '../scripts/components/command-console.js';
+  initCommandConsole();
+</script>

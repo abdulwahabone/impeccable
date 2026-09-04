@@ -50,6 +50,8 @@ Plain hand-written CSS, no Tailwind. Imported into Astro pages/layouts via front
 
 The site has **one theme**, light. There is no theme toggle, no `html.light` / `html.dark`, no `prefers-color-scheme`; the build's `validateTheme` step fails on any of them under `site/styles/`. The system, in one paragraph: the page is neutral paper, type is ink, kinpaku gold appears only as the logo mark, a one-pixel rule, or an indicator on a dark control surface; verdigris patina carries links and state wherever color has to be read as text. The only dark surfaces are **instruments**: controls the reader operates (tab strips, segmented controls, the live picker, terminals), on the `--ks-instrument*` tokens. Nothing decorative is dark. The reasoning is in `DESIGN.md`: the site is a vessel for the design Impeccable produces, so the chrome stays quiet and the demos, worlds and case studies carry the color.
 
+Shared scripts worth knowing: `site/scripts/instrument-strip.js` slides the cap on every `.ks-instrument-strip`; `site/scripts/word-performances.js` holds the 23 self-demonstrating text effects (`perform`, `set`, `attach`) used by the command doc titles and the console's fader labels.
+
 The kit's reusable dark control is `.ks-instrument-strip` / `.ks-instrument-key` (hero command switcher, Palette/Periodic toggle, era switch on /slop, the phase strip on /designing). Use it for anything tab-shaped; do not invent a fourth dark surface.
 
 ### Files (under `site/styles/`)
@@ -58,7 +60,7 @@ The kit's reusable dark control is `.ks-instrument-strip` / `.ks-instrument-key`
 - `kinpaku-kit.css`: shared primitives (buttons, forms, tabs, badges, header and footer chrome, bento, segmented control, instrument strip, the live picker mock). Loaded globally.
 - `tokens.css`: legacy `--color-*` / `--font-*` / `--spacing-*` aliases onto the `--ks-*` system, plus the reset. Older partials still read them.
 - `footer.css`: shared footer, imported in `Base.astro`.
-- Page files: `home-kinpaku.css`, `home-rebuild.css`, `home-refresh.css`, `main.css`, `workflow.css`, `testimonials.css`, `worlds-roll.css` (homepage); `docs-kinpaku.css`, `docs-visuals.css`, `sub-pages.css` (docs, tutorials, and the shared sub-page shell); one `<page>-kinpaku.css` each for designing, slop, live-mode, research, changelog/faq; `design-system.css`; the lab files.
+- Page files: `home-kinpaku.css`, `home-rebuild.css`, `home-refresh.css`, `main.css`, `workflow.css`, `testimonials.css`, `worlds-roll.css`, `console.css` (homepage; the console is the Language section, spec in `docs/concepts/language-console.html`); `docs-kinpaku.css`, `docs-visuals.css`, `sub-pages.css` (docs, tutorials, and the shared sub-page shell); one `<page>-kinpaku.css` each for designing, slop, live-mode, research, changelog/faq; `design-system.css`; the lab files.
 
 Edit any of these directly and the dev server hot-reloads. No rebuild needed for CSS changes.
 
@@ -498,7 +500,7 @@ All commands live under `/impeccable`. To add a new one:
 7. Add its category to `SKILL_CATEGORIES` in **both** `scripts/lib/skill-categories.js` (public repo, drives the generated `argument-hint`) and `site/data/sub-pages-data.ts` (site-owned, drives the docs pages)
 8. Add its relationships (leadsTo / pairs / combinesWith) to `COMMAND_RELATIONSHIPS` in `site/data/sub-pages-data.ts`
 9. Add the same category entry to `site/scripts/data.js` `commandCategories` and `commandProcessSteps` (for the homepage carousel)
-10. Add symbol + number to `commandSymbols` and `commandNumbers` in `site/scripts/components/framework-viz.js` (periodic table)
+10. Add the command as a channel in `site/data/console-channels.mjs` (id, group, kind: fader or key, description, patch), which drives the homepage console (`site/components/CommandConsole.astro`, `site/scripts/components/command-console.js`, `site/styles/console.css`); give it a transformation in the console script and a text effect in `site/scripts/word-performances.js`
 11. Optional: write an editorial wrapper at `site/content/skills/<command>.md` with a short `tagline` and expanded body (When to use it / How it works / Try it / Pitfalls)
 
 The build system counts commands from the router table automatically. Update the command count in **all** of these locations when the total changes:

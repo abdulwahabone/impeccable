@@ -175,7 +175,6 @@ describe('docs integrity', () => {
   test('command demo rules stay scoped to their page and carry no theme conditionals', () => {
     const homeCss = fs.readFileSync(path.join(ROOT, 'site/styles/home-kinpaku.css'), 'utf8');
     const docsCss = fs.readFileSync(path.join(ROOT, 'site/styles/docs-kinpaku.css'), 'utf8');
-    const demoScope = '.palette-demo .demo-split-comparison';
     const affectedDemos = {
       clarify: ['Save and Continue →'],
       quieter: ['View Plans'],
@@ -196,10 +195,9 @@ describe('docs integrity', () => {
       expect(css).not.toMatch(/html\.(light|dark)\b/);
     }
 
-    // The demo accent override is page-scoped, not global.
-    expect(homeCss).toContain(
-      `.home-kinpaku ${demoScope} [style*="color: var(--color-accent)"]`
-    );
+    // The homepage no longer renders command demos (the Language section is
+    // the command console, which carries its own subject), so the only
+    // page-scoped demo accent override left is the docs one.
     expect(docsCss).toMatch(
       /\.docs-kinpaku \.docs-command-demo \.split-after\s*\{[^}]*background:\s*var\(--ks-paper/
     );
