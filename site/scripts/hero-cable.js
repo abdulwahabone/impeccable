@@ -66,18 +66,27 @@ function glyphTerminal(vEl, hero) {
 	// heavy as the arm it continues (the horizontal run of a slanted stem
 	// overstates the width by 1/cos, corrected below once the angle is known).
 	const runW = l2 >= 0 ? (r2 - l2 + 1) / scale : stroke;
-	// The arm's direction: the run centre a few strokes further down.
-	const y3 = top + Math.round(stroke * scale * 4);
-	let l3 = -1, r3 = -1;
-	for (let x = 0; x < midX; x++) if (img[(y3 * W + x) * 4 + 3] > 128) { if (l3 < 0) l3 = x; r3 = x; if (r3 - l3 > stroke * scale * 2.5) break; }
-	const cx3 = l3 >= 0 ? (l3 + r3) / 2 / scale : cx + stroke;
-	const dirX = cx3 - cx, dirY = (y3 - top) / scale;
+	// The arm's direction, fitted over the straight part of the arm with
+	// alpha-weighted centroids (sub-pixel), from just under the tip to a
+	// little past a third of the glyph's height, before the arms converge.
+	let bottom = top;
+	for (let y = canvas.height - 1; y > top; y--) { let ink = false; for (let x = minX; x <= maxX; x++) if (img[(y * W + x) * 4 + 3] > 128) { ink = true; break; } if (ink) { bottom = y; break; } }
+	const centroid = (y) => { let sw = 0, sx = 0; for (let x = 0; x < midX; x++) { const a = img[(y * W + x) * 4 + 3]; if (a > 24) { sw += a; sx += a * x; } } return sw ? sx / sw : null; };
+	const yA = top + Math.round(stroke * scale * 1.5);
+	const yB = top + Math.round((bottom - top) * 0.38);
+	let sumX = 0, sumY = 0, sumXY = 0, sumYY = 0, n = 0;
+	for (let y = yA; y <= yB; y++) { const c = centroid(y); if (c == null) continue; sumX += c; sumY += y; sumXY += c * y; sumYY += y * y; n++; }
+	let slope = 0.2; // dx per dy, fallback
+	if (n > 2) { const den = n * sumYY - sumY * sumY; if (den) slope = (n * sumXY - sumX * sumY) / den; }
+	const dirX = slope, dirY = 1;
 	const len = Math.hypot(dirX, dirY) || 1;
 	const ux = -dirX / len, uy = -dirY / len;
-	const stem = Math.max(1.5, runW * Math.abs(dirY / len));
-	// Start a little way down inside the arm, so the cable's round cap is
-	// buried in the letter's own ink and the two strokes overlap.
-	const inset = stem * 0.9;
+	// A hair under the measured stem: the raster's anti-aliased edge counts
+	// as ink, and a cable fractionally wider than the arm shows as a notch.
+	const stem = Math.max(1.5, runW * Math.abs(dirY / len) * 0.88);
+	// Start well inside the arm, so the cable's round cap is buried in the
+	// letter's own ink and the two strokes overlap.
+	const inset = stem * 1.3;
 	return {
 		x: r.left - h.left + (cx - pad) - ux * inset,
 		y: (baselineP - h.top) + (cy - baselineC) - uy * inset,
