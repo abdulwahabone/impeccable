@@ -53,7 +53,7 @@
 
 .sm-stage {
   position: relative;
-  padding: 44px 24px 40px;
+  padding: 28px 24px 40px;
   border-top: 1px solid var(--ks-rule);
   border-bottom: 1px solid var(--ks-rule);
   background: var(--ks-paper-deep);
@@ -69,17 +69,6 @@
   mix-blend-mode: multiply;
   background-image: var(--ks-grain);
   background-size: 160px 160px;
-}
-
-.sm-stage::after {
-  content: "localhost:4321";
-  position: absolute;
-  top: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  font: 500 10px / 1 var(--ks-mono);
-  letter-spacing: 0.14em;
-  color: var(--ks-text-faint);
 }
 
 .sm-stage:focus-visible {
