@@ -28,9 +28,9 @@
 }
 
 @keyframes proof-peek {
-  0%, 62%, 100% { --proof-position: 50%; }
-  18% { --proof-position: 61%; }
-  44% { --proof-position: 46%; }
+  0%, 62%, 100% { --proof-position: 63%; }
+  18% { --proof-position: 74%; }
+  44% { --proof-position: 59%; }
 }
 
 /* Until someone touches it, the seam drifts right, back past centre, and
@@ -44,7 +44,7 @@
 }
 
 .hero-proof {
-  --proof-position: 50%;
+  --proof-position: 63%;
   --proof-detector-ink: oklch(4% 0.004 95);
   --proof-lacquer: var(--ks-paper);
   --proof-deep: var(--ks-paper-deep);
@@ -105,12 +105,16 @@
   clip-path: inset(0 0 0 var(--proof-position));
 }
 
+/* The card sits at the stage's right, so its visible mass lands on the
+   rail with the switcher and the header; the annotation tags hang into
+   the gutter on its left. */
 .hero-proof-canvas {
   position: absolute;
   inset: 0;
   display: grid;
-  place-items: center;
-  padding: clamp(34px, 4.5vw, 54px);
+  align-items: center;
+  justify-items: end;
+  padding: clamp(34px, 4.5vw, 54px) 40px clamp(34px, 4.5vw, 54px) clamp(34px, 4.5vw, 54px);
 }
 
 .hero-proof-canvas > article {
@@ -831,8 +835,10 @@
 100% { box-shadow: 0 0 0 10px oklch(61% 0.17 150 / 0); }
 }
 
+/* The switcher ends on the rail with the stage, so the demo column and the
+   header's right cluster share one edge. */
 .hero-proof-tabs {
-  margin: 16px auto 0;
+  margin: 16px 0 0 auto;
 }
 
 /* --------------------------------------------------------------------------
