@@ -541,6 +541,7 @@
 .downloads-method-panel {
   display: grid;
   gap: 10px;
+  align-content: start;
 }
 .downloads-method-panel[hidden] {
   display: none;
@@ -1486,7 +1487,7 @@
 }
 .downloads-update > .downloads-method-panel { grid-area: 1 / 1; }
 .downloads .downloads-method-panel[hidden] {
-  display: block;
+  display: grid;
   visibility: hidden;
   pointer-events: none;
 }
