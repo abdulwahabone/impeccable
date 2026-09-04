@@ -50,9 +50,16 @@ import '../styles/worlds-roll.css';
 <Fragment slot="after-header">
   <!-- 1. HERO -->
   <section id="hero" class="hero-rebuild">
+    <svg class="hero-cable" data-hero-cable aria-hidden="true" focusable="false">
+      <path class="hero-cable-shadow" d="" />
+      <path class="hero-cable-lead" d="" />
+      <path class="hero-cable-sheen" d="" />
+      <g class="hero-cable-plug hero-cable-plug--a"><circle r="7" /><circle class="hero-cable-pin" r="2.5" /></g>
+      <g class="hero-cable-plug hero-cable-plug--b"><circle r="7" /><circle class="hero-cable-pin" r="2.5" /></g>
+    </svg>
     <div class="hero-rebuild-container">
       <div class="hero-rebuild-left">
-        <h1 class="hero-rebuild-title">The missing design vocabulary for agents.</h1>
+        <h1 class="hero-rebuild-title">The missing design <span class="hero-cable-from" data-cable-from>vocabulary</span> for agents.</h1>
 
         <p class="hero-rebuild-body">
           Impeccable strips the slop from AI-generated interfaces, gives you precise commands
@@ -623,6 +630,9 @@ import '../styles/worlds-roll.css';
     </section>
 
 <Fragment slot="scripts">
+  <script>
+    import '../scripts/hero-cable.js';
+  </script>
     <script is:inline>
       // Tile 02: the command keys take turns reading PRODUCT.md. Only the
       // is-active class moves; instrument-strip.js slides the cap to match.

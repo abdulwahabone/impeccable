@@ -13,8 +13,26 @@
    ============================================================================ */
 
 /* The hero sits in normal flow under the sticky paper header. The demo is the
-   art: no background image, no frame, the proof panel on plain paper. */
+   art: no background image, no frame, the proof panel on plain paper.
+
+   Composition: two halves hugging a centre spine. The demo (stage, card,
+   tags, switcher) is on the LEFT, right-aligned to the spine; the text (h1,
+   copy, CTA, logos) is on the RIGHT, left-aligned from it. The DOM stays text
+   first for reading order; the flip is grid placement. The patch cable
+   bridges the spine from the word "vocabulary" to the switcher.
+
+   Ranges (each one designed, not a collapsed grid):
+     >= 980px   two halves on the spine. The spine is 96px from 1440 up and
+                narrows to 56px at 980. The h1 wraps to two lines,
+                "The missing design / vocabulary for agents.", and the tags
+                hang off the card into the left margin.
+     580-979px  one column: h1, copy, CTA, logos, then the demo with the card
+                centred, the tags in the gutter beside it and the switcher
+                under it. No cable.
+     <= 580px   the gutter is gone, so the tags sit in two rows above the card
+                (rules in home-refresh.css, with the proof). */
 .hero-rebuild {
+  --hero-spine: clamp(56px, calc(96px - (1440px - 100vw) * 0.087), 96px);
   position: relative;
   display: grid;
   align-items: center;
@@ -32,26 +50,35 @@
   padding: 0 clamp(22px, 4vw, 56px);
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
-  gap: 72px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: var(--hero-spine);
   align-items: center;
 }
 
 .hero-rebuild-left {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: start;
+  width: 100%;
+  max-width: 620px;
   display: grid;
   gap: 28px;
   align-content: center;
-  max-width: 620px;
 }
 
+/* Two lines by design. 7.6em holds "vocabulary for agents." (6.4em) but not
+   "The missing design vocabulary" (8.8em), so the break lands before the
+   word the cable plugs into and "agents." never ends up alone. */
 .home-kinpaku .hero-rebuild-title {
   margin: 0;
+  max-width: 7.6em;
   color: var(--ks-ink);
   font-family: var(--ks-font-display);
   font-weight: var(--ks-type-display-weight);
   font-size: var(--ks-type-display-size);
   line-height: var(--ks-type-display-line);
   letter-spacing: var(--ks-type-display-track);
+  text-wrap: balance;
 }
 
 .hero-rebuild-body {
@@ -155,59 +182,47 @@
   opacity: 1;
 }
 
-/* Right column hosts the existing split comparison */
+/* The demo half. 520px is the proof's authored width: a 300px card with a
+   220px gutter for the tags. minmax(0, 1fr) on the track (not 1fr) lets it
+   shrink below the card's own width on phones instead of clipping. */
 .hero-rebuild-right {
+  grid-column: 1;
+  grid-row: 1;
+  justify-self: end;
   position: relative;
   width: 100%;
   min-width: 0;
-  max-width: 720px;
-  justify-self: end;
+  max-width: 520px;
 }
 
-/* The .home-kinpaku .split-container rule caps width/height for the magazine
-   spread. Inside the hero rebuild we want the demo to fill the right column,
-   so override both caps here. Higher specificity wins. */
-.home-kinpaku .hero-rebuild-right .split-comparison {
-  max-width: 100%;
-}
-.home-kinpaku .hero-rebuild-right .split-container {
-  max-width: 100%;
-  height: 440px;
-}
-
-/* problem-section.css applies @keyframes splitEntry to every .split-divider
-   with a baked-in skewX(-10deg) in the from/to transforms. That keyframe
-   transform overrides our flat translateX(-50%) for the 0.9s animation
-   window, producing a visible "skewed-then-corrects" effect on first paint.
-   Disable the animation here — the home kinpaku divider doesn't need an
-   entry effect. */
-.home-kinpaku .hero-rebuild-right .split-divider {
-  animation: none;
-}
-
-@media (max-width: 1080px) {
-  /* minmax(0, 1fr), not 1fr: a plain 1fr track has an `auto` (min-content)
-     floor, so the demo's 460px-wide browser frame held the column wider than a
-     phone viewport and the hero clipped. minmax(0,…) lets it shrink and the
-     frame clips its own content (overflow:hidden) instead. */
-  .hero-rebuild-container { grid-template-columns: minmax(0, 1fr); gap: 48px; }
-  .hero-rebuild-right { justify-self: stretch; max-width: 100%; }
-  .home-kinpaku .hero-rebuild-right .split-container { height: 380px; }
+/* One column. The text keeps the rail's left edge; the demo is centred under
+   it, with the card in the middle of the stage and the switcher beneath. The
+   h1 gets its own scale here: 9vw so it fills the rail at two lines rather
+   than dropping to one 51px line at 900px, capped at 72px. */
+@media (max-width: 979px) {
+  .hero-rebuild-container {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 56px;
+  }
+  .hero-rebuild-left {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 760px;
+  }
+  .hero-rebuild-right {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center;
+  }
+  .home-kinpaku .hero-rebuild-title {
+    font-size: clamp(3rem, 9vw, 4.5rem);
+  }
 }
 
 @media (max-width: 720px) {
-  /* Title keeps its design-system clamp (floors at 3.4rem ≈ 54px here): the
-     Alumni Sans display face is narrow, so "interfaces" stays well within a
-     320px+ viewport. No mobile shrink — at 54px against 16.8px body it holds a
-     ~3.2× hero hierarchy; shrinking it made the heading read smaller than body. */
   .hero-rebuild-actions { flex-direction: column; align-items: stretch; }
-  .home-kinpaku .hero-rebuild-right .split-container { height: 320px; }
-  /* The hotel mock is authored ~460px wide; in the narrow mobile frame its full
-     nav (logo + 4 links + Book) overran the right edge and clipped mid-word.
-     Collapse to logo + Book — the realistic narrow-viewport nav, and it keeps
-     the hero (the picked element) as the demo's clear subject. */
-  .hero-live-demo .hotel-nav-links { display: none; }
 }
+
 
 /* ============================================================================
    CATCH THE SLOP TEASER

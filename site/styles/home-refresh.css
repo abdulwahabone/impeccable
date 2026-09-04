@@ -5,19 +5,6 @@
    Annotated before / after hero proof
    -------------------------------------------------------------------------- */
 
-.home-kinpaku .hero-rebuild-container {
-  grid-template-columns: minmax(0, 0.95fr) minmax(500px, 1.05fr);
-  gap: clamp(42px, 5vw, 76px);
-}
-
-.home-kinpaku .hero-rebuild-left {
-  max-width: 660px;
-}
-
-.home-kinpaku .hero-rebuild-title {
-  text-wrap: balance;
-}
-
 /* The seam's position is a registered property so it can be animated by
    CSS: the peek runs on the style engine at frame rate instead of through
    a JS loop that re-measures annotations on every tick. */
@@ -251,6 +238,13 @@
     filter: none;
     transform: translateY(-50%);
     transition: opacity 80ms linear;
+  }
+
+  @media (max-width: 580px) {
+    .proof-annotation,
+    .proof-annotation.is-concealed {
+      transform: none;
+    }
   }
 
   .proof-annotation::after,
@@ -2113,38 +2107,47 @@
   }
 }
 
+/* One-column hero (see the range notes on .hero-rebuild in home-rebuild.css):
+   the card moves to the middle of the stage, the tags keep the gutter on its
+   left, and the switcher sits centred beneath. The card keeps its full
+   two-column height: the 30vw clamp was sized for a card that narrows with the
+   column, and here it is always 300px wide. */
+@media (max-width: 979px) {
+  .hero-rebuild-right .hero-proof {
+    margin-inline: auto;
+  }
+
+  .hero-proof-canvas {
+    justify-items: center;
+    padding: clamp(34px, 4.5vw, 54px) 0;
+  }
+
+  .hero-proof-canvas > article {
+    height: 236px;
+  }
+
+  .hero-proof-tabs {
+    margin: 16px auto 0;
+  }
+}
+
 @media (max-width: 1180px) {
-  .home-kinpaku .hero-rebuild-container {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .home-kinpaku .hero-rebuild-left {
-    max-width: 760px;
-  }
-
-  .home-kinpaku .hero-rebuild-right {
-    max-width: 820px;
-    justify-self: start;
-  }
-
-  /* Once the hero stacks, the proof belongs to the same reading rail as the
-     copy above it. Centering a fixed-width proof created a third visual axis. */
-  .home-kinpaku .hero-rebuild-right .hero-proof {
-    margin-inline: 0;
-  }
-
   .steering-desktop-panes {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
 }
 
-@media (max-width: 760px) {
-  .home-kinpaku .hero-rebuild-container {
-    gap: 40px;
-  }
-
-  .home-kinpaku .hero-rebuild-title {
-    font-size: clamp(3rem, 15vw, 4.5rem);
+/* Phones. Below 580px the gutter beside the card is gone (the card is 300px,
+   the widest tag reaches 131px past its edge), so the tags move above the
+   card in two rows of two. They are absolutely positioned against their own
+   anchors in the card, so the anchors go static here and the article becomes
+   every tag's containing block; each tag then takes a fixed slot. The rows
+   sit above the stage's top edge on purpose: the after layer paints paper
+   over its own box right of the seam, and a tag inside that box would be cut
+   by the wipe. The stage takes a top margin to make the room. */
+@media (max-width: 580px) {
+  .hero-rebuild-container {
+    row-gap: 40px;
   }
 
   /* The fixed 4:3 stage falls below the panels' minimum content height on
@@ -2153,10 +2156,61 @@
   .hero-proof-stage {
     width: 100%;
     min-height: 301px;
+    margin-top: 72px;
   }
 
   .hero-proof-canvas {
-    padding: 38px 16px 26px;
+    padding: 30px 16px 26px;
+  }
+
+  .proof-polish--before .proof-polish-kicker,
+  .proof-polish-heading,
+  .proof-polish-body,
+  .proof-distill > header,
+  .proof-distill-live,
+  .proof-distill-grid,
+  .proof-distill-nested,
+  .proof-clarify-heading,
+  .proof-clarify-fields,
+  .proof-clarify-cta {
+    position: static;
+  }
+
+  .proof-annotation,
+  .proof-annotation--surface,
+  .proof-annotation--sidetab {
+    top: auto;
+    right: auto;
+    left: 0;
+    bottom: calc(100% + 72px);
+    transform: none;
+  }
+
+  .proof-annotation.is-concealed {
+    transform: translateY(6px);
+  }
+
+  /* No connector: a tag in a row above the card points at nothing. */
+  .proof-annotation::after {
+    display: none;
+  }
+
+  /* Slots, in the order the tags annotate the card from the top down. */
+  .proof-polish-heading > .proof-annotation,
+  .proof-distill-grid > .proof-annotation,
+  .proof-clarify-fields > .proof-annotation {
+    left: 50%;
+  }
+
+  .proof-polish--before > .proof-annotation--sidetab,
+  .proof-distill-nested > .proof-annotation,
+  .proof-clarify-cta > .proof-annotation {
+    bottom: calc(100% + 40px);
+  }
+
+  .proof-polish-body > .proof-annotation--surface {
+    left: 50%;
+    bottom: calc(100% + 40px);
   }
 
   .hero-proof-canvas > article {
@@ -2194,14 +2248,12 @@
     font-size: var(--ks-type-mono-size);
   }
 
-  .proof-annotation {
-    display: none;
-  }
-
   .hero-proof-tab {
     min-height: 44px;
   }
+}
 
+@media (max-width: 760px) {
   .slop-pattern-head,
 .language-steering-head {
     grid-template-columns: minmax(0, 1fr);
@@ -2326,4 +2378,85 @@
     transform: none;
     transition: none;
   }
+}
+
+/* The patch cable. One short cable bridges the spine from the word
+   "vocabulary" in the h1 (on the right) to the command switcher under the
+   demo (on the left), plugged in at both ends, so the claim is wired to the
+   controls. hero-cable.js measures the two ends and draws the path; the
+   slack is a real sag. It only exists while the hero is two halves. */
+.hero-cable {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.hero-cable:not(.is-ready) { visibility: hidden; }
+
+.hero-cable-shadow {
+  fill: none;
+  stroke: oklch(13% 0 0 / 0.08);
+  stroke-width: 7;
+  stroke-linecap: round;
+  transform: translateY(2px);
+}
+
+.hero-cable-lead {
+  fill: none;
+  stroke: var(--ks-gray-2);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.hero-cable-sheen {
+  fill: none;
+  stroke: oklch(100% 0 0 / 0.55);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transform: translateY(-1px);
+}
+
+.hero-cable-plug circle:first-child {
+  fill: var(--ks-instrument);
+  stroke: var(--ks-instrument-deep);
+  stroke-width: 1;
+}
+
+.hero-cable-pin {
+  fill: var(--ks-gray-2);
+  transition: fill var(--ks-quick) var(--ks-ease);
+}
+
+.hero-cable.is-live .hero-cable-pin {
+  fill: var(--ks-kinpaku);
+}
+
+/* Draw-in on first paint: the cable is laid from the word to the strip. */
+.hero-cable.is-drawing .hero-cable-lead,
+.hero-cable.is-drawing .hero-cable-sheen,
+.hero-cable.is-drawing .hero-cable-shadow {
+  stroke-dasharray: var(--cable-len, 1000);
+  stroke-dashoffset: var(--cable-len, 1000);
+  animation: hero-cable-draw 1100ms cubic-bezier(0.3, 0.6, 0.2, 1) 500ms forwards;
+}
+
+@keyframes hero-cable-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-cable.is-drawing .hero-cable-lead,
+  .hero-cable.is-drawing .hero-cable-sheen,
+  .hero-cable.is-drawing .hero-cable-shadow {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 979px) {
+  .hero-cable { display: none; }
 }
