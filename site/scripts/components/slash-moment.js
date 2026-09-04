@@ -133,15 +133,11 @@ export function initSlashMoment() {
     layoutCaps();
   }
 
-  // Group captions sit in the margin beside the first visible row of their
-  // group, set like folio notes.
+  // A group's header goes with its rows: hidden when the filter leaves
+  // none of them.
   function layoutCaps() {
-    const top = menu.getBoundingClientRect().top;
     root.querySelectorAll('[data-sm-cap]').forEach((c) => {
-      const first = rows.find((r) => r.dataset.g === c.dataset.smCap && !r.hidden);
-      if (!first) { c.hidden = true; return; }
-      c.hidden = false;
-      c.style.top = `${first.getBoundingClientRect().top - top}px`;
+      c.hidden = !rows.some((r) => r.dataset.g === c.dataset.smCap && !r.hidden);
     });
   }
 
@@ -327,7 +323,6 @@ export function initSlashMoment() {
     if (!userTouched) setTimeout(() => { if (running && !userTouched) { reopen(); startTour(); } }, 4200);
   }
 
-  window.addEventListener('resize', layoutCaps);
   if (document.fonts?.ready) document.fonts.ready.then(boot); else boot();
 }
 

@@ -233,8 +233,9 @@
    3. /docs INDEX
 
    Sections, in render order:
-     a. The slash moment (SlashMoment.astro)
-     b. Understand the system (the intent-chooser list)
+     a. Starter hero
+     b. The slash moment (SlashMoment.astro, site/styles/slash-moment.css),
+        then "Understand the system" on the chooser list styles
      c. Live mode callout
      d. A typical session (linear workflow of 4 commands)
      e. Pairs and chains (relational schema)
@@ -246,14 +247,56 @@
 }
 
 
-/* a. The slash moment: site/components/SlashMoment.astro, styled in
-   site/styles/slash-moment.css. ------------------------------------------ */
+/* a. Starter rail ------------------------------------------------------ */
+
+.docs-kinpaku .docs-start-rail {
+  display: grid;
+  gap: 28px;
+  margin-bottom: clamp(44px, 6vw, 72px);
+}
 
 @media (max-width: 520px) {
   .docs-kinpaku .docs-index {
     padding-top: 22px;
   }
+
+  .docs-kinpaku .docs-start-rail-title {
+    font-size: 2rem;
+  }
 }
+
+.docs-kinpaku .docs-start-rail-head {
+  display: grid;
+  gap: 14px;
+  max-width: 780px;
+}
+
+.docs-kinpaku .docs-start-rail-title {
+  font-family: var(--ks-font);
+  font-style: normal;
+  font-weight: 650;
+  font-size: 2.6rem;
+  line-height: 1.12;
+  letter-spacing: 0;
+  color: var(--ks-ink);
+  margin: 0;
+  text-wrap: balance;
+}
+
+.docs-kinpaku .docs-start-rail-title span {
+  color: var(--docs-accent);
+  font-family: var(--ks-mono);
+  font-weight: 500;
+  font-size: 0.82em;
+}
+
+.docs-kinpaku .docs-start-rail-lede {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ks-text);
+  margin: 0;
+}
+
 
 /* Shared section scaffolding for the index sections ---------------- */
 
@@ -296,6 +339,127 @@
   color: var(--ks-text);
   margin: 0;
   max-width: 52ch;
+}
+
+
+/* Quick start rail ----------------------------------------------------- */
+
+.docs-kinpaku .docs-start-rail-sequence {
+  display: grid;
+  gap: clamp(12px, 1.8vw, 18px);
+}
+
+.docs-kinpaku .docs-start-rail-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+@media (max-width: 940px) {
+  .docs-kinpaku .docs-start-rail-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+.docs-kinpaku .docs-start-rail-step {
+  display: grid;
+  grid-template-rows: auto auto minmax(3.2em, auto) auto;
+  gap: 10px;
+  min-width: 0;
+  padding: 18px 20px 20px;
+  background: var(--docs-row-bg);
+  border: 1px solid transparent;
+  border-radius: 8px;
+}
+
+.docs-kinpaku .docs-start-rail-label {
+  font-family: var(--ks-mono);
+  font-size: 0.6875rem;
+  line-height: 1.1;
+  letter-spacing: var(--ks-type-eyebrow-track);
+  text-transform: uppercase;
+  color: var(--ks-text-muted);
+}
+
+.docs-kinpaku .docs-start-rail-command {
+  display: block;
+  font-family: var(--ks-mono);
+  font-size: 0.94rem;
+  line-height: 1.45;
+  min-height: 2.8em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+
+  color: var(--ks-ink);
+  background: var(--ks-gray);
+  border: 0;
+}
+
+.docs-kinpaku .docs-start-rail-steps--number-gutter .docs-start-rail-step {
+  grid-template-columns: minmax(28px, auto) minmax(0, 1fr);
+  grid-template-rows: auto auto auto;
+  column-gap: 12px;
+  row-gap: 9px;
+  padding: 18px 20px 20px;
+}
+
+/* The step numeral is the gold tag (.ks-tag); it pins to the top of the
+   gutter rather than stretching down the row. */
+.docs-kinpaku .docs-start-rail-steps--number-gutter .docs-start-rail-num {
+  grid-column: 1;
+  grid-row: 1 / 4;
+  align-self: start;
+  justify-self: start;
+}
+
+.docs-kinpaku .docs-start-rail-steps--number-gutter .docs-start-rail-label,
+.docs-kinpaku .docs-start-rail-steps--number-gutter .docs-start-rail-command,
+.docs-kinpaku .docs-start-rail-steps--number-gutter .docs-start-rail-line {
+  grid-column: 2;
+}
+
+.docs-kinpaku .docs-start-rail-line {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--ks-text-muted);
+}
+
+.docs-kinpaku .docs-start-rail-note {
+  margin: 20px 0 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--ks-text-muted);
+}
+
+.docs-kinpaku .docs-start-rail-note a {
+  color: var(--docs-accent);
+  text-decoration: none;
+  border-bottom: 1px solid var(--docs-accent-line);
+}
+
+.docs-kinpaku .docs-start-rail-note a:hover {
+  color: var(--docs-accent-hover);
+  border-bottom-color: var(--docs-accent-hover);
+}
+
+@media (max-width: 940px) {
+  .docs-kinpaku .docs-start-rail-step,
+.docs-kinpaku .docs-start-rail-step:last-child {
+    border: 1px solid transparent;
+  }
+
+  .docs-kinpaku .docs-start-rail-command {
+    min-height: 0;
+  
+  color: var(--ks-ink);
+  background: var(--ks-gray);
+  border: 0;
+}
 }
 
 
@@ -670,91 +834,6 @@
   font-size: 0.94rem;
   line-height: 1.5;
   color: var(--ks-text);
-}
-
-
-/* f. Full reference (cheatsheet) --------------------------------------- */
-
-.docs-kinpaku .docs-reference-head {
-  margin-bottom: 32px;
-}
-
-.docs-kinpaku .docs-reference {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 36px 48px;
-}
-
-@media (max-width: 760px) {
-  .docs-kinpaku .docs-reference {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-}
-
-.docs-kinpaku .docs-reference-group {
-  display: grid;
-  gap: 10px;
-}
-
-.docs-kinpaku .docs-reference-cat {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin: 0 0 6px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--ks-rule);
-  font-family: var(--ks-mono);
-  font-size: 0.72rem;
-  letter-spacing: var(--ks-type-eyebrow-track);
-  text-transform: uppercase;
-  color: var(--ks-ink);
-}
-
-.docs-kinpaku .docs-reference-count {
-  color: var(--ks-text-faint);
-  font-size: 0.86em;
-}
-
-.docs-kinpaku .docs-reference-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: grid;
-  gap: 4px;
-}
-
-.docs-kinpaku .docs-reference-row {
-  display: grid;
-  grid-template-columns: 96px minmax(0, 1fr);
-  align-items: baseline;
-  gap: 14px;
-  padding: 4px 0;
-  text-decoration: none;
-  color: inherit;
-  transition: color 160ms var(--ks-ease);
-}
-
-.docs-kinpaku .docs-reference-row:hover .docs-reference-name {
-  color: var(--docs-accent-hover);
-}
-
-.docs-kinpaku .docs-reference-row:hover .docs-reference-line {
-  color: var(--ks-ink);
-}
-
-.docs-kinpaku .docs-reference-name {
-  font-family: var(--ks-mono);
-  font-size: 0.92rem;
-  color: var(--ks-text);
-  transition: color 160ms var(--ks-ease);
-}
-
-.docs-kinpaku .docs-reference-line {
-  font-size: 0.9rem;
-  line-height: 1.45;
-  color: var(--ks-text-muted);
-  transition: color 160ms var(--ks-ease);
 }
 
 
