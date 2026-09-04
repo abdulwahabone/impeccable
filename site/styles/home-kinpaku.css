@@ -363,8 +363,8 @@
   background: var(--ks-gray);
 }
 
-/* Bento layout — full-bleed, no card chrome. Six tiles on a 12-col grid
-   with mixed spans (8/4, 4/8, 6/6) for editorial rhythm. Hairlines between
+/* Bento layout — full-bleed, no card chrome. Five tiles on a 12-col grid
+   with mixed spans (8/4, 12, 6/6) for editorial rhythm. Hairlines between
    cells come from the grid: gap: 1px reveals the bento background through
    as 1px rules, top + bottom borders close the outer frame. */
 /* The .ks-bento base (grid + dark-plinth bg + top/bottom borders) and the
@@ -388,9 +388,9 @@
 
 /* Outer-edge tiles pad their content back to .site-content's content edge, so
    text sits at the same x as the section title above while the tile's own
-   hairline runs to the screen edge. The rows are 8/4 and 4/4/4, so the
-   left-edge tiles are children 1 and 3, the right-edge tiles 2 and 5, and
-   child 4 sits in the middle with the gutter on both sides. */
+   hairline runs to the screen edge. The base selectors cover the first row
+   and outer lower tiles; the desktop layout below completes the 12 and 6/6
+   rows without squeezing their denser visuals. */
 .home-kinpaku .why-bento .ks-bento-tile:nth-child(1),
 .home-kinpaku .why-bento .ks-bento-tile:nth-child(3) {
   padding-left: calc(var(--why-rail-inset) + var(--why-rail-gutter));
@@ -404,6 +404,28 @@
 .home-kinpaku .why-bento .ks-bento-tile:nth-child(2),
 .home-kinpaku .why-bento .ks-bento-tile:nth-child(5) {
   padding-right: calc(var(--why-rail-inset) + var(--why-rail-gutter));
+}
+
+/* The three dense lower tiles need more than a third of the rail. DESIGN.md
+   takes a full row; the modes and hook visuals share the next row. */
+@media (min-width: 981px) {
+  .home-kinpaku #why-designmd {
+    grid-column: 1 / -1;
+    padding-right: calc(var(--why-rail-inset) + var(--why-rail-gutter));
+  }
+
+  .home-kinpaku #why-modes,
+  .home-kinpaku #why-ci {
+    grid-column: span 6;
+  }
+
+  .home-kinpaku #why-modes {
+    padding-left: calc(var(--why-rail-inset) + var(--why-rail-gutter));
+  }
+
+  .home-kinpaku #why-designmd .why-dm-grid {
+    grid-template-columns: 1.1fr 1fr 1fr;
+  }
 }
 
 /* Stacked tiles (the kit collapses every tile to full width below 980px)
