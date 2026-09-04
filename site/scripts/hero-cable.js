@@ -62,6 +62,10 @@ function glyphTerminal(vEl, hero) {
 	for (let x = 0; x < midX; x++) if (img[(y2 * W + x) * 4 + 3] > 128) { if (l2 < 0) l2 = x; r2 = x; if (r2 - l2 > stroke * scale * 2.5) break; }
 	const cx = ((l2 >= 0 ? (l2 + r2) / 2 : (runL + runR) / 2)) / scale;
 	const cy = (top / scale) + stroke * 0.5;
+	// The stem's real width at this size, so the cable starts exactly as
+	// heavy as the arm it continues (the horizontal run of a slanted stem
+	// overstates the width by 1/cos, corrected below once the angle is known).
+	const runW = l2 >= 0 ? (r2 - l2 + 1) / scale : stroke;
 	// The arm's direction: the run centre a few strokes further down.
 	const y3 = top + Math.round(stroke * scale * 4);
 	let l3 = -1, r3 = -1;
@@ -69,12 +73,16 @@ function glyphTerminal(vEl, hero) {
 	const cx3 = l3 >= 0 ? (l3 + r3) / 2 / scale : cx + stroke;
 	const dirX = cx3 - cx, dirY = (y3 - top) / scale;
 	const len = Math.hypot(dirX, dirY) || 1;
+	const ux = -dirX / len, uy = -dirY / len;
+	const stem = Math.max(1.5, runW * Math.abs(dirY / len));
+	// Start a little way down inside the arm, so the cable's round cap is
+	// buried in the letter's own ink and the two strokes overlap.
+	const inset = stem * 0.9;
 	return {
-		x: r.left - h.left + (cx - pad),
-		y: (baselineP - h.top) + (cy - baselineC),
-		stroke,
-		// Unit vector pointing UP the arm, out of the letter.
-		ux: -dirX / len, uy: -dirY / len,
+		x: r.left - h.left + (cx - pad) - ux * inset,
+		y: (baselineP - h.top) + (cy - baselineC) - uy * inset,
+		stroke: stem,
+		ux, uy,
 	};
 }
 
