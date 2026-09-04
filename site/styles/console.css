@@ -232,7 +232,7 @@
   box-shadow: inset 0 1px 1px oklch(13% 0 0 / 0.18);
   transition: background 0.2s, box-shadow 0.2s;
 }
-.is-on .cc-led { background: var(--ks-kinpaku); box-shadow: var(--cc-led); }
+.is-on .cc-led { background: var(--ks-patina); box-shadow: var(--cc-led); }
 .cc-trk { position: relative; width: 100%; height: 104px; }
 .cc-trk::before {
   content: "";
