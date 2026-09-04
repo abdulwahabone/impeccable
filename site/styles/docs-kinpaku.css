@@ -183,9 +183,9 @@
 
 
 /* The command palette. The agent's slash menu, as a rail: a contained
-   panel on the paper hardware (a recessed gray track, like the paper
-   strip's), the filter line at its head, group captions inside, and the
-   current page's command as a raised paper cap with the gold dot lit.
+   section drawn with one hairline on the paper (a gray track read as mud
+   here), the filter line at its head, group captions inside, and the
+   current page's command as the one raised paper cap, its gold dot lit.
    Every line of text sits on the same 14px line as the lists above. */
 .docs-kinpaku {
   --skills-sidebar-width: 236px;
@@ -195,15 +195,14 @@
 .docs-kinpaku .docs-palette {
   margin-top: 30px;
   padding: 0 0 6px;
+  border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-md);
-  background: var(--ks-gray);
-  box-shadow: var(--ks-track-recess);
+  background: transparent;
   isolation: isolate;
 }
 
 .docs-kinpaku .docs-palette::before {
-  opacity: 0.05;
-  mix-blend-mode: normal;
+  display: none;
 }
 
 .docs-kinpaku .docs-palette > * {
@@ -282,7 +281,7 @@
 .docs-kinpaku .docs-palette-list {
   list-style: none;
   margin: 0;
-  padding: 0 3px;
+  padding: 0 2px;
 }
 
 .docs-kinpaku .docs-palette-list li {
@@ -294,15 +293,15 @@
 }
 
 /* The dot sits in the gutter left of the text line, so the name lands on
-   the same 14px as the links above; the row's 3px side inset (from the
-   list) makes the raised cap read as a key in the track. */
+   the same 14px as the links above; the row's 2px side inset (from the
+   list) keeps the raised cap inside the hairline. */
 .docs-kinpaku .docs-palette-row {
   display: grid;
-  grid-template-columns: calc(var(--docs-palette-indent) - 3px) minmax(0, 1fr);
+  grid-template-columns: calc(var(--docs-palette-indent) - 2px) minmax(0, 1fr);
   align-items: center;
   height: 28px;
   padding: 0 8px 0 0;
-  border-radius: calc(var(--ks-radius-md) - 3px);
+  border-radius: calc(var(--ks-radius-md) - 2px);
   text-decoration: none;
   transition: background-color var(--ks-quick) var(--ks-ease), box-shadow var(--ks-quick) var(--ks-ease);
 }
@@ -332,7 +331,7 @@
 
 .docs-kinpaku .docs-palette-row[aria-current="page"] {
   background: var(--ks-paper-raised);
-  box-shadow: var(--ks-cap-lift);
+  box-shadow: inset 0 0 0 1px var(--ks-rule), var(--ks-cap-lift);
 }
 
 .docs-kinpaku .docs-palette-row[aria-current="page"] .docs-palette-dot {
