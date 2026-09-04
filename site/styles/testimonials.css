@@ -14,7 +14,7 @@
      and an opaque fill here would only duplicate it. */
   /* The strip is the hero's footer: the gap from the hero's last element to
      the cards equals the gap from the cards to the dotted rail. */
-  padding: 44px 0 88px;
+  padding: 64px 0 40px;
   color: var(--ks-text);
   border-top: 0;
   overflow: hidden;
