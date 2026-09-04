@@ -850,21 +850,24 @@
   .cc-key { transition: none; }
 }
 
-/* compact (980 up to 1300): every label still fits its cap, the deck stays
-   one row, side overlays step aside. */
+/* two rows (981 up to 1300): the deck keeps every channel at its 1440 size
+   and breaks into two rows of three groups, create / evaluate / refine over
+   simplify / harden / system. The three columns are shared by both rows and
+   spread across the deck, so the gutters match between rows. The window
+   narrows, so the subject scales down a step and side overlays step aside. */
 @media (max-width: 1300px) {
   .command-console {
     --cc-x: 24px;
     --cc-readout: 340px;
-    --cc-ch: 46px;
-    --cc-ch-gap: 6px;
-    --cc-key: 70px;
-    --cc-key-gap: 4px;
-    --cc-deck-gap: 10px;
     --cc-stage: 0.86;
     --cc-side-shift: 44px;
   }
-  .cc-key { padding-left: 5px; }
+  .cc-deck {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    justify-content: space-between;
+    row-gap: 26px;
+  }
   .cc-ov--perf { left: 22px; margin-left: 0; width: 460px; }
   .cc-ov--sheet { width: 380px; margin-left: -190px; }
 }
@@ -896,6 +899,7 @@
   .cc-name { font-size: 48px; }
   .cc-patch { flex-wrap: wrap; gap: 12px 18px; }
   .cc-deck {
+    display: flex;
     justify-content: flex-start;
     gap: 22px;
     margin: 24px calc(-1 * var(--cc-x)) 0;

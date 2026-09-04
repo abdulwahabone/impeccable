@@ -2327,3 +2327,28 @@
     transition: none;
   }
 }
+
+/* Shaded margins. Above 1200 the hero's columns step 64px inside the rail
+   and the outer gutters carry a soft matte from paper-deep to paper, so the
+   two halves sit closer to the centre while the header's edges, which the
+   shade runs up to, still read as the frame. */
+@media (min-width: 1200px) {
+  .home-kinpaku .hero-rebuild-container {
+    padding-inline: calc(clamp(22px, 4vw, 56px) + 64px);
+  }
+
+  .hero-rebuild::before,
+  .hero-rebuild::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: max(clamp(22px, 4vw, 56px), calc((100% - 1388px) / 2));
+    pointer-events: none;
+    background: linear-gradient(90deg, var(--ks-paper-deep), var(--ks-paper));
+    z-index: 0;
+  }
+
+  .hero-rebuild::before { left: 0; }
+  .hero-rebuild::after { right: 0; transform: scaleX(-1); }
+}
