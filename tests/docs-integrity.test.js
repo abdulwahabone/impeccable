@@ -175,7 +175,7 @@ describe('docs integrity', () => {
   test('command demo rules stay scoped to their page and carry no theme conditionals', () => {
     const homeCss = fs.readFileSync(path.join(ROOT, 'site/styles/home-kinpaku.css'), 'utf8');
     const docsCss = fs.readFileSync(path.join(ROOT, 'site/styles/docs-kinpaku.css'), 'utf8');
-    const demoScope = ':is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison';
+    const demoScope = '.palette-demo .demo-split-comparison';
     const affectedDemos = {
       clarify: ['Save and Continue →'],
       quieter: ['View Plans'],
