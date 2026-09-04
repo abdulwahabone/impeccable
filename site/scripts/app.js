@@ -196,7 +196,24 @@ function initHeroProof() {
 	panels.forEach((panel) => {
 		const range = panel.querySelector("[data-proof-range]");
 		if (!range) return;
+		const card = panel.querySelector(".hero-proof-layer--before article");
+		// The range spans the whole stage, but the card sits at its right and
+		// the rest is the gutter for the tags, so the seam is bounded to the
+		// card's own edges (in percent of the stage, re-measured whenever the
+		// position updates, which covers activation and resize).
+		const fitRange = () => {
+			if (!card) return;
+			const pr = panel.getBoundingClientRect();
+			const cr = card.getBoundingClientRect();
+			if (!pr.width || !cr.width) return;
+			// Any step, or the value grid would start from the fractional min
+			// and the first drag would snap the seam a hair off the peek's 71.
+			range.step = "any";
+			range.min = ((cr.left - pr.left) / pr.width * 100).toFixed(1);
+			range.max = ((cr.right - pr.left) / pr.width * 100).toFixed(1);
+		};
 		const updatePosition = () => {
+			fitRange();
 			const position = Number(range.value);
 			panel.style.setProperty("--proof-position", `${position}%`);
 			if (panel.hidden) return;
@@ -234,6 +251,10 @@ function initHeroProof() {
 		range.addEventListener("pointerdown", stopPeek, { once: true });
 		range.addEventListener("keydown", stopPeek, { once: true });
 		range.addEventListener("input", stopPeek, { once: true });
+	});
+
+	window.addEventListener("resize", () => {
+		panels.forEach((panel) => { if (!panel.hidden) positionUpdates.get(panel)?.(); });
 	});
 
 	const activate = (index, moveFocus = false) => {
