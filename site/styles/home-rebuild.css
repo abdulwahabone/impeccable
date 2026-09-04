@@ -32,7 +32,7 @@
      <= 580px   the gutter is gone, so the tags sit in two rows above the card
                 (rules in home-refresh.css, with the proof). */
 .hero-rebuild {
-  --hero-spine: clamp(56px, calc(96px - (1440px - 100vw) * 0.087), 96px);
+  --hero-spine: clamp(56px, calc(120px - (1440px - 100vw) * 0.139), 120px);
   position: relative;
   display: grid;
   align-items: center;
