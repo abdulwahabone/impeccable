@@ -293,12 +293,12 @@ export function initHeroCable() {
 			c = buildY(m);
 			lead.setAttribute('d', c.d);
 			if (svg.dataset.debug != null) window.__heroCable = { m, c };
-			// Ink at the foot, cable grey two thirds of the way along the
-			// underline; the turn and the drop are all cable.
+			// The fade starts at the foot and is done a little before the
+			// middle of the underline (the gradient's stops set the reach);
+			// the turn and the drop are all cable.
 			if (grad) {
-				const x2 = m.t.x - (m.t.x - c.turnX) * 0.66;
 				grad.setAttribute('x1', m.t.x); grad.setAttribute('y1', c.lineY);
-				grad.setAttribute('x2', x2); grad.setAttribute('y2', c.lineY);
+				grad.setAttribute('x2', c.turnX); grad.setAttribute('y2', c.lineY);
 			}
 		} else {
 			m = measure(hero, vEl, to, avoid);
