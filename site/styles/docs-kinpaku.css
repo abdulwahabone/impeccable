@@ -368,13 +368,13 @@
 
 .docs-kinpaku .docs-start-rail-step {
   display: grid;
-  grid-template-rows: auto auto minmax(3.2em, auto) auto;
+  grid-template-rows: auto auto auto 1fr;
   gap: 10px;
   min-width: 0;
   padding: 18px 20px 20px;
   background: var(--docs-row-bg);
-  border: 1px solid transparent;
-  border-radius: 8px;
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-md);
 }
 
 .docs-kinpaku .docs-start-rail-label {
@@ -386,23 +386,29 @@
   color: var(--ks-text-muted);
 }
 
+/* The command is the system's CLI well: paper-deep with a hairline, on
+   the code radius, padded like a line of code rather than a slab. */
 .docs-kinpaku .docs-start-rail-command {
   display: block;
+  margin: 2px 0 4px;
+  padding: 9px 12px;
   font-family: var(--ks-mono);
-  font-size: 0.94rem;
-  line-height: 1.45;
-  min-height: 2.8em;
+  font-size: 0.875rem;
+  line-height: 1.5;
   white-space: normal;
   overflow-wrap: anywhere;
-
   color: var(--ks-ink);
-  background: var(--ks-gray);
-  border: 0;
+  background: var(--ks-paper-deep);
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-code-block-radius, 3px);
 }
 
 .docs-kinpaku .docs-start-rail-steps--number-gutter .docs-start-rail-step {
   grid-template-columns: minmax(28px, auto) minmax(0, 1fr);
   grid-template-rows: auto auto auto;
+  /* The three cards share a height; without this the spare space is dealt
+     to the auto rows and the shorter cards' command wells grow. */
+  align-content: start;
   column-gap: 12px;
   row-gap: 9px;
   padding: 18px 20px 20px;
@@ -447,20 +453,7 @@
   border-bottom-color: var(--docs-accent-hover);
 }
 
-@media (max-width: 940px) {
-  .docs-kinpaku .docs-start-rail-step,
-.docs-kinpaku .docs-start-rail-step:last-child {
-    border: 1px solid transparent;
-  }
 
-  .docs-kinpaku .docs-start-rail-command {
-    min-height: 0;
-  
-  color: var(--ks-ink);
-  background: var(--ks-gray);
-  border: 0;
-}
-}
 
 
 /* b. Intent chooser ---------------------------------------------------- */
