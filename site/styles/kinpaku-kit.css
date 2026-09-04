@@ -1935,7 +1935,7 @@ body::before {
   font-size: var(--ks-type-eyebrow-size);
   font-weight: 600;
   letter-spacing: 0.02em;
-  line-height: 1;
+  line-height: normal;
   text-transform: uppercase;
   white-space: nowrap;
   vertical-align: middle;
