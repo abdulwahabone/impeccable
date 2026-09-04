@@ -303,9 +303,9 @@
   left: var(--proof-position);
   width: 2px;
   height: auto;
-  /* The cut between the two states: an edge, not a rule, so it reads as the
-     slot the cap runs in rather than as a drawn line. */
-  background: var(--ks-edge);
+  /* The cut between the two states is the one gold line the hero carries:
+     the cap's rail, and the only thing on the card that is not content. */
+  background: var(--ks-gold-line);
   transform: translateX(-50%);
   pointer-events: none;
 }
@@ -326,7 +326,10 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: 12px 9px;
-  box-shadow: var(--ks-cap-lift), 0 0 0 2px var(--ks-paper);
+  /* A paper halo to lift it off the card's content, then a hairline of
+     the rail's gold around it, so the cap reads as the thing on the rail
+     rather than as another piece of the card. Focus thickens the ring. */
+  box-shadow: var(--ks-cap-lift), 0 0 0 2px var(--ks-paper), 0 0 0 3px var(--ks-gold-line);
   border-radius: 5px;
   transform: translate(-50%, -50%);
 }
@@ -337,7 +340,7 @@
 
 .hero-proof-range:active + .hero-proof-seam::after,
 .hero-proof-panel:has(.hero-proof-range:active) .hero-proof-seam::after {
-  box-shadow: var(--ks-cap-press), 0 0 0 2px var(--ks-paper);
+  box-shadow: var(--ks-cap-press), 0 0 0 2px var(--ks-paper), 0 0 0 3px var(--ks-gold-line);
 }
 
 .hero-proof-range {
