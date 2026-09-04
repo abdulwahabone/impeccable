@@ -2381,8 +2381,8 @@
 }
 
 /* The patch cable. The left arm of the v in "vocabulary" continues upward,
-   swings round and becomes a cable that crosses the spine and plugs into a
-   socket on the command switcher's right end. The stroke begins as the
+   swings round and becomes a cable that crosses the spine and runs straight
+   into the command switcher's right end. The stroke begins as the
    glyph's own ink and weight and fades to cable grey as it leaves the word.
    hero-cable.js measures the v and the strip and draws the path. It only
    exists while the hero is two columns. */
@@ -2406,38 +2406,13 @@
   stroke-linejoin: round;
 }
 
-/* The jack: a moulded ring in the strip's own grey around a dark hole.
-   The cable's last stretch is the plug body, thicker and ink, and the
-   hole lights gold once it is in. */
-.hero-cable-socket-ring {
-  fill: var(--ks-gray);
-  stroke: oklch(13% 0 0 / 0.14);
-  stroke-width: 1;
-}
 
-.hero-cable-socket-hole {
-  fill: var(--ks-instrument-deep);
-  transition: fill var(--ks-quick) var(--ks-ease);
-}
-
-.hero-cable.is-live .hero-cable-socket-hole {
-  fill: var(--ks-kinpaku);
-}
-
-.hero-cable-plug {
-  fill: none;
-  stroke: var(--ks-ink);
-  stroke-width: calc(var(--cable-w, 3px) + 3px);
-  stroke-linecap: round;
-}
-
-.hero-cable:not(.is-live) .hero-cable-plug { opacity: 0; }
-
-/* Draw-in on first paint: the cable is laid from the letter to the socket. */
+/* Draw-in on first paint: the cable is laid from the letter to the bar. */
 .hero-cable.is-drawing .hero-cable-lead {
   stroke-dasharray: var(--cable-len, 1000);
   stroke-dashoffset: var(--cable-len, 1000);
-  animation: hero-cable-draw 1000ms cubic-bezier(0.3, 0.6, 0.2, 1) 500ms forwards;
+  /* Slow out of the letter, quick through the drop, settling into the bar. */
+  animation: hero-cable-draw 1500ms cubic-bezier(0.65, 0, 0.25, 1) 450ms forwards;
 }
 
 @keyframes hero-cable-draw {

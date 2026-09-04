@@ -1,13 +1,13 @@
-// The hero's patch cable: the v of "vocabulary" becomes a cable that plugs
+// The hero's patch cable: the v of "vocabulary" becomes a cable that runs
 // into the command switcher.
 //
 // The demo sits left of a centre spine and the text right of it. The left
 // arm of the v continues past its top terminal, swings round and drops as a
-// cable across the spine into a socket on the right end of the switcher
+// cable across the spine straight into the right end of the switcher
 // strip. The stroke starts at the glyph's own weight and colour and fades
 // to cable grey (a gradient in user space, set from the endpoints), so the
 // letter and the cable read as one line. Redraws on resize, on font load
-// and when the strip moves; the socket's pin lights gold once plugged in.
+// and when the strip moves.
 
 function glyphTerminal(vEl, hero) {
 	// Where the left arm of the v ends at the top, found on the ink itself:
@@ -99,8 +99,9 @@ function measure(hero, vEl, to, avoid) {
 	const h = hero.getBoundingClientRect();
 	const b = to.getBoundingClientRect();
 	const t = glyphTerminal(vEl, hero);
-	// The socket sits on the strip's right end, mid height.
-	const bx = b.right - h.left + 6;
+	// The cable ends just inside the strip's right edge, mid height, so it
+	// reads as run straight into the bar.
+	const bx = b.right - h.left - 5;
 	const by = b.top - h.top + b.height / 2;
 	let keepOut = null;
 	if (avoid) {
@@ -112,12 +113,12 @@ function measure(hero, vEl, to, avoid) {
 
 // The path: continue the arm up and to the left for a short run (the v's
 // left arm rises to the left), then a cubic that swings left and drops into
-// the socket from the right with a little slack.
+// the strip from the right with a little slack.
 function build(m, k) {
 	const { t, bx, by } = m;
 	// Continue the arm along its own direction, then keep that tangent into
 	// the curve so the join has no kink; one long sweep down arrives at the
-	// socket level from the right: a cable's S, not a hook.
+	// strip end level from the right: a cable's S, not a hook.
 	const armLen = 14;
 	const ax = t.x + t.ux * armLen;
 	const ay = t.y + t.uy * armLen;
@@ -156,8 +157,7 @@ export function initHeroCable() {
 	const to = hero?.querySelector('[data-cable-to]');
 	if (!hero || !svg || !vEl || !to) return;
 	const lead = svg.querySelector('.hero-cable-lead');
-	const socket = svg.querySelector('.hero-cable-socket');
-	const plug = svg.querySelector('.hero-cable-plug');
+
 	const grad = svg.querySelector('#hero-cable-ink');
 	let drawn = false;
 
@@ -170,12 +170,7 @@ export function initHeroCable() {
 		let c = build(m, SHAPES[SHAPES.length - 1]);
 		for (const k of SHAPES) { const cand = build(m, k); if (!crosses(m, cand, m.keepOut)) { c = cand; break; } }
 		lead.setAttribute('d', c.d);
-		socket.setAttribute('transform', `translate(${m.bx} ${m.by})`);
-		// The plug body: the last 14px of the cable, thicker and ink, entering
-		// the hole along the cable's own tangent.
-		const total = lead.getTotalLength();
-		const pIn = lead.getPointAtLength(Math.max(0, total - 15));
-		if (plug) plug.setAttribute('d', `M ${pIn.x.toFixed(1)} ${pIn.y.toFixed(1)} L ${m.bx.toFixed(1)} ${m.by.toFixed(1)}`);
+
 		svg.style.setProperty('--cable-w', `${m.t.stroke}px`);
 		// Ink at the letter, grey by the time the cable has left the word.
 		if (grad) {
@@ -191,7 +186,7 @@ export function initHeroCable() {
 			const done = () => { if (settled) return; settled = true; svg.classList.remove('is-drawing'); svg.classList.add('is-live'); };
 			lead.addEventListener('animationend', done, { once: true });
 			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) done();
-			else setTimeout(done, 1800);
+			else setTimeout(done, 2400);
 		}
 	};
 
