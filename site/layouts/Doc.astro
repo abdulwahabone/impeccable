@@ -5,6 +5,7 @@ import '../styles/sub-pages.css';
 import '../styles/docs-kinpaku.css';
 import { COMMAND_RELATIONSHIPS } from '../data/sub-pages-data';
 import { getCommandDemo } from '../scripts/demos/commands/index.js';
+import { COMMANDS as PERFORMED_COMMANDS } from '../scripts/word-performances.js';
 
 interface Props {
   title: string;
@@ -27,6 +28,11 @@ const isReference = pageKind === 'reference';
 const hasDemo = !isReference && !!getCommandDemo(slug);
 
 const relationships = COMMAND_RELATIONSHIPS[slug] || {};
+
+// The command name performs its own effect (site/scripts/word-performances.js)
+// once on first view and again on hover. Command pages only: a reference or
+// tutorial title has no verb to act out.
+const performs = !isReference && PERFORMED_COMMANDS.includes(slug);
 ---
 
 <Base
@@ -48,14 +54,14 @@ const relationships = COMMAND_RELATIONSHIPS[slug] || {};
              source the homepage uses. */
           <div class="docs-hero docs-hero--with-demo">
             <header class="sub-page-header">
-              <h1 class="sub-page-title">{slug}</h1>
+              <h1 class="sub-page-title" data-perform={performs ? slug : undefined}>{slug}</h1>
               {tagline && <p class="sub-page-lede">{tagline}</p>}
             </header>
             <div class="docs-command-demo" data-command={slug}></div>
           </div>
         ) : (
           <header class="sub-page-header">
-            <h1 class="sub-page-title">{title}</h1>
+            <h1 class="sub-page-title" data-perform={performs ? slug : undefined}>{title}</h1>
             {tagline && <p class="sub-page-lede">{tagline}</p>}
           </header>
         )}
@@ -100,6 +106,13 @@ const relationships = COMMAND_RELATIONSHIPS[slug] || {};
       const expanded = toggle.getAttribute('aria-expanded') === 'true';
       toggle.setAttribute('aria-expanded', String(!expanded));
     });
+  </script>
+
+  <script>
+    import { attach } from '../scripts/word-performances.js';
+
+    const title = document.querySelector('.sub-page-title[data-perform]');
+    if (title) attach(title, title.dataset.perform, { onView: true, onHover: true });
   </script>
 
   <script>

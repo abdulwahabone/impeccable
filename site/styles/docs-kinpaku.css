@@ -964,6 +964,14 @@
   text-wrap: balance;
 }
 
+/* The command name performs its own effect on view and hover
+   (site/scripts/word-performances.js). Letters hop, brackets sit outside
+   the word, ticks land beside it: none of that may be clipped, and the
+   title must not grow or shift while it runs. */
+.docs-kinpaku .sub-page-title[data-perform] {
+  overflow: visible;
+}
+
 .docs-kinpaku .sub-page-lede {
   font-size: 1.125rem;
   line-height: 1.65;
