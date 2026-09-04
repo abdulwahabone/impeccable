@@ -28,9 +28,9 @@
 }
 
 @keyframes proof-peek {
-  0%, 62%, 100% { --proof-position: 63%; }
-  18% { --proof-position: 74%; }
-  44% { --proof-position: 59%; }
+  0%, 62%, 100% { --proof-position: 71%; }
+  18% { --proof-position: 81%; }
+  44% { --proof-position: 67%; }
 }
 
 /* Until someone touches it, the seam drifts right, back past centre, and
@@ -44,7 +44,7 @@
 }
 
 .hero-proof {
-  --proof-position: 63%;
+  --proof-position: 71%;
   --proof-detector-ink: oklch(4% 0.004 95);
   --proof-lacquer: var(--ks-paper);
   --proof-deep: var(--ks-paper-deep);
@@ -100,9 +100,11 @@
 
 .hero-proof-layer--after {
   z-index: 2;
-  overflow: hidden;
+  overflow: visible;
   background: var(--proof-after-surface);
-  clip-path: inset(0 0 0 var(--proof-position));
+  /* Negative insets on the free sides so the curved After mark can hang
+     past the card's corner; only the left edge is the seam. */
+  clip-path: inset(-48px -48px -48px var(--proof-position));
 }
 
 /* The card sits at the stage's right, so its visible mass lands on the
@@ -114,7 +116,7 @@
   display: grid;
   align-items: center;
   justify-items: end;
-  padding: clamp(34px, 4.5vw, 54px) 40px clamp(34px, 4.5vw, 54px) clamp(34px, 4.5vw, 54px);
+  padding: clamp(34px, 4.5vw, 54px) 0 clamp(34px, 4.5vw, 54px) clamp(34px, 4.5vw, 54px);
 }
 
 .hero-proof-canvas > article {
