@@ -1793,9 +1793,16 @@ body::before {
   mix-blend-mode: normal;
 }
 
-.ks-instrument-strip > * {
+/* The strip is its own stacking context: grain at 0, the cap at 1, the
+   labels at 2, whatever the page around it does. */
+.ks-instrument-strip {
+  isolation: isolate;
+}
+
+
+.ks-instrument-strip > :not(.ks-thumb) {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 /* ============================================================
@@ -1922,62 +1929,6 @@ body::before {
    and keeps the gold dot, so it does not compete with the primary action
    the way a dark strip does. The dark strip is for product chrome: the
    live picker, lab toolbars, terminals. */
-/* The thumb. One raised cap slides between keys instead of each key
-   lighting up in place: instrument-strip.js measures the active key and
-   writes --thumb-x / --thumb-w on the strip. Until it has, the thumb has
-   no width and the active key carries its own cap as a fallback. */
-.ks-instrument-strip::after {
-  content: "";
-  position: absolute;
-  top: 3px;
-  bottom: 3px;
-  left: 0;
-  width: var(--thumb-w, 0px);
-  transform: translateX(var(--thumb-x, 0px));
-  border-radius: var(--ks-radius-pill);
-  background: var(--ks-instrument-raised);
-  box-shadow: inset 0 1px 0 var(--ks-instrument-edge), var(--ks-key-lift);
-  /* Only the position animates. The keys are equal columns, so the cap
-     keeps one size and slides under the labels like a part on a track. */
-  transition: transform 360ms cubic-bezier(0.22, 1, 0.3, 1);
-  will-change: transform;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* Equal columns: every key in a strip takes the width of the widest, so
-   the cap is one shape wherever it sits. */
-.ks-instrument-strip.has-thumb {
-  display: inline-grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-}
-
-.ks-instrument-strip.has-thumb .ks-instrument-key {
-  justify-content: center;
-}
-
-/* With a thumb, the keys are only labels: no background, no shadow, and
-   nothing but their color may transition, or the old key's fading cap
-   trails behind the moving one. */
-.ks-instrument-strip.has-thumb .ks-instrument-key,
-.ks-instrument-strip.has-thumb .ks-instrument-key.is-active,
-.ks-instrument-strip.has-thumb .ks-instrument-key[aria-selected="true"],
-.ks-instrument-strip.has-thumb .ks-instrument-key[aria-pressed="true"] {
-  background: transparent;
-  box-shadow: none;
-  transform: none;
-  transition: color 120ms var(--ks-ease);
-}
-
-.ks-instrument-strip.has-thumb .ks-instrument-key::before {
-  transition: background-color 120ms var(--ks-ease), box-shadow 120ms var(--ks-ease);
-}
-
-.ks-instrument-strip.is-paper::after {
-  background: var(--ks-paper-raised);
-  box-shadow: var(--ks-cap-lift);
-}
 
 .ks-instrument-strip.is-paper {
   background: var(--ks-gray);
@@ -2146,4 +2097,46 @@ body::before {
   min-height: calc(var(--ks-control-sm) - 8px);
   padding: 0 7px;
   letter-spacing: 0;
+}
+
+
+/* ============================================================
+   Instrument strip thumb (real element, positioned by
+   instrument-strip.js). Last in the file on purpose: these override the
+   key's own cap, and they must come after every key rule above.
+   ============================================================ */
+.ks-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 0;
+  width: 0;
+  border-radius: var(--ks-radius-pill);
+  background: var(--ks-instrument-raised);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-edge), var(--ks-key-lift);
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ks-instrument-strip.is-paper .ks-thumb {
+  background: var(--ks-paper-raised);
+  box-shadow: var(--ks-cap-lift);
+}
+
+.ks-instrument-strip.has-thumb .ks-instrument-key,
+.ks-instrument-strip.has-thumb .ks-instrument-key.is-active,
+.ks-instrument-strip.has-thumb .ks-instrument-key[aria-selected="true"],
+.ks-instrument-strip.has-thumb .ks-instrument-key[aria-pressed="true"],
+.ks-instrument-strip.is-paper.has-thumb .ks-instrument-key.is-active,
+.ks-instrument-strip.is-paper.has-thumb .ks-instrument-key[aria-selected="true"],
+.ks-instrument-strip.is-paper.has-thumb .ks-instrument-key[aria-pressed="true"] {
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  transition: color 120ms var(--ks-ease);
+}
+
+.ks-instrument-strip.has-thumb .ks-instrument-key::before {
+  transition: background-color 120ms var(--ks-ease), box-shadow 120ms var(--ks-ease);
 }

@@ -21,10 +21,18 @@ function place(strip) {
 	const s = strip.getBoundingClientRect();
 	const k = key.getBoundingClientRect();
 	const border = parseFloat(getComputedStyle(strip).borderLeftWidth) || 0;
-	const x = `${Math.round((k.left - s.left - border + strip.scrollLeft) * 100) / 100}px`;
-	const w = `${Math.round(k.width * 100) / 100}px`;
-	if (strip.style.getPropertyValue('--thumb-x') !== x) strip.style.setProperty('--thumb-x', x);
-	if (strip.style.getPropertyValue('--thumb-w') !== w) strip.style.setProperty('--thumb-w', w);
+	const x = Math.round((k.left - s.left - border + strip.scrollLeft) * 100) / 100;
+	const w = Math.round(k.width * 100) / 100;
+	let thumb = strip.querySelector(':scope > .ks-thumb');
+	if (!thumb) {
+		thumb = document.createElement('span');
+		thumb.className = 'ks-thumb';
+		thumb.setAttribute('aria-hidden', 'true');
+		strip.appendChild(thumb);
+	}
+	if (thumb.style.width !== `${w}px`) thumb.style.width = `${w}px`;
+	const t = `translateX(${x}px)`;
+	if (thumb.style.transform !== t) thumb.style.transform = t;
 	if (!strip.classList.contains('has-thumb')) strip.classList.add('has-thumb');
 }
 
@@ -35,7 +43,7 @@ function attach(strip) {
 	// Observe the keys, not the strip itself, so the strip's own class and
 	// style writes never feed back into the observer.
 	const mo = new MutationObserver((records) => {
-		if (records.some((r) => r.target !== strip)) place(strip);
+		if (records.some((r) => r.target !== strip && !r.target.classList?.contains('ks-thumb'))) place(strip);
 	});
 	mo.observe(strip, { subtree: true, attributes: true, attributeFilter: ['class', 'aria-selected', 'aria-pressed'], childList: true });
 	if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => place(strip)).observe(strip);
