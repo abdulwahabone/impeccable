@@ -199,7 +199,7 @@ function buildY(m) {
 		`C ${f(p2x)} ${f(p2y + k * r2)}, ${f(q2x + k * r2)} ${f(q2y)}, ${f(q2x)} ${f(q2y)}`,
 		`L ${f(bx)} ${f(by)}`,
 	].join(' ');
-	return { d, lineY: ly, xDrop };
+	return { d, lineY: ly, xDrop, turnX: p1x };
 }
 
 function measure(hero, vEl, to, avoid) {
@@ -293,10 +293,12 @@ export function initHeroCable() {
 			c = buildY(m);
 			lead.setAttribute('d', c.d);
 			if (svg.dataset.debug != null) window.__heroCable = { m, c };
-			// The underline stays ink, as part of the word; the drop fades.
+			// Ink at the foot, cable grey two thirds of the way along the
+			// underline; the turn and the drop are all cable.
 			if (grad) {
-				grad.setAttribute('x1', c.xDrop); grad.setAttribute('y1', c.lineY);
-				grad.setAttribute('x2', c.xDrop); grad.setAttribute('y2', m.by);
+				const x2 = m.t.x - (m.t.x - c.turnX) * 0.66;
+				grad.setAttribute('x1', m.t.x); grad.setAttribute('y1', c.lineY);
+				grad.setAttribute('x2', x2); grad.setAttribute('y2', c.lineY);
 			}
 		} else {
 			m = measure(hero, vEl, to, avoid);
