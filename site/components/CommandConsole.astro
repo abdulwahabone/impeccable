@@ -13,8 +13,6 @@ import { CONSOLE_COMMANDS, CONSOLE_GROUPS, DEFAULT_CHANNEL } from '../data/conso
 const faders = CONSOLE_COMMANDS.filter((c) => c[2] === 'fader').length;
 const keys = CONSOLE_COMMANDS.filter((c) => c[2] === 'key').length;
 const start = CONSOLE_COMMANDS.find((c) => c[0] === DEFAULT_CHANNEL);
-const startIndex = CONSOLE_COMMANDS.indexOf(start);
-const pad = (n) => String(n).padStart(2, '0');
 const groups = CONSOLE_GROUPS.map((g) => {
   const items = CONSOLE_COMMANDS.filter((c) => c[1] === g);
   return { id: g, items, isKeys: items[0][2] === 'key', isCol: items.length === 2 };
@@ -79,10 +77,12 @@ const groups = CONSOLE_GROUPS.map((g) => {
     </div>
 
     <div class="cc-readout">
-      <div class="cc-lcd"><span class="cc-lcd-dot"></span><span class="cc-lcd-grp" data-cc-r-grp>ch {pad(startIndex + 1)}</span><span class="cc-lcd-val" data-cc-r-val>100</span></div>
       <div class="cc-title">
         <h3 class="cc-name" data-cc-r-name>{start[0]}</h3>
-        <div class="cc-cmd" data-cc-r-cmd>/impeccable {start[0]}</div>
+        <div class="cc-cmd">
+          <span class="cc-cmd-prompt" aria-hidden="true">&rsaquo;</span>
+          <code data-cc-r-cmd>/impeccable {start[0]}</code>
+        </div>
         <div class="cc-tags"><span class="ks-tag" data-cc-r-group>{start[1]}</span><span class="ks-tag is-quiet" data-cc-r-kind-tag>{start[2]}</span></div>
       </div>
       <p class="cc-desc" data-cc-r-desc>{start[3]}</p>

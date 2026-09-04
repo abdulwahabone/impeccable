@@ -39,10 +39,8 @@ export function initCommandConsole() {
   const well = q('[data-cc-well]');
   const overlays = [...root.querySelectorAll('[data-cc-ov]')];
   const readout = {
-    grp: q('[data-cc-r-grp]'),
     kindTag: q('[data-cc-r-kind-tag]'),
     group: q('[data-cc-r-group]'),
-    val: q('[data-cc-r-val]'),
     name: q('[data-cc-r-name]'),
     cmd: q('[data-cc-r-cmd]'),
     desc: q('[data-cc-r-desc]'),
@@ -188,7 +186,6 @@ export function initCommandConsole() {
       poseLabel(node, active, v);
     }
     if (node && !isFader(node)) node.setAttribute('aria-pressed', String(v > 0.5));
-    readout.val.textContent = String(Math.round(v * 100)).padStart(3, '0');
     if (node) node.classList.toggle('is-on', v > 0.02);
     const tl = TL[active];
     if (tl) (ui.classList.contains('is-dragging') || instant) ? tl.scrub(v) : tl.seek(v);
@@ -207,10 +204,8 @@ export function initCommandConsole() {
     if (TL[active]) TL[active].reset();
     active = id;
     const c = byId[id];
-    const i = CONSOLE_COMMANDS.indexOf(c);
     ui.dataset.fx = id;
     overlays.forEach((o) => { if (o.dataset.ccOv === 'impeccable') o.classList.toggle('is-on', id === 'impeccable'); });
-    readout.grp.textContent = `ch ${String(i + 1).padStart(2, '0')}`;
     readout.kindTag.textContent = c[2];
     readout.group.textContent = c[1];
     readout.name.textContent = id;

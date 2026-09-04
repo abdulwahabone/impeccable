@@ -169,11 +169,12 @@
   color: var(--proof-detector-ink);
   background: var(--ks-kinpaku);
   border: 1px solid var(--ks-kinpaku);
+  border-radius: 2px;
   font-family: var(--ks-mono);
   font-size: var(--ks-type-eyebrow-size);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: normal;
-  line-height: 1;
+  line-height: normal;
   text-transform: none;
 
   /* Annotated top to bottom, not switched on.
@@ -915,9 +916,31 @@
   padding-bottom: 3px;
 }
 
-/* The detector toggle is a control, so it is a one-key instrument: dark pill,
-   gold indicator when the detector is on. */
-/* The detector switch is the kit's slide switch; nothing page-local. */
+/* The detector toggle is a prominent one-key instrument: the kit's switch,
+   stepped up once for this section, with a patina indicator when it is on. */
+.slop-scan-control {
+  gap: 12px;
+  font-size: 18px;
+}
+
+.slop-scan-control .ks-switch-track {
+  width: 52px;
+  height: 30px;
+}
+
+.slop-scan-control .ks-switch-knob {
+  width: 24px;
+  height: 24px;
+}
+
+.slop-scan-control .ks-switch-knob::after {
+  width: 8px;
+  height: 8px;
+}
+
+.slop-scan-control[aria-pressed="true"] .ks-switch-knob {
+  transform: translateX(22px);
+}
 
 .slop-pattern-board {
   position: relative;
@@ -1006,14 +1029,24 @@
   overflow: hidden;
   color: var(--ks-on-gold);
   background: var(--ks-kinpaku);
+  border-radius: 2px 2px 0 0;
   font-family: var(--ks-mono);
-  font-size: var(--ks-type-eyebrow-size);
-  font-weight: 600;
+  font-size: var(--ks-type-ui-size);
+  font-weight: 500;
   letter-spacing: normal;
-  line-height: 1;
+  line-height: normal;
   text-overflow: ellipsis;
   white-space: nowrap;
   transform: translateY(-100%);
+}
+
+.slop-target--soft-card::before {
+  inset: -4px;
+}
+
+.slop-target--soft-card::after {
+  top: -3px;
+  left: -4px;
 }
 
 [data-detector="on"] .slop-target::before,

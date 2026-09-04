@@ -18,7 +18,8 @@ const detectionRuleCount = new Set(ANTIPATTERNS.map(rule => rule.id)).size;
     <div>
       <h2 id="slop-pattern-title" class="slop-teaser-title">Detects and removes AI slop.</h2>
       <p class="slop-teaser-body">
-        {detectionRuleCount} checks catch the defaults agents keep reaching for before they become your design.
+        <a class="cheatsheet-link" href="/slop">{detectionRuleCount} checks &rarr;</a>{' '}
+        catch the defaults agents keep reaching for before they become your design.
       </p>
     </div>
     <div class="slop-pattern-actions">
@@ -26,14 +27,6 @@ const detectionRuleCount = new Set(ANTIPATTERNS.map(rule => rule.id)).size;
         <span class="ks-switch-track" aria-hidden="true"><span class="ks-switch-knob"></span></span>
         <span class="ks-switch-label" data-slop-scan-label>Detector on</span>
       </button>
-      <a class="ks-button ks-button-secondary" href="/slop">
-        Explore all {detectionRuleCount}
-        <span class="ks-button-arrow" aria-hidden="true">
-          <svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="square">
-            <path d="M0 4h14M10 0l4 4-4 4"/>
-          </svg>
-        </span>
-      </a>
     </div>
   </header>
 

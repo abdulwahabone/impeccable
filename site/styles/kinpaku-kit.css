@@ -895,7 +895,7 @@
   height: 38px;
   display: grid;
   place-items: center;
-  color: var(--ks-kinpaku);
+  color: var(--ks-ink);
   background: transparent;
   box-shadow: none;
 }
@@ -955,7 +955,7 @@
   color: var(--ks-ink);
 }
 
-/* The active page carries the same gold dot an active key carries. One
+/* The active page carries the same patina dot an active paper key carries. One
    indicator motif for the whole site: a lit dot means "you are here". */
 .kinpaku-chrome .site-header-nav a[aria-current="page"]::after {
   content: "";
@@ -967,16 +967,20 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--ks-kinpaku);
+  background: var(--ks-patina);
   transform: translateY(-50%);
 }
 
 /* GitHub star pill. Previously home-only; now every kinpaku page gets it. */
 .kinpaku-chrome .site-header-github {
-  border: 1px solid var(--ks-edge);
+  border: 1px solid var(--ks-rule);
   border-radius: var(--ks-radius-pill);
   background: var(--ks-paper-raised);
   color: var(--ks-ink);
+}
+
+.kinpaku-chrome .site-header-github-label {
+  line-height: 1;
 }
 
 .kinpaku-chrome .site-header-github:hover {
@@ -1892,7 +1896,7 @@ body::before {
 }
 
 .ks-switch[aria-pressed="true"] .ks-switch-knob::after {
-  background: var(--ks-kinpaku);
+  background: var(--ks-patina);
   box-shadow: var(--ks-led);
 }
 
@@ -1987,7 +1991,7 @@ body::before {
 .ks-instrument-strip.is-paper .ks-instrument-key.is-active::before,
 .ks-instrument-strip.is-paper .ks-instrument-key[aria-selected="true"]::before,
 .ks-instrument-strip.is-paper .ks-instrument-key[aria-pressed="true"]::before {
-  background: var(--ks-kinpaku);
+  background: var(--ks-patina);
   box-shadow: var(--ks-led);
 }
 

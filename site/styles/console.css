@@ -122,32 +122,14 @@
 
 /* ---------- readout ---------- */
 .cc-readout {
-  display: grid;
-  grid-template-rows: auto auto auto auto auto;
-  gap: 12px;
-  align-content: start;
-}
-.cc-lcd {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  height: 36px;
-  padding: 0 12px;
-  border-radius: 6px;
-  background: var(--ks-instrument-deep);
-  color: var(--ks-instrument-text);
-  font: 500 11px/1 var(--ks-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-variant-numeric: tabular-nums;
-  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), 0 1px 0 oklch(100% 0 0 / 0.7);
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
 }
-.cc-lcd-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ks-kinpaku); box-shadow: var(--cc-led); }
-.cc-lcd-grp { color: var(--ks-instrument-muted); }
-.cc-lcd-val { margin-left: auto; color: var(--ks-instrument-text); }
-.cc-title { display: grid; gap: 6px; }
+.cc-title { display: grid; gap: 10px; }
 .cc-name {
-  margin: 4px 0 0;
+  margin: 0;
   font-family: var(--ks-font-display);
   font-weight: var(--ks-type-headline-weight);
   font-size: 62px;
@@ -155,7 +137,35 @@
   color: var(--ks-ink);
   letter-spacing: 0;
 }
-.cc-cmd { font: 400 12px/1 var(--ks-mono); color: var(--ks-text-muted); letter-spacing: 0.02em; }
+.cc-cmd {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-instrument-deep);
+  color: var(--ks-instrument-text);
+}
+.cc-cmd-prompt {
+  flex: none;
+  color: var(--ks-kinpaku);
+  font: 500 var(--ks-type-ui-lead)/1 var(--ks-mono);
+  user-select: none;
+}
+.command-console .cc-cmd > code {
+  min-width: 0;
+  padding: 0;
+  overflow-x: auto;
+  border: 0;
+  background: transparent;
+  color: var(--ks-instrument-text);
+  font: 400 var(--ks-type-ui-lead)/1 var(--ks-mono);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
 .cc-tags { display: flex; gap: 6px; }
 .cc-desc { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ks-text); max-width: 36ch; }
 .cc-docs {
@@ -895,7 +905,7 @@
     transform: translate(-50%, -50%) scale(var(--cc-fit, 1));
     transform-origin: center;
   }
-  .cc-readout { grid-template-rows: none; gap: 10px; }
+  .cc-readout { gap: 14px; }
   .cc-name { font-size: 48px; }
   .cc-patch { flex-wrap: wrap; gap: 12px 18px; }
   .cc-deck {
