@@ -40,28 +40,34 @@ function attach(strip) {
 	mo.observe(strip, { subtree: true, attributes: true, attributeFilter: ['class', 'aria-selected', 'aria-pressed'], childList: true });
 	if (typeof ResizeObserver !== 'undefined') new ResizeObserver(() => place(strip)).observe(strip);
 
-	// Drag: press anywhere on the strip and move; the key under the pointer
-	// is clicked when it changes.
+	// Drag: press, move more than a few pixels, and the key under the
+	// pointer is clicked as it changes. No pointer capture: a plain press
+	// and release stays a normal click on the key.
+	let armed = false;
 	let dragging = false;
+	let startX = 0;
 	let last = null;
 	const keyAt = (x, y) => document.elementFromPoint(x, y)?.closest('.ks-instrument-key');
 	strip.addEventListener('pointerdown', (e) => {
 		if (e.button !== 0) return;
-		dragging = true;
+		armed = true;
+		dragging = false;
+		startX = e.clientX;
 		last = keyAt(e.clientX, e.clientY);
-		strip.setPointerCapture?.(e.pointerId);
 	});
 	strip.addEventListener('pointermove', (e) => {
-		if (!dragging) return;
+		if (!armed) return;
+		if (!dragging && Math.abs(e.clientX - startX) < 6) return;
+		dragging = true;
 		const key = keyAt(e.clientX, e.clientY);
 		if (key && key !== last && strip.contains(key)) {
 			last = key;
 			key.click();
 		}
 	});
-	const end = () => { dragging = false; last = null; };
-	strip.addEventListener('pointerup', end);
-	strip.addEventListener('pointercancel', end);
+	const end = () => { armed = false; dragging = false; last = null; };
+	window.addEventListener('pointerup', end);
+	window.addEventListener('pointercancel', end);
 }
 
 export function initInstrumentStrips(root = document) {
