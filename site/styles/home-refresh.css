@@ -2328,10 +2328,15 @@
   }
 }
 
-/* Shaded margins. Above 1200 the hero's columns step 64px inside the rail
-   and the outer gutters carry a soft matte from paper-deep to paper, so the
-   two halves sit closer to the centre while the header's edges, which the
-   shade runs up to, still read as the frame. */
+/* Framed margins. Above 1200 the hero's columns step 64px inside the rail,
+   two hairlines drop from the header's rule at the rail edges and run to
+   the hero's bottom, and a folio sits in each top corner: the release on
+   the left, the command count on the right. The header's edges are drawn
+   down into the hero, so the inset halves read as placed, not shrunken. */
+.hero-folio {
+  display: none;
+}
+
 @media (min-width: 1200px) {
   .home-kinpaku .hero-rebuild-container {
     padding-inline: calc(clamp(22px, 4vw, 56px) + 64px);
@@ -2343,12 +2348,30 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: max(clamp(22px, 4vw, 56px), calc((100% - 1388px) / 2));
+    width: 1px;
+    background: oklch(13% 0 0 / 0.14);
     pointer-events: none;
-    background: linear-gradient(90deg, var(--ks-paper-deep), var(--ks-paper));
     z-index: 0;
   }
 
-  .hero-rebuild::before { left: 0; }
-  .hero-rebuild::after { right: 0; transform: scaleX(-1); }
+  .hero-rebuild::before { left: max(clamp(22px, 4vw, 56px), calc((100% - 1388px) / 2)); }
+  .hero-rebuild::after { right: max(clamp(22px, 4vw, 56px), calc((100% - 1388px) / 2)); }
+
+  .hero-folio {
+    position: absolute;
+    top: 22px;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--ks-mono);
+    font-size: var(--ks-type-micro-size);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ks-text-muted);
+    white-space: nowrap;
+  }
+
+  .hero-folio--left { left: calc(max(clamp(22px, 4vw, 56px), calc((100% - 1388px) / 2)) + 14px); }
+  .hero-folio--right { right: calc(max(clamp(22px, 4vw, 56px), calc((100% - 1388px) / 2)) + 14px); flex-direction: row-reverse; }
 }
