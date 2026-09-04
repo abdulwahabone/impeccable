@@ -211,6 +211,11 @@ function initHeroProof() {
 			range.step = "any";
 			range.min = ((cr.left - pr.left) / pr.width * 100).toFixed(1);
 			range.max = ((cr.right - pr.left) / pr.width * 100).toFixed(1);
+			// The input's box has to be the card's box too: the browser maps the
+			// pointer across the input's own width onto min..max, so an input
+			// wider than the card would run the seam ahead of the pointer.
+			range.style.left = `${cr.left - pr.left}px`;
+			range.style.width = `${cr.width}px`;
 		};
 		const updatePosition = () => {
 			fitRange();

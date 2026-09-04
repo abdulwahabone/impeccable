@@ -354,6 +354,21 @@
   cursor: ew-resize;
   opacity: 0;
   touch-action: pan-y;
+  /* No thumb width: the browser insets the track by half the thumb, and
+     that inset would put the seam a few pixels off the pointer. */
+  appearance: none;
+}
+
+.hero-proof-range::-webkit-slider-thumb {
+  appearance: none;
+  width: 0;
+  height: 100%;
+}
+
+.hero-proof-range::-moz-range-thumb {
+  width: 0;
+  height: 100%;
+  border: 0;
 }
 
 /* Focused proof fragments. The left side intentionally demonstrates current
