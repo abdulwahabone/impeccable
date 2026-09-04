@@ -1928,7 +1928,7 @@ body::before {
   gap: 6px;
   min-height: 22px;
   padding: 0 7px;
-  color: var(--ks-on-gold);
+  color: var(--ks-ink);
   background: var(--ks-kinpaku);
   border-radius: var(--ks-radius-sm);
   font-family: var(--ks-mono);
