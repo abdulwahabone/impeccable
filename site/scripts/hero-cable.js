@@ -10,23 +10,72 @@
 // and when the strip moves; the socket's pin lights gold once plugged in.
 
 function glyphTerminal(vEl, hero) {
-	// Where the left arm of the v ends at the top: measured from the font,
-	// not guessed. The span wraps only the v.
+	// Where the left arm of the v ends at the top, found on the ink itself:
+	// the glyph is rasterised offscreen at its on-page size and the topmost
+	// run of ink is the arm's terminal. Its centre is where the cable's
+	// centre line has to start, so letter and cable share one stroke.
 	const r = vEl.getBoundingClientRect();
 	const h = hero.getBoundingClientRect();
 	const cs = getComputedStyle(vEl);
+	const size = parseFloat(cs.fontSize);
 	const canvas = glyphTerminal.canvas || (glyphTerminal.canvas = document.createElement('canvas'));
-	const ctx = canvas.getContext('2d');
-	ctx.font = `${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+	const scale = 2;
+	const pad = Math.ceil(size * 0.3);
+	canvas.width = Math.ceil((size + pad * 2) * scale);
+	canvas.height = Math.ceil((size * 1.4 + pad) * scale);
+	const ctx = canvas.getContext('2d', { willReadFrequently: true });
+	ctx.setTransform(scale, 0, 0, scale, 0, 0);
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.font = `${cs.fontWeight} ${size}px ${cs.fontFamily}`;
+	ctx.fillStyle = '#000';
+	const baselineC = size * 1.1;
+	ctx.fillText('v', pad, baselineC);
 	const m = ctx.measureText('v');
-	const asc = m.fontBoundingBoxAscent || parseFloat(cs.fontSize) * 0.9;
-	const desc = m.fontBoundingBoxDescent || parseFloat(cs.fontSize) * 0.25;
-	const baseline = r.top + (r.height - (asc + desc)) / 2 + asc;
-	const top = baseline - (m.actualBoundingBoxAscent || parseFloat(cs.fontSize) * 0.5);
-	const left = r.left + (m.actualBoundingBoxLeft ? -m.actualBoundingBoxLeft : 0);
-	// Stem weight of the face at this size: the cable starts at that width.
-	const stroke = Math.max(2, Math.min(4, parseFloat(cs.fontSize) * 0.036));
-	return { x: left - h.left + stroke * 0.5, y: top - h.top + stroke * 0.5, stroke };
+	const img = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+	const W = canvas.width;
+	// The glyph's ink box first, so the search can stay on the LEFT arm:
+	// the right arm's tip can sit a pixel higher and would otherwise win.
+	let minX = W, maxX = -1;
+	for (let y = 0; y < canvas.height; y++) for (let x = 0; x < W; x++) if (img[(y * W + x) * 4 + 3] > 128) { if (x < minX) minX = x; if (x > maxX) maxX = x; }
+	const midX = (minX + maxX) / 2;
+	let top = -1, runL = 0, runR = 0;
+	for (let y = 0; y < canvas.height && top < 0; y++) {
+		for (let x = 0; x < W; x++) {
+			if (img[(y * W + x) * 4 + 3] > 128) {
+				const start = x;
+				while (x < W && img[(y * W + x) * 4 + 3] > 128) x++;
+				const end = x - 1;
+				if ((start + end) / 2 < midX) { top = y; runL = start; runR = end; break; }
+			}
+		}
+	}
+	// Fall back to the metrics box if the raster gave nothing.
+	const asc = m.fontBoundingBoxAscent || size * 0.9;
+	const desc = m.fontBoundingBoxDescent || size * 0.25;
+	const baselineP = r.top + (r.height - (asc + desc)) / 2 + asc;
+	const stroke = Math.max(2, Math.min(4, size * 0.036));
+	if (top < 0) return { x: r.left - h.left + stroke * 0.5, y: baselineP - (m.actualBoundingBoxAscent || size * 0.5) - h.top, stroke, ux: -0.3, uy: -0.95 };
+	// A few rows down the terminal is a full stroke wide; measure the width
+	// there rather than at the very tip, which is a single anti-aliased row.
+	const y2 = top + Math.round(stroke * scale);
+	let l2 = -1, r2 = -1;
+	for (let x = 0; x < midX; x++) if (img[(y2 * W + x) * 4 + 3] > 128) { if (l2 < 0) l2 = x; r2 = x; if (r2 - l2 > stroke * scale * 2.5) break; }
+	const cx = ((l2 >= 0 ? (l2 + r2) / 2 : (runL + runR) / 2)) / scale;
+	const cy = (top / scale) + stroke * 0.5;
+	// The arm's direction: the run centre a few strokes further down.
+	const y3 = top + Math.round(stroke * scale * 4);
+	let l3 = -1, r3 = -1;
+	for (let x = 0; x < midX; x++) if (img[(y3 * W + x) * 4 + 3] > 128) { if (l3 < 0) l3 = x; r3 = x; if (r3 - l3 > stroke * scale * 2.5) break; }
+	const cx3 = l3 >= 0 ? (l3 + r3) / 2 / scale : cx + stroke;
+	const dirX = cx3 - cx, dirY = (y3 - top) / scale;
+	const len = Math.hypot(dirX, dirY) || 1;
+	return {
+		x: r.left - h.left + (cx - pad),
+		y: (baselineP - h.top) + (cy - baselineC),
+		stroke,
+		// Unit vector pointing UP the arm, out of the letter.
+		ux: -dirX / len, uy: -dirY / len,
+	};
 }
 
 function measure(hero, vEl, to, avoid) {
@@ -49,15 +98,17 @@ function measure(hero, vEl, to, avoid) {
 // the socket from the right with a little slack.
 function build(m, k) {
 	const { t, bx, by } = m;
+	// Continue the arm along its own direction, then keep that tangent into
+	// the curve so the join has no kink; one long sweep down arrives at the
+	// socket level from the right: a cable's S, not a hook.
 	const armLen = 14;
-	const ax = t.x - armLen * 0.36;
-	const ay = t.y - armLen;
+	const ax = t.x + t.ux * armLen;
+	const ay = t.y + t.uy * armLen;
 	const dx = ax - bx;
 	const dy = by - ay;
-	// Keep rising for a moment past the arm, then one long sweep down that
-	// arrives at the socket level from the right: a cable's S, not a hook.
-	const c1x = ax - dx * k.exit;
-	const c1y = ay - Math.min(72, Math.max(36, dy * 0.28));
+	const rise = Math.min(72, Math.max(36, dy * 0.28));
+	const c1x = ax + t.ux * rise * 1.1;
+	const c1y = ay + t.uy * rise * 1.1;
 	const c2x = bx + dx * k.enter;
 	const c2y = by + 2 * k.sag;
 	const d = `M ${t.x.toFixed(1)} ${t.y.toFixed(1)} L ${ax.toFixed(1)} ${ay.toFixed(1)} C ${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${bx.toFixed(1)} ${by.toFixed(1)}`;
@@ -89,6 +140,7 @@ export function initHeroCable() {
 	if (!hero || !svg || !vEl || !to) return;
 	const lead = svg.querySelector('.hero-cable-lead');
 	const socket = svg.querySelector('.hero-cable-socket');
+	const plug = svg.querySelector('.hero-cable-plug');
 	const grad = svg.querySelector('#hero-cable-ink');
 	let drawn = false;
 
@@ -102,6 +154,11 @@ export function initHeroCable() {
 		for (const k of SHAPES) { const cand = build(m, k); if (!crosses(m, cand, m.keepOut)) { c = cand; break; } }
 		lead.setAttribute('d', c.d);
 		socket.setAttribute('transform', `translate(${m.bx} ${m.by})`);
+		// The plug body: the last 14px of the cable, thicker and ink, entering
+		// the hole along the cable's own tangent.
+		const total = lead.getTotalLength();
+		const pIn = lead.getPointAtLength(Math.max(0, total - 15));
+		if (plug) plug.setAttribute('d', `M ${pIn.x.toFixed(1)} ${pIn.y.toFixed(1)} L ${m.bx.toFixed(1)} ${m.by.toFixed(1)}`);
 		svg.style.setProperty('--cable-w', `${m.t.stroke}px`);
 		// Ink at the letter, grey by the time the cable has left the word.
 		if (grad) {

@@ -2406,20 +2406,32 @@
   stroke-linejoin: round;
 }
 
+/* The jack: a moulded ring in the strip's own grey around a dark hole.
+   The cable's last stretch is the plug body, thicker and ink, and the
+   hole lights gold once it is in. */
 .hero-cable-socket-ring {
-  fill: var(--ks-paper-raised);
-  stroke: var(--ks-ink);
-  stroke-width: 1.5;
+  fill: var(--ks-gray);
+  stroke: oklch(13% 0 0 / 0.14);
+  stroke-width: 1;
 }
 
-.hero-cable-socket-pin {
-  fill: var(--ks-gray-2);
+.hero-cable-socket-hole {
+  fill: var(--ks-instrument-deep);
   transition: fill var(--ks-quick) var(--ks-ease);
 }
 
-.hero-cable.is-live .hero-cable-socket-pin {
+.hero-cable.is-live .hero-cable-socket-hole {
   fill: var(--ks-kinpaku);
 }
+
+.hero-cable-plug {
+  fill: none;
+  stroke: var(--ks-ink);
+  stroke-width: calc(var(--cable-w, 3px) + 3px);
+  stroke-linecap: round;
+}
+
+.hero-cable:not(.is-live) .hero-cable-plug { opacity: 0; }
 
 /* Draw-in on first paint: the cable is laid from the letter to the socket. */
 .hero-cable.is-drawing .hero-cable-lead {
