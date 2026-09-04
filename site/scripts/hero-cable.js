@@ -95,6 +95,110 @@ function glyphTerminal(vEl, hero) {
 	};
 }
 
+// The other anchor: the tail of the y. In Alumni Sans the descender runs
+// straight down and hooks left at the foot, so its terminal already points
+// the way an underline runs. Found on the ink the same way: the glyph is
+// rasterised at its on-page size, the foot is the lowest run of ink and the
+// terminal is its leftmost end.
+function descenderTerminal(yEl, hero) {
+	const r = yEl.getBoundingClientRect();
+	const h = hero.getBoundingClientRect();
+	const cs = getComputedStyle(yEl);
+	const size = parseFloat(cs.fontSize);
+	const canvas = descenderTerminal.canvas || (descenderTerminal.canvas = document.createElement('canvas'));
+	const scale = 2;
+	const pad = Math.ceil(size * 0.3);
+	canvas.width = Math.ceil((size + pad * 2) * scale);
+	canvas.height = Math.ceil((size * 1.6 + pad) * scale);
+	const ctx = canvas.getContext('2d', { willReadFrequently: true });
+	ctx.setTransform(scale, 0, 0, scale, 0, 0);
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	ctx.font = `${cs.fontWeight} ${size}px ${cs.fontFamily}`;
+	ctx.fillStyle = '#000';
+	const baselineC = size * 1.1;
+	ctx.fillText('y', pad, baselineC);
+	const m = ctx.measureText('y');
+	const img = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+	const W = canvas.width, H = canvas.height;
+	const ink = (x, y) => img[(y * W + x) * 4 + 3] > 128;
+	const asc = m.fontBoundingBoxAscent || size * 0.9;
+	const desc = m.fontBoundingBoxDescent || size * 0.25;
+	const baselineP = r.top + (r.height - (asc + desc)) / 2 + asc;
+	const stroke = Math.max(2, Math.min(4, size * 0.036));
+	let bottom = -1;
+	for (let y = H - 1; y >= 0 && bottom < 0; y--) for (let x = 0; x < W; x++) if (ink(x, y)) { bottom = y; break; }
+	if (bottom < 0) return { x: r.left - h.left, y: baselineP + size * 0.2 - h.top, stroke, ux: -1, uy: 0 };
+	// The foot: the rows within a stroke and a half of the bottom. Its
+	// leftmost ink is the terminal; the foot's thickness is the stem weight
+	// the cable has to match.
+	const footTop = bottom - Math.round(stroke * scale * 1.6);
+	let left = W;
+	for (let y = footTop; y <= bottom; y++) for (let x = 0; x < W; x++) if (ink(x, y)) { if (x < left) left = x; break; }
+	// Thickness measured a little in from the tip, where the hook is a full
+	// stroke thick, as the vertical extent of ink in that column.
+	// Only the foot's own rows count: the y's left arm starts at the same x
+	// as the foot's tip, and a whole-column scan would span the glyph.
+	const xm = Math.min(W - 1, left + Math.round(stroke * scale * 1.5));
+	const footBand = footTop - Math.round(stroke * scale * 2);
+	let cTop = -1, cBot = -1;
+	for (let y = Math.max(0, footBand); y <= bottom; y++) if (ink(xm, y)) { if (cTop < 0) cTop = y; cBot = y; }
+	const thick = cTop >= 0 ? (cBot - cTop + 1) / scale : stroke;
+	// The terminal's centre, and the foot's direction from the centroids of
+	// the columns just inside the tip (alpha-weighted, sub-pixel).
+	const centroid = (x) => { let sw = 0, sy = 0; for (let y = footTop - Math.round(stroke * scale); y <= bottom; y++) { if (y < 0) continue; const a = img[(y * W + x) * 4 + 3]; if (a > 24) { sw += a; sy += a * y; } } return sw ? sy / sw : null; };
+	const xA = left + Math.round(stroke * scale * 0.8), xB = left + Math.round(stroke * scale * 2.6);
+	let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0, n = 0;
+	for (let x = xA; x <= xB && x < W; x++) { const c = centroid(x); if (c == null) continue; sumX += x; sumY += c; sumXY += x * c; sumXX += x * x; n++; }
+	let slope = 0; // dy per dx along the foot, fallback flat
+	if (n > 2) { const den = n * sumXX - sumX * sumX; if (den) slope = (n * sumXY - sumX * sumY) / den; }
+	// The foot's tip lifts a hair as it thins, so its own tangent, carried
+	// on, put a bump in the underline. The cable leaves dead level from the
+	// tip's centre instead; the fitted slope is kept only as a sanity check.
+	void slope;
+	const ux = -1, uy = 0;
+	const cy0 = centroid(xA);
+	const cx = (left + (thick * scale) * 0.5) / scale;
+	const cy = (cy0 == null ? (footTop + bottom) / 2 : cy0) / scale;
+	const stem = Math.max(1.5, thick * 0.88);
+	const inset = stem * 1.3;
+	return {
+		x: r.left - h.left + (cx - pad) - ux * inset,
+		y: (baselineP - h.top) + (cy - baselineC) - uy * inset,
+		stroke: stem,
+		ux, uy,
+	};
+}
+
+// The y route: out of the foot, level under the word to just past its left
+// edge, one rounded turn down the middle of the spine, a straight drop, and
+// a rounded turn into the strip's right end. Routed like a trace, not
+// slung like a cable: the underline is the point, and a swoop above the
+// headline was the busy part of the v route.
+function buildY(m) {
+	const { t, bx, by, wordLeft, stripRight } = m;
+	const k = 0.5523;
+	const ly = t.y;
+	// The drop sits in the middle of the spine; the turn's radius is what
+	// room there is between the word's edge and that line, capped.
+	const xDrop = (wordLeft + stripRight) / 2;
+	const r1 = Math.max(12, Math.min(48, wordLeft - xDrop));
+	const r2 = Math.max(10, Math.min(28, xDrop - bx - 6));
+	const p1x = xDrop + r1, p1y = ly;
+	const q1x = xDrop, q1y = ly + r1;
+	const p2x = xDrop, p2y = by - r2;
+	const q2x = xDrop - r2, q2y = by;
+	const f = (v) => v.toFixed(1);
+	const d = [
+		`M ${f(t.x)} ${f(t.y)}`,
+		`L ${f(p1x)} ${f(p1y)}`,
+		`C ${f(p1x - k * r1)} ${f(p1y)}, ${f(q1x)} ${f(q1y - k * r1)}, ${f(q1x)} ${f(q1y)}`,
+		`L ${f(p2x)} ${f(p2y)}`,
+		`C ${f(p2x)} ${f(p2y + k * r2)}, ${f(q2x + k * r2)} ${f(q2y)}, ${f(q2x)} ${f(q2y)}`,
+		`L ${f(bx)} ${f(by)}`,
+	].join(' ');
+	return { d, lineY: ly, xDrop };
+}
+
 function measure(hero, vEl, to, avoid) {
 	const h = hero.getBoundingClientRect();
 	const b = to.getBoundingClientRect();
@@ -158,8 +262,15 @@ export function initHeroCable() {
 	const hero = document.querySelector('.hero-rebuild');
 	const svg = hero?.querySelector('[data-hero-cable]');
 	const vEl = hero?.querySelector('[data-cable-v]');
+	const yEl = hero?.querySelector('[data-cable-y]');
+	const word = hero?.querySelector('[data-cable-from]');
 	const to = hero?.querySelector('[data-cable-to]');
 	if (!hero || !svg || !vEl || !to) return;
+	// Which letter the cable grows from: the y's foot by default, the v's
+	// arm on request (?cable=v, or data-anchor="v" on the svg).
+	let anchor = svg.dataset.anchor || 'y';
+	try { anchor = new URLSearchParams(location.search).get('cable') || anchor; } catch {}
+	if (anchor === 'y' && !(yEl && word)) anchor = 'v';
 	const lead = svg.querySelector('.hero-cable-lead');
 
 	const grad = svg.querySelector('#hero-cable-ink');
@@ -168,19 +279,36 @@ export function initHeroCable() {
 	const draw = () => {
 		if (getComputedStyle(svg).display === 'none') { svg.classList.remove('is-ready'); return; }
 		const avoid = hero.querySelector('.hero-proof-panel:not([hidden]) .hero-proof-side-label--after text');
-		const m = measure(hero, vEl, to, avoid);
-		if (m.t.x - m.bx < 24) { svg.classList.remove('is-ready'); return; }
-		svg.setAttribute('viewBox', `0 0 ${m.w} ${m.hh}`);
-		let c = build(m, SHAPES[SHAPES.length - 1]);
-		for (const k of SHAPES) { const cand = build(m, k); if (!crosses(m, cand, m.keepOut)) { c = cand; break; } }
-		lead.setAttribute('d', c.d);
-
-		svg.style.setProperty('--cable-w', `${m.t.stroke}px`);
-		// Ink at the letter, grey by the time the cable has left the word.
-		if (grad) {
-			grad.setAttribute('x1', m.t.x); grad.setAttribute('y1', m.t.y);
-			grad.setAttribute('x2', m.bx); grad.setAttribute('y2', m.by);
+		let m, c;
+		if (anchor === 'y') {
+			const h = hero.getBoundingClientRect();
+			const b = to.getBoundingClientRect();
+			const w = word.getBoundingClientRect();
+			m = { t: descenderTerminal(yEl, hero), bx: b.right - h.left - 14, by: b.top - h.top + b.height / 2, wordLeft: w.left - h.left, stripRight: b.right - h.left, w: h.width, hh: h.height };
+			if (m.wordLeft - m.stripRight < 24) { svg.classList.remove('is-ready'); return; }
+			svg.setAttribute('viewBox', `0 0 ${m.w} ${m.hh}`);
+			c = buildY(m);
+			lead.setAttribute('d', c.d);
+			if (svg.dataset.debug != null) window.__heroCable = { m, c };
+			// The underline stays ink, as part of the word; the drop fades.
+			if (grad) {
+				grad.setAttribute('x1', c.xDrop); grad.setAttribute('y1', c.lineY);
+				grad.setAttribute('x2', c.xDrop); grad.setAttribute('y2', m.by);
+			}
+		} else {
+			m = measure(hero, vEl, to, avoid);
+			if (m.t.x - m.bx < 24) { svg.classList.remove('is-ready'); return; }
+			svg.setAttribute('viewBox', `0 0 ${m.w} ${m.hh}`);
+			c = build(m, SHAPES[SHAPES.length - 1]);
+			for (const k of SHAPES) { const cand = build(m, k); if (!crosses(m, cand, m.keepOut)) { c = cand; break; } }
+			lead.setAttribute('d', c.d);
+			// Ink at the letter, grey by the time the cable has left the word.
+			if (grad) {
+				grad.setAttribute('x1', m.t.x); grad.setAttribute('y1', m.t.y);
+				grad.setAttribute('x2', m.bx); grad.setAttribute('y2', m.by);
+			}
 		}
+		svg.style.setProperty('--cable-w', `${m.t.stroke}px`);
 		svg.style.setProperty('--cable-len', `${Math.ceil(lead.getTotalLength())}`);
 		svg.classList.add('is-ready');
 		if (!drawn) {
