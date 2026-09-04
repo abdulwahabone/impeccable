@@ -761,9 +761,11 @@
 
 /* Outer-edge tiles pad their content back to .site-content's content edge, so
    text sits at the same x as the section title above while the tile's own
-   hairline runs to the screen edge. Pattern is odd = left-edge, even =
-   right-edge across both rows (8/4, 4/4/4). */
-.home-kinpaku .why-bento .ks-bento-tile:nth-child(odd) {
+   hairline runs to the screen edge. The rows are 8/4 and 4/4/4, so the
+   left-edge tiles are children 1 and 3, the right-edge tiles 2 and 5, and
+   child 4 sits in the middle with the gutter on both sides. */
+.home-kinpaku .why-bento .ks-bento-tile:nth-child(1),
+.home-kinpaku .why-bento .ks-bento-tile:nth-child(3) {
   padding-left: calc(var(--why-rail-inset) + var(--why-rail-gutter));
 }
 /* The tile numeral is the gold tag. A tile is a flex column, so the tag
@@ -772,7 +774,8 @@
   align-self: flex-start;
 }
 
-.home-kinpaku .why-bento .ks-bento-tile:nth-child(even) {
+.home-kinpaku .why-bento .ks-bento-tile:nth-child(2),
+.home-kinpaku .why-bento .ks-bento-tile:nth-child(5) {
   padding-right: calc(var(--why-rail-inset) + var(--why-rail-gutter));
 }
 
@@ -784,13 +787,8 @@
   }
 }
 
-/* Narrow span-4 tiles host visuals that were originally designed for wider
-   columns (PRODUCT.md commands aside, DESIGN.md 3-col grid). Scope the
-   responsive collapse to those tiles regardless of viewport so the inner
-   content doesn't get crushed. */
-.home-kinpaku .ks-bento-tile--span-4 .why-visual--productmd {
-  grid-template-columns: 1fr;
-}
+/* The DESIGN.md grid was drawn for a wider column; in a span-4 tile it
+   collapses to two columns regardless of viewport. */
 .home-kinpaku .ks-bento-tile--span-4 .why-dm-grid {
   grid-template-columns: 1fr 1fr;
 }
@@ -798,21 +796,13 @@
   grid-row: 1 / 3;
 }
 
-/* Inner mockups (the PRODUCT.md file, the hook window, the DESIGN.md grid)
-   are raised paper above the tile. The terminal is the exception: a CLI
-   block is a control surface, so it sits on the instrument. */
-.home-kinpaku .why-productmd-file,
-.home-kinpaku .why-ci-window,
+/* Inner mockups are raised paper above the tile. The terminal is the
+   exception: a CLI block is a control surface, so it sits on the instrument. */
 .home-kinpaku .why-dm-grid,
 .home-kinpaku .gallery-stack-container {
   border-color: var(--ks-rule);
   background: var(--ks-paper-raised);
   border-radius: var(--ks-radius-sm);
-}
-
-.home-kinpaku .why-productmd-file {
-  overflow: hidden;
-  border: 1px solid var(--ks-rule);
 }
 
 .home-kinpaku .why-terminal {
@@ -823,14 +813,8 @@
   color: var(--ks-instrument-text);
 }
 
-.home-kinpaku .why-productmd-header,
 .home-kinpaku .why-terminal-header {
   border-radius: 0;
-}
-
-.home-kinpaku .why-productmd-header {
-  background: var(--ks-paper-deep);
-  border-bottom: 0;
 }
 
 /* Terminal chrome dots: one muted set, the first carrying the gold signal. */
@@ -863,9 +847,7 @@
 }
 
 .home-kinpaku .why-panel-body,
-.home-kinpaku .why-panel-meta,
-.home-kinpaku .why-productmd-v,
-.home-kinpaku .why-productmd-status {
+.home-kinpaku .why-panel-meta {
   color: var(--ks-text);
 }
 
@@ -873,82 +855,8 @@
   color: var(--ks-text-muted);
 }
 
-.home-kinpaku .why-productmd-k,
 .home-kinpaku .why-dm-badge {
   color: var(--ks-text-muted);
-}
-
-.home-kinpaku .why-visual--ci {
-  padding: 0;
-  overflow: hidden;
-  background: transparent;
-}
-
-/* The hook window: one container, one hairline, one radius, a paper-deep
-   header band. No shadow, no second frame. */
-.home-kinpaku .why-ci-window {
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-sm);
-  overflow: hidden;
-  background: var(--ks-paper-raised);
-  box-shadow: none;
-}
-
-.home-kinpaku .why-ci-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 12px 16px;
-  border-bottom: 0;
-  background: var(--ks-paper-deep);
-}
-
-.home-kinpaku .why-ci-branch {
-  font-family: var(--ks-mono);
-  color: var(--ks-ink);
-  font-size: var(--ks-type-ui-size);
-  letter-spacing: 0.03em;
-}
-
-/* Status is a state word with an indicator dot, not a chip: patina is for
-   state only, and a pill inside the window would be a second rounded frame. */
-.home-kinpaku .why-ci-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  box-shadow: none;
-  color: var(--ks-state-ink);
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-micro-size);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.home-kinpaku .why-ci-status::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--ks-patina);
-}
-
-.home-kinpaku .why-ci-body {
-  padding: 24px 28px;
-  color: var(--ks-text);
-  font-size: var(--ks-type-small-size);
-  line-height: 1.92;
-}
-
-.home-kinpaku .why-ci-summary {
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top-color: var(--ks-rule);
-  color: var(--ks-ink);
 }
 
 .home-kinpaku .why-visual--designmd-v2 {
@@ -981,7 +889,6 @@
 /* Mockup chrome labels hold the 11px floor: they carry read content (field
    keys, spec names, chip labels), not decoration, so they don't get the
    micro-type exemption the tile numbers do. */
-.home-kinpaku .why-productmd-k,
 .home-kinpaku .why-dm-tile-meta span,
 .home-kinpaku .why-dm-type-family,
 .home-kinpaku .why-dm-comp-chip,
@@ -1046,6 +953,372 @@
   color: var(--ks-muted);
   border-color: var(--ks-rule);
   background: var(--ks-paper-deep);
+}
+
+/* ============================================================
+   Tile 02: PRODUCT.md as an editor shows it.
+
+   One raised card, one hairline, a paper-deep header band. Line numbers
+   in a faint gutter, keys in mono, values in the body face. Below it the
+   commands that read the file take turns on a paper strip: the cap and
+   gold dot move key to key (index.astro toggles is-active on a timer,
+   instrument-strip.js slides the cap).
+   ============================================================ */
+.home-kinpaku .why-visual--productmd {
+  flex-direction: column;
+  gap: 16px;
+  overflow: visible;
+}
+
+.home-kinpaku .why-pm-file {
+  overflow: hidden;
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
+}
+
+.home-kinpaku .why-pm-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--ks-paper-deep);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-micro-size);
+  letter-spacing: 0.06em;
+}
+
+.home-kinpaku .why-pm-filename {
+  color: var(--ks-ink);
+  font-weight: 500;
+}
+
+.home-kinpaku .why-pm-lang {
+  color: var(--ks-text-muted);
+}
+
+.home-kinpaku .why-pm-lines {
+  margin: 0;
+  padding: 12px 14px 12px 10px;
+  list-style: none;
+  counter-reset: line;
+  font-family: var(--ks-font);
+  font-size: var(--ks-type-ui-size);
+  line-height: 1.55;
+  color: var(--ks-text);
+}
+
+.home-kinpaku .why-pm-lines li {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 12px;
+  align-items: baseline;
+  min-height: 1.55em;
+}
+
+.home-kinpaku .why-pm-lines li::before {
+  counter-increment: line;
+  content: counter(line);
+  text-align: right;
+  color: var(--ks-text-mute-deep);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-micro-size);
+}
+
+.home-kinpaku .why-pm-key {
+  color: var(--ks-text-muted);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-label-size);
+}
+
+.home-kinpaku .why-pm-reads {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.home-kinpaku .why-pm-reads-label {
+  color: var(--ks-text-muted);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-micro-size);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* The keys are a picture, not a control: no pointer, no press. */
+.home-kinpaku .why-pm-strip .ks-instrument-key {
+  cursor: default;
+  min-height: var(--ks-control-sm);
+  padding: 0 12px 0 10px;
+  user-select: none;
+}
+
+.home-kinpaku .why-pm-strip .ks-instrument-key:active {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ============================================================
+   Tile 04: the four surface modes as miniatures.
+
+   Each thumbnail is a 3:2 page drawn from bars and panels, mono label
+   below. The mode the PRODUCT.md demo names carries a crisp edge and a
+   lit dot. Two by two in a span-4 tile; one row of four when the tile
+   is wide enough (stacked tiles on a tablet).
+   ============================================================ */
+.home-kinpaku .why-visual--modes {
+  display: block;
+  overflow: visible;
+  container-type: inline-size;
+}
+
+.home-kinpaku .why-modes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@container (min-width: 600px) {
+  .home-kinpaku .why-modes {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.home-kinpaku .why-mode {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.home-kinpaku .why-mode-thumb {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
+}
+
+.home-kinpaku .why-mode.is-lit .why-mode-thumb {
+  border-color: var(--ks-edge);
+}
+
+.home-kinpaku .why-mode-thumb i {
+  position: absolute;
+  display: block;
+  border-radius: 1px;
+  background: var(--ks-gray-2);
+}
+
+/* Persuade: a landing hero. Nav, two-line headline, a button, art at right. */
+.home-kinpaku .why-mode-thumb .why-mode-nav {
+  top: 9%; left: 8%; width: 14%; height: 4%;
+}
+.home-kinpaku .why-mode-thumb .why-mode-h1 {
+  top: 30%; left: 8%; width: 44%; height: 8%;
+  background: var(--ks-ink);
+}
+.home-kinpaku .why-mode-thumb .why-mode-h1--short {
+  top: 42%; width: 30%;
+}
+.home-kinpaku .why-mode-thumb .why-mode-cta {
+  top: 62%; left: 8%; width: 18%; height: 11%;
+  background: var(--ks-ink);
+}
+.home-kinpaku .why-mode-thumb .why-mode-art {
+  top: 24%; right: 8%; width: 30%; height: 58%;
+}
+
+/* Operate: a dashboard. Sidebar, top bar, three stat cells, one wide panel. */
+.home-kinpaku .why-mode-thumb .why-mode-side {
+  top: 0; left: 0; bottom: 0; width: 16%;
+  border-radius: 0;
+  background: var(--ks-paper-deep);
+}
+.home-kinpaku .why-mode-thumb .why-mode-bar {
+  top: 9%; left: 24%; width: 22%; height: 5%;
+}
+.home-kinpaku .why-mode-thumb .why-mode-cell {
+  top: 24%; width: 20%; height: 22%;
+  background: var(--ks-paper-deep);
+}
+.home-kinpaku .why-mode-thumb .why-mode-cell:nth-of-type(3) { left: 24%; }
+.home-kinpaku .why-mode-thumb .why-mode-cell:nth-of-type(4) { left: 48%; }
+.home-kinpaku .why-mode-thumb .why-mode-cell:nth-of-type(5) { left: 72%; }
+.home-kinpaku .why-mode-thumb .why-mode-panel {
+  top: 54%; left: 24%; right: 8%; bottom: 10%;
+  background: var(--ks-paper-deep);
+}
+.home-kinpaku .why-mode-thumb .why-mode-panel::after {
+  content: "";
+  position: absolute;
+  left: 10%; right: 10%; bottom: 28%;
+  height: 2px;
+  background: var(--ks-ink);
+}
+
+/* Read: a text column. A title, then measured lines. */
+.home-kinpaku .why-mode-thumb--read {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7%;
+  padding: 12% 0;
+}
+.home-kinpaku .why-mode-thumb--read i {
+  position: static;
+  flex: none;
+  width: 46%;
+  height: 4%;
+}
+.home-kinpaku .why-mode-thumb--read .why-mode-title {
+  width: 32%;
+  height: 7%;
+  margin-bottom: 4%;
+  background: var(--ks-ink);
+}
+.home-kinpaku .why-mode-thumb--read .why-mode-line--short { width: 30%; }
+
+/* Experience: a full-bleed image plane with a mark and a caption on it. */
+.home-kinpaku .why-mode-thumb--experience {
+  background: var(--ks-gray-2);
+}
+.home-kinpaku .why-mode-thumb .why-mode-mark {
+  top: 10%; left: 8%; width: 9%; height: 13%;
+  background: var(--ks-paper-raised);
+}
+.home-kinpaku .why-mode-thumb .why-mode-caption {
+  left: 8%; bottom: 12%; width: 40%; height: 7%;
+  background: var(--ks-paper-raised);
+}
+
+.home-kinpaku .why-mode-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--ks-text-muted);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-micro-size);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.home-kinpaku .why-mode.is-lit .why-mode-label {
+  color: var(--ks-ink);
+}
+
+.home-kinpaku .why-mode.is-lit .why-mode-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ks-kinpaku);
+  box-shadow: var(--ks-led);
+}
+
+/* ============================================================
+   Tile 05: one pass of the design hook as a timeline.
+
+   Four steps down a rail: marker, connector, mono label, the thing that
+   step produces (a file chip, two gold tags, a quiet tag, a patina state).
+   The connector is the tile's one line; there is no window around it.
+   ============================================================ */
+.home-kinpaku .why-visual--hook {
+  display: block;
+  overflow: visible;
+}
+
+.home-kinpaku .why-hook {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.home-kinpaku .why-hook-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 0 0 22px 26px;
+}
+
+.home-kinpaku .why-hook-step:last-child {
+  padding-bottom: 0;
+}
+
+.home-kinpaku .why-hook-step::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--ks-edge);
+  border-radius: 50%;
+  background: var(--ks-paper-raised);
+}
+
+.home-kinpaku .why-hook-step::after {
+  content: "";
+  position: absolute;
+  top: 16px;
+  bottom: 4px;
+  left: 4px;
+  width: 1px;
+  background: var(--ks-edge);
+}
+
+.home-kinpaku .why-hook-step:last-child::after {
+  display: none;
+}
+
+.home-kinpaku .why-hook-step.is-ready::before {
+  border-color: var(--ks-patina);
+  background: var(--ks-patina);
+}
+
+.home-kinpaku .why-hook-label {
+  color: var(--ks-text-muted);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-micro-size);
+  letter-spacing: 0.1em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.home-kinpaku .why-hook-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.home-kinpaku .why-hook-file {
+  padding: 0.15em 0.5em;
+  color: var(--ks-ink);
+  background: var(--ks-gray);
+  border-radius: var(--ks-code-radius);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-label-size);
+  line-height: 1.5;
+}
+
+.home-kinpaku .why-hook-state {
+  color: var(--ks-state-ink);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-label-size);
+  font-weight: 500;
 }
 
 .home-kinpaku .patterns-tab {

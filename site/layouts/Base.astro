@@ -97,5 +97,8 @@ const resolvedOgDescription = ogDescription || description;
   </main>
   {!hideFooter && <Footer />}
   <slot name="scripts" />
+  <script>
+    import '../scripts/instrument-strip.js';
+  </script>
 </body>
 </html>

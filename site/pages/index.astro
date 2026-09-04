@@ -131,8 +131,8 @@ import '../styles/worlds-roll.css';
 
         <section class="language-steering" aria-labelledby="language-steering-title">
           <header class="language-steering-head">
-            <h3 id="language-steering-title">Give direction in chat. Refine the result on the page.</h3>
-            <p>Every change lands in your source.</p>
+            <h3 id="language-steering-title">Steer from the chat, or point at the page.</h3>
+            <p>Every command runs in your agent's thread. Live Mode adds a picker to your running app: point at an element, choose a variant, and it lands in your source.</p>
           </header>
 
           <div class="steering-desktop" data-steering-desktop data-mobile-pane="agent" data-impeccable-ignore="gpt-thin-border-wide-shadow">
@@ -150,7 +150,7 @@ import '../styles/worlds-roll.css';
             <div class="steering-desktop-panes">
               <article class="steering-pane steering-agent" tabindex="0" data-steering-pane="agent">
                 <header class="steering-pane-head">
-                  <span class="steering-pane-title"><i aria-hidden="true"></i> Agent thread</span>
+                  <span class="steering-pane-title"><span class="ks-tag">01</span> In your agent</span>
                   <span class="steering-pane-meta">Working tree</span>
                 </header>
 
@@ -208,7 +208,7 @@ import '../styles/worlds-roll.css';
 
               <article class="steering-pane steering-browser" tabindex="0" data-steering-pane="browser">
                 <header class="steering-pane-head">
-                  <span class="steering-pane-title"><i aria-hidden="true"></i> Browser</span>
+                  <span class="steering-pane-title"><span class="ks-tag">02</span> Live Mode, in the browser</span>
                   <span class="steering-pane-meta">Live preview</span>
                 </header>
                 <div class="steering-browser-toolbar" aria-hidden="true">
@@ -275,37 +275,38 @@ import '../styles/worlds-roll.css';
               </div>
           </article>
 
-          <!-- T2: narrow. Real product context. -->
+          <!-- T2: narrow. Real product context: PRODUCT.md as an editor sees
+               it, and the commands that read it taking turns on the strip. -->
           <article class="ks-bento-tile ks-bento-tile--span-4" id="why-product">
             <span class="ks-tag" data-impeccable-ignore="undersized-ui-text">02</span>
             <h3 class="why-panel-title">Real product context.</h3>
-            <p class="why-panel-body">Captures the brief once, in <code>PRODUCT.md</code>. Every command reads it before designing.</p>
-              <div class="why-visual why-visual--productmd">
-                <div class="why-productmd-file">
-                  <div class="why-productmd-header">
-                    <span class="why-productmd-filename">PRODUCT.md</span>
-                    <span class="why-productmd-status">Loaded on every command</span>
-                  </div>
-                  <div class="why-productmd-body">
-                    <div class="why-productmd-field">
-                      <span class="why-productmd-k">Users</span>
-                      <span class="why-productmd-v">SREs on call, reading fast, often in the dark.</span>
-                    </div>
-                    <div class="why-productmd-field">
-                      <span class="why-productmd-k">Mode</span>
-                      <span class="why-productmd-v">Operate. Design serves the task.</span>
-                    </div>
-                    <div class="why-productmd-field">
-                      <span class="why-productmd-k">Brand voice</span>
-                      <span class="why-productmd-v">Calm, clinical, no hype.</span>
-                    </div>
-                    <div class="why-productmd-field">
-                      <span class="why-productmd-k">Anti-references</span>
-                      <span class="why-productmd-v">Purple gradients. Glassmorphism. "Boost your productivity."</span>
-                    </div>
-                  </div>
+            <p class="why-panel-body">The brief lives in <code>PRODUCT.md</code>. Every command reads it first.</p>
+            <div class="why-visual why-visual--productmd">
+              <div class="why-pm-file" role="img" aria-label="PRODUCT.md open in an editor, with Mode, Users and Anti-references fields filled in.">
+                <div class="why-pm-header">
+                  <span class="why-pm-filename">PRODUCT.md</span>
+                  <span class="why-pm-lang">Markdown</span>
+                </div>
+                <ol class="why-pm-lines" aria-hidden="true">
+                  <li class="why-pm-key">## Mode</li>
+                  <li>Operate. Design serves the task.</li>
+                  <li class="why-pm-blank"></li>
+                  <li class="why-pm-key">## Users</li>
+                  <li>SREs on call, reading fast, often in the dark.</li>
+                  <li class="why-pm-blank"></li>
+                  <li class="why-pm-key">## Anti-references</li>
+                  <li>Purple gradients. Glassmorphism. "Boost your productivity."</li>
+                </ol>
+              </div>
+              <div class="why-pm-reads" aria-hidden="true">
+                <span class="why-pm-reads-label">Read by</span>
+                <div class="ks-instrument-strip is-paper why-pm-strip" data-why-reads>
+                  <span class="ks-instrument-key is-active">polish</span>
+                  <span class="ks-instrument-key">audit</span>
+                  <span class="ks-instrument-key">layout</span>
                 </div>
               </div>
+            </div>
           </article>
 
           <!-- T3: narrow. DESIGN.md travels. Restored from the parked panel
@@ -357,75 +358,84 @@ import '../styles/worlds-roll.css';
             </div>
           </article>
 
-          <!-- T4: medium. Surface modes replace the old brand/product registers. -->
+          <!-- T4: medium. Surface modes as four miniatures; the mode the
+               PRODUCT.md demo names (Operate) is the lit one. -->
           <article class="ks-bento-tile ks-bento-tile--span-4" id="why-modes">
             <span class="ks-tag" data-impeccable-ignore="undersized-ui-text">04</span>
             <h3 class="why-panel-title">Knows what the surface is for.</h3>
-            <p class="why-panel-body">A landing page should persuade. A dashboard should help someone work. Impeccable names the mode before it designs.</p>
-
-              <div class="why-visual why-visual--modes">
-                <div class="why-modes">
-                  <div class="why-modes-head" aria-hidden="true">
-                    <span>Mode</span>
-                    <span>The page exists to</span>
-                    <span>Typical surface</span>
-                  </div>
-                  <div class="why-modes-row">
-                    <strong>Persuade</strong>
-                    <span>Win attention</span>
-                    <span>Landing, pricing</span>
-                  </div>
-                  <div class="why-modes-row">
-                    <strong>Operate</strong>
-                    <span>Complete a task</span>
-                    <span>Dashboard, admin</span>
-                  </div>
-                  <div class="why-modes-row">
-                    <strong>Read</strong>
-                    <span>Build understanding</span>
-                    <span>Docs, long-form</span>
-                  </div>
-                  <div class="why-modes-row">
-                    <strong>Experience</strong>
-                    <span>Let the work lead</span>
-                    <span>Portfolio, campaign</span>
-                  </div>
-                </div>
-              </div>
-              <p class="why-modes-foot">Set once in PRODUCT.md. Read by every command.</p>
-
+            <p class="why-panel-body">A landing page persuades, a dashboard gets out of the way. Impeccable names the mode before it draws.</p>
+            <div class="why-visual why-visual--modes">
+              <ul class="why-modes" aria-label="The four surface modes">
+                <li class="why-mode">
+                  <span class="why-mode-thumb why-mode-thumb--persuade" aria-hidden="true">
+                    <i class="why-mode-nav"></i>
+                    <i class="why-mode-h1"></i>
+                    <i class="why-mode-h1 why-mode-h1--short"></i>
+                    <i class="why-mode-cta"></i>
+                    <i class="why-mode-art"></i>
+                  </span>
+                  <span class="why-mode-label">Persuade</span>
+                </li>
+                <li class="why-mode is-lit">
+                  <span class="why-mode-thumb why-mode-thumb--operate" aria-hidden="true">
+                    <i class="why-mode-side"></i>
+                    <i class="why-mode-bar"></i>
+                    <i class="why-mode-cell"></i>
+                    <i class="why-mode-cell"></i>
+                    <i class="why-mode-cell"></i>
+                    <i class="why-mode-panel"></i>
+                  </span>
+                  <span class="why-mode-label">Operate</span>
+                </li>
+                <li class="why-mode">
+                  <span class="why-mode-thumb why-mode-thumb--read" aria-hidden="true">
+                    <i class="why-mode-title"></i>
+                    <i class="why-mode-line"></i>
+                    <i class="why-mode-line"></i>
+                    <i class="why-mode-line"></i>
+                    <i class="why-mode-line"></i>
+                    <i class="why-mode-line why-mode-line--short"></i>
+                  </span>
+                  <span class="why-mode-label">Read</span>
+                </li>
+                <li class="why-mode">
+                  <span class="why-mode-thumb why-mode-thumb--experience" aria-hidden="true">
+                    <i class="why-mode-mark"></i>
+                    <i class="why-mode-caption"></i>
+                  </span>
+                  <span class="why-mode-label">Experience</span>
+                </li>
+              </ul>
+            </div>
           </article>
 
-          <!-- T5: medium. Hooks keep the detector in the agent loop; CI is
-               the final gate rather than the whole story. -->
+          <!-- T5: medium. One pass of the design hook, drawn as a timeline:
+               the edit, the findings it returns, the fix, the ready PR. -->
           <article class="ks-bento-tile ks-bento-tile--span-4" id="why-ci">
             <span class="ks-tag" data-impeccable-ignore="undersized-ui-text">05</span>
             <h3 class="why-panel-title">Block slop before it ships.</h3>
-            <p class="why-panel-body">Hooks inspect each UI edit and send findings straight back to the agent. The same detector can fail a PR.</p>
-              <div class="why-visual why-visual--ci">
-                <div class="why-ci-window">
-                  <div class="why-ci-header">
-                    <span class="why-ci-branch">Edit &middot; Hero.tsx</span>
-                    <span class="why-ci-status why-ci-status--hook">hook active</span>
-                  </div>
-                  <div class="why-ci-body why-hook-loop">
-                    <div class="why-hook-step">
-                      <span class="why-hook-mark">1</span>
-                      <span><strong>Edit lands</strong><small>Agent updates the hero.</small></span>
-                    </div>
-                    <div class="why-hook-step why-hook-step--found">
-                      <span class="why-hook-mark">2</span>
-                      <span><strong>Hook returns two findings</strong><small>AI beige &middot; clipped label</small></span>
-                    </div>
-                    <div class="why-hook-step why-hook-step--clean">
-                      <span class="why-hook-mark">&#x2713;</span>
-                      <span><strong>Agent corrects the file</strong><small>Second pass: clean</small></span>
-                    </div>
-                    <div class="why-ci-summary"><span>Deep stop audit</span><strong>0 findings &middot; PR ready</strong></div>
-                  </div>
-                </div>
-              </div>
-              <p class="why-panel-meta"><a href="/detector">Explore the detector lab &rarr;</a></p>
+            <p class="why-panel-body">A hook reads every UI edit and hands the findings back to the agent before a PR opens.</p>
+            <div class="why-visual why-visual--hook">
+              <ol class="why-hook" aria-label="One pass of the design hook">
+                <li class="why-hook-step">
+                  <span class="why-hook-label">Edit lands</span>
+                  <span class="why-hook-row"><code class="why-hook-file">Hero.tsx</code></span>
+                </li>
+                <li class="why-hook-step">
+                  <span class="why-hook-label">Hook returns findings</span>
+                  <span class="why-hook-row"><span class="ks-tag" data-impeccable-ignore="undersized-ui-text">AI beige</span><span class="ks-tag" data-impeccable-ignore="undersized-ui-text">Clipped label</span></span>
+                </li>
+                <li class="why-hook-step">
+                  <span class="why-hook-label">Agent corrects</span>
+                  <span class="why-hook-row"><code class="why-hook-file">Hero.tsx</code><span class="ks-tag is-quiet" data-impeccable-ignore="undersized-ui-text">Second pass</span></span>
+                </li>
+                <li class="why-hook-step is-ready">
+                  <span class="why-hook-label">PR ready</span>
+                  <span class="why-hook-row why-hook-state">0 findings</span>
+                </li>
+              </ol>
+            </div>
+            <p class="why-panel-meta"><a href="/detector">Explore the detector lab &rarr;</a></p>
           </article>
 
         </div>
@@ -630,6 +640,27 @@ import '../styles/worlds-roll.css';
     </section>
 
 <Fragment slot="scripts">
+    <script is:inline>
+      // Tile 02: the command keys take turns reading PRODUCT.md. Only the
+      // is-active class moves; instrument-strip.js slides the cap to match.
+      (function () {
+        const strip = document.querySelector('[data-why-reads]');
+        if (!strip || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const keys = Array.from(strip.querySelectorAll('.ks-instrument-key'));
+        let i = 0;
+        let timer = 0;
+        const step = () => {
+          i = (i + 1) % keys.length;
+          keys.forEach((key, n) => key.classList.toggle('is-active', n === i));
+        };
+        const io = new IntersectionObserver((entries) => {
+          const on = entries.some((e) => e.isIntersecting);
+          if (on && !timer) timer = window.setInterval(step, 1600);
+          if (!on && timer) { window.clearInterval(timer); timer = 0; }
+        }, { threshold: 0.4 });
+        io.observe(strip);
+      })();
+    </script>
     <script is:inline>
       (function () {
         const root = document.querySelector('[data-install-tabs]');

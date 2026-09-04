@@ -880,19 +880,7 @@
 
 /* The detector toggle is a control, so it is a one-key instrument: dark pill,
    gold indicator when the detector is on. */
-/* The detector switch is a single key on a paper track: a switch, not a
-   button. Its lit dot is the state. Height matches the button beside it. */
-.slop-scan-control {
-  padding: 4px;
-}
-
-.slop-scan-control .ks-instrument-key {
-  min-height: calc(var(--ks-control-lg) - 10px);
-  font-family: var(--ks-font);
-  font-size: var(--ks-type-ui-size);
-  font-weight: 500;
-  letter-spacing: 0;
-}
+/* The detector switch is the kit's slide switch; nothing page-local. */
 
 .slop-pattern-board {
   position: relative;
@@ -902,7 +890,7 @@
   min-height: clamp(650px, 70vw, 800px);
   overflow: hidden;
   background: var(--ks-rule);
-  border: 1px solid var(--ks-rule);
+  border: 0;
   gap: 1px;
 }
 
@@ -2103,146 +2091,6 @@
 .home-kinpaku .slop-pattern-item,
 .home-kinpaku .steering-pane {
   background: var(--ks-paper-raised);
-}
-
-/* Tile 04: the mode table. One hairline container with a paper-deep header
-   band, then plain rows: mode in ink, the rest muted. No filled cells and no
-   framed previews; the table is read, not looked at. */
-.home-kinpaku .why-visual--modes {
-  display: block;
-  overflow: hidden;
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-sm);
-  background: var(--ks-paper-raised);
-}
-
-.home-kinpaku .why-modes-head,
-.home-kinpaku .why-modes-row {
-  display: grid;
-  grid-template-columns: minmax(84px, 0.8fr) 1fr 1fr;
-  gap: 14px;
-  align-items: baseline;
-  padding: 13px 16px;
-}
-
-.home-kinpaku .why-modes-head {
-  background: var(--ks-paper-deep);
-  color: var(--ks-text-muted);
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-micro-size);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.home-kinpaku .why-modes-row + .why-modes-row {
-  border-top: 1px solid var(--ks-rule);
-}
-
-.home-kinpaku .why-modes-row strong {
-  color: var(--ks-ink);
-  font-size: var(--ks-type-small-size);
-  font-weight: 500;
-}
-
-.home-kinpaku .why-modes-row span {
-  color: var(--ks-text-muted);
-  font-size: var(--ks-type-ui-size);
-  line-height: 1.4;
-}
-
-.home-kinpaku .why-modes-foot {
-  margin: 0;
-  color: var(--ks-text-muted);
-  font-size: var(--ks-type-ui-size);
-  font-style: italic;
-}
-
-.home-kinpaku .why-ci-status--hook {
-  white-space: nowrap;
-}
-
-/* The hook loop is a plain list: numbered rows on hairlines, no stepper
-   circles, no connector line. */
-.home-kinpaku .why-hook-loop {
-  display: grid;
-  padding: 4px 16px 6px;
-  line-height: 1.35;
-}
-
-.home-kinpaku .why-hook-step {
-  display: grid;
-  grid-template-columns: 20px minmax(0, 1fr);
-  gap: 10px;
-  align-items: start;
-  padding: 13px 0;
-}
-
-.home-kinpaku .why-hook-step + .why-hook-step {
-  border-top: 1px solid var(--ks-rule);
-}
-
-.home-kinpaku .why-hook-mark {
-  padding-top: 2px;
-  color: var(--ks-text-muted);
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-micro-size);
-}
-
-.home-kinpaku .why-hook-step strong,
-.home-kinpaku .why-hook-step small {
-  display: block;
-}
-
-.home-kinpaku .why-hook-step strong {
-  margin: 1px 0 3px;
-  color: var(--ks-ink);
-  font-family: var(--ks-mono);
-  font-size: 0.76rem;
-  font-weight: 500;
-}
-
-.home-kinpaku .why-hook-step small {
-  color: var(--ks-text-muted);
-  font-size: 0.75rem;
-}
-
-.home-kinpaku .why-hook-step--clean .why-hook-mark {
-  color: var(--ks-state-ink);
-}
-
-.home-kinpaku .why-hook-loop .why-ci-summary {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 0;
-  padding: 13px 0 8px;
-  border-top: 1px solid var(--ks-rule);
-  color: var(--ks-text-muted);
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-label-size);
-}
-
-.home-kinpaku .why-hook-loop .why-ci-summary strong {
-  color: var(--ks-state-ink);
-  font-weight: 500;
-}
-
-@media (max-width: 520px) {
-  .home-kinpaku .why-modes-head,
-  .home-kinpaku .why-modes-row {
-    grid-template-columns: minmax(72px, 0.8fr) 1fr;
-  }
-
-  .home-kinpaku .why-modes-head span:last-child,
-  .home-kinpaku .why-modes-row span:last-child {
-    display: none;
-  }
-
-  .home-kinpaku .why-hook-loop .why-ci-summary {
-    display: grid;
-    gap: 4px;
-  }
 }
 
 @media (hover: hover) and (min-width: 901px) {

@@ -724,8 +724,7 @@
 /* Panel 03: terminal output. The terminal is a CLI block, so it is an
    instrument: dark face, light text, patina for paths and checks, one gold
    arrow for the conclusion. */
-.why-visual--terminal,
-.why-visual--ci {
+.why-visual--terminal {
   padding: 0;
   background: transparent;
   border: 0;
@@ -778,47 +777,6 @@
   color: var(--ks-instrument-text);
 }
 
-/* Panel 06: the hook window, on raised paper. */
-.why-ci-window {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-.why-ci-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 14px;
-  background: var(--ks-paper-deep);
-}
-.why-ci-branch {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--ks-ink);
-}
-.why-ci-status {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 2px 8px;
-  border-radius: 999px;
-}
-.why-ci-body {
-  padding: 14px;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.8;
-  color: var(--ks-text);
-}
-.why-ci-summary {
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid var(--ks-rule);
-  font-weight: 500;
-  color: var(--ks-ink);
-}
-
 /* Mobile */
 @media (max-width: 700px) {
   .why-visual { min-height: 200px; }
@@ -827,77 +785,6 @@
 /* ============================================
    WHY — updated visuals (panels 1, 3, 4, 5)
    ============================================ */
-
-/* ─ Panel 01: PRODUCT.md file view ─ */
-.why-visual--productmd {
-  padding: 0;
-  background: transparent;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--spacing-lg);
-  align-items: start;
-}
-@media (max-width: 780px) {
-  .why-visual--productmd {
-    grid-template-columns: 1fr;
-  }
-}
-.why-productmd-file {
-  display: flex;
-  flex-direction: column;
-  background: var(--ks-paper-raised);
-  border: 1px solid var(--ks-rule);
-  border-radius: var(--ks-radius-sm);
-  overflow: hidden;
-  min-width: 0;
-}
-.why-productmd-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  background: var(--ks-paper-deep);
-}
-.why-productmd-filename {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--color-ink);
-}
-.why-productmd-status {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--ks-text-muted);
-}
-.why-productmd-body {
-  padding: 6px 14px;
-  display: flex;
-  flex-direction: column;
-}
-.why-productmd-field {
-  display: grid;
-  grid-template-columns: 110px 1fr;
-  gap: 16px;
-  align-items: baseline;
-  padding: 9px 0;
-  border-bottom: 1px solid var(--ks-rule);
-}
-.why-productmd-field:last-child { border-bottom: 0; }
-.why-productmd-k {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ks-text-muted);
-}
-.why-productmd-v {
-  font-family: var(--font-body);
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--color-ink);
-}
 
 /* Panel 03: path + meta additions */
 .why-terminal-path {

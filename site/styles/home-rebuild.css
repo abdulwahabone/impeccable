@@ -1440,3 +1440,22 @@
 /* --- How it works: 3 steps, each with a minimal glyph -------------------- */
 
 /* --- Who it's for: three role tiles -------------------------------------- */
+
+/* The install and update panels stack in one grid cell, so switching the
+   method never changes the height of what sits above the next block. */
+.downloads-rebuild-step {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.downloads-rebuild-step > .downloads-rebuild-cmd-label { grid-row: 1; }
+.downloads-rebuild-step > .downloads-rebuild-method-panel { grid-row: 2; grid-column: 1; }
+.downloads-rebuild-update {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+.downloads-rebuild-update > .downloads-rebuild-method-panel { grid-area: 1 / 1; }
+.downloads-rebuild .downloads-rebuild-method-panel[hidden] {
+  display: block;
+  visibility: hidden;
+  pointer-events: none;
+}

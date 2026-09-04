@@ -406,7 +406,7 @@
 	display: block;
 	overflow: hidden;
 	background: var(--ks-paper-raised);
-	border: 1px solid var(--ks-gold-line);
+	border: 1px solid var(--ks-kinpaku);
 	border-radius: var(--ks-radius-md);
 	box-shadow: var(--ks-lift-1);
 	text-decoration: none;

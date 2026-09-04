@@ -22,11 +22,10 @@ const detectionRuleCount = new Set(ANTIPATTERNS.map(rule => rule.id)).size;
       </p>
     </div>
     <div class="slop-pattern-actions">
-      <div class="slop-scan-control ks-instrument-strip is-paper">
-        <button class="ks-instrument-key" type="button" aria-pressed="true" data-slop-scan-button>
-          <span data-slop-scan-label>Detector on</span>
-        </button>
-      </div>
+      <button class="slop-scan-control ks-switch" type="button" aria-pressed="true" data-slop-scan-button>
+        <span class="ks-switch-track" aria-hidden="true"><span class="ks-switch-knob"></span></span>
+        <span class="ks-switch-label" data-slop-scan-label>Detector on</span>
+      </button>
       <a class="ks-button ks-button-secondary" href="/slop">
         Explore all {detectionRuleCount}
         <span class="ks-button-arrow" aria-hidden="true">
