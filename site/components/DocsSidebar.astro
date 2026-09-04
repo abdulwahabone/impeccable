@@ -104,3 +104,37 @@ for (const cat of CATEGORY_ORDER) {
     ))}
   </div>
 </aside>
+
+<script is:inline>
+  // The rail scrolls on its own, and every docs page is a full load, so
+  // without this it starts at the top on each one: scroll down, click a
+  // link, and the link you clicked is gone. The position is kept for the
+  // session and restored here, before first paint, since this script runs
+  // as soon as the rail has parsed. If the current page's link still is not
+  // in view (arrived from elsewhere with a stale position), it is brought
+  // into the rail's view without moving the page.
+  (() => {
+    const rail = document.querySelector('.skills-sidebar');
+    if (!rail) return;
+    const KEY = 'impeccable:docs-rail-scroll';
+    try {
+      const saved = sessionStorage.getItem(KEY);
+      if (saved !== null) rail.scrollTop = Number(saved) || 0;
+    } catch {}
+    const current = rail.querySelector('[aria-current="page"]');
+    if (current && rail.scrollHeight > rail.clientHeight) {
+      const r = current.getBoundingClientRect();
+      const s = rail.getBoundingClientRect();
+      if (r.top < s.top || r.bottom > s.bottom) rail.scrollTop += r.top - s.top - s.height / 2;
+    }
+    let queued = false;
+    rail.addEventListener('scroll', () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        try { sessionStorage.setItem(KEY, String(rail.scrollTop)); } catch {}
+      });
+    }, { passive: true });
+  })();
+</script>
