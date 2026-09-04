@@ -1,5 +1,6 @@
-/* Homepage product-story refresh: proof-first hero, current slop patterns,
-   and the two steering surfaces. Loaded after home-rebuild.css. */
+/* Homepage demos: the annotated before / after proof in the hero and its
+   patch cable, the slop patterns, and the two steering surfaces. Loaded
+   after home-sections.css. */
 
 /* --------------------------------------------------------------------------
    Annotated before / after hero proof
@@ -2141,13 +2142,13 @@
   }
 }
 
-/* One-column hero (see the range notes on .hero-rebuild in home-rebuild.css):
+/* One-column hero (see the range notes on .hero in home-sections.css):
    the card moves to the middle of the stage, the tags keep the gutter on its
    left, and the switcher sits centred beneath. The card keeps its full
    two-column height: the 30vw clamp was sized for a card that narrows with the
    column, and here it is always 300px wide. */
 @media (max-width: 979px) {
-  .hero-rebuild-right .hero-proof {
+  .hero-right .hero-proof {
     margin-inline: auto;
   }
 
@@ -2182,7 +2183,7 @@
    over its own box right of the seam, and a tag inside that box would be cut
    by the wipe. The stage takes a top margin to make the room. */
 @media (max-width: 580px) {
-  .hero-rebuild-container {
+  .hero-container {
     row-gap: 40px;
   }
 
@@ -2422,7 +2423,8 @@
    into the command switcher's right end. The stroke begins as the
    glyph's own ink and weight and fades to cable grey as it leaves the word.
    hero-cable.js measures the v and the strip and draws the path. It only
-   exists while the hero is two columns. */
+   exists while the hero is two columns, and it is an easter egg: laid while
+   the pointer rests on the headline, pulled back when it leaves. */
 .hero-cable {
   position: absolute;
   inset: 0;
@@ -2443,25 +2445,24 @@
   stroke-width: var(--cable-w, 3px);
   stroke-linecap: round;
   stroke-linejoin: round;
-}
-
-
-/* Draw-in on first paint: the cable is laid from the letter to the bar. */
-.hero-cable.is-drawing .hero-cable-lead {
+  /* Hidden as a dash the length of the path, offset by its whole length.
+     Pulled back quickly, from the bar toward the letter. */
   stroke-dasharray: var(--cable-len, 1000);
   stroke-dashoffset: var(--cable-len, 1000);
-  /* Slow out of the letter, quick through the drop, settling into the bar. */
-  animation: hero-cable-draw 1500ms cubic-bezier(0.65, 0, 0.25, 1) 450ms forwards;
+  transition: stroke-dashoffset 640ms cubic-bezier(0.55, 0, 0.6, 0.4);
 }
 
-@keyframes hero-cable-draw {
-  to { stroke-dashoffset: 0; }
+/* Laid from the letter to the bar: slow out of the letter, quick through
+   the drop, settling into the bar. */
+.hero-cable.is-out .hero-cable-lead {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1500ms cubic-bezier(0.65, 0, 0.25, 1) 120ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-cable.is-drawing .hero-cable-lead {
-    animation: none;
-    stroke-dashoffset: 0;
+  .hero-cable-lead,
+  .hero-cable.is-out .hero-cable-lead {
+    transition: none;
   }
 }
 

@@ -149,7 +149,25 @@
   flex: none;
 }
 
-.ks-button-arrow svg { width: 100%; height: 100%; display: block; }
+.ks-button-arrow svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+/* The arrow says where the button goes. On a button whose target is further
+   down the page (an in-page anchor, or .is-down on the arrow) it curves and
+   points downward on hover, and straightens again on leave. The rest shape
+   is set here too, as the same command list, so the two interpolate. */
+.ks-button-arrow path {
+  d: path("M0 4C5 4 9 4 14 4M10 0L14 4L10 8");
+  transition: d 420ms var(--ks-ease);
+}
+
+.ks-button[href^="#"]:hover .ks-button-arrow path,
+.ks-button:hover .ks-button-arrow.is-down path {
+  d: path("M0 4C7 4 11 4 11 11M7 7L11 11L15 7");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ks-button-arrow path { transition: none; }
+}
 
 .ks-button.ks-button-primary {
   color: var(--ks-paper-raised);

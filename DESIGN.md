@@ -51,7 +51,7 @@ colors:
   text-mute-deep: "oklch(66% 0 0)"             # disabled only
 
   # Rules. A divider is faint; the boundary of a control is not.
-  rule: "oklch(13% 0 0 / 0.12)"                # --ks-rule, divides content
+  rule: "oklch(13% 0 0 / 0.08)"                # --ks-rule, divides content
   edge: "oklch(13% 0 0 / 0.45)"                # --ks-edge, bounds a control, clears 3:1 for WCAG 1.4.11
 
 typography:
@@ -60,12 +60,12 @@ typography:
   # A weight not in that list is synthesized by the browser, so do not ask
   # for it.
   wordmark:
-    # The logo lockup; the same face carries display and headline, not a
-    # display face.
+    # The logo lockup. The same face carries display and headline, so it is
+    # the brand's display voice, not a logo-only face.
     fontFamily: "Alumni Sans, Albert Sans, Arial, sans-serif"
-    fontSize: "1.125rem"
-    fontWeight: 400
-    letterSpacing: "0.15em"
+    fontSize: "1.25rem"
+    fontWeight: 500
+    letterSpacing: "0.18em"
     lineHeight: 1
   display:
     # Page h1. --ks-type-display-*.
@@ -103,13 +103,13 @@ typography:
   eyebrow:
     # Small mono labels above titles. --ks-type-eyebrow-*. Color is
     # text-muted, not gold and not patina.
-    fontFamily: "SFMono-Regular, Roboto Mono, JetBrains Mono, Consolas, monospace"
+    fontFamily: "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
     fontSize: "0.6875rem"
     fontWeight: 400
     letterSpacing: "0.14em"
   mono:
     # Code, terminal, audit lines. --ks-type-mono-*.
-    fontFamily: "SFMono-Regular, Roboto Mono, JetBrains Mono, Consolas, monospace"
+    fontFamily: "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
     fontSize: "0.6875rem"
     fontWeight: 400
     letterSpacing: "0.12em"
@@ -171,7 +171,8 @@ spacing:
   md: "22px"     # subsection label to content, form row gap, button padding
   lg: "48px"     # bento tile padding
   xl: "56px"     # section gutter, section head to content, subsection top
-  "2xl": "110px" # section vertical padding
+  "2xl": "110px" # section vertical padding inside .ks-section
+  section: "clamp(72px, 8vw, 120px)" # --ks-section-pad, the vertical padding of every top-level page section
 
 components:
   tag:
@@ -258,6 +259,24 @@ components:
   instrument-key-active:
     backgroundColor: "{colors.instrument-raised}"
     textColor: "{colors.instrument-text}"
+  instrument-strip-paper:
+    # .ks-instrument-strip.is-paper: the page control. Recessed gray track
+    # (--ks-track-recess), no border.
+    backgroundColor: "{colors.gray}"
+    rounded: "{rounded.pill}"
+    padding: "3px"
+  instrument-key-paper-active:
+    # A raised paper cap (--ks-cap-lift) with a lit gold dot (--ks-led).
+    # With instrument-strip.js the cap is one .ks-thumb that slides.
+    backgroundColor: "{colors.paper-raised}"
+    textColor: "{colors.ink}"
+  switch:
+    # .ks-switch: a 44x24 recessed track with an 18px paper knob that slides
+    # 20px; the knob's 6px dot lights gold when on.
+    backgroundColor: "{colors.gray-2}"
+    rounded: "{rounded.pill}"
+    width: "44px"
+    height: "24px"
   tab-active:
     textColor: "{colors.patina-deep}"
     borderColor: "{colors.kinpaku-gold}"
@@ -266,7 +285,8 @@ components:
     rounded: "2px"
     height: "30px"
     padding: "0 14px"
-  tag:
+  pill:
+    # .ks-pill: the issue chip. Not the tag.
     textColor: "{colors.text-muted}"
     rounded: "{rounded.pill}"
     height: "26px"
@@ -362,7 +382,8 @@ This replaces the dark Neo Kinpaku system. No lacquer ground, no gold-leaf textu
 - Gold never carries body text and never fills a surface on paper. The one gold fill is the tag: a 22px label with dark mono text, the detector's own flag, used for numerals and states.
 - Patina carries links, state and selection wherever color has to be read as text.
 - Albert Sans for everything that is read, at 400 to 600. Alumni Sans, the wordmark's face, carries the hero at 200 and section headings at 300; nothing below a section heading uses it.
-- Three radii, three control heights, two lifts. Nothing else casts a shadow.
+- Three radii, three control heights, two lifts. The paper hardware (caps, tracks, the lit dot) has its own five shadow tokens; nothing else casts a shadow.
+- Grain is a material, not an overlay: the paper ground and the moulded control surfaces carry it, and everything that sits on them is clean.
 
 ## Layout
 
@@ -375,7 +396,7 @@ Reach for a kit primitive before inventing a class. Specifically:
 - **Buttons**: `.ks-button` plus a variant (`.ks-button-primary`, `-secondary`, `-ghost`, `-disabled`). Both classes are required; the chained selector is what beats page-level anchor resets. Do not write another `.hero-cta` or `.footer-cta`.
 - **Grouping content**: `.ks-bento` with `.ks-bento-tile` (`--span-4` / `--span-6` / `--span-8` on a 12-column grid). This is the answer to "how do I group 2 to 6 items without nesting cards".
 - **Section scaffolding**: `.ks-section` as the container, `.ks-section-head` for the header with an `<h2>` inside it (the kit styles it to the headline role), `.ks-section-sub` for the subhead. `.ks-section-eyebrow` above the h2 is optional; skip it on editorial pages where an eyebrow on every section reads as scaffolding.
-- **Anything the reader operates**: `.ks-instrument-strip` for a dark tab strip or command switcher, `.ks-segmented` for a paper single-select. Do not build a fifth segmented control; the kit's exists because five bespoke ones did.
+- **Anything the reader operates**: `.ks-instrument-strip.is-paper` for a page control (a tab row, a view switch, a command switcher), the dark `.ks-instrument-strip` for product chrome (the live picker, lab toolbars, terminals), `.ks-switch` for one on/off state, `.ks-segmented` for a dense single-select. Do not build a fifth segmented control or a fourth dark surface; the kit's exist because bespoke ones did.
 - **Status, tags, toasts, modals, tooltips, empty states, pagination, skeletons, changelog rows**: the kit primitive, listed below.
 
 Invent only when the kit truly does not cover the shape, and flag it when you do. A pattern that solves a recurring need belongs in the kit, not in page CSS. Page CSS is for page-specific scenery.
@@ -418,13 +439,15 @@ Invent only when the kit truly does not cover the shape, and flag it when you do
 - `.ks-tabs`, `.ks-tab-list`, `.ks-tab-panel`: underline tabs. Selected tab is patina text on a 2px gold underline.
 - `.ks-segmented` (with `--lg`, `--dense`, `--wrap`): paper track, raised thumb.
 - `.ks-instrument-strip` with `.ks-instrument-key` (`.is-active` or `aria-selected`): the dark strip for product chrome. `.ks-instrument-strip.is-paper` is the page control: a recessed gray track, raised paper caps with a white top edge and a hard shadow under them, a lit gold dot. A single key on a track is a switch.
-- `.ks-tag` (and `.ks-tag.is-quiet`): the brand's label. Section numerals, a card's state, a release's status, the BEFORE label on a comparison.
+- `.ks-thumb`: the one sliding cap inside a strip, created and positioned by `site/scripts/instrument-strip.js` (add `data-ks-thumb` or let the script find the strip). Keys become equal columns and the cap slides between them on a glass-smooth curve; the keys themselves stop painting a cap.
+- `.ks-switch` with `.ks-switch-track`, `.ks-switch-knob`, `.ks-switch-label`: a physical slide switch for one on/off state, driven by `aria-pressed`. The detector toggle on the slop previews.
+- `.ks-tag` (and `.ks-tag.is-quiet`): the brand's label. Section numerals, a card's state, a release's status, the annotation tags on the hero card.
 
-**Status, tags, and feedback**
+**Status, pills, and feedback**
 
 - `.ks-badge` + `.is-detected` / `.is-improved` / `.is-ready`: 30px chip with a 6px dot.
-- `.ks-tag` + `.is-detected` / `.is-improved` / `.is-neutral` / `.is-ready`: 26px pill, no dot.
-- `.ks-badge-row`, `.ks-tag-row`: flex row helpers.
+- `.ks-pill` + `.is-detected` / `.is-improved` / `.is-neutral` / `.is-ready`: 26px pill, no dot. The issue chip; not the tag.
+- `.ks-badge-row`, `.ks-pill-row`: flex row helpers.
 - `.ks-toast` + `.is-success` / `.is-warning`, with `.ks-toast-icon` and `.ks-toast-close`.
 - `.ks-modal` with `.ks-modal-actions` and `.ks-modal-close`.
 - `.ks-empty` with `.ks-empty-icon`: dashed `--ks-rule` border.
@@ -453,6 +476,16 @@ Invent only when the kit truly does not cover the shape, and flag it when you do
 
 - `.live-demo-gbar` and `.live-demo-ctx` under `body.home-kinpaku` or `body.live-mode-kinpaku`: the picker chrome the homepage and `/live-mode` show. Structure comes from `site/styles/live-mode.css`; the kit paints it on `--ks-instrument`.
 
+### Signature moments
+
+Four page-level pieces are built from the kit and its tokens rather than added to it. They are the site's expressive budget, and each is one instrument doing one job:
+
+- **The hero spread** (`site/styles/home-sections.css`, `home-demos.css`): the annotated before / after card sits left of a centre spine and the headline right of it, both hugging the spine, the whole spread shifted left of the geometric centre by up to 90px so its visual mass sits in the middle. The card's top meets the headline's cap line. The seam between the states is a 2px `--ks-kinpaku` rail with a paper fader cap (`--ks-cap-lift`, three grip ridges, a 2px gold ring) that presses while dragging; its range is bounded to the card's edges.
+- **The patch cable** (`site/scripts/hero-cable.js`): an easter egg. While the pointer rests on the headline, the v of "vocabulary" continues as a cable that swoops into the command switcher, laid in over 1.5s and pulled back when the pointer leaves, so the hero at rest stays quiet. Stroke matched to the glyph's stem, ink at the letter fading to `--ks-gray-2`. Hidden below 980px. A tidier route from the y's foot exists behind `?cable=y`.
+- **The arrow points where it goes**: the primary button's gold arrow curves to point downward on hover when the button's target is further down the page (`href^="#"`, or `.is-down` on the arrow), and straightens on leave.
+- **The console** (`site/components/CommandConsole.astro`, `console.css`): the Language section is one instrument panel of faders and keys acting on one subject in a display window, one channel per command. Two-row deck between 981 and 1300px, stacked below.
+- **Words that perform** (`site/scripts/word-performances.js`): 23 self-demonstrating text effects, one per command, on the docs' command titles and the console's fader labels. Every after-state must pass the detector's own catalog.
+
 ### Tokens vs Classes
 
 Outside a kit primitive, read the token, never the value:
@@ -461,7 +494,8 @@ Outside a kit primitive, read the token, never the value:
 - Text: `var(--ks-ink)`, `var(--ks-text)`, `var(--ks-text-muted)`, `var(--ks-text-faint)`. Colored text is `var(--ks-accent-ink)`, `var(--ks-state-ink)` or `var(--ks-link-on-paper)`; all three resolve to patina-deep.
 - Rules: `var(--ks-rule)` to divide, `var(--ks-edge)` to bound a control, `var(--ks-gold-line)` for the one gold hairline.
 - Type: `var(--ks-type-display-*)`, `var(--ks-type-headline-*)`, `var(--ks-type-title-*)`, the dense ramp `--ks-type-micro-size` through `--ks-type-ui-lead`.
-- Shape and depth: `var(--ks-radius-sm|md|pill)`, `var(--ks-control-sm|md|lg)`, `var(--ks-lift-1|2)`.
+- Shape and depth: `var(--ks-radius-sm|md|pill)`, `var(--ks-control-sm|md|lg)`, `var(--ks-lift-1|2)`; for paper hardware `var(--ks-cap-lift)`, `var(--ks-cap-press)`, `var(--ks-track-recess)`, `var(--ks-led)`; on a dark strip `var(--ks-key-lift)`, `var(--ks-indicator-glow)`.
+- Rhythm: `var(--ks-section-pad)` for the vertical padding of every top-level section.
 - Motion: `var(--ks-quick)`, `var(--ks-settle)`, `var(--ks-ease)`.
 
 A hand-typed `oklch()` in page CSS is acceptable in two cases: a one-off alpha of an existing token color, or a demo of someone else's design. Everything else is either a token that needs adding or a sign the moment is bespoke enough to live page-locally, and either way the decision has to be deliberate.
@@ -512,13 +546,13 @@ All five are chroma 0. The old paper had a warm cast at hue 95; gold on that rea
 
 ### Rules
 
-- **Rule** (`oklch(13% 0 0 / 0.12)`): divides content.
+- **Rule** (`oklch(13% 0 0 / 0.08)`): divides content.
 - **Edge** (`oklch(13% 0 0 / 0.45)`): bounds something you can operate. WCAG 1.4.11 asks 3:1 of anything that tells you where a control is, and `--ks-rule` does not clear it.
 - **Gold Line** (`oklch(77% 0.13 82)`): the one gold hairline. Use one, not a set.
 
 ### Color Rules
 
-**The Gold Is Jewelry Rule.** Gold is a mark, a line, an indicator on an instrument, or the tag. It never carries body text and never fills a surface on paper; the tag is a 22px label and stays one. The primary button is ink with a gold arrow; a gold button is the hotel-lobby read. The one exception is a demo that deliberately shows someone else's design.
+**The Gold Is Jewelry Rule.** Gold is a mark, a line, an indicator on an instrument (the lit dot on a key, the switch's knob, the ring on the hero's fader cap), or the tag. It never carries body text and never fills a surface on paper; the tag is a 22px label and stays one. The primary button is ink with a gold arrow; a gold button is the hotel-lobby read. The one exception is a demo that deliberately shows someone else's design.
 
 **The Patina Carries Text Rule.** When color has to be read as text, it is `--ks-patina-deep`, reached through `--ks-accent-ink`, `--ks-state-ink` or `--ks-link-on-paper`. Active nav is ink, not patina, and eyebrows are muted ink.
 
@@ -539,20 +573,21 @@ Albert Sans for everything that is read, at normal weights. Alumni Sans, the con
 ### Hierarchy
 
 - **Wordmark** (Alumni Sans, 500, `1.25rem`, 0.18em tracking, uppercase): the header lockup and the footer logo.
-- **Display, h1** (Albert Sans, 500, `clamp(2.6rem, 4.4vw, 3.9rem)`, line 1.08, tracking -0.025em).
-- **Headline, h2** (Albert Sans, 500, `clamp(1.85rem, 2.7vw, 2.5rem)`, line 1.15, tracking -0.02em).
+- **Display, h1** (Alumni Sans, 200, `clamp(3.2rem, 6.2vw, 5.6rem)`, line 1.0).
+- **Headline, h2** (Alumni Sans, 300, `clamp(2.4rem, 3.6vw, 3.4rem)`, line 1.04).
 - **Title, h3** (Albert Sans, 600, `1.0625rem`, line 1.35).
 - **Body** (Albert Sans, 400, `1rem`, line 1.65). Long copy holds a 65ch measure.
 - **Control** (Albert Sans, 500, `0.9375rem`, line 1): button labels.
 - **Eyebrow** (mono, `0.6875rem`, 0.14em, uppercase, muted ink).
 - **Mono** (mono, `0.6875rem`, 0.12em): code, terminal, audit lines.
 - **Dense ramp**: micro `0.6875rem` (11px), label `0.75rem` (12px), ui `0.8125rem` (13px), ui-lead `0.9375rem` (15px). Instrument keys and segmented labels set the label size in the mono family.
+- **Reading ramp**: small `0.875rem` (14px), lead `1.125rem` (18px), subhead `1.25rem` (20px), title-lg `1.5rem` (24px).
 
 ### Typography Rules
 
 **The Two Voices Rule.** Alumni Sans speaks in headings and the wordmark; Albert Sans speaks everywhere text is read. Never a third face, never Alumni below a section heading, never weight 100: the hairline went gray on paper.
 
-**The No Hairline Rule.** Display and headline sit at 500, titles at 600. Never 100 or 300 on a heading; those were the condensed face's weights and Albert Sans at 300 is not even loaded.
+**The Weights Rule.** Alumni Sans is 200 on the display and 300 on the headline, and those are the only two weights it takes; 100 went gray on paper. Albert Sans runs 400 to 600: body at 400, control text and subheads at 500, titles at 600. Albert Sans at 300 is not loaded, so do not ask for it.
 
 **The Micro Floor Rule.** Nothing functional goes below 11px. Being on the ramp does not exempt a value; 10px fails on high-DPI and on small viewports whatever the token is called.
 
@@ -564,9 +599,23 @@ The system is flat. Depth comes from the surface ladder, hairlines, and two shad
 
 ### Shadow Vocabulary
 
-- **Lift 1** (`0 1px 2px oklch(13% 0 0 / 0.06), 0 2px 8px oklch(13% 0 0 / 0.06)`): a raised card, the segmented thumb, the instrument strip on the paper.
-- **Lift 2** (`0 2px 6px oklch(13% 0 0 / 0.08), 0 12px 32px oklch(13% 0 0 / 0.12)`): a popover, a modal, a picker bar.
+- **Lift 1** (`0 1px 1px oklch(13% 0 0 / 0.05), 0 2px 3px oklch(13% 0 0 / 0.04), 0 6px 12px oklch(13% 0 0 / 0.05)`): a raised card, the segmented thumb, the dark strip on the paper. Three layers standing in for a contact edge, a short throw and a long one.
+- **Lift 2** (`0 1px 1px oklch(13% 0 0 / 0.04), 0 3px 5px oklch(13% 0 0 / 0.05), 0 12px 20px oklch(13% 0 0 / 0.06), 0 32px 48px oklch(13% 0 0 / 0.07)`): a popover, a modal, a picker bar.
 - **No default card shadow.** Cards and tiles rest on `--ks-rule` and a surface step.
+
+### Hardware Depth
+
+The paper controls are moulded, not drawn. Five tokens carry the whole language, and a control uses them rather than composing its own shadow:
+
+- **Cap lift** (`--ks-cap-lift`): a raised paper key. A white highlight along its top edge, a hard 1px shadow under it, a soft one behind. The active key on a paper strip, the switch's knob, the hero's fader cap.
+- **Cap press** (`--ks-cap-press`): the same cap pushed in, an inset shadow, on `:active`.
+- **Track recess** (`--ks-track-recess`): the channel a cap sits in. The paper strip's track, the switch's track.
+- **LED** (`--ks-led`): the lit gold dot on a paper cap, a 1px ink ring and a 4px gold glow.
+- **Key lift** (`--ks-key-lift`) and **indicator glow** (`--ks-indicator-glow`): the same two moves on a dark strip.
+
+### Grain
+
+One 160px tile of monochrome noise from an SVG filter (`--ks-grain`). The page ground carries it at 5.5% multiplied (`body::before`, fixed), and so do the moulded surfaces: a dark strip at 16% screened, a paper strip at 5%, anything with `.ks-grain`. Everything that sits on those (a card, a demo, an image, type) is clean. Grain is what makes a strip read as a part instead of a black rectangle; it is never an overlay on content.
 
 ### Instrument Depth
 
@@ -590,7 +639,7 @@ Application surfaces (the labs, the review workbench) need scales the marketing 
 
 **The One Veil Rule.** The sticky header is paper at 92% over a 12px blur. That is the only translucency on the site; there are no glass panels.
 
-**The No Texture Rule.** No leaf, dust, grain, seam or oxidation images anywhere in the chrome. Depth is geometry.
+**The Grain Is Material Rule.** No leaf, dust, seam or oxidation images anywhere in the chrome; the retired textures do not come back. The one texture is the grain, and it belongs to a material: the paper ground and the moulded control surfaces. It never sits over content, and it never carries meaning.
 
 ## Shapes
 
@@ -620,12 +669,15 @@ Three radii and nothing else. Small (3px) for buttons, inputs, chips and the seg
 
 - **Tabs** (`.ks-tabs`): flat buttons on a `--ks-rule` baseline, `--ks-text-muted` at rest, ink on hover. The selected tab is `--ks-accent-ink` text over a 2px `--ks-kinpaku` underline: patina carries the text, gold carries the line.
 - **Segmented** (`.ks-segmented`): a paper instrument. `--ks-paper-deep` track inset 3px inside an `--ks-edge` border at `--ks-radius-sm`; mono label type in `--ks-text-faint`; the thumb is `--ks-paper-raised` with an inset `--ks-rule` and `--ks-lift-1`, ink text. Hover lifts to paper-raised, press drops to `--ks-gray`. `--lg` moves to the reading face at ui size on an 8px radius, `--dense` lands the whole control on `--ks-control-sm`, `--wrap` lets a long group wrap.
+- **Paper strip** (`.ks-instrument-strip.is-paper`): the page control. A recessed `--ks-gray` track (`--ks-track-recess`, no border, 5% grain), keys in `--ks-text-muted` with a sunk gray dot, and the active key a raised `--ks-paper-raised` cap (`--ks-cap-lift`) in ink with a lit gold dot (`--ks-led`). With `instrument-strip.js` the cap is one `.ks-thumb` that slides between equal-width keys; drag it or click a key. The hero's command switcher, the Palette / Periodic toggle, the era switch on /slop, the phase strip on /designing. Anything tab-shaped.
+- **Switch** (`.ks-switch`): one on/off state. A 44x24 `--ks-gray-2` track with the recess, an 18px paper knob on the cap lift that slides 20px, a 6px dot on the knob that goes gold with the LED glow when on. Label in ui size, muted at rest and ink when on. Focus rings the track in gold.
+- **Tag** (`.ks-tag`): the brand's label and the one gold fill on paper. 22px, `--ks-on-gold` mono caps at 600 on `--ks-kinpaku`, `--ks-radius-sm`. `.is-quiet` is the same tag in muted ink on `--ks-gray` for a secondary label beside a gold one. It never grows past a label.
 - **Instrument strip** (`.ks-instrument-strip`): the site's one dark control. Pill track on `--ks-instrument` with a `--ks-instrument-deep` border, inset top highlight and `--ks-lift-1`; keys are 32px pills in mono label type, `--ks-instrument-muted` at rest with a 6px `--ks-instrument-raised` dot. The active key is `--ks-instrument-raised` with `--ks-instrument-text` and a `--ks-kinpaku` dot. Patina takes the dot when the state is selection rather than position. For tab strips, view switches and command pickers; never for decoration and never for a link list.
 
 ### Status and feedback
 
 - **Badge** (`.ks-badge`): 30px, 1px border in `currentColor`, 6px dot. Detected is vermilion, improved is `--ks-state-ink`, ready is `--ks-accent-ink`.
-- **Tag** (`.ks-tag`): 26px pill, same colors plus `.is-neutral` in muted ink.
+- **Pill** (`.ks-pill`): 26px pill, same colors plus `.is-neutral` in muted ink. The issue chip.
 - **Toast** (`.ks-toast`): bordered in `currentColor`, ink title, muted body, 420px max. `.is-success` is patina, `.is-warning` vermilion.
 - **Modal** (`.ks-modal`): `--ks-paper-raised` on a `--ks-rule` border, 28px padding, 440px max, actions right-aligned.
 - **Tooltip** (`.ks-tooltip`): 200px on `--ks-paper-deep`, shown on `:focus-visible` of the `.ks-icon-button` beside it.
@@ -655,7 +707,7 @@ The real picker injects into user dev servers from `skill/scripts/live-browser.j
 - Do put gold on the mark, a one-pixel rule, or an indicator on an instrument.
 - Do use `--ks-accent-ink`, `--ks-state-ink` or `--ks-link-on-paper` whenever color has to be read as text.
 - Do reserve `--ks-instrument*` for something the reader operates.
-- Do set headings in Albert Sans at 500 and 600 through the type tokens.
+- Do set the display and headline in Alumni Sans at 200 and 300 through the type tokens, and everything read in Albert Sans.
 - Do land every radius, control height and shadow on the ladder.
 - Do reach for the kit primitive first, and flag it when a new pattern earns a place in the kit.
 - Do keep the proof readable: comparisons, sliders, audit tables, command examples and docs are the product.
@@ -667,7 +719,9 @@ The real picker injects into user dev servers from `skill/scripts/live-browser.j
 - Do not fill a button, chip, slab or panel with gold on paper.
 - Do not give a decorative section, card or footer a dark background.
 - Do not tint paper or ink; every surface and text token is chroma 0.
-- Do not use Alumni Sans outside the wordmark, or weight 100 or 300 anywhere.
+- Do not use Alumni Sans below a section heading, or at weight 100 anywhere.
+- Do not put grain over content, and do not add any other texture.
+- Do not compose a shadow for a control; use the hardware tokens.
 - Do not add a fourth radius, a fourth control height or a third shadow.
 - Do not hand-type an `oklch()` value in page CSS except as a one-off alpha of a token or inside a specimen of someone else's design.
 - Do not use pure black or pure white.
@@ -683,8 +737,8 @@ Gone with the Neo Kinpaku system, and not to come back:
 - Gold as text: `--ks-champagne`, `--ks-kinpaku-ink` as a gold value, gold display accent words on paper, gold eyebrows and tile numbers. `--ks-kinpaku-ink` survives only as an alias of patina-deep.
 - Gold fills on paper: gold CTAs, gold chips, gold category cells in the periodic table, the gold-bordered picker bar with its halo.
 - Textures and art: gold-leaf overlays (`kinpaku-gold-leaf.png`), kintsugi hero art (`m-01-v2-01*`), `gold-dust-rule.png`, `hero-seam-field*.png`, lacquer grain, verdigris patina textures, the textured footer divider.
-- Alumni Sans as the display face, and the thin headings that came with it (h1 at 100, h2 at 300, the weight inversion rule).
+- The hairline heading (h1 at 100) and the weight inversion rule. Alumni Sans itself came back as the display face, one step heavier.
 - The enumerated 8px to 88px type ramp. The tokens define the roles and the dense ramp; nothing else.
-- The four-shadow vocabulary (panel setback, CTA lift, control lifts, patina glow). Two lifts remain.
+- The four-shadow vocabulary (panel setback, CTA lift, control lifts, patina glow). Two lifts remain, plus the hardware tokens for controls.
 - Calibration marks, circuit geometry and gold seams as structure.
 - The 2px and `none` entries in the radius scale. Three radii remain.

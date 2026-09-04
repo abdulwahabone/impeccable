@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-03T19:33:21.000Z",
+  "generatedAt": "2026-09-04T07:23:49.821Z",
   "title": "Design System: Impeccable",
   "extensions": {
     "colorMeta": {
@@ -10,7 +10,16 @@
         "cssVar": "--ks-kinpaku",
         "canonical": "oklch(84% 0.19 80.46)",
         "description": "The mark, the arrow in the primary button, the dot on an active instrument key, the gold underline on a selected tab, the Go and Accept fills in the picker. Under 2:1 against paper, so it never carries text there.",
-        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+        "tonalRamp": [
+          "oklch(22% 0.06 80)",
+          "oklch(35% 0.09 80)",
+          "oklch(48% 0.11 79)",
+          "oklch(61% 0.085 78)",
+          "oklch(77% 0.13 82)",
+          "oklch(84% 0.19 80.46)",
+          "oklch(87% 0.20 85)",
+          "oklch(94% 0.06 84)"
+        ]
       },
       "kinpaku-vivid": {
         "role": "primary",
@@ -18,7 +27,16 @@
         "cssVar": "--ks-kinpaku-vivid",
         "canonical": "oklch(87% 0.20 85)",
         "description": "Lit hover on a gold fill.",
-        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+        "tonalRamp": [
+          "oklch(22% 0.06 80)",
+          "oklch(35% 0.09 80)",
+          "oklch(48% 0.11 79)",
+          "oklch(61% 0.085 78)",
+          "oklch(77% 0.13 82)",
+          "oklch(84% 0.19 80.46)",
+          "oklch(87% 0.20 85)",
+          "oklch(94% 0.06 84)"
+        ]
       },
       "kinpaku-pale": {
         "role": "primary",
@@ -26,7 +44,16 @@
         "cssVar": "--ks-kinpaku-pale",
         "canonical": "oklch(86% 0.07 84)",
         "description": "Pale gold tint; rarely needed on paper.",
-        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+        "tonalRamp": [
+          "oklch(22% 0.06 80)",
+          "oklch(35% 0.09 80)",
+          "oklch(48% 0.11 79)",
+          "oklch(61% 0.085 78)",
+          "oklch(77% 0.13 82)",
+          "oklch(84% 0.19 80.46)",
+          "oklch(87% 0.20 85)",
+          "oklch(94% 0.06 84)"
+        ]
       },
       "kinpaku-rich": {
         "role": "primary",
@@ -34,7 +61,16 @@
         "cssVar": "--ks-kinpaku-rich",
         "canonical": "oklch(77% 0.13 82)",
         "description": "Hairline gold on paper, the active rule. --ks-gold-line aliases it.",
-        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+        "tonalRamp": [
+          "oklch(22% 0.06 80)",
+          "oklch(35% 0.09 80)",
+          "oklch(48% 0.11 79)",
+          "oklch(61% 0.085 78)",
+          "oklch(77% 0.13 82)",
+          "oklch(84% 0.19 80.46)",
+          "oklch(87% 0.20 85)",
+          "oklch(94% 0.06 84)"
+        ]
       },
       "kinpaku-deep": {
         "role": "primary",
@@ -42,7 +78,16 @@
         "cssVar": "--ks-kinpaku-deep",
         "canonical": "oklch(61% 0.085 78)",
         "description": "A gold border against paper.",
-        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+        "tonalRamp": [
+          "oklch(22% 0.06 80)",
+          "oklch(35% 0.09 80)",
+          "oklch(48% 0.11 79)",
+          "oklch(61% 0.085 78)",
+          "oklch(77% 0.13 82)",
+          "oklch(84% 0.19 80.46)",
+          "oklch(87% 0.20 85)",
+          "oklch(94% 0.06 84)"
+        ]
       },
       "on-gold": {
         "role": "primary",
@@ -50,7 +95,16 @@
         "cssVar": "--ks-on-gold",
         "canonical": "oklch(14% 0.018 95)",
         "description": "The foreground on a gold fill (picker Go and Accept) and on the patina skip link.",
-        "tonalRamp": ["oklch(14% 0.018 95)", "oklch(26% 0.02 95)", "oklch(38% 0.02 95)", "oklch(50% 0.02 95)", "oklch(62% 0.02 95)", "oklch(74% 0.02 95)", "oklch(86% 0.02 95)", "oklch(96% 0.01 95)"]
+        "tonalRamp": [
+          "oklch(14% 0.018 95)",
+          "oklch(26% 0.02 95)",
+          "oklch(38% 0.02 95)",
+          "oklch(50% 0.02 95)",
+          "oklch(62% 0.02 95)",
+          "oklch(74% 0.02 95)",
+          "oklch(86% 0.02 95)",
+          "oklch(96% 0.01 95)"
+        ]
       },
       "gold-line": {
         "role": "primary",
@@ -58,7 +112,16 @@
         "cssVar": "--ks-gold-line",
         "canonical": "oklch(77% 0.13 82)",
         "description": "The one-pixel gold rule. Aliases kinpaku-rich. Use one, not a set.",
-        "tonalRamp": ["oklch(22% 0.06 80)", "oklch(35% 0.09 80)", "oklch(48% 0.11 79)", "oklch(61% 0.085 78)", "oklch(77% 0.13 82)", "oklch(84% 0.19 80.46)", "oklch(87% 0.20 85)", "oklch(94% 0.06 84)"]
+        "tonalRamp": [
+          "oklch(22% 0.06 80)",
+          "oklch(35% 0.09 80)",
+          "oklch(48% 0.11 79)",
+          "oklch(61% 0.085 78)",
+          "oklch(77% 0.13 82)",
+          "oklch(84% 0.19 80.46)",
+          "oklch(87% 0.20 85)",
+          "oklch(94% 0.06 84)"
+        ]
       },
       "patina": {
         "role": "secondary",
@@ -66,7 +129,16 @@
         "cssVar": "--ks-patina",
         "canonical": "oklch(70% 0.12 188)",
         "description": "Indicator on instruments, the focus ring, the toggle when on, the skip link fill.",
-        "tonalRamp": ["oklch(18% 0.04 188)", "oklch(28% 0.06 188)", "oklch(38% 0.08 188)", "oklch(46% 0.08 188)", "oklch(58% 0.10 188)", "oklch(70% 0.12 188)", "oklch(82% 0.07 188)", "oklch(94% 0.03 188)"]
+        "tonalRamp": [
+          "oklch(18% 0.04 188)",
+          "oklch(28% 0.06 188)",
+          "oklch(38% 0.08 188)",
+          "oklch(46% 0.08 188)",
+          "oklch(58% 0.10 188)",
+          "oklch(70% 0.12 188)",
+          "oklch(82% 0.07 188)",
+          "oklch(94% 0.03 188)"
+        ]
       },
       "patina-pale": {
         "role": "secondary",
@@ -74,7 +146,16 @@
         "cssVar": "--ks-patina-pale",
         "canonical": "oklch(82% 0.07 188)",
         "description": "A soft fill behind a selected row.",
-        "tonalRamp": ["oklch(18% 0.04 188)", "oklch(28% 0.06 188)", "oklch(38% 0.08 188)", "oklch(46% 0.08 188)", "oklch(58% 0.10 188)", "oklch(70% 0.12 188)", "oklch(82% 0.07 188)", "oklch(94% 0.03 188)"]
+        "tonalRamp": [
+          "oklch(18% 0.04 188)",
+          "oklch(28% 0.06 188)",
+          "oklch(38% 0.08 188)",
+          "oklch(46% 0.08 188)",
+          "oklch(58% 0.10 188)",
+          "oklch(70% 0.12 188)",
+          "oklch(82% 0.07 188)",
+          "oklch(94% 0.03 188)"
+        ]
       },
       "patina-deep": {
         "role": "secondary",
@@ -82,7 +163,16 @@
         "cssVar": "--ks-patina-deep",
         "canonical": "oklch(46% 0.08 188)",
         "description": "Patina as text: links, the selected tab, .is-improved and .is-ready badges, the ghost button on hover. Clears 4.5:1 on paper. Reached through --ks-accent-ink, --ks-state-ink and --ks-link-on-paper.",
-        "tonalRamp": ["oklch(18% 0.04 188)", "oklch(28% 0.06 188)", "oklch(38% 0.08 188)", "oklch(46% 0.08 188)", "oklch(58% 0.10 188)", "oklch(70% 0.12 188)", "oklch(82% 0.07 188)", "oklch(94% 0.03 188)"]
+        "tonalRamp": [
+          "oklch(18% 0.04 188)",
+          "oklch(28% 0.06 188)",
+          "oklch(38% 0.08 188)",
+          "oklch(46% 0.08 188)",
+          "oklch(58% 0.10 188)",
+          "oklch(70% 0.12 188)",
+          "oklch(82% 0.07 188)",
+          "oklch(94% 0.03 188)"
+        ]
       },
       "patina-ink": {
         "role": "secondary",
@@ -90,7 +180,16 @@
         "cssVar": "--ks-patina-ink",
         "canonical": "oklch(38% 0.08 188)",
         "description": "Hover on patina text. --ks-link-on-paper-hover aliases it.",
-        "tonalRamp": ["oklch(18% 0.04 188)", "oklch(28% 0.06 188)", "oklch(38% 0.08 188)", "oklch(46% 0.08 188)", "oklch(58% 0.10 188)", "oklch(70% 0.12 188)", "oklch(82% 0.07 188)", "oklch(94% 0.03 188)"]
+        "tonalRamp": [
+          "oklch(18% 0.04 188)",
+          "oklch(28% 0.06 188)",
+          "oklch(38% 0.08 188)",
+          "oklch(46% 0.08 188)",
+          "oklch(58% 0.10 188)",
+          "oklch(70% 0.12 188)",
+          "oklch(82% 0.07 188)",
+          "oklch(94% 0.03 188)"
+        ]
       },
       "link-line": {
         "role": "secondary",
@@ -98,7 +197,16 @@
         "cssVar": "--ks-link-on-paper-line",
         "canonical": "oklch(46% 0.08 188 / 0.4)",
         "description": "The underline under a link on paper: patina-deep at 40%. The ramp shows the base color.",
-        "tonalRamp": ["oklch(18% 0.04 188)", "oklch(28% 0.06 188)", "oklch(38% 0.08 188)", "oklch(46% 0.08 188)", "oklch(58% 0.10 188)", "oklch(70% 0.12 188)", "oklch(82% 0.07 188)", "oklch(94% 0.03 188)"]
+        "tonalRamp": [
+          "oklch(18% 0.04 188)",
+          "oklch(28% 0.06 188)",
+          "oklch(38% 0.08 188)",
+          "oklch(46% 0.08 188)",
+          "oklch(58% 0.10 188)",
+          "oklch(70% 0.12 188)",
+          "oklch(82% 0.07 188)",
+          "oklch(94% 0.03 188)"
+        ]
       },
       "vermilion": {
         "role": "state",
@@ -106,7 +214,16 @@
         "cssVar": "--ks-vermilion",
         "canonical": "oklch(52% 0.16 35)",
         "description": ".is-detected, the warning toast, the picker's exit and discard hovers. Failures and warnings only.",
-        "tonalRamp": ["oklch(18% 0.05 35)", "oklch(30% 0.09 35)", "oklch(42% 0.13 35)", "oklch(52% 0.16 35)", "oklch(63% 0.14 35)", "oklch(74% 0.11 35)", "oklch(85% 0.07 35)", "oklch(95% 0.025 35)"]
+        "tonalRamp": [
+          "oklch(18% 0.05 35)",
+          "oklch(30% 0.09 35)",
+          "oklch(42% 0.13 35)",
+          "oklch(52% 0.16 35)",
+          "oklch(63% 0.14 35)",
+          "oklch(74% 0.11 35)",
+          "oklch(85% 0.07 35)",
+          "oklch(95% 0.025 35)"
+        ]
       },
       "paper": {
         "role": "neutral",
@@ -114,7 +231,16 @@
         "cssVar": "--ks-paper",
         "canonical": "oklch(97.8% 0 0)",
         "description": "The page ground. A hair below white so a raised card can read as raised. Chroma 0.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "paper-raised": {
         "role": "neutral",
@@ -122,7 +248,16 @@
         "cssVar": "--ks-paper-raised",
         "canonical": "oklch(99.5% 0 0)",
         "description": "Cards, panels, inputs, the secondary button, the segmented thumb, the GitHub pill.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "paper-deep": {
         "role": "neutral",
@@ -130,7 +265,16 @@
         "cssVar": "--ks-paper-deep",
         "canonical": "oklch(95% 0 0)",
         "description": "Sunk wells, code blocks, the segmented track, the footer, tooltips.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "gray": {
         "role": "neutral",
@@ -138,7 +282,16 @@
         "cssVar": "--ks-gray",
         "canonical": "oklch(92% 0 0)",
         "description": "Chips, inactive fills, inline code, the toggle at rest, the secondary button on press.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "gray-2": {
         "role": "neutral",
@@ -146,7 +299,16 @@
         "cssVar": "--ks-gray-2",
         "canonical": "oklch(88% 0 0)",
         "description": "One step down from gray.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "paper-veil": {
         "role": "neutral",
@@ -154,7 +316,16 @@
         "cssVar": null,
         "canonical": "oklch(97.8% 0 0 / 0.92)",
         "description": "Kit literal, not a token: the sticky header, paper at 92% over a 12px blur. The only translucency on the site.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "instrument": {
         "role": "neutral",
@@ -162,7 +333,16 @@
         "cssVar": "--ks-instrument",
         "canonical": "oklch(24% 0 0)",
         "description": "The face of a strip, a terminal, a picker bar. The only place the site goes dark.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(17% 0 0)",
+          "oklch(24% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(68% 0 0)",
+          "oklch(93% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "instrument-deep": {
         "role": "neutral",
@@ -170,7 +350,16 @@
         "cssVar": "--ks-instrument-deep",
         "canonical": "oklch(17% 0 0)",
         "description": "A track, a well, the strip's border.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(17% 0 0)",
+          "oklch(24% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(68% 0 0)",
+          "oklch(93% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "instrument-raised": {
         "role": "neutral",
@@ -178,7 +367,16 @@
         "cssVar": "--ks-instrument-raised",
         "canonical": "oklch(31% 0 0)",
         "description": "A key cap, a thumb, the active picker toggle.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(17% 0 0)",
+          "oklch(24% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(68% 0 0)",
+          "oklch(93% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "instrument-text": {
         "role": "neutral",
@@ -186,7 +384,16 @@
         "cssVar": "--ks-instrument-text",
         "canonical": "oklch(93% 0 0)",
         "description": "Text on instruments.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(17% 0 0)",
+          "oklch(24% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(68% 0 0)",
+          "oklch(93% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "instrument-muted": {
         "role": "neutral",
@@ -194,7 +401,16 @@
         "cssVar": "--ks-instrument-muted",
         "canonical": "oklch(68% 0 0)",
         "description": "Muted text on instruments; an instrument key at rest.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(17% 0 0)",
+          "oklch(24% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(68% 0 0)",
+          "oklch(93% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "instrument-rule": {
         "role": "neutral",
@@ -202,7 +418,16 @@
         "cssVar": "--ks-instrument-rule",
         "canonical": "oklch(100% 0 0 / 0.12)",
         "description": "Divider and the inset highlight along the top of an instrument face. White at 12%; the ramp shows the neutral base.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(17% 0 0)",
+          "oklch(24% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(68% 0 0)",
+          "oklch(93% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "instrument-edge": {
         "role": "neutral",
@@ -210,7 +435,16 @@
         "cssVar": "--ks-instrument-edge",
         "canonical": "oklch(100% 0 0 / 0.3)",
         "description": "The inset top edge on an active key. White at 30%; the ramp shows the neutral base.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(17% 0 0)", "oklch(24% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(68% 0 0)", "oklch(93% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(17% 0 0)",
+          "oklch(24% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(68% 0 0)",
+          "oklch(93% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "ink": {
         "role": "neutral",
@@ -218,7 +452,16 @@
         "cssVar": "--ks-ink",
         "canonical": "oklch(13% 0 0)",
         "description": "Headlines, <strong>, active nav, and the fill of the primary button. --ks-nav-active aliases it.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "text": {
         "role": "neutral",
@@ -226,7 +469,16 @@
         "cssVar": "--ks-text",
         "canonical": "oklch(22% 0 0)",
         "description": "Body copy; also the primary button's hover fill in the kit.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "text-muted": {
         "role": "neutral",
@@ -234,7 +486,16 @@
         "cssVar": "--ks-text-muted",
         "canonical": "oklch(46% 0 0)",
         "description": "Captions, meta, eyebrows, section subheads, nav links at rest, footer links.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "text-faint": {
         "role": "neutral",
@@ -242,7 +503,16 @@
         "cssVar": "--ks-text-faint",
         "canonical": "oklch(56% 0 0)",
         "description": "Subdued meta, segmented labels at rest, counts.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "text-mute-deep": {
         "role": "neutral",
@@ -250,15 +520,33 @@
         "cssVar": "--ks-text-mute-deep",
         "canonical": "oklch(66% 0 0)",
         "description": "Disabled only. Measures under 4.5:1 on paper by design; a live figure using it is a bug.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "rule": {
         "role": "neutral",
         "displayName": "Rule",
         "cssVar": "--ks-rule",
-        "canonical": "oklch(13% 0 0 / 0.12)",
-        "description": "Divides content. Ink at 12%; does not clear 3:1, so it never bounds a control. The ramp shows the base.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "canonical": "oklch(13% 0 0 / 0.08)",
+        "description": "Divides content. Ink at 8%; does not clear 3:1, so it never bounds a control. The ramp shows the base.",
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       },
       "edge": {
         "role": "neutral",
@@ -266,33 +554,63 @@
         "cssVar": "--ks-edge",
         "canonical": "oklch(13% 0 0 / 0.45)",
         "description": "Bounds something you can operate. Ink at 45%, clears 3:1 for WCAG 1.4.11. The ramp shows the base.",
-        "tonalRamp": ["oklch(13% 0 0)", "oklch(22% 0 0)", "oklch(31% 0 0)", "oklch(46% 0 0)", "oklch(66% 0 0)", "oklch(88% 0 0)", "oklch(95% 0 0)", "oklch(99.5% 0 0)"]
+        "tonalRamp": [
+          "oklch(13% 0 0)",
+          "oklch(22% 0 0)",
+          "oklch(31% 0 0)",
+          "oklch(46% 0 0)",
+          "oklch(66% 0 0)",
+          "oklch(88% 0 0)",
+          "oklch(95% 0 0)",
+          "oklch(99.5% 0 0)"
+        ]
       }
     },
     "typographyMeta": {
       "wordmark": {
         "displayName": "Wordmark",
-        "cssVars": ["--ks-font-wordmark", "--ks-type-wordmark-size", "--ks-type-wordmark-track"],
-        "purpose": "IMPECCABLE in the header lockup and the footer logo. The only place Alumni Sans appears; part of the logo, not a display face."
+        "cssVars": [
+          "--ks-font-wordmark",
+          "--ks-type-wordmark-size",
+          "--ks-type-wordmark-track"
+        ],
+        "purpose": "IMPECCABLE in the header lockup and the footer logo, at 500. The same face carries the display and the headline, so it is the brand's display voice."
       },
       "display": {
         "displayName": "Display",
-        "cssVars": ["--ks-type-display-size", "--ks-type-display-weight", "--ks-type-display-line", "--ks-type-display-track"],
-        "purpose": "Page h1. Albert Sans at 500; never 100 or 300."
+        "cssVars": [
+          "--ks-type-display-size",
+          "--ks-type-display-weight",
+          "--ks-type-display-line",
+          "--ks-type-display-track"
+        ],
+        "purpose": "Page h1. Alumni Sans at 200 (the hairline of the first site, one step heavier so it holds on paper); never 100."
       },
       "headline": {
         "displayName": "Headline",
-        "cssVars": ["--ks-type-headline-size", "--ks-type-headline-weight", "--ks-type-headline-line", "--ks-type-headline-track"],
-        "purpose": "Section h2. The kit styles any h2 inside .ks-section-head to this role."
+        "cssVars": [
+          "--ks-type-headline-size",
+          "--ks-type-headline-weight",
+          "--ks-type-headline-line",
+          "--ks-type-headline-track"
+        ],
+        "purpose": "Section h2. Alumni Sans at 300. The kit styles any h2 inside .ks-section-head to this role."
       },
       "title": {
         "displayName": "Title",
-        "cssVars": ["--ks-type-title-size", "--ks-type-title-weight", "--ks-type-title-line"],
+        "cssVars": [
+          "--ks-type-title-size",
+          "--ks-type-title-weight",
+          "--ks-type-title-line"
+        ],
         "purpose": "Card and panel headings, h3. Albert Sans at 600."
       },
       "body": {
         "displayName": "Body",
-        "cssVars": ["--ks-type-body-size", "--ks-type-body-line"],
+        "cssVars": [
+          "--ks-type-body-size",
+          "--ks-type-body-line"
+        ],
         "purpose": "Long copy at line-height 1.65. Holds a 65ch measure."
       },
       "control": {
@@ -302,65 +620,119 @@
       },
       "eyebrow": {
         "displayName": "Eyebrow",
-        "cssVars": ["--ks-mono", "--ks-type-eyebrow-size", "--ks-type-eyebrow-track"],
+        "cssVars": [
+          "--ks-mono",
+          "--ks-type-eyebrow-size",
+          "--ks-type-eyebrow-track"
+        ],
         "purpose": "Small mono caps above titles. Color is text-muted, not gold and not patina. Short labels only, never a sentence."
       },
       "mono": {
         "displayName": "Mono",
-        "cssVars": ["--ks-mono", "--ks-type-mono-size", "--ks-type-mono-track"],
-        "purpose": "Code, terminal, audit lines."
+        "cssVars": [
+          "--ks-mono",
+          "--ks-type-mono-size",
+          "--ks-type-mono-track"
+        ],
+        "purpose": "Code, terminal, audit lines, instrument keys. JetBrains Mono."
       },
       "micro": {
         "displayName": "Micro",
-        "cssVars": ["--ks-type-micro-size"],
+        "cssVars": [
+          "--ks-type-micro-size"
+        ],
         "purpose": "Dense ramp floor (11px). Nothing functional goes below it."
       },
       "label": {
         "displayName": "Label",
-        "cssVars": ["--ks-type-label-size"],
+        "cssVars": [
+          "--ks-type-label-size"
+        ],
         "purpose": "Control text and caps section heads (12px). Instrument keys and segmented controls set this size in the mono family."
       },
       "ui": {
         "displayName": "UI",
-        "cssVars": ["--ks-type-ui-size"],
+        "cssVars": [
+          "--ks-type-ui-size"
+        ],
         "purpose": "List rows and any sentence someone reads to make a decision (13px). The --lg segmented variant uses it in the reading face."
       },
       "ui-lead": {
         "displayName": "UI Lead",
-        "cssVars": ["--ks-type-ui-lead"],
+        "cssVars": [
+          "--ks-type-ui-lead"
+        ],
         "purpose": "Top of the dense ramp (15px); the size the button label borrows."
       },
       "small": {
         "displayName": "Small",
-        "cssVars": ["--ks-type-small-size"],
+        "cssVars": [
+          "--ks-type-small-size"
+        ],
         "purpose": "Reading ramp (14px): secondary body copy and captions that are read rather than scanned."
       },
       "lead": {
         "displayName": "Lead",
-        "cssVars": ["--ks-type-lead-size"],
+        "cssVars": [
+          "--ks-type-lead-size"
+        ],
         "purpose": "Reading ramp (18px): the intro paragraph."
       },
       "subhead": {
         "displayName": "Subhead",
-        "cssVars": ["--ks-type-subhead-size"],
+        "cssVars": [
+          "--ks-type-subhead-size"
+        ],
         "purpose": "Reading ramp (20px): a card-level heading at 500."
       },
       "title-lg": {
         "displayName": "Title Large",
-        "cssVars": ["--ks-type-title-lg-size"],
+        "cssVars": [
+          "--ks-type-title-lg-size"
+        ],
         "purpose": "Reading ramp (24px): a bento tile or panel heading that is larger than a card title but not a section."
       }
     },
     "shadows": [
       {
         "name": "ks-lift-1",
-        "value": "0 1px 2px oklch(13% 0 0 / 0.06), 0 2px 8px oklch(13% 0 0 / 0.06)",
-        "purpose": "A raised card, the segmented thumb, the instrument strip on the paper."
+        "value": "0 1px 1px oklch(13% 0 0 / 0.05), 0 2px 3px oklch(13% 0 0 / 0.04), 0 6px 12px oklch(13% 0 0 / 0.05)",
+        "purpose": "A raised card, the segmented thumb, the dark strip on the paper. Three layers: a contact edge, a short throw, a long one."
       },
       {
         "name": "ks-lift-2",
-        "value": "0 2px 6px oklch(13% 0 0 / 0.08), 0 12px 32px oklch(13% 0 0 / 0.12)",
+        "value": "0 1px 1px oklch(13% 0 0 / 0.04), 0 3px 5px oklch(13% 0 0 / 0.05), 0 12px 20px oklch(13% 0 0 / 0.06), 0 32px 48px oklch(13% 0 0 / 0.07)",
         "purpose": "A popover, a modal, a picker bar. No default card shadow: cards and tiles rest on --ks-rule and a surface step."
+      },
+      {
+        "name": "ks-cap-lift",
+        "value": "inset 0 1px 0 oklch(100% 0 0 / 0.9), 0 1px 0 oklch(13% 0 0 / 0.14), 0 2px 3px oklch(13% 0 0 / 0.08)",
+        "purpose": "A raised paper key: white top edge, hard 1px shadow under it, soft one behind. The active key on a paper strip, the switch's knob, the hero's fader cap."
+      },
+      {
+        "name": "ks-cap-press",
+        "value": "inset 0 1px 2px oklch(13% 0 0 / 0.14)",
+        "purpose": "The same cap pushed in, on :active."
+      },
+      {
+        "name": "ks-track-recess",
+        "value": "inset 0 1px 3px oklch(13% 0 0 / 0.16), inset 0 -1px 0 oklch(100% 0 0 / 0.7)",
+        "purpose": "The channel a cap sits in: the paper strip's track, the switch's track."
+      },
+      {
+        "name": "ks-led",
+        "value": "0 0 0 1px oklch(13% 0 0 / 0.12), 0 0 4px oklch(84% 0.19 80 / 0.6)",
+        "purpose": "The lit gold dot on a paper cap."
+      },
+      {
+        "name": "ks-key-lift",
+        "value": "0 1px 2px oklch(0% 0 0 / 0.4)",
+        "purpose": "A raised key on a dark strip."
+      },
+      {
+        "name": "ks-indicator-glow",
+        "value": "0 0 0 1px oklch(0% 0 0 / 0.3), 0 0 4px oklch(84% 0.19 80 / 0.65)",
+        "purpose": "The lit gold dot on a dark key."
       }
     ],
     "motion": [
@@ -382,6 +754,11 @@
     ],
     "breakpoints": [
       {
+        "name": "xs",
+        "value": "580px",
+        "purpose": "Below it the hero's annotation tags move above the card in two rows."
+      },
+      {
         "name": "sm",
         "value": "760px",
         "purpose": "Below it the header's nav and GitHub pill collapse into a drawer behind .site-header-menu."
@@ -389,7 +766,12 @@
       {
         "name": "md",
         "value": "980px",
-        "purpose": "Below it bento tiles collapse to full width."
+        "purpose": "Below it the hero goes to one column and loses the cable, bento tiles collapse to full width, and the console stacks."
+      },
+      {
+        "name": "lg",
+        "value": "1300px",
+        "purpose": "Between 981px and here the console's deck runs in two rows."
       }
     ],
     "controlHeights": [
@@ -426,6 +808,38 @@
         "value": "2px",
         "purpose": "Derived geometry, not a fourth radius: a control nested inside another subtracts 1px from its parent (the segmented thumb is 2px inside a 3px track; the --lg variant is 6px inside 8px)."
       }
+    },
+    "rhythm": [
+      {
+        "name": "ks-section-pad",
+        "value": "clamp(72px, 8vw, 120px)",
+        "purpose": "The vertical padding of every top-level page section, so the seams between sections are one rhythm."
+      }
+    ],
+    "grain": {
+      "token": "--ks-grain",
+      "value": "one 160px tile of monochrome fractal noise from an SVG filter",
+      "surfaces": [
+        {
+          "selector": "body::before",
+          "opacity": 0.055,
+          "blend": "multiply",
+          "purpose": "the paper ground, fixed behind the page"
+        },
+        {
+          "selector": ".ks-instrument-strip::before, .ks-grain::before",
+          "opacity": 0.16,
+          "blend": "screen",
+          "purpose": "dark moulded surfaces"
+        },
+        {
+          "selector": ".ks-instrument-strip.is-paper::before",
+          "opacity": 0.05,
+          "blend": "normal",
+          "purpose": "paper moulded surfaces"
+        }
+      ],
+      "rule": "Grain belongs to a material. Content that sits on a surface (a card, a demo, an image, type) is clean."
     }
   },
   "components": [
@@ -492,6 +906,30 @@
       "description": "--ks-paper-deep with a rule above. Wordmark in ink; links and credit in text-muted, ink on hover. No texture, no dark band.",
       "html": "<footer class=\"ds-footer\"><div class=\"ds-footer-row\"><a href=\"#\" class=\"ds-footer-logo\">Impeccable</a><nav class=\"ds-footer-links\" aria-label=\"Footer\"><a href=\"#\">Changelog</a><a href=\"#\">FAQ</a><a href=\"#\">Privacy</a><a href=\"#\">GitHub</a></nav><div class=\"ds-footer-credit\"><span>Created by <a href=\"#\">Paul Bakaus</a></span><a href=\"#\" class=\"ds-footer-social\" aria-label=\"Follow on X\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"currentColor\" aria-hidden=\"true\"><path d=\"M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z\"/></svg></a></div></div></footer>",
       "css": ".ds-footer { padding: 32px clamp(22px, 4vw, 56px); background: var(--ks-paper-deep, oklch(95% 0 0)); border-top: 1px solid var(--ks-rule, oklch(13% 0 0 / 0.12)); font-family: var(--ks-font, \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif); font-size: 0.875rem; color: var(--ks-text-muted, oklch(46% 0 0)); } .ds-footer-row { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; } .ds-footer-logo { color: var(--ks-ink, oklch(13% 0 0)); font-family: var(--ks-font-wordmark, \"Alumni Sans\", \"Albert Sans\", Arial, sans-serif); font-weight: 400; font-size: 1.125rem; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1; text-decoration: none; } .ds-footer-links { display: flex; gap: 22px; margin-left: auto; } .ds-footer-links a, .ds-footer-social { color: var(--ks-text-muted, oklch(46% 0 0)); text-decoration: none; transition: color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-footer-credit { display: inline-flex; align-items: center; gap: 12px; } .ds-footer-credit a { color: var(--ks-ink, oklch(13% 0 0)); text-decoration: none; } .ds-footer-social { display: inline-flex; } .ds-footer-links a:hover, .ds-footer-credit a:hover, .ds-footer-social:hover { color: var(--ks-ink, oklch(13% 0 0)); } .ds-footer a:focus-visible { outline: 2px solid var(--ks-patina, oklch(70% 0.12 188)); outline-offset: 3px; }"
+    },
+    {
+      "name": "Paper Strip",
+      "kind": "custom",
+      "refersTo": "instrument-strip-paper",
+      "description": "The page control: a recessed gray track with no border, keys muted with a sunk dot, the active key a raised paper cap in ink with a lit gold dot. With instrument-strip.js the cap is one thumb that slides between equal-width keys.",
+      "html": "<div class=\"ds-paper-strip\" role=\"tablist\" aria-label=\"Command\"><button type=\"button\" role=\"tab\" class=\"ds-paper-key\" aria-selected=\"true\">/polish</button><button type=\"button\" role=\"tab\" class=\"ds-paper-key\" aria-selected=\"false\">/distill</button><button type=\"button\" role=\"tab\" class=\"ds-paper-key\" aria-selected=\"false\">/clarify</button></div>",
+      "css": ".ds-paper-strip { display: inline-flex; align-items: center; gap: 2px; padding: 3px; background: var(--ks-gray, oklch(92% 0 0)); border-radius: var(--ks-radius-pill, 999px); box-shadow: var(--ks-track-recess, inset 0 1px 3px oklch(13% 0 0 / 0.16), inset 0 -1px 0 oklch(100% 0 0 / 0.7)); } .ds-paper-key { display: inline-flex; align-items: center; gap: 8px; min-height: var(--ks-control-md, 32px); padding: 0 14px 0 12px; color: var(--ks-text-muted, oklch(46% 0 0)); background: transparent; border: 0; border-radius: var(--ks-radius-pill, 999px); font-family: var(--ks-mono, \"JetBrains Mono\", ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace); font-size: 0.75rem; letter-spacing: 0.02em; line-height: 1; white-space: nowrap; cursor: pointer; transition: color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)), background-color var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)), box-shadow var(--ks-quick, 120ms) var(--ks-ease, cubic-bezier(0.2, 0.8, 0.2, 1)); } .ds-paper-key::before { content: \"\"; width: 6px; height: 6px; flex: none; border-radius: 50%; background: var(--ks-gray-2, oklch(88% 0 0)); box-shadow: inset 0 1px 1px oklch(13% 0 0 / 0.18); } .ds-paper-key:hover { color: var(--ks-ink, oklch(13% 0 0)); } .ds-paper-key:active { box-shadow: var(--ks-cap-press, inset 0 1px 2px oklch(13% 0 0 / 0.14)); transform: translateY(1px); } .ds-paper-key[aria-selected=\"true\"] { color: var(--ks-ink, oklch(13% 0 0)); background: var(--ks-paper-raised, oklch(99.5% 0 0)); box-shadow: var(--ks-cap-lift, inset 0 1px 0 oklch(100% 0 0 / 0.9), 0 1px 0 oklch(13% 0 0 / 0.14), 0 2px 3px oklch(13% 0 0 / 0.08)); } .ds-paper-key[aria-selected=\"true\"]::before { background: var(--ks-kinpaku, oklch(84% 0.19 80.46)); box-shadow: var(--ks-led, 0 0 0 1px oklch(13% 0 0 / 0.12), 0 0 4px oklch(84% 0.19 80 / 0.6)); } .ds-paper-key:focus-visible { outline: 2px solid var(--ks-kinpaku, oklch(84% 0.19 80.46)); outline-offset: 1px; }"
+    },
+    {
+      "name": "Switch",
+      "kind": "custom",
+      "refersTo": "switch",
+      "description": "A physical slide switch for one on/off state, driven by aria-pressed: a recessed 44x24 track, an 18px paper knob on the cap lift that slides 20px, and a 6px dot on the knob that lights gold when on.",
+      "html": "<button type=\"button\" class=\"ds-switch\" aria-pressed=\"true\"><span class=\"ds-switch-track\" aria-hidden=\"true\"><span class=\"ds-switch-knob\"></span></span><span>Detector on</span></button>",
+      "css": ".ds-switch { display: inline-flex; align-items: center; gap: 10px; padding: 0; border: 0; background: transparent; color: var(--ks-text-muted, oklch(46% 0 0)); font-family: var(--ks-font, \"Albert Sans\", \"Avenir Next\", \"Helvetica Neue\", Arial, system-ui, sans-serif); font-size: 0.8125rem; font-weight: 500; cursor: pointer; } .ds-switch[aria-pressed=\"true\"] { color: var(--ks-ink, oklch(13% 0 0)); } .ds-switch-track { position: relative; width: 44px; height: 24px; border-radius: var(--ks-radius-pill, 999px); background: var(--ks-gray-2, oklch(88% 0 0)); box-shadow: var(--ks-track-recess, inset 0 1px 3px oklch(13% 0 0 / 0.16), inset 0 -1px 0 oklch(100% 0 0 / 0.7)); } .ds-switch-knob { position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--ks-paper-raised, oklch(99.5% 0 0)); box-shadow: var(--ks-cap-lift, inset 0 1px 0 oklch(100% 0 0 / 0.9), 0 1px 0 oklch(13% 0 0 / 0.14), 0 2px 3px oklch(13% 0 0 / 0.08)); transition: transform 220ms cubic-bezier(0.3, 0.7, 0.2, 1); } .ds-switch-knob::after { content: \"\"; position: absolute; top: 50%; left: 50%; width: 6px; height: 6px; border-radius: 50%; transform: translate(-50%, -50%); background: var(--ks-gray-2, oklch(88% 0 0)); box-shadow: inset 0 1px 1px oklch(13% 0 0 / 0.18); } .ds-switch[aria-pressed=\"true\"] .ds-switch-knob { transform: translateX(20px); } .ds-switch[aria-pressed=\"true\"] .ds-switch-knob::after { background: var(--ks-kinpaku, oklch(84% 0.19 80.46)); box-shadow: var(--ks-led, 0 0 0 1px oklch(13% 0 0 / 0.12), 0 0 4px oklch(84% 0.19 80 / 0.6)); } .ds-switch:active .ds-switch-knob { box-shadow: var(--ks-cap-press, inset 0 1px 2px oklch(13% 0 0 / 0.14)); } .ds-switch:focus-visible { outline: none; } .ds-switch:focus-visible .ds-switch-track { outline: 2px solid var(--ks-kinpaku, oklch(84% 0.19 80.46)); outline-offset: 2px; }"
+    },
+    {
+      "name": "Tag",
+      "kind": "custom",
+      "refersTo": "tag",
+      "description": "The brand's label and the one gold fill on paper: 22px, dark mono caps on kinpaku gold. Section numerals, a card's state, a release's status. .is-quiet is the same tag in muted ink on gray for a secondary label beside a gold one.",
+      "html": "<span class=\"ds-tag\">01</span> <span class=\"ds-tag\">AI beige</span> <span class=\"ds-tag is-quiet\">Current</span>",
+      "css": ".ds-tag { display: inline-flex; align-items: center; gap: 6px; min-height: 22px; padding: 0 7px; color: var(--ks-on-gold, oklch(14% 0.018 95)); background: var(--ks-kinpaku, oklch(84% 0.19 80.46)); border-radius: var(--ks-radius-sm, 3px); font-family: var(--ks-mono, \"JetBrains Mono\", ui-monospace, \"SFMono-Regular\", Menlo, Consolas, monospace); font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.02em; line-height: 1; text-transform: uppercase; white-space: nowrap; vertical-align: middle; } .ds-tag.is-quiet { color: var(--ks-text-muted, oklch(46% 0 0)); background: var(--ks-gray, oklch(92% 0 0)); }"
     }
   ],
   "narrative": {
@@ -500,21 +938,22 @@
     "keyCharacteristics": [
       "One light theme. `:root` sets `color-scheme: light`; there is no `html.dark`, no `prefers-color-scheme` block, no toggle.",
       "Paper is neutral, chroma 0. Gold on cream is gold on gold.",
-      "Gold never carries text and never fills an area on paper.",
+      "Gold never carries text and never fills an area on paper, except the tag: a 22px label with dark mono text, the detector's own flag.",
       "Patina carries links, state and selection wherever color has to be read as text.",
-      "One family, Albert Sans, at 400 to 600. Alumni Sans exists for the wordmark and nothing else.",
-      "Three radii, three control heights, two lifts. Nothing else casts a shadow."
+      "Two voices. Albert Sans for everything read, at 400 to 600. Alumni Sans, the wordmark's face, carries the display at 200 and the headline at 300; nothing below a section heading uses it.",
+      "Three radii, three control heights, two lifts. The paper hardware (caps, tracks, the lit dot) has its own five shadow tokens; nothing else casts a shadow.",
+      "Grain is a material, not an overlay: the paper ground and the moulded control surfaces carry it, and everything that sits on them is clean."
     ],
     "rules": [
       {
         "name": "The Kit Consumption Rule",
         "section": "layout",
-        "body": "Reach for a kit primitive before inventing a class. Buttons: `.ks-button` plus a variant (`.ks-button-primary`, `-secondary`, `-ghost`, `-disabled`). Both classes are required; the chained selector is what beats page-level anchor resets. Do not write another `.hero-cta` or `.footer-cta`. Grouping content: `.ks-bento` with `.ks-bento-tile` (`--span-4` / `--span-6` / `--span-8` on a 12-column grid). This is the answer to \"how do I group 2 to 6 items without nesting cards\". Section scaffolding: `.ks-section` as the container, `.ks-section-head` for the header with an `<h2>` inside it (the kit styles it to the headline role), `.ks-section-sub` for the subhead. `.ks-section-eyebrow` above the h2 is optional; skip it on editorial pages where an eyebrow on every section reads as scaffolding. Anything the reader operates: `.ks-instrument-strip` for a dark tab strip or command switcher, `.ks-segmented` for a paper single-select. Do not build a fifth segmented control; the kit's exists because five bespoke ones did. Status, tags, toasts, modals, tooltips, empty states, pagination, skeletons, changelog rows: the kit primitive. Invent only when the kit truly does not cover the shape, and flag it when you do. A pattern that solves a recurring need belongs in the kit, not in page CSS. Page CSS is for page-specific scenery."
+        "body": "Reach for a kit primitive before inventing a class. Buttons: `.ks-button` plus a variant (`.ks-button-primary`, `-secondary`, `-ghost`, `-disabled`). Both classes are required; the chained selector is what beats page-level anchor resets. Do not write another `.hero-cta` or `.footer-cta`. Grouping content: `.ks-bento` with `.ks-bento-tile` (`--span-4` / `--span-6` / `--span-8` on a 12-column grid). This is the answer to \"how do I group 2 to 6 items without nesting cards\". Section scaffolding: `.ks-section` as the container, `.ks-section-head` for the header with an `<h2>` inside it (the kit styles it to the headline role), `.ks-section-sub` for the subhead. `.ks-section-eyebrow` above the h2 is optional; skip it on editorial pages where an eyebrow on every section reads as scaffolding. Anything the reader operates: `.ks-instrument-strip.is-paper` for a page control (a tab row, a view switch, a command switcher), the dark `.ks-instrument-strip` for product chrome (the live picker, lab toolbars, terminals), `.ks-switch` for one on/off state, `.ks-segmented` for a dense single-select. Do not build a fifth segmented control or a fourth dark surface; the kit's exist because bespoke ones did. Status, tags, toasts, modals, tooltips, empty states, pagination, skeletons, changelog rows: the kit primitive. Invent only when the kit truly does not cover the shape, and flag it when you do. A pattern that solves a recurring need belongs in the kit, not in page CSS. Page CSS is for page-specific scenery."
       },
       {
         "name": "The Gold Is Jewelry Rule",
         "section": "colors",
-        "body": "Gold is a mark, a line, or an indicator on an instrument. It never carries text at any size and never fills a surface on paper. The primary button is ink with a gold arrow; a gold button is the hotel-lobby read. The one exception is a demo that deliberately shows someone else's design."
+        "body": "Gold is a mark, a line, an indicator on an instrument (the lit dot on a key, the switch's knob, the ring on the hero's fader cap), or the tag. It never carries text at any size and never fills a surface on paper; the tag is a 22px label and stays one. The primary button is ink with a gold arrow; a gold button is the hotel-lobby read. The one exception is a demo that deliberately shows someone else's design."
       },
       {
         "name": "The Patina Carries Text Rule",
@@ -537,14 +976,14 @@
         "body": "New colors are `--ks-*` tokens in OKLCH. A literal is a one-off alpha of a token or a specimen of someone else's design."
       },
       {
-        "name": "The One Family Rule",
+        "name": "The Two Voices Rule",
         "section": "typography",
-        "body": "Alumni Sans is part of the logo, not a display face. If a heading wants a condensed face, it wants the wrong thing."
+        "body": "Alumni Sans speaks in the display, the headline and the wordmark; Albert Sans speaks everywhere text is read. Never a third face, never Alumni below a section heading."
       },
       {
-        "name": "The No Hairline Rule",
+        "name": "The Weights Rule",
         "section": "typography",
-        "body": "Display and headline sit at 500, titles at 600. Never 100 or 300 on a heading; those were the condensed face's weights and Albert Sans at 300 is not even loaded."
+        "body": "Alumni Sans is 200 on the display and 300 on the headline, and those are the only two weights it takes; 100 went gray on paper. Albert Sans runs 400 to 600: body at 400, control text and subheads at 500, titles at 600. Albert Sans at 300 is not loaded, so do not ask for it."
       },
       {
         "name": "The Micro Floor Rule",
@@ -567,14 +1006,19 @@
         "body": "The sticky header is paper at 92% over a 12px blur. That is the only translucency on the site; there are no glass panels."
       },
       {
-        "name": "The No Texture Rule",
+        "name": "The Grain Is Material Rule",
         "section": "elevation",
-        "body": "No leaf, dust, grain, seam or oxidation images anywhere in the chrome. Depth is geometry."
+        "body": "No leaf, dust, seam or oxidation images anywhere in the chrome; the retired textures do not come back. The one texture is the grain, and it belongs to a material: the paper ground and the moulded control surfaces. It never sits over content, and it never carries meaning."
       },
       {
         "name": "The Three-Radius Rule",
         "section": "shapes",
         "body": "Use `--ks-radius-sm`, `--ks-radius-md` or `--ks-radius-pill`. Treat a nested-control subtraction as derived geometry, not a fourth radius. The older kit primitives (inputs, checkbox, badge, toast, tooltip, modal, pagination, empty state) still carry a literal 2px; when one is touched, it moves to the token."
+      },
+      {
+        "name": "The Hardware Tokens Rule",
+        "section": "elevation",
+        "body": "A paper control is moulded, not drawn: `--ks-cap-lift` for a raised key, `--ks-cap-press` when it is pushed, `--ks-track-recess` for the channel it sits in, `--ks-led` for the lit gold dot; `--ks-key-lift` and `--ks-indicator-glow` on a dark strip. A control uses these rather than composing its own shadow."
       }
     ],
     "dos": [
@@ -582,7 +1026,7 @@
       "Do put gold on the mark, a one-pixel rule, or an indicator on an instrument.",
       "Do use `--ks-accent-ink`, `--ks-state-ink` or `--ks-link-on-paper` whenever color has to be read as text.",
       "Do reserve `--ks-instrument*` for something the reader operates.",
-      "Do set headings in Albert Sans at 500 and 600 through the type tokens.",
+      "Do set the display and headline in Alumni Sans at 200 and 300 through the type tokens, and everything read in Albert Sans.",
       "Do land every radius, control height and shadow on the ladder.",
       "Do reach for the kit primitive first, and flag it when a new pattern earns a place in the kit.",
       "Do keep the proof readable: comparisons, sliders, audit tables, command examples and docs are the product."
@@ -593,7 +1037,9 @@
       "Do not fill a button, chip, slab or panel with gold on paper.",
       "Do not give a decorative section, card or footer a dark background.",
       "Do not tint paper or ink; every surface and text token is chroma 0.",
-      "Do not use Alumni Sans outside the wordmark, or weight 100 or 300 anywhere.",
+      "Do not use Alumni Sans below a section heading, or at weight 100 anywhere.",
+      "Do not put grain over content, and do not add any other texture.",
+      "Do not compose a shadow for a control; use the hardware tokens.",
       "Do not add a fourth radius, a fourth control height or a third shadow.",
       "Do not hand-type an `oklch()` value in page CSS except as a one-off alpha of a token or inside a specimen of someone else's design.",
       "Do not use pure black or pure white.",

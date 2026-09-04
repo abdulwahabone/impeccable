@@ -183,17 +183,17 @@
    ≤10 lines, which is exactly where the awkward wraps happen. Longer body
    paragraphs use text-wrap: pretty (smarter end-of-paragraph orphan handling
    without the cost of full balancing). */
-.home-kinpaku .hero-rebuild-title,
+.home-kinpaku .hero-title,
 .home-kinpaku .slop-teaser-title,
-.home-kinpaku .downloads-rebuild-title,
-.home-kinpaku .downloads-rebuild-note,
+.home-kinpaku .downloads-title,
+.home-kinpaku .downloads-note,
 .home-kinpaku .why-panel-title,
-.home-kinpaku .downloads-rebuild-extras strong,
-.home-kinpaku .downloads-rebuild-extras span {
+.home-kinpaku .downloads-extras strong,
+.home-kinpaku .downloads-extras span {
   text-wrap: balance;
 }
 
-.home-kinpaku .hero-rebuild-body,
+.home-kinpaku .hero-body,
 .home-kinpaku .slop-teaser-body,
 .home-kinpaku .why-panel-body {
   text-wrap: pretty;
@@ -995,7 +995,7 @@
 /* Picker chrome (chrome bar, gbar, ctx, outline, comment, stroke, etc.)
    shares one source of truth in kinpaku-kit.css under the "Live picker
    (kinpaku theme)" section, so this page and /live-mode stay in lockstep.
-   The homepage makes the bars instruments in home-refresh.css. Only the
+   The homepage makes the bars instruments in home-demos.css. Only the
    page-specific bits below remain: the stage and the simulated card content. */
 
 .home-kinpaku .live-demo-stage {

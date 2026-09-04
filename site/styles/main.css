@@ -1,8 +1,9 @@
 /*
- * impeccable.style — Renaissance Redesign
+ * impeccable.style: shared page styles.
  *
- * Editorial precision meets fluid motion.
- * Light, high-contrast, typographically bold.
+ * Tokens come from kinpaku-tokens.css (through tokens.css aliases); the kit
+ * primitives from kinpaku-kit.css. This file carries the page scaffolding
+ * that predates both and still renders.
  */
 
 /* Shared design tokens + minimal reset */

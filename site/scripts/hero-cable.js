@@ -1,5 +1,7 @@
 // The hero's patch cable: the v of "vocabulary" becomes a cable that runs
-// into the command switcher.
+// into the command switcher. It is an easter egg: the cable is laid while
+// the pointer rests on the headline and pulled back when it leaves, so the
+// hero at rest stays quiet.
 //
 // A second route, kept for comparison (?cable=y, or data-anchor="y" on the
 // svg): the cable grows from the foot of the y instead, runs level under
@@ -268,7 +270,7 @@ function crosses(m, c, box) {
 }
 
 export function initHeroCable() {
-	const hero = document.querySelector('.hero-rebuild');
+	const hero = document.querySelector('.hero');
 	const svg = hero?.querySelector('[data-hero-cable]');
 	const vEl = hero?.querySelector('[data-cable-v]');
 	const yEl = hero?.querySelector('[data-cable-y]');
@@ -283,7 +285,7 @@ export function initHeroCable() {
 	const lead = svg.querySelector('.hero-cable-lead');
 
 	const grad = svg.querySelector('#hero-cable-ink');
-	let drawn = false;
+	const title = hero.querySelector('.hero-title');
 
 	const draw = () => {
 		if (getComputedStyle(svg).display === 'none') { svg.classList.remove('is-ready'); return; }
@@ -325,16 +327,14 @@ export function initHeroCable() {
 		svg.style.setProperty('--cable-w', `${m.t.stroke}px`);
 		svg.style.setProperty('--cable-len', `${Math.ceil(lead.getTotalLength())}`);
 		svg.classList.add('is-ready');
-		if (!drawn) {
-			drawn = true;
-			svg.classList.add('is-drawing');
-			let settled = false;
-			const done = () => { if (settled) return; settled = true; svg.classList.remove('is-drawing'); svg.classList.add('is-live'); };
-			lead.addEventListener('animationend', done, { once: true });
-			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) done();
-			else setTimeout(done, 2400);
-		}
 	};
+
+	// Laid on hover, pulled back on leave. The class flips; the CSS runs the
+	// dash offset both ways, slow out and quicker back.
+	if (title) {
+		title.addEventListener('pointerenter', () => svg.classList.add('is-out'));
+		title.addEventListener('pointerleave', () => svg.classList.remove('is-out'));
+	}
 
 	draw();
 	if (document.fonts?.ready) document.fonts.ready.then(draw);

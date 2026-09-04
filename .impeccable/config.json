@@ -24,7 +24,7 @@
         "rule": "design-system-color",
         "value": "*",
         "files": [
-          "site/styles/home-rebuild.css"
+          "site/styles/home-sections.css"
         ],
         "createdAt": "2026-06-15T23:37:38.170Z",
         "reason": "AURELIA hotel picker is intentionally a foreign boutique-hotel palette inside the live picker demo"
@@ -105,7 +105,7 @@
         "rule": "design-system-color",
         "value": "*",
         "files": [
-          "site/styles/home-refresh.css"
+          "site/styles/home-demos.css"
         ],
         "createdAt": "2026-07-21T00:00:00.000Z",
         "reason": "Hero proof before/after cards and the slop-pattern preview are deliberate anti-pattern specimens with foreign product palettes and type; extends the existing before-state demo waivers to the v4 homepage file"
@@ -114,7 +114,7 @@
         "rule": "design-system-font",
         "value": "*",
         "files": [
-          "site/styles/home-refresh.css"
+          "site/styles/home-demos.css"
         ],
         "createdAt": "2026-07-21T00:00:00.000Z",
         "reason": "Hero proof before/after cards and the slop-pattern preview are deliberate anti-pattern specimens with foreign product palettes and type; extends the existing before-state demo waivers to the v4 homepage file"
@@ -123,7 +123,7 @@
         "rule": "design-system-radius",
         "value": "*",
         "files": [
-          "site/styles/home-refresh.css"
+          "site/styles/home-demos.css"
         ],
         "createdAt": "2026-07-21T00:00:00.000Z",
         "reason": "Hero proof before/after cards and the slop-pattern preview are deliberate anti-pattern specimens with foreign product palettes and type; extends the existing before-state demo waivers to the v4 homepage file"
@@ -132,7 +132,7 @@
         "rule": "design-system-font-size",
         "value": "*",
         "files": [
-          "site/styles/home-refresh.css"
+          "site/styles/home-demos.css"
         ],
         "createdAt": "2026-07-21T00:00:00.000Z",
         "reason": "Hero proof before/after cards and the slop-pattern preview are deliberate anti-pattern specimens with foreign product palettes and type; extends the existing before-state demo waivers to the v4 homepage file"
@@ -141,7 +141,7 @@
         "rule": "side-tab",
         "value": "*",
         "files": [
-          "site/styles/home-refresh.css"
+          "site/styles/home-demos.css"
         ],
         "createdAt": "2026-07-21T00:00:00.000Z",
         "reason": "The hero proof before-card's side-tab border is the showcased tell (user asked for its callout annotation), and the slop-pattern preview renders the side-tab specimen by design"
@@ -150,7 +150,7 @@
         "rule": "codex-grid-background",
         "value": "*",
         "files": [
-          "site/styles/home-refresh.css"
+          "site/styles/home-demos.css"
         ],
         "createdAt": "2026-07-21T00:00:00.000Z",
         "reason": "The slop-pattern preview draws the decorative grid-line background as a deliberate generated-UI specimen"
@@ -204,7 +204,7 @@
         "value": "*",
         "createdAt": "2026-09-03T23:11:53.103Z",
         "files": [
-          "site/styles/home-rebuild.css"
+          "site/styles/home-sections.css"
         ],
         "reason": "Demo mocks (hotel, proof cards, command specimens) carry their own small type scale; the ramp describes the site chrome"
       },

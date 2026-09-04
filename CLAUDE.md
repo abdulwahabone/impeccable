@@ -60,7 +60,7 @@ The kit's reusable dark control is `.ks-instrument-strip` / `.ks-instrument-key`
 - `kinpaku-kit.css`: shared primitives (buttons, forms, tabs, badges, header and footer chrome, bento, segmented control, instrument strip, the live picker mock). Loaded globally.
 - `tokens.css`: legacy `--color-*` / `--font-*` / `--spacing-*` aliases onto the `--ks-*` system, plus the reset. Older partials still read them.
 - `footer.css`: shared footer, imported in `Base.astro`.
-- Page files: `home-kinpaku.css`, `home-rebuild.css`, `home-refresh.css`, `main.css`, `workflow.css`, `testimonials.css`, `worlds-roll.css`, `console.css` (homepage; the console is the Language section, spec in `docs/concepts/language-console.html`); `docs-kinpaku.css`, `docs-visuals.css`, `sub-pages.css` (docs, tutorials, and the shared sub-page shell); one `<page>-kinpaku.css` each for designing, slop, live-mode, research, changelog/faq; `design-system.css`; the lab files.
+- Page files: `home-kinpaku.css`, `home-sections.css`, `home-demos.css`, `main.css`, `workflow.css`, `testimonials.css`, `worlds-roll.css`, `console.css` (homepage; the console is the Language section, spec in `docs/concepts/language-console.html`); `docs-kinpaku.css`, `docs-visuals.css`, `sub-pages.css` (docs, tutorials, and the shared sub-page shell); one `<page>-kinpaku.css` each for designing, slop, live-mode, research, changelog/faq; `design-system.css`; the lab files.
 
 Edit any of these directly and the dev server hot-reloads. No rebuild needed for CSS changes.
 

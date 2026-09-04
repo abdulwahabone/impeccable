@@ -239,8 +239,8 @@ const arrowSvg = '<svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stro
   <section class="ks-section" id="type" aria-labelledby="type-title">
     <div class="ks-section-head">
       <p class="ks-section-eyebrow">Type</p>
-      <h2 id="type-title">One family. Albert Sans at 500 and 600.</h2>
-      <p class="ks-section-sub">No hairline headings. Display and headline sit at weight 500, titles at 600, body at 400. <code>--ks-font-display</code> aliases <code>--ks-font</code>; the alias exists so old rules keep resolving.</p>
+      <h2 id="type-title">Two voices.</h2>
+      <p class="ks-section-sub">Alumni Sans, the wordmark's face, carries the display at 200 and the headline at 300, and nothing below a section heading. Albert Sans carries everything that is read, at 400 to 600. JetBrains Mono for keys, labels and code. Never weight 100: the hairline went gray on paper.</p>
     </div>
 
     <div class="ks-type-stack">
@@ -263,11 +263,56 @@ const arrowSvg = '<svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stro
     <div class="ks-section-head">
       <p class="ks-section-eyebrow">Instruments</p>
       <h2 id="instruments-title">The only dark surface is one you operate.</h2>
-      <p class="ks-section-sub">A control the reader works, like a tab strip, a slider or a terminal, sits on <code>--ks-instrument</code> like a device on a desk. Nothing decorative goes dark: no dark sections, no dark cards, no dark footer. It is also the one place gold reads as a signal rather than a mark.</p>
+      <p class="ks-section-sub">A control the reader works is hardware: a recessed track, a raised cap, a lit dot. On the page it is paper hardware; product chrome (the live picker, lab toolbars, terminals) sits on <code>--ks-instrument</code> like a device on a desk. Nothing decorative goes dark: no dark sections, no dark cards, no dark footer.</p>
     </div>
 
     <div class="ks-subsection">
-      <span class="ks-subsection-label">Command strip · .ks-instrument-strip</span>
+      <span class="ks-subsection-label">Paper strip · .ks-instrument-strip.is-paper</span>
+      <div class="ks-instrument-stage">
+        <div class="ks-instrument-strip is-paper" role="tablist" aria-label="Paper command switcher sample" data-ks-strip>
+          <button class="ks-instrument-key is-active" type="button" role="tab" aria-selected="true">/polish</button>
+          <button class="ks-instrument-key" type="button" role="tab" aria-selected="false">/distill</button>
+          <button class="ks-instrument-key" type="button" role="tab" aria-selected="false">/clarify</button>
+        </div>
+      </div>
+      <p class="ks-note">The page control: the hero's command switcher, the Palette / Periodic toggle, the era switch on /slop. A recessed <code>--ks-gray</code> track (<code>--ks-track-recess</code>), keys in <code>--ks-text-muted</code> with a sunk dot, and one raised paper cap (<code>--ks-cap-lift</code>) in ink with a lit gold dot (<code>--ks-led</code>). The cap is a real element that slides between the keys; click one, or drag it.</p>
+    </div>
+
+    <div class="ks-subsection">
+      <span class="ks-subsection-label">Switch · .ks-switch</span>
+      <div class="ks-instrument-stage">
+        <button class="ks-switch" type="button" aria-pressed="true" data-ks-switch>
+          <span class="ks-switch-track" aria-hidden="true"><span class="ks-switch-knob"></span></span>
+          <span class="ks-switch-label">Detector on</span>
+        </button>
+      </div>
+      <p class="ks-note">One on/off state, driven by <code>aria-pressed</code>. A recessed 44 by 24 track, an 18px paper knob that slides 20px, and a 6px dot on the knob that lights gold when on. The detector toggle on the slop previews.</p>
+    </div>
+
+    <div class="ks-subsection">
+      <span class="ks-subsection-label">Tag · .ks-tag</span>
+      <div class="ks-instrument-stage is-row">
+        <span class="ks-tag">01</span>
+        <span class="ks-tag">AI beige</span>
+        <span class="ks-tag">Side-tab border</span>
+        <span class="ks-tag is-quiet">Current</span>
+      </div>
+      <p class="ks-note">The detector flags bad design with a small gold tag carrying dark mono text, so that tag is also how the site labels things: section numerals, a card's state, a release's status. It is the one gold fill on paper and it never grows past a label. <code>.is-quiet</code> is the same tag in muted ink for a secondary label beside a gold one.</p>
+    </div>
+
+    <div class="ks-subsection">
+      <span class="ks-subsection-label">Paper hardware · the five tokens</span>
+      <dl class="ks-anatomy">
+        <div><dt>Cap lift</dt><dd><code>--ks-cap-lift</code>. A raised paper key: a white highlight along its top edge, a hard 1px shadow under it, a soft one behind.</dd></div>
+        <div><dt>Cap press</dt><dd><code>--ks-cap-press</code>. The same cap pushed in, on <code>:active</code>.</dd></div>
+        <div><dt>Track recess</dt><dd><code>--ks-track-recess</code>. The channel a cap sits in.</dd></div>
+        <div><dt>LED</dt><dd><code>--ks-led</code>. The lit gold dot: a 1px ink ring and a 4px gold glow. Gold as a signal, never as text.</dd></div>
+        <div><dt>Grain</dt><dd><code>--ks-grain</code>. One tile of monochrome noise. The paper ground carries it at 5.5%, a paper strip at 5%, a dark strip at 16%. Content that sits on a surface is clean.</dd></div>
+      </dl>
+    </div>
+
+    <div class="ks-subsection">
+      <span class="ks-subsection-label">Dark strip · .ks-instrument-strip</span>
       <div class="ks-instrument-stage">
         <div class="ks-instrument-strip" role="tablist" aria-label="Command switcher sample" data-ks-strip>
           <button class="ks-instrument-key" type="button" role="tab" aria-selected="true">/polish</button>
@@ -275,16 +320,16 @@ const arrowSvg = '<svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stro
           <button class="ks-instrument-key" type="button" role="tab" aria-selected="false">/clarify</button>
         </div>
       </div>
-      <p class="ks-note">The homepage hero switcher, verbatim. Face at 24%, a 17% edge, and the active key raised to 31% with a 6px gold dot. Inactive keys read in <code>--ks-instrument-muted</code>, active in <code>--ks-instrument-text</code>. Click a key.</p>
+      <p class="ks-note">Product chrome: the live picker, lab toolbars, terminals. Face at 24%, a 17% edge, 16% grain, and the active key raised to 31% with a 6px gold dot. Inactive keys read in <code>--ks-instrument-muted</code>, active in <code>--ks-instrument-text</code>. Click a key.</p>
     </div>
 
     <div class="ks-subsection">
-      <span class="ks-subsection-label">Anatomy</span>
+      <span class="ks-subsection-label">Dark strip anatomy</span>
       <dl class="ks-anatomy">
         <div><dt>Face</dt><dd><code>--ks-instrument</code>, the strip itself, with a 1px <code>--ks-instrument-deep</code> border and an inset <code>--ks-instrument-rule</code> highlight along the top.</dd></div>
         <div><dt>Key cap</dt><dd><code>--ks-instrument-raised</code>. The active key lifts off the face; it does not tint.</dd></div>
         <div><dt>Indicator</dt><dd>A 6px dot. Gold when active, <code>--ks-instrument-raised</code> when idle. Patina takes the same slot when the state is selection rather than position.</dd></div>
-        <div><dt>Focus</dt><dd>A 2px <code>--ks-patina</code> ring, 2px out, on every instrument key and on every control on paper.</dd></div>
+        <div><dt>Focus</dt><dd>A 2px <code>--ks-patina</code> ring, 2px out, on a dark key. Paper hardware rings in gold.</dd></div>
       </dl>
     </div>
   </section>
@@ -385,7 +430,7 @@ const arrowSvg = '<svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stro
           <span class="ks-badge is-improved">Improved</span>
           <span class="ks-badge is-ready">Ready</span>
         </div>
-        <span class="ks-component-label" style="margin-top: 24px;">Issue tags</span>
+        <span class="ks-component-label" style="margin-top: 24px;">Issue pills</span>
         <div class="ks-pill-row">
           <span class="ks-pill is-detected">Gradient</span>
           <span class="ks-pill is-detected">Hierarchy</span>
@@ -565,13 +610,13 @@ const arrowSvg = '<svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stro
             </figure>
           ))}
         </div>
-        <p class="ks-note">Lift one is a raised card or a thumb. Lift two is a popover or a modal. Nothing else casts a shadow.</p>
+        <p class="ks-note">Lift one is a raised card or a thumb. Lift two is a popover or a modal. Paper hardware has its own five tokens, above. Nothing else casts a shadow.</p>
       </div>
 
       <div class="ks-subsection">
         <span class="ks-subsection-label">Rhythm and motion</span>
         <dl class="ks-anatomy">
-          <div><dt>Section</dt><dd>110px of vertical padding inside a 1320px column with 56px gutters, a 1px <code>--ks-rule</code> between sections.</dd></div>
+          <div><dt>Section</dt><dd><code>--ks-section-pad</code> (<span data-token-value="--ks-section-pad"></span>) of vertical padding on every top-level page section; the kit's <code>.ks-section</code> is a 1320px column with 56px gutters and a 1px <code>--ks-rule</code> between sections.</dd></div>
           <div><dt>Subsection</dt><dd>56px above, with the mono label 22px above its content.</dd></div>
           <div><dt>Bento</dt><dd>Tiles on a 12-column grid with an 8px gutter that shows the rail through.</dd></div>
           <div><dt>Motion</dt><dd><code>--ks-quick</code> (<span data-token-value="--ks-quick"></span>) for a state change, <code>--ks-settle</code> (<span data-token-value="--ks-settle"></span>) for something arriving, one ease: <code data-token-value="--ks-ease"></code>.</dd></div>
@@ -601,7 +646,7 @@ const arrowSvg = '<svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stro
           eyebrow: 'mono',
           mono: 'mono',
         };
-        const scaleWeight = { title: '', body: '400', eyebrow: '400', mono: '400', wordmark: '400' };
+        const scaleWeight = { title: '', body: '400', eyebrow: '400', mono: '400', wordmark: '500' };
 
         document.querySelectorAll('[data-type-scale]').forEach((el) => {
           const scale = el.getAttribute('data-type-scale');
@@ -644,6 +689,15 @@ const arrowSvg = '<svg viewBox="0 0 16 8" fill="none" stroke="currentColor" stro
               item.classList.toggle('is-active', on);
             });
           });
+        });
+      });
+
+      document.querySelectorAll('[data-ks-switch]').forEach((sw) => {
+        sw.addEventListener('click', () => {
+          const on = sw.getAttribute('aria-pressed') !== 'true';
+          sw.setAttribute('aria-pressed', String(on));
+          const label = sw.querySelector('.ks-switch-label');
+          if (label) label.textContent = on ? 'Detector on' : 'Detector off';
         });
       });
 
