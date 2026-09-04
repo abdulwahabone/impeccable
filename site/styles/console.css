@@ -144,6 +144,7 @@
   width: 100%;
   min-width: 0;
   box-sizing: border-box;
+  margin: 16px 0;
   padding: 10px 12px;
   border-radius: var(--ks-radius-sm);
   background: var(--ks-instrument-deep);
@@ -156,6 +157,7 @@
   user-select: none;
 }
 .command-console .cc-cmd > code {
+  flex: 1 1 auto;
   min-width: 0;
   padding: 0;
   overflow-x: auto;
@@ -165,6 +167,10 @@
   font: 400 var(--ks-type-ui-lead)/1 var(--ks-mono);
   letter-spacing: 0;
   white-space: nowrap;
+}
+.home-kinpaku .downloads-copy.cc-cmd-copy {
+  width: 30px;
+  height: 30px;
 }
 .cc-tags { display: flex; gap: 6px; }
 .cc-desc { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ks-text); max-width: 36ch; }

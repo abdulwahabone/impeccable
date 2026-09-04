@@ -43,6 +43,7 @@ export function initCommandConsole() {
     group: q('[data-cc-r-group]'),
     name: q('[data-cc-r-name]'),
     cmd: q('[data-cc-r-cmd]'),
+    copy: q('[data-cc-r-copy]'),
     desc: q('[data-cc-r-desc]'),
     docs: q('[data-cc-r-docs]'),
     patch: q('[data-cc-r-patch]'),
@@ -209,7 +210,11 @@ export function initCommandConsole() {
     readout.kindTag.textContent = c[2];
     readout.group.textContent = c[1];
     readout.name.textContent = id;
-    readout.cmd.textContent = `/impeccable ${id}`;
+    const command = `/impeccable ${id}`;
+    readout.cmd.textContent = command;
+    readout.copy.dataset.copy = command;
+    readout.copy.setAttribute('aria-label', `Copy ${command} command`);
+    readout.copy.classList.remove('copied');
     readout.desc.textContent = c[3];
     readout.docs.href = `/docs/${id}`;
     readout.patch.replaceChildren(...c[4].map((r) => {
