@@ -18,7 +18,7 @@
   position: relative;
   display: grid;
   align-items: center;
-  padding: var(--ks-section-pad) 0 0;
+  padding: var(--ks-section-pad) 0 44px;
   overflow: hidden;
 }
 
