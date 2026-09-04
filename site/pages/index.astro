@@ -12,10 +12,6 @@ import '../styles/main.css';
 // rule set changes and fails the deploy days later on an unrelated push.
 import { ANTIPATTERNS } from '../../cli/engine/registry/antipatterns.mjs';
 const detectionRuleCount = new Set(ANTIPATTERNS.map(rule => rule.id)).size;
-import plugin from '../../.claude-plugin/plugin.json';
-import { CONSOLE_COMMANDS as CHANNELS } from '../data/console-channels.mjs';
-const skillVersion = plugin.version;
-const commandCount = CHANNELS.length;
 import '../styles/sub-pages.css';
 import '../styles/home-kinpaku.css';
 import '../styles/home-rebuild.css';
@@ -54,8 +50,6 @@ import '../styles/worlds-roll.css';
 <Fragment slot="after-header">
   <!-- 1. HERO -->
   <section id="hero" class="hero-rebuild">
-    <div class="hero-folio hero-folio--left" aria-hidden="true"><span class="ks-tag">v{skillVersion}</span><span>Live Mode in every harness</span></div>
-    <div class="hero-folio hero-folio--right" aria-hidden="true"><span class="ks-tag is-quiet">{commandCount}</span><span>commands · web, iOS, Android</span></div>
     <div class="hero-rebuild-container">
       <div class="hero-rebuild-left">
         <h1 class="hero-rebuild-title">The missing design vocabulary for agents.</h1>
