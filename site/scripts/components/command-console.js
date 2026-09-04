@@ -301,31 +301,6 @@ export function initCommandConsole() {
     ctl[to].focus({ preventScroll: true });
   });
 
-  /* ---- bypass: hold to see the untouched subject. Pointer and keyboard,
-     press and release. ---- */
-  const byp = q('[data-cc-bypass]');
-  let held = 0;
-  const hold = (on) => {
-    if (on === held) return;
-    held = on;
-    byp.classList.toggle('is-held', !!on);
-    byp.setAttribute('aria-pressed', String(!!on));
-    const node = ctl[active];
-    const v = node && isFader(node) ? amtOf(node) : (node && node.classList.contains('is-on') ? 1 : 0);
-    ui.classList.remove('is-dragging');
-    ui.style.setProperty('--amt', on ? 0 : v);
-    overlays.forEach((o) => o.style.setProperty('--p', o.dataset.ccOv === active ? (on ? 0 : v) : 0));
-    const tl = TL[active];
-    if (tl) on ? tl.scrub(0) : tl.seek(v);
-  };
-  byp.addEventListener('pointerdown', (e) => { byp.setPointerCapture(e.pointerId); hold(1); });
-  byp.addEventListener('pointerup', () => hold(0));
-  byp.addEventListener('pointercancel', () => hold(0));
-  byp.addEventListener('lostpointercapture', () => hold(0));
-  byp.addEventListener('keydown', (e) => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); hold(1); } });
-  byp.addEventListener('keyup', (e) => { if (e.key === ' ' || e.key === 'Enter') hold(0); });
-  byp.addEventListener('blur', () => hold(0));
-
   /* ---- stacked layout: the stage scales to the window ---- */
   const STAGE_W = 600;
   const fit = () => {
