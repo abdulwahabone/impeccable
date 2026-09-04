@@ -2,9 +2,13 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import DocsSidebar from '../../components/DocsSidebar.astro';
-import SlashMoment from '../../components/SlashMoment.astro';
 import '../../styles/sub-pages.css';
 import '../../styles/docs-kinpaku.css';
+import {
+  SKILL_CATEGORIES,
+  CATEGORY_ORDER,
+  CATEGORY_LABELS,
+} from '../../data/sub-pages-data';
 
 const entries = await getCollection('skills');
 const referenceEntries = (await getCollection('reference'))
@@ -15,6 +19,14 @@ const tutorials = (await getCollection('tutorials'))
 
 const taglineFor = (slug: string) =>
   entries.find(e => e.id === slug)?.data.tagline ?? '';
+
+const grouped: Record<string, { slug: string; tagline: string }[]> = {};
+for (const cat of CATEGORY_ORDER) {
+  grouped[cat] = entries
+    .filter(e => SKILL_CATEGORIES[e.id] === cat)
+    .sort((a, b) => a.id.localeCompare(b.id))
+    .map(e => ({ slug: e.id, tagline: e.data.tagline }));
+}
 
 const session = [
   { slug: 'shape', verb: 'Plan' },
@@ -38,6 +50,39 @@ const startSteps = [
     label: 'Try it',
     command: '/impeccable polish the pricing page',
     line: 'Point it at a real page.',
+  },
+];
+
+const choices = [
+  {
+    need: 'Start a project',
+    command: '/impeccable init',
+    href: '/docs/init',
+  },
+  {
+    need: 'Polish a page',
+    command: '/impeccable polish',
+    href: '/docs/polish',
+  },
+  {
+    need: 'Find design issues',
+    command: '/impeccable critique',
+    href: '/docs/critique',
+  },
+  {
+    need: 'Check implementation',
+    command: '/impeccable audit',
+    href: '/docs/audit',
+  },
+  {
+    need: 'Iterate in the browser',
+    command: '/impeccable live',
+    href: '/docs/live',
+  },
+  {
+    need: 'Build a new surface',
+    command: '/impeccable <describe it>',
+    href: '/docs/new-work',
   },
 ];
 
@@ -118,7 +163,20 @@ const chains: { id: string; a: string; b: string; arrow: string; line: string }[
           <p class="docs-start-rail-note">Full walkthrough: <a href="/tutorials/getting-started">Getting started</a>.</p>
         </section>
 
-        <SlashMoment />
+        <section class="docs-chooser-section" aria-labelledby="docs-chooser-h">
+          <header class="docs-chooser-head">
+            <h2 class="docs-chooser-title" id="docs-chooser-h">Choose a command</h2>
+          </header>
+
+          <div class="docs-chooser-list">
+            {choices.map(choice => (
+              <a class="docs-chooser-list-row" href={choice.href}>
+                <span class="docs-chooser-list-need">{choice.need}</span>
+                <span class="docs-chooser-list-command">{choice.command}</span>
+              </a>
+            ))}
+          </div>
+        </section>
 
         <section class="docs-manual-section" aria-labelledby="docs-manual-h">
           <header class="docs-manual-head">
@@ -222,6 +280,31 @@ const chains: { id: string; a: string; b: string; arrow: string; line: string }[
                 </p>
                 <p class="docs-chain-line">{chain.line}</p>
               </article>
+            ))}
+          </div>
+        </section>
+
+        <!-- Full reference: the cheatsheet -->
+        <section class="docs-reference-section" aria-labelledby="docs-reference-h">
+          <header class="docs-reference-head">
+            <h2 class="docs-reference-title" id="docs-reference-h">Full command reference</h2>
+          </header>
+
+          <div class="docs-reference">
+            {CATEGORY_ORDER.map(cat => (
+              <div class="docs-reference-group" id={`category-${cat}`}>
+                <p class="docs-reference-cat">{CATEGORY_LABELS[cat]} <span class="docs-reference-count">{grouped[cat].length}</span></p>
+                <ul class="docs-reference-list">
+                  {grouped[cat].map(entry => (
+                    <li>
+                      <a class="docs-reference-row" href={`/docs/${entry.slug}`}>
+                        <span class="docs-reference-name">{entry.slug}</span>
+                        <span class="docs-reference-line">{entry.tagline}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </section>

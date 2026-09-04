@@ -8,10 +8,11 @@ a browser directly.
   panel of faders and keys, every command acting on the same subject in
   the display window. Each "after" state was audited against the
   detector's own catalog.
-- `docs-slash-menu.html`: the docs index. The slash menu typed large,
-  filter as you type, before and after per highlighted command. Built as
-  `site/components/SlashMoment.astro` with the rows as real links to each
-  command's page.
+- `docs-slash-menu.html`: the slash menu typed large, filter as you
+  type, before and after per highlighted command. Tried on the docs index
+  in full and pulled: the pages and the list fought for height and the
+  copy explained the demo rather than the docs. Its palette treatment
+  lives on as the command rail in `site/components/DocsSidebar.astro`.
 
 Rejected in the same round (not kept): a fisheye list, a plain index, a
 specimen sheet, periodic tiles, a spinning drum, a wall of cards, a

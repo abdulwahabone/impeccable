@@ -87,21 +87,34 @@ for (const cat of CATEGORY_ORDER) {
       </>
     )}
 
-    <p class="skills-sidebar-label">Commands</p>
-    {CATEGORY_ORDER.map(cat => (
-      <div class="skills-sidebar-group">
-        <span class="skills-sidebar-category">{CATEGORY_LABELS[cat]}</span>
-        <ul class="skills-sidebar-list">
-          {sidebarGroups[cat].map(cmd => (
-            <li>
-              <a href={`/docs/${cmd.slug}`} aria-current={cmd.slug === activeCommand ? 'page' : undefined}>
-                <span>{cmd.slug}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
+    {/* The commands are the agent's own palette: a dark panel on the
+        instrument tokens, the way the slash menu looks in the agent, with
+        the filter line at its head and the current page's command lit.
+        The links above it stay on paper, so the commands read as the
+        product. */}
+    <nav class="docs-palette ks-grain" aria-label="Commands" data-docs-palette>
+      <label class="docs-palette-head">
+        <span class="docs-palette-led" aria-hidden="true"></span>
+        <span class="docs-palette-prefix" aria-hidden="true">/impeccable</span>
+        <input class="docs-palette-filter" type="text" autocomplete="off" spellcheck="false" aria-label="Filter commands" data-docs-palette-filter>
+      </label>
+      {CATEGORY_ORDER.map(cat => (
+        <div class="docs-palette-group" data-docs-palette-group>
+          <span class="docs-palette-cap">{CATEGORY_LABELS[cat]}</span>
+          <ul class="docs-palette-list">
+            {sidebarGroups[cat].map(cmd => (
+              <li>
+                <a class="docs-palette-row" href={`/docs/${cmd.slug}`} aria-current={cmd.slug === activeCommand ? 'page' : undefined} data-docs-palette-row={cmd.slug}>
+                  <span class="docs-palette-dot" aria-hidden="true"></span>
+                  <span class="docs-palette-name">{cmd.slug}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <p class="docs-palette-empty" data-docs-palette-empty hidden>No command matches.</p>
+    </nav>
   </div>
 </aside>
 
@@ -136,5 +149,33 @@ for (const cat of CATEGORY_ORDER) {
         try { sessionStorage.setItem(KEY, String(rail.scrollTop)); } catch {}
       });
     }, { passive: true });
+  })();
+
+  // The palette's filter line: type to narrow the commands, return to open
+  // the first match, escape to clear. A typed slash or "impeccable" prefix
+  // is ignored, since the line already shows it.
+  (() => {
+    const palette = document.querySelector('[data-docs-palette]');
+    const input = palette?.querySelector('[data-docs-palette-filter]');
+    if (!palette || !input) return;
+    const rows = Array.from(palette.querySelectorAll('[data-docs-palette-row]'));
+    const groups = Array.from(palette.querySelectorAll('[data-docs-palette-group]'));
+    const empty = palette.querySelector('[data-docs-palette-empty]');
+    const apply = () => {
+      const q = input.value.replace(/^\/?(impeccable\s*)?/, '').trim().toLowerCase();
+      rows.forEach((r) => { r.parentElement.hidden = !!q && !r.dataset.docsPaletteRow.includes(q); });
+      groups.forEach((g) => { g.hidden = !g.querySelector('li:not([hidden])'); });
+      if (empty) empty.hidden = rows.some((r) => !r.parentElement.hidden);
+    };
+    input.addEventListener('input', apply);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const first = rows.find((r) => !r.parentElement.hidden);
+        if (first) { e.preventDefault(); location.href = first.href; }
+      } else if (e.key === 'Escape') {
+        input.value = '';
+        apply();
+      }
+    });
   })();
 </script>

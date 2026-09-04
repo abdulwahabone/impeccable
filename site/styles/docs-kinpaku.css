@@ -179,6 +179,172 @@
 }
 
 
+/* The command palette. The agent's slash menu, as a rail: a dark panel on
+   the instrument tokens with the filter line at its head, group captions
+   inside, rows lit by the gold dot. Everything above it stays on paper. */
+.docs-kinpaku {
+  --skills-sidebar-width: 236px;
+}
+
+.docs-kinpaku .docs-palette {
+  margin-top: 30px;
+  padding: 0 0 7px;
+  border-radius: 10px;
+  background: var(--ks-instrument-deep);
+  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-1);
+  isolation: isolate;
+}
+
+.docs-kinpaku .docs-palette > * {
+  position: relative;
+  z-index: 1;
+}
+
+.docs-kinpaku .docs-palette-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  padding: 0 12px;
+  border-bottom: 1px solid oklch(100% 0 0 / 0.08);
+  cursor: text;
+}
+
+.docs-kinpaku .docs-palette-led {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--ks-kinpaku);
+  box-shadow: var(--ks-indicator-glow);
+}
+
+.docs-kinpaku .docs-palette-prefix {
+  flex: none;
+  font: 400 12.5px / 1 var(--ks-mono);
+  color: oklch(93% 0 0 / 0.5);
+  white-space: nowrap;
+}
+
+.docs-kinpaku .docs-palette-filter {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ks-instrument-text);
+  font: 400 12.5px / 1 var(--ks-mono);
+  outline: none;
+  caret-color: var(--ks-instrument-text);
+}
+
+.docs-kinpaku .docs-palette-head:focus-within {
+  box-shadow: inset 0 -1px 0 var(--ks-kinpaku);
+}
+
+.docs-kinpaku .docs-palette-group {
+  margin: 0;
+}
+
+.docs-kinpaku .docs-palette-group[hidden] {
+  display: none;
+}
+
+.docs-kinpaku .docs-palette-cap {
+  display: block;
+  margin: 6px 0 0;
+  padding: 0 12px 0 30px;
+  font: 500 10px / 22px var(--ks-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: oklch(93% 0 0 / 0.32);
+}
+
+.docs-kinpaku .docs-palette-group + .docs-palette-group .docs-palette-cap {
+  border-top: 1px solid oklch(100% 0 0 / 0.07);
+  margin-top: 4px;
+  padding-top: 3px;
+}
+
+.docs-kinpaku .docs-palette-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.docs-kinpaku .docs-palette-list li {
+  margin: 0;
+}
+
+.docs-kinpaku .docs-palette-list li[hidden] {
+  display: none;
+}
+
+.docs-kinpaku .docs-palette-row {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: center;
+  height: 28px;
+  padding: 0 10px 0 8px;
+  text-decoration: none;
+  transition: background-color 80ms var(--ks-ease);
+}
+
+.docs-kinpaku .docs-palette-dot {
+  width: 6px;
+  height: 6px;
+  justify-self: center;
+  border-radius: 50%;
+  background: transparent;
+  transition: background-color var(--ks-quick) var(--ks-ease);
+}
+
+.docs-kinpaku .docs-palette-name {
+  font: 500 12.5px / 1 var(--ks-mono);
+  color: oklch(93% 0 0 / 0.86);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.docs-kinpaku .docs-palette-row:hover {
+  background: oklch(100% 0 0 / 0.06);
+}
+
+.docs-kinpaku .docs-palette-row:hover .docs-palette-name {
+  color: var(--ks-paper-raised);
+}
+
+.docs-kinpaku .docs-palette-row[aria-current="page"] {
+  background: oklch(100% 0 0 / 0.085);
+}
+
+.docs-kinpaku .docs-palette-row[aria-current="page"] .docs-palette-dot {
+  background: var(--ks-kinpaku);
+  box-shadow: var(--ks-indicator-glow);
+}
+
+.docs-kinpaku .docs-palette-row[aria-current="page"] .docs-palette-name {
+  color: var(--ks-paper-raised);
+}
+
+.docs-kinpaku .docs-palette-row:focus-visible {
+  outline: 2px solid var(--ks-kinpaku);
+  outline-offset: -2px;
+}
+
+.docs-kinpaku .docs-palette-empty {
+  margin: 0;
+  padding: 10px 12px 4px;
+  font: 400 12px / 1.4 var(--ks-font);
+  color: oklch(93% 0 0 / 0.5);
+}
+
+.docs-kinpaku .docs-palette-empty[hidden] {
+  display: none;
+}
+
+
 /* Mobile: collapse the sidebar behind a toggle. */
 @media (max-width: 960px) {
   .docs-kinpaku .skills-sidebar {
@@ -234,8 +400,7 @@
 
    Sections, in render order:
      a. Starter hero
-     b. The slash moment (SlashMoment.astro, site/styles/slash-moment.css),
-        then "Understand the system" on the chooser list styles
+     b. Intent chooser
      c. Live mode callout
      d. A typical session (linear workflow of 4 commands)
      e. Pairs and chains (relational schema)
@@ -827,6 +992,91 @@
   font-size: 0.94rem;
   line-height: 1.5;
   color: var(--ks-text);
+}
+
+
+/* f. Full reference (cheatsheet) --------------------------------------- */
+
+.docs-kinpaku .docs-reference-head {
+  margin-bottom: 32px;
+}
+
+.docs-kinpaku .docs-reference {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 36px 48px;
+}
+
+@media (max-width: 760px) {
+  .docs-kinpaku .docs-reference {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.docs-kinpaku .docs-reference-group {
+  display: grid;
+  gap: 10px;
+}
+
+.docs-kinpaku .docs-reference-cat {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 6px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ks-rule);
+  font-family: var(--ks-mono);
+  font-size: 0.72rem;
+  letter-spacing: var(--ks-type-eyebrow-track);
+  text-transform: uppercase;
+  color: var(--ks-ink);
+}
+
+.docs-kinpaku .docs-reference-count {
+  color: var(--ks-text-faint);
+  font-size: 0.86em;
+}
+
+.docs-kinpaku .docs-reference-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.docs-kinpaku .docs-reference-row {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  align-items: baseline;
+  gap: 14px;
+  padding: 4px 0;
+  text-decoration: none;
+  color: inherit;
+  transition: color 160ms var(--ks-ease);
+}
+
+.docs-kinpaku .docs-reference-row:hover .docs-reference-name {
+  color: var(--docs-accent-hover);
+}
+
+.docs-kinpaku .docs-reference-row:hover .docs-reference-line {
+  color: var(--ks-ink);
+}
+
+.docs-kinpaku .docs-reference-name {
+  font-family: var(--ks-mono);
+  font-size: 0.92rem;
+  color: var(--ks-text);
+  transition: color 160ms var(--ks-ease);
+}
+
+.docs-kinpaku .docs-reference-line {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ks-text-muted);
+  transition: color 160ms var(--ks-ease);
 }
 
 
