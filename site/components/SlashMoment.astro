@@ -1,0 +1,90 @@
+---
+/**
+ * The slash moment: the docs index opens on the agent's composer with the
+ * whole command set unfolded beneath the cursor. The rows are real links to
+ * each command's page, so the menu is an index without script; the script
+ * (site/scripts/components/slash-moment.js) adds the typed prefix, the
+ * filter, the idle tour, and the Before and After pages on either side.
+ * Spec: docs/concepts/docs-slash-menu.html.
+ */
+import { GROUPS, COMMANDS, DEFAULT_INDEX } from '../data/slash-moment.mjs';
+import '../styles/slash-moment.css';
+
+const count = COMMANDS.length;
+const groupCount = GROUPS.length;
+const words = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty', 'twenty-one', 'twenty-two', 'twenty-three', 'twenty-four', 'twenty-five'];
+const countWord = words[count] ?? String(count);
+const initial = COMMANDS[DEFAULT_INDEX];
+let index = 0;
+---
+
+<section class="sm" data-slash-moment aria-labelledby="docs-slash-h">
+  <header class="sm-head">
+    <h1 class="sm-title" id="docs-slash-h"><span class="sm-eyebrow">The language</span>{countWord.charAt(0).toUpperCase() + countWord.slice(1)} verbs, one keystroke away.</h1>
+    <div>
+      <p class="sm-lede">Impeccable gives your AI a shared design vocabulary. Each command names one kind of intervention: <code>/typeset</code> for type, <code>/distill</code> for complexity, <code>/audit</code> for production quality. Type a slash in your agent and the whole set unfolds beneath the cursor. This is that moment.</p>
+      <span class="sm-meta">{count} commands · {groupCount} groups · arrow, type, or click to browse · return to run<br>New here? <code>npx impeccable install</code>, then <code>/impeccable init</code>. Full walkthrough: <a href="/tutorials/getting-started">Getting started</a>.</span>
+    </div>
+  </header>
+
+  <div class="sm-stage" data-sm="stage" tabindex="0" aria-label="Command composer demo">
+    <div class="sm-grid">
+      <div class="sm-flank is-before">
+        <div class="sm-flank-head"><span class="ks-tag" data-sm="before-tag">Before</span><span class="sm-flank-cap" data-sm="before-cap">{initial ? 'the page as it is' : ''}</span></div>
+        <div class="pg" data-sm="before-page"></div>
+        <div class="sm-flank-foot"><p data-sm="desc"></p></div>
+      </div>
+
+      <div class="sm-center">
+        <div class="sm-composer" data-sm="composer">
+          <span class="sm-led" data-sm="led"></span>
+          <div class="sm-line"><span class="sm-pre" data-sm="pre"></span><span class="sm-typed" data-sm="typed"></span><i class="sm-caret is-solid" data-sm="caret"></i><span class="sm-ghost" data-sm="ghost"></span></div>
+          <div class="sm-hint" data-sm="hint"><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> run</span><span><kbd>esc</kbd> clear</span></div>
+          <input class="sm-input" data-sm="input" type="text" autocomplete="off" spellcheck="false" aria-label="Type a command">
+        </div>
+        <div class="sm-menu-wrap" data-sm="menu-wrap">
+          <div class="sm-menu is-unfolding" data-sm="menu" role="listbox" aria-label="Commands">
+            {GROUPS.map(([group, list]) => (
+              <span class="sm-cap" data-sm-cap={group} aria-hidden="true">{group}</span>
+            ))}
+            {GROUPS.map(([group, list]) => list.map(([name, short], j) => {
+              const i = index++;
+              return (
+                <a
+                  class:list={['sm-row', { 'is-group': j === 0, 'is-on': i === DEFAULT_INDEX }]}
+                  href={`/docs/${name}`}
+                  role="option"
+                  aria-selected={i === DEFAULT_INDEX ? 'true' : 'false'}
+                  tabindex="-1"
+                  data-sm-row
+                  data-i={i}
+                  data-g={group}
+                  style={`--i:${i}`}
+                >
+                  <span class="sm-dot" aria-hidden="true"></span>
+                  <span class="sm-name"><i>/</i>{name}</span>
+                  <span class="sm-desc">{short}</span>
+                  <span class="sm-ret" aria-hidden="true">↵</span>
+                </a>
+              );
+            }))}
+            <div class="sm-empty">No command matches. Esc to clear.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sm-flank is-after">
+        <div class="sm-flank-head"><span class="ks-tag is-quiet">After</span><span class="sm-flank-cap" data-sm="after-cap"></span></div>
+        <div class="pg" data-sm="after-page"></div>
+        <div class="sm-flank-foot">
+          <div class="sm-pairs">Combines with <span class="sm-pairs-list" data-sm="pairs"></span></div>
+          <a class="sm-docs-link" data-sm="docs-link" href={`/docs/${initial?.name ?? 'polish'}`}>Read /{initial?.name ?? 'polish'}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import '../scripts/components/slash-moment.js';
+</script>

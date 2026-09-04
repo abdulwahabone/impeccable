@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import DocsSidebar from '../../components/DocsSidebar.astro';
+import SlashMoment from '../../components/SlashMoment.astro';
 import '../../styles/sub-pages.css';
 import '../../styles/docs-kinpaku.css';
 import {
@@ -33,57 +34,6 @@ const session = [
   { slug: 'critique', verb: 'Review' },
   { slug: 'polish', verb: 'Refine' },
   { slug: 'live', verb: 'Iterate' },
-];
-
-const startSteps = [
-  {
-    label: 'Install',
-    command: 'npx impeccable install',
-    line: 'Run from the project root, then reload your agent.',
-  },
-  {
-    label: 'Set context',
-    command: '/impeccable init',
-    line: 'Create PRODUCT.md and DESIGN.md.',
-  },
-  {
-    label: 'Try it',
-    command: '/impeccable polish the pricing page',
-    line: 'Point it at a real page.',
-  },
-];
-
-const choices = [
-  {
-    need: 'Start a project',
-    command: '/impeccable init',
-    href: '/docs/init',
-  },
-  {
-    need: 'Polish a page',
-    command: '/impeccable polish',
-    href: '/docs/polish',
-  },
-  {
-    need: 'Find design issues',
-    command: '/impeccable critique',
-    href: '/docs/critique',
-  },
-  {
-    need: 'Check implementation',
-    command: '/impeccable audit',
-    href: '/docs/audit',
-  },
-  {
-    need: 'Iterate in the browser',
-    command: '/impeccable live',
-    href: '/docs/live',
-  },
-  {
-    need: 'Build a new surface',
-    command: '/impeccable <describe it>',
-    href: '/docs/new-work',
-  },
 ];
 
 const manualTopics = [
@@ -140,43 +90,7 @@ const chains: { id: string; a: string; b: string; arrow: string; line: string }[
     <div class="skills-main skills-main--docs-index">
       <div class="docs-index">
 
-        <section class="docs-start-rail" aria-labelledby="docs-start-h">
-          <header class="docs-start-rail-head">
-            <h1 class="docs-start-rail-title" id="docs-start-h">Start with <span>/impeccable</span></h1>
-            <p class="docs-start-rail-lede">Install, add context, then run one command.</p>
-          </header>
-
-          <div class="docs-start-rail-sequence">
-            <ol class="docs-start-rail-steps docs-start-rail-steps--number-gutter docs-start-rail-steps--inner-inset" aria-label="Quick start steps">
-              {startSteps.map((step, i) => (
-                <li class="docs-start-rail-step">
-                  <span class="docs-start-rail-num ks-tag">{String(i + 1).padStart(2, "0")}</span>
-                  <span class="docs-start-rail-label">{step.label}</span>
-                  <code class="docs-start-rail-command">{step.command}</code>
-                  <span class="docs-start-rail-line">{step.line}</span>
-                </li>
-              ))}
-            </ol>
-
-          </div>
-
-          <p class="docs-start-rail-note">Full walkthrough: <a href="/tutorials/getting-started">Getting started</a>.</p>
-        </section>
-
-        <section class="docs-chooser-section" aria-labelledby="docs-chooser-h">
-          <header class="docs-chooser-head">
-            <h2 class="docs-chooser-title" id="docs-chooser-h">Choose a command</h2>
-          </header>
-
-          <div class="docs-chooser-list">
-            {choices.map(choice => (
-              <a class="docs-chooser-list-row" href={choice.href}>
-                <span class="docs-chooser-list-need">{choice.need}</span>
-                <span class="docs-chooser-list-command">{choice.command}</span>
-              </a>
-            ))}
-          </div>
-        </section>
+        <SlashMoment />
 
         <section class="docs-manual-section" aria-labelledby="docs-manual-h">
           <header class="docs-manual-head">
