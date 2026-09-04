@@ -132,15 +132,18 @@
   margin-bottom: 0;
 }
 
+/* Group headings are ink and bold, so they read as headings over their
+   links rather than as meta beside them; the links are muted and a step
+   smaller, ink on hover and on the current page. */
 .docs-kinpaku .skills-sidebar-category {
   display: block;
   font-family: var(--ks-font);
-  font-size: 0.72rem;
+  font-size: 0.8125rem;
   font-weight: 650;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--docs-accent);
-  margin-bottom: 10px;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--ks-ink);
+  margin-bottom: 6px;
   padding: 0 0 0 14px;
 }
 
@@ -156,43 +159,51 @@
 
 .docs-kinpaku .skills-sidebar-list a {
   display: block;
-  padding: 5px 0 5px 12px;
+  padding: 4px 0 4px 12px;
   border-left: 2px solid transparent;
   font-family: var(--ks-font);
-  font-size: 0.94rem;
+  font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: var(--ks-text);
+  color: var(--ks-text-muted);
   text-decoration: none;
   transition: color 160ms var(--ks-ease),
               border-color 160ms var(--ks-ease);
 }
 
 .docs-kinpaku .skills-sidebar-list a:hover {
-  color: var(--docs-accent-hover);
+  color: var(--ks-ink);
 }
 
 .docs-kinpaku .skills-sidebar-list a[aria-current="page"] {
-  color: var(--docs-accent);
+  color: var(--ks-ink);
   font-weight: 600;
-  border-left-color: var(--docs-accent);
+  border-left-color: var(--ks-gold-line);
 }
 
 
-/* The command palette. The agent's slash menu, as a rail: a dark panel on
-   the instrument tokens with the filter line at its head, group captions
-   inside, rows lit by the gold dot. Everything above it stays on paper. */
+/* The command palette. The agent's slash menu, as a rail: a contained
+   panel on the paper hardware (a recessed gray track, like the paper
+   strip's), the filter line at its head, group captions inside, and the
+   current page's command as a raised paper cap with the gold dot lit.
+   Every line of text sits on the same 14px line as the lists above. */
 .docs-kinpaku {
   --skills-sidebar-width: 236px;
+  --docs-palette-indent: 14px;
 }
 
 .docs-kinpaku .docs-palette {
   margin-top: 30px;
-  padding: 0 0 7px;
-  border-radius: 10px;
-  background: var(--ks-instrument-deep);
-  box-shadow: inset 0 1px 0 var(--ks-instrument-rule), var(--ks-lift-1);
+  padding: 0 0 6px;
+  border-radius: var(--ks-radius-md);
+  background: var(--ks-gray);
+  box-shadow: var(--ks-track-recess);
   isolation: isolate;
+}
+
+.docs-kinpaku .docs-palette::before {
+  opacity: 0.05;
+  mix-blend-mode: normal;
 }
 
 .docs-kinpaku .docs-palette > * {
@@ -203,10 +214,9 @@
 .docs-kinpaku .docs-palette-head {
   display: flex;
   align-items: center;
-  gap: 8px;
   height: 40px;
-  padding: 0 12px;
-  border-bottom: 1px solid oklch(100% 0 0 / 0.08);
+  padding: 0 10px 0 0;
+  border-bottom: 1px solid var(--ks-rule);
   cursor: text;
 }
 
@@ -214,28 +224,31 @@
   width: 6px;
   height: 6px;
   flex: none;
+  margin-left: 4px;
   border-radius: 50%;
   background: var(--ks-kinpaku);
-  box-shadow: var(--ks-indicator-glow);
+  box-shadow: var(--ks-led);
 }
 
 .docs-kinpaku .docs-palette-prefix {
   flex: none;
+  margin-left: 4px;
   font: 400 12.5px / 1 var(--ks-mono);
-  color: oklch(93% 0 0 / 0.5);
+  color: var(--ks-text-muted);
   white-space: nowrap;
 }
 
 .docs-kinpaku .docs-palette-filter {
   flex: 1;
   min-width: 0;
+  margin-left: 6px;
   padding: 0;
   border: 0;
   background: transparent;
-  color: var(--ks-instrument-text);
+  color: var(--ks-ink);
   font: 400 12.5px / 1 var(--ks-mono);
   outline: none;
-  caret-color: var(--ks-instrument-text);
+  caret-color: var(--ks-ink);
 }
 
 .docs-kinpaku .docs-palette-head:focus-within {
@@ -253,15 +266,15 @@
 .docs-kinpaku .docs-palette-cap {
   display: block;
   margin: 6px 0 0;
-  padding: 0 12px 0 30px;
+  padding: 0 10px 0 var(--docs-palette-indent);
   font: 500 10px / 22px var(--ks-mono);
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: oklch(93% 0 0 / 0.32);
+  color: var(--ks-text-faint);
 }
 
 .docs-kinpaku .docs-palette-group + .docs-palette-group .docs-palette-cap {
-  border-top: 1px solid oklch(100% 0 0 / 0.07);
+  border-top: 1px solid var(--ks-rule);
   margin-top: 4px;
   padding-top: 3px;
 }
@@ -269,7 +282,7 @@
 .docs-kinpaku .docs-palette-list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 3px;
 }
 
 .docs-kinpaku .docs-palette-list li {
@@ -280,14 +293,18 @@
   display: none;
 }
 
+/* The dot sits in the gutter left of the text line, so the name lands on
+   the same 14px as the links above; the row's 3px side inset (from the
+   list) makes the raised cap read as a key in the track. */
 .docs-kinpaku .docs-palette-row {
   display: grid;
-  grid-template-columns: 22px minmax(0, 1fr);
+  grid-template-columns: calc(var(--docs-palette-indent) - 3px) minmax(0, 1fr);
   align-items: center;
   height: 28px;
-  padding: 0 10px 0 8px;
+  padding: 0 8px 0 0;
+  border-radius: calc(var(--ks-radius-md) - 3px);
   text-decoration: none;
-  transition: background-color 80ms var(--ks-ease);
+  transition: background-color var(--ks-quick) var(--ks-ease), box-shadow var(--ks-quick) var(--ks-ease);
 }
 
 .docs-kinpaku .docs-palette-dot {
@@ -295,37 +312,36 @@
   height: 6px;
   justify-self: center;
   border-radius: 50%;
+  /* Idle rows carry no dot, as in the agent's own menu; only the current
+     command's is lit. */
   background: transparent;
-  transition: background-color var(--ks-quick) var(--ks-ease);
+  transition: background-color var(--ks-quick) var(--ks-ease), box-shadow var(--ks-quick) var(--ks-ease);
 }
 
 .docs-kinpaku .docs-palette-name {
   font: 500 12.5px / 1 var(--ks-mono);
-  color: oklch(93% 0 0 / 0.86);
+  color: var(--ks-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.docs-kinpaku .docs-palette-row:hover {
-  background: oklch(100% 0 0 / 0.06);
-}
-
 .docs-kinpaku .docs-palette-row:hover .docs-palette-name {
-  color: var(--ks-paper-raised);
+  color: var(--ks-ink);
 }
 
 .docs-kinpaku .docs-palette-row[aria-current="page"] {
-  background: oklch(100% 0 0 / 0.085);
+  background: var(--ks-paper-raised);
+  box-shadow: var(--ks-cap-lift);
 }
 
 .docs-kinpaku .docs-palette-row[aria-current="page"] .docs-palette-dot {
   background: var(--ks-kinpaku);
-  box-shadow: var(--ks-indicator-glow);
+  box-shadow: var(--ks-led);
 }
 
 .docs-kinpaku .docs-palette-row[aria-current="page"] .docs-palette-name {
-  color: var(--ks-paper-raised);
+  color: var(--ks-ink);
 }
 
 .docs-kinpaku .docs-palette-row:focus-visible {
@@ -335,9 +351,9 @@
 
 .docs-kinpaku .docs-palette-empty {
   margin: 0;
-  padding: 10px 12px 4px;
+  padding: 10px var(--docs-palette-indent) 4px;
   font: 400 12px / 1.4 var(--ks-font);
-  color: oklch(93% 0 0 / 0.5);
+  color: var(--ks-text-muted);
 }
 
 .docs-kinpaku .docs-palette-empty[hidden] {
