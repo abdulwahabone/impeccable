@@ -63,7 +63,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 12px;
-  font-family: var(--ks-font);
+  font-family: var(--ks-font-display);
   font-style: normal;
   font-weight: var(--ks-type-display-weight);
   font-size: var(--ks-type-display-size);
@@ -72,23 +72,6 @@
   color: var(--ks-ink);
   margin: 0 0 22px;
   text-wrap: balance;
-}
-
-.live-mode-kinpaku .live-mode-page-title-badge {
-  display: inline-flex;
-  align-items: center;
-  align-self: center;
-  padding: 3px 9px;
-  border: 1px solid var(--ks-patina-pale);
-  border-radius: var(--ks-radius-sm);
-  background: color-mix(in oklch, var(--ks-patina-pale) 35%, var(--ks-paper-raised));
-  color: var(--ks-state-ink);
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-micro-size);
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  line-height: 1.2;
-  text-transform: uppercase;
 }
 
 .live-mode-kinpaku .live-mode-page-lede {

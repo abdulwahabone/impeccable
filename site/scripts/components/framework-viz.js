@@ -353,25 +353,9 @@ export class PeriodicTable {
 			activate();
 			const scrollTarget = display ? display.scrollTo : cmd;
 
-			// Navigate the fisheye scroller to this command
-			const fisheyeList = document.getElementById('fisheye-list');
-			if (fisheyeList) {
-				const items = [...fisheyeList.querySelectorAll('.fisheye-item')];
-				const idx = items.findIndex(item => item.dataset.id === scrollTarget);
-				if (idx >= 0 && fisheyeList._scrollToCommand) {
-					// Scroll the commands section into view first
-					const section = document.querySelector('.commands-subsection');
-					if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-					fisheyeList._scrollToCommand(idx);
-					return;
-				}
-			}
-
-			// Fallback: scroll to the spread element
-			const target = document.getElementById(`cmd-${scrollTarget}`);
-			if (target) {
-				target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-			}
+			// Hand the command to the palette (glass-terminal.js), which brings
+			// the palette view in front, selects the key and scrolls to it.
+			window.dispatchEvent(new CustomEvent('impeccable:select-command', { detail: { id: scrollTarget } }));
 		});
 
 		return el;

@@ -68,7 +68,7 @@
 	font-weight: 500;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: var(--ks-accent-ink);
+	color: var(--ks-text-muted);
 }
 
 .research-title {
@@ -334,14 +334,18 @@
 	border-top: 1px solid var(--ks-gold-line);
 }
 
+/* The chapter numeral is the gold tag; the rest of the kicker is muted mono. */
 .research-chapter-kicker {
+	display: flex;
+	align-items: center;
+	gap: 10px;
 	margin: 0 0 18px;
 	font-family: var(--ks-mono);
 	font-size: var(--ks-type-eyebrow-size);
 	font-weight: 500;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: var(--ks-state-ink);
+	color: var(--ks-text-muted);
 }
 
 .research-chapter-title {

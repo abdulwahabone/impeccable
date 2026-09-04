@@ -160,15 +160,6 @@
   margin-bottom: 34px;
 }
 
-.home-kinpaku .spread-category-label {
-  color: var(--ks-accent-ink);
-  font-family: var(--ks-mono);
-  font-size: var(--ks-type-micro-size);
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
 .home-kinpaku .section-title {
   font-family: var(--ks-font-display);
   font-weight: var(--ks-type-headline-weight);
@@ -345,115 +336,44 @@
   align-items: end;
 }
 
-/* Divider accent follows the section's category identity (the same gold/teal
-   grouping the category labels use). The accent is only ever a line here:
-   the gold hairline for create/refine/simplify, patina for evaluate/harden,
-   and the neutral edge for system as the meta category. */
-.home-kinpaku .magazine-spread[data-category="create"] { --spread-accent: var(--ks-gold-line); }
-.home-kinpaku .magazine-spread[data-category="evaluate"] { --spread-accent: var(--ks-patina); }
-.home-kinpaku .magazine-spread[data-category="refine"] { --spread-accent: var(--ks-gold-line); }
-.home-kinpaku .magazine-spread[data-category="simplify"] { --spread-accent: var(--ks-gold-line); }
-.home-kinpaku .magazine-spread[data-category="harden"] { --spread-accent: var(--ks-patina); }
-.home-kinpaku .magazine-spread[data-category="system"] { --spread-accent: var(--ks-edge); }
-
 /* Keep gold and patina for the spread's decorative marks, but use their
    accessible semantic ink roles for small text inside rendered demos. */
-.home-kinpaku .magazine-spread:is(
+.home-kinpaku .palette-card:is(
   [data-category="create"],
-[data-category="refine"],
-[data-category="simplify"]
-) .demo-viewport,
-.home-kinpaku .mobile-commands-layout:is(
-  [data-category="create"],
-[data-category="refine"],
-[data-category="simplify"]
+  [data-category="refine"],
+  [data-category="simplify"]
 ) .demo-viewport {
   --spread-accent: var(--ks-gold-ink);
 }
 
-.home-kinpaku .magazine-spread:is(
+.home-kinpaku .palette-card:is(
   [data-category="evaluate"],
-[data-category="harden"]
-) .demo-viewport,
-.home-kinpaku .mobile-commands-layout:is(
-  [data-category="evaluate"],
-[data-category="harden"]
+  [data-category="harden"]
 ) .demo-viewport {
   --spread-accent: var(--ks-state-ink);
 }
 
-.home-kinpaku .mobile-commands-layout .demo-craft-note {
+.home-kinpaku .palette-demo .demo-craft-note {
   color: var(--ks-text-muted);
   opacity: 1 !important;
 }
 
-/* The command name is a headline in ink; the category label above it is the
-   one accent, in text-safe patina. The slash before /impeccable stays muted
-   punctuation. */
-.home-kinpaku .magazine-container .spread-category-label {
-  color: var(--spread-ink, var(--ks-accent-ink));
-}
-
-.home-kinpaku .magazine-container .spread-command-name {
-  color: var(--ks-ink);
-}
-
-.home-kinpaku .magazine-container .spread-command-name .spread-slash {
-  color: var(--color-ash);
-}
-
-/* The outer spread is one raised paper panel. All inner demo surfaces sit
-   transparently on top: no panel-in-panel, no nested rings. */
-.home-kinpaku .magazine-container {
-  border: 0;
-  border-radius: 2px;
-  background: var(--ks-paper-raised);
-  box-shadow: none;
-}
-
-.home-kinpaku .fisheye-item {
-  color: var(--ks-text);
-  font-family: var(--ks-font);
-  font-size: var(--ks-type-lead-size);
-}
-
-.home-kinpaku .spread-command-name {
-  color: var(--ks-ink);
-  font-family: var(--ks-font-display);
-  font-size: 2.25rem;
-  font-weight: var(--ks-type-headline-weight);
-  letter-spacing: var(--ks-type-headline-track);
-}
-
-.home-kinpaku .spread-command-name .spread-namespace,
-.home-kinpaku .spread-description {
-  color: var(--ks-muted);
-}
-
-.home-kinpaku .spread-flow-label,
-.home-kinpaku .spread-flow-icon {
-  color: var(--ks-muted);
-}
-
-.home-kinpaku .spread-flow-cmd {
-  color: var(--ks-link-on-paper);
-  background: transparent;
-  border: 0;
-  border-radius: var(--ks-code-radius);
-}
-
 /* The demo's frame is the .split-container's own border; the caption sits
    outside it. Strip the leftover chrome: no grid ::before, no inner shadow. */
-.home-kinpaku .spread-demo-area .split-container {
+.home-kinpaku .palette-demo .split-container {
+  width: 100%;
+  max-width: none;
+  height: var(--palette-demo-height);
+  margin: 0;
   box-shadow: none;
 }
-.home-kinpaku .spread-demo-area .split-container::before {
+.home-kinpaku .palette-demo .split-container::before {
   display: none;
 }
 
 /* Inner demo surfaces are transparent — they sit on the panel inside the
    framed .split-container, with no chrome of their own. */
-.home-kinpaku .spread-demo-area .demo-split-comparison .split-container,
+.home-kinpaku .palette-demo .demo-split-comparison .split-container,
 .home-kinpaku .demo-container,
 .home-kinpaku .demo-viewport,
 .home-kinpaku .solution-visual-interactive {
@@ -462,13 +382,13 @@
   background: transparent;
 }
 
-.home-kinpaku .spread-demo-area > .demo-container {
+.home-kinpaku .palette-demo > .demo-container {
   border: 0;
   border-radius: 0;
   background: transparent;
 }
 
-.home-kinpaku .spread-demo-area .demo-container .demo-viewport {
+.home-kinpaku .palette-demo .demo-container .demo-viewport {
   width: 100%;
   max-width: none;
   min-height: 100%;
@@ -626,12 +546,12 @@
   opacity: 0.54 !important;
 }
 
-.home-kinpaku .spread-demo-area .demo-split-comparison .split-before {
+.home-kinpaku .palette-demo .demo-split-comparison .split-before {
   /* Left half inherits the panel fill — no separate background. */
   background: transparent;
 }
 
-.home-kinpaku .spread-demo-area .demo-split-comparison .split-after {
+.home-kinpaku .palette-demo .demo-split-comparison .split-after {
   /* Right half is a sunk paper well: the before/after contrast. */
   background: var(--ks-paper-deep);
 }
@@ -654,15 +574,13 @@
 /* Demo markup carries inline `color: var(--color-accent)` for its own
    accent text. On paper that resolves to gold, which cannot be read, so the
    page maps it to the text-safe accent. Scoped to the demo areas only. */
-.home-kinpaku :is(.spread-demo-area, .terminal-preview, .mobile-demo-area) .demo-split-comparison [style*="color: var(--color-accent)"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="color: var(--color-accent)"] {
   color: var(--ks-accent-ink);
 }
 
 /* Demo surfaces inside the spread. The warning panel keeps its amber: it is
    the demo's own warning state, not a page tint. */
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison {
+.home-kinpaku .palette-demo .demo-split-comparison {
   --demo-panel: var(--ks-paper-raised);
   --demo-panel-raised: var(--ks-paper-deep);
   --demo-panel-soft: var(--ks-gray);
@@ -677,9 +595,7 @@
   --demo-purple-soft: var(--ks-ink);
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison .split-container {
+.home-kinpaku .palette-demo .demo-split-comparison .split-container {
   /* No grid lines, no radial glow — the container is transparent so the before
      half shows the panel fill and the after half its own near-black. A thin
      neutral border frames the demo itself (the caption sits outside it). */
@@ -688,185 +604,99 @@
   border-radius: var(--ks-radius-sm);
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison .split-before,
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison .split-after {
+.home-kinpaku .palette-demo .demo-split-comparison .split-before,
+.home-kinpaku .palette-demo .demo-split-comparison .split-after {
   color: var(--demo-text);
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison .split-after {
+.home-kinpaku .palette-demo .demo-split-comparison .split-after {
   clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison .split-divider {
+.home-kinpaku .palette-demo .demo-split-comparison .split-divider {
   transform: translateX(-50%) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fafafa"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #f8f8f8"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #f5f5f5"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #f0f0f0"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: white"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fafafa"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #f8f8f8"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #f5f5f5"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #f0f0f0"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: white"] {
   color: var(--demo-text) !important;
   background: var(--demo-panel) !important;
   border-color: var(--demo-border) !important;
   box-shadow: var(--ks-lift-1) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fef3c7"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fff8e1"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fff3e0"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fff8f8"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fff0f0"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fee2e2"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #e3f2fd"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fef3c7"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fff8e1"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fff3e0"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fff8f8"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fff0f0"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fee2e2"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #e3f2fd"] {
   color: var(--demo-text) !important;
   background: var(--demo-panel-soft) !important;
   border-color: var(--demo-border) !important;
   box-shadow: none !important;
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fef3c7"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fff8e1"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fff3e0"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fef3c7"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fff8e1"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fff3e0"] {
   background: var(--demo-warning-panel) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fff8f8"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fff0f0"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #fee2e2"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fff8f8"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fff0f0"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #fee2e2"] {
   background: var(--demo-danger-panel) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #e3f2fd"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #e3f2fd"] {
   background: var(--demo-info-panel) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #ddd"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #eee"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #e0e0e0"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #ccc"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="background: #333"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #ddd"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #eee"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #e0e0e0"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #ccc"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="background: #333"] {
   color: var(--demo-text) !important;
   background: var(--demo-panel-raised) !important;
   border-color: var(--demo-border) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison button[style*="#4F46E5"] {
+.home-kinpaku .palette-demo .demo-split-comparison button[style*="#4F46E5"] {
   background: var(--demo-purple) !important;
   color: var(--ks-paper) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #ddd"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="border: 2px solid #ddd"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #e0e0e0"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #e5e5e5"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #fca5a5"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #ffcccc"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="border: 1px solid #ffcc80"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="border: 1px solid #ddd"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="border: 2px solid #ddd"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="border: 1px solid #e0e0e0"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="border: 1px solid #e5e5e5"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="border: 1px solid #fca5a5"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="border: 1px solid #ffcccc"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="border: 1px solid #ffcc80"] {
   border-color: var(--demo-border) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="color: #333"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="color: #444"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="color: #666"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="color: #333"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="color: #444"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="color: #666"] {
   color: var(--demo-text) !important;
 }
 
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="color: #888"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="color: #999"],
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="color: #aaa"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="color: #888"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="color: #999"],
+.home-kinpaku .palette-demo .demo-split-comparison [style*="color: #aaa"] {
   color: var(--demo-muted) !important;
 }
 
 /* Small demo labels use the paper-safe patina text token so they retain
    readable contrast. */
-.home-kinpaku :is(.spread-demo-area,
-.terminal-preview,
-.mobile-demo-area) .demo-split-comparison [style*="color: var(--color-accent)"] {
+.home-kinpaku .palette-demo .demo-split-comparison [style*="color: var(--color-accent)"] {
   color: var(--ks-link-on-paper) !important;
 }
 
@@ -936,6 +766,12 @@
 .home-kinpaku .why-bento .ks-bento-tile:nth-child(odd) {
   padding-left: calc(var(--why-rail-inset) + var(--why-rail-gutter));
 }
+/* The tile numeral is the gold tag. A tile is a flex column, so the tag
+   opts out of stretching to the tile's width. */
+.home-kinpaku .why-bento .ks-tag {
+  align-self: flex-start;
+}
+
 .home-kinpaku .why-bento .ks-bento-tile:nth-child(even) {
   padding-right: calc(var(--why-rail-inset) + var(--why-rail-gutter));
 }
@@ -1355,10 +1191,6 @@
 
   .home-kinpaku .section-title {
     font-size: var(--ks-type-headline-size);
-  }
-
-  .home-kinpaku .spread-command-name {
-    font-size: var(--ks-type-display-size);
   }
 
   .home-kinpaku .language-view--periodic .solution-visual-interactive {

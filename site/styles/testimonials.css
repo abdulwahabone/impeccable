@@ -12,7 +12,9 @@
   margin-left: calc(50% - 50vw);
   /* No background of its own: the section sits on the page paper directly,
      and an opaque fill here would only duplicate it. */
-  padding: var(--ks-section-pad) 0;
+  /* The strip is the hero's footer: the gap from the hero's last element to
+     the cards equals the gap from the cards to the dotted rail. */
+  padding: 44px 0 42px;
   color: var(--ks-text);
   border-top: 0;
   overflow: hidden;

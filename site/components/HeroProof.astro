@@ -23,11 +23,14 @@ const proofs = [
             revealed and animate them closed as you land on it. Starting closed
             means the wipe only ever runs in the direction the seam travels. */}
         <div class="hero-proof-layer hero-proof-layer--before">
-          <span class="hero-proof-side-label hero-proof-side-label--before">Before</span>
 
           <div class={`hero-proof-canvas hero-proof-canvas--${proof.id}`} aria-hidden="true" data-impeccable-ignore="*">
             {proof.id === 'polish' && (
               <article class="proof-polish proof-polish--before">
+                <svg class="hero-proof-side-label hero-proof-side-label--before" viewBox="0 0 80 80" aria-hidden="true">
+                  <path id={`proof-arc-before-${proof.id}`} d="M 6 40 A 34 34 0 0 1 40 6" fill="none" />
+                  <text><textPath href={`#proof-arc-before-${proof.id}`} startOffset="50%" text-anchor="middle">Before</textPath></text>
+                </svg>
                 <span class="proof-annotation proof-annotation--sidetab is-concealed">Side-tab border</span>
                 <header class="proof-polish-head">
                   <span class="proof-polish-sprint">Launch / 14</span>
@@ -54,6 +57,10 @@ const proofs = [
 
             {proof.id === 'distill' && (
               <article class="proof-distill proof-distill--before">
+                <svg class="hero-proof-side-label hero-proof-side-label--before" viewBox="0 0 80 80" aria-hidden="true">
+                  <path id={`proof-arc-before-${proof.id}`} d="M 6 40 A 34 34 0 0 1 40 6" fill="none" />
+                  <text><textPath href={`#proof-arc-before-${proof.id}`} startOffset="50%" text-anchor="middle">Before</textPath></text>
+                </svg>
                 <header>
                   <strong>Analytics overview</strong>
                   <span class="proof-distill-live">
@@ -77,6 +84,10 @@ const proofs = [
 
             {proof.id === 'clarify' && (
               <article class="proof-clarify proof-clarify--before">
+                <svg class="hero-proof-side-label hero-proof-side-label--before" viewBox="0 0 80 80" aria-hidden="true">
+                  <path id={`proof-arc-before-${proof.id}`} d="M 6 40 A 34 34 0 0 1 40 6" fill="none" />
+                  <text><textPath href={`#proof-arc-before-${proof.id}`} startOffset="50%" text-anchor="middle">Before</textPath></text>
+                </svg>
                 <header><span>Get started</span><small>All fields required</small></header>
                 <div class="proof-clarify-heading">
                   <p class="proof-h">Unlock your potential today</p>
@@ -96,11 +107,14 @@ const proofs = [
         </div>
 
         <div class="hero-proof-layer hero-proof-layer--after">
-          <span class="hero-proof-side-label hero-proof-side-label--after">After</span>
 
           <div class={`hero-proof-canvas hero-proof-canvas--${proof.id}`} aria-hidden="true">
             {proof.id === 'polish' && (
               <article class="proof-polish proof-polish--after">
+                <svg class="hero-proof-side-label hero-proof-side-label--after" viewBox="0 0 80 80" aria-hidden="true">
+                  <path id={`proof-arc-after-${proof.id}`} d="M 40 74 A 34 34 0 0 0 74 40" fill="none" />
+                  <text><textPath href={`#proof-arc-after-${proof.id}`} startOffset="50%" text-anchor="middle">After</textPath></text>
+                </svg>
                 <header class="proof-polish-head">
                   <span class="proof-polish-sprint">Launch / 14</span>
                   <span class="proof-polish-track">On track</span>
@@ -116,6 +130,10 @@ const proofs = [
 
             {proof.id === 'distill' && (
               <article class="proof-distill proof-distill--after">
+                <svg class="hero-proof-side-label hero-proof-side-label--after" viewBox="0 0 80 80" aria-hidden="true">
+                  <path id={`proof-arc-after-${proof.id}`} d="M 40 74 A 34 34 0 0 0 74 40" fill="none" />
+                  <text><textPath href={`#proof-arc-after-${proof.id}`} startOffset="50%" text-anchor="middle">After</textPath></text>
+                </svg>
                 <header><strong>Revenue</strong><span>Last 30 days</span></header>
                 <div class="proof-distill-primary"><b>$84,218</b><span>+12.4% vs June</span></div>
                 <div class="proof-distill-chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -125,6 +143,10 @@ const proofs = [
 
             {proof.id === 'clarify' && (
               <article class="proof-clarify proof-clarify--after">
+                <svg class="hero-proof-side-label hero-proof-side-label--after" viewBox="0 0 80 80" aria-hidden="true">
+                  <path id={`proof-arc-after-${proof.id}`} d="M 40 74 A 34 34 0 0 0 74 40" fill="none" />
+                  <text><textPath href={`#proof-arc-after-${proof.id}`} startOffset="50%" text-anchor="middle">After</textPath></text>
+                </svg>
                 <header><span>New project</span><small>Step 1 of 3</small></header>
                 <p class="proof-h">What should this project improve?</p>
                 <p>Choose one focus. You can add more context next.</p>
@@ -141,7 +163,7 @@ const proofs = [
           type="range"
           min="0"
           max="100"
-          value="54"
+          value="50"
           aria-label={`Reveal the improved ${proof.command} example`}
           data-proof-range
         />

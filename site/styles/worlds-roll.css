@@ -55,8 +55,7 @@
 	--worlds-head-h: 34px;
 }
 
-.worlds-zone-head,
-.worlds-played-zone > .worlds-zone-label {
+.worlds-zone-head {
 	display: flex;
 	align-items: center;
 	min-height: var(--worlds-head-h);
@@ -66,16 +65,6 @@
 .worlds-zone-head {
 	justify-content: space-between;
 	gap: 16px;
-}
-
-/* Zone labels are labels, so they take muted ink. Patina on this table is
-   reserved for state: the live-roll dot and the played chip. */
-.worlds-zone-label {
-	font-family: var(--ks-mono);
-	font-size: var(--ks-type-micro-size);
-	letter-spacing: var(--ks-type-eyebrow-track);
-	text-transform: uppercase;
-	color: var(--ks-text-muted);
 }
 
 /* ============================================================
@@ -429,22 +418,13 @@
 	box-shadow: var(--ks-lift-2);
 }
 
-/* "Played" is a state, the one place on this card that patina belongs. */
-
+/* "Played" is the card's state, so it wears the gold tag (.ks-tag). Only
+   its placement on the art lives here. */
 .worlds-played-chip {
 	position: absolute;
 	top: 12px;
 	left: 12px;
 	z-index: 1;
-	padding: 4px 10px;
-	font-family: var(--ks-mono);
-	font-size: var(--ks-type-micro-size);
-	letter-spacing: var(--ks-type-eyebrow-track);
-	text-transform: uppercase;
-	color: var(--ks-state-ink);
-	background: var(--ks-paper-raised);
-	border: 1px solid var(--ks-rule);
-	border-radius: var(--ks-radius-sm);
 }
 
 .worlds-played-card img {
@@ -481,15 +461,11 @@
 	color: var(--ks-text-muted);
 }
 
-/* The third zone label doubles as the card's action, so it is ink where the
-   other two are muted. */
+/* The third zone tag doubles as the card's action. The caption is a flex
+   column, so the tag opts out of stretching. */
 .worlds-played-cta {
+	align-self: flex-start;
 	margin-top: 6px;
-	font-family: var(--ks-mono);
-	font-size: var(--ks-type-micro-size);
-	letter-spacing: var(--ks-type-eyebrow-track);
-	text-transform: uppercase;
-	color: var(--ks-ink);
 }
 
 .worlds-played-meta {

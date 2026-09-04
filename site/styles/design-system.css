@@ -693,3 +693,12 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* The page title takes the display face like every other page h1. */
+.kinpaku-system-page #system-title {
+  font-family: var(--ks-font-display);
+  font-size: var(--ks-type-display-size);
+  font-weight: var(--ks-type-display-weight);
+  line-height: var(--ks-type-display-line);
+  letter-spacing: var(--ks-type-display-track);
+}

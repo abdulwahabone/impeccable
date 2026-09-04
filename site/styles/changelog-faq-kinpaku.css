@@ -106,32 +106,25 @@
 }
 .cf-entry-head {
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  flex-wrap: wrap;
   gap: 14px;
   margin: 0 0 12px;
   font-family: var(--ks-mono);
   font-size: var(--ks-type-small-size);
 }
-.cf-version { color: var(--ks-accent-ink); }
+/* The version is the entry's name, so it is ink; the date is meta. The
+   release script keys on the bare .cf-version span, so it stays a plain
+   span rather than a tag. */
+.cf-version { color: var(--ks-ink); font-weight: 600; }
 .cf-date    { color: var(--ks-text-muted); }
 
 /* Current release: a gold hairline and a lift, so the newest version reads
-   as the one you're on at a glance. */
+   as the one you're on at a glance. Its CURRENT label is the kit's gold tag
+   (.ks-tag), placed right after the version. */
 .cf-entry--current {
-  border-color: var(--ks-gold-line);
+  border-color: var(--ks-edge);
   box-shadow: var(--ks-lift-1);
-}
-.cf-current-badge {
-  margin-left: auto;
-  align-self: center;
-  padding: 3px 11px;
-  border: 1px solid var(--ks-gold-line);
-  border-radius: var(--ks-radius-pill);
-  background: var(--ks-paper-raised);
-  color: var(--ks-accent-ink);
-  font-size: var(--ks-type-micro-size);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
 }
 
 /* One-line summary that sits above the bullets on a big release, so the

@@ -17,29 +17,6 @@
 }
 
 /* Hover hint */
-.split-container::after {
-  content: '← Drag →';
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-ash);
-  background: var(--color-paper);
-  padding: 4px 12px;
-  border-radius: 4px;
-  opacity: 0.8;
-  transition: opacity 0.3s ease;
-  z-index: 10;
-}
-
-.split-container:hover::after {
-  opacity: 0;
-}
-
 /* Entry animation for the divider */
 @keyframes splitEntry {
   from {
@@ -58,7 +35,4 @@
 
 /* Mobile adjustments */
 @media (hover: none) {
-  .split-container::after {
-    content: '← Swipe →';
   }
-}

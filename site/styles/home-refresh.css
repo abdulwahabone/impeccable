@@ -18,8 +18,33 @@
   text-wrap: balance;
 }
 
+/* The seam's position is a registered property so it can be animated by
+   CSS: the peek runs on the style engine at frame rate instead of through
+   a JS loop that re-measures annotations on every tick. */
+@property --proof-position {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 50%;
+}
+
+@keyframes proof-peek {
+  0%, 62%, 100% { --proof-position: 50%; }
+  18% { --proof-position: 61%; }
+  44% { --proof-position: 46%; }
+}
+
+/* Until someone touches it, the seam drifts right, back past centre, and
+   settles, every few seconds. The first input removes the class. */
+.hero-proof-panel.is-peeking {
+  animation: proof-peek 5.2s cubic-bezier(0.45, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-proof-panel.is-peeking { animation: none; }
+}
+
 .hero-proof {
-  --proof-position: 54%;
+  --proof-position: 50%;
   --proof-detector-ink: oklch(4% 0.004 95);
   --proof-lacquer: var(--ks-paper);
   --proof-deep: var(--ks-paper-deep);
@@ -31,7 +56,7 @@
   --proof-rule: var(--ks-rule);
   --proof-after-surface: var(--ks-paper); /* opaque, so the after side masks the before, but the same paper */
   width: min(100%, 520px);
-  margin-inline: auto;
+  margin-inline: auto 0;
   color: var(--proof-text);
   display: grid;
   justify-items: center;
@@ -54,36 +79,6 @@
 /* Same drag chip the Language demo's .split-container::after carries, so the
    two comparisons read as one control. Above the range input (z 8) but inert,
    so it never steals a drag. Hides on hover, as the Language chip does. */
-.hero-proof-stage::after {
-  content: '← Drag →';
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  z-index: 10;
-  transform: translateX(-50%);
-  font-size: 0.625rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-ash);
-  background: var(--color-paper);
-  padding: 4px 12px;
-  border-radius: 4px;
-  opacity: 0.8;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.hero-proof-stage:hover::after {
-  opacity: 0;
-}
-
-@media (hover: none) {
-  .hero-proof-stage::after {
-    content: '← Swipe →';
-  }
-}
-
 .hero-proof-panel,
 .hero-proof-layer {
   position: absolute;
@@ -124,24 +119,39 @@
   overflow: visible;
 }
 
+/* The side labels are set on a quarter circle hugging the stage's corners,
+   top-left for Before and bottom-right for After, so they belong to the
+   frame the way quotation marks belong to a sentence. Muted mono, small. */
+.hero-proof-canvas > article {
+  position: relative;
+}
+
 .hero-proof-side-label {
   position: absolute;
   z-index: 3;
-  top: 15px;
-  color: var(--proof-muted);
+  width: 80px;
+  height: 80px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hero-proof-side-label text {
+  fill: var(--ks-text-muted);
   font-family: var(--ks-mono);
-  font-size: var(--ks-type-eyebrow-size);
+  font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
 .hero-proof-side-label--before {
-  left: 16px;
+  top: -40px;
+  left: -40px;
 }
 
 .hero-proof-side-label--after {
-  right: 16px;
+  right: -40px;
+  bottom: -40px;
 }
 
 .proof-annotation {
@@ -289,16 +299,21 @@
 }
 
 .hero-proof-seam::after {
-  content: "↔";
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 28px;
-  height: 28px;
+  width: 34px;
+  height: 34px;
   display: grid;
   place-items: center;
-  color: var(--ks-kinpaku);
-  background: var(--ks-ink);
+  /* Two chevrons, drawn in gold, on the ink knob. */
+  background-color: var(--ks-ink);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFBA00' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 7l-5 5 5 5M15 7l5 5-5 5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px 18px;
+  box-shadow: var(--ks-key-lift), 0 0 0 3px var(--ks-paper);
   border: 1px solid var(--ks-ink);
   border-radius: 50%;
   font-family: var(--ks-mono);
@@ -307,8 +322,7 @@
 }
 
 .hero-proof-panel:focus-within .hero-proof-seam::after {
-  outline: 2px solid var(--ks-patina);
-  outline-offset: 3px;
+  box-shadow: var(--ks-key-lift), 0 0 0 3px var(--ks-paper), 0 0 0 5px var(--ks-kinpaku);
 }
 
 .hero-proof-range {
@@ -866,53 +880,18 @@
 
 /* The detector toggle is a control, so it is a one-key instrument: dark pill,
    gold indicator when the detector is on. */
-/* A page toggle, so paper: it shares the secondary button's shape and
-   height, and only the lit dot says it is a switch. */
+/* The detector switch is a single key on a paper track: a switch, not a
+   button. Its lit dot is the state. Height matches the button beside it. */
 .slop-scan-control {
-  min-height: var(--ks-control-lg);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 0 18px 0 16px;
-  color: var(--ks-text-muted);
-  background: var(--ks-paper-raised);
-  border: 1px solid var(--ks-edge);
-  border-radius: var(--ks-radius-sm);
-  box-shadow: none;
+  padding: 4px;
+}
+
+.slop-scan-control .ks-instrument-key {
+  min-height: calc(var(--ks-control-lg) - 10px);
   font-family: var(--ks-font);
-  font-size: 0.9375rem;
+  font-size: var(--ks-type-ui-size);
   font-weight: 500;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  transition: color var(--ks-quick) var(--ks-ease);
-}
-
-.slop-scan-control:hover,
-.slop-scan-control:focus-visible,
-.slop-scan-control[aria-pressed="true"] {
-  color: var(--ks-ink);
-}
-
-.slop-scan-control:hover {
-  border-color: var(--ks-ink);
-}
-
-.slop-scan-control:focus-visible {
-  outline: 2px solid var(--ks-patina);
-  outline-offset: 2px;
-}
-
-.slop-scan-control-dot {
-  width: 6px;
-  height: 6px;
-  background: var(--ks-gray-2);
-  border-radius: 50%;
-  transition: background-color var(--ks-quick) var(--ks-ease), box-shadow var(--ks-quick) var(--ks-ease);
-}
-
-.slop-scan-control[aria-pressed="true"] .slop-scan-control-dot {
-  background: var(--ks-kinpaku);
-  box-shadow: 0 0 0 1px oklch(84% 0.19 80 / 0.35);
+  letter-spacing: 0;
 }
 
 .slop-pattern-board {

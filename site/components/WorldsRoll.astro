@@ -37,7 +37,7 @@ const cardsBase = (import.meta.env.PROD || hasLocalCards)
   <div class="worlds-table">
     <div class="worlds-hand-zone">
       <div class="worlds-zone-head">
-        <span class="worlds-zone-label" data-impeccable-ignore="undersized-ui-text">01 &middot; Imagine</span>
+        <span class="ks-tag" data-impeccable-ignore="undersized-ui-text">01 &middot; Imagine</span>
         {/* Reproduction key first, control last: the button anchors to the
             right edge of the hand and the key fills the slack, so the die is
             always in the same place no matter how long the key runs. */}
@@ -61,9 +61,11 @@ const cardsBase = (import.meta.env.PROD || hasLocalCards)
     </div>
 
     <aside class="worlds-played-zone" aria-label="The committed world">
-      <span class="worlds-zone-label" data-impeccable-ignore="undersized-ui-text">02 &middot; Commit</span>
+      <div class="worlds-zone-head">
+        <span class="ks-tag" data-impeccable-ignore="undersized-ui-text">02 &middot; Commit</span>
+      </div>
       <a class="worlds-played-card" href="/neo-mirai/" data-impeccable-ignore="gpt-thin-border-wide-shadow undersized-ui-text">
-        <span class="worlds-played-chip">Played</span>
+        <span class="worlds-played-chip ks-tag">Played</span>
         <img
           src="assets/cases/neo-mirai/live-fold.webp"
           alt="Neo Mirai website hero, the committed world built end to end"
@@ -73,7 +75,7 @@ const cardsBase = (import.meta.env.PROD || hasLocalCards)
         <span class="worlds-played-caption">
           <strong>Neo Mirai</strong>
           <span>One challenger beat the model's own ideas and got the commit. Impeccable held the build to it, from roll to shipped page.</span>
-          <span class="worlds-played-cta">03 &middot; Build &rarr;</span>
+          <span class="worlds-played-cta ks-tag">03 &middot; Build &rarr;</span>
         </span>
       </a>
       <p class="worlds-played-meta">

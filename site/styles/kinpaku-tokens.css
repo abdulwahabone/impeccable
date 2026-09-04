@@ -123,6 +123,14 @@
 	   lit indicator throws a short gold glow. These are the only shadows that
 	   read against a dark surface. */
 	--ks-key-lift:       0 1px 2px oklch(0% 0 0 / 0.4);
+
+	/* Light hardware. A paper key is a raised cap: a white highlight along
+	   its top edge, a hard 1px shadow under it, a soft one behind. The track
+	   it sits in is recessed. Gold is the lit indicator. */
+	--ks-cap-lift:       inset 0 1px 0 oklch(100% 0 0 / 0.9), 0 1px 0 oklch(13% 0 0 / 0.14), 0 2px 3px oklch(13% 0 0 / 0.08);
+	--ks-cap-press:      inset 0 1px 2px oklch(13% 0 0 / 0.14);
+	--ks-track-recess:   inset 0 1px 2px oklch(13% 0 0 / 0.10), inset 0 0 0 1px oklch(13% 0 0 / 0.06);
+	--ks-led:            0 0 0 1px oklch(13% 0 0 / 0.12), 0 0 6px oklch(84% 0.19 80 / 0.55);
 	--ks-indicator-glow: 0 0 0 1px oklch(0% 0 0 / 0.3), 0 0 6px oklch(84% 0.19 80 / 0.6);
 
 	/* ============================================================
@@ -147,21 +155,21 @@
 	   only place it appears.
 	   ============================================================ */
 	--ks-font:          "Albert Sans", "Avenir Next", "Helvetica Neue", Arial, system-ui, sans-serif;
-	--ks-font-display:  var(--ks-font);
+	--ks-font-display:  var(--ks-font-wordmark);  /* Alumni Sans: the brand's own display voice, at a weight that holds on paper */
 	--ks-font-wordmark: "Alumni Sans", "Albert Sans", Arial, sans-serif;
 	--ks-mono:          "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 
 	/* Display: page h1. */
-	--ks-type-display-size:   clamp(2.25rem, 4.4vw, 3.9rem);
-	--ks-type-display-weight: 500;
-	--ks-type-display-line:   1.08;
-	--ks-type-display-track:  -0.025em;
+	--ks-type-display-size:   clamp(3.2rem, 6.2vw, 5.6rem);
+	--ks-type-display-weight: 200;
+	--ks-type-display-line:   1.0;
+	--ks-type-display-track:  0;
 
 	/* Headline: section h2. */
-	--ks-type-headline-size:   clamp(1.85rem, 2.7vw, 2.5rem);
-	--ks-type-headline-weight: 500;
-	--ks-type-headline-line:   1.15;
-	--ks-type-headline-track:  -0.02em;
+	--ks-type-headline-size:   clamp(2.4rem, 3.6vw, 3.4rem);
+	--ks-type-headline-weight: 300;
+	--ks-type-headline-line:   1.04;
+	--ks-type-headline-track:  0;
 
 	/* Title: card and panel headings (h3). */
 	--ks-type-title-size:   1.0625rem;

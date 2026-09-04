@@ -66,7 +66,8 @@ Edit any of these directly and the dev server hot-reloads. No rebuild needed for
 
 - **`--ks-ink`** (13%) for headlines and `<strong>`; **`--ks-text`** (22%) for body copy. **`--ks-text-muted`** (46%) for captions, eyebrows and meta; **`--ks-text-faint`** (56%) for subdued meta.
 - **Gold never carries text.** `--ks-kinpaku` is 84% lightness and fails contrast on paper. Text that needs an accent uses `--ks-accent-ink` / `--ks-link-on-paper` (patina). Gold is the mark, `--ks-gold-line`, and indicators on instruments.
-- **No gold fills on paper.** No gold buttons, chips, or panels, and none of the retired textures (gold leaf, kintsugi, lacquer grain, verdigris). The primary button is ink with a gold arrow.
+- **No gold fills on paper, except the tag.** `.ks-tag` (22px, ink mono text on gold, the detector's own flag) labels numerals and states. No gold buttons, chips, or panels, and none of the retired textures (gold leaf, kintsugi, lacquer grain, verdigris). The primary button is ink with a gold arrow.
+- **Two voices.** Albert Sans for everything read; Alumni Sans (the wordmark's face) for the hero at 200 and section headings at 300. Never 100 (it went gray on paper), never a third face.
 - **Surfaces are neutral.** `--ks-paper`, `--ks-paper-raised`, `--ks-paper-deep`, `--ks-gray`, `--ks-gray-2`. Never reintroduce a warm cast (`oklch(... 0.012 95)` was the old cream).
 - **Never use pure black or pure white.** Use the tokens.
 

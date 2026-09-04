@@ -56,11 +56,11 @@ colors:
 
 typography:
   # One family for everything that is read. Google Fonts loads Albert Sans at
-  # 400, 500, 600, 700 and Alumni Sans at 400 only (site/layouts/Base.astro).
+  # 400, 500, 600, 700, Alumni Sans at 200 to 600 and JetBrains Mono at 400, 500 (site/layouts/Base.astro).
   # A weight not in that list is synthesized by the browser, so do not ask
   # for it.
   wordmark:
-    # The only place Alumni Sans appears. Part of the logo lockup, not a
+    # The logo lockup; the same face carries display and headline, not a
     # display face.
     fontFamily: "Alumni Sans, Albert Sans, Arial, sans-serif"
     fontSize: "1.125rem"
@@ -69,17 +69,17 @@ typography:
     lineHeight: 1
   display:
     # Page h1. --ks-type-display-*.
-    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "clamp(2.6rem, 4.4vw, 3.9rem)"
-    fontWeight: 500
+    fontFamily: "Alumni Sans, Albert Sans, Arial, sans-serif"
+    fontSize: "clamp(3.2rem, 6.2vw, 5.6rem)"
+    fontWeight: 200
     letterSpacing: "-0.025em"
     lineHeight: 1.08
   headline:
     # Section h2. --ks-type-headline-*. The kit styles any h2 inside
     # .ks-section-head to this role.
-    fontFamily: "Albert Sans, Avenir Next, Helvetica Neue, Arial, system-ui, sans-serif"
-    fontSize: "clamp(1.85rem, 2.7vw, 2.5rem)"
-    fontWeight: 500
+    fontFamily: "Alumni Sans, Albert Sans, Arial, sans-serif"
+    fontSize: "clamp(2.4rem, 3.6vw, 3.4rem)"
+    fontWeight: 300
     letterSpacing: "-0.02em"
     lineHeight: 1.15
   title:
@@ -174,6 +174,13 @@ spacing:
   "2xl": "110px" # section vertical padding
 
 components:
+  tag:
+    backgroundColor: "{colors.kinpaku}"
+    textColor: "{colors.on-gold}"
+    typography: "{typography.eyebrow}"
+    rounded: "{rounded.sm}"
+    height: "22px"
+    padding: "0 7px"
   button-primary:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.paper-raised}"
@@ -352,9 +359,9 @@ This replaces the dark Neo Kinpaku system. No lacquer ground, no gold-leaf textu
 
 - One light theme. `:root` sets `color-scheme: light`; there is no `html.dark`, no `prefers-color-scheme` block, no toggle.
 - Paper is neutral, chroma 0. Gold on cream is gold on gold.
-- Gold never carries text and never fills an area on paper.
+- Gold never carries body text and never fills a surface on paper. The one gold fill is the tag: a 22px label with dark mono text, the detector's own flag, used for numerals and states.
 - Patina carries links, state and selection wherever color has to be read as text.
-- One family, Albert Sans, at 400 to 600. Alumni Sans exists for the wordmark and nothing else.
+- Albert Sans for everything that is read, at 400 to 600. Alumni Sans, the wordmark's face, carries the hero at 200 and section headings at 300; nothing below a section heading uses it.
 - Three radii, three control heights, two lifts. Nothing else casts a shadow.
 
 ## Layout
@@ -410,7 +417,8 @@ Invent only when the kit truly does not cover the shape, and flag it when you do
 
 - `.ks-tabs`, `.ks-tab-list`, `.ks-tab-panel`: underline tabs. Selected tab is patina text on a 2px gold underline.
 - `.ks-segmented` (with `--lg`, `--dense`, `--wrap`): paper track, raised thumb.
-- `.ks-instrument-strip` with `.ks-instrument-key` (`.is-active` or `aria-selected`): the site's one dark control.
+- `.ks-instrument-strip` with `.ks-instrument-key` (`.is-active` or `aria-selected`): the dark strip for product chrome. `.ks-instrument-strip.is-paper` is the page control: a recessed gray track, raised paper caps with a white top edge and a hard shadow under them, a lit gold dot. A single key on a track is a switch.
+- `.ks-tag` (and `.ks-tag.is-quiet`): the brand's label. Section numerals, a card's state, a release's status, the BEFORE label on a comparison.
 
 **Status, tags, and feedback**
 
@@ -510,7 +518,7 @@ All five are chroma 0. The old paper had a warm cast at hue 95; gold on that rea
 
 ### Color Rules
 
-**The Gold Is Jewelry Rule.** Gold is a mark, a line, or an indicator on an instrument. It never carries text at any size and never fills a surface on paper. The primary button is ink with a gold arrow; a gold button is the hotel-lobby read. The one exception is a demo that deliberately shows someone else's design.
+**The Gold Is Jewelry Rule.** Gold is a mark, a line, an indicator on an instrument, or the tag. It never carries body text and never fills a surface on paper; the tag is a 22px label and stays one. The primary button is ink with a gold arrow; a gold button is the hotel-lobby read. The one exception is a demo that deliberately shows someone else's design.
 
 **The Patina Carries Text Rule.** When color has to be read as text, it is `--ks-patina-deep`, reached through `--ks-accent-ink`, `--ks-state-ink` or `--ks-link-on-paper`. Active nav is ink, not patina, and eyebrows are muted ink.
 
@@ -526,11 +534,11 @@ All five are chroma 0. The old paper had a warm cast at hue 95; gold on that rea
 **Wordmark:** Alumni Sans, Albert Sans, Arial, sans-serif
 **Mono:** SFMono-Regular, Roboto Mono, JetBrains Mono, Consolas, monospace
 
-One family for everything that is read, at normal weights. `--ks-font-display` aliases `--ks-font` so old rules keep resolving; it is not a second face. Google Fonts loads Albert Sans at 400, 500, 600 and 700 and Alumni Sans at 400 only.
+Albert Sans for everything that is read, at normal weights. Alumni Sans, the condensed face of the wordmark, is the display voice: `--ks-font-display` points at it and the display token carries it at 200 (the hairline of the first site, one step heavier so it holds on paper) and the headline token at 300. Google Fonts loads Albert Sans at 400 to 700, Alumni Sans at 200 to 600, and JetBrains Mono at 400 and 500 for labels, keys and code.
 
 ### Hierarchy
 
-- **Wordmark** (Alumni Sans, 400, `1.125rem`, 0.15em tracking, uppercase): the header lockup and the footer logo. Nowhere else.
+- **Wordmark** (Alumni Sans, 500, `1.25rem`, 0.18em tracking, uppercase): the header lockup and the footer logo.
 - **Display, h1** (Albert Sans, 500, `clamp(2.6rem, 4.4vw, 3.9rem)`, line 1.08, tracking -0.025em).
 - **Headline, h2** (Albert Sans, 500, `clamp(1.85rem, 2.7vw, 2.5rem)`, line 1.15, tracking -0.02em).
 - **Title, h3** (Albert Sans, 600, `1.0625rem`, line 1.35).
@@ -542,7 +550,7 @@ One family for everything that is read, at normal weights. `--ks-font-display` a
 
 ### Typography Rules
 
-**The One Family Rule.** Alumni Sans is part of the logo, not a display face. If a heading wants a condensed face, it wants the wrong thing.
+**The Two Voices Rule.** Alumni Sans speaks in headings and the wordmark; Albert Sans speaks everywhere text is read. Never a third face, never Alumni below a section heading, never weight 100: the hairline went gray on paper.
 
 **The No Hairline Rule.** Display and headline sit at 500, titles at 600. Never 100 or 300 on a heading; those were the condensed face's weights and Albert Sans at 300 is not even loaded.
 

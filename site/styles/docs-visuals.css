@@ -2656,16 +2656,27 @@
   text-underline-offset: 3px;
 }
 
-.neon-case-eyebrow,
-.neon-case-section-label,
-.neon-case-strip figure > span {
+/* Section labels are eyebrows, so they stay muted mono text. The CASE STUDY
+   eyebrow and the strip numerals are the kit's gold tag (.ks-tag). */
+.neon-case-section-label {
   display: block;
   font-family: var(--ks-mono);
   font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--ks-accent-ink);
+  color: var(--ks-text-muted);
+}
+
+/* The eyebrow tag takes its own line under the back link; a bare inline
+   tag would sit beside it. */
+.neon-case-eyebrow {
+  display: flex;
+  width: fit-content;
+}
+
+.neon-case-strip figure > .ks-tag {
+  margin-bottom: 12px;
 }
 
 .neon-case-page {

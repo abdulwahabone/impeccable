@@ -1,683 +1,79 @@
 import { renderCommandDemo, initCommandDemo } from "../demo-renderer.js";
 import { initSplitCompare } from "../effects/split-compare.js";
-import { commandProcessSteps, commandCategories, commandRelationships, alphaCommands } from "../data.js";
+import { commandCategories, commandRelationships, alphaCommands } from "../data.js";
 
-// Track current split instance and command for cleanup
-let currentSplitInstance = null;
-let currentCommandId = null;
-let sourceCache = {}; // Cache fetched source content
-
-const MOBILE_BREAKPOINT = 900;
-
-// Setup / management commands that aren't "steering" verbs. They're kept off
-// the command palette (fisheye + mobile carousel) but still appear in the
-// periodic table (rendered separately by framework-viz.js).
-const PALETTE_EXCLUDED = new Set(['impeccable', 'init', 'extract', 'document', 'live']);
+// ============================================
+// COMMAND PALETTE
+//
+// The Language section's command picker: one row of paper keys (the kit's
+// .ks-instrument-strip.is-paper), grouped by category, and a card below it
+// carrying the selected command's tag, name, one-line description, its
+// related commands and the before/after demo. The same markup serves every
+// width: the row wraps on desktop and scrolls sideways under 900px.
+// ============================================
 
 // Deprecated shims and compatibility aliases. `craft` is an alias for an
-// ordinary build request and adds no behavior, so it has no place on the
-// palette; teach and extract were filtered once too but are now first-class.
-const PALETTE_DEPRECATED = new Set(['craft', 'teach-impeccable', 'frontend-design', 'arrange', 'normalize', 'onboard', 'impeccable craft', 'impeccable teach', 'impeccable extract']);
+// ordinary build request and adds no behavior, so it has no key.
+const PALETTE_DEPRECATED = new Set(['craft', 'teach-impeccable', 'frontend-design', 'arrange', 'normalize', 'impeccable craft', 'impeccable teach', 'impeccable extract']);
 
-const PALETTE_CATEGORY_ORDER = ['create', 'evaluate', 'refine', 'simplify', 'harden', 'system'];
-const PALETTE_CATEGORY_LABELS = {
+const CATEGORY_ORDER = ['create', 'evaluate', 'refine', 'simplify', 'harden', 'system'];
+const CATEGORY_LABELS = {
     'create': 'Create', 'evaluate': 'Evaluate', 'refine': 'Refine',
     'simplify': 'Simplify', 'harden': 'Harden', 'system': 'System'
 };
-// Preferred order within each category (unlisted commands append at end)
-const PALETTE_COMMAND_ORDER = {
-    'create': ['impeccable', 'craft', 'shape'],
+// Preferred order within each category (unlisted commands append at end).
+const COMMAND_ORDER = {
+    'create': ['impeccable', 'shape'],
     'evaluate': ['critique', 'audit'],
     'refine': ['typeset', 'layout', 'colorize', 'animate', 'delight', 'bolder', 'quieter', 'overdrive'],
     'simplify': ['distill', 'clarify', 'adapt'],
-    'harden': ['polish', 'optimize', 'harden'],
-    'system': ['init', 'extract']
+    'harden': ['polish', 'optimize', 'harden', 'onboard'],
+    'system': ['init', 'extract', 'document', 'live']
 };
 
-// The one palette list, shared by the desktop fisheye and the mobile picker:
-// filtered, grouped by category, ordered within each group. Returns the
-// ordered commands plus where each category starts.
-function paletteCommands(commands) {
-    const filtered = commands.filter(c => !PALETTE_DEPRECATED.has(c.id) && !PALETTE_EXCLUDED.has(c.id));
-    const grouped = {};
-    filtered.forEach(cmd => {
-        const cat = commandCategories[cmd.id] || 'other';
-        if (!grouped[cat]) grouped[cat] = [];
-        grouped[cat].push(cmd);
+const DEFAULT_COMMAND = 'clarify';
+
+const state = {
+    commands: [],
+    index: -1,
+    split: null,
+    root: null
+};
+
+// Group the commands by category in palette order. Returns the groups and
+// the flat ordered list the row indices refer to.
+function paletteGroups(commands) {
+    const byCategory = {};
+    commands.forEach(cmd => {
+        if (PALETTE_DEPRECATED.has(cmd.id)) return;
+        const cat = commandCategories[cmd.id] || 'system';
+        (byCategory[cat] ||= []).push(cmd);
     });
-    Object.entries(grouped).forEach(([cat, cmds]) => {
-        const order = PALETTE_COMMAND_ORDER[cat] || [];
+    const groups = [];
+    const ordered = [];
+    CATEGORY_ORDER.forEach(cat => {
+        const cmds = byCategory[cat];
+        if (!cmds) return;
+        const order = COMMAND_ORDER[cat] || [];
         cmds.sort((a, b) => {
             const ai = order.indexOf(a.id);
             const bi = order.indexOf(b.id);
             return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
         });
+        groups.push({ id: cat, label: CATEGORY_LABELS[cat] || cat, commands: cmds });
+        ordered.push(...cmds);
     });
-    const ordered = [];
-    const headerIndices = [];
-    PALETTE_CATEGORY_ORDER.forEach(cat => {
-        if (!grouped[cat]) return;
-        headerIndices.push({ index: ordered.length, label: PALETTE_CATEGORY_LABELS[cat] || cat });
-        ordered.push(...grouped[cat]);
-    });
-    return { ordered, headerIndices };
+    return { groups, ordered };
 }
 
-// Starting command: a #cmd- hash wins, otherwise clarify. Both layouts open
-// on the same command so a resize across the breakpoint keeps its place.
-function paletteStartIndex(commands) {
+// Starting command: a #cmd- hash wins, otherwise the default.
+function startIndex(commands) {
     const hash = window.location.hash;
     if (hash && hash.startsWith('#cmd-')) {
         const idx = commands.findIndex(c => c.id === hash.slice(5));
-        if (idx >= 0) return idx;
+        if (idx >= 0) return { index: idx, fromHash: true };
     }
-    return Math.max(0, commands.findIndex(c => c.id === 'clarify'));
-}
-
-function isMobile() {
-    return window.innerWidth <= MOBILE_BREAKPOINT;
-}
-
-export function initGlassTerminal() {
-    // Initial setup if needed
-}
-
-export function renderTerminalLayout(commands) {
-    const container = document.querySelector('.commands-gallery');
-    if (!container) return;
-
-    if (isMobile()) {
-        renderMobileLayout(container, commands);
-    } else {
-        renderDesktopLayout(container, commands);
-    }
-
-    // Re-render on resize crossing breakpoint
-    let wasMobile = isMobile();
-    window.addEventListener('resize', () => {
-        const nowMobile = isMobile();
-        if (nowMobile !== wasMobile) {
-            wasMobile = nowMobile;
-            currentSplitInstance = null;
-            currentCommandId = null;
-            if (nowMobile) {
-                renderMobileLayout(container, commands);
-            } else {
-                renderDesktopLayout(container, commands);
-            }
-        }
-    });
-}
-
-// ============================================
-// DESKTOP LAYOUT - Magazine Spread
-// ============================================
-
-let magazineState = {
-    currentIndex: 0,
-    commands: [],
-    isTransitioning: false,
-    keyboardBound: false,
-    intersectionObserver: null
-};
-
-const categoryOrder = ['diagnostic', 'quality', 'intensity', 'adaptation', 'enhancement', 'system'];
-const categoryLabels = {
-    'create': 'Create',
-    'evaluate': 'Evaluate',
-    'refine': 'Refine',
-    'simplify': 'Simplify',
-    'harden': 'Harden',
-    'system': 'System'
-};
-
-function renderDesktopLayout(container, commands) {
-    const { ordered: filteredCommands, headerIndices } = paletteCommands(commands);
-    magazineState.commands = filteredCommands;
-
-    const startIndex = paletteStartIndex(filteredCommands);
-    magazineState.currentIndex = startIndex;
-
-    // Build spreads HTML (after ordering so indices match fisheye)
-    const spreadsHTML = filteredCommands.map((cmd, i) => renderSpread(cmd, i, i === startIndex)).join('');
-
-    const fisheyeHTML = filteredCommands.map((cmd, i) => {
-        const cat = commandCategories[cmd.id] || 'other';
-        const isAlpha = alphaCommands.includes(cmd.id);
-        // The command palette lists command names, not raw invocations.
-        const label = cmd.id;
-        return `<button class="fisheye-item${i === startIndex ? ' is-active' : ''}" data-index="${i}" data-id="${cmd.id}" data-cat="${cat}">${label}${isAlpha ? '<span class="fisheye-beta">ALPHA</span>' : ''}</button>`;
-    }).join('');
-
-    container.innerHTML = `
-        <div class="magazine-container">
-            <div class="fisheye-list" id="fisheye-list">
-                <div class="fisheye-scroll">${fisheyeHTML}</div>
-            </div>
-            <div class="magazine-viewport">
-                ${spreadsHTML}
-            </div>
-        </div>
-    `;
-
-    // Init demo for active spread
-    initSpreadDemo(startIndex);
-
-    // Set up interactions
-    setupFisheyeList(filteredCommands, headerIndices);
-    setupMagazineKeyboard(filteredCommands);
-    setupMagazineIntersection(container);
-}
-
-function renderSpread(cmd, index, isActive) {
-    const cat = commandCategories[cmd.id] || 'other';
-    const isAlpha = alphaCommands.includes(cmd.id);
-    const relationship = commandRelationships[cmd.id];
-    // Build relationship flow
-    let flowHTML = '';
-    if (relationship) {
-        if (relationship.pairs) {
-            flowHTML = `
-                <div class="spread-flow">
-                    <span class="spread-flow-icon">&#8596;</span>
-                    <span class="spread-flow-label">pairs with</span>
-                    <span class="spread-flow-cmd">/${relationship.pairs}</span>
-                </div>`;
-        } else if (relationship.leadsTo && relationship.leadsTo.length > 0) {
-            flowHTML = `
-                <div class="spread-flow">
-                    <span class="spread-flow-icon">&#8594;</span>
-                    <span class="spread-flow-label">leads to</span>
-                    ${relationship.leadsTo.map(c => `<span class="spread-flow-cmd">/${c}</span>`).join(' ')}
-                </div>`;
-        } else if (relationship.combinesWith && relationship.combinesWith.length > 0) {
-            flowHTML = `
-                <div class="spread-flow">
-                    <span class="spread-flow-icon spread-flow-icon--combine">+</span>
-                    <span class="spread-flow-label">combines with</span>
-                    ${relationship.combinesWith.map(c => `<span class="spread-flow-cmd">/${c}</span>`).join(' ')}
-                </div>`;
-        }
-        if (!flowHTML && relationship.flow) {
-            flowHTML = `
-                <div class="spread-flow">
-                    <span class="spread-flow-label">${relationship.flow}</span>
-                </div>`;
-        }
-    }
-
-    // The root skill is rendered as impeccable; sub-commands are rendered as
-    // /impeccable on a smaller line above the command name, so the command name
-    // stays the visual anchor at full display size.
-    const isRoot = cmd.id === 'impeccable';
-    const nameHTML = isRoot
-        ? 'impeccable'
-        : `<span class="spread-namespace"><span class="spread-slash">/</span>impeccable</span>${cmd.id}`;
-
-    return `
-        <div class="magazine-spread${isActive ? ' active' : ''}" data-index="${index}" data-category="${cat}" data-id="${cmd.id}" id="cmd-${cmd.id}">
-            <div class="spread-identity">
-                <span class="spread-category-label">${categoryLabels[cat] || cat}</span>
-                <h3 class="spread-command-name">${nameHTML}${isAlpha ? '<span class="beta-badge">ALPHA</span>' : ''}</h3>
-                <p class="spread-description">${cmd.tagline || cmd.description}</p>
-                ${flowHTML}
-            </div>
-            <div class="spread-demo-area" data-demo-index="${index}">
-                <!-- Demo rendered lazily -->
-            </div>
-        </div>
-    `;
-}
-
-function initSpreadDemo(index) {
-    const cmd = magazineState.commands[index];
-    if (!cmd) return;
-
-    const spread = document.querySelector(`.magazine-spread[data-index="${index}"]`);
-    if (!spread) return;
-
-    const demoArea = spread.querySelector('.spread-demo-area');
-    if (!demoArea) return;
-
-    // Cleanup previous split instance
-    if (currentSplitInstance) {
-        currentSplitInstance.destroy();
-        currentSplitInstance = null;
-    }
-
-    currentCommandId = cmd.id;
-
-    // Only render HTML once; re-init split compare every time
-    if (demoArea.dataset.loaded !== 'true') {
-        demoArea.innerHTML = renderCommandDemo(cmd.id);
-        demoArea.dataset.loaded = 'true';
-    }
-
-    const splitComparison = demoArea.querySelector('.demo-split-comparison');
-    if (splitComparison) {
-        currentSplitInstance = initSplitCompare(splitComparison, {
-            defaultPosition: 50,
-            skewAngle: 0
-        });
-    }
-    initCommandDemo(cmd.id, demoArea);
-}
-
-function goToSpread(newIndex, commands) {
-    if (newIndex < 0 || newIndex >= commands.length) return;
-    if (newIndex === magazineState.currentIndex) return;
-
-    const oldIndex = magazineState.currentIndex;
-    magazineState.currentIndex = newIndex;
-
-    const spreads = document.querySelectorAll('.magazine-spread');
-
-    // Destroy the old split instance before switching
-    if (currentSplitInstance) {
-        currentSplitInstance.destroy();
-        currentSplitInstance = null;
-    }
-
-    // Mark old as exiting
-    spreads[oldIndex]?.classList.remove('active');
-    spreads[oldIndex]?.classList.add('exiting');
-
-    // Mark new as active
-    spreads[newIndex]?.classList.add('active');
-    spreads[newIndex]?.classList.remove('exiting');
-
-    // No fisheye sync here -- fisheye drives goToSpread, not the other way around
-
-    // Update URL hash
-    const cmd = commands[newIndex];
-    if (cmd) {
-        history.replaceState(null, '', `#cmd-${cmd.id}`);
-    }
-
-    // Init demo for new spread (lazy)
-    initSpreadDemo(newIndex);
-
-    // Clean exiting class after transition
-    setTimeout(() => {
-        spreads[oldIndex]?.classList.remove('exiting');
-    }, 500);
-}
-
-function setupFisheyeList(commands, headerIndices = []) {
-    const list = document.getElementById('fisheye-list');
-    const scroll = list?.querySelector('.fisheye-scroll');
-    const items = list ? [...list.querySelectorAll('.fisheye-item')] : [];
-    if (!list || !scroll || !items.length) return;
-
-    // Fixed item height (matches CSS). All math is index-based.
-    // -- Fisheye with absolute positioning --
-    // Each item is placed absolutely. Their Y positions are computed by
-    // accumulating scaled heights, so small items cluster together
-    // and the center item gets full space. Scroll position maps linearly
-    // to a fractional "center index" which drives everything.
-
-    const BASE_H = 36; // height of the center (scale=1) item
-    const MIN_SCALE = 0.52; // off-center items stay legibly sized, not microscopic
-    const RADIUS = 5;
-    const count = items.length;
-    const listH = list.clientHeight;
-    const centerY = listH / 2;
-    let currentActive = -1;
-
-    // Total scroll range: one "step" per item
-    const STEP = 30; // px of scroll per item advance
-    const totalScroll = (count - 1) * STEP;
-
-    // Set scroll container height to accommodate the range + centering padding
-    const spacer = document.createElement('div');
-    spacer.style.height = `${totalScroll + listH}px`;
-    scroll.appendChild(spacer);
-    // Initial scroll to center first item
-    scroll.scrollTop = 0;
-
-    // Map scrollTop to fractional center index
-    const getCenterIndex = () => scroll.scrollTop / STEP;
-
-    // Compute eased scale for a given distance from center
-    const getScale = (dist) => {
-        const ratio = Math.max(0, 1 - dist / RADIUS);
-        const eased = ratio * ratio * (3 - 2 * ratio); // smoothstep
-        return MIN_SCALE + eased * (1 - MIN_SCALE);
-    };
-
-    // Layout: position all items based on current center
-    const layout = (center) => {
-        // First, compute the Y position for each item by accumulating
-        // scaled heights, centered around the center item
-        const heights = items.map((_, i) => {
-            const dist = Math.abs(i - center);
-            return BASE_H * getScale(dist);
-        });
-
-        // Find the Y offset so the fractional center position lands at centerY.
-        // Interpolate between the integer positions for smooth scrolling.
-        const floorIdx = Math.max(0, Math.min(count - 1, Math.floor(center)));
-        const frac = center - floorIdx;
-
-        let yAtFloor = 0;
-        for (let i = 0; i < floorIdx; i++) yAtFloor += heights[i];
-        yAtFloor += heights[floorIdx] / 2;
-
-        // If between two items, blend toward the next
-        let yAtCeil = yAtFloor;
-        if (floorIdx < count - 1) {
-            yAtCeil = yAtFloor + heights[floorIdx] / 2 + heights[floorIdx + 1] / 2;
-        }
-        const yAtCenter = yAtFloor + (yAtCeil - yAtFloor) * frac;
-        const offset = centerY - yAtCenter + scroll.scrollTop;
-
-        // Position each item
-        let y = offset;
-        items.forEach((item, i) => {
-            const h = heights[i];
-            const scale = getScale(Math.abs(i - center));
-            // Floor at 0.62 so off-center command names stay readable (WCAG): the
-            // full vocabulary is the point of this view. Focus still reads clearly
-            // via scale + the gold/weight active state, not by crushing legibility.
-            const opacity = 0.62 + (scale - MIN_SCALE) / (1 - MIN_SCALE) * 0.38;
-
-            item.style.top = `${y}px`;
-            item.style.transform = `scale(${scale})`;
-            item.style.opacity = opacity;
-            y += h;
-        });
-    };
-
-    const activate = (idx) => {
-        idx = Math.max(0, Math.min(count - 1, Math.round(idx)));
-        if (idx === currentActive) return;
-        currentActive = idx;
-        items.forEach((it, i) => it.classList.toggle('is-active', i === idx));
-        goToSpread(idx, commands);
-    };
-
-    const scrollToIndex = (idx, behavior = 'smooth') => {
-        idx = Math.max(0, Math.min(count - 1, idx));
-        scroll.scrollTo({ top: idx * STEP, behavior });
-    };
-
-    // Scroll handler
-    let raf = null;
-    scroll.addEventListener('scroll', () => {
-        if (raf) cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(() => {
-            const center = getCenterIndex();
-            layout(center);
-            activate(Math.round(center));
-        });
-    }, { passive: true });
-
-
-    // Click to jump
-    items.forEach((item, i) => {
-        item.addEventListener('click', () => scrollToIndex(i));
-    });
-
-    // Expose for keyboard/external nav
-    list._scrollToCommand = (idx) => scrollToIndex(idx);
-
-    // Init
-    const startIdx = magazineState.currentIndex;
-    currentActive = -1;
-    scroll.scrollTop = startIdx * STEP;
-    layout(startIdx);
-    activate(startIdx);
-}
-
-function setupMagazineKeyboard(commands) {
-    if (magazineState.keyboardBound) return;
-    magazineState.keyboardBound = true;
-
-    document.addEventListener('keydown', (e) => {
-        // Only respond when magazine is visible (desktop)
-        if (isMobile()) return;
-        const magazineEl = document.querySelector('.magazine-container');
-        if (!magazineEl) return;
-
-        // Check if magazine is somewhat in the viewport
-        const rect = magazineEl.getBoundingClientRect();
-        const inView = rect.top < window.innerHeight && rect.bottom > 0;
-        if (!inView) return;
-
-        const fisheyeList = document.getElementById('fisheye-list');
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-            e.preventDefault();
-            fisheyeList?._scrollToCommand?.(magazineState.currentIndex + 1);
-        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-            e.preventDefault();
-            fisheyeList?._scrollToCommand?.(magazineState.currentIndex - 1);
-        }
-    });
-}
-
-function setupMagazineIntersection(container) {
-    // When the magazine section enters the viewport, ensure the active demo is rendered
-    if (magazineState.intersectionObserver) {
-        magazineState.intersectionObserver.disconnect();
-    }
-
-    magazineState.intersectionObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                initSpreadDemo(magazineState.currentIndex);
-            }
-        });
-    }, { threshold: 0.1 });
-
-    const magazineEl = container.querySelector('.magazine-container');
-    if (magazineEl) {
-        magazineState.intersectionObserver.observe(magazineEl);
-    }
-}
-
-function truncateDescription(text, maxLen = 120) {
-    if (text.length <= maxLen) return text;
-    // Cut at last sentence boundary within limit, or last word boundary
-    const truncated = text.slice(0, maxLen);
-    const lastPeriod = truncated.lastIndexOf('.');
-    if (lastPeriod > maxLen * 0.5) return truncated.slice(0, lastPeriod + 1);
-    const lastSpace = truncated.lastIndexOf(' ');
-    return truncated.slice(0, lastSpace) + '...';
-}
-
-// ============================================
-// MOBILE LAYOUT - Carousel + Sticky Demo
-// ============================================
-
-function renderMobileLayout(container, commands) {
-    // Same list, same order and same starting command as the desktop
-    // fisheye; only the chrome differs.
-    commands = paletteCommands(commands).ordered;
-    magazineState.commands = commands;
-    const startIndex = paletteStartIndex(commands);
-    magazineState.currentIndex = startIndex;
-    const startCommand = commands[startIndex];
-    const initialCategory = commandCategories[startCommand?.id] || 'other';
-
-    // The picker is the kit's paper instrument strip: one key per command,
-    // the active key raised with the gold dot. Keys show bare command names
-    // for sub-commands, and /impeccable for the root entry.
-    const carouselHTML = commands.map((cmd, i) => `
-        <button class="mobile-cmd-pill ks-instrument-key${i === startIndex ? ' is-active' : ''}" type="button" role="tab" aria-selected="${i === startIndex ? 'true' : 'false'}" data-id="${cmd.id}">
-            ${cmd.id === 'impeccable' ? '/impeccable' : cmd.id}
-        </button>
-    `).join('');
-
-    // Build command info cards (one per command, only active one shown)
-    const infoCardsHTML = commands.map((cmd, i) => {
-        const relationship = commandRelationships[cmd.id];
-        let relationshipHTML = '';
-
-        // Relationships show bare command names (e.g., "pairs with quieter")
-        // because the invocation is /impeccable <name>, not /<name>.
-        if (relationship) {
-            if (relationship.pairs) {
-                relationshipHTML = `<div class="mobile-cmd-rel">↔ pairs with <code>${relationship.pairs}</code></div>`;
-            } else if (relationship.leadsTo && relationship.leadsTo.length > 0) {
-                relationshipHTML = `<div class="mobile-cmd-rel">→ leads to ${relationship.leadsTo.map(c => `<code>${c}</code>`).join(', ')}</div>`;
-            }
-        }
-
-        const cardName = cmd.id === 'impeccable'
-            ? '/impeccable'
-            : `<span class="mobile-cmd-namespace">/impeccable</span> ${cmd.id}`;
-
-        return `
-            <div class="mobile-cmd-info${i === startIndex ? ' active' : ''}" data-id="${cmd.id}">
-                <h3 class="mobile-cmd-name">${cardName}</h3>
-                <p class="mobile-cmd-desc">${cmd.tagline || cmd.description}</p>
-                ${relationshipHTML}
-            </div>
-        `;
-    }).join('');
-
-    container.innerHTML = `
-        <div class="mobile-commands-layout" data-category="${initialCategory}">
-            <div class="mobile-carousel-wrapper">
-                <div class="mobile-carousel ks-instrument-strip is-paper" role="tablist" aria-label="Pick a command">
-                    ${carouselHTML}
-                </div>
-            </div>
-            <div class="mobile-demo-area" id="mobile-demo-content">
-                ${renderCommandDemo(startCommand?.id || 'audit')}
-            </div>
-            <div class="mobile-info-area">
-                ${infoCardsHTML}
-            </div>
-        </div>
-    `;
-
-    setupMobileInteractions(commands, startIndex);
-}
-
-function setupMobileInteractions(commands, startIndex) {
-    const layout = document.querySelector('.mobile-commands-layout');
-    const pills = document.querySelectorAll('.mobile-cmd-pill');
-    const demoArea = document.getElementById('mobile-demo-content');
-    const infoCards = document.querySelectorAll('.mobile-cmd-info');
-
-    // Initialize the starting demo's split compare
-    const initialSplit = demoArea.querySelector('.demo-split-comparison');
-    if (initialSplit) {
-        currentSplitInstance = initSplitCompare(initialSplit, {
-            defaultPosition: 50,
-            skewAngle: 0,
-            minPosition: 10,
-            maxPosition: 90
-        });
-    }
-    const startCommand = commands[startIndex];
-    if (startCommand) {
-        currentCommandId = startCommand.id;
-        initCommandDemo(startCommand.id, demoArea);
-    }
-    // Bring the starting key into view without scrolling the page.
-    const startPill = pills[startIndex];
-    if (startPill && startPill.parentElement && startPill.parentElement.parentElement) {
-        const wrapper = startPill.parentElement.parentElement;
-        wrapper.scrollLeft = Math.max(0, startPill.offsetLeft - (wrapper.clientWidth - startPill.offsetWidth) / 2);
-    }
-
-    // Pill click/tap handler
-    pills.forEach(pill => {
-        pill.addEventListener('click', () => {
-            const cmdId = pill.dataset.id;
-            const cmdIndex = commands.findIndex(c => c.id === cmdId);
-            if (cmdIndex < 0 || currentCommandId === cmdId) return;
-
-            currentCommandId = cmdId;
-            magazineState.currentIndex = cmdIndex;
-            history.replaceState(null, '', `#cmd-${cmdId}`);
-            if (layout) layout.dataset.category = commandCategories[cmdId] || 'other';
-
-            // Update active key
-            pills.forEach(p => {
-                p.classList.remove('is-active');
-                p.setAttribute('aria-selected', 'false');
-            });
-            pill.classList.add('is-active');
-            pill.setAttribute('aria-selected', 'true');
-
-            // Scroll the key into view horizontally
-            pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-
-            // Update info card
-            infoCards.forEach(card => {
-                card.classList.toggle('active', card.dataset.id === cmdId);
-            });
-
-            // Cleanup previous split
-            if (currentSplitInstance) {
-                currentSplitInstance.destroy();
-                currentSplitInstance = null;
-            }
-
-            // Update demo
-            demoArea.innerHTML = renderCommandDemo(cmdId);
-
-            // Init new split compare
-            const splitComparison = demoArea.querySelector('.demo-split-comparison');
-            if (splitComparison) {
-                currentSplitInstance = initSplitCompare(splitComparison, {
-                    defaultPosition: 50,
-                    skewAngle: 0
-                });
-            }
-            initCommandDemo(cmdId, demoArea);
-        });
-    });
-}
-
-// ============================================
-// STACKED WINDOWS - Tab Switching
-// ============================================
-
-function setupStackTabs() {
-    const tabs = document.querySelectorAll('.terminal-stack-tab');
-    const demoWindow = document.querySelector('.terminal-window--demo');
-    const sourceWindow = document.querySelector('.terminal-window--source');
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const view = tab.dataset.view;
-
-            // Update tab states
-            tabs.forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-
-            // Switch windows
-            if (view === 'source') {
-                demoWindow.classList.add('is-back');
-                sourceWindow.classList.add('is-front');
-            } else {
-                demoWindow.classList.remove('is-back');
-                sourceWindow.classList.remove('is-front');
-            }
-        });
-    });
-}
-
-async function fetchCommandSource(cmdId) {
-    // Check cache first
-    if (sourceCache[cmdId]) {
-        return sourceCache[cmdId];
-    }
-
-    try {
-        const response = await fetch(`/api/command-source/${cmdId}`);
-        if (!response.ok) throw new Error('Failed to fetch source');
-        const data = await response.json();
-        sourceCache[cmdId] = data.content;
-        return data.content;
-    } catch (error) {
-        console.error('Error fetching command source:', error);
-        return null;
-    }
+    return { index: Math.max(0, commands.findIndex(c => c.id === DEFAULT_COMMAND)), fromHash: false };
 }
 
 function escapeHtml(text) {
@@ -686,19 +82,251 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-async function updateSourceContent(cmdId) {
-    const titleEl = document.getElementById('source-title');
-    const contentEl = document.getElementById('source-content');
+// The root skill is shown as /impeccable; sub-commands as their bare name.
+function keyLabel(cmd) {
+    return cmd.id === 'impeccable' ? '/impeccable' : cmd.id;
+}
 
-    if (!titleEl || !contentEl) return;
+export function initGlassTerminal() {
+    // Nothing to prepare before the commands arrive.
+}
 
-    titleEl.textContent = `${cmdId}.md`;
-    contentEl.innerHTML = '<span class="source-loading">Loading...</span>';
+export function renderTerminalLayout(commands) {
+    const container = document.querySelector('.commands-gallery');
+    if (!container) return;
 
-    const source = await fetchCommandSource(cmdId);
-    if (source) {
-        contentEl.textContent = source;
-    } else {
-        contentEl.innerHTML = '<span class="source-loading">Source not available</span>';
+    const { groups, ordered } = paletteGroups(commands);
+    state.commands = ordered;
+    const start = startIndex(ordered);
+    state.index = start.index;
+
+    const rowHTML = groups.map(group => `
+        <div class="palette-group" role="none">
+            <span class="palette-group-label" aria-hidden="true">${group.label}</span>
+            <div class="palette-strip ks-instrument-strip is-paper" role="none">
+                ${group.commands.map(cmd => renderKey(cmd, ordered.indexOf(cmd) === state.index)).join('')}
+            </div>
+        </div>
+    `).join('');
+
+    container.innerHTML = `
+        <div class="palette">
+            <div class="palette-row" role="tablist" aria-label="Commands" aria-orientation="horizontal">
+                ${rowHTML}
+            </div>
+            <div class="palette-card" id="palette-card" role="tabpanel">
+                <div class="palette-copy"></div>
+                <div class="palette-demo"></div>
+            </div>
+        </div>
+    `;
+
+    state.root = container.querySelector('.palette');
+    renderCard(state.index);
+    setupRow();
+    setupExternalSelection();
+    revealKey(keys()[state.index], 'instant');
+
+    // A deep link lands on the palette once it exists (the section is
+    // rendered after the commands load, so the page's own hash jump ran
+    // before there was anything to jump to).
+    if (start.fromHash) {
+        requestAnimationFrame(() => state.root?.scrollIntoView({ block: 'start' }));
     }
+}
+
+function renderKey(cmd, isActive) {
+    const isAlpha = alphaCommands.includes(cmd.id);
+    return `<button type="button" role="tab" class="ks-instrument-key palette-key${isActive ? ' is-active' : ''}" id="cmd-${cmd.id}" data-id="${cmd.id}" aria-selected="${isActive ? 'true' : 'false'}" aria-controls="palette-card" tabindex="${isActive ? '0' : '-1'}">${keyLabel(cmd)}${isAlpha ? '<span class="palette-key-alpha">alpha</span>' : ''}</button>`;
+}
+
+// Related commands, as ink links that select the target key. The links
+// show bare names because the invocation is /impeccable <name>.
+function renderRelations(cmd) {
+    const rel = commandRelationships[cmd.id];
+    if (!rel) return '';
+    let label = '';
+    let ids = [];
+    if (rel.pairs) {
+        label = 'pairs with';
+        ids = [rel.pairs];
+    } else if (rel.leadsTo?.length) {
+        label = 'leads to';
+        ids = rel.leadsTo;
+    } else if (rel.combinesWith?.length) {
+        label = 'combines with';
+        ids = rel.combinesWith;
+    }
+    ids = ids.filter(id => state.commands.some(c => c.id === id));
+    if (!ids.length) return '';
+    const links = ids.map(id => `<a class="palette-rel-link" href="#cmd-${id}" data-id="${id}">${id}</a>`).join('');
+    return `<p class="palette-rel"><span class="palette-rel-label">${label}</span>${links}</p>`;
+}
+
+function renderCard(index) {
+    const cmd = state.commands[index];
+    if (!cmd || !state.root) return;
+    const card = state.root.querySelector('.palette-card');
+    const copy = card.querySelector('.palette-copy');
+    const demoArea = card.querySelector('.palette-demo');
+    const cat = commandCategories[cmd.id] || 'system';
+    const isRoot = cmd.id === 'impeccable';
+    const isAlpha = alphaCommands.includes(cmd.id);
+
+    card.dataset.category = cat;
+    card.setAttribute('aria-labelledby', `cmd-${cmd.id}`);
+
+    const nameHTML = isRoot
+        ? 'impeccable'
+        : `<span class="palette-namespace">/impeccable</span>${cmd.id}`;
+
+    copy.innerHTML = `
+        <div class="palette-tags">
+            <span class="ks-tag">${CATEGORY_LABELS[cat] || cat}</span>
+            ${isAlpha ? '<span class="ks-tag is-quiet">alpha</span>' : ''}
+        </div>
+        <h3 class="palette-name">${nameHTML}</h3>
+        <p class="palette-desc">${escapeHtml(cmd.tagline || cmd.description)}</p>
+        ${renderRelations(cmd)}
+        <a class="palette-docs" href="/docs/${cmd.id}">Read the reference &rarr;</a>
+    `;
+
+    // Demo. Commands without a visual demo show their invocation and full
+    // description in the same slot, so the card never reads as unfinished.
+    if (state.split) {
+        state.split.destroy();
+        state.split = null;
+    }
+    const html = renderCommandDemo(cmd.id);
+    if (html.includes('demo-placeholder')) {
+        demoArea.innerHTML = `
+            <div class="palette-usage">
+                <code class="palette-usage-cmd">/impeccable ${cmd.id}</code>
+                <p class="palette-usage-desc">${escapeHtml(cmd.description)}</p>
+            </div>
+        `;
+    } else {
+        demoArea.innerHTML = html;
+        const splitComparison = demoArea.querySelector('.demo-split-comparison');
+        if (splitComparison) {
+            state.split = initSplitCompare(splitComparison, {
+                defaultPosition: 50,
+                skewAngle: 0,
+                minPosition: 10,
+                maxPosition: 90
+            });
+        }
+        initCommandDemo(cmd.id, demoArea);
+    }
+
+    copy.querySelectorAll('.palette-rel-link').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            select(state.commands.findIndex(c => c.id === link.dataset.id), { focus: true });
+        });
+    });
+}
+
+function keys() {
+    return state.root ? [...state.root.querySelectorAll('.palette-key')] : [];
+}
+
+// Select a command by index: update the keys, the card and the URL hash.
+function select(index, { focus = false } = {}) {
+    if (index < 0 || index >= state.commands.length) return;
+    const all = keys();
+    const changed = index !== state.index;
+    state.index = index;
+
+    all.forEach((key, i) => {
+        const on = i === index;
+        key.classList.toggle('is-active', on);
+        key.setAttribute('aria-selected', on ? 'true' : 'false');
+        key.setAttribute('tabindex', on ? '0' : '-1');
+    });
+
+    const key = all[index];
+    if (key) {
+        if (focus) key.focus({ preventScroll: true });
+        revealKey(key);
+    }
+
+    if (changed) {
+        history.replaceState(null, '', `#cmd-${state.commands[index].id}`);
+        renderCard(index);
+    }
+}
+
+// Keep the active key in view when the row scrolls sideways (under 900px).
+// Only the row moves; the window never does, so the page's section
+// tracker cannot overwrite the #cmd- hash.
+function revealKey(key, behavior = 'smooth') {
+    const row = state.root?.querySelector('.palette-row');
+    if (!key || !row || row.scrollWidth <= row.clientWidth) return;
+    const rowRect = row.getBoundingClientRect();
+    const keyRect = key.getBoundingClientRect();
+    const left = keyRect.left - rowRect.left + row.scrollLeft - (row.clientWidth - keyRect.width) / 2;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) behavior = 'instant';
+    row.scrollTo({ left: Math.max(0, left), behavior });
+}
+
+function selectById(id, options) {
+    const idx = state.commands.findIndex(c => c.id === id);
+    if (idx >= 0) select(idx, options);
+}
+
+function setupRow() {
+    const row = state.root?.querySelector('.palette-row');
+    if (!row) return;
+
+    row.addEventListener('click', (e) => {
+        const key = e.target.closest('.palette-key');
+        if (!key) return;
+        select(keys().indexOf(key));
+    });
+
+    // Roving tabindex: one key in the tab order, arrows move between keys
+    // and select as they go.
+    row.addEventListener('keydown', (e) => {
+        const key = e.target.closest('.palette-key');
+        if (!key) return;
+        const count = state.commands.length;
+        let next = null;
+        switch (e.key) {
+            case 'ArrowRight':
+            case 'ArrowDown':
+                next = (state.index + 1) % count;
+                break;
+            case 'ArrowLeft':
+            case 'ArrowUp':
+                next = (state.index - 1 + count) % count;
+                break;
+            case 'Home':
+                next = 0;
+                break;
+            case 'End':
+                next = count - 1;
+                break;
+            default:
+                return;
+        }
+        e.preventDefault();
+        select(next, { focus: true });
+    });
+}
+
+// Other components (the periodic table) select a command by dispatching
+// `impeccable:select-command` with the id. The palette view is brought in
+// front and scrolled into view so the selection is visible.
+function setupExternalSelection() {
+    if (setupExternalSelection.bound) return;
+    setupExternalSelection.bound = true;
+    window.addEventListener('impeccable:select-command', (e) => {
+        const id = e.detail?.id;
+        if (!id || !state.commands.some(c => c.id === id)) return;
+        const paletteTab = document.querySelector('.language-view-tab[data-view="palette"]');
+        if (paletteTab && paletteTab.getAttribute('aria-selected') !== 'true') paletteTab.click();
+        selectById(id, { focus: true });
+        state.root?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
 }

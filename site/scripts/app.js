@@ -259,6 +259,15 @@ function initHeroProof() {
 		positionUpdates.set(panel, updatePosition);
 		range.addEventListener("input", updatePosition);
 		updatePosition();
+
+		// Peek: the panel carries is-peeking, which runs a CSS animation on the
+		// seam until the first input. Removing the class hands the value back
+		// to the range.
+		if (!panel.hidden) panel.classList.add("is-peeking");
+		const stopPeek = () => { panel.classList.remove("is-peeking"); updatePosition(); };
+		range.addEventListener("pointerdown", stopPeek, { once: true });
+		range.addEventListener("keydown", stopPeek, { once: true });
+		range.addEventListener("input", stopPeek, { once: true });
 	});
 
 	const activate = (index, moveFocus = false) => {

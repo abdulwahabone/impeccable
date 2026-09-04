@@ -12,376 +12,307 @@
 }
 
 /* ============================================
-   MAGAZINE SPREAD - Desktop Layout
+   COMMAND PALETTE
+   One row of paper keys, grouped by category, and the selected command's
+   card below it. Rendered by glass-terminal.js into .commands-gallery.
    ============================================ */
 
-/* The category accent is a line (the seam in the demo); text gets a separate
-   category-aware ink that is always text-safe on paper. */
-.magazine-spread[data-category="create"],
-.mobile-commands-layout[data-category="create"] {
-  --spread-accent: var(--ks-gold-line);
-  --spread-ink: var(--cat-create-text);
-}
-.magazine-spread[data-category="evaluate"],
-.mobile-commands-layout[data-category="evaluate"] {
-  --spread-accent: var(--ks-patina);
-  --spread-ink: var(--cat-evaluate-text);
-}
-.magazine-spread[data-category="refine"],
-.mobile-commands-layout[data-category="refine"] {
-  --spread-accent: var(--ks-gold-line);
-  --spread-ink: var(--cat-refine-text);
-}
-.magazine-spread[data-category="simplify"],
-.mobile-commands-layout[data-category="simplify"] {
-  --spread-accent: var(--ks-gold-line);
-  --spread-ink: var(--cat-simplify-text);
-}
-.magazine-spread[data-category="harden"],
-.mobile-commands-layout[data-category="harden"] {
-  --spread-accent: var(--ks-patina);
-  --spread-ink: var(--cat-harden-text);
-}
-.magazine-spread[data-category="system"],
-.mobile-commands-layout[data-category="system"] {
-  --spread-accent: var(--ks-edge);
-  --spread-ink: var(--cat-system-text);
-}
+/* The category accent is the seam in the demo (the split divider). The
+   variable keeps its old name because demo-renderer.js reads it for the
+   usage guides. */
+.palette-card[data-category="create"]   { --spread-accent: var(--ks-gold-line); }
+.palette-card[data-category="evaluate"] { --spread-accent: var(--ks-patina); }
+.palette-card[data-category="refine"]   { --spread-accent: var(--ks-gold-line); }
+.palette-card[data-category="simplify"] { --spread-accent: var(--ks-gold-line); }
+.palette-card[data-category="harden"]   { --spread-accent: var(--ks-patina); }
+.palette-card[data-category="system"]   { --spread-accent: var(--ks-edge); }
 
-.magazine-container {
-  position: relative;
-  width: 100%;
-  box-sizing: border-box;
+.palette {
   display: grid;
-  grid-template-columns: clamp(172px, 21vw, 200px) minmax(0, 1fr);
-  gap: var(--spacing-lg);
-  align-items: start;
-  overflow: hidden;
-  padding: var(--spacing-lg);
-}
-
-@media (min-width: 1100px) {
-  .magazine-container {
-    background: var(--ks-paper-raised);
-    padding: var(--spacing-lg);
-  }
-}
-
-/* Fisheye command list */
-.fisheye-list {
-  position: relative;
-  height: 400px;
-  align-self: center;
-  overflow: hidden;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-}
-
-.fisheye-scroll {
-  height: 100%;
-  overflow-y: auto;
-  scrollbar-width: none;
-  position: relative;
-}
-
-.fisheye-scroll::-webkit-scrollbar { display: none; }
-
-.fisheye-item {
-  display: block;
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: var(--color-ink);
-  background: none;
-  border: none;
-  padding: 0;
-  position: absolute;
-  left: 0;
-  cursor: pointer;
-  white-space: nowrap;
-  text-align: left;
-  width: 100%;
-  line-height: 1.3;
-  transform-origin: left center;
-  will-change: transform, opacity;
-}
-
-.fisheye-item.is-active {
-  font-weight: 600;
-}
-
-.fisheye-beta {
-  font-family: var(--font-body);
-  font-size: 0.5rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--color-ash);
-  border: 1px solid var(--color-mist);
-  border-radius: 3px;
-  padding: 1px 4px;
-  margin-left: 0.35em;
-  vertical-align: middle;
-}
-
-/* The viewport that clips to one spread at a time */
-.magazine-viewport {
-  position: relative;
-  height: 520px;
-  overflow: hidden;
-}
-
-/* Individual spread */
-.magazine-spread {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  grid-template-columns: 38% 1fr;
-  grid-template-rows: 1fr auto;
-  gap: 0 var(--spacing-2xl);
-  padding: var(--spacing-lg) var(--spacing-lg);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  transform: translateY(16px);
-  will-change: opacity, transform;
-}
-
-.magazine-spread.active {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-  z-index: 2;
-}
-
-.magazine-spread.exiting {
-  opacity: 0;
-  transform: translateY(-16px);
-  z-index: 1;
-}
-
-/* Left column: Big name + meta */
-.spread-identity {
-  grid-column: 1;
-  grid-row: 1 / 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   gap: var(--spacing-md);
-  padding-right: var(--spacing-lg);
+  scroll-margin-top: 96px;
 }
 
-.spread-category-label {
-  font-family: var(--font-body);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--spread-ink, var(--ks-accent-ink));
+/* The row: six groups, each a muted mono label beside a paper strip of
+   keys. A group wraps as one unit, so a category never breaks across
+   lines. */
+.palette-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 22px;
 }
 
-.spread-command-name {
-  white-space: nowrap;
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 5.5vw, 5.5rem);
-  font-weight: 600;
-  line-height: 0.95;
-  color: var(--color-ink);
-  margin: 0;
-  letter-spacing: -0.02em;
-}
-
-.spread-command-name .spread-slash {
-  color: var(--color-ash);
-  font-weight: 300;
-}
-
-/* Sub-commands: stack the /impeccable namespace as a smaller label above the
-   command name so the command name stays at full display size and never
-   clips (e.g., "overdrive" is long). */
-.spread-command-name .spread-namespace {
-  display: block;
-  font-family: var(--font-body);
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--color-ash);
-  letter-spacing: 0.04em;
-  margin-bottom: 0.4em;
-}
-
-.spread-command-name .spread-namespace .spread-slash {
-  color: var(--color-ash);
-  font-weight: 400;
-}
-
-.spread-command-name .beta-badge {
-  font-family: var(--font-body);
-  font-size: 0.55rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--spread-ink, var(--ks-accent-ink));
-  border: 1px solid var(--ks-edge);
-  border-radius: 3px;
-  padding: 2px 6px;
-  vertical-align: super;
-  margin-left: 8px;
-}
-
-.spread-description {
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--color-charcoal);
-  max-width: 360px;
-}
-
-/* Flow / relationship line */
-.spread-flow {
+.palette-group {
   display: flex;
   align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-top: var(--spacing-xs);
+  gap: 10px;
+  min-width: 0;
+}
+
+.palette-group-label {
+  color: var(--ks-text-muted);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-micro-size);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
-@supports (flex-wrap: balance) {
-  .spread-flow {
-    flex-wrap: balance;
-  }
+.palette-strip {
+  flex: none;
 }
 
-.spread-flow-label {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: var(--color-ash);
+.palette-key-alpha {
+  color: var(--ks-text-faint);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
-.spread-flow-icon {
-  color: var(--color-ash);
-  font-weight: 600;
-  font-size: 0.8125rem;
+/* The card: copy at left, demo at right, one raised paper panel. */
+.palette-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--spacing-md) var(--spacing-xl);
+  align-items: center;
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-raised);
+  box-shadow: var(--ks-lift-1);
 }
 
-.spread-flow-icon--combine {
-  transform: translateY(1px);
-}
-
-.spread-flow-cmd {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  background: var(--color-mist);
-  padding: 2px 7px;
-  border-radius: 3px;
-  color: var(--spread-ink, var(--color-ink));
-}
-
-/* Right column: Demo area */
-.spread-demo-area {
-  grid-column: 2;
-  grid-row: 1 / 3;
+.palette-copy {
   display: flex;
   flex-direction: column;
-  min-height: 0;
-  overflow: hidden;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
 }
 
-/* Demo split comparison inside the spread */
-.spread-demo-area .demo-split-comparison {
+.palette-tags {
+  display: flex;
+  gap: 6px;
+}
+
+.palette-name {
+  margin: 0;
+  color: var(--ks-ink);
+  font-family: var(--ks-font-display);
+  font-size: var(--ks-type-headline-size);
+  font-weight: var(--ks-type-headline-weight);
+  line-height: var(--ks-type-headline-line);
+  letter-spacing: var(--ks-type-headline-track);
+  overflow-wrap: anywhere;
+}
+
+.palette-namespace {
+  display: block;
+  margin-bottom: 0.2em;
+  color: var(--ks-text-muted);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-label-size);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+}
+
+.palette-desc {
+  margin: 0;
+  max-width: 34ch;
+  color: var(--ks-text);
+  font-size: var(--ks-type-body-size);
+  line-height: 1.55;
+}
+
+.palette-rel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  margin: 0;
+  font-size: var(--ks-type-ui-size);
+}
+
+.palette-rel-label {
+  color: var(--ks-text-muted);
+}
+
+.palette-rel-link,
+.palette-docs {
+  color: var(--ks-link-on-paper);
+  text-decoration: underline;
+  text-decoration-color: var(--ks-link-on-paper-line);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: text-decoration-color var(--ks-quick) var(--ks-ease);
+}
+
+.palette-rel-link {
+  font-family: var(--ks-mono);
+}
+
+.palette-docs {
+  margin-top: 4px;
+  font-size: var(--ks-type-ui-size);
+}
+
+.palette-rel-link:hover,
+.palette-rel-link:focus-visible,
+.palette-docs:hover,
+.palette-docs:focus-visible {
+  text-decoration-color: var(--ks-link-on-paper-line-hover);
+}
+
+/* The demo slot. The split compare is the demo's own rendering; the slot
+   sets its height and frames it with one hairline. The caption sits
+   outside the frame. */
+.palette-demo {
+  --palette-demo-height: 352px;
+  min-width: 0;
+}
+
+.palette-demo .demo-split-comparison {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  flex: 1;
-  min-height: 0;
+  width: 100%;
+  margin: 0;
 }
 
-.spread-demo-area .demo-split-comparison .split-container {
-  position: relative;
-  flex: 1;
-  min-height: 0;
+.palette-demo .split-container {
+  width: 100%;
+  max-width: none;
+  height: var(--palette-demo-height);
+  margin: 0;
   overflow: hidden;
+  border: 1px solid var(--ks-rule);
+  border-radius: var(--ks-radius-sm);
+  background: transparent;
+  box-shadow: none;
   cursor: ew-resize;
   user-select: none;
-  background: var(--color-cream);
 }
 
-.spread-demo-area .demo-split-comparison .split-before,
-.spread-demo-area .demo-split-comparison .split-after {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-md);
+.palette-demo .split-before,
+.palette-demo .split-after {
+  padding: 20px;
 }
 
-.spread-demo-area .demo-split-comparison .split-before {
-  z-index: 1;
-  background: var(--color-cream);
+.palette-demo .split-before {
+  background: transparent;
 }
 
-.spread-demo-area .demo-split-comparison .split-after {
-  z-index: 2;
-  background: var(--color-paper);
-  clip-path: polygon(58% 0%, 100% 0%, 100% 100%, 42% 100%);
+.palette-demo .split-after {
+  background: var(--ks-paper-deep);
 }
 
-.spread-demo-area .demo-split-comparison .split-content {
-  width: 100%;
+.palette-demo .split-content {
   max-width: 320px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin: 0 auto;
 }
 
-.spread-demo-area .demo-split-comparison .split-divider {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
+.palette-demo .split-divider {
   background: var(--spread-accent, var(--ks-patina));
-  transform: translateX(-50%) skewX(-10deg);
-  pointer-events: none;
-  z-index: 3;
+  transform: translateX(-50%);
 }
 
-.spread-demo-area .demo-split-comparison .demo-caption {
+.palette-demo .demo-caption {
   flex-shrink: 0;
-  font-size: 0.75rem;
-  color: var(--color-ash);
+  padding: var(--spacing-xs) 0 0;
+  color: var(--ks-text-muted);
+  font-size: var(--ks-type-label-size);
   text-align: center;
-  padding: var(--spacing-sm) var(--spacing-md);
 }
 
-/* Fallback demo container inside spread */
-.spread-demo-area .demo-container {
-  flex: 1;
+/* Usage guides (impeccable, shape, init) render a .demo-container instead
+   of a split. They sit in a sunk paper well of the same height, and may
+   run taller when the guide needs it. */
+.palette-demo > .demo-container {
   display: flex;
   flex-direction: column;
+  min-height: var(--palette-demo-height);
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-deep);
 }
 
-.spread-demo-area .demo-container .demo-viewport {
+.palette-demo .demo-container .demo-viewport {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 420px;
-  background: none;
-  min-height: auto;
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  padding: 20px 24px !important;
+  background: transparent;
 }
 
-.demo-placeholder {
+/* Commands without a visual demo: the invocation and the full description
+   in a sunk paper well of the same height. */
+.palette-usage {
+  display: grid;
+  align-content: center;
+  gap: 12px;
+  min-height: var(--palette-demo-height);
   padding: var(--spacing-lg);
-  color: var(--color-ash);
-  font-style: italic;
-  text-align: center;
+  border-radius: var(--ks-radius-sm);
+  background: var(--ks-paper-deep);
 }
 
-/* (nav moved to fisheye list) */
+.palette-usage-cmd {
+  justify-self: start;
+  color: var(--ks-ink);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-small-size);
+}
+
+.palette-usage-desc {
+  margin: 0;
+  max-width: 56ch;
+  color: var(--ks-text);
+  font-size: var(--ks-type-small-size);
+  line-height: 1.55;
+}
+
+/* Under 900px the row scrolls sideways on one line and the card stacks:
+   copy first, then the demo. Keys keep a 44px touch height. */
+@media (max-width: 900px) {
+  /* The row bleeds to the viewport edges so the scroll is not clipped at
+     the content edge. The gutter mirrors .home-kinpaku .site-content. */
+  .palette-row {
+    --palette-gutter: clamp(22px, 4vw, 56px);
+    flex-wrap: nowrap;
+    gap: 16px;
+    margin: 0 calc(-1 * var(--palette-gutter));
+    padding: 4px var(--palette-gutter);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding: 0 var(--palette-gutter);
+    scrollbar-width: none;
+  }
+
+  .palette-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .palette-group {
+    flex: none;
+  }
+
+  .palette-key {
+    min-height: 44px;
+  }
+
+  .palette-card {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+  }
+
+  .palette-demo {
+    --palette-demo-height: 280px;
+  }
+}
 
 /* ============================================
    OLD DESKTOP STYLES (kept for mobile reuse)
@@ -519,11 +450,6 @@
 .source-loading {
   color: var(--color-ash);
   font-style: italic;
-}
-
-@media (max-width: 900px) {
-  .magazine-container { display: none; }
-  .fisheye-list { display: none; }
 }
 
 .glass-terminal {

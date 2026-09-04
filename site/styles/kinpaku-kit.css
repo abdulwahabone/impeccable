@@ -421,13 +421,14 @@
 .ks-badge.is-improved { color: var(--ks-state-ink); }
 .ks-badge.is-ready { color: var(--ks-accent-ink); }
 
-.ks-tag-row {
+/* Outline pills: issue tags on the design-system page. Not the brand tag. */
+.ks-pill-row {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.ks-tag {
+.ks-pill {
   display: inline-flex;
   align-items: center;
   min-height: 26px;
@@ -438,10 +439,10 @@
   letter-spacing: 0.04em;
 }
 
-.ks-tag.is-detected { color: var(--ks-vermilion); }
-.ks-tag.is-improved { color: var(--ks-state-ink); }
-.ks-tag.is-neutral { color: var(--ks-text-muted); }
-.ks-tag.is-ready { color: var(--ks-accent-ink); }
+.ks-pill.is-detected { color: var(--ks-vermilion); }
+.ks-pill.is-improved { color: var(--ks-state-ink); }
+.ks-pill.is-neutral { color: var(--ks-text-muted); }
+.ks-pill.is-ready { color: var(--ks-accent-ink); }
 
 
 /* ============================================================
@@ -732,7 +733,9 @@
 .kinpaku-chrome .site-header {
   /* Same rail as .site-content and the hero: the shared gutter until the
      1500px content cap, then the header edge tracks the content edge. */
-  padding: 18px max(clamp(22px, 4vw, 56px), calc((100vw - 1500px) / 2 + 56px));
+  /* Percentages of the header's own width, not 100vw: the viewport unit
+     includes the scrollbar, which put the header 7px right of the rail. */
+  padding: 18px max(clamp(22px, 4vw, 56px), calc((100% - 1388px) / 2));
   background: oklch(97.8% 0 0 / 0.92);
   border-bottom: 1px solid var(--ks-rule);
   -webkit-backdrop-filter: blur(12px);
@@ -867,6 +870,9 @@
 }
 
 .kinpaku-chrome .site-header-brand-logo {
+  /* The slash glyph starts 6px inside its 38px box; pull the box left so
+     the visible edge of the mark sits on the content rail with the h1. */
+  margin-left: -6px;
   width: 38px;
   height: 38px;
   display: grid;
@@ -1025,9 +1031,6 @@ main a.cheatsheet-link:hover {
 .ks-subsection-label,
 .home-kinpaku .section-eyebrow,
 .home-kinpaku .section-number,
-.home-kinpaku .spread-category-label,
-.home-kinpaku .ks-bento-num,
-.home-kinpaku .spread-command-name,
 .cf-eyebrow {
   color: var(--ks-text-muted);
 }
@@ -1072,17 +1075,6 @@ main a.cheatsheet-link:hover {
 
 /* Tile number — tiny mono caps. Defaults to kinpaku; flip individual tiles
    to verdigris with data-color="patina" for tonal variety down a column. */
-.ks-bento-num {
-  font-family: var(--ks-mono);
-  font-size: 0.62rem;
-  letter-spacing: var(--ks-type-eyebrow-track);
-  text-transform: uppercase;
-  color: var(--ks-accent-ink);
-}
-
-.ks-bento-num[data-color="patina"] {
-  color: var(--ks-state-ink);
-}
 
 
 /* ============================================================
@@ -1742,23 +1734,121 @@ main a.cheatsheet-link:hover {
   box-shadow: var(--ks-indicator-glow);
 }
 
+/* ============================================================
+   Grain.
+
+   Grain is part of a material, not a layer over the page. The page ground
+   (the paper) carries it, and so do the moulded surfaces: the recessed
+   track and raised caps of a paper strip, the dark instruments, code
+   blocks. Anything that sits on top of those (a card, a demo, an image,
+   type) is clean. One 160px tile of monochrome noise from an SVG filter,
+   held under 6% on paper and a little higher on dark, where it is what
+   makes a strip read as a part instead of a black rectangle.
+   ============================================================ */
+:root {
+  --ks-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n' x='0' y='0'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* The paper. Fixed behind the page's content, above the canvas colour. */
+body {
+  position: relative;
+  isolation: isolate;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.055;
+  mix-blend-mode: multiply;
+  background-image: var(--ks-grain);
+  background-size: 160px 160px;
+}
+
+/* Moulded surfaces. The pseudo sits under the surface's own children. */
+.ks-grain,
+.ks-instrument-strip {
+  position: relative;
+}
+
+.ks-grain::before,
+.ks-instrument-strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.16;
+  mix-blend-mode: screen;
+  background-image: var(--ks-grain);
+  background-size: 160px 160px;
+}
+
+.ks-instrument-strip.is-paper::before {
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+}
+
+.ks-instrument-strip > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   Tag: the brand's label.
+
+   The detector flags bad design with a small gold tag carrying dark mono
+   text. That tag is the one device a visitor already associates with
+   Impeccable, so it is also how the site labels things: section numerals,
+   a card's state, a release's status. Small, mono, ink on gold. It is the
+   only gold fill allowed on paper, and it never grows past a label.
+   ============================================================ */
+.ks-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 22px;
+  padding: 0 7px;
+  color: var(--ks-on-gold);
+  background: var(--ks-kinpaku);
+  border-radius: var(--ks-radius-sm);
+  font-family: var(--ks-mono);
+  font-size: var(--ks-type-eyebrow-size);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* A quiet tag for a secondary label sitting next to a gold one. */
+.ks-tag.is-quiet {
+  color: var(--ks-text-muted);
+  background: var(--ks-gray);
+}
+
 /* Paper variant. A page control (a view switch, a tab row) sits on paper
    and keeps the gold dot, so it does not compete with the primary action
    the way a dark strip does. The dark strip is for product chrome: the
    live picker, lab toolbars, terminals. */
 .ks-instrument-strip.is-paper {
-  background: var(--ks-paper-deep);
-  border-color: var(--ks-rule);
-  box-shadow: none;
+  background: var(--ks-gray);
+  border-color: transparent;
+  box-shadow: var(--ks-track-recess);
 }
 
 .ks-instrument-strip.is-paper .ks-instrument-key {
   color: var(--ks-text-muted);
+  transition: color var(--ks-quick) var(--ks-ease), background-color var(--ks-quick) var(--ks-ease), box-shadow var(--ks-quick) var(--ks-ease), transform var(--ks-quick) var(--ks-ease);
 }
 
 .ks-instrument-strip.is-paper .ks-instrument-key::before {
   background: var(--ks-gray-2);
-  box-shadow: none;
+  box-shadow: inset 0 1px 1px oklch(13% 0 0 / 0.18);
 }
 
 .ks-instrument-strip.is-paper .ks-instrument-key:hover,
@@ -1766,17 +1856,31 @@ main a.cheatsheet-link:hover {
   color: var(--ks-ink);
 }
 
+.ks-instrument-strip.is-paper .ks-instrument-key:active {
+  box-shadow: var(--ks-cap-press);
+  transform: translateY(1px);
+}
+
+/* The raised cap. Light from above: a white edge on top, a hard shadow
+   underneath, so it stands a millimetre proud of the track. */
 .ks-instrument-strip.is-paper .ks-instrument-key.is-active,
-.ks-instrument-strip.is-paper .ks-instrument-key[aria-selected="true"] {
+.ks-instrument-strip.is-paper .ks-instrument-key[aria-selected="true"],
+.ks-instrument-strip.is-paper .ks-instrument-key[aria-pressed="true"] {
   color: var(--ks-ink);
   background: var(--ks-paper-raised);
-  box-shadow: inset 0 0 0 1px var(--ks-rule), var(--ks-lift-1);
+  box-shadow: var(--ks-cap-lift);
 }
 
 .ks-instrument-strip.is-paper .ks-instrument-key.is-active::before,
-.ks-instrument-strip.is-paper .ks-instrument-key[aria-selected="true"]::before {
+.ks-instrument-strip.is-paper .ks-instrument-key[aria-selected="true"]::before,
+.ks-instrument-strip.is-paper .ks-instrument-key[aria-pressed="true"]::before {
   background: var(--ks-kinpaku);
-  box-shadow: 0 0 0 1px oklch(84% 0.19 80 / 0.35);
+  box-shadow: var(--ks-led);
+}
+
+.ks-instrument-strip.is-paper .ks-instrument-key:focus-visible {
+  outline: 2px solid var(--ks-kinpaku);
+  outline-offset: 1px;
 }
 
 /* ============================================================

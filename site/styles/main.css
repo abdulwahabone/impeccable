@@ -572,11 +572,6 @@ code {
   margin-bottom: 0;
 }
 
-.commands-subsection {
-  display: grid;
-  gap: var(--spacing-md);
-}
-
 /* ============================================
    VISUAL MODE SECTION
    ============================================ */
@@ -599,122 +594,6 @@ code {
 /* ============================================
    SKILLS SECTION
    ============================================ */
-
-/* ============================================
-   MOBILE COMMANDS LAYOUT
-   ============================================ */
-
-.mobile-commands-layout {
-  display: none;
-}
-
-@media (max-width: 900px) {
-  .mobile-commands-layout {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-md);
-    /* Without min-width: 0, the flex container expands to fit any intrinsically
-       wide descendant (the split-compare demo blows it out to ~2400px otherwise).
-       The same constraint cascades to direct children via the next rule. */
-    min-width: 0;
-    width: 100%;
-  }
-
-  .mobile-commands-layout > * {
-    min-width: 0;
-    max-width: 100%;
-  }
-}
-
-/* The picker is the kit's paper strip (a page control, rule 12), scrolling
-   sideways with no scrollbar chrome. The wrapper scrolls; the strip inside is
-   as wide as its keys. Keys keep a 44px touch height. */
-.mobile-carousel-wrapper {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding: var(--spacing-xs) 0;
-}
-
-.mobile-carousel-wrapper::-webkit-scrollbar {
-  display: none;
-}
-
-.mobile-carousel {
-  display: flex;
-  width: max-content;
-  max-width: none;
-}
-
-.mobile-cmd-pill {
-  flex: none;
-  min-height: 44px;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.mobile-demo-area {
-  padding: 0;
-}
-
-.mobile-demo-area .demo-split-comparison {
-  width: 100%;
-}
-
-.mobile-demo-area .split-container {
-  width: 100%;
-  max-width: 100%;
-  height: 320px;
-}
-
-.mobile-demo-area .demo-caption {
-  font-size: 0.75rem;
-  margin-top: var(--spacing-sm);
-}
-
-.mobile-info-area {
-  padding-top: var(--spacing-sm);
-}
-
-.mobile-cmd-info {
-  display: none;
-  padding: var(--spacing-sm) 0;
-}
-
-.mobile-cmd-info.active {
-  display: block;
-}
-
-.mobile-cmd-name {
-  font-family: var(--font-mono);
-  font-size: var(--ks-type-lead-size);
-  font-weight: 600;
-  color: var(--color-ink);
-  margin: 0 0 var(--spacing-xs) 0;
-}
-
-.mobile-cmd-namespace {
-  color: var(--color-ash);
-  font-weight: 400;
-}
-
-.mobile-cmd-desc {
-  font-size: var(--ks-type-small-size);
-  color: var(--color-charcoal);
-  line-height: 1.5;
-  margin: 0;
-}
-
-.mobile-cmd-rel {
-  margin-top: var(--spacing-xs);
-  font-size: 0.75rem;
-  color: var(--color-ash);
-}
-
-.mobile-cmd-rel code {
-  font-family: var(--font-mono);
-  color: var(--color-ink);
-}
 
 /* ============================================
    DOWNLOADS SECTION

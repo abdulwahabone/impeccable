@@ -18,9 +18,8 @@
   position: relative;
   display: grid;
   align-items: center;
-  padding: var(--ks-section-pad) 0;
+  padding: var(--ks-section-pad) 0 0;
   overflow: hidden;
-  border-bottom: 1px solid var(--ks-rule);
 }
 
 /* Mirror .site-content's container math so the hero text aligns horizontally
