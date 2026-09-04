@@ -43,6 +43,15 @@
 /* Mirror .site-content's container math so the hero text aligns horizontally
    with every other section's content edge. */
 .hero-rebuild-container {
+  /* Optical centring. The grid's spine sits on the viewport's centre, but
+     the spread's mass does not: the copy runs further right of the spine
+     than the card and its tags run left of it, so the whole shape read as
+     leaning right. The shift moves the spread left by about half of that
+     imbalance, scaled down on narrow viewports so the tags keep their room
+     inside the rail. Measured at 1727px: the shape's midpoint sat 71px
+     right of centre by the tags' edge, 137px by the card's. */
+  --hero-shift: clamp(0px, (100vw - 1000px) * 0.2, 90px);
+  translate: calc(-1 * var(--hero-shift)) 0;
   position: relative;
   z-index: 1;
   max-width: 1500px;
