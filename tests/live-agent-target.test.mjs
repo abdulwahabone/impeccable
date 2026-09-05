@@ -598,6 +598,49 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
     }
   });
 
+  it('keeps a reconnected overlay\'s lease and word when its old connection closes', async () => {
+    // An EventSource reconnect opens a replacement connection under the same
+    // page-level clientId before the old one is seen to close. The close
+    // must retire nothing while the overlay is still connected.
+    const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    const tabA = await openSseClient(server, { clientId: 'tab-a' });
+    const tabB = await openSseClient(server, { clientId: 'tab-b' });
+    let tabA2 = null;
+    try {
+      await tabA.next((m) => m.type === 'connected');
+      await tabB.next((m) => m.type === 'connected');
+      const held = postJson(server, '/agent-target', {
+        token: server.token, selector: 'h1', action: 'bolder', count: 3,
+      });
+      const pushed = await tabA.next((m) => m.type === 'agent_target');
+      const holder = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: true,
+      })).json();
+      assert.equal(holder.granted, true);
+      tabA2 = await openSseClient(server, { clientId: 'tab-a' });
+      await tabA2.next((m) => m.type === 'agent_target');
+      tabA.close();
+      await sleep(150);
+      const rival = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-b', eligible: true,
+      })).json();
+      assert.equal(rival.granted, false, 'the lease survived the reconnect');
+      const renew = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: true,
+      })).json();
+      assert.equal(renew.granted, true, 'the reconnected overlay still holds it');
+      await postJson(server, '/agent-target-result', {
+        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+      });
+      const verdict = await (await held).json();
+      assert.equal(verdict.sessionId, 'aabbccdd');
+    } finally {
+      tabA.close();
+      tabB.close();
+      if (tabA2) tabA2.close();
+    }
+  });
+
   it('completes the roll call when the last silent overlay disconnects', async () => {
     // Tab A reported busy; tab B never answered and then left. Every overlay
     // still connected has declined, so the verdict is busy now, not at the
