@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { compileProviderBlocks } from '../scripts/lib/utils.js';
+import { VISUAL_ACTIONS } from '../skill/scripts/live/vocabulary.mjs';
 
 const ROOT = process.cwd();
 
@@ -170,5 +171,15 @@ describe('live reference authoring contract', () => {
       /with @scope \(\[data-impeccable-variant=/,
       'real-LLM E2E prompt should not hard-code @scope as the universal CSS contract',
     );
+  });
+
+  it('maps every live action in the generate reference', () => {
+    // generate.md's Step 1 turns request wording into an action value; a
+    // value the picker offers but the reference never names is a request
+    // the agent cannot route.
+    const generateMd = readFileSync(join(ROOT, 'skill/reference/generate.md'), 'utf-8');
+    for (const action of VISUAL_ACTIONS) {
+      assert.match(generateMd, new RegExp('`' + action + '`'), `generate.md must name \`${action}\``);
+    }
   });
 });
