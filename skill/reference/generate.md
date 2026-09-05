@@ -8,7 +8,7 @@ Three prohibitions cover the known ways this command goes wrong. Each names the 
 
 - The poll shows no generate event yet, and writing variants straight into source feels faster. **Never hand-write a variants wrapper or invent a session id.** Only the browser mints session ids (8 hex characters, at Go), and the server refuses events for any other id; a missing event is fixed in Step 2 or Step 3, never with a direct source edit.
 - Handing the user a link to click feels polite. **Open the page yourself** (Step 2); a pasted link usually means no page ever connects.
-- The design hook may flag the preview scaffolding you just published. **Do not act on hook findings while live markers are in the file**, and do not restyle variants to appease them; `live-complete.mjs` verifies the file once the accepted variant is permanent. Current hooks stand down on the markers themselves; older installed hooks may still nag.
+- The design hook may flag the preview scaffolding you just published. **Do not act on hook findings while live markers are in the file**, and do not restyle variants to appease them; `impeccable live-complete` verifies the file once the accepted variant is permanent. Current hooks stand down on the markers themselves; older installed hooks may still nag.
 
 ## Step 1: Parse the request
 
@@ -38,7 +38,7 @@ Done when you hold an action from the vocabulary, a count from 1 to 8, and the e
 Run the boot exactly as [live.md](live.md)'s Start section describes:
 
 ```bash
-node {{scripts_path}}/live.mjs
+{{scripts_path}}/impeccable live
 ```
 
 **`config_missing` / `config_invalid`**: follow [live-setup.md](live-setup.md) first.
@@ -56,7 +56,7 @@ Done when the boot printed `"ok": true` and a page with the overlay is connected
 Derive the selector from project source, not from guesswork: an id first, then a unique class, then a landmark tag plus class. **The request names a repeated component in plural** ("the pricing cards"): target the container that holds the set, so scoped CSS restyles every instance at once. **Unsure the selector resolves uniquely**: probe with `--dry-run`; it resolves and reports without starting anything, and it works even mid-session.
 
 ```bash
-node {{scripts_path}}/live-generate.mjs --selector "section.pricing" --action bolder --count 3
+{{scripts_path}}/impeccable live-generate --selector "section.pricing" --action bolder --count 3
 ```
 
 Flags: `--selector` (required), `--action`, `--count`, `--prompt`, `--text` (keep only matches whose visible text contains a snippet), `--index` (1-based pick among matches), `--dry-run`, `--wait-for-browser <ms>`.
@@ -78,10 +78,10 @@ Then tell the user, in one line, where their variants are: *"Three [bolder] vari
 
 ## Step 5: Close the session
 
-Generate is a one-shot command; this is where it diverges from an open-ended `live` session. Once the accept (or discard) completes, wrap up without being asked: carbonize cleanup is done and `live-complete.mjs` printed `phase: "completed"` (a discard needs no cleanup), so kill your background poll and run live.md's Cleanup:
+Generate is a one-shot command; this is where it diverges from an open-ended `live` session. Once the accept (or discard) completes, wrap up without being asked: carbonize cleanup is done and `impeccable live-complete` printed `phase: "completed"` (a discard needs no cleanup), so kill your background poll and run live.md's Cleanup:
 
 ```bash
-node {{scripts_path}}/live-server.mjs stop
+{{scripts_path}}/impeccable live-server stop
 ```
 
 Stopping removes the injected live script, and that removal reloads the page one last time: the user's browser now shows the accepted design with no overlay chrome, still served by their dev server.

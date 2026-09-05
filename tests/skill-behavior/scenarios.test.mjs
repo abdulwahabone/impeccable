@@ -28,6 +28,7 @@ import {
   ENGINE_MISSING_MESSAGE,
 } from './harness.mjs';
 import { detectProvider, getModel, hasKey, resolveModelList, PROVIDERS } from './providers.mjs';
+import { findEngineBinary } from '../lib/engine-bin.mjs';
 import {
   PRODUCT_MD_SAMPLE,
   PRODUCT_MD_SAMPLE_NO_REGISTER,
@@ -94,10 +95,16 @@ function loadedBefore(trace, first, second) {
  */
 function stopLiveHelper(workspace) {
   try {
+    const engineBin = findEngineBinary();
     execFileSync(
-      process.execPath,
-      [path.join(workspace, '.claude/skills/impeccable/scripts/live-server.mjs'), 'stop'],
-      { cwd: workspace, stdio: 'ignore', timeout: 10_000 },
+      path.join(workspace, '.claude/skills/impeccable/scripts/impeccable'),
+      ['live-server', 'stop'],
+      {
+        cwd: workspace,
+        stdio: 'ignore',
+        timeout: 10_000,
+        env: { ...process.env, ...(engineBin ? { IMPECCABLE_BIN: engineBin } : {}) },
+      },
     );
   } catch { /* nothing was running */ }
 }
