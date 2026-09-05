@@ -1,8 +1,9 @@
 /**
- * Tests for agent-initiated element targeting (the `generate` command):
- * POST /agent-target held-open pairing with POST /agent-target-result,
- * validation, the no-browser and timeout verdicts, and the live-generate CLI's
- * local failure modes.
+ * Protocol tests for agent-initiated element targeting (the `generate`
+ * command), driven against the engine binary: POST /agent-target held-open
+ * pairing with POST /agent-target-result, validation, the roll call and its
+ * leases, the no-browser and timeout verdicts, and the live-generate verb's
+ * local failure modes. Skips cleanly without a binary (tests/lib/engine-bin.mjs).
  *
  * Run with: node --test tests/live-agent-target.test.mjs
  */
@@ -14,37 +15,66 @@ import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execFile, execFileSync, spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { getLiveServerPath } from '../skill/scripts/lib/impeccable-paths.mjs';
-import { VISUAL_ACTIONS } from '../skill/scripts/live/vocabulary.mjs';
+import { ENGINE_MISSING_MESSAGE, engineEnv, findEngineBinary } from './lib/engine-bin.mjs';
 
 // Resolve the repo from this file, not from cwd: the runner may be invoked
 // from tests/ or anywhere else.
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SERVER_SCRIPT = join(REPO_ROOT, 'skill/scripts/live-server.mjs');
-const GENERATE_SCRIPT = join(REPO_ROOT, 'skill/scripts/live-generate.mjs');
+const ENGINE_BIN = findEngineBinary();
+
+// The action vocabulary lives in the engine (crates/live/src/vocabulary.rs);
+// read it from the Rust source so the matrix below can never drift from what
+// the live server accepts.
+function readVisualActions() {
+  const rust = readFileSync(join(REPO_ROOT, 'crates/live/src/vocabulary.rs'), 'utf-8');
+  const block = rust.match(/pub const VISUAL_ACTIONS: \[&str; (\d+)\] = \[([\s\S]*?)\];/);
+  if (!block) throw new Error('VISUAL_ACTIONS not found in crates/live/src/vocabulary.rs');
+  return [...block[2].matchAll(/"([a-z]+)"/g)].map((m) => m[1]);
+}
+const VISUAL_ACTIONS = readVisualActions();
+
+function liveServerPath(cwd) {
+  return join(cwd, '.impeccable/live/server.json');
+}
+
+/** Run the live-generate verb; the JSON verdict is on stdout on every exit code. */
+function runGenerate(cwd, args) {
+  return execFileSync(ENGINE_BIN, ['live-generate', ...args], {
+    cwd,
+    encoding: 'utf-8',
+    env: engineEnv(ENGINE_BIN, {}),
+  });
+}
 
 function startServer(port, { cwd, env = {} } = {}) {
   return new Promise((resolve, reject) => {
-    const proc = spawn('node', [SERVER_SCRIPT, '--port=' + port], {
+    const proc = spawn(ENGINE_BIN, ['live-server', '--port=' + port], {
       cwd,
       stdio: ['ignore', 'pipe', 'pipe'],
-      env: { ...process.env, IMPECCABLE_LIVE_COPY_AGENT: 'off', ...env },
+      env: engineEnv(ENGINE_BIN, { IMPECCABLE_LIVE_COPY_AGENT: 'off', ...env }),
     });
     let output = '';
-    proc.stdout.on('data', (d) => {
-      output += d.toString();
-      if (output.includes('running on')) {
-        try {
-          const info = JSON.parse(readFileSync(getLiveServerPath(cwd), 'utf-8'));
-          resolve({ proc, port: info.port, token: info.token, cwd });
-        } catch {
-          reject(new Error('Server started but PID file not readable'));
-        }
-      }
-    });
+    proc.stdout.on('data', (d) => { output += d.toString(); });
     proc.stderr.on('data', (d) => { output += d.toString(); });
     proc.on('error', reject);
-    setTimeout(() => reject(new Error('Server start timeout. Output: ' + output)), 5000);
+    // The server writes server.json on listen; poll for it rather than
+    // parsing the banner, so a slow first start still resolves.
+    const deadline = Date.now() + 10_000;
+    const tick = () => {
+      try {
+        const info = JSON.parse(readFileSync(liveServerPath(cwd), 'utf-8'));
+        if (info.port && info.token) {
+          resolve({ proc, port: info.port, token: info.token, cwd });
+          return;
+        }
+      } catch { /* not yet */ }
+      if (Date.now() > deadline) {
+        reject(new Error('Server start timeout. Output: ' + output));
+        return;
+      }
+      setTimeout(tick, 50);
+    };
+    tick();
   });
 }
 
@@ -116,7 +146,7 @@ async function openSseClient(server, { clientId } = {}) {
   };
 }
 
-describe('POST /agent-target', () => {
+describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSAGE }, () => {
   let tmp;
   let server;
 
@@ -606,9 +636,9 @@ describe('POST /agent-target', () => {
       for (const action of VISUAL_ACTIONS) {
         const cli = new Promise((resolve) => {
           execFile(
-            process.execPath,
-            [GENERATE_SCRIPT, '--selector', 'h1', '--action', action, '--dry-run'],
-            { cwd: tmp, encoding: 'utf-8' },
+            ENGINE_BIN,
+            ['live-generate', '--selector', 'h1', '--action', action, '--dry-run'],
+            { cwd: tmp, encoding: 'utf-8', env: engineEnv(ENGINE_BIN, {}) },
             (err, stdout) => resolve({ code: err ? err.code : 0, stdout }),
           );
         });
@@ -666,7 +696,7 @@ describe('POST /agent-target', () => {
   });
 });
 
-describe('live-generate CLI --wait-for-browser', () => {
+describe('live-generate CLI --wait-for-browser', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSAGE }, () => {
   let tmp;
   let server;
 
@@ -687,10 +717,7 @@ describe('live-generate CLI --wait-for-browser', () => {
 
   function runCli(cwd, args) {
     try {
-      const stdout = execFileSync(process.execPath, [GENERATE_SCRIPT, ...args], {
-        cwd,
-        encoding: 'utf-8',
-      });
+      const stdout = runGenerate(cwd, args);
       return { code: 0, json: JSON.parse(stdout) };
     } catch (err) {
       return { code: err.status, json: JSON.parse(err.stdout) };
@@ -721,9 +748,9 @@ describe('live-generate CLI --wait-for-browser', () => {
     // and the delayed connect would never happen.
     const child = new Promise((resolve) => {
       execFile(
-        process.execPath,
-        [GENERATE_SCRIPT, '--selector', 'h1', '--action', 'bolder', '--wait-for-browser', '10000'],
-        { cwd: tmp, encoding: 'utf-8' },
+        ENGINE_BIN,
+        ['live-generate', '--selector', 'h1', '--action', 'bolder', '--wait-for-browser', '10000'],
+        { cwd: tmp, encoding: 'utf-8', env: engineEnv(ENGINE_BIN, {}) },
         (err, stdout) => resolve({ code: err ? err.code : 0, stdout }),
       );
     });
@@ -737,13 +764,10 @@ describe('live-generate CLI --wait-for-browser', () => {
   });
 });
 
-describe('live-generate CLI local failure modes', () => {
+describe('live-generate CLI local failure modes', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSAGE }, () => {
   function runCli(cwd, args) {
     try {
-      const stdout = execFileSync(process.execPath, [GENERATE_SCRIPT, ...args], {
-        cwd,
-        encoding: 'utf-8',
-      });
+      const stdout = runGenerate(cwd, args);
       return { code: 0, json: JSON.parse(stdout) };
     } catch (err) {
       return { code: err.status, json: JSON.parse(err.stdout) };
@@ -756,7 +780,7 @@ describe('live-generate CLI local failure modes', () => {
       const { code, json } = runCli(tmp, ['--selector', 'h1', '--action', 'bolder']);
       assert.equal(code, 1);
       assert.equal(json.error, 'server_not_running');
-      assert.match(json._instructions, /live\.mjs/);
+      assert.match(json._instructions, / live\)/, 'names the boot verb');
     } finally {
       rmSync(tmp, { recursive: true, force: true });
     }

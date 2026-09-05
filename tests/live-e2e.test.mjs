@@ -885,10 +885,11 @@ for (const { name, fixture } of fixtures) {
           if (scenario.prompt) {
             // The configure bar rebuild once discarded the preset prompt, so
             // pin the regression at the wire: the journaled generate event
-            // must carry the prompt the CLI was given.
-            const journalPath = join(appRoot, '.impeccable/live/sessions', `${res.sessionId}.jsonl`);
-            const journaled = readFileSync(journalPath, 'utf-8').trim().split('\n').map((l) => JSON.parse(l));
-            const generateEvent = journaled.find((entry) => entry.type === 'generate')?.event;
+            // must carry the prompt the CLI was given. The engine journals a
+            // generate event when the agent leases it from /poll, so wait
+            // for the entry instead of reading the journal right away.
+            const [journaled] = await waitForJournalEvent(appRoot, res.sessionId, 'generate');
+            const generateEvent = journaled?.event ?? journaled;
             assert.equal(
               generateEvent?.freeformPrompt,
               scenario.prompt,

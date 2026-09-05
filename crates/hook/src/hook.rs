@@ -276,6 +276,10 @@ pub fn run_hook(rt: &Runtime, stdin: &str) -> RunResult {
                 };
             }
         };
+        if crate::hook_lib::has_live_preview_markers(&content) {
+            last_skip = "live-preview";
+            continue;
+        }
         let scan = scans.entry(file_path.clone()).or_insert_with(|| {
             design_system_options_for_file(rt, &config, &project_cwd, file_path)
         });
@@ -707,6 +711,9 @@ pub fn run_stop_hook(rt: &Runtime, stdin: &str) -> RunResult {
             Ok(b) => String::from_utf8_lossy(&b).into_owned(),
             Err(_) => continue,
         };
+        if crate::hook_lib::has_live_preview_markers(&content) {
+            continue;
+        }
         let use_html_engine = match configured {
             Some(c) => c.engine == "html",
             None => ext == ".html" || ext == ".htm",
