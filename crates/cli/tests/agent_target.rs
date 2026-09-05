@@ -331,3 +331,48 @@ fn agent_target_replays_pending_targets_to_a_late_overlay() {
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"));
 }
+
+#[test]
+fn agent_target_reconnect_keeps_the_overlays_lease_and_word() {
+    let s = Server::start("reconnect");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    let mut b = Overlay::connect(s.port, &s.token, "tab-b");
+    a.next(|m| m["type"] == "connected");
+    b.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    // An EventSource reconnect: the same page opens a replacement connection
+    // under its clientId before the old one is seen to close.
+    let mut a2 = Overlay::connect(s.port, &s.token, "tab-a");
+    a2.next(|m| m["type"] == "agent_target");
+    drop(a);
+    std::thread::sleep(Duration::from_millis(150));
+    // The old connection's close must not hand tab-a's lease to anyone:
+    // tab-b stays denied, tab-a renews as the holder.
+    assert_eq!(s.claim(&target_id, "tab-b", true)["granted"], serde_json::json!(false), "the lease survived the reconnect");
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"));
+    let _ = (&mut a2, &mut b);
+}
+
+#[test]
+fn agent_target_roll_call_counts_overlays_not_connections() {
+    let s = Server::start("distinct");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    let mut a2 = Overlay::connect(s.port, &s.token, "tab-a");
+    a.next(|m| m["type"] == "connected");
+    a2.next(|m| m["type"] == "connected");
+    let started = Instant::now();
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    // One overlay behind two connections reports busy once: that completes
+    // the roll call instead of waiting on a "second" report until timeout.
+    assert_eq!(s.claim(&target_id, "tab-a", false), serde_json::json!({ "ok": true, "granted": false }));
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["error"], serde_json::json!("busy"));
+    assert!(started.elapsed() < Duration::from_millis(350), "the busy verdict did not wait for the timeout");
+    let _ = &mut a2;
+}

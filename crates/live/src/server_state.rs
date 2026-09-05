@@ -657,7 +657,12 @@ impl ServerState {
 
     /// Remove an SSE client; when none remain arm the exit timer (JS
     /// `req.on('close')`). A departed overlay's word no longer counts in any
-    /// agent-target roll call.
+    /// agent-target roll call. The overlay, not the connection, is the
+    /// participant: an EventSource reconnect opens a replacement connection
+    /// under the same page-level clientId before the old one is seen to
+    /// close, so its word is retired only once no connection carries that
+    /// id, while every roll call is still re-judged against the connections
+    /// that remain.
     pub fn remove_sse_client(&mut self, id: u64) {
         let before = self.sse_clients.len();
         let agent_client_id = self
@@ -667,12 +672,36 @@ impl ServerState {
             .and_then(|c| c.agent_client_id.clone());
         self.sse_clients.retain(|c| c.id != id);
         if before != self.sse_clients.len() {
-            self.drop_agent_target_client(agent_client_id.as_deref());
+            let still_connected = agent_client_id
+                .as_deref()
+                .map(|cid| self.sse_clients.iter().any(|c| c.agent_client_id.as_deref() == Some(cid)))
+                .unwrap_or(false);
+            self.drop_agent_target_client(if still_connected { None } else { agent_client_id.as_deref() });
             if self.sse_clients.is_empty() {
                 self.clear_exit_timer();
                 self.arm_exit_timer();
             }
         }
+    }
+
+    /// Connected overlays for a roll call: one per distinct clientId, plus
+    /// every connection that sent none (an older overlay build), so a
+    /// reconnect's momentary duplicate connection never waits on a second
+    /// report from the same tab.
+    pub fn connected_overlay_count(&self) -> usize {
+        let mut ids: Vec<&str> = Vec::new();
+        let mut anonymous = 0;
+        for c in &self.sse_clients {
+            match c.agent_client_id.as_deref() {
+                Some(cid) => {
+                    if !ids.contains(&cid) {
+                        ids.push(cid);
+                    }
+                }
+                None => anonymous += 1,
+            }
+        }
+        ids.len() + anonymous
     }
 
     // ---------------------------------------------------------------------
@@ -777,7 +806,7 @@ impl ServerState {
     /// timeout. Judged against the connections of this moment, so it runs
     /// whenever a report lands and whenever an overlay leaves.
     pub fn maybe_complete_agent_target_roll_call(&mut self, target_id: &str) {
-        let connected = self.sse_clients.len();
+        let connected = self.connected_overlay_count();
         let verdict = self
             .pending_agent_targets
             .iter()

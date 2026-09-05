@@ -805,6 +805,11 @@ describe('live-browser source contracts', () => {
       /\/events\?token=' \+ TOKEN \+ '&clientId=' \+ AGENT_TARGET_CLIENT_ID/,
       'the SSE connection must carry the overlay id, so a disconnect retires its roll-call word',
     );
+    assert.match(
+      SOURCE,
+      /function handleAgentTarget\(msg\) \{[\s\S]{0,120}?if \(agentTargetsSeen\.includes\(msg\.targetId\)\) return;/,
+      'a replayed target this page already handled must not start a second claim or Go',
+    );
     assert.match(helper, /setTimeout\(\(\) => claimAndActOnAgentTarget\(msg\), AGENT_TARGET_RESCUE_RETRY_MS\);/, 'a denied claim on a live request retries until the lease lapses');
     assert.match(
       SOURCE,

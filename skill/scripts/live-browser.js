@@ -7278,8 +7278,17 @@
     }
   }
 
+  // Targets this page already answered (claimed, declined, or acted on).
+  // The server replays pending targets to every connection that opens, and
+  // an EventSource reconnect opens one for a page that already heard the
+  // target, so a replay must not start a second claim or a second Go.
+  const agentTargetsSeen = [];
+
   function handleAgentTarget(msg) {
     if (!msg || typeof msg.targetId !== 'string') return;
+    if (agentTargetsSeen.includes(msg.targetId)) return;
+    agentTargetsSeen.push(msg.targetId);
+    if (agentTargetsSeen.length > 100) agentTargetsSeen.shift();
     const busy = agentTargetBusyReason();
     if (busy) {
       // Roll call: a busy tab reports itself and never acts. The server
