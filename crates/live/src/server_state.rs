@@ -124,10 +124,11 @@ pub struct ServerState {
     pub pending_agent_targets: Vec<(String, AgentTargetPending)>,
     pub next_agent_target_timer_gen: u64,
     /// Every agent target already answered, oldest first (bounded), with
-    /// the session that answered it when the verdict carried one: a
-    /// generate event that names one of these under another session id, or
-    /// after a verdict without a session (a timeout, a failure), is a
-    /// superseded Go and is refused.
+    /// the session that answered it when the verdict carried one. A
+    /// generate event naming a target is welcome only while that target is
+    /// pending without a rival lease, or when it comes from the session
+    /// that answered it; anything else, including a target this record no
+    /// longer holds, is refused, so eviction can never reopen a request.
     pub resolved_agent_targets: Vec<(String, Option<String>)>,
     pub last_poll_at: i64,
     pub timed_out_apply_ids: Vec<(String, TimedOutApply)>,
@@ -839,7 +840,7 @@ impl ServerState {
         };
         self.resolved_agent_targets
             .push((target_id.to_string(), session));
-        if self.resolved_agent_targets.len() > 64 {
+        if self.resolved_agent_targets.len() > 256 {
             self.resolved_agent_targets.remove(0);
         }
         let _ = pending.tx.send(result);
@@ -849,11 +850,13 @@ impl ServerState {
     /// Why a generate event naming `envelope.targetId`, sent by
     /// `envelope.clientId` under `session_id`, must not open a session:
     /// the target is still pending but another page holds a live lease on
-    /// it (this page's lease lapsed while it was capturing), or the request
+    /// it (this page's lease lapsed while it was capturing); the request
     /// was already answered, with a different session or with none (a
-    /// timeout or a failure verdict the CLI has already reported). None
-    /// when the event is welcome, which includes the answering session's
-    /// own event.
+    /// timeout or a failure verdict the CLI has already reported); or the
+    /// helper neither holds nor remembers the target (never issued here, or
+    /// long since evicted from the bounded record). None only when the
+    /// event is welcome: a pending target without a rival, or the
+    /// answering session's own event.
     pub fn agent_target_refusal(
         &self,
         envelope: &Map<String, Value>,
@@ -876,11 +879,14 @@ impl ServerState {
                 _ => None,
             };
         }
-        let (_, answered_by) = self
+        let Some((_, answered_by)) = self
             .resolved_agent_targets
             .iter()
             .rev()
-            .find(|(t, _)| t == target_id)?;
+            .find(|(t, _)| t == target_id)
+        else {
+            return Some(AgentTargetRefusal { session_id: None });
+        };
         if answered_by.as_deref() == session_id && session_id.is_some() {
             return None;
         }

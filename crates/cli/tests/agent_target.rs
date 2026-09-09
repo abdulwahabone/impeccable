@@ -582,3 +582,20 @@ fn agent_target_fences_a_generate_event_that_lands_after_the_timeout() {
     assert!(body.get("sessionId").is_none(), "{body}");
     assert!(!s.dir.join(".impeccable/live/sessions/eeeeeeee.jsonl").exists());
 }
+
+#[test]
+fn agent_target_refuses_a_generate_event_for_a_target_it_never_held() {
+    // Unknown means refused: a target this helper never issued, or one
+    // evicted from its bounded record, can never be reopened by a late Go.
+    let s = Server::start("unknown-target");
+    let (status, body) = post_json(s.port, "/events", generate_event_for(&s, "0badf00d", "ffffffff", "tab-a"));
+    assert_eq!(status, 409, "{body}");
+    assert_eq!(body["error"], serde_json::json!("agent_target_already_served"));
+    assert!(body.get("sessionId").is_none(), "{body}");
+    assert!(!s.dir.join(".impeccable/live/sessions/ffffffff.jsonl").exists());
+    // Without an envelope the same event is an ordinary Go.
+    let mut plain = generate_event_for(&s, "0badf00d", "ffffffff", "tab-a");
+    plain.as_object_mut().unwrap().remove("agentTarget");
+    let (status, _) = post_json(s.port, "/events", plain);
+    assert_eq!(status, 200);
+}

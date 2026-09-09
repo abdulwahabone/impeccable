@@ -837,6 +837,20 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
     }
   });
 
+  it('refuses a generate event naming a target the helper never held, so eviction can never reopen a request', async () => {
+    const event = (agentTarget) => postJson(server, '/events', {
+      token: server.token, type: 'generate', id: 'ffffffff', action: 'bolder', count: 3, pageUrl: '/',
+      element: { tagName: 'h1', outerHTML: '<h1>Hero</h1>' },
+      ...(agentTarget ? { agentTarget } : {}),
+    });
+    const refused = await event({ targetId: '0badf00d', clientId: 'tab-a', result: { ok: true, sessionId: 'ffffffff' } });
+    assert.equal(refused.status, 409);
+    assert.equal((await refused.json()).error, 'agent_target_already_served');
+    assert.ok(!existsSync(join(tmp, '.impeccable/live/sessions/ffffffff.jsonl')), 'nothing journaled');
+    // Without an envelope the same event is an ordinary Go.
+    assert.equal((await event(null)).status, 200);
+  });
+
   it('prefers busy over no_match, so the agent retries when the right page is mid-session', async () => {
     const tabA = await openSseClient(server, { clientId: 'tab-a' });
     const tabB = await openSseClient(server, { clientId: 'tab-b' });
