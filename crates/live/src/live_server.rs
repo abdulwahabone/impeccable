@@ -184,7 +184,7 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
             next_apply_timer_gen: 0,
             pending_agent_targets: Vec::new(),
             next_agent_target_timer_gen: 0,
-            served_agent_targets: Vec::new(),
+            resolved_agent_targets: Vec::new(),
             shutting_down: false,
             cleaned_up: false,
             log_tx,
@@ -1240,17 +1240,19 @@ fn handle_events_post(
         }
     }
     if let Some(envelope) = agent_target.as_ref().and_then(Value::as_object) {
-        if let Some(served) = st.agent_target_served_elsewhere(envelope, id_str.as_deref()) {
+        if let Some(refusal) = st.agent_target_refusal(envelope, id_str.as_deref()) {
             // A superseded Go: this page's lease lapsed while it was still
-            // capturing and another page served the request. Journal
-            // nothing, so one request never gets two sessions.
+            // capturing and another page served the request, or the
+            // request was already answered (a timeout or a failure the CLI
+            // has reported). Journal nothing, so one request never gets a
+            // second session, or a session nobody was told about.
             drop(st);
             let mut body = json!({
                 "error": "agent_target_already_served",
                 "targetId": envelope.get("targetId").cloned().unwrap_or(Value::Null),
             });
-            if !served.is_empty() {
-                body["sessionId"] = Value::String(served);
+            if let Some(sid) = refusal.session_id {
+                body["sessionId"] = Value::String(sid);
             }
             respond(stream, cors, json_res(409, body));
             return;

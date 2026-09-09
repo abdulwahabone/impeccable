@@ -808,6 +808,35 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
     }
   });
 
+  it('fences a generate event that lands after the request timed out, so no session the agent was never told about starts', async () => {
+    const tabA = await openSseClient(server, { clientId: 'tab-a' });
+    try {
+      await tabA.next((m) => m.type === 'connected');
+      const held = postJson(server, '/agent-target', {
+        token: server.token, selector: 'h1', action: 'bolder', count: 3,
+      });
+      const pushed = await tabA.next((m) => m.type === 'agent_target');
+      const claim = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: true,
+      })).json();
+      assert.equal(claim.granted, true);
+      const verdict = await (await held).json();
+      assert.equal(verdict.error, 'browser_timeout');
+      const late = await postJson(server, '/events', {
+        token: server.token, type: 'generate', id: 'eeeeeeee', action: 'bolder', count: 3, pageUrl: '/',
+        element: { tagName: 'h1', outerHTML: '<h1>Hero</h1>' },
+        agentTarget: { targetId: pushed.targetId, clientId: 'tab-a', result: { ok: true, matchCount: 1, sessionId: 'eeeeeeee', action: 'bolder', count: 3 } },
+      });
+      assert.equal(late.status, 409);
+      const body = await late.json();
+      assert.equal(body.error, 'agent_target_already_served');
+      assert.equal(body.sessionId, undefined);
+      assert.ok(!existsSync(join(tmp, '.impeccable/live/sessions/eeeeeeee.jsonl')), 'a fenced Go journals nothing');
+    } finally {
+      tabA.close();
+    }
+  });
+
   it('prefers busy over no_match, so the agent retries when the right page is mid-session', async () => {
     const tabA = await openSseClient(server, { clientId: 'tab-a' });
     const tabB = await openSseClient(server, { clientId: 'tab-b' });

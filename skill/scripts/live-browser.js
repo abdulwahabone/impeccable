@@ -7736,9 +7736,10 @@
     }).then(async res => {
       if (res.ok) return res;
       const body = await res.json().catch(() => ({}));
-      // The helper refused to open a second session for an agent target
-      // another page already served (this page's lease lapsed while it was
-      // capturing): drop the local session and hand the surface back.
+      // The helper refused to open a session for an agent target it has
+      // already answered (another page served it after this page's lease
+      // lapsed mid-capture, or the request timed out): drop the local
+      // session and hand the surface back.
       if (body.error === 'agent_target_already_served' && msg.type === 'generate'
           && msg.id && msg.id === currentSessionId) {
         abandonSupersededGo(msg.id);
@@ -7767,10 +7768,10 @@
 
   function abandonSupersededGo(sessionId) {
     if (sessionId !== currentSessionId) return;
-    console.warn('[impeccable] Another page already served this agent target; clearing session ' + sessionId + '.');
+    console.warn('[impeccable] The helper already answered this agent target; clearing session ' + sessionId + '.');
     markSessionHandled();
     cleanup({ instantChrome: true });
-    showToast('Another tab already served this request, so this session was cleared.', 6000);
+    showToast('The helper already answered this request, so this session was cleared. Pick an element to start fresh.', 6000);
   }
 
   let abandonedForeignSessionId = null;

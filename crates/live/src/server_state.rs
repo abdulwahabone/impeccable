@@ -45,6 +45,13 @@ pub struct SseClient {
 }
 
 /// One overlay's roll-call report on an agent target: its busy state and why.
+/// A generate event refused because its agent target is spoken for; see
+/// `ServerState::agent_target_refusal`.
+pub struct AgentTargetRefusal {
+    /// The session that answered the request, when the verdict carried one.
+    pub session_id: Option<String>,
+}
+
 pub struct AgentTargetReport {
     pub client_id: String,
     pub state: Value,
@@ -116,10 +123,12 @@ pub struct ServerState {
     /// Held-open agent targets keyed by targetId, in arrival order.
     pub pending_agent_targets: Vec<(String, AgentTargetPending)>,
     pub next_agent_target_timer_gen: u64,
-    /// Agent targets answered with a session, oldest first (bounded): a
-    /// generate event that names one of these under another session id is
-    /// a superseded Go and is refused.
-    pub served_agent_targets: Vec<(String, String)>,
+    /// Every agent target already answered, oldest first (bounded), with
+    /// the session that answered it when the verdict carried one: a
+    /// generate event that names one of these under another session id, or
+    /// after a verdict without a session (a timeout, a failure), is a
+    /// superseded Go and is refused.
+    pub resolved_agent_targets: Vec<(String, Option<String>)>,
     pub last_poll_at: i64,
     pub timed_out_apply_ids: Vec<(String, TimedOutApply)>,
     pub next_poll_id: u64,
@@ -820,30 +829,36 @@ impl ServerState {
             return false;
         };
         let (_, pending) = self.pending_agent_targets.remove(pos);
-        if result.get("ok") == Some(&Value::Bool(true)) {
-            if let Some(sid) = result.get("sessionId").and_then(Value::as_str) {
-                self.served_agent_targets
-                    .push((target_id.to_string(), sid.to_string()));
-                if self.served_agent_targets.len() > 64 {
-                    self.served_agent_targets.remove(0);
-                }
-            }
+        let session = if result.get("ok") == Some(&Value::Bool(true)) {
+            result
+                .get("sessionId")
+                .and_then(Value::as_str)
+                .map(str::to_string)
+        } else {
+            None
+        };
+        self.resolved_agent_targets
+            .push((target_id.to_string(), session));
+        if self.resolved_agent_targets.len() > 64 {
+            self.resolved_agent_targets.remove(0);
         }
         let _ = pending.tx.send(result);
         true
     }
 
-    /// Whether a generate event naming `envelope.targetId`, sent by
-    /// `envelope.clientId` under `session_id`, is a superseded Go: the
-    /// target is still pending but another page holds a live lease on it
-    /// (this page's lease lapsed while it was capturing), or the request
-    /// was already answered with a different session. Returns the serving
-    /// session id, empty while the rival has not minted one yet.
-    pub fn agent_target_served_elsewhere(
+    /// Why a generate event naming `envelope.targetId`, sent by
+    /// `envelope.clientId` under `session_id`, must not open a session:
+    /// the target is still pending but another page holds a live lease on
+    /// it (this page's lease lapsed while it was capturing), or the request
+    /// was already answered, with a different session or with none (a
+    /// timeout or a failure verdict the CLI has already reported). None
+    /// when the event is welcome, which includes the answering session's
+    /// own event.
+    pub fn agent_target_refusal(
         &self,
         envelope: &Map<String, Value>,
         session_id: Option<&str>,
-    ) -> Option<String> {
+    ) -> Option<AgentTargetRefusal> {
         let target_id = envelope.get("targetId").and_then(Value::as_str)?;
         let client_id = envelope
             .get("clientId")
@@ -856,17 +871,22 @@ impl ServerState {
         {
             return match &pending.owner {
                 Some(owner) if owner != client_id && pending.claimed_until > now_i64() => {
-                    Some(String::new())
+                    Some(AgentTargetRefusal { session_id: None })
                 }
                 _ => None,
             };
         }
-        self.served_agent_targets
+        let (_, answered_by) = self
+            .resolved_agent_targets
             .iter()
             .rev()
-            .find(|(t, _)| t == target_id)
-            .filter(|(_, sid)| Some(sid.as_str()) != session_id)
-            .map(|(_, sid)| sid.clone())
+            .find(|(t, _)| t == target_id)?;
+        if answered_by.as_deref() == session_id && session_id.is_some() {
+            return None;
+        }
+        Some(AgentTargetRefusal {
+            session_id: answered_by.clone(),
+        })
     }
 
     /// Every connected overlay has declined: answer busy now, not at the

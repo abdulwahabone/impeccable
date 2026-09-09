@@ -145,7 +145,10 @@ impl Server {
             .spawn()
             .expect("spawn live-server");
         let pid_file = dir.join(".impeccable/live/server.json");
-        assert!(wait_for(&pid_file, 10), "server pid file never appeared");
+        // Sixteen servers spawn at once under the default test parallelism; a
+        // loaded machine has taken more than ten seconds to write the first
+        // pid file.
+        assert!(wait_for(&pid_file, 30), "server pid file never appeared");
         let info: serde_json::Value =
             serde_json::from_str(&std::fs::read_to_string(&pid_file).unwrap()).unwrap();
         let port = info["port"].as_u64().expect("port") as u16;
@@ -558,4 +561,24 @@ fn agent_target_welcomes_the_generate_event_of_the_session_that_answered() {
     let (status, body) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "cccccccc", "tab-a"));
     assert_eq!(status, 200, "{body}");
     assert!(s.dir.join(".impeccable/live/sessions/cccccccc.jsonl").exists());
+}
+
+#[test]
+fn agent_target_fences_a_generate_event_that_lands_after_the_timeout() {
+    let s = Server::start("fenced");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    a.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    // The holder never answers: the request times out (400ms) and the CLI
+    // reports it. Its Go lands after that: refused, nothing journaled, so
+    // no session exists that the agent was never told about.
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["error"], serde_json::json!("browser_timeout"), "{verdict}");
+    let (status, body) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "eeeeeeee", "tab-a"));
+    assert_eq!(status, 409, "{body}");
+    assert_eq!(body["error"], serde_json::json!("agent_target_already_served"));
+    assert!(body.get("sessionId").is_none(), "{body}");
+    assert!(!s.dir.join(".impeccable/live/sessions/eeeeeeee.jsonl").exists());
 }

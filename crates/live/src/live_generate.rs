@@ -126,7 +126,7 @@ fn instructions_for(result: &Map<String, Value>, self_cmd: &str) -> Option<Strin
     }
     let text = match s("error").as_str() {
         "no_browser_connected" => "No page with the live overlay is connected. Open the app URL that serves a pageFiles entry yourself with your harness browser tool, then rerun this command. Only when no browser tool exists: give the user the URL and rerun with --wait-for-browser 120000 so the command fires as soon as they open the page.".to_string(),
-        "browser_timeout" => format!("The overlay did not answer in time. The page may be mid-reload: run {} live-status to check whether a session started anyway, reload the app page, then rerun this command.", self_cmd),
+        "browser_timeout" => "The overlay did not answer in time, and no session was started for this request (a Go that lands late is refused). The page may be mid-reload: reload the app page, then rerun this command.".to_string(),
         "invalid_selector" => "The selector is not valid CSS. Fix the selector syntax and rerun.".to_string(),
         "no_match" => {
             if n("rawMatchCount") > 0 {
@@ -364,6 +364,15 @@ mod tests {
         m.insert("state".into(), json!("CONFIGURING"));
         m.insert("reason".into(), json!(reason));
         m
+    }
+
+    #[test]
+    fn timeout_instructions_promise_no_stray_session() {
+        let mut m = Map::new();
+        m.insert("ok".into(), json!(false));
+        m.insert("error".into(), json!("browser_timeout"));
+        let text = instructions_for(&m, "impeccable").unwrap();
+        assert!(text.contains("no session was started"), "{text}");
     }
 
     #[test]
