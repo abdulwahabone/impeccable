@@ -7289,16 +7289,27 @@
   }
 
   // This page's participation in each target it heard: 'acting' once a
-  // claim was granted (so a replay never starts a second Go), else the word
-  // it last gave. The server replays pending targets to every connection
-  // that opens. After a reconnect that overlapped the old connection the
-  // server still holds this page's word; after one that did not, it dropped
-  // the word on the close, so a replayed target is handled again: a busy or
-  // unresolvable page re-declines (idempotent), an idle page claims.
+  // claim was granted, 'done' once it replied (or stood down from a lapsed
+  // lease), else the word it last gave. The server replays pending targets
+  // to every connection that opens. After a reconnect that overlapped the
+  // old connection the server still holds this page's word; after one that
+  // did not, it dropped the word on the close, so a replayed target is
+  // handled again: a busy or unresolvable page re-declines (idempotent), an
+  // idle page claims.
   const agentTargetsSeen = new Map();
   function noteAgentTarget(targetId, status) {
     agentTargetsSeen.set(targetId, status);
     if (agentTargetsSeen.size > 100) agentTargetsSeen.delete(agentTargetsSeen.keys().next().value);
+  }
+
+  // A target this page took a lease on is off-limits for a replay: while
+  // acting (a second claim or Go), and once done, because its result may
+  // still be on the wire and this tab is GENERATING by then, so handling
+  // the replay would decline busy, hand the lease back mid-resolution, and
+  // let another tab fire a second Go.
+  function agentTargetTaken(targetId) {
+    const status = agentTargetsSeen.get(targetId);
+    return status === 'acting' || status === 'done';
   }
 
   // Only a page that can resolve the target claims it. A tab whose page
@@ -7338,7 +7349,7 @@
   }
 
   function watchAgentTargetResolution(msg, lastError) {
-    if (agentTargetOverlayGone() || agentTargetsSeen.get(msg.targetId) === 'acting') return;
+    if (agentTargetOverlayGone() || agentTargetTaken(msg.targetId)) return;
     const busy = agentTargetBusyReason(msg.targetId);
     if (busy) { declineAgentTargetBusy(msg, busy); return; }
     const probe = resolveAgentTargetElement(msg);
@@ -7350,7 +7361,7 @@
 
   function handleAgentTarget(msg) {
     if (!msg || typeof msg.targetId !== 'string') return;
-    if (agentTargetsSeen.get(msg.targetId) === 'acting') return;
+    if (agentTargetTaken(msg.targetId)) return;
     noteAgentTarget(msg.targetId, 'heard');
     const busy = agentTargetBusyReason(msg.targetId);
     if (busy) {

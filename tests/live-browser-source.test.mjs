@@ -852,8 +852,18 @@ describe('live-browser source contracts', () => {
     );
     assert.match(
       SOURCE,
-      /function handleAgentTarget\(msg\) \{[\s\S]{0,120}?if \(agentTargetsSeen\.get\(msg\.targetId\) === 'acting'\) return;/,
-      'a replayed target this page is acting on must not start a second claim or Go; any other replay is handled again',
+      /function handleAgentTarget\(msg\) \{[\s\S]{0,120}?if \(agentTargetTaken\(msg\.targetId\)\) return;/,
+      'a replayed target this page took a lease on must not start a second claim, Go, or decline; any other replay is handled again',
+    );
+    assert.match(
+      SOURCE,
+      /function agentTargetTaken\(targetId\) \{[\s\S]{0,200}?status === 'acting' \|\| status === 'done';/,
+      'a done target is still taken: a replay while its result is on the wire must not decline busy and hand the lease to a second Go',
+    );
+    assert.match(
+      SOURCE,
+      /function watchAgentTargetResolution\(msg, lastError\) \{\s*if \(agentTargetOverlayGone\(\) \|\| agentTargetTaken\(msg\.targetId\)\) return;/,
+      'the late-mount watch stops once this page took the lease',
     );
     assert.match(
       SOURCE,
