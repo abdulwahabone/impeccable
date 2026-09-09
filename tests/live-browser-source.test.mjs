@@ -867,6 +867,16 @@ describe('live-browser source contracts', () => {
     );
     assert.match(
       SOURCE,
+      /agentTargetForGo = \{ targetId: msg\.targetId, matchCount: resolved\.matchCount, action: msg\.action, count: msg\.count, element: candidate \};\s*handleGo\(\);\s*agentTargetForGo = null;/,
+      'the target rides on the Go event it serves, so the helper resolves it even if this page dies before its result lands',
+    );
+    assert.match(
+      SOURCE,
+      /if \(agentTargetForGo\) \{[\s\S]{0,600}?basePayload\.agentTarget = \{[\s\S]{0,300}?sessionId: currentSessionId/,
+      'handleGo attaches the agent target with the session it minted',
+    );
+    assert.match(
+      SOURCE,
       /if \(claim\.granted\) \{ noteAgentTarget\(msg\.targetId, 'acting'\); actOnAgentTarget\(msg\); return; \}/,
       'a granted claim marks the target as acting before Go',
     );

@@ -739,6 +739,42 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
     }
   });
 
+  it('resolves the request from the generate event that serves it, so a page that dies before its result cannot leave it pending', async () => {
+    const tabA = await openSseClient(server, { clientId: 'tab-a' });
+    const tabB = await openSseClient(server, { clientId: 'tab-b' });
+    try {
+      await tabA.next((m) => m.type === 'connected');
+      await tabB.next((m) => m.type === 'connected');
+      const held = postJson(server, '/agent-target', {
+        token: server.token, selector: 'h1', action: 'bolder', count: 3,
+      });
+      const pushed = await tabA.next((m) => m.type === 'agent_target');
+      const claim = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: true,
+      })).json();
+      assert.equal(claim.granted, true);
+      const result = { ok: true, matchCount: 1, sessionId: 'aabbccdd', action: 'bolder', count: 3, element: { tag: 'h1' } };
+      const ack = await postJson(server, '/events', {
+        token: server.token, type: 'generate', id: 'aabbccdd', action: 'bolder', count: 3, pageUrl: '/',
+        element: { tagName: 'h1', outerHTML: '<h1>Hero</h1>' },
+        agentTarget: { targetId: pushed.targetId, result },
+      });
+      assert.equal(ack.status, 200);
+      const verdict = await (await held).json();
+      assert.equal(verdict.ok, true);
+      assert.equal(verdict.sessionId, 'aabbccdd');
+      const late = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-b', eligible: true,
+      })).json();
+      assert.deepEqual(late, { ok: true, granted: false, pending: false }, 'nothing is left for a rescuer to serve twice');
+      const journal = readFileSync(join(tmp, '.impeccable/live/sessions/aabbccdd.jsonl'), 'utf-8');
+      assert.ok(!journal.includes('agentTarget'), 'the envelope never reaches the journal');
+    } finally {
+      tabA.close();
+      tabB.close();
+    }
+  });
+
   it('prefers busy over no_match, so the agent retries when the right page is mid-session', async () => {
     const tabA = await openSseClient(server, { clientId: 'tab-a' });
     const tabB = await openSseClient(server, { clientId: 'tab-b' });

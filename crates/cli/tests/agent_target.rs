@@ -468,3 +468,36 @@ fn agent_target_late_overlay_first_no_match_extends_the_grace() {
     assert!(reported_at.elapsed() < Duration::from_millis(400));
     let _ = &mut b;
 }
+
+#[test]
+fn agent_target_resolves_from_the_generate_event_when_the_result_never_lands() {
+    let s = Server::start("event-backstop");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    let mut b = Overlay::connect(s.port, &s.token, "tab-b");
+    a.next(|m| m["type"] == "connected");
+    b.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    // Tab A fires Go: its generate event names the target it serves. Its
+    // own result post never lands (the page reloaded right after Go).
+    let result = serde_json::json!({ "ok": true, "matchCount": 1, "sessionId": "aabbccdd", "action": "bolder", "count": 3, "element": { "tag": "h1" } });
+    let (status, ack) = post_json(s.port, "/events", serde_json::json!({
+        "token": s.token, "type": "generate", "id": "aabbccdd", "action": "bolder", "count": 3, "pageUrl": "/",
+        "element": { "tagName": "h1", "outerHTML": "<h1>Hero</h1>" },
+        "agentTarget": { "targetId": target_id, "result": result },
+    }));
+    assert_eq!(status, 200, "{ack}");
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"), "{verdict}");
+    assert_eq!(verdict["targetId"], serde_json::json!(target_id));
+    // Nothing is left pending for a rescuer to take over with a second Go.
+    let late = s.claim(&target_id, "tab-b", true);
+    assert_eq!(late["granted"], serde_json::json!(false), "{late}");
+    assert_eq!(late["pending"], serde_json::json!(false), "{late}");
+    // The journal carries the event without the envelope.
+    let journal = std::fs::read_to_string(s.dir.join(".impeccable/live/sessions/aabbccdd.jsonl")).unwrap();
+    assert!(journal.contains("generate"), "{journal}");
+    assert!(!journal.contains("agentTarget"), "{journal}");
+    let _ = &mut b;
+}

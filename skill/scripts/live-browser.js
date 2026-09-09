@@ -7211,6 +7211,10 @@
   // it, and only the tab that holds the lease can renew it.
   const AGENT_TARGET_CLIENT_ID = id8();
 
+  // The agent target an agent-initiated Go is serving: set by
+  // actOnAgentTarget around its handleGo call, read once by handleGo.
+  let agentTargetForGo = null;
+
   function claimAgentTarget(targetId, report) {
     return fetch('http://localhost:' + PORT + '/agent-target-claim?token=' + TOKEN, {
       method: 'POST',
@@ -7446,7 +7450,14 @@
         updateBarContent('configure');
         const input = uiGetById(PREFIX + '-input');
         if (input) input.value = msg.prompt || '';
+        // The target rides on the generate event too: the helper resolves
+        // the request from whichever lands first, so a page that dies
+        // between Go and its result cannot leave the request pending for a
+        // second Go elsewhere.
+        const candidate = describeAgentTargetCandidate(el);
+        agentTargetForGo = { targetId: msg.targetId, matchCount: resolved.matchCount, action: msg.action, count: msg.count, element: candidate };
         handleGo();
+        agentTargetForGo = null;
         if (state === 'GENERATING' && currentSessionId) {
           reply({
             ok: true,
@@ -7454,7 +7465,7 @@
             sessionId: currentSessionId,
             action: msg.action,
             count: msg.count,
-            element: describeAgentTargetCandidate(el),
+            element: candidate,
           });
         } else {
           reply({ ok: false, error: 'go_failed', state });
@@ -8175,6 +8186,23 @@
     };
     if (snapshot.comments.length > 0) basePayload.comments = snapshot.comments;
     if (snapshot.strokes.length > 0) basePayload.strokes = snapshot.strokes;
+    if (agentTargetForGo) {
+      // An agent-initiated Go names the target it serves (see
+      // actOnAgentTarget): the helper resolves that request from this event
+      // as well as from the overlay's own result post.
+      basePayload.agentTarget = {
+        targetId: agentTargetForGo.targetId,
+        result: {
+          ok: true,
+          matchCount: agentTargetForGo.matchCount,
+          sessionId: currentSessionId,
+          action: agentTargetForGo.action,
+          count: agentTargetForGo.count,
+          element: agentTargetForGo.element,
+        },
+      };
+      agentTargetForGo = null;
+    }
 
     // Hide the interactive overlay so it doesn't linger during generation.
     hideAnnotOverlay();

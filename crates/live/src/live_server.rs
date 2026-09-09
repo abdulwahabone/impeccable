@@ -1183,7 +1183,19 @@ fn handle_events_post(
         respond(stream, cors, json_res(400, json!({ "error": error })));
         return;
     }
+    // A generate event may name the agent target it serves. The helper
+    // resolves that request from the event as well as from
+    // /agent-target-result, so a page that dies between Go and its result
+    // cannot leave the request pending for a second Go elsewhere. The
+    // envelope never reaches the journal or the poller.
+    let mut msg = msg;
     let mut msg_obj = msg_obj;
+    let agent_target = if ty == "generate" {
+        msg_obj.remove("agentTarget");
+        msg.as_object_mut().and_then(|o| o.remove("agentTarget"))
+    } else {
+        None
+    };
     crate::server_state::strip_poller_owned_event_fields(&mut msg_obj);
     let mut st = lock(shared);
     if ty == "agent_phase" {
@@ -1259,6 +1271,13 @@ fn handle_events_post(
     }
     if ty != "checkpoint" && ty != "variant_mounted" && !orphaned_discard {
         st.enqueue_event(msg_obj);
+    }
+    if let Some(Value::Object(envelope)) = agent_target {
+        if let (Some(Value::String(target_id)), Some(result @ Value::Object(_))) =
+            (envelope.get("targetId"), envelope.get("result"))
+        {
+            st.resolve_agent_target(target_id, result.clone());
+        }
     }
     drop(st);
     respond(stream, cors, json_res(200, json!({ "ok": true })));
