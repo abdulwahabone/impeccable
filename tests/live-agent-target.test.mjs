@@ -358,11 +358,11 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
         token: server.token, selector: 'h1', action: 'bolder', count: 3,
       });
       const pushed = await tabA.next((m) => m.type === 'agent_target');
-      for (const clientId of ['tab-a', 'tab-b']) {
+      for (const [clientId, pending] of [['tab-a', true], ['tab-b', false]]) {
         const report = await (await postJson(server, '/agent-target-claim', {
           token: server.token, targetId: pushed.targetId, clientId, eligible: false, state: 'CYCLING', reason: 'session_active',
         })).json();
-        assert.deepEqual(report, { ok: true, granted: false });
+        assert.deepEqual(report, { ok: true, granted: false, pending }, 'a decline says whether the request is still pending');
       }
       const verdict = await (await held).json();
       assert.equal(verdict.error, 'busy');
@@ -654,12 +654,12 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
         token: server.token, selector: 'h1', action: 'bolder', count: 3,
       });
       const pushed = await tabA.next((m) => m.type === 'agent_target');
-      for (const [clientId, raw] of [['tab-a', 0], ['tab-b', 3]]) {
+      for (const [clientId, raw, pending] of [['tab-a', 0, true], ['tab-b', 3, false]]) {
         const report = await (await postJson(server, '/agent-target-claim', {
           token: server.token, targetId: pushed.targetId, clientId, eligible: false, state: 'IDLE', reason: 'no_match',
           result: { ok: false, error: 'no_match', selector: 'h1', matchCount: 0, rawMatchCount: raw },
         })).json();
-        assert.deepEqual(report, { ok: true, granted: false });
+        assert.deepEqual(report, { ok: true, granted: false, pending });
       }
       const verdict = await (await held).json();
       assert.equal(verdict.error, 'no_match');

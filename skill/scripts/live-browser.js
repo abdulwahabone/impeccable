@@ -7236,6 +7236,7 @@
 
   function declineAgentTargetBusy(msg, busy) {
     busyDeclinedTargets.set(msg.targetId, msg);
+    noteAgentTarget(msg.targetId, 'declined');
     claimAgentTarget(msg.targetId, { eligible: false, state, reason: busy });
   }
 
@@ -7265,7 +7266,8 @@
     if (busy) { declineAgentTargetBusy(msg, busy); return; }
     if (declineAgentTargetUnresolvable(msg)) return;
     claimAgentTarget(msg.targetId, { eligible: true }).then((claim) => {
-      if (claim.granted) { actOnAgentTarget(msg); return; }
+      if (claim.granted) { noteAgentTarget(msg.targetId, 'acting'); actOnAgentTarget(msg); return; }
+      noteAgentTarget(msg.targetId, 'denied');
       if (!claim.pending) return;
       setTimeout(() => claimAndActOnAgentTarget(msg), AGENT_TARGET_RESCUE_RETRY_MS);
     });
@@ -7279,11 +7281,18 @@
     }
   }
 
-  // Targets this page already answered (claimed, declined, or acted on).
-  // The server replays pending targets to every connection that opens, and
-  // an EventSource reconnect opens one for a page that already heard the
-  // target, so a replay must not start a second claim or a second Go.
-  const agentTargetsSeen = [];
+  // This page's participation in each target it heard: 'acting' once a
+  // claim was granted (so a replay never starts a second Go), else the word
+  // it last gave. The server replays pending targets to every connection
+  // that opens. After a reconnect that overlapped the old connection the
+  // server still holds this page's word; after one that did not, it dropped
+  // the word on the close, so a replayed target is handled again: a busy or
+  // unresolvable page re-declines (idempotent), an idle page claims.
+  const agentTargetsSeen = new Map();
+  function noteAgentTarget(targetId, status) {
+    agentTargetsSeen.set(targetId, status);
+    if (agentTargetsSeen.size > 100) agentTargetsSeen.delete(agentTargetsSeen.keys().next().value);
+  }
 
   // Only a page that can resolve the target claims it. A tab whose page
   // lacks the element declines with its resolution verdict instead, so a
@@ -7298,6 +7307,13 @@
   // moment the element mounts, and only the last miss is reported. The
   // server's timeout still bounds the whole exchange.
   const AGENT_TARGET_RESOLVE_RETRY_MS = [300, 700, 1500];
+  // After the quick re-checks the page reports the miss (so the roll call
+  // can complete on the other overlays' words) and keeps re-checking at
+  // this cadence for as long as the server says the request is pending,
+  // claiming the moment the element mounts; the server drops the stale
+  // report on an eligible claim and ends the watch by answering
+  // pending:false once the request resolved or timed out.
+  const AGENT_TARGET_RESOLVE_WATCH_MS = 1000;
 
   function declineAgentTargetUnresolvable(msg) {
     const probe = resolveAgentTargetElement(msg);
@@ -7308,7 +7324,11 @@
 
   function retryAgentTargetResolution(msg, attempt, lastError) {
     if (attempt >= AGENT_TARGET_RESOLVE_RETRY_MS.length) {
-      claimAgentTarget(msg.targetId, { eligible: false, state, reason: 'no_match', result: lastError });
+      noteAgentTarget(msg.targetId, 'declined');
+      claimAgentTarget(msg.targetId, { eligible: false, state, reason: 'no_match', result: lastError }).then((answer) => {
+        if (!answer.pending) return;
+        setTimeout(() => watchAgentTargetResolution(msg, lastError), AGENT_TARGET_RESOLVE_WATCH_MS);
+      });
       return;
     }
     setTimeout(() => {
@@ -7321,11 +7341,24 @@
     }, AGENT_TARGET_RESOLVE_RETRY_MS[attempt]);
   }
 
+  function watchAgentTargetResolution(msg, lastError) {
+    if (agentTargetOverlayGone() || agentTargetsSeen.get(msg.targetId) === 'acting') return;
+    const busy = agentTargetBusyReason();
+    if (busy) { declineAgentTargetBusy(msg, busy); return; }
+    const probe = resolveAgentTargetElement(msg);
+    if (!probe.error) { claimAndActOnAgentTarget(msg); return; }
+    // Still unresolvable: re-decline (idempotent) and let the answer say
+    // whether to keep watching.
+    claimAgentTarget(msg.targetId, { eligible: false, state, reason: 'no_match', result: probe.error || lastError }).then((answer) => {
+      if (!answer.pending) return;
+      setTimeout(() => watchAgentTargetResolution(msg, lastError), AGENT_TARGET_RESOLVE_WATCH_MS);
+    });
+  }
+
   function handleAgentTarget(msg) {
     if (!msg || typeof msg.targetId !== 'string') return;
-    if (agentTargetsSeen.includes(msg.targetId)) return;
-    agentTargetsSeen.push(msg.targetId);
-    if (agentTargetsSeen.length > 100) agentTargetsSeen.shift();
+    if (agentTargetsSeen.get(msg.targetId) === 'acting') return;
+    noteAgentTarget(msg.targetId, 'heard');
     const busy = agentTargetBusyReason();
     if (busy) {
       // Roll call: a busy tab reports itself and never acts. The server

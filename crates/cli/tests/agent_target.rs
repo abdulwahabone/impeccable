@@ -274,8 +274,8 @@ fn agent_target_roll_call_answers_busy_once_every_overlay_declined() {
     let held = s.hold(serde_json::json!({}));
     let pushed = a.next(|m| m["type"] == "agent_target");
     let target_id = pushed["targetId"].as_str().unwrap().to_string();
-    assert_eq!(s.claim(&target_id, "tab-a", false), serde_json::json!({ "ok": true, "granted": false }));
-    assert_eq!(s.claim(&target_id, "tab-b", false), serde_json::json!({ "ok": true, "granted": false }));
+    assert_eq!(s.claim(&target_id, "tab-a", false), serde_json::json!({ "ok": true, "granted": false, "pending": true }), "the first decline leaves the request pending");
+    assert_eq!(s.claim(&target_id, "tab-b", false), serde_json::json!({ "ok": true, "granted": false, "pending": false }), "the last decline completes the roll call");
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["error"], serde_json::json!("busy"));
     assert_eq!(verdict["state"], serde_json::json!("CYCLING"));
@@ -370,7 +370,7 @@ fn agent_target_roll_call_counts_overlays_not_connections() {
     let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
     // One overlay behind two connections reports busy once: that completes
     // the roll call instead of waiting on a "second" report until timeout.
-    assert_eq!(s.claim(&target_id, "tab-a", false), serde_json::json!({ "ok": true, "granted": false }));
+    assert_eq!(s.claim(&target_id, "tab-a", false), serde_json::json!({ "ok": true, "granted": false, "pending": false }), "one overlay behind two connections completes the roll call alone");
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["error"], serde_json::json!("busy"));
     assert!(started.elapsed() < Duration::from_millis(350), "the busy verdict did not wait for the timeout");
@@ -390,8 +390,8 @@ fn agent_target_answers_the_resolution_verdict_when_no_page_can_serve() {
     // Both idle pages lack the element: each declines with its resolution
     // verdict instead of claiming.
     let decline = |cid: &str, raw: u64| serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": cid, "eligible": false, "state": "IDLE", "reason": "no_match", "result": { "ok": false, "error": "no_match", "selector": "h1", "matchCount": 0, "rawMatchCount": raw } });
-    assert_eq!(post_json(s.port, "/agent-target-claim", decline("tab-a", 0)).1, serde_json::json!({ "ok": true, "granted": false }));
-    assert_eq!(post_json(s.port, "/agent-target-claim", decline("tab-b", 2)).1, serde_json::json!({ "ok": true, "granted": false }));
+    assert_eq!(post_json(s.port, "/agent-target-claim", decline("tab-a", 0)).1, serde_json::json!({ "ok": true, "granted": false, "pending": true }));
+    assert_eq!(post_json(s.port, "/agent-target-claim", decline("tab-b", 2)).1, serde_json::json!({ "ok": true, "granted": false, "pending": false }), "the last decline completes the roll call");
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["error"], serde_json::json!("no_match"), "{verdict}");
     assert_eq!(verdict["ok"], serde_json::json!(false));
@@ -412,7 +412,7 @@ fn agent_target_prefers_busy_over_no_match_across_pages() {
     // The page that has the element is mid-session; the other page lacks it.
     // The agent should retry later, so busy outranks no_match.
     post_json(s.port, "/agent-target-claim", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-b", "eligible": false, "state": "IDLE", "reason": "no_match", "result": { "ok": false, "error": "no_match", "matchCount": 0, "rawMatchCount": 0 } }));
-    assert_eq!(s.claim(&target_id, "tab-a", false), serde_json::json!({ "ok": true, "granted": false }));
+    assert_eq!(s.claim(&target_id, "tab-a", false), serde_json::json!({ "ok": true, "granted": false, "pending": false }));
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["error"], serde_json::json!("busy"), "{verdict}");
     assert_eq!(verdict["reason"], serde_json::json!("session_active"));

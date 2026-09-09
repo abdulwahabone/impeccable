@@ -848,8 +848,13 @@ describe('live-browser source contracts', () => {
     );
     assert.match(
       SOURCE,
-      /function handleAgentTarget\(msg\) \{[\s\S]{0,120}?if \(agentTargetsSeen\.includes\(msg\.targetId\)\) return;/,
-      'a replayed target this page already handled must not start a second claim or Go',
+      /function handleAgentTarget\(msg\) \{[\s\S]{0,120}?if \(agentTargetsSeen\.get\(msg\.targetId\) === 'acting'\) return;/,
+      'a replayed target this page is acting on must not start a second claim or Go; any other replay is handled again',
+    );
+    assert.match(
+      SOURCE,
+      /if \(claim\.granted\) \{ noteAgentTarget\(msg\.targetId, 'acting'\); actOnAgentTarget\(msg\); return; \}/,
+      'a granted claim marks the target as acting before Go',
     );
     // A page that cannot resolve the target never claims it: a first-wins
     // claim would otherwise let the wrong page answer no_match for a target
@@ -871,8 +876,13 @@ describe('live-browser source contracts', () => {
     );
     assert.match(
       SOURCE,
-      /function retryAgentTargetResolution\(msg, attempt, lastError\) \{[\s\S]{0,200}?reason: 'no_match', result: lastError[\s\S]{0,600}?if \(!probe\.error\) \{ claimAndActOnAgentTarget\(msg\); return; \}/,
-      'the page claims the moment the element mounts, and reports only the last miss',
+      /function retryAgentTargetResolution\(msg, attempt, lastError\) \{[\s\S]{0,300}?reason: 'no_match', result: lastError[\s\S]{0,120}?if \(!answer\.pending\) return;[\s\S]{0,120}?watchAgentTargetResolution\(msg, lastError\)/,
+      'after the quick re-checks the page reports the miss and keeps watching while the server says the request is pending',
+    );
+    assert.match(
+      SOURCE,
+      /function watchAgentTargetResolution\(msg, lastError\) \{[\s\S]{0,400}?if \(!probe\.error\) \{ claimAndActOnAgentTarget\(msg\); return; \}[\s\S]{0,500}?if \(!answer\.pending\) return;/,
+      'a late mount turns into a claim, and the server ends the watch',
     );
     // The per-origin session cache must not let a tab on another page of
     // the app resume this page's session (it would sit in GENERATING for a
@@ -890,8 +900,8 @@ describe('live-browser source contracts', () => {
     );
     assert.equal(
       (SOURCE.match(/claimAndActOnAgentTarget\(msg\)/g) || []).length,
-      5,
-      'the first claim, the busy-to-idle re-claim, and the resolution re-check must share the rescue path (definition, three call sites, the retry)',
+      6,
+      'the first claim, the busy-to-idle re-claim, the resolution re-check, and the resolution watch must share the rescue path (definition, four call sites, the retry)',
     );
   });
 

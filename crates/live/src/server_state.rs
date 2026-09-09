@@ -894,7 +894,12 @@ impl ServerState {
                 pending.claimed_until = 0;
             }
             self.maybe_complete_agent_target_roll_call(target_id);
-            return json!({ "ok": true, "granted": false });
+            // `pending` tells a declining overlay whether to keep watching
+            // for a change of its word (an element that mounts late, a
+            // session that ends); false once the roll call or a result
+            // resolved the request.
+            let still_pending = self.pending_agent_targets.iter().any(|(k, _)| k == target_id);
+            return json!({ "ok": true, "granted": false, "pending": still_pending });
         }
         // An eligible claim is the client's latest word: drop any earlier
         // busy report, so a busy verdict only ever counts tabs still busy.
