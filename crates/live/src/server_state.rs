@@ -65,6 +65,9 @@ pub struct AgentTargetPending {
     pub claimed_until: i64,
     pub reports: Vec<AgentTargetReport>,
     pub timer_gen: u64,
+    /// While every report says `no_match`, the roll call stays open until
+    /// this instant: a page whose element mounts late can still claim.
+    pub resolve_grace_until: Option<i64>,
 }
 
 /// One pre-apply file snapshot entry (`{ exists, content }`).
@@ -736,6 +739,17 @@ impl ServerState {
             .unwrap_or(3_000)
     }
 
+    /// A page's `no_match` is a provisional word: an element can mount after
+    /// the page first looked (a route still rendering, an HMR swap). When
+    /// every connected overlay says `no_match`, the roll call stays open for
+    /// this long after the first such report, so a page that keeps watching
+    /// can still claim; a busy report answers at once regardless.
+    pub fn agent_target_resolve_grace_ms(&self) -> i64 {
+        env_positive_ms(&self.env, "IMPECCABLE_AGENT_TARGET_RESOLVE_GRACE_MS")
+            .map(|v| v as i64)
+            .unwrap_or(3_000)
+    }
+
     /// Hold a new agent target: mint its id, broadcast the push, arm the
     /// timeout. Returns the id and the receiver the route blocks on.
     pub fn register_agent_target(&mut self, mut payload: Map<String, Value>) -> (String, Receiver<Value>) {
@@ -763,6 +777,7 @@ impl ServerState {
                 claimed_until: 0,
                 reports: Vec::new(),
                 timer_gen,
+                resolve_grace_until: None,
             },
         ));
         self.broadcast(&payload);
@@ -810,20 +825,54 @@ impl ServerState {
     /// whenever a report lands and whenever an overlay leaves.
     pub fn maybe_complete_agent_target_roll_call(&mut self, target_id: &str) {
         let connected = self.connected_overlay_count();
+        let now = now_i64();
         let verdict = self
             .pending_agent_targets
             .iter()
             .find(|(k, _)| k == target_id)
             .and_then(|(_, p)| {
                 if p.owner.is_some() || p.reports.is_empty() || p.reports.len() < connected {
-                    None
-                } else {
-                    Some(agent_target_verdict_from_reports(p))
+                    return None;
                 }
+                let all_no_match = p.reports.iter().all(|r| r.reason.as_str() == Some("no_match"));
+                if all_no_match && p.resolve_grace_until.map(|until| now < until).unwrap_or(false) {
+                    // Every page says no_match, but one may still be
+                    // watching a late mount: the grace timer re-runs this
+                    // check when it lapses.
+                    return None;
+                }
+                Some(agent_target_verdict_from_reports(p))
             });
         if let Some(verdict) = verdict {
             self.resolve_agent_target(target_id, verdict);
         }
+    }
+
+    /// Arm the resolution grace on the first `no_match` report: the roll
+    /// call is re-judged when it lapses (the lapse alone never resolves; the
+    /// check re-reads the reports, so a claim or a busy word in between
+    /// takes precedence).
+    fn arm_agent_target_resolve_grace(&mut self, target_id: &str) {
+        let grace_ms = self.agent_target_resolve_grace_ms();
+        let Some((_, pending)) = self
+            .pending_agent_targets
+            .iter_mut()
+            .find(|(k, _)| k == target_id)
+        else {
+            return;
+        };
+        if pending.resolve_grace_until.is_some() {
+            return;
+        }
+        pending.resolve_grace_until = Some(now_i64() + grace_ms);
+        let weak = self.self_ref.clone();
+        let id = target_id.to_string();
+        std::thread::spawn(move || {
+            std::thread::sleep(Duration::from_millis(grace_ms.max(0) as u64 + 5));
+            if let Some(shared) = weak.upgrade() {
+                lock(&shared).maybe_complete_agent_target_roll_call(&id);
+            }
+        });
     }
 
     /// A disconnected overlay's word no longer counts: drop its busy report,
@@ -879,6 +928,7 @@ impl ServerState {
             return json!({ "ok": true, "granted": false, "pending": false });
         };
         if !eligible {
+            let reason_is_no_match = reason.as_str() == Some("no_match");
             pending.reports.retain(|r| r.client_id != client_id);
             pending.reports.push(AgentTargetReport {
                 client_id: client_id.to_string(),
@@ -892,6 +942,9 @@ impl ServerState {
             if pending.owner.as_deref() == Some(client_id) {
                 pending.owner = None;
                 pending.claimed_until = 0;
+            }
+            if reason_is_no_match {
+                self.arm_agent_target_resolve_grace(target_id);
             }
             self.maybe_complete_agent_target_roll_call(target_id);
             // `pending` tells a declining overlay whether to keep watching

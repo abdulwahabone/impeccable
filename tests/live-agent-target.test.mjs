@@ -158,7 +158,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
     // exists exactly for this.
     server = await startServer(8497, {
       cwd: tmp,
-      env: { IMPECCABLE_AGENT_TARGET_TIMEOUT_MS: '400' },
+      env: { IMPECCABLE_AGENT_TARGET_TIMEOUT_MS: '400', IMPECCABLE_AGENT_TARGET_RESOLVE_GRACE_MS: '150' },
     });
   });
 
@@ -654,21 +654,53 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
         token: server.token, selector: 'h1', action: 'bolder', count: 3,
       });
       const pushed = await tabA.next((m) => m.type === 'agent_target');
-      for (const [clientId, raw, pending] of [['tab-a', 0, true], ['tab-b', 3, false]]) {
+      for (const [clientId, raw] of [['tab-a', 0], ['tab-b', 3]]) {
         const report = await (await postJson(server, '/agent-target-claim', {
           token: server.token, targetId: pushed.targetId, clientId, eligible: false, state: 'IDLE', reason: 'no_match',
           result: { ok: false, error: 'no_match', selector: 'h1', matchCount: 0, rawMatchCount: raw },
         })).json();
-        assert.deepEqual(report, { ok: true, granted: false, pending });
+        // Every page said no_match: the roll call stays open for the
+        // resolution grace (150ms here), so both declines are answered pending.
+        assert.deepEqual(report, { ok: true, granted: false, pending: true });
       }
       const verdict = await (await held).json();
       assert.equal(verdict.error, 'no_match');
       assert.equal(verdict.ok, false);
       assert.equal(verdict.targetId, pushed.targetId);
-      assert.ok(Date.now() - startedAt < 350, 'answered by the roll call, not the timeout');
+      const elapsed = Date.now() - startedAt;
+      assert.ok(elapsed >= 140 && elapsed < 380, `answered when the grace lapsed, not before and not by the timeout (${elapsed}ms)`);
     } finally {
       tabA.close();
       tabB.close();
+    }
+  });
+
+  it('lets a page that declined as unresolvable claim once its element mounts, within the grace', async () => {
+    const tab = await openSseClient(server, { clientId: 'tab-a' });
+    try {
+      await tab.next((m) => m.type === 'connected');
+      const held = postJson(server, '/agent-target', {
+        token: server.token, selector: 'h1', action: 'bolder', count: 3,
+      });
+      const pushed = await tab.next((m) => m.type === 'agent_target');
+      const declined = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: false, state: 'IDLE', reason: 'no_match',
+        result: { ok: false, error: 'no_match', matchCount: 0, rawMatchCount: 0 },
+      })).json();
+      assert.deepEqual(declined, { ok: true, granted: false, pending: true }, 'the only page declining leaves the request pending for the grace');
+      await new Promise((r) => setTimeout(r, 60));
+      const claim = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: true,
+      })).json();
+      assert.deepEqual(claim, { ok: true, granted: true, pending: true }, 'the late mount is served');
+      await postJson(server, '/agent-target-result', {
+        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+      });
+      const verdict = await (await held).json();
+      assert.equal(verdict.ok, true);
+      assert.equal(verdict.sessionId, 'aabbccdd');
+    } finally {
+      tab.close();
     }
   });
 

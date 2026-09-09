@@ -139,6 +139,7 @@ impl Server {
             // override exists exactly for this. The lease shrinks with it.
             .env("IMPECCABLE_AGENT_TARGET_TIMEOUT_MS", "400")
             .env("IMPECCABLE_AGENT_TARGET_CLAIM_LEASE_MS", "250")
+            .env("IMPECCABLE_AGENT_TARGET_RESOLVE_GRACE_MS", "150")
             .stdout(std::process::Stdio::null())
             .stderr(std::process::Stdio::null())
             .spawn()
@@ -391,12 +392,15 @@ fn agent_target_answers_the_resolution_verdict_when_no_page_can_serve() {
     // verdict instead of claiming.
     let decline = |cid: &str, raw: u64| serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": cid, "eligible": false, "state": "IDLE", "reason": "no_match", "result": { "ok": false, "error": "no_match", "selector": "h1", "matchCount": 0, "rawMatchCount": raw } });
     assert_eq!(post_json(s.port, "/agent-target-claim", decline("tab-a", 0)).1, serde_json::json!({ "ok": true, "granted": false, "pending": true }));
-    assert_eq!(post_json(s.port, "/agent-target-claim", decline("tab-b", 2)).1, serde_json::json!({ "ok": true, "granted": false, "pending": false }), "the last decline completes the roll call");
+    // Every page said no_match: the roll call stays open for the resolution
+    // grace (150ms here), so the last decline is still answered pending.
+    assert_eq!(post_json(s.port, "/agent-target-claim", decline("tab-b", 2)).1, serde_json::json!({ "ok": true, "granted": false, "pending": true }), "an all-no_match roll call stays open for the grace");
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["error"], serde_json::json!("no_match"), "{verdict}");
     assert_eq!(verdict["ok"], serde_json::json!(false));
     assert_eq!(verdict["targetId"], serde_json::json!(target_id));
-    assert!(started.elapsed() < Duration::from_millis(350), "answered by the roll call, not the timeout");
+    let elapsed = started.elapsed();
+    assert!(elapsed >= Duration::from_millis(140) && elapsed < Duration::from_millis(380), "answered when the grace lapsed, not before and not by the timeout: {elapsed:?}");
     let _ = &mut b;
 }
 
@@ -417,4 +421,24 @@ fn agent_target_prefers_busy_over_no_match_across_pages() {
     assert_eq!(verdict["error"], serde_json::json!("busy"), "{verdict}");
     assert_eq!(verdict["reason"], serde_json::json!("session_active"));
     let _ = &mut b;
+}
+
+#[test]
+fn agent_target_lets_a_late_mount_claim_within_the_resolution_grace() {
+    let s = Server::start("late-mount");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    a.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    // The only page cannot resolve the target yet: its decline leaves the
+    // request pending for the grace instead of answering no_match.
+    let decline = serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-a", "eligible": false, "state": "IDLE", "reason": "no_match", "result": { "ok": false, "error": "no_match", "matchCount": 0, "rawMatchCount": 0 } });
+    assert_eq!(post_json(s.port, "/agent-target-claim", decline).1, serde_json::json!({ "ok": true, "granted": false, "pending": true }));
+    std::thread::sleep(Duration::from_millis(60));
+    // The element mounted: the same page claims and serves.
+    assert_eq!(s.claim(&target_id, "tab-a", true), serde_json::json!({ "ok": true, "granted": true, "pending": true }));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["ok"], serde_json::json!(true), "{verdict}");
+    assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"));
 }

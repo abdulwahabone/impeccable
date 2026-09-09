@@ -7306,39 +7306,28 @@
   // it is re-checked a few times over about two seconds, claiming the
   // moment the element mounts, and only the last miss is reported. The
   // server's timeout still bounds the whole exchange.
-  const AGENT_TARGET_RESOLVE_RETRY_MS = [300, 700, 1500];
-  // After the quick re-checks the page reports the miss (so the roll call
-  // can complete on the other overlays' words) and keeps re-checking at
-  // this cadence for as long as the server says the request is pending,
-  // claiming the moment the element mounts; the server drops the stale
-  // report on an eligible claim and ends the watch by answering
-  // pending:false once the request resolved or timed out.
-  const AGENT_TARGET_RESOLVE_WATCH_MS = 1000;
+  // The page reports the miss at once (so the other overlays' words can
+  // complete the roll call) and keeps re-checking at this cadence for as
+  // long as the server says the request is pending: the server holds an
+  // all-no_match roll call open for a short grace precisely so a late mount
+  // can still be claimed, drops the stale report on an eligible claim, and
+  // ends the watch by answering pending:false once the request resolved or
+  // timed out.
+  const AGENT_TARGET_RESOLVE_WATCH_MS = 500;
 
   function declineAgentTargetUnresolvable(msg) {
     const probe = resolveAgentTargetElement(msg);
     if (!probe.error) return false;
-    retryAgentTargetResolution(msg, 0, probe.error);
+    reportAgentTargetUnresolvable(msg, probe.error);
     return true;
   }
 
-  function retryAgentTargetResolution(msg, attempt, lastError) {
-    if (attempt >= AGENT_TARGET_RESOLVE_RETRY_MS.length) {
-      noteAgentTarget(msg.targetId, 'declined');
-      claimAgentTarget(msg.targetId, { eligible: false, state, reason: 'no_match', result: lastError }).then((answer) => {
-        if (!answer.pending) return;
-        setTimeout(() => watchAgentTargetResolution(msg, lastError), AGENT_TARGET_RESOLVE_WATCH_MS);
-      });
-      return;
-    }
-    setTimeout(() => {
-      if (agentTargetOverlayGone()) return;
-      const busy = agentTargetBusyReason();
-      if (busy) { declineAgentTargetBusy(msg, busy); return; }
-      const probe = resolveAgentTargetElement(msg);
-      if (!probe.error) { claimAndActOnAgentTarget(msg); return; }
-      retryAgentTargetResolution(msg, attempt + 1, probe.error);
-    }, AGENT_TARGET_RESOLVE_RETRY_MS[attempt]);
+  function reportAgentTargetUnresolvable(msg, error) {
+    noteAgentTarget(msg.targetId, 'declined');
+    claimAgentTarget(msg.targetId, { eligible: false, state, reason: 'no_match', result: error }).then((answer) => {
+      if (!answer.pending) return;
+      setTimeout(() => watchAgentTargetResolution(msg, error), AGENT_TARGET_RESOLVE_WATCH_MS);
+    });
   }
 
   function watchAgentTargetResolution(msg, lastError) {
@@ -7347,12 +7336,9 @@
     if (busy) { declineAgentTargetBusy(msg, busy); return; }
     const probe = resolveAgentTargetElement(msg);
     if (!probe.error) { claimAndActOnAgentTarget(msg); return; }
-    // Still unresolvable: re-decline (idempotent) and let the answer say
-    // whether to keep watching.
-    claimAgentTarget(msg.targetId, { eligible: false, state, reason: 'no_match', result: probe.error || lastError }).then((answer) => {
-      if (!answer.pending) return;
-      setTimeout(() => watchAgentTargetResolution(msg, lastError), AGENT_TARGET_RESOLVE_WATCH_MS);
-    });
+    // Still unresolvable: re-report (idempotent); the answer says whether
+    // the server is still holding the request open.
+    reportAgentTargetUnresolvable(msg, probe.error || lastError);
   }
 
   function handleAgentTarget(msg) {
