@@ -240,6 +240,20 @@ pub fn run_hook(rt: &Runtime, stdin: &str) -> RunResult {
             }
         }
 
+        // A live variant session owns a file carrying preview markers: stand
+        // down before the per-session edit cap can turn the variants wrap
+        // into a suppression notice.
+        if primary_files.contains(file_path) {
+            if let Ok(bytes) = std::fs::read(file_path) {
+                if crate::hook_lib::has_live_preview_markers(&String::from_utf8_lossy(&bytes)) {
+                    if live_preview_edit.is_none() {
+                        live_preview_edit = Some(file_path.clone());
+                    }
+                    last_skip = "live-preview";
+                    continue;
+                }
+            }
+        }
         let use_html_engine = match configured {
             Some(c) => c.engine == "html",
             None => ext == ".html" || ext == ".htm",

@@ -2282,3 +2282,35 @@ fn run_hook_stands_down_for_the_whole_edit_when_the_primary_carries_live_markers
     let audited = audit_str(&skipped.audit, "file").unwrap_or("").replace('\\', "/");
     assert!(audited.ends_with("src/App.jsx"), "the audit names the edited file, not the companion: {audited}");
 }
+
+#[test]
+fn run_hook_stands_down_before_the_edit_cap_can_suppress_a_live_file() {
+    // A file edited past the per-session cap would be skipped as
+    // "suppressed" (with the notice) before its content is read. A live
+    // wrap on such a file must stand down instead, every time.
+    let t = Tmp::new();
+    let cwd = t.path();
+    std::fs::create_dir_all(t.0.join(".impeccable")).unwrap();
+    let r = rt(&cwd);
+    // Seven plain edits cross the cap: the 7th carries the notice.
+    let css = t.write("src/b.css", GRADIENT_CSS);
+    let mut outputs = Vec::new();
+    for _ in 0..7 {
+        outputs.push(hook::run_hook(&r, &edit_event(&cwd, &css, "cap")));
+    }
+    assert_eq!(outputs[6].audit["suppressed"], json!(true));
+    assert!(outputs[6].stdout.contains("Suppressing further design hints"));
+    // Now a live session carbonizes into that same file: stand down, never
+    // suppress.
+    t.write(
+        "src/b.css",
+        &format!("/* impeccable-carbonize-start ab12cd34 */\n{GRADIENT_CSS}/* impeccable-carbonize-end ab12cd34 */\n"),
+    );
+    for i in 0..3 {
+        let out = hook::run_hook(&r, &edit_event(&cwd, &css, "cap"));
+        assert_eq!(out.stdout, "", "edit {i}: nothing emitted");
+        assert_eq!(out.audit["skipped"], json!("live-preview"), "edit {i}");
+        assert!(out.audit.get("suppressed").is_none(), "edit {i}: {:?}", out.audit);
+        assert!(out.audit.get("editCount").is_none(), "edit {i}: the cap is not bumped for a live wrap");
+    }
+}

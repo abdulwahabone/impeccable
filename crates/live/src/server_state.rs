@@ -848,10 +848,12 @@ impl ServerState {
         }
     }
 
-    /// Arm the resolution grace on the first `no_match` report: the roll
-    /// call is re-judged when it lapses (the lapse alone never resolves; the
-    /// check re-reads the reports, so a claim or a busy word in between
-    /// takes precedence).
+    /// Each overlay's first `no_match` word extends the resolution grace by
+    /// the full window, so a page that reports after another page's grace
+    /// lapsed still gets its watch; the roll call is re-judged when the
+    /// latest grace lapses (the lapse alone never resolves; the check
+    /// re-reads the reports, so a claim or a busy word in between takes
+    /// precedence). The target's timeout bounds the sum.
     fn arm_agent_target_resolve_grace(&mut self, target_id: &str) {
         let grace_ms = self.agent_target_resolve_grace_ms();
         let Some((_, pending)) = self
@@ -861,10 +863,11 @@ impl ServerState {
         else {
             return;
         };
-        if pending.resolve_grace_until.is_some() {
+        let until = now_i64() + grace_ms;
+        if pending.resolve_grace_until.map(|u| u >= until).unwrap_or(false) {
             return;
         }
-        pending.resolve_grace_until = Some(now_i64() + grace_ms);
+        pending.resolve_grace_until = Some(until);
         let weak = self.self_ref.clone();
         let id = target_id.to_string();
         std::thread::spawn(move || {
@@ -929,6 +932,12 @@ impl ServerState {
         };
         if !eligible {
             let reason_is_no_match = reason.as_str() == Some("no_match");
+            // Only an overlay's first no_match word extends the grace: its
+            // re-reports while watching must not keep the roll call open.
+            let first_no_match_from_client = !pending
+                .reports
+                .iter()
+                .any(|r| r.client_id == client_id && r.reason.as_str() == Some("no_match"));
             pending.reports.retain(|r| r.client_id != client_id);
             pending.reports.push(AgentTargetReport {
                 client_id: client_id.to_string(),
@@ -943,7 +952,7 @@ impl ServerState {
                 pending.owner = None;
                 pending.claimed_until = 0;
             }
-            if reason_is_no_match {
+            if reason_is_no_match && first_no_match_from_client {
                 self.arm_agent_target_resolve_grace(target_id);
             }
             self.maybe_complete_agent_target_roll_call(target_id);

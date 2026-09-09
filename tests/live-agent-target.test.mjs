@@ -704,6 +704,41 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
     }
   });
 
+  it('extends the grace on a late overlay\'s first no_match word, so it still gets its watch', async () => {
+    const tabA = await openSseClient(server, { clientId: 'tab-a' });
+    const tabB = await openSseClient(server, { clientId: 'tab-b' });
+    try {
+      await tabA.next((m) => m.type === 'connected');
+      await tabB.next((m) => m.type === 'connected');
+      const held = postJson(server, '/agent-target', {
+        token: server.token, selector: 'h1', action: 'bolder', count: 3,
+      });
+      const pushed = await tabA.next((m) => m.type === 'agent_target');
+      const decline = (clientId) => postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId, eligible: false, state: 'IDLE', reason: 'no_match',
+        result: { ok: false, error: 'no_match', matchCount: 0, rawMatchCount: 0 },
+      });
+      assert.equal((await (await decline('tab-a')).json()).pending, true);
+      // Tab A's grace (150ms) lapses before tab B says its first word.
+      await new Promise((r) => setTimeout(r, 200));
+      const late = await (await decline('tab-b')).json();
+      assert.equal(late.pending, true, 'a late overlay\'s first no_match word extends the grace');
+      await new Promise((r) => setTimeout(r, 60));
+      const claim = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-b', eligible: true,
+      })).json();
+      assert.equal(claim.granted, true, 'the late overlay\'s watcher claims within its grace');
+      await postJson(server, '/agent-target-result', {
+        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+      });
+      const verdict = await (await held).json();
+      assert.equal(verdict.sessionId, 'aabbccdd');
+    } finally {
+      tabA.close();
+      tabB.close();
+    }
+  });
+
   it('prefers busy over no_match, so the agent retries when the right page is mid-session', async () => {
     const tabA = await openSseClient(server, { clientId: 'tab-a' });
     const tabB = await openSseClient(server, { clientId: 'tab-b' });

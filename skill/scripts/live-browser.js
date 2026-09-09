@@ -7221,9 +7221,16 @@
       .catch(() => ({ granted: false, pending: false }));
   }
 
-  function agentTargetBusyReason() {
+  // `exceptTargetId` is the target this call is about: a tab acting on it
+  // is not busy for itself, but it is busy for every other target, or two
+  // held requests could both be claimed here and the second Go would
+  // overwrite the session the first one minted.
+  function agentTargetBusyReason(exceptTargetId) {
     if (pendingApplyInFlight) return 'manual_apply_in_flight';
     if (state !== 'IDLE' && state !== 'PICKING' && state !== 'CONFIGURING') return 'session_active';
+    for (const [targetId, status] of agentTargetsSeen) {
+      if (status === 'acting' && targetId !== exceptTargetId) return 'agent_target_in_flight';
+    }
     return null;
   }
 
@@ -7262,7 +7269,7 @@
   // and the busy-to-idle re-claim share this.
   function claimAndActOnAgentTarget(msg) {
     if (agentTargetOverlayGone()) return;
-    const busy = agentTargetBusyReason();
+    const busy = agentTargetBusyReason(msg.targetId);
     if (busy) { declineAgentTargetBusy(msg, busy); return; }
     if (declineAgentTargetUnresolvable(msg)) return;
     claimAgentTarget(msg.targetId, { eligible: true }).then((claim) => {
@@ -7332,7 +7339,7 @@
 
   function watchAgentTargetResolution(msg, lastError) {
     if (agentTargetOverlayGone() || agentTargetsSeen.get(msg.targetId) === 'acting') return;
-    const busy = agentTargetBusyReason();
+    const busy = agentTargetBusyReason(msg.targetId);
     if (busy) { declineAgentTargetBusy(msg, busy); return; }
     const probe = resolveAgentTargetElement(msg);
     if (!probe.error) { claimAndActOnAgentTarget(msg); return; }
@@ -7345,7 +7352,7 @@
     if (!msg || typeof msg.targetId !== 'string') return;
     if (agentTargetsSeen.get(msg.targetId) === 'acting') return;
     noteAgentTarget(msg.targetId, 'heard');
-    const busy = agentTargetBusyReason();
+    const busy = agentTargetBusyReason(msg.targetId);
     if (busy) {
       // Roll call: a busy tab reports itself and never acts. The server
       // answers `busy` the moment every connected overlay has reported, so
@@ -7363,8 +7370,10 @@
 
   function actOnAgentTarget(msg) {
     if (agentTargetOverlayGone()) return;
-    const reply = (result) => postAgentTargetResult(msg.targetId, result);
-    const busy = agentTargetBusyReason();
+    // Every exit ends this tab's acting state, so a later target is not
+    // refused for a Go that already happened or never will.
+    const reply = (result) => { noteAgentTarget(msg.targetId, 'done'); postAgentTargetResult(msg.targetId, result); };
+    const busy = agentTargetBusyReason(msg.targetId);
     if (busy) {
       // Turned busy between claim and act: report it, which also hands the
       // lease back so the roll call can complete or a rescuer can claim.
@@ -7372,7 +7381,13 @@
       return;
     }
     const resolved = resolveAgentTargetElement(msg);
-    if (resolved.error) { reply(resolved.error); return; }
+    if (resolved.error) {
+      // The element went away between claim and act. A result would end the
+      // request for every tab; a decline hands the lease back so another
+      // page or a remount can still serve it.
+      reportAgentTargetUnresolvable(msg, resolved.error);
+      return;
+    }
     const el = resolved.el;
     if (msg.dryRun) {
       reply({
@@ -7392,7 +7407,7 @@
       // lease lapsed while it scrolled (a rescuer took over) stops here, so
       // one request never gets two Go presses.
       claimAgentTarget(msg.targetId, { eligible: true }).then((renewal) => {
-        if (!renewal.granted) return;
+        if (!renewal.granted) { noteAgentTarget(msg.targetId, 'done'); return; }
         // An insert placement left mid-configure gives way, exactly as a
         // click outside it does in handleClick.
         if (state === 'CONFIGURING' && configureKind === 'insert') cancelInsertConfigure();
@@ -12049,8 +12064,11 @@ void main() {
   /** Full teardown: remove all UI, disconnect SSE, clean up. */
   function teardown() {
     // Declined targets die with the overlay: the IDLE transition below must
-    // not re-claim a lease this page can no longer act on.
+    // not re-claim a lease this page can no longer act on. So does the
+    // target ledger: an 'acting' entry from a Go that never happened must
+    // not refuse every target the next connection hears.
     busyDeclinedTargets.clear();
+    agentTargetsSeen.clear();
     stopAgentStatusPoll();
     hideAgentPollTooltip();
     if (agentPollTooltipEl) {

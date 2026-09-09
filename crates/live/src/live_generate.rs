@@ -137,7 +137,13 @@ fn instructions_for(result: &Map<String, Value>, self_cmd: &str) -> Option<Strin
         }
         "ambiguous" => format!("The selector matched {} elements. Either target their common container instead, or disambiguate with --text \"<visible text>\" or --index <1-based position>. The candidates are listed in this output.", n("matchCount")),
         "index_out_of_range" => format!("--index is out of range: only {} match(es). Use an index from 1 to {}.", n("matchCount"), n("matchCount")),
-        "busy" => format!("A live session is already mid-flight (browser state {}). Let the user finish or discard it in the browser, or handle the pending event in your poll loop, then rerun.", s("state")),
+        "busy" => {
+            if s("reason") == "agent_target_in_flight" {
+                "That tab is already acting on another generate request. Handle that request's pending event in your poll loop, or wait for its session to end, then rerun.".to_string()
+            } else {
+                format!("A live session is already mid-flight (browser state {}). Let the user finish or discard it in the browser, or handle the pending event in your poll loop, then rerun.", s("state"))
+            }
+        }
         "go_failed" => format!("The overlay could not start generation from the picked state (browser state {}). Reload the app page and rerun this command.", s("state")),
         "server_stopping" => format!("The live helper server is shutting down. Re-run the live boot ({} live), reopen the page, then rerun this command.", self_cmd),
         _ => return None,
@@ -344,5 +350,27 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
         0
     } else {
         1
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn busy(reason: &str) -> Map<String, Value> {
+        let mut m = Map::new();
+        m.insert("ok".into(), json!(false));
+        m.insert("error".into(), json!("busy"));
+        m.insert("state".into(), json!("CONFIGURING"));
+        m.insert("reason".into(), json!(reason));
+        m
+    }
+
+    #[test]
+    fn busy_instructions_tell_the_agent_whose_session_is_in_the_way() {
+        let own = instructions_for(&busy("agent_target_in_flight"), "impeccable").unwrap();
+        assert!(own.contains("already acting on another generate request"), "{own}");
+        let user = instructions_for(&busy("session_active"), "impeccable").unwrap();
+        assert!(user.contains("browser state CONFIGURING"), "{user}");
     }
 }

@@ -442,3 +442,29 @@ fn agent_target_lets_a_late_mount_claim_within_the_resolution_grace() {
     assert_eq!(verdict["ok"], serde_json::json!(true), "{verdict}");
     assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"));
 }
+
+#[test]
+fn agent_target_late_overlay_first_no_match_extends_the_grace() {
+    let s = Server::start("late-grace");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    let mut b = Overlay::connect(s.port, &s.token, "tab-b");
+    a.next(|m| m["type"] == "connected");
+    b.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    let decline = |cid: &str| serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": cid, "eligible": false, "state": "IDLE", "reason": "no_match", "result": { "ok": false, "error": "no_match", "matchCount": 0, "rawMatchCount": 0 } });
+    assert_eq!(post_json(s.port, "/agent-target-claim", decline("tab-a")).1["pending"], serde_json::json!(true));
+    // Tab A's grace (150ms) lapses before tab B says its first word.
+    std::thread::sleep(Duration::from_millis(200));
+    let reported_at = Instant::now();
+    let answer = post_json(s.port, "/agent-target-claim", decline("tab-b")).1;
+    assert_eq!(answer["pending"], serde_json::json!(true), "a late overlay's first no_match word extends the grace: {answer}");
+    // Tab B's watcher finds the element within its grace and claims.
+    std::thread::sleep(Duration::from_millis(60));
+    assert_eq!(s.claim(&target_id, "tab-b", true)["granted"], serde_json::json!(true));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"), "{verdict}");
+    assert!(reported_at.elapsed() < Duration::from_millis(400));
+    let _ = &mut b;
+}

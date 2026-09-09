@@ -826,6 +826,10 @@ describe('live-browser source contracts', () => {
   it('re-claims busy-declined agent targets only while the overlay can still serve them', () => {
     const teardownSource = SOURCE.match(/function teardown\(\) \{[\s\S]*?\n  \}/)?.[0] || '';
     const clearAt = teardownSource.indexOf('busyDeclinedTargets.clear();');
+    assert.ok(
+      teardownSource.includes('agentTargetsSeen.clear();'),
+      'teardown clears the target ledger, so a stale acting entry never refuses the next connection\'s targets',
+    );
     const idleAt = teardownSource.indexOf("setLiveState('IDLE')");
     assert.ok(clearAt >= 0 && idleAt > clearAt, 'teardown must drop declined targets before its IDLE transition, or a dead overlay re-claims a lease');
     assert.match(
@@ -855,6 +859,16 @@ describe('live-browser source contracts', () => {
       SOURCE,
       /if \(claim\.granted\) \{ noteAgentTarget\(msg\.targetId, 'acting'\); actOnAgentTarget\(msg\); return; \}/,
       'a granted claim marks the target as acting before Go',
+    );
+    assert.match(
+      SOURCE,
+      /function agentTargetBusyReason\(exceptTargetId\) \{[\s\S]{0,500}?status === 'acting' && targetId !== exceptTargetId\) return 'agent_target_in_flight';/,
+      'a tab acting on one target is busy for every other target, so two held requests can never both mint a session here',
+    );
+    assert.match(
+      SOURCE,
+      /function actOnAgentTarget\(msg\) \{[\s\S]{0,900}?if \(resolved\.error\) \{[\s\S]{0,400}?reportAgentTargetUnresolvable\(msg, resolved\.error\);/,
+      'a miss after a granted claim declines (handing the lease back) instead of ending the request for every tab',
     );
     // A page that cannot resolve the target never claims it: a first-wins
     // claim would otherwise let the wrong page answer no_match for a target
