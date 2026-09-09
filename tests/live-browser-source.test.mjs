@@ -872,8 +872,13 @@ describe('live-browser source contracts', () => {
     );
     assert.match(
       SOURCE,
-      /if \(agentTargetForGo\) \{[\s\S]{0,600}?basePayload\.agentTarget = \{[\s\S]{0,300}?sessionId: currentSessionId/,
-      'handleGo attaches the agent target with the session it minted',
+      /if \(agentTargetForGo\) \{[\s\S]{0,600}?basePayload\.agentTarget = \{\s*targetId: agentTargetForGo\.targetId,\s*clientId: AGENT_TARGET_CLIENT_ID,[\s\S]{0,300}?sessionId: currentSessionId/,
+      'handleGo attaches the agent target with this page\'s client id and the session it minted, so the helper can tell a superseded Go from the serving one',
+    );
+    assert.match(
+      SOURCE,
+      /body\.error === 'agent_target_already_served' && msg\.type === 'generate'\s*&& msg\.id && msg\.id === currentSessionId\) \{\s*abandonSupersededGo\(msg\.id\);\s*return null;/,
+      'a Go the helper refused as already served drops this page\'s local session instead of leaving it generating for nothing',
     );
     assert.match(
       SOURCE,

@@ -10,7 +10,7 @@
 
 import { describe, it, before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { execFile, execFileSync, spawn } from 'node:child_process';
@@ -757,7 +757,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       const ack = await postJson(server, '/events', {
         token: server.token, type: 'generate', id: 'aabbccdd', action: 'bolder', count: 3, pageUrl: '/',
         element: { tagName: 'h1', outerHTML: '<h1>Hero</h1>' },
-        agentTarget: { targetId: pushed.targetId, result },
+        agentTarget: { targetId: pushed.targetId, clientId: 'tab-a', result },
       });
       assert.equal(ack.status, 200);
       const verdict = await (await held).json();
@@ -772,6 +772,39 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
     } finally {
       tabA.close();
       tabB.close();
+    }
+  });
+
+  it('refuses a generate event for a target another session already answered, and welcomes that session\'s own', async () => {
+    const tabA = await openSseClient(server, { clientId: 'tab-a' });
+    try {
+      await tabA.next((m) => m.type === 'connected');
+      const held = postJson(server, '/agent-target', {
+        token: server.token, selector: 'h1', action: 'bolder', count: 3,
+      });
+      const pushed = await tabA.next((m) => m.type === 'agent_target');
+      const claim = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: true,
+      })).json();
+      assert.equal(claim.granted, true);
+      await postJson(server, '/agent-target-result', { token: server.token, targetId: pushed.targetId, ok: true, sessionId: 'cccccccc' });
+      assert.equal((await (await held).json()).sessionId, 'cccccccc');
+      const event = (id, clientId) => postJson(server, '/events', {
+        token: server.token, type: 'generate', id, action: 'bolder', count: 3, pageUrl: '/',
+        element: { tagName: 'h1', outerHTML: '<h1>Hero</h1>' },
+        agentTarget: { targetId: pushed.targetId, clientId, result: { ok: true, matchCount: 1, sessionId: id, action: 'bolder', count: 3 } },
+      });
+      // A superseded Go from another page: refused, naming the serving session, nothing journaled.
+      const refused = await event('dddddddd', 'tab-b');
+      assert.equal(refused.status, 409);
+      const body = await refused.json();
+      assert.equal(body.error, 'agent_target_already_served');
+      assert.equal(body.sessionId, 'cccccccc');
+      assert.ok(!existsSync(join(tmp, '.impeccable/live/sessions/dddddddd.jsonl')), 'a refused Go journals nothing');
+      // The answering session's own event is welcome.
+      assert.equal((await event('cccccccc', 'tab-a')).status, 200);
+    } finally {
+      tabA.close();
     }
   });
 

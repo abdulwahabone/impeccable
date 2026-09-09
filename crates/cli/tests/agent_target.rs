@@ -485,7 +485,7 @@ fn agent_target_resolves_from_the_generate_event_when_the_result_never_lands() {
     let (status, ack) = post_json(s.port, "/events", serde_json::json!({
         "token": s.token, "type": "generate", "id": "aabbccdd", "action": "bolder", "count": 3, "pageUrl": "/",
         "element": { "tagName": "h1", "outerHTML": "<h1>Hero</h1>" },
-        "agentTarget": { "targetId": target_id, "result": result },
+        "agentTarget": { "targetId": target_id, "clientId": "tab-a", "result": result },
     }));
     assert_eq!(status, 200, "{ack}");
     let (_, verdict) = held.join().unwrap();
@@ -500,4 +500,62 @@ fn agent_target_resolves_from_the_generate_event_when_the_result_never_lands() {
     assert!(journal.contains("generate"), "{journal}");
     assert!(!journal.contains("agentTarget"), "{journal}");
     let _ = &mut b;
+}
+
+fn generate_event_for(s: &Server, target_id: &str, id: &str, client: &str) -> serde_json::Value {
+    serde_json::json!({
+        "token": s.token, "type": "generate", "id": id, "action": "bolder", "count": 3, "pageUrl": "/",
+        "element": { "tagName": "h1", "outerHTML": "<h1>Hero</h1>" },
+        "agentTarget": { "targetId": target_id, "clientId": client, "result": { "ok": true, "matchCount": 1, "sessionId": id, "action": "bolder", "count": 3 } },
+    })
+}
+
+#[test]
+fn agent_target_refuses_a_generate_event_from_a_superseded_claimant() {
+    let s = Server::start("superseded");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    let mut b = Overlay::connect(s.port, &s.token, "tab-b");
+    a.next(|m| m["type"] == "connected");
+    b.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    // Tab A's lease (250ms) lapses while it is still capturing; tab B rescues.
+    std::thread::sleep(Duration::from_millis(300));
+    assert_eq!(s.claim(&target_id, "tab-b", true)["granted"], serde_json::json!(true));
+    // A's delayed event while B holds the lease: refused, nothing journaled.
+    let (status, body) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "aaaaaaaa", "tab-a"));
+    assert_eq!(status, 409, "{body}");
+    assert_eq!(body["error"], serde_json::json!("agent_target_already_served"));
+    assert!(body.get("sessionId").is_none(), "{body}");
+    assert!(!s.dir.join(".impeccable/live/sessions/aaaaaaaa.jsonl").exists());
+    // B's Go serves the request.
+    let (status, _) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "bbbbbbbb", "tab-b"));
+    assert_eq!(status, 200);
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["sessionId"], serde_json::json!("bbbbbbbb"), "{verdict}");
+    // A's event once the request was answered elsewhere: refused, naming
+    // the session that serves it.
+    let (status, body) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "aaaaaaa2", "tab-a"));
+    assert_eq!(status, 409, "{body}");
+    assert_eq!(body["sessionId"], serde_json::json!("bbbbbbbb"));
+    assert!(!s.dir.join(".impeccable/live/sessions/aaaaaaa2.jsonl").exists());
+    let _ = &mut b;
+}
+
+#[test]
+fn agent_target_welcomes_the_generate_event_of_the_session_that_answered() {
+    let s = Server::start("welcome");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    a.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    // The result post lands first (the common path), then the event.
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "cccccccc" }));
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["sessionId"], serde_json::json!("cccccccc"), "{verdict}");
+    let (status, body) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "cccccccc", "tab-a"));
+    assert_eq!(status, 200, "{body}");
+    assert!(s.dir.join(".impeccable/live/sessions/cccccccc.jsonl").exists());
 }

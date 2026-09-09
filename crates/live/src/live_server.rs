@@ -184,6 +184,7 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
             next_apply_timer_gen: 0,
             pending_agent_targets: Vec::new(),
             next_agent_target_timer_gen: 0,
+            served_agent_targets: Vec::new(),
             shutting_down: false,
             cleaned_up: false,
             log_tx,
@@ -1235,6 +1236,23 @@ fn handle_events_post(
                 cors,
                 json_res(404, json!({ "error": "unknown_session", "id": id_val })),
             );
+            return;
+        }
+    }
+    if let Some(envelope) = agent_target.as_ref().and_then(Value::as_object) {
+        if let Some(served) = st.agent_target_served_elsewhere(envelope, id_str.as_deref()) {
+            // A superseded Go: this page's lease lapsed while it was still
+            // capturing and another page served the request. Journal
+            // nothing, so one request never gets two sessions.
+            drop(st);
+            let mut body = json!({
+                "error": "agent_target_already_served",
+                "targetId": envelope.get("targetId").cloned().unwrap_or(Value::Null),
+            });
+            if !served.is_empty() {
+                body["sessionId"] = Value::String(served);
+            }
+            respond(stream, cors, json_res(409, body));
             return;
         }
     }

@@ -7736,6 +7736,14 @@
     }).then(async res => {
       if (res.ok) return res;
       const body = await res.json().catch(() => ({}));
+      // The helper refused to open a second session for an agent target
+      // another page already served (this page's lease lapsed while it was
+      // capturing): drop the local session and hand the surface back.
+      if (body.error === 'agent_target_already_served' && msg.type === 'generate'
+          && msg.id && msg.id === currentSessionId) {
+        abandonSupersededGo(msg.id);
+        return null;
+      }
       // The server refused to journal progress for a session it has never
       // seen: this browser is carrying state from another project or a
       // wiped store (two apps sharing a localhost port). Continuing to
@@ -7755,6 +7763,14 @@
       return creation;
     }
     return sessionCreationGate.then(doSend);
+  }
+
+  function abandonSupersededGo(sessionId) {
+    if (sessionId !== currentSessionId) return;
+    console.warn('[impeccable] Another page already served this agent target; clearing session ' + sessionId + '.');
+    markSessionHandled();
+    cleanup({ instantChrome: true });
+    showToast('Another tab already served this request, so this session was cleared.', 6000);
   }
 
   let abandonedForeignSessionId = null;
@@ -8192,6 +8208,7 @@
       // as well as from the overlay's own result post.
       basePayload.agentTarget = {
         targetId: agentTargetForGo.targetId,
+        clientId: AGENT_TARGET_CLIENT_ID,
         result: {
           ok: true,
           matchCount: agentTargetForGo.matchCount,
