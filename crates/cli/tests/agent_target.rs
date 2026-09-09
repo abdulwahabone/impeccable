@@ -376,3 +376,45 @@ fn agent_target_roll_call_counts_overlays_not_connections() {
     assert!(started.elapsed() < Duration::from_millis(350), "the busy verdict did not wait for the timeout");
     let _ = &mut a2;
 }
+
+#[test]
+fn agent_target_answers_the_resolution_verdict_when_no_page_can_serve() {
+    let s = Server::start("no-match");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    let mut b = Overlay::connect(s.port, &s.token, "tab-b");
+    a.next(|m| m["type"] == "connected");
+    b.next(|m| m["type"] == "connected");
+    let started = Instant::now();
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    // Both idle pages lack the element: each declines with its resolution
+    // verdict instead of claiming.
+    let decline = |cid: &str, raw: u64| serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": cid, "eligible": false, "state": "IDLE", "reason": "no_match", "result": { "ok": false, "error": "no_match", "selector": "h1", "matchCount": 0, "rawMatchCount": raw } });
+    assert_eq!(post_json(s.port, "/agent-target-claim", decline("tab-a", 0)).1, serde_json::json!({ "ok": true, "granted": false }));
+    assert_eq!(post_json(s.port, "/agent-target-claim", decline("tab-b", 2)).1, serde_json::json!({ "ok": true, "granted": false }));
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["error"], serde_json::json!("no_match"), "{verdict}");
+    assert_eq!(verdict["ok"], serde_json::json!(false));
+    assert_eq!(verdict["targetId"], serde_json::json!(target_id));
+    assert!(started.elapsed() < Duration::from_millis(350), "answered by the roll call, not the timeout");
+    let _ = &mut b;
+}
+
+#[test]
+fn agent_target_prefers_busy_over_no_match_across_pages() {
+    let s = Server::start("busy-wins");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    let mut b = Overlay::connect(s.port, &s.token, "tab-b");
+    a.next(|m| m["type"] == "connected");
+    b.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    // The page that has the element is mid-session; the other page lacks it.
+    // The agent should retry later, so busy outranks no_match.
+    post_json(s.port, "/agent-target-claim", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-b", "eligible": false, "state": "IDLE", "reason": "no_match", "result": { "ok": false, "error": "no_match", "matchCount": 0, "rawMatchCount": 0 } }));
+    assert_eq!(s.claim(&target_id, "tab-a", false), serde_json::json!({ "ok": true, "granted": false }));
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["error"], serde_json::json!("busy"), "{verdict}");
+    assert_eq!(verdict["reason"], serde_json::json!("session_active"));
+    let _ = &mut b;
+}

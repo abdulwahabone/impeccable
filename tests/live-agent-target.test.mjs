@@ -641,6 +641,63 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
     }
   });
 
+  it('answers the resolution verdict when every idle page declined as unable to resolve', async () => {
+    // Two idle tabs on pages that lack the element decline with their
+    // resolution verdicts; the request resolves as no_match, not busy.
+    const tabA = await openSseClient(server, { clientId: 'tab-a' });
+    const tabB = await openSseClient(server, { clientId: 'tab-b' });
+    try {
+      await tabA.next((m) => m.type === 'connected');
+      await tabB.next((m) => m.type === 'connected');
+      const startedAt = Date.now();
+      const held = postJson(server, '/agent-target', {
+        token: server.token, selector: 'h1', action: 'bolder', count: 3,
+      });
+      const pushed = await tabA.next((m) => m.type === 'agent_target');
+      for (const [clientId, raw] of [['tab-a', 0], ['tab-b', 3]]) {
+        const report = await (await postJson(server, '/agent-target-claim', {
+          token: server.token, targetId: pushed.targetId, clientId, eligible: false, state: 'IDLE', reason: 'no_match',
+          result: { ok: false, error: 'no_match', selector: 'h1', matchCount: 0, rawMatchCount: raw },
+        })).json();
+        assert.deepEqual(report, { ok: true, granted: false });
+      }
+      const verdict = await (await held).json();
+      assert.equal(verdict.error, 'no_match');
+      assert.equal(verdict.ok, false);
+      assert.equal(verdict.targetId, pushed.targetId);
+      assert.ok(Date.now() - startedAt < 350, 'answered by the roll call, not the timeout');
+    } finally {
+      tabA.close();
+      tabB.close();
+    }
+  });
+
+  it('prefers busy over no_match, so the agent retries when the right page is mid-session', async () => {
+    const tabA = await openSseClient(server, { clientId: 'tab-a' });
+    const tabB = await openSseClient(server, { clientId: 'tab-b' });
+    try {
+      await tabA.next((m) => m.type === 'connected');
+      await tabB.next((m) => m.type === 'connected');
+      const held = postJson(server, '/agent-target', {
+        token: server.token, selector: 'h1', action: 'bolder', count: 3,
+      });
+      const pushed = await tabA.next((m) => m.type === 'agent_target');
+      await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-b', eligible: false, state: 'IDLE', reason: 'no_match',
+        result: { ok: false, error: 'no_match', matchCount: 0, rawMatchCount: 0 },
+      });
+      await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: false, state: 'CYCLING', reason: 'session_active',
+      });
+      const verdict = await (await held).json();
+      assert.equal(verdict.error, 'busy');
+      assert.equal(verdict.reason, 'session_active');
+    } finally {
+      tabA.close();
+      tabB.close();
+    }
+  });
+
   it('completes the roll call when the last silent overlay disconnects', async () => {
     // Tab A reported busy; tab B never answered and then left. Every overlay
     // still connected has declined, so the verdict is busy now, not at the

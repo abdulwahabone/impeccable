@@ -2797,7 +2797,8 @@ fn handle_agent_target_claim_post(
     let eligible = msg.get("eligible").and_then(Value::as_bool) == Some(true);
     let state = msg.get("state").cloned().unwrap_or(Value::Null);
     let reason = msg.get("reason").cloned().unwrap_or(Value::Null);
-    let body = lock(shared).claim_agent_target(&target_id, &client_id, eligible, state, reason);
+    let result = msg.get("result").filter(|r| r.is_object()).cloned();
+    let body = lock(shared).claim_agent_target(&target_id, &client_id, eligible, state, reason, result);
     respond(stream, cors, json_res(200, body));
 }
 

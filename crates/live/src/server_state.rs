@@ -49,6 +49,9 @@ pub struct AgentTargetReport {
     pub client_id: String,
     pub state: Value,
     pub reason: Value,
+    /// The overlay's resolution verdict when it declined because its page
+    /// cannot resolve the target (`reason: no_match`).
+    pub result: Option<Value>,
 }
 
 /// A held-open `POST /agent-target` (the `generate` command): resolved by
@@ -780,7 +783,7 @@ impl ServerState {
                 let verdict = if pending.reports.is_empty() {
                     json!({ "ok": false, "error": "browser_timeout", "timeoutMs": timeout_ms })
                 } else {
-                    agent_target_busy_verdict(pending)
+                    agent_target_verdict_from_reports(pending)
                 };
                 st.resolve_agent_target(&id, verdict);
             }
@@ -815,7 +818,7 @@ impl ServerState {
                 if p.owner.is_some() || p.reports.is_empty() || p.reports.len() < connected {
                     None
                 } else {
-                    Some(agent_target_busy_verdict(p))
+                    Some(agent_target_verdict_from_reports(p))
                 }
             });
         if let Some(verdict) = verdict {
@@ -864,6 +867,7 @@ impl ServerState {
         eligible: bool,
         state: Value,
         reason: Value,
+        result: Option<Value>,
     ) -> Value {
         let lease_ms = self.agent_target_lease_ms();
         let now = now_i64();
@@ -880,6 +884,7 @@ impl ServerState {
                 client_id: client_id.to_string(),
                 state,
                 reason,
+                result,
             });
             // A holder that turned busy hands the lease back, so the roll
             // call can complete and an eligible tab's retry is granted at
@@ -1478,8 +1483,27 @@ fn env_positive_ms(env: &Env, key: &str) -> Option<u64> {
         .filter(|v| *v > 0)
 }
 
-/// The busy verdict for a held target: the first report's state and reason.
-pub fn agent_target_busy_verdict(pending: &AgentTargetPending) -> Value {
+/// The verdict for a held target once every connected overlay declined. A
+/// tab that could serve later (mid-session, an apply in flight) outranks a
+/// page that simply lacks the element, so the agent retries instead of
+/// giving up; only when no page can resolve the target does the resolution
+/// verdict (`no_match`, `invalid_selector`, ...) come back.
+pub fn agent_target_verdict_from_reports(pending: &AgentTargetPending) -> Value {
+    let busy = pending
+        .reports
+        .iter()
+        .find(|r| r.reason.as_str() != Some("no_match"))
+        .or_else(|| pending.reports.first());
+    if let Some(r) = busy.filter(|r| r.reason.as_str() != Some("no_match")) {
+        return json!({ "ok": false, "error": "busy", "state": r.state, "reason": r.reason });
+    }
+    if let Some(result) = pending.reports.iter().find_map(|r| r.result.as_ref()) {
+        let mut verdict = result.clone();
+        if let Some(obj) = verdict.as_object_mut() {
+            obj.insert("ok".into(), json!(false));
+        }
+        return verdict;
+    }
     let first = pending.reports.first();
     json!({
         "ok": false,

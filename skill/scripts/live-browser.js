@@ -7263,6 +7263,7 @@
     if (agentTargetOverlayGone()) return;
     const busy = agentTargetBusyReason();
     if (busy) { declineAgentTargetBusy(msg, busy); return; }
+    if (declineAgentTargetUnresolvable(msg)) return;
     claimAgentTarget(msg.targetId, { eligible: true }).then((claim) => {
       if (claim.granted) { actOnAgentTarget(msg); return; }
       if (!claim.pending) return;
@@ -7284,6 +7285,19 @@
   // target, so a replay must not start a second claim or a second Go.
   const agentTargetsSeen = [];
 
+  // Only a page that can resolve the target claims it. A tab whose page
+  // lacks the element declines with its resolution verdict instead, so a
+  // first-wins claim never lets the wrong page answer for a target that
+  // another page has. The server prefers a busy report (a tab that could
+  // serve later) over these, and returns the resolution verdict only when
+  // no connected page can serve.
+  function declineAgentTargetUnresolvable(msg) {
+    const probe = resolveAgentTargetElement(msg);
+    if (!probe.error) return false;
+    claimAgentTarget(msg.targetId, { eligible: false, state, reason: 'no_match', result: probe.error });
+    return true;
+  }
+
   function handleAgentTarget(msg) {
     if (!msg || typeof msg.targetId !== 'string') return;
     if (agentTargetsSeen.includes(msg.targetId)) return;
@@ -7297,6 +7311,7 @@
       declineAgentTargetBusy(msg, busy);
       return;
     }
+    if (declineAgentTargetUnresolvable(msg)) return;
     // Eligible tabs race for the server's lease and only the holder acts. A
     // hidden tab yields a short head start so a visible one wins when both
     // exist, and still serves the request on its own: the user finds the
@@ -9376,7 +9391,12 @@ void main() {
   }
 
   function restoreSessionWithoutWrapper(reason, activeSessions) {
-    const cached = loadSession();
+    // The session cache is per origin, so a tab on another page of the same
+    // app sees this page's session too. Only the page that saved it may
+    // resume it: the server-adoption branch below already applies the same
+    // check, and a tab on another page has nothing to render for it.
+    const cachedRaw = loadSession();
+    const cached = cachedRaw?.id && !pageMatchesCurrent(cachedRaw.pageUrl) ? null : cachedRaw;
     // localStorage is a cache, not a gate. A cleared tab, a second browser
     // profile, or a teardown that dropped local state all leave the durable
     // server session as the only record of work in progress; adopt it instead

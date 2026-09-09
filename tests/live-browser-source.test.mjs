@@ -851,6 +851,32 @@ describe('live-browser source contracts', () => {
       /function handleAgentTarget\(msg\) \{[\s\S]{0,120}?if \(agentTargetsSeen\.includes\(msg\.targetId\)\) return;/,
       'a replayed target this page already handled must not start a second claim or Go',
     );
+    // A page that cannot resolve the target never claims it: a first-wins
+    // claim would otherwise let the wrong page answer no_match for a target
+    // another page has.
+    assert.match(
+      SOURCE,
+      /function handleAgentTarget\(msg\) \{[\s\S]{0,700}?if \(declineAgentTargetUnresolvable\(msg\)\) return;/,
+      'the first claim resolves the selector on this page first',
+    );
+    assert.match(
+      SOURCE,
+      /function claimAndActOnAgentTarget\(msg\) \{[\s\S]{0,300}?if \(declineAgentTargetUnresolvable\(msg\)\) return;/,
+      'the re-claim resolves the selector on this page first',
+    );
+    assert.match(
+      SOURCE,
+      /function declineAgentTargetUnresolvable\(msg\) \{[\s\S]{0,200}?resolveAgentTargetElement\(msg\)[\s\S]{0,200}?reason: 'no_match', result: probe\.error/,
+      'the decline carries the resolution verdict for the server to return when no page can serve',
+    );
+    // The per-origin session cache must not let a tab on another page of
+    // the app resume this page's session (it would sit in GENERATING for a
+    // wrapper it never renders, and decline every later agent target).
+    assert.match(
+      SOURCE,
+      /function restoreSessionWithoutWrapper\(reason, activeSessions\) \{[\s\S]{0,600}?const cached = cachedRaw\?\.id && !pageMatchesCurrent\(cachedRaw\.pageUrl\) \? null : cachedRaw;/,
+      'a cached session is resumed only by the page that saved it',
+    );
     assert.match(helper, /setTimeout\(\(\) => claimAndActOnAgentTarget\(msg\), AGENT_TARGET_RESCUE_RETRY_MS\);/, 'a denied claim on a live request retries until the lease lapses');
     assert.match(
       SOURCE,
