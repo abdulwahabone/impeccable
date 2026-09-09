@@ -2258,3 +2258,26 @@ fn before_edit_stands_down_on_live_preview_markers() {
     assert_eq!(code, 0);
     assert_eq!(out, "{\"permission\":\"allow\"}");
 }
+
+#[test]
+fn run_hook_stands_down_for_the_whole_edit_when_the_primary_carries_live_markers() {
+    // The edited JSX carries the wrapper; the stylesheet it imports does not.
+    // Co-scanning would still speak up about the stylesheet mid-session, so
+    // the whole event stands down. The same files without markers prove the
+    // co-scan is otherwise live.
+    let t = Tmp::new();
+    let cwd = t.path();
+    let r = rt(&cwd);
+    t.write("src/styles.css", GRADIENT_CSS);
+    let plain = t.write("src/Plain.jsx", "import './styles.css';\nexport default function Plain() { return <h1 className=\"hero-title\">Hi</h1>; }\n");
+    let reported = hook::run_hook(&r, &edit_event(&cwd, &plain, "s1"));
+    assert!(reported.stdout.contains("[gradient-text]"), "co-scanned stylesheet is reported without markers: {}", reported.stdout);
+    let wrapped = t.write(
+        "src/App.jsx",
+        "import './styles.css';\n{/* impeccable-variants-start ab12cd34 */}<div data-impeccable-variants=\"ab12cd34\" data-impeccable-variant-count=\"3\"></div>\n",
+    );
+    let skipped = hook::run_hook(&r, &edit_event(&cwd, &wrapped, "s2"));
+    assert_eq!(skipped.stdout, "", "nothing is emitted while the edited file is in a live session");
+    assert_eq!(skipped.audit["skipped"], json!("live-preview"));
+    assert!(audit_str(&skipped.audit, "file").unwrap_or("").ends_with("src/App.jsx"), "the audit names the edited file, not the companion");
+}

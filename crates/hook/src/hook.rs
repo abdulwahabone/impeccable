@@ -185,6 +185,7 @@ pub fn run_hook(rt: &Runtime, stdin: &str) -> RunResult {
     let quiet_mode = truthy(rt.env("IMPECCABLE_HOOK_QUIET")) || config.quiet;
     let mut detector_threw_any = false;
     let mut last_skip = "no-scannable-file";
+    let mut live_preview_edit: Option<String> = None;
     let mut suppressed_hit = false;
     let mut cache_dirty = false;
     let mut deferred_total: usize = 0;
@@ -277,6 +278,14 @@ pub fn run_hook(rt: &Runtime, stdin: &str) -> RunResult {
             }
         };
         if crate::hook_lib::has_live_preview_markers(&content) {
+            // A live variant session owns this file. When it is the edited
+            // (primary) file, the whole event stands down, co-scanned
+            // stylesheets included: a clean ack or a finding about the
+            // companion file is the same mid-session noise the stand-down
+            // exists to prevent.
+            if primary_files.contains(file_path) && live_preview_edit.is_none() {
+                live_preview_edit = Some(file_path.clone());
+            }
             last_skip = "live-preview";
             continue;
         }
@@ -357,6 +366,17 @@ pub fn run_hook(rt: &Runtime, stdin: &str) -> RunResult {
                 clean_ack_deduped = false;
             }
         }
+    }
+    if let Some(file) = live_preview_edit {
+        audit.insert("file".into(), Value::String(file));
+        return result(
+            &audit,
+            vec![
+                ("emitted", Value::Bool(false)),
+                ("skipped", Value::from("live-preview")),
+                ("durationMs", ms_since(started)),
+            ],
+        );
     }
 
     if !fresh_groups.is_empty() {
