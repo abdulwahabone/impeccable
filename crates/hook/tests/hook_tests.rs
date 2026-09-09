@@ -2279,5 +2279,6 @@ fn run_hook_stands_down_for_the_whole_edit_when_the_primary_carries_live_markers
     let skipped = hook::run_hook(&r, &edit_event(&cwd, &wrapped, "s2"));
     assert_eq!(skipped.stdout, "", "nothing is emitted while the edited file is in a live session");
     assert_eq!(skipped.audit["skipped"], json!("live-preview"));
-    assert!(audit_str(&skipped.audit, "file").unwrap_or("").ends_with("src/App.jsx"), "the audit names the edited file, not the companion");
+    let audited = audit_str(&skipped.audit, "file").unwrap_or("").replace('\\', "/");
+    assert!(audited.ends_with("src/App.jsx"), "the audit names the edited file, not the companion: {audited}");
 }

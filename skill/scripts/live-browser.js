@@ -7291,11 +7291,34 @@
   // another page has. The server prefers a busy report (a tab that could
   // serve later) over these, and returns the resolution verdict only when
   // no connected page can serve.
+  //
+  // An element can be momentarily absent (a route still rendering, an HMR
+  // commit mid-swap), so a failed resolution is not this page's final word:
+  // it is re-checked a few times over about two seconds, claiming the
+  // moment the element mounts, and only the last miss is reported. The
+  // server's timeout still bounds the whole exchange.
+  const AGENT_TARGET_RESOLVE_RETRY_MS = [300, 700, 1500];
+
   function declineAgentTargetUnresolvable(msg) {
     const probe = resolveAgentTargetElement(msg);
     if (!probe.error) return false;
-    claimAgentTarget(msg.targetId, { eligible: false, state, reason: 'no_match', result: probe.error });
+    retryAgentTargetResolution(msg, 0, probe.error);
     return true;
+  }
+
+  function retryAgentTargetResolution(msg, attempt, lastError) {
+    if (attempt >= AGENT_TARGET_RESOLVE_RETRY_MS.length) {
+      claimAgentTarget(msg.targetId, { eligible: false, state, reason: 'no_match', result: lastError });
+      return;
+    }
+    setTimeout(() => {
+      if (agentTargetOverlayGone()) return;
+      const busy = agentTargetBusyReason();
+      if (busy) { declineAgentTargetBusy(msg, busy); return; }
+      const probe = resolveAgentTargetElement(msg);
+      if (!probe.error) { claimAndActOnAgentTarget(msg); return; }
+      retryAgentTargetResolution(msg, attempt + 1, probe.error);
+    }, AGENT_TARGET_RESOLVE_RETRY_MS[attempt]);
   }
 
   function handleAgentTarget(msg) {

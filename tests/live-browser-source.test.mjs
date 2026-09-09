@@ -866,8 +866,13 @@ describe('live-browser source contracts', () => {
     );
     assert.match(
       SOURCE,
-      /function declineAgentTargetUnresolvable\(msg\) \{[\s\S]{0,200}?resolveAgentTargetElement\(msg\)[\s\S]{0,200}?reason: 'no_match', result: probe\.error/,
-      'the decline carries the resolution verdict for the server to return when no page can serve',
+      /function declineAgentTargetUnresolvable\(msg\) \{[\s\S]{0,200}?resolveAgentTargetElement\(msg\)[\s\S]{0,120}?retryAgentTargetResolution\(msg, 0, probe\.error\)/,
+      'a failed resolution is re-checked before it becomes this page\'s word',
+    );
+    assert.match(
+      SOURCE,
+      /function retryAgentTargetResolution\(msg, attempt, lastError\) \{[\s\S]{0,200}?reason: 'no_match', result: lastError[\s\S]{0,600}?if \(!probe\.error\) \{ claimAndActOnAgentTarget\(msg\); return; \}/,
+      'the page claims the moment the element mounts, and reports only the last miss',
     );
     // The per-origin session cache must not let a tab on another page of
     // the app resume this page's session (it would sit in GENERATING for a
@@ -885,8 +890,8 @@ describe('live-browser source contracts', () => {
     );
     assert.equal(
       (SOURCE.match(/claimAndActOnAgentTarget\(msg\)/g) || []).length,
-      4,
-      'the first claim and the busy-to-idle re-claim must share the rescue path (definition, two call sites, the retry)',
+      5,
+      'the first claim, the busy-to-idle re-claim, and the resolution re-check must share the rescue path (definition, three call sites, the retry)',
     );
   });
 
