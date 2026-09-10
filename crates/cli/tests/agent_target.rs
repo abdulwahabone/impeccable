@@ -605,3 +605,26 @@ fn agent_target_refuses_a_generate_event_for_a_target_it_never_held() {
     let (status, _) = post_json(s.port, "/events", plain);
     assert_eq!(status, 200);
 }
+
+#[test]
+fn agent_target_forwards_the_hidden_bar_request_to_the_overlay() {
+    let s = Server::start("hide-bar");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    a.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({ "hideLiveBar": true }));
+    let pushed = a.next(|m| m["type"] == "agent_target");
+    assert_eq!(pushed["hideLiveBar"], serde_json::json!(true), "{pushed}");
+    let target_id = pushed["targetId"].as_str().unwrap().to_string();
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
+    held.join().unwrap();
+    // Absent by default, and anything but a boolean is refused.
+    let held = s.hold(serde_json::json!({}));
+    let pushed = a.next(|m| m["type"] == "agent_target");
+    assert!(pushed.get("hideLiveBar").is_none(), "{pushed}");
+    let target_id = pushed["targetId"].as_str().unwrap().to_string();
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccde" }));
+    held.join().unwrap();
+    let (status, body) = post_json(s.port, "/agent-target", s.target(serde_json::json!({ "hideLiveBar": "yes" })));
+    assert_eq!(status, 400, "{body}");
+    assert_eq!(body["error"], serde_json::json!("agent_target: hideLiveBar must be a boolean"));
+}

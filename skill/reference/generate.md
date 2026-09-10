@@ -61,10 +61,10 @@ Done when the boot printed `"ok": true` and a page is open. You do not need to r
 One command. Derive the selector from what the user said and what you already know of the project: an id first, then a unique class, then a landmark tag plus class. **The request names a repeated component in plural** ("the pricing cards"): target the container that holds the set, so one scoped stylesheet restyles every instance. One read of the source file that renders the element is allowed when the selector is not obvious; `--dry-run` resolves and reports without starting anything when it is not certain.
 
 ```bash
-{{scripts_path}}/impeccable live-generate --selector "#pricing" --action bolder --count 3
+{{scripts_path}}/impeccable live-generate --selector "#pricing" --action bolder --count 3 --no-live-bar
 ```
 
-Flags: `--selector` (required), `--action`, `--count`, `--prompt`, `--text` (keep only matches whose visible text contains a snippet), `--index` (1-based pick among matches), `--dry-run`, `--wait-for-browser <ms>`.
+Flags: `--selector` (required), `--action`, `--count`, `--prompt`, `--text` (keep only matches whose visible text contains a snippet), `--index` (1-based pick among matches), `--dry-run`, `--wait-for-browser <ms>`, `--no-live-bar` (always pass it: the helper's bottom bar stays hidden for this session, and only the variant controls show; the bar returns when the session ends).
 
 Every verdict carries `_instructions`; follow them over your recollection of this file. Two deserve naming:
 
