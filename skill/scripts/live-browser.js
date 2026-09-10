@@ -165,6 +165,14 @@
   }
   let parameterGenerationState = 'idle';
   let parameterReadyAnnouncedSession = null;
+  // 'agent' when the generate verb fired this session's Go (the generate
+  // lane declares no knobs, so its bar never shows a pending Tune chip);
+  // null for every Go a user presses.
+  let sessionOrigin = null;
+  // The generate lane picks for the agent and never edits copy in the
+  // browser, so its selection carries no edit-copy badge (set on the
+  // agent-target pick, cleared with the session; a user's pick never sets it).
+  let editBadgeSuppressed = false;
   let svelteComponentSession = null;
   let svelteRuntimePromise = null;
   let pendingSvelteComponentRetryObserver = null;
@@ -2687,7 +2695,9 @@
     // then becomes interactive as soon as this variant exposes controls.
     const visParams = parseVariantParams(getVisibleVariantEl());
     const hasParams = visParams.length > 0;
-    const paramsPending = !hasParams && (parameterGenerationState === 'pending' || parameterGenerationState === 'loading');
+    // A generate-lane session declares no knobs, so it never shows the
+    // pending chip; a user's session keeps it exactly as before.
+    const paramsPending = !hasParams && sessionOrigin !== 'agent' && (parameterGenerationState === 'pending' || parameterGenerationState === 'loading');
     if (hasParams || paramsPending) {
       const tune = el('button', {
         display: 'inline-flex', alignItems: 'center', gap: '6px',
@@ -4691,6 +4701,7 @@
   }
 
   function renderEditBadge(mode) {
+    if (editBadgeSuppressed || sessionOrigin === 'agent') mode = 'hidden';
     if (mode === 'hidden' || !editBadgeEl) {
       hideConfigureBarTooltip();
       if (editBadgeEl) editBadgeEl.style.display = 'none';
@@ -6184,6 +6195,8 @@
     resetSessionFileMeta();
     currentSessionId = null;
     parameterGenerationState = 'idle';
+    sessionOrigin = null;
+    editBadgeSuppressed = false;
     parameterReadyAnnouncedSession = null;
     expectedVariants = 0;
     arrivedVariants = 0;
@@ -7468,7 +7481,8 @@
         clearAnnotations();
         showAnnotOverlay(selectedElement);
         showBar('configure');
-        renderEditBadge(hasTextRows(selectedElement) ? 'idle' : 'hidden');
+        editBadgeSuppressed = true;
+        renderEditBadge('hidden');
         startScrollTracking();
         maybePrefetchPage();
         maybeWarnConditionalAncestor(selectedElement);
@@ -8221,6 +8235,7 @@
     visibleVariant = 0;
     generationPhase = 'queued';
     parameterGenerationState = 'pending';
+    sessionOrigin = agentTargetForGo ? 'agent' : null;
     parameterReadyAnnouncedSession = null;
     resetSessionFileMeta();
 
@@ -8324,6 +8339,7 @@
     visibleVariant = 0;
     generationPhase = 'queued';
     parameterGenerationState = 'pending';
+    sessionOrigin = agentTargetForGo ? 'agent' : null;
     parameterReadyAnnouncedSession = null;
     resetSessionFileMeta();
     selectedElement = placeholderElement;
@@ -9370,6 +9386,8 @@ void main() {
     pagePickSkipClick = false;
     currentSessionId = null;
     parameterGenerationState = 'idle';
+    sessionOrigin = null;
+    editBadgeSuppressed = false;
     parameterReadyAnnouncedSession = null;
     selectedAction = 'impeccable';
     pendingAcceptedSession = null;
@@ -9461,6 +9479,7 @@ void main() {
       paramsCurrentValues = { ...saved.paramValues };
     }
     if (saved.parameterState) parameterGenerationState = saved.parameterState;
+    sessionOrigin = saved.origin === 'agent' ? 'agent' : null;
     if (saved.generationPhase) generationPhase = saved.generationPhase;
   }
 
@@ -9666,6 +9685,7 @@ void main() {
       pageUrl: location.pathname,
       paramValues: { ...paramsCurrentValues },
       parameterState: parameterGenerationState,
+      origin: sessionOrigin || undefined,
       insertPlaceholder: insertPlaceholderSnapshot || undefined,
       pickedAnchor: pickedAnchorSnapshot || undefined,
       pickedAnchorViewportTop: Number.isFinite(pickedAnchorViewportTop) ? pickedAnchorViewportTop : undefined,
@@ -9791,6 +9811,8 @@ void main() {
     pagePickSkipClick = false;
     currentSessionId = null;
     parameterGenerationState = 'idle';
+    sessionOrigin = null;
+    editBadgeSuppressed = false;
     parameterReadyAnnouncedSession = null;
     selectedAction = 'impeccable';
     renderEditBadge('hidden');
@@ -11575,11 +11597,15 @@ void main() {
       uiAppendStyle(s);
     }
 
+    // The generate lane's helper says so in the served script itself, so a
+    // lane session never draws the bar at all; every other session mounts
+    // it exactly as before.
+    const barHiddenFromStart = window.__IMPECCABLE_LIVE_BAR_HIDDEN__ === true;
     globalBarEl = el('div', {
       position: 'fixed', bottom: '14px', left: '50%',
       transform: 'translateX(-50%) translateY(20px)',
       zIndex: Z.bar + 5,
-      display: 'flex', alignItems: 'stretch',
+      display: barHiddenFromStart ? 'none' : 'flex', alignItems: 'stretch',
       gap: '0',
       width: 'max-content',
       background: P.surface,
@@ -11595,6 +11621,10 @@ void main() {
     });
     globalBarEl.id = PREFIX + '-global-bar';
     globalBarEl.dataset.theme = theme;
+    if (barHiddenFromStart) {
+      liveBarHiddenByHelper = true;
+      globalBarEl.dataset.liveBarDisplay = 'flex';
+    }
 
     // Brand mark - kinpaku Impeccable icon (site header / favicon paths).
     const brand = el('span', {

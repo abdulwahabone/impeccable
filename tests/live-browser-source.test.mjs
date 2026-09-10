@@ -846,6 +846,38 @@ describe('live-browser source contracts', () => {
     );
   });
 
+  it('never shows a pending Tune chip for a session the generate verb started', () => {
+    // The generate lane declares no knobs, so the chip that spins between
+    // the variants mounting and the done reply is noise there; a user's Go
+    // keeps the chip exactly as before (origin null).
+    assert.equal((SOURCE.match(/parameterGenerationState = 'pending';\s*sessionOrigin = agentTargetForGo \? 'agent' : null;/g) || []).length, 2, 'every Go records who fired it');
+    assert.match(
+      SOURCE,
+      /const paramsPending = !hasParams && sessionOrigin !== 'agent' && \(parameterGenerationState === 'pending' \|\| parameterGenerationState === 'loading'\);/,
+      'the pending chip is gated on the origin and nothing else changed',
+    );
+    assert.match(SOURCE, /origin: sessionOrigin \|\| undefined,/, 'the origin is saved with the session');
+    assert.match(SOURCE, /sessionOrigin = saved\.origin === 'agent' \? 'agent' : null;/, 'and restored across a reload');
+    assert.equal((SOURCE.match(/parameterGenerationState = 'idle';\s*sessionOrigin = null;/g) || []).length, 3, 'every session reset clears the origin');
+  });
+
+  it('shows no edit-copy badge on a selection the generate verb made', () => {
+    // The lane never edits copy in the browser; the pencil badge (and its
+    // "disabled while applying" tooltip) belongs to a user's own pick.
+    assert.match(SOURCE, /function renderEditBadge\(mode\) \{\s*if \(editBadgeSuppressed \|\| sessionOrigin === 'agent'\) mode = 'hidden';/);
+    assert.match(SOURCE, /showBar\('configure'\);\s*editBadgeSuppressed = true;\s*renderEditBadge\('hidden'\);/, 'the agent-target pick sets the suppression before its first render');
+    assert.equal((SOURCE.match(/sessionOrigin = null;\s*editBadgeSuppressed = false;/g) || []).length, 3, 'every session reset clears it');
+  });
+
+  it('mounts the global bar hidden when the helper served the lane preference', () => {
+    // The generate lane's helper says so in the script prelude, so the bar
+    // is never drawn and then hidden (no entrance flash, no leftover); a
+    // plain helper serves no such line and the bar mounts exactly as before.
+    assert.match(SOURCE, /const barHiddenFromStart = window\.__IMPECCABLE_LIVE_BAR_HIDDEN__ === true;/);
+    assert.match(SOURCE, /display: barHiddenFromStart \? 'none' : 'flex', alignItems: 'stretch',/);
+    assert.match(SOURCE, /if \(barHiddenFromStart\) \{\s*liveBarHiddenByHelper = true;\s*globalBarEl\.dataset\.liveBarDisplay = 'flex';\s*\}/);
+  });
+
   it('re-claims busy-declined agent targets only while the overlay can still serve them', () => {
     const teardownSource = SOURCE.match(/function teardown\(\) \{[\s\S]*?\n  \}/)?.[0] || '';
     const clearAt = teardownSource.indexOf('busyDeclinedTargets.clear();');
