@@ -124,8 +124,14 @@ struct Server {
     token: String,
 }
 
+/// Server spawns are serialized: seventeen binaries starting at once on a
+/// loaded machine have missed even a 30 s pid-file wait, while the tests
+/// themselves still run in parallel once their server is up.
+static START_LOCK: std::sync::Mutex<()> = std::sync::Mutex::new(());
+
 impl Server {
     fn start(tag: &str) -> Server {
+        let _serialized = START_LOCK.lock().unwrap_or_else(|e| e.into_inner());
         let dir = std::env::temp_dir().join(format!("impeccable-agent-target-{}-{}", tag, std::process::id()));
         let _ = std::fs::remove_dir_all(&dir);
         std::fs::create_dir_all(dir.join(".impeccable/live")).unwrap();

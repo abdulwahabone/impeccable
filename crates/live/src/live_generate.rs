@@ -120,7 +120,7 @@ fn instructions_for(result: &Map<String, Value>, self_cmd: &str) -> Option<Strin
             ));
         }
         return Some(format!(
-            "Session {} started: the browser scrolled to the target and fired Go (action \"{}\", count {}). Poll now with {} live-poll; the next event for this session is its generate event. Handle it exactly per live.md's Handle generate, then reply done and keep polling.",
+            "Session {} started: the browser scrolled to the target and fired Go (action \"{}\", count {}). Poll now with {} live-poll; the next event for this session is its generate event, and its _instructions carry the whole fast path (identity from the event, one edit, reply done). Follow them, then keep polling for the accept.",
             s("sessionId"), s("action"), n("count"), self_cmd
         ));
     }

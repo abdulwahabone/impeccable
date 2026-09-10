@@ -769,6 +769,8 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       assert.deepEqual(late, { ok: true, granted: false, pending: false }, 'nothing is left for a rescuer to serve twice');
       const journal = readFileSync(join(tmp, '.impeccable/live/sessions/aabbccdd.jsonl'), 'utf-8');
       assert.ok(!journal.includes('agentTarget'), 'the envelope never reaches the journal');
+      const journaled = JSON.parse(journal.split('\n').find((l) => l.includes('"generate"')));
+      assert.equal((journaled.event || journaled).origin, 'agent', 'an agent-initiated generate is marked so the poll hands out the fast path');
     } finally {
       tabA.close();
       tabB.close();

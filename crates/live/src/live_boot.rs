@@ -118,7 +118,12 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
     if design.is_none() {
         missing.push("DESIGN.md");
     }
-    if !missing.is_empty() {
+    // `--allow-missing-context`: a caller that would rather start from the
+    // page than from an interview (the generate command) boots anyway; the
+    // payload names what is missing so the agent extracts the identity
+    // from the surface instead of running init or document mid-session.
+    let allow_missing_context = args.iter().any(|a| a == "--allow-missing-context");
+    if !missing.is_empty() && !allow_missing_context {
         let payload = json!({
             "ok": false,
             "error": "context_missing",
@@ -260,10 +265,35 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
         break;
     }
     let self_cmd = impeccable_context::provider::detect(&env, &cwd).self_cmd;
+    // 6. Which dev server is serving this app right now (the page carrying
+    // our tag), so the agent opens it without reading terminals.
+    let token_for_probe = match server_info.get("token") {
+        Some(Value::String(s)) => s.clone(),
+        _ => String::new(),
+    };
+    let dev_url = if token_for_probe.is_empty() {
+        None
+    } else {
+        crate::dev_url::probe(
+            &crate::dev_url::candidates(env.get("IMPECCABLE_DEV_URL_CANDIDATES").map(String::as_str)),
+            &token_for_probe,
+        )
+    };
+    let context_note = if missing.is_empty() {
+        Value::Null
+    } else {
+        json!(format!(
+            "Booted without {} (--allow-missing-context). Extract the identity from the picked element's computed styles, CSS custom properties, and sibling styling; do not run init or document during this session, and do not ask for them.",
+            missing.join(" and ")
+        ))
+    };
     let payload = json!({
         "ok": true,
         "serverPort": server_info.get("port").cloned().unwrap_or(Value::Null),
         "serverToken": server_info.get("token").cloned().unwrap_or(Value::Null),
+        "devUrl": dev_url,
+        "contextMissing": missing,
+        "contextNote": context_note,
         "pageFiles": resolved_files,
         "liveConfigPath": check_result.get("path").cloned().unwrap_or(Value::Null),
         "configDrift": drift,

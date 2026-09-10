@@ -10,6 +10,7 @@ pub mod browser_assets;
 pub mod config;
 pub mod copy_edit_agent;
 pub mod design_md;
+pub mod dev_url;
 pub mod event_validation;
 pub mod gitignore;
 pub mod inject;

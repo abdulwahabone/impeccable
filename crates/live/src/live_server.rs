@@ -1197,6 +1197,15 @@ fn handle_events_post(
     } else {
         None
     };
+    if agent_target.is_some() {
+        // An agent-initiated Go (the generate command): the poll hands its
+        // handler the fast-path instructions instead of the interactive
+        // planning ceremony. The marker rides in the journal and the queue.
+        msg_obj.insert("origin".into(), json!("agent"));
+        if let Some(o) = msg.as_object_mut() {
+            o.insert("origin".into(), json!("agent"));
+        }
+    }
     crate::server_state::strip_poller_owned_event_fields(&mut msg_obj);
     let mut st = lock(shared);
     if ty == "agent_phase" {
