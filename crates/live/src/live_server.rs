@@ -185,6 +185,7 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
             pending_agent_targets: Vec::new(),
             next_agent_target_timer_gen: 0,
             resolved_agent_targets: Vec::new(),
+            hide_live_bar: false,
             shutting_down: false,
             cleaned_up: false,
             log_tx,
@@ -750,6 +751,7 @@ fn handle_connection(shared: Shared, mut stream: TcpStream, mut ticket: Ticket) 
                 "connectedClients": st.sse_clients.len(),
                 "pendingEvents": pending,
                 "agentPolling": st.agent_polling_connected(),
+                "hideLiveBar": st.hide_live_bar,
                 "activeSessions": sessions,
                 "manualEdits": st.manual_edit_status(),
             });
@@ -966,6 +968,7 @@ fn handle_connection(shared: Shared, mut stream: TcpStream, mut ticket: Ticket) 
         ("/agent-target-claim", "POST") => {
             handle_agent_target_claim_post(&shared, &mut stream, &cors, &req, &token_now)
         }
+        ("/live-bar", "POST") => handle_live_bar_post(&shared, &mut stream, &cors, &req, &token_now),
         _ => respond(&mut stream, &cors, text_res(404, None, "Not found")),
     }
 }
@@ -1070,6 +1073,7 @@ fn handle_sse(
                 "type": "connected",
                 "hasProjectContext": has_ctx,
                 "agentPolling": st.agent_polling_connected(),
+                "hideLiveBar": st.hide_live_bar,
                 "activeSessions": st.active_session_summaries(),
             }))
             .unwrap_or_default()
@@ -2778,6 +2782,9 @@ fn handle_agent_target_post(
     }
     if msg.get("hideLiveBar").and_then(Value::as_bool) == Some(true) {
         payload.insert("hideLiveBar".into(), json!(true));
+        // Helper-wide, before the target goes out: every tab hides now, the
+        // acting one included, and later connections hide on connect.
+        st.set_live_bar_hidden(true);
     }
     let (target_id, rx) = st.register_agent_target(payload);
     drop(st);
@@ -2827,6 +2834,31 @@ fn handle_agent_target_result_post(
     }
     let delivered = lock(shared).resolve_agent_target(&target_id, Value::Object(result));
     respond(stream, cors, json_res(200, json!({ "ok": true, "delivered": delivered })));
+}
+
+/// `POST /live-bar` `{token, hidden}`: the helper-wide bar preference, set
+/// by `impeccable live --no-live-bar` at boot so the bar never appears, and
+/// by an agent target carrying `hideLiveBar` (see handle_agent_target_post).
+fn handle_live_bar_post(
+    shared: &Shared,
+    stream: &mut TcpStream,
+    cors: &[(String, String)],
+    req: &Request,
+    token: &str,
+) {
+    let Some(msg) = agent_target_body(stream, cors, req, token) else {
+        return;
+    };
+    let Some(hidden) = msg.get("hidden").and_then(Value::as_bool) else {
+        respond(
+            stream,
+            cors,
+            json_res(400, json!({ "error": "live_bar: hidden must be a boolean" })),
+        );
+        return;
+    };
+    lock(shared).set_live_bar_hidden(hidden);
+    respond(stream, cors, json_res(200, json!({ "ok": true, "hidden": hidden })));
 }
 
 /// JS: handleAgentTargetClaimPost

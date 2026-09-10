@@ -38,10 +38,10 @@ Done when you hold an action from the vocabulary, a count from 1 to 8, and the e
 
 ## Step 2: Boot and open the page
 
-One command. Pass `--target` with the file that renders the element when the request or the project makes it obvious; skip it otherwise. Always pass both flags: `--allow-missing-context` lets the boot proceed when PRODUCT.md or DESIGN.md is absent (it changes nothing when both exist), and `--dev-url` asks the boot to find the dev server. Neither touches a plain `live` session.
+One command. Pass `--target` with the file that renders the element when the request or the project makes it obvious; skip it otherwise. Always pass all three flags: `--allow-missing-context` lets the boot proceed when PRODUCT.md or DESIGN.md is absent (it changes nothing when both exist), `--dev-url` asks the boot to find the dev server, and `--no-live-bar` tells the helper to keep its bottom bar hidden in every tab for its lifetime and to skip the overlay's missing-context notice (the variant controls still show; both are back on the next plain `live` boot). None of them touches a plain `live` session.
 
 ```bash
-{{scripts_path}}/impeccable live --target src/App.jsx --allow-missing-context --dev-url
+{{scripts_path}}/impeccable live --target src/App.jsx --allow-missing-context --dev-url --no-live-bar
 ```
 
 Read three fields of the output and nothing else:
@@ -64,7 +64,7 @@ One command. Derive the selector from what the user said and what you already kn
 {{scripts_path}}/impeccable live-generate --selector "#pricing" --action bolder --count 3 --no-live-bar
 ```
 
-Flags: `--selector` (required), `--action`, `--count`, `--prompt`, `--text` (keep only matches whose visible text contains a snippet), `--index` (1-based pick among matches), `--dry-run`, `--wait-for-browser <ms>`, `--no-live-bar` (always pass it: the helper's bottom bar stays hidden for this session, and only the variant controls show; the bar returns when the session ends).
+Flags: `--selector` (required), `--action`, `--count`, `--prompt`, `--text` (keep only matches whose visible text contains a snippet), `--index` (1-based pick among matches), `--dry-run`, `--wait-for-browser <ms>`, `--no-live-bar` (always pass it too: if this helper was booted without the flag, the target itself tells it to hide the bar in every tab from now on).
 
 Every verdict carries `_instructions`; follow them over your recollection of this file. Two deserve naming:
 

@@ -860,8 +860,15 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       const held = postJson(server, '/agent-target', {
         token: server.token, selector: 'h1', action: 'bolder', count: 3, hideLiveBar: true,
       });
+      assert.equal((await tabA.next((m) => m.type === 'live_bar')).hidden, true, 'every connected tab hears the helper-wide preference first');
       const pushed = await tabA.next((m) => m.type === 'agent_target');
       assert.equal(pushed.hideLiveBar, true, 'the overlay is told to keep the bottom bar out of the way');
+      const tabB = await openSseClient(server, { clientId: 'tab-b' });
+      try {
+        assert.equal((await tabB.next((m) => m.type === 'connected')).hideLiveBar, true, 'a later connection learns it on connect');
+      } finally { tabB.close(); }
+      const status = await (await fetch(`http://127.0.0.1:${server.port}/status?token=${server.token}`)).json();
+      assert.equal(status.hideLiveBar, true, '/status carries it');
       await postJson(server, '/agent-target-result', { token: server.token, targetId: pushed.targetId, ok: true, sessionId: 'aabbccdd' });
       await (await held).json();
       const refused = await postJson(server, '/agent-target', {

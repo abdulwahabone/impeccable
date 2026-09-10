@@ -130,6 +130,11 @@ pub struct ServerState {
     /// that answered it; anything else, including a target this record no
     /// longer holds, is refused, so eviction can never reopen a request.
     pub resolved_agent_targets: Vec<(String, Option<String>)>,
+    /// The generate lane asked this helper to keep the overlay's global bar
+    /// out of the way (`live --no-live-bar` or an agent target carrying
+    /// `hideLiveBar`). Helper-wide and for its lifetime: every connected
+    /// tab hides on the broadcast, every later connection on `connected`.
+    pub hide_live_bar: bool,
     pub last_poll_at: i64,
     pub timed_out_apply_ids: Vec<(String, TimedOutApply)>,
     pub next_poll_id: u64,
@@ -474,6 +479,15 @@ impl ServerState {
     }
 
     /// JS: broadcast(msg)
+    /// Flip the helper-wide bar preference and tell every connected tab.
+    pub fn set_live_bar_hidden(&mut self, hidden: bool) {
+        if self.hide_live_bar == hidden {
+            return;
+        }
+        self.hide_live_bar = hidden;
+        self.broadcast(&json!({ "type": "live_bar", "hidden": hidden }));
+    }
+
     pub fn broadcast(&mut self, msg: &Value) {
         let data = format!(
             "data: {}\n\n",

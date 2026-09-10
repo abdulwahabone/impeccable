@@ -905,22 +905,28 @@ describe('live-browser source contracts', () => {
     );
     assert.match(
       SOURCE,
-      /if \(msg\.hideLiveBar === true\) \{\s*rememberLiveBarHidden\(\);\s*setLiveBarHidden\(true\);/,
-      'an agent target that asks for it hides the global bar and remembers that for this helper instance',
+      /case 'connected':\s*applyLiveBarPreference\(msg\.hideLiveBar === true\);/,
+      'every connection, including a reload or a second tab, takes the helper\'s word on the bar',
     );
     assert.match(
       SOURCE,
-      /function liveBarHiddenKey\(\) \{\s*return 'impeccable-live:hide-bar:' \+ TOKEN;/,
-      'the choice is keyed on the helper token, so the next live boot shows the bar again',
+      /case 'live_bar':\s*applyLiveBarPreference\(msg\.hidden === true\);\s*break;/,
+      'a helper-wide change reaches every connected tab at once',
     );
     assert.match(
       SOURCE,
-      /updateGlobalBarState\(\);\s*\/\/[^\n]*\n\s*\/\/[^\n]*\n\s*if \(liveBarHiddenForThisHelper\(\)\) setLiveBarHidden\(true\);/,
-      'every reload rebuilds the bar and re-applies the hide',
+      /hasProjectContext = !!msg\.hasProjectContext;\s*\/\/[^\n]*\n\s*\/\/[^\n]*\n\s*if \(!hasProjectContext && !liveBarHiddenByHelper\) showToast\(/,
+      'the lane\'s quiet chrome also skips the "No PRODUCT.md" notice, which would send the user to init',
     );
+    assert.match(
+      SOURCE,
+      /updateGlobalBarState\(\);\s*\/\/[^\n]*\n\s*\/\/[^\n]*\n\s*if \(liveBarHiddenByHelper\) setLiveBarHidden\(true\);/,
+      'a bar built after the helper spoke still ends up hidden',
+    );
+    assert.ok(!/sessionStorage\.getItem\('impeccable-live:hide-bar/.test(SOURCE), 'no per-tab memory: the helper is the single source of truth');
     assert.ok(!/releaseHiddenLiveBar/.test(SOURCE), 'no session end brings the bar back: the accept and the bake that follows stay bar-free');
     const teardownBody = SOURCE.match(/function teardown\(\) \{[\s\S]*?\n  \}/)?.[0] || '';
-    assert.match(teardownBody, /forgetLiveBarHidden\(\);/, 'only the helper stopping forgets the choice');
+    assert.match(teardownBody, /liveBarHiddenByHelper = false;/, 'only the helper stopping resets it');
     assert.match(
       SOURCE,
       /if \(claim\.granted\) \{ noteAgentTarget\(msg\.targetId, 'acting'\); actOnAgentTarget\(msg\); return; \}/,

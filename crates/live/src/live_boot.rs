@@ -271,6 +271,16 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
     // reports `devUrl`; `--allow-missing-context` reports `contextMissing`
     // and a `contextNote` for the files it let the boot proceed without.
     let want_dev_url = args.iter().any(|a| a == "--dev-url");
+    // `--no-live-bar`: the generate lane wants no bottom bar in any tab for
+    // this helper's lifetime; tell the helper now, before any page connects.
+    let no_live_bar = args.iter().any(|a| a == "--no-live-bar");
+    let live_bar_hidden = if no_live_bar {
+        let port = server_info.get("port").and_then(Value::as_u64).unwrap_or(0);
+        let token = server_info.get("token").and_then(Value::as_str).unwrap_or("");
+        request_live_bar_hidden(port, token)
+    } else {
+        false
+    };
     let token_for_probe = match server_info.get("token") {
         Some(Value::String(s)) => s.clone(),
         _ => String::new(),
@@ -314,6 +324,9 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
         "_instructions": boot_instructions(&self_cmd),
     });
     if let Some(obj) = payload.as_object_mut() {
+        if no_live_bar {
+            obj.insert("liveBarHidden".into(), json!(live_bar_hidden));
+        }
         if want_dev_url {
             obj.insert("devUrl".into(), dev_url.map(Value::String).unwrap_or(Value::Null));
         }
@@ -338,6 +351,23 @@ fn run_inject(args: &[String], cwd: &str, io: &Io) -> String {
 
 /// JS: ensureServerRunning(cwd): reuse a live `server.json` record, else
 /// spawn `live-server --background` (part 3) and parse its output.
+/// Ask the running helper to keep the overlay's global bar hidden for its
+/// lifetime (`POST /live-bar`). True when the helper acknowledged.
+fn request_live_bar_hidden(port: u64, token: &str) -> bool {
+    if port == 0 || token.is_empty() {
+        return false;
+    }
+    let agent = ureq::AgentBuilder::new()
+        .timeout(std::time::Duration::from_millis(3000))
+        .build();
+    agent
+        .post(&format!("http://127.0.0.1:{}/live-bar", port))
+        .set("Content-Type", "application/json")
+        .send_string(&json!({ "token": token, "hidden": true }).to_string())
+        .map(|res| res.status() == 200)
+        .unwrap_or(false)
+}
+
 fn ensure_server_running(cwd: &str, io: &Io) -> Option<Value> {
     if let Some((info, _)) = read_live_server_info(cwd, &io.env) {
         if let Some(pid) = info.pid {
