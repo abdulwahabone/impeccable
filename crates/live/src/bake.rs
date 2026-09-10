@@ -88,26 +88,63 @@ fn is_css_ident(s: &str) -> bool {
         && !s.starts_with(|c: char| c.is_ascii_digit())
 }
 
+/// The first compound selector of `s` and what follows it (the following
+/// combinator or whitespace included), honouring brackets, parens, and
+/// quotes. `(s, "")` when there is no combinator.
+fn split_first_compound(s: &str) -> (String, String) {
+    let chars: Vec<char> = s.chars().collect();
+    let mut depth = 0i64;
+    let mut quote: Option<char> = None;
+    let mut i = 0;
+    while i < chars.len() {
+        let c = chars[i];
+        if let Some(q) = quote {
+            if c == '\\' {
+                i += 1;
+            } else if c == q {
+                quote = None;
+            }
+        } else if c == '"' || c == '\'' {
+            quote = Some(c);
+        } else if c == '[' || c == '(' {
+            depth += 1;
+        } else if c == ']' || c == ')' {
+            depth -= 1;
+        } else if depth == 0 && (c.is_whitespace() || c == '>' || c == '+' || c == '~') {
+            break;
+        }
+        i += 1;
+    }
+    (chars[..i].iter().collect(), chars[i..].iter().collect())
+}
+
 /// One selector out of a `:scope` (or `[data-impeccable-variant="N"]`)
-/// prefixed rule, anchored on the element. Err when `:scope` survives.
+/// prefixed rule, anchored on the element. A state on the wrapper
+/// (`:scope:hover`, `:scope[open]`) lands on the element, which is the
+/// wrapper's only child and takes its place after the unwrap. Err when
+/// `:scope` survives or the rewrite has no meaning.
 pub fn rewrite_selector(selector: &str, anchor: &str) -> Result<String, String> {
     let s = trim(selector).to_string();
     let s = VARIANT_PREFIX_RE.replace(&s, ":scope").into_owned();
     let out = if let Some(rest) = s.strip_prefix(":scope") {
-        let rest_trim = rest.trim_start();
-        if rest_trim.is_empty() {
-            anchor.to_string()
-        } else if let Some(child) = rest_trim.strip_prefix('>') {
-            // `:scope > .x`: the variant div's child is the element itself.
-            child.trim_start().to_string()
-        } else if rest_trim.starts_with(['+', '~']) {
+        // Pseudo-classes and attribute selectors written on :scope itself.
+        let (state, after) = split_first_compound(rest);
+        let after_trim = after.trim_start();
+        if after_trim.is_empty() {
+            format!("{}{}", anchor, state)
+        } else if let Some(child) = after_trim.strip_prefix('>') {
+            // `:scope > .x`, `:scope:hover > .x`: the wrapper's child is the
+            // element itself, so the wrapper's state is the element's.
+            let (first, remainder) = split_first_compound(child.trim_start());
+            if first.is_empty() {
+                return Err(format!("selector has no child after :scope: {}", selector));
+            }
+            format!("{}{}{}", first, state, remainder)
+        } else if after_trim.starts_with(['+', '~']) {
             return Err(format!("sibling combinator on :scope has no meaning after unwrap: {}", selector));
-        } else if rest.starts_with(char::is_whitespace) {
-            // `:scope .x`: a descendant of the element.
-            format!("{} {}", anchor, rest_trim)
         } else {
-            // `:scope:hover > .x`, `:scope[data-x] .y`: the element with that state.
-            format!("{}{}", anchor, rest)
+            // `:scope .x`, `:scope:hover .x`: a descendant of the element.
+            format!("{}{} {}", anchor, state, after_trim)
         }
     } else {
         s
@@ -157,82 +194,78 @@ fn rewrite_nodes(nodes: &[CssNode], anchor: &str, out: &mut Vec<CssNode>, rules:
     Ok(())
 }
 
-/// The accepted variant's rules out of the whole preview stylesheet: its
-/// `@scope ([data-impeccable-variant="N"])` block rewritten and flattened,
-/// global at-rules (`@keyframes`, `@font-face`) kept, the other variants'
-/// blocks dropped.
-pub fn extract_variant_css(css: &str, variant_num: &str, anchor: &str) -> Result<(String, usize), String> {
-    let nodes = parse_stylesheet(css);
-    let mut kept: Vec<CssNode> = Vec::new();
-    let mut rules = 0usize;
-    for node in &nodes {
+/// A rule outside any `@scope`: Astro's global-prefixed mode writes
+/// `[data-impeccable-variant="N"] > .x`. Ours are rewritten, other
+/// variants' are dropped (None), plain rules are kept as they are.
+fn global_rule(prelude: &str, body: &str, variant_num: &str, anchor: &str) -> Result<Option<CssNode>, String> {
+    let selectors = split_selector_list(prelude);
+    let mine: Vec<String> = selectors
+        .iter()
+        .filter(|sel| SCOPE_PRELUDE_RE.captures(sel).map(|c| &c[1] == variant_num).unwrap_or(false))
+        .cloned()
+        .collect();
+    if mine.is_empty() {
+        if prelude.contains("data-impeccable-variant") {
+            return Ok(None);
+        }
+        return Ok(Some(CssNode::Rule { prelude: prelude.to_string(), body: body.to_string() }));
+    }
+    let rewritten: Result<Vec<String>, String> = mine.iter().map(|sel| rewrite_selector(sel, anchor)).collect();
+    Ok(Some(CssNode::Rule { prelude: rewritten?.join(", "), body: body.to_string() }))
+}
+
+/// Nodes outside any `@scope` (the top level, or an `@media` / `@supports`
+/// block at the top level): the accepted variant's `@scope` block is
+/// flattened and rewritten, prefixed rules go through `global_rule`,
+/// nested blocks recurse, and global at-rules (`@keyframes`, `@font-face`)
+/// are kept.
+fn global_nodes(nodes: &[CssNode], variant_num: &str, anchor: &str, out: &mut Vec<CssNode>, rules: &mut usize) -> Result<(), String> {
+    for node in nodes {
         match node {
             CssNode::At { name, prelude, children: Some(children), .. } if name == "scope" => {
                 let Some(caps) = SCOPE_PRELUDE_RE.captures(prelude) else {
                     return Err(format!("@scope block without a variant prelude: {}", prelude));
                 };
                 if &caps[1] == variant_num {
-                    rewrite_nodes(children, anchor, &mut kept, &mut rules)?;
+                    rewrite_nodes(children, anchor, out, rules)?;
                 }
             }
             CssNode::Rule { prelude, body } => {
-                // Astro's global-prefixed mode: `[data-impeccable-variant="N"] > .x`.
-                let mine: Vec<String> = split_selector_list(prelude)
-                    .into_iter()
-                    .filter(|sel| {
-                        SCOPE_PRELUDE_RE
-                            .captures(sel)
-                            .map(|c| &c[1] == variant_num)
-                            .unwrap_or(false)
-                    })
-                    .collect();
-                if mine.is_empty() {
-                    if prelude.contains("data-impeccable-variant") {
-                        continue;
-                    }
-                    kept.push(CssNode::Rule { prelude: prelude.clone(), body: body.clone() });
-                    rules += 1;
-                    continue;
+                if let Some(rule) = global_rule(prelude, body, variant_num, anchor)? {
+                    out.push(rule);
+                    *rules += 1;
                 }
-                let selectors: Result<Vec<String>, String> = mine.iter().map(|sel| rewrite_selector(sel, anchor)).collect();
-                kept.push(CssNode::Rule { prelude: selectors?.join(", "), body: body.clone() });
-                rules += 1;
             }
-            CssNode::At { prelude, children: Some(children), name, .. } => {
-                // A media/supports block at the top level: keep only what is
-                // ours, rewritten.
+            CssNode::At { name, prelude, children: Some(children), .. } => {
                 let mut inner = Vec::new();
                 let mut inner_rules = 0usize;
-                for child in children {
-                    if let CssNode::At { name: cn, prelude: cp, children: Some(cc), .. } = child {
-                        if cn == "scope" {
-                            if SCOPE_PRELUDE_RE.captures(cp).map(|c| &c[1] == variant_num).unwrap_or(false) {
-                                rewrite_nodes(cc, anchor, &mut inner, &mut inner_rules)?;
-                            }
-                            continue;
-                        }
-                    }
-                    if let CssNode::Rule { prelude: rp, .. } = child {
-                        if rp.contains("data-impeccable-variant") {
-                            continue;
-                        }
-                    }
-                    inner.push(child.clone());
-                }
+                global_nodes(children, variant_num, anchor, &mut inner, &mut inner_rules)?;
                 if !inner.is_empty() {
-                    kept.push(CssNode::At {
+                    out.push(CssNode::At {
                         name: name.clone(),
                         prelude: prelude.clone(),
                         children: Some(inner),
                         body: None,
                         statement: false,
                     });
-                    rules += inner_rules;
+                    *rules += inner_rules;
                 }
             }
-            other => kept.push(other.clone()),
+            other => out.push(other.clone()),
         }
     }
+    Ok(())
+}
+
+/// The accepted variant's rules out of the whole preview stylesheet: its
+/// `@scope ([data-impeccable-variant="N"])` block rewritten and flattened,
+/// its prefixed rules rewritten wherever they sit, global at-rules
+/// (`@keyframes`, `@font-face`) kept, the other variants' rules dropped.
+pub fn extract_variant_css(css: &str, variant_num: &str, anchor: &str) -> Result<(String, usize), String> {
+    let nodes = parse_stylesheet(css);
+    let mut kept: Vec<CssNode> = Vec::new();
+    let mut rules = 0usize;
+    global_nodes(&nodes, variant_num, anchor, &mut kept, &mut rules)?;
     if rules == 0 {
         return Err("the accepted variant declares no rules".to_string());
     }
@@ -411,7 +444,12 @@ mod tests {
         assert_eq!(rewrite_selector(":scope > .pricing-grid .pricing-card", a).unwrap(), ".pricing-grid .pricing-card");
         assert_eq!(rewrite_selector(":scope .pricing-card", a).unwrap(), "div.pricing-grid .pricing-card");
         assert_eq!(rewrite_selector(":scope", a).unwrap(), "div.pricing-grid");
-        assert_eq!(rewrite_selector(":scope:hover > .pricing-grid", a).unwrap(), "div.pricing-grid:hover > .pricing-grid");
+        assert_eq!(rewrite_selector(":scope:hover > .pricing-grid", a).unwrap(), ".pricing-grid:hover");
+        assert_eq!(rewrite_selector(":scope:focus-within > .pricing-grid .card", a).unwrap(), ".pricing-grid:focus-within .card");
+        assert_eq!(rewrite_selector(":scope[open] > .pricing-grid > .card", a).unwrap(), ".pricing-grid[open] > .card");
+        assert_eq!(rewrite_selector(":scope:hover .card", a).unwrap(), "div.pricing-grid:hover .card");
+        assert_eq!(rewrite_selector(":scope:not([hidden])", a).unwrap(), "div.pricing-grid:not([hidden])");
+        assert!(rewrite_selector(":scope:hover >", a).is_err());
         assert_eq!(rewrite_selector("[data-impeccable-variant=\"2\"] > .x", a).unwrap(), ".x");
         assert!(rewrite_selector(":scope + .x", a).is_err());
         assert!(rewrite_selector(".a :scope", a).is_err());
@@ -445,6 +483,29 @@ mod tests {
         assert!(out.contains("@keyframes rise"), "{out}");
         assert!(!out.contains("8px") && !out.contains("gap: 0"), "{out}");
         assert!(!out.contains("data-impeccable") && !out.contains(":scope"), "{out}");
+    }
+
+    #[test]
+    fn prefixed_rules_under_a_top_level_media_block_are_rewritten_not_dropped() {
+        // Astro's global-prefixed mode, with a breakpoint.
+        let css = r#"
+[data-impeccable-variant="1"] > .pricing-grid { gap: 8px; }
+[data-impeccable-variant="2"] > .pricing-grid { gap: 32px; }
+@media (max-width: 600px) {
+  [data-impeccable-variant="1"] > .pricing-grid { gap: 4px; }
+  [data-impeccable-variant="2"] > .pricing-grid { gap: 12px; }
+  [data-impeccable-variant="2"]:hover > .pricing-grid .card { border-color: #111; }
+  .site-wide { color: red; }
+}
+"#;
+        let (out, rules) = extract_variant_css(css, "2", "div.pricing-grid").unwrap();
+        assert_eq!(rules, 4, "{out}");
+        assert!(out.contains("@media (max-width: 600px)"), "{out}");
+        assert!(out.contains("gap: 12px"), "the variant's breakpoint survives: {out}");
+        assert!(out.contains(".pricing-grid:hover .card { border-color: #111; }"), "{out}");
+        assert!(out.contains(".site-wide { color: red; }"), "{out}");
+        assert!(!out.contains("8px") && !out.contains("4px"), "the other variant's rules are gone: {out}");
+        assert!(!out.contains("data-impeccable"), "{out}");
     }
 
     #[test]
