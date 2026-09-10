@@ -243,7 +243,7 @@ fn agent_target_broadcasts_and_resolves_with_the_browser_result() {
     let (st, ack) = post_json(
         s.port,
         "/agent-target-result",
-        serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "dryRun": true, "matchCount": 1, "element": { "tag": "h1" } }),
+        serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-a", "ok": true, "dryRun": true, "matchCount": 1, "element": { "tag": "h1" } }),
     );
     assert_eq!(st, 200);
     assert_eq!(ack, serde_json::json!({ "ok": true, "delivered": true }));
@@ -253,7 +253,7 @@ fn agent_target_broadcasts_and_resolves_with_the_browser_result() {
     assert_eq!(verdict["ok"], serde_json::json!(true));
     assert_eq!(verdict["matchCount"], serde_json::json!(1));
     // Resolved: a late result reports delivered:false, a late claim says gone.
-    let (_, late) = post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true }));
+    let (_, late) = post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-a", "ok": true }));
     assert_eq!(late, serde_json::json!({ "ok": true, "delivered": false }));
     assert_eq!(s.claim(&target_id, "tab-b", true), serde_json::json!({ "ok": true, "granted": false, "pending": false }));
 }
@@ -317,7 +317,7 @@ fn agent_target_lease_lapses_and_a_disconnect_releases_it() {
         }
     }
     assert!(granted, "the disconnect released the lease");
-    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-b", "ok": true, "sessionId": "aabbccdd" }));
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["ok"], serde_json::json!(true));
     assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"));
@@ -337,7 +337,7 @@ fn agent_target_replays_pending_targets_to_a_late_overlay() {
     let replayed = b.next(|m| m["type"] == "agent_target");
     assert_eq!(replayed["targetId"], serde_json::json!(target_id));
     assert_eq!(s.claim(&target_id, "tab-b", true)["granted"], serde_json::json!(true));
-    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-b", "ok": true, "sessionId": "aabbccdd" }));
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"));
 }
@@ -362,7 +362,7 @@ fn agent_target_reconnect_keeps_the_overlays_lease_and_word() {
     // tab-b stays denied, tab-a renews as the holder.
     assert_eq!(s.claim(&target_id, "tab-b", true)["granted"], serde_json::json!(false), "the lease survived the reconnect");
     assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
-    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-a", "ok": true, "sessionId": "aabbccdd" }));
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"));
     let _ = (&mut a2, &mut b);
@@ -446,7 +446,7 @@ fn agent_target_lets_a_late_mount_claim_within_the_resolution_grace() {
     std::thread::sleep(Duration::from_millis(60));
     // The element mounted: the same page claims and serves.
     assert_eq!(s.claim(&target_id, "tab-a", true), serde_json::json!({ "ok": true, "granted": true, "pending": true }));
-    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-a", "ok": true, "sessionId": "aabbccdd" }));
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["ok"], serde_json::json!(true), "{verdict}");
     assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"));
@@ -471,7 +471,7 @@ fn agent_target_late_overlay_first_no_match_extends_the_grace() {
     // Tab B's watcher finds the element within its grace and claims.
     std::thread::sleep(Duration::from_millis(60));
     assert_eq!(s.claim(&target_id, "tab-b", true)["granted"], serde_json::json!(true));
-    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-b", "ok": true, "sessionId": "aabbccdd" }));
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"), "{verdict}");
     assert!(reported_at.elapsed() < Duration::from_millis(400));
@@ -561,7 +561,7 @@ fn agent_target_welcomes_the_generate_event_of_the_session_that_answered() {
     let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
     assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
     // The result post lands first (the common path), then the event.
-    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "cccccccc" }));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-a", "ok": true, "sessionId": "cccccccc" }));
     let (_, verdict) = held.join().unwrap();
     assert_eq!(verdict["sessionId"], serde_json::json!("cccccccc"), "{verdict}");
     let (status, body) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "cccccccc", "tab-a"));
@@ -625,14 +625,16 @@ fn agent_target_forwards_the_hidden_bar_request_to_the_overlay() {
     let (_, status) = post_json(s.port, "/status", serde_json::json!({ "token": s.token }));
     let _ = status;
     let target_id = pushed["targetId"].as_str().unwrap().to_string();
-    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-a", "ok": true, "sessionId": "aabbccdd" }));
     held.join().unwrap();
     // Absent by default, and anything but a boolean is refused.
     let held = s.hold(serde_json::json!({}));
     let pushed = a.next(|m| m["type"] == "agent_target");
     assert!(pushed.get("hideLiveBar").is_none(), "{pushed}");
     let target_id = pushed["targetId"].as_str().unwrap().to_string();
-    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccde" }));
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-a", "ok": true, "sessionId": "aabbccde" }));
     held.join().unwrap();
     let (status, body) = post_json(s.port, "/agent-target", s.target(serde_json::json!({ "hideLiveBar": "yes" })));
     assert_eq!(status, 400, "{body}");
@@ -654,4 +656,34 @@ fn live_bar_route_sets_the_helper_wide_preference() {
     assert_eq!(status, 401, "{body}");
     let mut b = Overlay::connect(s.port, &s.token, "tab-b");
     assert_eq!(b.next(|m| m["type"] == "connected")["hideLiveBar"], serde_json::json!(true));
+}
+
+#[test]
+fn agent_target_result_is_honored_only_from_the_lease_holder() {
+    let s = Server::start("holder-only");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    let mut b = Overlay::connect(s.port, &s.token, "tab-b");
+    a.next(|m| m["type"] == "connected");
+    b.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    // Nobody holds it yet: a result is refused as unclaimed.
+    let (status, body) = post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-b", "ok": true, "sessionId": "b0b0b0b0" }));
+    assert_eq!(status, 409, "{body}");
+    assert_eq!(body["reason"], serde_json::json!("unclaimed"));
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    // A bystander that knows the id and the token still cannot answer.
+    let (status, body) = post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-b", "ok": true, "sessionId": "b0b0b0b0" }));
+    assert_eq!(status, 409, "{body}");
+    assert_eq!(body["reason"], serde_json::json!("not_holder"));
+    // Without a client id the post is malformed.
+    let (status, _) = post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true }));
+    assert_eq!(status, 400);
+    // The holder's word lands, and the request was still pending for it.
+    let (status, body) = post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "clientId": "tab-a", "ok": true, "sessionId": "aabbccdd" }));
+    assert_eq!(status, 200, "{body}");
+    assert_eq!(body["delivered"], serde_json::json!(true));
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"), "{verdict}");
+    let _ = &mut b;
 }

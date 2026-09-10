@@ -236,9 +236,14 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       assert.equal(pushed.dryRun, true);
       assert.match(pushed.targetId, /^[0-9a-f]{8}$/);
 
+      const claimed = await (await postJson(server, '/agent-target-claim', {
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: true,
+      })).json();
+      assert.equal(claimed.granted, true);
       const resultRes = await postJson(server, '/agent-target-result', {
         token: server.token,
         targetId: pushed.targetId,
+        clientId: 'tab-a',
         ok: true,
         matchCount: 1,
         sessionId: 'aabbccdd',
@@ -283,7 +288,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       assert.deepEqual(renew, { ok: true, granted: true, pending: true }, 'the holder renews its own lease');
       // Settle the held request so the suite never waits out the timeout.
       await postJson(server, '/agent-target-result', {
-        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', ok: true, matchCount: 1, sessionId: 'aabbccdd',
       });
       await (await held).json();
     } finally {
@@ -326,7 +331,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       })).json();
       assert.equal(staleRenew.granted, false, 'the lapsed holder cannot renew once a rescuer holds the lease');
       await postJson(leaseServer, '/agent-target-result', {
-        token: leaseServer.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+        token: leaseServer.token, targetId: pushed.targetId, clientId: 'tab-b', ok: true, matchCount: 1, sessionId: 'aabbccdd',
       });
       const verdict = await (await held).json();
       assert.equal(verdict.ok, true);
@@ -393,7 +398,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       })).json();
       assert.deepEqual(claim, { ok: true, granted: true, pending: true }, 'one busy report does not close a roll call with an idle tab left');
       await postJson(server, '/agent-target-result', {
-        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-b', ok: true, matchCount: 1, sessionId: 'aabbccdd',
       });
       const verdict = await (await held).json();
       assert.equal(verdict.ok, true);
@@ -463,7 +468,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       // Still pending: the stale report was withdrawn, so B's report alone
       // does not complete the roll call. A's result resolves it.
       const resultRes = await postJson(server, '/agent-target-result', {
-        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', ok: true, matchCount: 1, sessionId: 'aabbccdd',
       });
       assert.deepEqual(await resultRes.json(), { ok: true, delivered: true });
       const verdict = await (await held).json();
@@ -526,7 +531,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       })).json();
       assert.deepEqual(claim, { ok: true, granted: true, pending: true });
       await postJson(server, '/agent-target-result', {
-        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-b', ok: true, matchCount: 1, sessionId: 'aabbccdd',
       });
       const verdict = await (await held).json();
       assert.equal(verdict.ok, true);
@@ -564,7 +569,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       }
       assert.equal(claim.granted, true, 'the disconnect released the lease well inside the 3s lease and the 400ms timeout');
       await postJson(server, '/agent-target-result', {
-        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-b', ok: true, matchCount: 1, sessionId: 'aabbccdd',
       });
       const verdict = await (await held).json();
       assert.equal(verdict.ok, true);
@@ -630,7 +635,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       })).json();
       assert.equal(renew.granted, true, 'the reconnected overlay still holds it');
       await postJson(server, '/agent-target-result', {
-        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', ok: true, matchCount: 1, sessionId: 'aabbccdd',
       });
       const verdict = await (await held).json();
       assert.equal(verdict.sessionId, 'aabbccdd');
@@ -694,7 +699,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       })).json();
       assert.deepEqual(claim, { ok: true, granted: true, pending: true }, 'the late mount is served');
       await postJson(server, '/agent-target-result', {
-        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', ok: true, matchCount: 1, sessionId: 'aabbccdd',
       });
       const verdict = await (await held).json();
       assert.equal(verdict.ok, true);
@@ -729,7 +734,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       })).json();
       assert.equal(claim.granted, true, 'the late overlay\'s watcher claims within its grace');
       await postJson(server, '/agent-target-result', {
-        token: server.token, targetId: pushed.targetId, ok: true, matchCount: 1, sessionId: 'aabbccdd',
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-b', ok: true, matchCount: 1, sessionId: 'aabbccdd',
       });
       const verdict = await (await held).json();
       assert.equal(verdict.sessionId, 'aabbccdd');
@@ -789,7 +794,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
         token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: true,
       })).json();
       assert.equal(claim.granted, true);
-      await postJson(server, '/agent-target-result', { token: server.token, targetId: pushed.targetId, ok: true, sessionId: 'cccccccc' });
+      await postJson(server, '/agent-target-result', { token: server.token, targetId: pushed.targetId, clientId: 'tab-a', ok: true, sessionId: 'cccccccc' });
       assert.equal((await (await held).json()).sessionId, 'cccccccc');
       const event = (id, clientId) => postJson(server, '/events', {
         token: server.token, type: 'generate', id, action: 'bolder', count: 3, pageUrl: '/',
@@ -869,13 +874,34 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       } finally { tabB.close(); }
       const status = await (await fetch(`http://127.0.0.1:${server.port}/status?token=${server.token}`)).json();
       assert.equal(status.hideLiveBar, true, '/status carries it');
-      await postJson(server, '/agent-target-result', { token: server.token, targetId: pushed.targetId, ok: true, sessionId: 'aabbccdd' });
+      await postJson(server, '/agent-target-result', { token: server.token, targetId: pushed.targetId, clientId: 'tab-a', ok: true, sessionId: 'aabbccdd' });
       await (await held).json();
       const refused = await postJson(server, '/agent-target', {
         token: server.token, selector: 'h1', action: 'bolder', count: 3, hideLiveBar: 'yes',
       });
       assert.equal(refused.status, 400);
       assert.equal((await refused.json()).error, 'agent_target: hideLiveBar must be a boolean');
+    } finally {
+      tabA.close();
+    }
+  });
+
+  it('honors a result only from the lease holder', async () => {
+    const tabA = await openSseClient(server, { clientId: 'tab-a' });
+    try {
+      await tabA.next((m) => m.type === 'connected');
+      const held = postJson(server, '/agent-target', { token: server.token, selector: 'h1', action: 'bolder', count: 3 });
+      const pushed = await tabA.next((m) => m.type === 'agent_target');
+      const claim = await (await postJson(server, '/agent-target-claim', { token: server.token, targetId: pushed.targetId, clientId: 'tab-a', eligible: true })).json();
+      assert.equal(claim.granted, true);
+      const bystander = await postJson(server, '/agent-target-result', { token: server.token, targetId: pushed.targetId, clientId: 'tab-b', ok: true, sessionId: 'b0b0b0b0' });
+      assert.equal(bystander.status, 409, 'a tab that knows the id and the token still cannot answer for the holder');
+      assert.equal((await bystander.json()).reason, 'not_holder');
+      const anonymous = await postJson(server, '/agent-target-result', { token: server.token, targetId: pushed.targetId, ok: true });
+      assert.equal(anonymous.status, 400, 'a result without a client id is malformed');
+      const holder = await postJson(server, '/agent-target-result', { token: server.token, targetId: pushed.targetId, clientId: 'tab-a', ok: true, sessionId: 'aabbccdd' });
+      assert.equal(holder.status, 200);
+      assert.equal((await (await held).json()).sessionId, 'aabbccdd', 'the holder answers');
     } finally {
       tabA.close();
     }
@@ -955,9 +981,13 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
           (m) => m.type === 'agent_target' && m.action === action && m.dryRun === true,
           10_000,
         );
+        await postJson(server, '/agent-target-claim', {
+          token: server.token, targetId: pushed.targetId, clientId: 'tab-vocab', eligible: true,
+        });
         await postJson(server, '/agent-target-result', {
           token: server.token,
           targetId: pushed.targetId,
+          clientId: 'tab-vocab',
           ok: true,
           dryRun: true,
           matchCount: 1,
@@ -987,7 +1017,7 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
       assert.equal(verdict.timeoutMs, 400);
 
       const late = await postJson(server, '/agent-target-result', {
-        token: server.token, targetId: pushed.targetId, ok: true,
+        token: server.token, targetId: pushed.targetId, clientId: 'tab-a', ok: true,
       });
       assert.deepEqual(await late.json(), { ok: true, delivered: false });
     } finally {

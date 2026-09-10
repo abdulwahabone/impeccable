@@ -7129,7 +7129,7 @@
     fetch('http://localhost:' + PORT + '/agent-target-result?token=' + TOKEN, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ token: TOKEN, targetId, ...result }),
+      body: JSON.stringify({ token: TOKEN, targetId, clientId: AGENT_TARGET_CLIENT_ID, ...result }),
     }).catch(() => { /* server gone; nothing to report to */ });
   }
 
@@ -7229,9 +7229,22 @@
     setLiveBarHidden(liveBarHiddenByHelper);
   }
 
+  // A plain live session must never notice this code: hiding remembers the
+  // bar's own display value and restoring puts exactly that back, and a
+  // restore on a bar that is not hidden is a no-op, so the `connected`
+  // frame every session receives changes nothing unless the lane asked.
   function setLiveBarHidden(hidden) {
     if (!globalBarEl) return;
-    globalBarEl.style.display = hidden ? 'none' : '';
+    if (hidden) {
+      if (globalBarEl.style.display !== 'none') {
+        globalBarEl.dataset.liveBarDisplay = globalBarEl.style.display || 'flex';
+        globalBarEl.style.display = 'none';
+      }
+      return;
+    }
+    if (globalBarEl.style.display === 'none') {
+      globalBarEl.style.display = globalBarEl.dataset.liveBarDisplay || 'flex';
+    }
   }
 
   function claimAgentTarget(targetId, report) {
