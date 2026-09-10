@@ -489,7 +489,7 @@ fn accept_cli(args: &[String], io: &mut Io) -> i32 {
                         m.insert(
                             "css".into(),
                             json!({
-                                "file": css_file.as_deref().map(|f| jsp::relative("/", &cwd, f)),
+                                "file": css_file.as_deref().map(|f| jsp::to_posix(&jsp::relative("/", &cwd, f))),
                                 "rules": rules,
                                 "anchor": anchor,
                             }),

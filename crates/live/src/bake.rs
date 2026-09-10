@@ -533,12 +533,12 @@ mod tests {
         std::fs::write(dir.join("src/styles.css"), ".pricing-grid { display: grid }\n.pricing-card { padding: 1px }").unwrap();
         std::fs::write(dir.join("node_modules/x/x.css"), ".pricing-grid { color: red }").unwrap();
         let cwd = dir.to_string_lossy().into_owned();
-        let found = find_owning_stylesheet(&cwd, "div.pricing-grid").unwrap();
+        let found = jsp::to_posix(&find_owning_stylesheet(&cwd, "div.pricing-grid").unwrap());
         assert!(found.ends_with("src/styles.css"), "{found}");
         assert_eq!(find_owning_stylesheet(&cwd, "div.nothing-here"), None);
         std::fs::remove_file(dir.join("src/styles.css")).unwrap();
         // One stylesheet in the app: it is the one.
-        let only = find_owning_stylesheet(&cwd, "div.nothing-here").unwrap();
+        let only = jsp::to_posix(&find_owning_stylesheet(&cwd, "div.nothing-here").unwrap());
         assert!(only.ends_with("src/reset.css"), "{only}");
         let _ = std::fs::remove_dir_all(&dir);
     }
