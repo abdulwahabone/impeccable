@@ -905,20 +905,22 @@ describe('live-browser source contracts', () => {
     );
     assert.match(
       SOURCE,
-      /if \(msg\.hideLiveBar === true\) \{\s*agentTargetHideBarSession = currentSessionId;\s*setLiveBarHidden\(true\);\s*saveSession\(\);/,
-      'an agent target that asks for it hides the global bar for the session it starts, and remembers that in the session cache',
-    );
-    assert.match(SOURCE, /releaseHiddenLiveBar\(cleanupSessionId\);/, 'cleanup releases the hidden bar for the session it ends');
-    assert.equal(
-      (SOURCE.match(/releaseHiddenLiveBar\(currentSessionId\);\n\s*currentSessionId = null;/g) || []).length,
-      3,
-      'every site that clears the session id releases the bar first, so an accept completion brings it back too',
+      /if \(msg\.hideLiveBar === true\) \{\s*rememberLiveBarHidden\(\);\s*setLiveBarHidden\(true\);/,
+      'an agent target that asks for it hides the global bar and remembers that for this helper instance',
     );
     assert.match(
       SOURCE,
-      /if \(saved\.hideLiveBar === true && saved\.id\) \{\s*agentTargetHideBarSession = saved\.id;\s*setLiveBarHidden\(true\);/,
-      'a reload keeps the bar hidden for a session that asked for it',
+      /function liveBarHiddenKey\(\) \{\s*return 'impeccable-live:hide-bar:' \+ TOKEN;/,
+      'the choice is keyed on the helper token, so the next live boot shows the bar again',
     );
+    assert.match(
+      SOURCE,
+      /updateGlobalBarState\(\);\s*\/\/[^\n]*\n\s*\/\/[^\n]*\n\s*if \(liveBarHiddenForThisHelper\(\)\) setLiveBarHidden\(true\);/,
+      'every reload rebuilds the bar and re-applies the hide',
+    );
+    assert.ok(!/releaseHiddenLiveBar/.test(SOURCE), 'no session end brings the bar back: the accept and the bake that follows stay bar-free');
+    const teardownBody = SOURCE.match(/function teardown\(\) \{[\s\S]*?\n  \}/)?.[0] || '';
+    assert.match(teardownBody, /forgetLiveBarHidden\(\);/, 'only the helper stopping forgets the choice');
     assert.match(
       SOURCE,
       /if \(claim\.granted\) \{ noteAgentTarget\(msg\.targetId, 'acting'\); actOnAgentTarget\(msg\); return; \}/,
