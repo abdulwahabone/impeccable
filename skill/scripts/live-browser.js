@@ -6182,7 +6182,6 @@
     clearSession();
     clearHandled();
     resetSessionFileMeta();
-    releaseHiddenLiveBar(currentSessionId);
     currentSessionId = null;
     parameterGenerationState = 'idle';
     parameterReadyAnnouncedSession = null;
@@ -7216,24 +7215,31 @@
   // actOnAgentTarget around its handleGo call, read once by handleGo.
   let agentTargetForGo = null;
 
-  // The session whose agent target asked for the helper's bottom bar to
-  // stay out of the way (`live-generate --no-live-bar`): the variant
-  // controls still show, the global bar does not, until that session ends.
-  let agentTargetHideBarSession = null;
+  // An agent target that asked for the helper's bottom bar to stay out of
+  // the way (`live-generate --no-live-bar`) hides it for the life of this
+  // helper instance in this tab: through the reloads a session causes, the
+  // accept, and the bake that follows, until the helper stops and takes
+  // the whole overlay with it. The variant controls still show. Keyed on the
+  // helper token so the next `impeccable live` starts with the bar again.
+  function liveBarHiddenKey() {
+    return 'impeccable-live:hide-bar:' + TOKEN;
+  }
+
+  function rememberLiveBarHidden() {
+    try { sessionStorage.setItem(liveBarHiddenKey(), '1'); } catch { /* storage may be unavailable */ }
+  }
+
+  function forgetLiveBarHidden() {
+    try { sessionStorage.removeItem(liveBarHiddenKey()); } catch { /* storage may be unavailable */ }
+  }
+
+  function liveBarHiddenForThisHelper() {
+    try { return sessionStorage.getItem(liveBarHiddenKey()) === '1'; } catch { return false; }
+  }
 
   function setLiveBarHidden(hidden) {
     if (!globalBarEl) return;
     globalBarEl.style.display = hidden ? 'none' : '';
-  }
-
-  // The bar comes back the moment the session that hid it is over, whichever
-  // path ends it (cleanup, an accept's completion, a handled or foreign
-  // session reset): every site that clears currentSessionId releases it.
-  function releaseHiddenLiveBar(sessionId) {
-    if (!agentTargetHideBarSession) return;
-    if (sessionId && sessionId !== agentTargetHideBarSession) return;
-    agentTargetHideBarSession = null;
-    setLiveBarHidden(false);
   }
 
   function claimAgentTarget(targetId, report) {
@@ -7481,9 +7487,8 @@
         agentTargetForGo = null;
         if (state === 'GENERATING' && currentSessionId) {
           if (msg.hideLiveBar === true) {
-            agentTargetHideBarSession = currentSessionId;
+            rememberLiveBarHidden();
             setLiveBarHidden(true);
-            saveSession();
           }
           reply({
             ok: true,
@@ -9356,7 +9361,6 @@ void main() {
     selectedElement = null;
     hoveredElement = null;
     pagePickSkipClick = false;
-    releaseHiddenLiveBar(currentSessionId);
     currentSessionId = null;
     parameterGenerationState = 'idle';
     parameterReadyAnnouncedSession = null;
@@ -9451,10 +9455,6 @@ void main() {
     }
     if (saved.parameterState) parameterGenerationState = saved.parameterState;
     if (saved.generationPhase) generationPhase = saved.generationPhase;
-    if (saved.hideLiveBar === true && saved.id) {
-      agentTargetHideBarSession = saved.id;
-      setLiveBarHidden(true);
-    }
   }
 
   function normalizePagePath(value) {
@@ -9659,7 +9659,6 @@ void main() {
       pageUrl: location.pathname,
       paramValues: { ...paramsCurrentValues },
       parameterState: parameterGenerationState,
-      hideLiveBar: agentTargetHideBarSession === currentSessionId ? true : undefined,
       insertPlaceholder: insertPlaceholderSnapshot || undefined,
       pickedAnchor: pickedAnchorSnapshot || undefined,
       pickedAnchorViewportTop: Number.isFinite(pickedAnchorViewportTop) ? pickedAnchorViewportTop : undefined,
@@ -9707,7 +9706,6 @@ void main() {
     const instantChrome = options?.instantChrome === true;
     const cleanupSessionId = currentSessionId;
     const cleanupRevision = liveInteractionRevision;
-    releaseHiddenLiveBar(cleanupSessionId);
     clearMountErrorCard();
     lastReportedMountFailure = null;
     if (svelteComponentSession?.sessionId === cleanupSessionId) {
@@ -9784,7 +9782,6 @@ void main() {
     selectedElement = null;
     hoveredElement = null;
     pagePickSkipClick = false;
-    releaseHiddenLiveBar(currentSessionId);
     currentSessionId = null;
     parameterGenerationState = 'idle';
     parameterReadyAnnouncedSession = null;
@@ -11986,8 +11983,9 @@ void main() {
     // Listen for detection results AND ready signal
     window.addEventListener('message', onDetectMessage);
     updateGlobalBarState();
-    // A session resumed before the bar existed may have asked for it to stay hidden.
-    if (agentTargetHideBarSession && agentTargetHideBarSession === currentSessionId) setLiveBarHidden(true);
+    // A generate lane asked this helper to keep the bar out of the way; every
+    // reload the session causes rebuilds the bar, so re-apply it here.
+    if (liveBarHiddenForThisHelper()) setLiveBarHidden(true);
   }
 
   function updateGlobalBarState() {
@@ -12190,7 +12188,7 @@ void main() {
     // not refuse every target the next connection hears.
     busyDeclinedTargets.clear();
     agentTargetsSeen.clear();
-    agentTargetHideBarSession = null;
+    forgetLiveBarHidden();
     stopAgentStatusPoll();
     hideAgentPollTooltip();
     if (agentPollTooltipEl) {
