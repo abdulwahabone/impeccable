@@ -1,17 +1,17 @@
 > **Additional context needed**: only the target element, when the request does not name one that resolves uniquely on the page.
 
-Generate is the fast lane into live mode: the user names an element, a direction, and a count in one sentence, and within a minute they are cycling through variants in their browser. You boot the helper, open the page, and hand the element to `impeccable live-generate`; the overlay scrolls to it, selects it, and fires the same Go a click fires. This file is the whole contract for that lane. **Do not read [live.md](live.md) for it**: every tool output carries `_instructions` with the next move for that exact situation, and they win over anything you remember. Open live.md only for a situation this file names as outside the lane.
+Generate is the fast lane into live mode: the user names an element, a direction, and a count in one sentence, and within a minute they are cycling through variants in their browser. One command boots the helper, hands the element to the overlay in the page your harness already shows (it scrolls to it, selects it, and fires the same Go a click fires) and returns the generate event; one edit writes the variants; one call replies and waits for the user's choice, which the helper bakes into source itself. This file is the whole contract for that lane; read [live.md](live.md) only for a situation Step 3 names as outside the lane.
 
 **Web only.** Live mode's browser overlay has no native equivalent; on `ios` / `android` / `adaptive` projects, decline this command and offer `bolder` or `quieter` on the source instead.
 
-Speed is the product here. Every tool call before the variants land is a second the user spends staring at a selected element. The lane below is five commands and one edit; anything beyond it needs a reason from the output in front of you. This lane also replaces Setup step 3 for the preview edit: the floors craft-floor.md guards are written into Step 4, so do not open craft-floor.md, and read the action's reference only when Step 4 says so.
+Speed is the product here. Every tool call before the variants land is a second the user spends staring at a selected element. The lane below is three impeccable commands and one edit around the page your harness already shows; anything beyond it needs a reason from the output in front of you. **Skip Setup step 1 for this command**: do not run `impeccable context`; the boot inside Step 2 loads PRODUCT.md, DESIGN.md, and the surface brief itself. This lane also replaces Setup step 3 for the preview edit: the floors craft-floor.md guards are written into Step 3, so do not open craft-floor.md, and read the action's reference only when Step 3 says so.
 
 Four prohibitions cover the known ways this command goes wrong:
 
-- **Never run init or document, and never ask for PRODUCT.md or DESIGN.md.** When they exist, the boot prints them and you use them. When they do not, the boot says so and you extract the identity from the page (Step 4). A missing file is never a reason to interview the user inside this command; offer `init` in one line after the session ends.
-- **Never hand-write a variants wrapper or invent a session id.** Only the browser mints session ids (8 hex characters, at Go). A missing event is fixed in Step 2 or Step 3, never with a direct source edit.
-- **Open the page yourself** (Step 2). A pasted link usually means no page ever connects.
-- **Do not act on hook findings while live markers are in the file**, and do not restyle variants to appease them; `impeccable live-complete` verifies the file once the accepted variant is permanent.
+- **Never run init or document, and never ask for PRODUCT.md or DESIGN.md.** When they exist, the start command prints them under `boot` and you use them. When they do not, it says so (`contextMissing`, `contextNote`) and you extract the identity from the event (Step 3). A missing file is never a reason to interview the user inside this command; offer `init` in one line after the session ends.
+- **Never hand-write a variants wrapper or invent a session id.** Only the browser mints session ids (8 hex characters, at Go). A missing event is fixed by rerunning Step 2, never with a direct source edit.
+- **Never declare parameter knobs** (`data-impeccable-params`). A variant is a finished design to choose from; the helper bakes the accepted one mechanically, and knobs would block that. Tunable knobs are plain `live`'s job.
+- **Do not act on hook findings while live markers are in the file**, and do not restyle variants to appease them; the accept verifies the file once the variant is permanent.
 
 ## Step 1: Parse the request
 
@@ -30,58 +30,48 @@ Three parts, all from the user's sentence:
   - **motion words**: `animate`
   - **playful words**: `delight`
   - **rule-breaking words**: `overdrive`
-  - **Nothing fits**: `impeccable`, with the user's wording passed as the prompt.
+  - **Wording that carries intent but no vocabulary word** ("make it feel like a bank", "warmer", "more premium"): `impeccable`, with the user's wording passed as the prompt.
   - **An action fits AND extra intent rides along** ("bolder, but keep it monochrome"): that action, with the rest as the prompt.
-- **The element description** ("the pricing cards", "the hero heading"): Step 3 resolves it to a selector.
+  - **The wording names no direction at all** ("better", "improve", "nicer", "different", "fresh", "new", "redesign", "fix", "some options", "ideas", "alternatives", or just "variants" with nothing else): {{ask_instruction}} Ask one question, offering the vocabulary: *"Which direction should the variants take? bolder, quieter, simpler (distill), polished, typography (typeset), color (colorize), layout, motion (animate), playful (delight), or rule-breaking (overdrive)."* Map the answer with this list; an answer that is still open ("surprise me", "you pick") is `impeccable` with the user's original wording as the prompt, and Step 2 starts on that answer.
+- **The element description** ("the pricing cards", "the hero heading"): Step 2 resolves it to a selector.
 
-Done when you hold an action from the vocabulary, a count from 1 to 8, and the element description.
+Done when you hold an action from the vocabulary (asked for, when the request named no direction), a count from 1 to 8, and the element description.
 
-## Step 2: Boot and open the page
+## Step 2: Reuse the page, then start
 
-One command. Pass `--target` with the file that renders the element when the request or the project makes it obvious; skip it otherwise. Always pass all three flags: `--allow-missing-context` lets the boot proceed when PRODUCT.md or DESIGN.md is absent (it changes nothing when both exist), `--dev-url` asks the boot to find the dev server, and `--no-live-bar` tells the helper to keep its bottom bar hidden in every tab for its lifetime and to skip the overlay's missing-context notice (the variant controls still show; both are back on the next plain `live` boot). None of them touches a plain `live` session.
+**Reuse** the dev server already running and the tab your harness already shows it in; a second server or a second browser window is the failure this step prevents.
 
-```bash
-{{scripts_path}}/impeccable live --target src/App.jsx --allow-missing-context --dev-url --no-live-bar
-```
-
-Read three fields of the output and nothing else:
-
-- `product` / `design` (or `contextMissing` with a `contextNote`): the design context you have. Present means use it; missing means the page is the source of truth, per the note. Either way, continue.
-- `devUrl`: the dev server that is serving this app right now. **Open it**: Cursor `browser_navigate`, any other harness its browser tool. `devUrl: null` means no dev server is serving the page yet: start the project's dev script in a background terminal (`npm run dev` or the framework's equivalent), open the URL it prints, and never kill or restart it afterwards.
-- `pageFiles`: the page the helper injected into; the URL that serves it is the one to open (never `serverPort`, that is the helper).
-
-**No browser tool in this harness**: tell the user the exact URL in one line, and pass `--wait-for-browser 120000` in Step 3 so the command fires the moment their page connects.
-
-**`config_missing` / `config_invalid`**: follow [live-setup.md](live-setup.md) first, then rerun the boot.
-
-Done when the boot printed `"ok": true` and a page is open. You do not need to read `package.json`, the dev-server config, terminal logs, or the page source to get here.
-
-## Step 3: Target the element
-
-One command. Derive the selector from what the user said and what you already know of the project: an id first, then a unique class, then a landmark tag plus class. **The request names a repeated component in plural** ("the pricing cards"): target the container that holds the set, so one scoped stylesheet restyles every instance. One read of the source file that renders the element is allowed when the selector is not obvious; `--dry-run` resolves and reports without starting anything when it is not certain.
+1. **Find the dev server**, cheapest source first, and stop at the first hit: the user's message, a browser tab already on the app (Claude Code: an origin in `tabs_context`), a server your harness started (Claude Code: `preview_list`), a terminal that printed its URL. Its origin is your `--dev-url`. **No hit**: leave `--dev-url` off and run the start command with no wait; the boot probes for a running server and its verdict names the move. `browser_needed` carries the `devUrl` it found: open it as in 2, then rerun with `--dev-url <devUrl> --wait-for-browser 60000`. `no_dev_server` means nothing serves the app: start the dev script the way the verdict says (Claude Code: `preview_start`; Cursor: a background terminal; Codex: an exec you yield from), wait for its URL, then rerun with `--dev-url <url>`.
+2. **Open the page that renders the element in your browser, then start.** The route the request names, else the one `--target` serves; `--dev-url` takes only the origin.
+   - **Cursor** (`browser_navigate`) and **Claude Code** (`navigate`, which opens the Browser pane when it is closed and takes the `tabId` from `tabs_context` when a tab is already on that origin): open the URL, then run the start command with `--dev-url <url> --wait-for-browser 60000`. The boot injects the overlay and the page reloads into it while the command waits. Your browser tool is the only opener on these harnesses; the engine ignores `--open` there.
+   - **No browser tool** (Codex, others): run the start command with `--open --wait-for-browser 120000`; it opens the system browser, and the longer wait covers the user finding the tab. **`browser_open_failed` back**: tell the user the `url` in one line and rerun with `--wait-for-browser 120000`.
 
 ```bash
-{{scripts_path}}/impeccable live-generate --selector ".pricing-grid" --action bolder --count 3 --no-live-bar
+{{scripts_path}}/impeccable live-generate --target src/App.jsx --dev-url http://127.0.0.1:5173/ --selector ".pricing-grid" --action bolder --count 3 --boot --wait-for-browser 60000
 ```
 
-Prefer the container's class over its id: the preview mounts one copy of the element per variant, so an id would repeat three times in the DOM.
+Run it in the foreground in Cursor and Claude Code (it returns within the wait); on Codex, in an exec you yield from, the way Step 3 runs the poll.
 
-Flags: `--selector` (required), `--action`, `--count`, `--prompt`, `--text` (keep only matches whose visible text contains a snippet), `--index` (1-based pick among matches), `--dry-run`, `--wait-for-browser <ms>`, `--no-live-bar` (always pass it too: if this helper was booted without the flag, the target itself tells it to hide the bar in every tab from now on).
+- `--target`: the file that renders the element when the request or the project makes it obvious; skip it otherwise.
+- `--dev-url`: the origin from 1; omit it and the boot probes.
+- `--selector`: a unique class first, then a landmark tag plus class, an id last (every variant mounts a copy of the element, so an id repeats in the DOM). **The request names a repeated component in plural** ("the pricing cards"): target the container that holds the set, so one scoped stylesheet restyles every instance. One read of the source file that renders the element is allowed when the selector is not obvious; `--dry-run` resolves and reports without starting anything when it is not certain.
+- `--boot`: runs the lane's boot (context loaded, missing files tolerated, dev URL found, bottom bar hidden for the helper's lifetime) and reuses a helper that is already running. Its result rides along as `boot`.
+- Also available: `--prompt`, `--text` (keep only matches whose visible text contains a snippet), `--index` (1-based pick among matches).
 
-Every verdict carries `_instructions`; follow them over your recollection of this file. Two deserve naming:
+Read the output in this order: `boot.product` / `boot.design` / `boot.surfaceBrief` (or `boot.contextMissing` with `boot.contextNote`: the page is the source of truth, per the note), then `event`, the generate event for `sessionId`, with `_instructions` that carry the whole plan. Every verdict carries `_instructions`, and they win over your recollection of this file; the ones whose move is a decision of yours:
 
-- **`no_browser_connected`**: Step 2's page is not actually open; open it yourself, then rerun.
 - **`ambiguous`**: the candidates are listed; target their common container, or rerun with `--text "<visible text>"` or `--index <n>`.
+- **`no_match`**: the tab is on a route that does not render the element (navigate to the right route, rerun), or the selector is wrong (derive a better one from the source, or add `--text`).
+- **`config_missing` / `config_invalid`** under `bootError`: follow [live-setup.md](live-setup.md) first, then rerun.
+- **`event: null`** with `ok: true`: the event was slower than the wait; run `{{scripts_path}}/impeccable live-poll` once to collect it, then continue.
 
-Done when the verdict is `ok: true` with a `sessionId`: the browser has scrolled to the element, selected it, and fired Go.
+Done when the output shows `ok: true`, a `sessionId`, and an `event`, reached with at most one server started and one tab opened by you.
 
-## Step 4: Generate
+## Step 3: Generate
 
-Start the poll. Harness policy: **Cursor** runs `{{scripts_path}}/impeccable live-poll` one-shot in a background terminal with notify on `"type":"(generate|accept|discard|variant_mount_failed|exit)"`, handles the event, replies, and restarts the poll; **Claude Code** runs it as a background task; **Codex** runs it one-shot in a yielded foreground exec session and services it; never pass a short `--timeout=`.
+The event's `_instructions` are the plan: the fast path names the identity sources (the event's `element.computedStyles`, `cssCustomProperties`, and `parentContext`, plus `boot`), the three dimensions your variants vary for this action, and the exact splice. Do it in ONE edit and reply. Concretely:
 
-The first event is the `generate` for your `sessionId`, and its `_instructions` are the whole plan: the fast path names the identity sources (the event's `element.computedStyles`, `cssCustomProperties`, and `parentContext`, plus whatever the boot printed), the three dimensions your variants vary for this action, the no-knobs default, and the exact splice. Do it in ONE edit and reply done. Concretely:
-
-1. **Identity, one sentence, from the event.** Real colors, faces, corners, borders, shadows, and the layout topology on screen. DESIGN.md wins when the boot printed one. Never read PRODUCT.md, DESIGN.md, live.md, or craft-floor.md for this; never screenshot the page.
+1. **Identity, one sentence, from the event.** Real colors, faces, corners, borders, shadows, and the layout topology on screen. `boot.design` wins when it is present, and it is a boundary, not a mood board: its tokens and named rules hold in every variant. Amplify inside them (a system that forbids fills, shadows, tints, or unequal columns gets its boldest allowed move on that axis, not the forbidden one), and leave the tokens an axis does not need exactly as written (radius, border, padding, the one bold weight). Leaving the system is the user's decision to make afterwards, never a variant's. Never read PRODUCT.md, DESIGN.md, live.md, or craft-floor.md for this; never screenshot the page.
 2. **The action's reference is optional.** Read `reference/<action>.md` only when the prompt or the element makes the direction unclear; the `_instructions` already carry the action's three dimensions.
 3. **Write the splice.** The event's `scaffold` tells you where: `sourceWritten: false` hands you `wrapperBlock` and the source range to replace (`replaceStartLine` to `replaceEndLine`); a written wrapper hands you `file` and `insertLine`. Either way, one edit lands the preview CSS plus all variants:
 
@@ -97,36 +87,34 @@ The first event is the `generate` for your `sessionId`, and its `_instructions` 
 <div data-impeccable-variant="3" style="display: none"><!-- variant 3 --></div>
 ```
 
-   Rules that keep the browser mounting what you wrote: each variant div holds exactly ONE top-level element, same tag as the original, with the copy verbatim; first variant visible, the rest `display: none`; every `:scope` rule steps into a descendant (`:scope > .card`, never a bare `:scope`); use the `styleTag` and selector strategy from the event's `cssAuthoring` when it differs from the sketch above. **JSX / TSX**: wrap the `<style>` content in a template literal, use `className=` and `style={{ display: 'none' }}`, keep `data-impeccable-*` attributes as plain strings.
-4. **No parameter knobs** unless the user asked for something tunable. A variant is a finished design to choose from, not a control panel. When the request does ask ("with knobs", "let me adjust"), declare at most two per variant on its div and author the CSS against them; nothing else about the splice changes:
+   Rules that keep the browser mounting what you wrote, and the accept baking it:
+   - each variant div holds exactly one top-level element, same tag as the original, its id or class kept so the bake can anchor its selectors, copy verbatim;
+   - first variant visible, the rest `display: none`;
+   - every `:scope` rule steps into a descendant (`:scope > .card`; a bare `:scope` or a sibling combinator on it breaks the bake);
+   - the variant's own markup carries no `data-impeccable-*` attributes;
+   - the event's `cssAuthoring` wins over the sketch above for `styleTag` and selector strategy;
+   - **JSX / TSX**: wrap the `<style>` content in a template literal, use `className=` and `style={{ display: 'none' }}`, keep `data-impeccable-*` attributes as plain strings.
+4. **No knobs**, per the prohibition above: `data-impeccable-params`, `data-p-*` selectors, or `var(--p-*)` values turn the mechanical accept into a manual one.
+5. **Floors, by construction**: body text contrast 4.5:1 or better, no text under 12px, controls at least 40px tall, focus states kept. Do not verify beyond that; the overlay preview is the review channel until accept.
+6. **Reply and wait in one call**, with the file you wrote:
 
-```html
-<div data-impeccable-variant="1" data-impeccable-params='[
-  {"id":"price-scale","kind":"range","min":0.8,"max":1.4,"step":0.05,"default":1,"label":"Price scale"},
-  {"id":"density","kind":"steps","default":"normal","label":"Density","options":[{"value":"tight","label":"Tight"},{"value":"normal","label":"Normal"}]},
-  {"id":"caps","kind":"toggle","default":false,"label":"Caps"}
-]'>
+```bash
+{{scripts_path}}/impeccable live-poll --reply EVENT_ID done --file src/App.jsx --then-poll
 ```
 
-   `range` and `toggle` drive `--p-<id>` (write `var(--p-price-scale, 1)`); `steps` drives `data-p-<id>` (write `:scope[data-p-density="tight"] .card { ... }`). On JSX keep the attribute a plain string. At accept, the bake in Step 5 keeps the branch matching the chosen values and substitutes the range literals, so the accepted design never depends on a knob.
-5. **Floors, by construction**: body text contrast 4.5:1 or better, no text under 12px, controls at least 40px tall, focus states kept. Do not verify beyond that; the overlay preview is the review channel until accept.
-6. **Reply done** with the file you wrote: `{{scripts_path}}/impeccable live-poll --reply EVENT_ID done --file src/App.jsx`, then poll again. If the edit fails after the browser flipped to GENERATING, `--reply EVENT_ID error "Short reason"` so the bar resets.
+   This replies done (the browser mounts the variants) and then blocks until the user's choice arrives, so run it the way your harness runs a long poll: **Cursor** in a background terminal with notify on `"type":"(accept|discard|variant_mount_failed|exit)"`; **Claude Code** as a background task; **Codex** in a yielded foreground exec session. Never pass a short `--timeout=`. If the edit fails after the browser flipped to GENERATING, `--reply EVENT_ID error "Short reason"` (without `--then-poll`) so the bar resets.
 
 Then tell the user, in one line, where their variants are: *"Three [bolder] variants are live on [the pricing cards]: cycle with the floating bar's arrows and Accept the keeper."*
 
-Outside the lane, read the matching live.md section before acting: `scaffold.previewMode: "svelte-component"` (Svelte previews are edited as components), `mode: "insert"`, `variant_mount_failed`, `steer`, `manual_edit_apply`, and any `fallback: "agent-driven"` wrap error.
+Outside the lane, read the matching live.md section before acting: `scaffold.previewMode: "svelte-component"` (Svelte previews are edited as components, and their accept was always mechanical), `mode: "insert"`, `variant_mount_failed`, `steer`, `manual_edit_apply`, and any `fallback: "agent-driven"` wrap error.
 
-## Step 5: Accept and close
+## Step 4: Accept and close
 
-`accept` and `discard` arrive on the poll. The poll script has already run `impeccable live-accept`; the browser is already showing the choice. **Discard**: nothing to do; go to the close below. **Accept with `carbonize: false`**: same. **Accept with `carbonize: true`**: the accepted variant sits in source between `impeccable-carbonize-start/end SESSION_ID` markers with an inline `<style data-impeccable-css>`; make it permanent in one pass over `_acceptResult.file` and the stylesheet that already owns the element's styling:
+The call from Step 3 returns the user's choice. **`discard`**: nothing to do. **`accept` with `_acceptResult.baked: true`**: the helper already made the variant permanent (its rules were rewritten to real selectors and appended to `_acceptResult.css.file`, or to the page's own `<style>` block; the wrapper is gone; the session is complete): nothing to do, and no `live-complete`. Do not re-read or restyle the file.
 
-1. Move the accepted variant's rules into that stylesheet, rewriting `@scope ([data-impeccable-variant="N"]) { :scope > .x }` to the real selectors (`.pricing > .x`). If the variant declared knobs, the `<!-- impeccable-param-values -->` comment beside the block carries the chosen values: keep only the matching `data-p-*` branch and substitute each `var(--p-*)` with its literal.
-2. Unwrap: keep the accepted element, delete the variant div (and on JSX the outer `data-impeccable-carbonize` div), drop every `data-impeccable-*` and `data-p-*` attribute.
-3. Delete the inline `<style>` block, both markers, and any rules for the other variants.
+**`accept` with `carbonize: true`** (the bake was not mechanical; `bakeSkipped` says why): finish it by hand in one pass over `_acceptResult.file` and the stylesheet that already owns the element's styling: move the accepted variant's rules into that stylesheet with real selectors (`@scope ([data-impeccable-variant="N"]) { :scope > .x }` becomes `.pricing > .x`), unwrap the element and drop every `data-impeccable-*` attribute, delete the inline `<style>` block and both `impeccable-carbonize` markers, then `{{scripts_path}}/impeccable live-complete --id SESSION_ID` and confirm `phase: "completed"`. Reads before that bake: `_acceptResult.file` and the stylesheet, nothing else.
 
-Then `{{scripts_path}}/impeccable live-complete --id SESSION_ID` and confirm `phase: "completed"`; it refuses with `source_dirty` and findings while any live-mode leftover remains, so fix and rerun. **That command is the verification for this lane**: no `detect` pass, no document or init, no DESIGN.md edits, no reading of `document.md`. Reads before the bake: `_acceptResult.file` and the stylesheet, nothing else.
-
-Close without being asked, the moment the accept or discard is complete. The accept event's own `_instructions` end with "poll again"; in this lane the close below replaces that poll:
+Close without being asked, the moment the choice is handled:
 
 ```bash
 {{scripts_path}}/impeccable live-server stop
@@ -134,7 +122,7 @@ Close without being asked, the moment the accept or discard is complete. The acc
 
 Stopping removes the injected script and reloads the page once: the user sees the accepted design with no overlay chrome, still served by their dev server. **Never kill or restart the dev server**, including one you started in Step 2.
 
-- **The user asks for more variants before you closed**: skip the close, target the next element through the same session (Step 3), and close after the last accept.
+- **The user asks for more variants before you closed**: skip the close, run Step 2 again for the next element (the helper is reused), and close after the last choice.
 - **Interrupted or unsure of the state**: `{{scripts_path}}/impeccable live-status`, then `live-resume`; the journal under `.impeccable/live/sessions/` is canonical.
 
 Done when the helper is stopped and the dev site still answers with the accepted design.
