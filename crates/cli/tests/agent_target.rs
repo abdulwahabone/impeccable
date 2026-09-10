@@ -605,9 +605,19 @@ fn agent_target_forwards_the_hidden_bar_request_to_the_overlay() {
     let s = Server::start("hide-bar");
     let mut a = Overlay::connect(s.port, &s.token, "tab-a");
     a.next(|m| m["type"] == "connected");
+    let mut b = Overlay::connect(s.port, &s.token, "tab-b");
+    b.next(|m| m["type"] == "connected");
     let held = s.hold(serde_json::json!({ "hideLiveBar": true }));
+    // Helper-wide and first: every connected tab hears it before the target.
+    assert_eq!(a.next(|m| m["type"] == "live_bar")["hidden"], serde_json::json!(true));
+    assert_eq!(b.next(|m| m["type"] == "live_bar")["hidden"], serde_json::json!(true));
     let pushed = a.next(|m| m["type"] == "agent_target");
     assert_eq!(pushed["hideLiveBar"], serde_json::json!(true), "{pushed}");
+    // A tab connecting later learns it on connect.
+    let mut c = Overlay::connect(s.port, &s.token, "tab-c");
+    assert_eq!(c.next(|m| m["type"] == "connected")["hideLiveBar"], serde_json::json!(true));
+    let (_, status) = post_json(s.port, "/status", serde_json::json!({ "token": s.token }));
+    let _ = status;
     let target_id = pushed["targetId"].as_str().unwrap().to_string();
     post_json(s.port, "/agent-target-result", serde_json::json!({ "token": s.token, "targetId": target_id, "ok": true, "sessionId": "aabbccdd" }));
     held.join().unwrap();
@@ -621,4 +631,21 @@ fn agent_target_forwards_the_hidden_bar_request_to_the_overlay() {
     let (status, body) = post_json(s.port, "/agent-target", s.target(serde_json::json!({ "hideLiveBar": "yes" })));
     assert_eq!(status, 400, "{body}");
     assert_eq!(body["error"], serde_json::json!("agent_target: hideLiveBar must be a boolean"));
+}
+
+#[test]
+fn live_bar_route_sets_the_helper_wide_preference() {
+    let s = Server::start("live-bar");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    assert_eq!(a.next(|m| m["type"] == "connected")["hideLiveBar"], serde_json::json!(false));
+    let (status, body) = post_json(s.port, "/live-bar", serde_json::json!({ "token": s.token, "hidden": true }));
+    assert_eq!(status, 200, "{body}");
+    assert_eq!(body["hidden"], serde_json::json!(true));
+    assert_eq!(a.next(|m| m["type"] == "live_bar")["hidden"], serde_json::json!(true));
+    let (status, body) = post_json(s.port, "/live-bar", serde_json::json!({ "token": s.token, "hidden": "yes" }));
+    assert_eq!(status, 400, "{body}");
+    let (status, body) = post_json(s.port, "/live-bar", serde_json::json!({ "token": "nope", "hidden": true }));
+    assert_eq!(status, 401, "{body}");
+    let mut b = Overlay::connect(s.port, &s.token, "tab-b");
+    assert_eq!(b.next(|m| m["type"] == "connected")["hideLiveBar"], serde_json::json!(true));
 }

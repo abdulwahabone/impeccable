@@ -7215,26 +7215,18 @@
   // actOnAgentTarget around its handleGo call, read once by handleGo.
   let agentTargetForGo = null;
 
-  // An agent target that asked for the helper's bottom bar to stay out of
-  // the way (`live-generate --no-live-bar`) hides it for the life of this
-  // helper instance in this tab: through the reloads a session causes, the
-  // accept, and the bake that follows, until the helper stops and takes
-  // the whole overlay with it. The variant controls still show. Keyed on the
-  // helper token so the next `impeccable live` starts with the bar again.
-  function liveBarHiddenKey() {
-    return 'impeccable-live:hide-bar:' + TOKEN;
-  }
+  // The helper's word on its global bar. The generate lane asks the helper
+  // to keep it out of the way (`impeccable live --no-live-bar`, or an agent
+  // target carrying hideLiveBar), and the helper tells every connected tab
+  // at once (`live_bar`) and every later connection on `connected`, so the
+  // bar stays hidden in every tab, through reloads, the accept, and the
+  // bake, until the helper stops and takes the overlay with it. The variant
+  // controls still show.
+  let liveBarHiddenByHelper = false;
 
-  function rememberLiveBarHidden() {
-    try { sessionStorage.setItem(liveBarHiddenKey(), '1'); } catch { /* storage may be unavailable */ }
-  }
-
-  function forgetLiveBarHidden() {
-    try { sessionStorage.removeItem(liveBarHiddenKey()); } catch { /* storage may be unavailable */ }
-  }
-
-  function liveBarHiddenForThisHelper() {
-    try { return sessionStorage.getItem(liveBarHiddenKey()) === '1'; } catch { return false; }
+  function applyLiveBarPreference(hidden) {
+    liveBarHiddenByHelper = hidden === true;
+    setLiveBarHidden(liveBarHiddenByHelper);
   }
 
   function setLiveBarHidden(hidden) {
@@ -7486,10 +7478,6 @@
         handleGo();
         agentTargetForGo = null;
         if (state === 'GENERATING' && currentSessionId) {
-          if (msg.hideLiveBar === true) {
-            rememberLiveBarHidden();
-            setLiveBarHidden(true);
-          }
           reply({
             ok: true,
             matchCount: resolved.matchCount,
@@ -7525,8 +7513,11 @@
       let msg; try { msg = JSON.parse(e.data); } catch { return; }
       switch (msg.type) {
         case 'connected':
+          applyLiveBarPreference(msg.hideLiveBar === true);
           hasProjectContext = !!msg.hasProjectContext;
-          if (!hasProjectContext) showToast(`No PRODUCT.md found. Variants will be brand-agnostic. Run ${IMPECCABLE_COMMAND} init to generate one.`, 7000);
+          // The generate lane runs without PRODUCT.md by design and never
+          // sends the user to init, so its quiet chrome skips this notice.
+          if (!hasProjectContext && !liveBarHiddenByHelper) showToast(`No PRODUCT.md found. Variants will be brand-agnostic. Run ${IMPECCABLE_COMMAND} init to generate one.`, 7000);
           console.log('[impeccable] Live mode connected.');
           syncAgentPollingUi(!!msg.agentPolling);
           startAgentStatusPoll();
@@ -7535,6 +7526,9 @@
           if (state === 'IDLE' && (pickActive || insertActive)) setLiveState('PICKING');
           syncPageInteractionCursor();
           syncPageChatFocus('sse-connected');
+          break;
+        case 'live_bar':
+          applyLiveBarPreference(msg.hidden === true);
           break;
         case 'agent_polling':
           syncAgentPollingUi(!!msg.connected);
@@ -11983,9 +11977,9 @@ void main() {
     // Listen for detection results AND ready signal
     window.addEventListener('message', onDetectMessage);
     updateGlobalBarState();
-    // A generate lane asked this helper to keep the bar out of the way; every
-    // reload the session causes rebuilds the bar, so re-apply it here.
-    if (liveBarHiddenForThisHelper()) setLiveBarHidden(true);
+    // The helper may already have said the bar stays hidden (a connect
+    // that raced the bar build, or a reload mid-lane): re-apply it here.
+    if (liveBarHiddenByHelper) setLiveBarHidden(true);
   }
 
   function updateGlobalBarState() {
@@ -12188,7 +12182,7 @@ void main() {
     // not refuse every target the next connection hears.
     busyDeclinedTargets.clear();
     agentTargetsSeen.clear();
-    forgetLiveBarHidden();
+    liveBarHiddenByHelper = false;
     stopAgentStatusPoll();
     hideAgentPollTooltip();
     if (agentPollTooltipEl) {
