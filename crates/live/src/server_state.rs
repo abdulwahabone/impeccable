@@ -34,6 +34,9 @@ pub struct ParkedPoll {
     pub tx: Sender<Value>,
     pub lease_ms: i64,
     pub types: Option<Vec<String>>,
+    /// `GET /poll?id=`: lease only the events of that session (the
+    /// generate verb picks up its own event without touching another's).
+    pub event_id: Option<String>,
 }
 
 pub struct SseClient {
@@ -184,11 +187,17 @@ pub fn select_available_pending_event(
     entries: &[PendingEntry],
     now: i64,
     types: Option<&[String]>,
+    event_id: Option<&str>,
 ) -> Option<usize> {
     let mut best: Option<usize> = None;
     for (i, entry) in entries.iter().enumerate() {
         if is_leased_at(entry, now) {
             continue;
+        }
+        if let Some(wanted) = event_id {
+            if entry.event.get("id").and_then(|v| v.as_str()) != Some(wanted) {
+                continue;
+            }
         }
         if let Some(allowed) = types {
             let ty = entry
@@ -276,8 +285,12 @@ impl ServerState {
         }
     }
 
-    pub fn find_available_pending_event(&self, types: Option<&[String]>) -> Option<usize> {
-        select_available_pending_event(&self.pending_events, now_i64(), types)
+    pub fn find_available_pending_event(
+        &self,
+        types: Option<&[String]>,
+        event_id: Option<&str>,
+    ) -> Option<usize> {
+        select_available_pending_event(&self.pending_events, now_i64(), types, event_id)
     }
 
     /// JS: recordAgentPhase(id, phase, details)
@@ -425,9 +438,12 @@ impl ServerState {
             let mut found: Option<(usize, usize)> = None;
             let now = now_i64();
             for (pi, poll) in self.pending_polls.iter().enumerate() {
-                if let Some(ei) =
-                    select_available_pending_event(&self.pending_events, now, poll.types.as_deref())
-                {
+                if let Some(ei) = select_available_pending_event(
+                    &self.pending_events,
+                    now,
+                    poll.types.as_deref(),
+                    poll.event_id.as_deref(),
+                ) {
                     found = Some((pi, ei));
                     break;
                 }
@@ -641,6 +657,7 @@ impl ServerState {
         &mut self,
         lease_ms: i64,
         types: Option<Vec<String>>,
+        event_id: Option<String>,
     ) -> (u64, Receiver<Value>) {
         let (tx, rx) = channel();
         let id = self.next_poll_id;
@@ -650,6 +667,7 @@ impl ServerState {
             tx,
             lease_ms,
             types,
+            event_id,
         });
         self.broadcast_agent_polling_if_changed();
         self.schedule_lease_flush();

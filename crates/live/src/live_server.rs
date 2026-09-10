@@ -663,9 +663,9 @@ fn handle_connection(shared: Shared, mut stream: TcpStream, mut ticket: Ticket) 
                 );
                 return;
             }
-            let (cwd, env, port, roots) = {
+            let (cwd, env, port, roots, live_bar_hidden) = {
                 let st = lock(&shared);
-                (st.cwd.clone(), st.env.clone(), st.port, st.roots.clone())
+                (st.cwd.clone(), st.env.clone(), st.port, st.roots.clone(), st.hide_live_bar)
             };
             let parts = match read_live_browser_script_parts(scripts_dir(&env, &cwd).as_deref()) {
                 Ok(p) => p,
@@ -692,7 +692,7 @@ fn handle_connection(shared: Shared, mut stream: TcpStream, mut ticket: Ticket) 
                 roots.as_ref().and_then(|r| r.context_root.as_deref()),
                 roots.as_ref().map(|r| r.repo_root.as_str()),
             );
-            let body = assemble_live_browser_script(&token_now, port, &prefix, &cwd, &parts, &project_ignores);
+            let body = assemble_live_browser_script(&token_now, port, &prefix, &cwd, &parts, &project_ignores, live_bar_hidden);
             respond(
                 &mut stream,
                 &cors,
@@ -1369,9 +1369,16 @@ fn handle_poll_get(
     let lease_raw = parse_int_or(req.query_get("leaseMs"), 30000);
     let lease_ms = if lease_raw == i64::MIN { 0 } else { lease_raw };
     let types = parse_poll_types(req.query_get("types"));
+    // `id=`: only that session's events (the generate verb collecting its
+    // own generate event leaves every other session's queue alone).
+    let event_id = req
+        .query_get("id")
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+        .map(str::to_string);
     let mut st = lock(shared);
     st.last_poll_at = now_i64();
-    if let Some(idx) = st.find_available_pending_event(types.as_deref()) {
+    if let Some(idx) = st.find_available_pending_event(types.as_deref(), event_id.as_deref()) {
         st.pending_events[idx].lease_until = now_i64() + lease_ms;
         let seq = st.pending_events[idx].seq;
         let event = st.pending_events[idx].event.clone();
@@ -1383,7 +1390,7 @@ fn handle_poll_get(
         respond(&mut stream, cors, json_res(200, Value::Object(event)));
         return;
     }
-    let (poll_id, rx) = st.park_poll(lease_ms, types);
+    let (poll_id, rx) = st.park_poll(lease_ms, types, event_id);
     drop(st);
     ticket.release();
     let done = Arc::new(AtomicBool::new(false));

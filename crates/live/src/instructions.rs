@@ -58,7 +58,7 @@ fn fast_path_instructions(event: &Map<String, Value>) -> String {
         .map(|p| format!(" The user's prompt narrows every variant: \"{}\".", slice16(p, 200)))
         .unwrap_or_default();
     format!(
-        "Fast path (the user asked for {count} \"{action}\" variants to choose from, and is watching): do not read live.md, craft-floor.md, PRODUCT.md, or DESIGN.md now; the boot already handed you any design context, and this event carries element.computedStyles, element.cssCustomProperties, and element.parentContext. Lock the identity in ONE sentence from those (real colors, faces, corners, borders, shadows), then write {count} variants that each amplify a DIFFERENT dimension for {action}: {axes}. Keep the copy verbatim; no new fonts or hues beyond what the page already uses unless the prompt asks. No parameter knobs (no data-impeccable-params) unless the prompt asks for something tunable. Floors: body text contrast 4.5:1 or better, no text under 12px, controls at least 40px tall, focus states kept.{prompt}",
+        "Fast path (the user asked for {count} \"{action}\" variants to choose from, and is watching): do not read live.md, craft-floor.md, PRODUCT.md, or DESIGN.md now; the boot already handed you any design context, and this event carries element.computedStyles, element.cssCustomProperties, and element.parentContext. Lock the identity in ONE sentence from those (real colors, faces, corners, borders, shadows), then write {count} variants that each amplify a DIFFERENT dimension for {action}: {axes}. Keep the copy verbatim; no new fonts or hues beyond what the page already uses unless the prompt asks. When the boot printed a DESIGN.md, its tokens and named rules bound every variant: amplify inside them, never against them (a system that forbids fills, shadows, tints, or unequal columns gets its boldest allowed move on that axis instead, and tokens the axis does not need, such as radius, border, padding, and the number of bold weights, stay exactly as written); leaving the system is the user's call, not a variant. No parameter knobs (no data-impeccable-params): this lane bakes the accepted variant mechanically, and knobs belong to plain live. Floors: body text contrast 4.5:1 or better, no text under 12px, controls at least 40px tall, focus states kept.{prompt}",
         count = count,
         action = action,
         axes = action_axes(action),
@@ -385,6 +385,20 @@ fn accept_instructions(event: &Map<String, Value>, self_cmd: &str) -> String {
             js_str(result.get("file")),
             script_cmd(self_cmd, "live-complete"),
             id
+        );
+    }
+    if handled && result.get("baked") == Some(&Value::Bool(true)) {
+        let css_file = match result.get("css").and_then(|c| c.get("file")) {
+            Some(v) if truthy(Some(v)) => format!("appended to {}", js_str(Some(v))),
+            _ => "kept in the page's own <style> block".to_string(),
+        };
+        return format!(
+            "{}Variant {} is baked into {}: its CSS was {} with real selectors and the wrapper is gone; the session is complete and there is nothing to clean up (no live-complete needed). Generate lane: stop the helper now with {} stop. Otherwise poll again.",
+            prefix,
+            js_str(result.get("variant")),
+            js_str(result.get("file")),
+            css_file,
+            script_cmd(self_cmd, "live-server")
         );
     }
     if handled {

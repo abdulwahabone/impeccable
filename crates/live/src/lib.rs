@@ -6,7 +6,9 @@
 
 pub mod accept_css;
 pub mod accept_verify;
+pub mod bake;
 pub mod browser_assets;
+pub mod browser_open;
 pub mod config;
 pub mod copy_edit_agent;
 pub mod design_md;

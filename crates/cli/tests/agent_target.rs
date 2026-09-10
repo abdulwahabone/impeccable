@@ -687,3 +687,221 @@ fn agent_target_result_is_honored_only_from_the_lease_holder() {
     assert_eq!(verdict["sessionId"], serde_json::json!("aabbccdd"), "{verdict}");
     let _ = &mut b;
 }
+
+/// The generate verb as the agent runs it, against this helper's dir.
+fn spawn_cli(s: &Server, args: &[&str]) -> std::process::Child {
+    std::process::Command::new(env!("CARGO_BIN_EXE_impeccable"))
+        .args(args)
+        .current_dir(&s.dir)
+        .env("IMPECCABLE_LIVE_COPY_AGENT", "off")
+        .stdout(std::process::Stdio::piped())
+        .stderr(std::process::Stdio::piped())
+        .spawn()
+        .expect("spawn cli")
+}
+
+fn cli_json(child: std::process::Child) -> (i32, serde_json::Value, String) {
+    let out = child.wait_with_output().expect("cli output");
+    let stdout = String::from_utf8_lossy(&out.stdout).into_owned();
+    let stderr = String::from_utf8_lossy(&out.stderr).into_owned();
+    // live-generate prints one pretty object; live-poll prints one line.
+    let v: serde_json::Value = serde_json::from_str(stdout.trim())
+        .or_else(|_| serde_json::from_str(stdout.trim().lines().last().unwrap_or("")))
+        .unwrap_or_else(|e| panic!("{e}\nstdout: {stdout}\nstderr: {stderr}"));
+    (out.status.code().unwrap_or(-1), v, stderr)
+}
+
+#[test]
+fn live_generate_collects_its_own_generate_event_and_reply_then_poll_returns_the_next_one() {
+    let s = Server::start("collect");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    a.next(|m| m["type"] == "connected");
+    let child = spawn_cli(&s, &["live-generate", "--selector", "h1", "--action", "bolder", "--count", "3"]);
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    let (status, ack) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "c0ffee11", "tab-a"));
+    assert_eq!(status, 200, "{ack}");
+    let (code, verdict, stderr) = cli_json(child);
+    assert_eq!(code, 0, "{verdict}\n{stderr}");
+    assert_eq!(verdict["ok"], serde_json::json!(true), "{verdict}");
+    assert_eq!(verdict["sessionId"], serde_json::json!("c0ffee11"));
+    // B: the session's generate event rides along, leased, with the fast path.
+    assert_eq!(verdict["event"]["type"], serde_json::json!("generate"), "{verdict}");
+    assert_eq!(verdict["event"]["id"], serde_json::json!("c0ffee11"));
+    assert_eq!(verdict["event"]["origin"], serde_json::json!("agent"));
+    assert!(verdict["event"]["_instructions"].as_str().unwrap().contains("Fast path"), "{verdict}");
+    assert!(verdict["_instructions"].as_str().unwrap().contains("--reply c0ffee11 done --file <project-root-relative path you wrote> --then-poll"), "{verdict}");
+    // Leased: a plain poll finds nothing else to hand out.
+    let (_, polled) = http(s.port, "GET", &format!("/poll?token={}&timeout=300", s.token), None);
+    assert!(polled.contains("\"timeout\""), "{polled}");
+    // A: reply done and wait for the next event in one call; a steer lands
+    // while it waits.
+    let child = spawn_cli(&s, &["live-poll", "--reply", "c0ffee11", "done", "--file", "index.html", "--then-poll", "--timeout=8000"]);
+    std::thread::sleep(Duration::from_millis(900));
+    let (status, body) = post_json(s.port, "/events", serde_json::json!({ "token": s.token, "type": "steer", "id": "c0ffee11", "message": "warmer" }));
+    assert_eq!(status, 200, "{body}");
+    let (code, event, stderr) = cli_json(child);
+    assert_eq!(code, 0, "{event}\n{stderr}");
+    assert_eq!(event["type"], serde_json::json!("steer"), "{event}");
+    assert_eq!(event["_replyAck"]["ok"], serde_json::json!(true), "{event}");
+    assert_eq!(event["_replyAck"]["status"], serde_json::json!("done"));
+    assert_eq!(event["_replyAck"]["file"], serde_json::json!("index.html"));
+    assert!(event["_replyAck"].get("_instructions").is_none(), "{event}");
+    assert!(event["_instructions"].as_str().unwrap().contains("steer_done"), "{event}");
+}
+
+#[test]
+fn live_generate_boot_and_open_run_the_lane_from_a_cold_project() {
+    // No helper running: --boot starts one (the lane's flags), --open hands the
+    // dev URL to the configured browser, and the overlay that page brings up
+    // serves the target.
+    let dir = std::env::temp_dir().join(format!("impeccable-agent-target-cold-{}", std::process::id()));
+    let _ = std::fs::remove_dir_all(&dir);
+    std::fs::create_dir_all(dir.join(".impeccable/live")).unwrap();
+    std::fs::write(dir.join("index.html"), "<html><body><h1>t</h1></body></html>").unwrap();
+    std::fs::write(dir.join(".impeccable/live/config.json"), "{\"files\":[\"index.html\"],\"insertBefore\":\"</body>\",\"commentSyntax\":\"html\"}").unwrap();
+    // The "browser": a script that records the URL it was asked to open.
+    let opener = dir.join("opener.sh");
+    std::fs::write(&opener, format!("#!/bin/sh\necho \"$1\" > {}\n", dir.join("opened.txt").display())).unwrap();
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        std::fs::set_permissions(&opener, std::fs::Permissions::from_mode(0o755)).unwrap();
+    }
+    std::fs::write(dir.join(".impeccable/config.local.json"), format!("{{\"browser\":\"{}\"}}", opener.display())).unwrap();
+    // A stand-in dev server serving the injected page, so --dev-url finds it.
+    let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+    let dev_port = listener.local_addr().unwrap().port();
+    let page_dir = dir.clone();
+    std::thread::spawn(move || {
+        for stream in listener.incoming().flatten() {
+            let mut stream = stream;
+            let mut buf = [0u8; 2048];
+            let _ = std::io::Read::read(&mut stream, &mut buf);
+            let body = std::fs::read_to_string(page_dir.join("index.html")).unwrap_or_default();
+            let res = format!("HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}", body.len(), body);
+            let _ = std::io::Write::write_all(&mut stream, res.as_bytes());
+        }
+    });
+    let out = std::process::Command::new(env!("CARGO_BIN_EXE_impeccable"))
+        .args(["live-generate", "--selector", "h1", "--action", "bolder", "--boot", "--open", "--wait-for-browser", "1500"])
+        .current_dir(&dir)
+        .env("IMPECCABLE_LIVE_COPY_AGENT", "off")
+        .env("IMPECCABLE_DEV_URL_CANDIDATES", format!("http://127.0.0.1:{}/", dev_port))
+        .env("IMPECCABLE_AGENT_TARGET_TIMEOUT_MS", "400")
+        .output()
+        .expect("cli");
+    let stdout = String::from_utf8_lossy(&out.stdout).into_owned();
+    let v: serde_json::Value = serde_json::from_str(stdout.trim()).unwrap_or_else(|e| panic!("{e}: {stdout}"));
+    // The boot ran (helper started, page injected, bar hidden, dev URL found).
+    assert_eq!(v["boot"]["liveBarHidden"], serde_json::json!(true), "{v}");
+    assert_eq!(v["boot"]["devUrl"], serde_json::json!(format!("http://127.0.0.1:{}/", dev_port)), "{v}");
+    assert_eq!(v["boot"]["contextMissing"], serde_json::json!(["PRODUCT.md", "DESIGN.md"]), "{v}");
+    assert!(v["boot"].get("serverToken").is_none() && v["boot"].get("_instructions").is_none(), "{v}");
+    // The page was handed to the configured browser, which never connects an
+    // overlay here, so the wait ends in no_browser_connected naming the open.
+    let opened = std::fs::read_to_string(dir.join("opened.txt")).unwrap_or_default();
+    assert_eq!(opened.trim(), format!("http://127.0.0.1:{}/", dev_port), "{v}");
+    assert_eq!(v["error"], serde_json::json!("no_browser_connected"), "{v}");
+    assert_eq!(v["opened"]["url"], serde_json::json!(format!("http://127.0.0.1:{}/", dev_port)));
+    assert!(v["_instructions"].as_str().unwrap().contains("opened in the browser"), "{v}");
+    // Cleanup: stop the helper the boot started.
+    let info: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(dir.join(".impeccable/live/server.json")).unwrap()).unwrap();
+    let _ = http(info["port"].as_u64().unwrap() as u16, "GET", &format!("/stop?token={}", info["token"].as_str().unwrap()), None);
+    std::thread::sleep(Duration::from_millis(500));
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
+#[test]
+fn live_generate_asks_the_harness_to_open_the_page_instead_of_a_second_browser() {
+    // Helper up, no page connected, nothing asked to open, nothing to wait
+    // for: the verdict hands the dev URL back with the harness's own way of
+    // opening it. The dev server here answers without our tag, so the
+    // caller's hint is reported unverified.
+    let s = Server::start("browser-needed");
+    let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+    let dev_port = listener.local_addr().unwrap().port();
+    std::thread::spawn(move || {
+        for stream in listener.incoming().flatten() {
+            let mut stream = stream;
+            let mut buf = [0u8; 2048];
+            let _ = std::io::Read::read(&mut stream, &mut buf);
+            let body = "<html><body><h1>t</h1></body></html>";
+            let res = format!("HTTP/1.0 200 OK\r\nContent-Type: text/html\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}", body.len(), body);
+            let _ = std::io::Write::write_all(&mut stream, res.as_bytes());
+        }
+    });
+    let hint = format!("http://127.0.0.1:{}/", dev_port);
+    let run = |provider: &str, extra: &[&str]| -> serde_json::Value {
+        let mut args = vec!["live-generate", "--selector", "h1", "--action", "bolder"];
+        args.extend_from_slice(extra);
+        let out = std::process::Command::new(env!("CARGO_BIN_EXE_impeccable"))
+            .args(&args)
+            .current_dir(&s.dir)
+            .env("IMPECCABLE_LIVE_COPY_AGENT", "off")
+            .env("IMPECCABLE_PROVIDER_ID", provider)
+            .env("IMPECCABLE_DEV_URL_CANDIDATES", "http://127.0.0.1:1/")
+            .output()
+            .expect("cli");
+        let stdout = String::from_utf8_lossy(&out.stdout).into_owned();
+        serde_json::from_str(stdout.trim()).unwrap_or_else(|e| panic!("{e}: {stdout}"))
+    };
+    let cursor = run("cursor", &["--dev-url", &hint]);
+    assert_eq!(cursor["error"], serde_json::json!("browser_needed"), "{cursor}");
+    assert_eq!(cursor["devUrl"], serde_json::json!(hint));
+    assert_eq!(cursor["devUrlVerified"], serde_json::json!(false));
+    assert_eq!(cursor["harness"], serde_json::json!("cursor"));
+    let text = cursor["_instructions"].as_str().unwrap();
+    assert!(text.contains("browser_navigate") && text.contains(&hint) && !text.contains("--open"), "{text}");
+    let claude = run("claude-code", &["--dev-url", &hint]);
+    assert!(claude["_instructions"].as_str().unwrap().contains("Browser pane"), "{claude}");
+    let codex = run("codex", &["--dev-url", &hint]);
+    assert!(codex["_instructions"].as_str().unwrap().contains("--open"), "{codex}");
+    // No hint and nothing on the usual ports: no_dev_server, with the
+    // harness's way to start one.
+    let none = run("claude-code", &[]);
+    assert_eq!(none["error"], serde_json::json!("no_dev_server"), "{none}");
+    assert!(none["_instructions"].as_str().unwrap().contains("preview_start"), "{none}");
+    // `--open` on a harness with its own browser launches nothing: BROWSER
+    // names a script that would record the launch, and it never runs.
+    let opener = s.dir.join("opener-guard.sh");
+    std::fs::write(&opener, format!("#!/bin/sh\necho \"$1\" > {}\n", s.dir.join("guard-opened.txt").display())).unwrap();
+    #[cfg(unix)]
+    {
+        use std::os::unix::fs::PermissionsExt;
+        std::fs::set_permissions(&opener, std::fs::Permissions::from_mode(0o755)).unwrap();
+    }
+    let out = std::process::Command::new(env!("CARGO_BIN_EXE_impeccable"))
+        .args(["live-generate", "--selector", "h1", "--action", "bolder", "--dev-url", &hint, "--open"])
+        .current_dir(&s.dir)
+        .env("IMPECCABLE_LIVE_COPY_AGENT", "off")
+        .env("IMPECCABLE_PROVIDER_ID", "cursor")
+        .env("IMPECCABLE_DEV_URL_CANDIDATES", "http://127.0.0.1:1/")
+        .env("BROWSER", opener.to_string_lossy().to_string())
+        .output()
+        .expect("cli");
+    let guarded: serde_json::Value = serde_json::from_str(String::from_utf8_lossy(&out.stdout).trim()).unwrap();
+    assert_eq!(guarded["error"], serde_json::json!("browser_needed"), "{guarded}");
+    assert_eq!(guarded["openIgnored"], serde_json::json!("harness browser"), "{guarded}");
+    assert!(guarded["_instructions"].as_str().unwrap().starts_with("--open was ignored"), "{guarded}");
+    std::thread::sleep(Duration::from_millis(300));
+    assert!(!s.dir.join("guard-opened.txt").exists(), "the harness browser guard must not launch the opener");
+    // The user's explicit choice still wins on that harness.
+    let out = std::process::Command::new(env!("CARGO_BIN_EXE_impeccable"))
+        .args(["live-generate", "--selector", "h1", "--action", "bolder", "--dev-url", &hint, "--open", "--wait-for-browser", "500"])
+        .current_dir(&s.dir)
+        .env("IMPECCABLE_LIVE_COPY_AGENT", "off")
+        .env("IMPECCABLE_PROVIDER_ID", "cursor")
+        .env("IMPECCABLE_DEV_URL_CANDIDATES", "http://127.0.0.1:1/")
+        .env("IMPECCABLE_BROWSER", opener.to_string_lossy().to_string())
+        .output()
+        .expect("cli");
+    let explicit: serde_json::Value = serde_json::from_str(String::from_utf8_lossy(&out.stdout).trim()).unwrap();
+    assert_eq!(explicit["opened"]["url"], serde_json::json!(hint), "{explicit}");
+    assert_eq!(std::fs::read_to_string(s.dir.join("guard-opened.txt")).unwrap().trim(), hint);
+    // A wait budget means the caller is opening the page in parallel: the
+    // verb waits instead of handing the URL back.
+    let waited = run("cursor", &["--dev-url", &hint, "--wait-for-browser", "700"]);
+    assert_eq!(waited["error"], serde_json::json!("no_browser_connected"), "{waited}");
+    assert!(waited["_instructions"].as_str().unwrap().contains("browser_navigate"), "{waited}");
+}
