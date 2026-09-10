@@ -2817,14 +2817,31 @@ fn handle_agent_target_result_post(
             return;
         }
     };
+    let client_id = match msg.get("clientId") {
+        Some(Value::String(id)) if !id.is_empty() => id.clone(),
+        _ => {
+            respond(
+                stream,
+                cors,
+                json_res(400, json!({ "error": "agent_target_result: missing clientId" })),
+            );
+            return;
+        }
+    };
     let mut result = Map::new();
     for (k, v) in msg {
-        if k != "token" && k != "targetId" {
+        if k != "token" && k != "targetId" && k != "clientId" {
             result.insert(k, v);
         }
     }
-    let delivered = lock(shared).resolve_agent_target(&target_id, Value::Object(result));
-    respond(stream, cors, json_res(200, json!({ "ok": true, "delivered": delivered })));
+    match lock(shared).resolve_agent_target_as_holder(&target_id, &client_id, Value::Object(result)) {
+        Ok(delivered) => respond(stream, cors, json_res(200, json!({ "ok": true, "delivered": delivered }))),
+        Err(reason) => respond(
+            stream,
+            cors,
+            json_res(409, json!({ "error": "agent_target_result: not the holder", "reason": reason, "targetId": target_id })),
+        ),
+    }
 }
 
 /// `POST /live-bar` `{token, hidden}`: the helper-wide bar preference, set

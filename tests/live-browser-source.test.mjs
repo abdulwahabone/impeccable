@@ -905,6 +905,11 @@ describe('live-browser source contracts', () => {
     );
     assert.match(
       SOURCE,
+      /function postAgentTargetResult\(targetId, result\) \{[\s\S]{0,600}?JSON\.stringify\(\{ token: TOKEN, targetId, clientId: AGENT_TARGET_CLIENT_ID, \.\.\.result \}\)/,
+      'a result post names this page, so the helper can refuse a bystander answering for the holder',
+    );
+    assert.match(
+      SOURCE,
       /case 'connected':\s*applyLiveBarPreference\(msg\.hideLiveBar === true\);/,
       'every connection, including a reload or a second tab, takes the helper\'s word on the bar',
     );
@@ -924,6 +929,11 @@ describe('live-browser source contracts', () => {
       'a bar built after the helper spoke still ends up hidden',
     );
     assert.ok(!/sessionStorage\.getItem\('impeccable-live:hide-bar/.test(SOURCE), 'no per-tab memory: the helper is the single source of truth');
+    assert.match(
+      SOURCE,
+      /function setLiveBarHidden\(hidden\) \{[\s\S]{0,700}?if \(globalBarEl\.style\.display === 'none'\) \{\s*globalBarEl\.style\.display = globalBarEl\.dataset\.liveBarDisplay \|\| 'flex';/,
+      'restoring puts the bar\'s own display value back and is a no-op on a bar that is not hidden, so a plain live session\'s connected frame changes nothing',
+    );
     assert.ok(!/releaseHiddenLiveBar/.test(SOURCE), 'no session end brings the bar back: the accept and the bake that follows stay bar-free');
     const teardownBody = SOURCE.match(/function teardown\(\) \{[\s\S]*?\n  \}/)?.[0] || '';
     assert.match(teardownBody, /liveBarHiddenByHelper = false;/, 'only the helper stopping resets it');

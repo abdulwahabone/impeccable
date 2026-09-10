@@ -834,6 +834,32 @@ impl ServerState {
         (target_id, rx)
     }
 
+    /// A result post is only honored from the overlay that holds the
+    /// target's claim: every connected overlay knows the target id and the
+    /// helper token, so the token alone must not let a bystander answer
+    /// for the winner. Ok(delivered) when the holder answered (or nothing
+    /// awaited the target); Err(reason) when the target is pending but the
+    /// caller is not its holder.
+    pub fn resolve_agent_target_as_holder(
+        &mut self,
+        target_id: &str,
+        client_id: &str,
+        result: Value,
+    ) -> Result<bool, &'static str> {
+        if let Some((_, pending)) = self
+            .pending_agent_targets
+            .iter()
+            .find(|(k, _)| k == target_id)
+        {
+            match &pending.owner {
+                Some(owner) if owner == client_id => {}
+                Some(_) => return Err("not_holder"),
+                None => return Err("unclaimed"),
+            }
+        }
+        Ok(self.resolve_agent_target(target_id, result))
+    }
+
     /// Deliver a verdict to the held request; false when nothing awaits it.
     pub fn resolve_agent_target(&mut self, target_id: &str, result: Value) -> bool {
         let Some(pos) = self
