@@ -61,8 +61,10 @@ Done when the boot printed `"ok": true` and a page is open. You do not need to r
 One command. Derive the selector from what the user said and what you already know of the project: an id first, then a unique class, then a landmark tag plus class. **The request names a repeated component in plural** ("the pricing cards"): target the container that holds the set, so one scoped stylesheet restyles every instance. One read of the source file that renders the element is allowed when the selector is not obvious; `--dry-run` resolves and reports without starting anything when it is not certain.
 
 ```bash
-{{scripts_path}}/impeccable live-generate --selector "#pricing" --action bolder --count 3 --no-live-bar
+{{scripts_path}}/impeccable live-generate --selector ".pricing-grid" --action bolder --count 3 --no-live-bar
 ```
+
+Prefer the container's class over its id: the preview mounts one copy of the element per variant, so an id would repeat three times in the DOM.
 
 Flags: `--selector` (required), `--action`, `--count`, `--prompt`, `--text` (keep only matches whose visible text contains a snippet), `--index` (1-based pick among matches), `--dry-run`, `--wait-for-browser <ms>`, `--no-live-bar` (always pass it too: if this helper was booted without the flag, the target itself tells it to hide the bar in every tab from now on).
 
@@ -96,7 +98,17 @@ The first event is the `generate` for your `sessionId`, and its `_instructions` 
 ```
 
    Rules that keep the browser mounting what you wrote: each variant div holds exactly ONE top-level element, same tag as the original, with the copy verbatim; first variant visible, the rest `display: none`; every `:scope` rule steps into a descendant (`:scope > .card`, never a bare `:scope`); use the `styleTag` and selector strategy from the event's `cssAuthoring` when it differs from the sketch above. **JSX / TSX**: wrap the `<style>` content in a template literal, use `className=` and `style={{ display: 'none' }}`, keep `data-impeccable-*` attributes as plain strings.
-4. **No parameter knobs** unless the user asked for something tunable. A variant is a finished design to choose from, not a control panel.
+4. **No parameter knobs** unless the user asked for something tunable. A variant is a finished design to choose from, not a control panel. When the request does ask ("with knobs", "let me adjust"), declare at most two per variant on its div and author the CSS against them; nothing else about the splice changes:
+
+```html
+<div data-impeccable-variant="1" data-impeccable-params='[
+  {"id":"price-scale","kind":"range","min":0.8,"max":1.4,"step":0.05,"default":1,"label":"Price scale"},
+  {"id":"density","kind":"steps","default":"normal","label":"Density","options":[{"value":"tight","label":"Tight"},{"value":"normal","label":"Normal"}]},
+  {"id":"caps","kind":"toggle","default":false,"label":"Caps"}
+]'>
+```
+
+   `range` and `toggle` drive `--p-<id>` (write `var(--p-price-scale, 1)`); `steps` drives `data-p-<id>` (write `:scope[data-p-density="tight"] .card { ... }`). On JSX keep the attribute a plain string. At accept, the bake in Step 5 keeps the branch matching the chosen values and substitutes the range literals, so the accepted design never depends on a knob.
 5. **Floors, by construction**: body text contrast 4.5:1 or better, no text under 12px, controls at least 40px tall, focus states kept. Do not verify beyond that; the overlay preview is the review channel until accept.
 6. **Reply done** with the file you wrote: `{{scripts_path}}/impeccable live-poll --reply EVENT_ID done --file src/App.jsx`, then poll again. If the edit fails after the browser flipped to GENERATING, `--reply EVENT_ID error "Short reason"` so the bar resets.
 
@@ -108,13 +120,13 @@ Outside the lane, read the matching live.md section before acting: `scaffold.pre
 
 `accept` and `discard` arrive on the poll. The poll script has already run `impeccable live-accept`; the browser is already showing the choice. **Discard**: nothing to do; go to the close below. **Accept with `carbonize: false`**: same. **Accept with `carbonize: true`**: the accepted variant sits in source between `impeccable-carbonize-start/end SESSION_ID` markers with an inline `<style data-impeccable-css>`; make it permanent in one pass over `_acceptResult.file` and the stylesheet that already owns the element's styling:
 
-1. Move the accepted variant's rules into that stylesheet, rewriting `@scope ([data-impeccable-variant="N"]) { :scope > .x }` to the real selectors (`.pricing > .x`).
+1. Move the accepted variant's rules into that stylesheet, rewriting `@scope ([data-impeccable-variant="N"]) { :scope > .x }` to the real selectors (`.pricing > .x`). If the variant declared knobs, the `<!-- impeccable-param-values -->` comment beside the block carries the chosen values: keep only the matching `data-p-*` branch and substitute each `var(--p-*)` with its literal.
 2. Unwrap: keep the accepted element, delete the variant div (and on JSX the outer `data-impeccable-carbonize` div), drop every `data-impeccable-*` and `data-p-*` attribute.
 3. Delete the inline `<style>` block, both markers, and any rules for the other variants.
 
 Then `{{scripts_path}}/impeccable live-complete --id SESSION_ID` and confirm `phase: "completed"`; it refuses with `source_dirty` and findings while any live-mode leftover remains, so fix and rerun. **That command is the verification for this lane**: no `detect` pass, no document or init, no DESIGN.md edits, no reading of `document.md`. Reads before the bake: `_acceptResult.file` and the stylesheet, nothing else.
 
-Close without being asked, the moment the accept or discard is complete:
+Close without being asked, the moment the accept or discard is complete. The accept event's own `_instructions` end with "poll again"; in this lane the close below replaces that poll:
 
 ```bash
 {{scripts_path}}/impeccable live-server stop
