@@ -851,6 +851,27 @@ describe('POST /agent-target', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESSA
     assert.equal((await event(null)).status, 200);
   });
 
+  it('forwards the hidden-bar request to the overlay, and refuses a non-boolean', async () => {
+    const tabA = await openSseClient(server, { clientId: 'tab-a' });
+    try {
+      await tabA.next((m) => m.type === 'connected');
+      const held = postJson(server, '/agent-target', {
+        token: server.token, selector: 'h1', action: 'bolder', count: 3, hideLiveBar: true,
+      });
+      const pushed = await tabA.next((m) => m.type === 'agent_target');
+      assert.equal(pushed.hideLiveBar, true, 'the overlay is told to keep the bottom bar out of the way');
+      await postJson(server, '/agent-target-result', { token: server.token, targetId: pushed.targetId, ok: true, sessionId: 'aabbccdd' });
+      await (await held).json();
+      const refused = await postJson(server, '/agent-target', {
+        token: server.token, selector: 'h1', action: 'bolder', count: 3, hideLiveBar: 'yes',
+      });
+      assert.equal(refused.status, 400);
+      assert.equal((await refused.json()).error, 'agent_target: hideLiveBar must be a boolean');
+    } finally {
+      tabA.close();
+    }
+  });
+
   it('prefers busy over no_match, so the agent retries when the right page is mid-session', async () => {
     const tabA = await openSseClient(server, { clientId: 'tab-a' });
     const tabB = await openSseClient(server, { clientId: 'tab-b' });
@@ -1052,6 +1073,17 @@ describe('live-generate CLI local failure modes', { skip: ENGINE_BIN ? false : E
       return { code: err.status, json: JSON.parse(err.stdout) };
     }
   }
+
+  it('accepts --no-live-bar as a boolean flag', () => {
+    const tmp = mkdtempSync(join(tmpdir(), 'impeccable-generate-cli-'));
+    try {
+      const { code, json } = runCli(tmp, ['--selector', 'h1', '--action', 'bolder', '--no-live-bar']);
+      assert.equal(code, 1);
+      assert.equal(json.error, 'server_not_running', 'the flag parses; the verdict is about the missing helper, not the flag');
+    } finally {
+      rmSync(tmp, { recursive: true, force: true });
+    }
+  });
 
   it('fails with server_not_running when no live server is recorded', () => {
     const tmp = mkdtempSync(join(tmpdir(), 'impeccable-generate-cli-'));

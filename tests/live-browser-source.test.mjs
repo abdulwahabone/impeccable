@@ -823,6 +823,29 @@ describe('live-browser source contracts', () => {
     );
   });
 
+  it('settles the Tune knob state when the agent is done, even across a reload', () => {
+    // A generation with no knobs (the generate lane's default) left the Tune
+    // chip spinning: the done reply never completed the parameter phase when
+    // the variants had already mounted, and a reload restored the pending
+    // state from the cache with nothing left to complete it.
+    const doneCase = SOURCE.match(/case 'done':[\s\S]*?case 'complete':/)?.[0] || '';
+    assert.match(
+      doneCase,
+      /if \(arrivedVariants >= expectedVariants && expectedVariants > 0\) \{[\s\S]*?completeParameterGenerationIfReady\(\);\s*break;/,
+      'the done reply completes the parameter phase once every variant is mounted',
+    );
+    assert.match(
+      SOURCE,
+      /const resumedState = arrivedVariants > 0 \? 'CYCLING' : 'GENERATING';[\s\S]{0,600}?settleParameterStateFromHelper\(sessionId\);/,
+      'a resume with a pending Tune state asks the helper whether the generation already finished',
+    );
+    assert.match(
+      SOURCE,
+      /function settleParameterStateFromHelper\(sessionId\) \{[\s\S]{0,900}?session\.generationCompletedAt \|\| session\.generationPhase === 'completed'\) completeParameterGenerationIfReady\(\);/,
+      'the helper\'s session record is what settles it',
+    );
+  });
+
   it('re-claims busy-declined agent targets only while the overlay can still serve them', () => {
     const teardownSource = SOURCE.match(/function teardown\(\) \{[\s\S]*?\n  \}/)?.[0] || '';
     const clearAt = teardownSource.indexOf('busyDeclinedTargets.clear();');
@@ -879,6 +902,22 @@ describe('live-browser source contracts', () => {
       SOURCE,
       /body\.error === 'agent_target_already_served' && msg\.type === 'generate'\s*&& msg\.id && msg\.id === currentSessionId\) \{\s*abandonSupersededGo\(msg\.id\);\s*return null;/,
       'a Go the helper refused as already served drops this page\'s local session instead of leaving it generating for nothing',
+    );
+    assert.match(
+      SOURCE,
+      /if \(msg\.hideLiveBar === true\) \{\s*agentTargetHideBarSession = currentSessionId;\s*setLiveBarHidden\(true\);\s*saveSession\(\);/,
+      'an agent target that asks for it hides the global bar for the session it starts, and remembers that in the session cache',
+    );
+    assert.match(SOURCE, /releaseHiddenLiveBar\(cleanupSessionId\);/, 'cleanup releases the hidden bar for the session it ends');
+    assert.equal(
+      (SOURCE.match(/releaseHiddenLiveBar\(currentSessionId\);\n\s*currentSessionId = null;/g) || []).length,
+      3,
+      'every site that clears the session id releases the bar first, so an accept completion brings it back too',
+    );
+    assert.match(
+      SOURCE,
+      /if \(saved\.hideLiveBar === true && saved\.id\) \{\s*agentTargetHideBarSession = saved\.id;\s*setLiveBarHidden\(true\);/,
+      'a reload keeps the bar hidden for a session that asked for it',
     );
     assert.match(
       SOURCE,

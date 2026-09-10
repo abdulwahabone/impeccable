@@ -2697,6 +2697,11 @@ fn validate_agent_target_request(msg: &Value) -> Option<String> {
             return Some("agent_target: dryRun must be a boolean".into());
         }
     }
+    if let Some(hide) = msg.get("hideLiveBar") {
+        if !hide.is_boolean() {
+            return Some("agent_target: hideLiveBar must be a boolean".into());
+        }
+    }
     None
 }
 
@@ -2761,6 +2766,9 @@ fn handle_agent_target_post(
     }
     if msg.get("dryRun").and_then(Value::as_bool) == Some(true) {
         payload.insert("dryRun".into(), json!(true));
+    }
+    if msg.get("hideLiveBar").and_then(Value::as_bool) == Some(true) {
+        payload.insert("hideLiveBar".into(), json!(true));
     }
     let (target_id, rx) = st.register_agent_target(payload);
     drop(st);

@@ -6182,6 +6182,7 @@
     clearSession();
     clearHandled();
     resetSessionFileMeta();
+    releaseHiddenLiveBar(currentSessionId);
     currentSessionId = null;
     parameterGenerationState = 'idle';
     parameterReadyAnnouncedSession = null;
@@ -7215,6 +7216,26 @@
   // actOnAgentTarget around its handleGo call, read once by handleGo.
   let agentTargetForGo = null;
 
+  // The session whose agent target asked for the helper's bottom bar to
+  // stay out of the way (`live-generate --no-live-bar`): the variant
+  // controls still show, the global bar does not, until that session ends.
+  let agentTargetHideBarSession = null;
+
+  function setLiveBarHidden(hidden) {
+    if (!globalBarEl) return;
+    globalBarEl.style.display = hidden ? 'none' : '';
+  }
+
+  // The bar comes back the moment the session that hid it is over, whichever
+  // path ends it (cleanup, an accept's completion, a handled or foreign
+  // session reset): every site that clears currentSessionId releases it.
+  function releaseHiddenLiveBar(sessionId) {
+    if (!agentTargetHideBarSession) return;
+    if (sessionId && sessionId !== agentTargetHideBarSession) return;
+    agentTargetHideBarSession = null;
+    setLiveBarHidden(false);
+  }
+
   function claimAgentTarget(targetId, report) {
     return fetch('http://localhost:' + PORT + '/agent-target-claim?token=' + TOKEN, {
       method: 'POST',
@@ -7459,6 +7480,11 @@
         handleGo();
         agentTargetForGo = null;
         if (state === 'GENERATING' && currentSessionId) {
+          if (msg.hideLiveBar === true) {
+            agentTargetHideBarSession = currentSessionId;
+            setLiveBarHidden(true);
+            saveSession();
+          }
           reply({
             ok: true,
             matchCount: resolved.matchCount,
@@ -7573,6 +7599,11 @@
               disableInlineEdit();
               refreshParamsPanel();
             }
+            // The done reply is the agent's last word on this generation:
+            // with every variant mounted and no knobs declared, the Tune
+            // chip must stop spinning. A reload between the mount and this
+            // reply restored the pending state from the cache.
+            completeParameterGenerationIfReady();
             break;
           }
           // Source fallback when HMR did not land variants in this tab.
@@ -9325,6 +9356,7 @@ void main() {
     selectedElement = null;
     hoveredElement = null;
     pagePickSkipClick = false;
+    releaseHiddenLiveBar(currentSessionId);
     currentSessionId = null;
     parameterGenerationState = 'idle';
     parameterReadyAnnouncedSession = null;
@@ -9419,6 +9451,10 @@ void main() {
     }
     if (saved.parameterState) parameterGenerationState = saved.parameterState;
     if (saved.generationPhase) generationPhase = saved.generationPhase;
+    if (saved.hideLiveBar === true && saved.id) {
+      agentTargetHideBarSession = saved.id;
+      setLiveBarHidden(true);
+    }
   }
 
   function normalizePagePath(value) {
@@ -9623,6 +9659,7 @@ void main() {
       pageUrl: location.pathname,
       paramValues: { ...paramsCurrentValues },
       parameterState: parameterGenerationState,
+      hideLiveBar: agentTargetHideBarSession === currentSessionId ? true : undefined,
       insertPlaceholder: insertPlaceholderSnapshot || undefined,
       pickedAnchor: pickedAnchorSnapshot || undefined,
       pickedAnchorViewportTop: Number.isFinite(pickedAnchorViewportTop) ? pickedAnchorViewportTop : undefined,
@@ -9670,6 +9707,7 @@ void main() {
     const instantChrome = options?.instantChrome === true;
     const cleanupSessionId = currentSessionId;
     const cleanupRevision = liveInteractionRevision;
+    releaseHiddenLiveBar(cleanupSessionId);
     clearMountErrorCard();
     lastReportedMountFailure = null;
     if (svelteComponentSession?.sessionId === cleanupSessionId) {
@@ -9746,6 +9784,7 @@ void main() {
     selectedElement = null;
     hoveredElement = null;
     pagePickSkipClick = false;
+    releaseHiddenLiveBar(currentSessionId);
     currentSessionId = null;
     parameterGenerationState = 'idle';
     parameterReadyAnnouncedSession = null;
@@ -10005,6 +10044,14 @@ void main() {
     }
 
     const resumedState = arrivedVariants > 0 ? 'CYCLING' : 'GENERATING';
+
+    // A reload between the variants mounting and the agent's done reply
+    // restores a pending Tune state from the cache; the helper knows whether
+    // that generation already finished.
+    if (arrivedVariants >= expectedVariants && expectedVariants > 0
+        && (parameterGenerationState === 'pending' || parameterGenerationState === 'loading')) {
+      settleParameterStateFromHelper(sessionId);
+    }
 
     // Find the visible variant's content element for highlight positioning.
     const isInsert = wrapper.dataset.impeccableMode === 'insert';
@@ -11470,6 +11517,21 @@ void main() {
     }
   }
 
+  // After a resume the cache may say the Tune knobs are still coming while
+  // the agent already replied done before the reload. The helper's session
+  // record settles it; otherwise the done reply on SSE does.
+  function settleParameterStateFromHelper(sessionId) {
+    fetch('http://localhost:' + PORT + '/status?token=' + TOKEN, { cache: 'no-store' })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!data || sessionId !== currentSessionId) return;
+        const session = (data.activeSessions || []).find((s) => s && s.id === sessionId);
+        if (!session) return;
+        if (session.generationCompletedAt || session.generationPhase === 'completed') completeParameterGenerationIfReady();
+      })
+      .catch(() => { /* the done reply on SSE settles it otherwise */ });
+  }
+
   function fetchAgentPollingStatus() {
     fetch('http://localhost:' + PORT + '/status?token=' + TOKEN, { cache: 'no-store' })
       .then((res) => (res.ok ? res.json() : null))
@@ -11924,6 +11986,8 @@ void main() {
     // Listen for detection results AND ready signal
     window.addEventListener('message', onDetectMessage);
     updateGlobalBarState();
+    // A session resumed before the bar existed may have asked for it to stay hidden.
+    if (agentTargetHideBarSession && agentTargetHideBarSession === currentSessionId) setLiveBarHidden(true);
   }
 
   function updateGlobalBarState() {
@@ -12126,6 +12190,7 @@ void main() {
     // not refuse every target the next connection hears.
     busyDeclinedTargets.clear();
     agentTargetsSeen.clear();
+    agentTargetHideBarSession = null;
     stopAgentStatusPoll();
     hideAgentPollTooltip();
     if (agentPollTooltipEl) {

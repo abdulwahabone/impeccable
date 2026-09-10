@@ -17,7 +17,7 @@ use impeccable_common::Io;
 use serde_json::{json, Map, Value};
 use std::time::{Duration, Instant};
 
-const HELP: &str = "Usage: impeccable live-generate --selector <css> [--text <snippet>] [--index <n>] [--action <name>] [--count <n>] [--prompt <text>] [--dry-run] [--wait-for-browser <ms>]
+const HELP: &str = "Usage: impeccable live-generate --selector <css> [--text <snippet>] [--index <n>] [--action <name>] [--count <n>] [--prompt <text>] [--dry-run] [--wait-for-browser <ms>] [--no-live-bar]
 
 Flags:
   --selector <css>   required; resolved with document.querySelectorAll
@@ -39,11 +39,13 @@ const REQUEST_TIMEOUT_MS: u64 = 20_000;
 struct Flags {
     values: Map<String, Value>,
     dry_run: bool,
+    no_live_bar: bool,
 }
 
 fn parse_flags(argv: &[String]) -> Result<Flags, Value> {
     let mut values = Map::new();
     let mut dry_run = false;
+    let mut no_live_bar = false;
     let mut i = 0;
     while i < argv.len() {
         let arg = &argv[i];
@@ -57,6 +59,11 @@ fn parse_flags(argv: &[String]) -> Result<Flags, Value> {
             i += 1;
             continue;
         }
+        if key == "no-live-bar" {
+            no_live_bar = true;
+            i += 1;
+            continue;
+        }
         match argv.get(i + 1) {
             Some(v) if !v.starts_with("--") => {
                 values.insert(key.to_string(), json!(v));
@@ -67,7 +74,11 @@ fn parse_flags(argv: &[String]) -> Result<Flags, Value> {
             }
         }
     }
-    Ok(Flags { values, dry_run })
+    Ok(Flags {
+        values,
+        dry_run,
+        no_live_bar,
+    })
 }
 
 fn flag<'a>(flags: &'a Flags, key: &str) -> Option<&'a str> {
@@ -286,6 +297,9 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
     if flags.dry_run {
         body.insert("dryRun".into(), json!(true));
     }
+    if flags.no_live_bar {
+        body.insert("hideLiveBar".into(), json!(true));
+    }
 
     let url = format!("http://127.0.0.1:{}/agent-target", port);
     let agent = ureq::AgentBuilder::new()
@@ -364,6 +378,15 @@ mod tests {
         m.insert("state".into(), json!("CONFIGURING"));
         m.insert("reason".into(), json!(reason));
         m
+    }
+
+    #[test]
+    fn no_live_bar_is_a_boolean_flag() {
+        let flags = parse_flags(&["--selector".to_string(), "h1".to_string(), "--no-live-bar".to_string(), "--count".to_string(), "3".to_string()]).unwrap();
+        assert!(flags.no_live_bar);
+        assert_eq!(flags.values.get("selector").and_then(Value::as_str), Some("h1"));
+        assert_eq!(flags.values.get("count").and_then(Value::as_str), Some("3"));
+        assert!(!parse_flags(&["--selector".to_string(), "h1".to_string()]).unwrap().no_live_bar);
     }
 
     #[test]
