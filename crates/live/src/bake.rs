@@ -42,20 +42,26 @@ pub struct BakePlan {
     pub rules: usize,
 }
 
-static ROOT_TAG_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?s)<([A-Za-z][A-Za-z0-9-]*)((?:\s+[^<>]*?)?)>").unwrap());
+static ROOT_TAG_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r"(?s)<([A-Za-z][A-Za-z0-9.-]*)((?:\s+[^<>]*?)?)>").unwrap());
 static ATTR_RE: Lazy<Regex> = Lazy::new(|| Regex::new(r#"(?:^|\s)(id|class|className)\s*=\s*(?:"([^"]*)"|'([^']*)')"#).unwrap());
 static SCOPE_PRELUDE_RE: Lazy<Regex> =
     Lazy::new(|| Regex::new(r#"data-impeccable-variant\s*=\s*["']?(\d+)["']?"#).unwrap());
 static VARIANT_PREFIX_RE: Lazy<Regex> =
     Lazy::new(|| Regex::new(r#"^\[data-impeccable-variant\s*=\s*["']?\d+["']?\]"#).unwrap());
 
-/// The variant's root tag, as `#id` or `tag.class.class`: the selector every
-/// `:scope` rule is rewritten against. None when neither an id nor a static
-/// class is on the tag (a JSX expression, a bare `<section>`).
+/// The variant's root tag, as `#id`, `tag.class.class`, or `.class.class`
+/// when the root is a JSX component (`<PricingGrid>`, `<Card.Root>`) whose
+/// name is no element in the rendered page: the selector every `:scope`
+/// rule is rewritten against. None when neither an id nor a static class
+/// is on the tag (a JSX expression, a bare `<section>`).
 pub fn element_anchor(restored: &[String]) -> Option<String> {
     let text = restored.join("\n");
     let caps = ROOT_TAG_RE.captures(&text)?;
-    let tag = caps[1].to_ascii_lowercase();
+    let raw_tag = &caps[1];
+    // A component renders some element the page decides; only a lowercase
+    // name is an element (custom elements included).
+    let is_element = raw_tag.chars().next().map(|c| c.is_ascii_lowercase()).unwrap_or(false) && !raw_tag.contains('.');
+    let tag = if is_element { raw_tag.to_ascii_lowercase() } else { String::new() };
     let attrs = caps.get(2).map(|m| m.as_str()).unwrap_or("");
     let mut id: Option<String> = None;
     let mut classes: Vec<String> = Vec::new();
@@ -461,6 +467,12 @@ mod tests {
         assert_eq!(element_anchor(&["<section id=\"pricing\" class=\"pricing\">".into()]), Some("#pricing".into()));
         assert_eq!(element_anchor(&["<section className={cls}>".into()]), None);
         assert_eq!(element_anchor(&["  <h1 class='hero-heading'>Hi</h1>".into()]), Some("h1.hero-heading".into()));
+        // A JSX component root is no element in the page: its classes alone anchor the rules.
+        assert_eq!(element_anchor(&["<PricingGrid className=\"pricing-grid wide\">".into()]), Some(".pricing-grid.wide".into()));
+        assert_eq!(element_anchor(&["<Card.Root className=\"card\">".into()]), Some(".card".into()));
+        assert_eq!(element_anchor(&["<PricingGrid id=\"pricing\">".into()]), Some("#pricing".into()));
+        assert_eq!(element_anchor(&["<PricingGrid>".into()]), None);
+        assert_eq!(element_anchor(&["<my-card class=\"card\">".into()]), Some("my-card.card".into()));
     }
 
     #[test]
