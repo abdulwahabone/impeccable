@@ -60,7 +60,7 @@ describe('live boot fast lane', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESS
     assert.equal(refused.error, 'context_missing');
     assert.deepEqual(refused.missing, ['PRODUCT.md', 'DESIGN.md']);
 
-    const booted = await run(tmp, ['live', '--allow-missing-context'], { IMPECCABLE_DEV_URL_CANDIDATES: `http://127.0.0.1:1/, ${devUrl}` });
+    const booted = await run(tmp, ['live', '--allow-missing-context', '--dev-url'], { IMPECCABLE_DEV_URL_CANDIDATES: `http://127.0.0.1:1/, ${devUrl}` });
     assert.equal(booted.ok, true, JSON.stringify(booted));
     assert.deepEqual(booted.contextMissing, ['PRODUCT.md', 'DESIGN.md']);
     assert.match(booted.contextNote, /do not run init or document/);
@@ -73,14 +73,22 @@ describe('live boot fast lane', { skip: ENGINE_BIN ? false : ENGINE_MISSING_MESS
     assert.ok(stopped.ok !== false, JSON.stringify(stopped));
   });
 
-  it('reports devUrl null when nothing serves the injected page, and no contextMissing when both files exist', async () => {
+  it('with both files present the flags report devUrl null and an empty contextMissing', async () => {
     writeFileSync(join(tmp, 'PRODUCT.md'), '# Product\n\n## Platform\n\nweb\n');
     writeFileSync(join(tmp, 'DESIGN.md'), '---\nname: Test\n---\n# Design\n');
-    const booted = await run(tmp, ['live'], { IMPECCABLE_DEV_URL_CANDIDATES: 'http://127.0.0.1:1/' });
+    const booted = await run(tmp, ['live', '--allow-missing-context', '--dev-url'], { IMPECCABLE_DEV_URL_CANDIDATES: 'http://127.0.0.1:1/' });
     assert.equal(booted.ok, true, JSON.stringify(booted));
     assert.deepEqual(booted.contextMissing, []);
     assert.equal(booted.contextNote, null);
     assert.equal(booted.devUrl, null);
+    await run(tmp, ['live-server', 'stop']);
+  });
+
+  it('a plain live boot is untouched by the lane: no probe, no new keys', async () => {
+    const booted = await run(tmp, ['live'], { IMPECCABLE_DEV_URL_CANDIDATES: devUrl });
+    assert.equal(booted.ok, true, JSON.stringify(booted));
+    assert.ok(!('devUrl' in booted), 'devUrl only appears with --dev-url');
+    assert.ok(!('contextMissing' in booted) && !('contextNote' in booted), 'context keys only appear with --allow-missing-context');
     await run(tmp, ['live-server', 'stop']);
   });
 });

@@ -38,10 +38,10 @@ Done when you hold an action from the vocabulary, a count from 1 to 8, and the e
 
 ## Step 2: Boot and open the page
 
-One command. Pass `--target` with the file that renders the element when the request or the project makes it obvious; skip it otherwise. Always pass `--allow-missing-context`: it lets the boot proceed when PRODUCT.md or DESIGN.md is absent and changes nothing when both exist.
+One command. Pass `--target` with the file that renders the element when the request or the project makes it obvious; skip it otherwise. Always pass both flags: `--allow-missing-context` lets the boot proceed when PRODUCT.md or DESIGN.md is absent (it changes nothing when both exist), and `--dev-url` asks the boot to find the dev server. Neither touches a plain `live` session.
 
 ```bash
-{{scripts_path}}/impeccable live --target src/App.jsx --allow-missing-context
+{{scripts_path}}/impeccable live --target src/App.jsx --allow-missing-context --dev-url
 ```
 
 Read three fields of the output and nothing else:

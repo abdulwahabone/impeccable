@@ -265,13 +265,17 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
         break;
     }
     let self_cmd = impeccable_context::provider::detect(&env, &cwd).self_cmd;
-    // 6. Which dev server is serving this app right now (the page carrying
-    // our tag), so the agent opens it without reading terminals.
+    // The generate lane's two opt-ins. Both are silent unless asked for, so
+    // a plain boot's payload is unchanged: `--dev-url` probes which dev
+    // server is serving this app right now (the page carrying our tag) and
+    // reports `devUrl`; `--allow-missing-context` reports `contextMissing`
+    // and a `contextNote` for the files it let the boot proceed without.
+    let want_dev_url = args.iter().any(|a| a == "--dev-url");
     let token_for_probe = match server_info.get("token") {
         Some(Value::String(s)) => s.clone(),
         _ => String::new(),
     };
-    let dev_url = if token_for_probe.is_empty() {
+    let dev_url = if !want_dev_url || token_for_probe.is_empty() {
         None
     } else {
         crate::dev_url::probe(
@@ -287,13 +291,10 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
             missing.join(" and ")
         ))
     };
-    let payload = json!({
+    let mut payload = json!({
         "ok": true,
         "serverPort": server_info.get("port").cloned().unwrap_or(Value::Null),
         "serverToken": server_info.get("token").cloned().unwrap_or(Value::Null),
-        "devUrl": dev_url,
-        "contextMissing": missing,
-        "contextNote": context_note,
         "pageFiles": resolved_files,
         "liveConfigPath": check_result.get("path").cloned().unwrap_or(Value::Null),
         "configDrift": drift,
@@ -312,6 +313,15 @@ pub fn run(args: &[String], io: &mut Io) -> i32 {
         "surfaceBriefPath": surface_brief_path,
         "_instructions": boot_instructions(&self_cmd),
     });
+    if let Some(obj) = payload.as_object_mut() {
+        if want_dev_url {
+            obj.insert("devUrl".into(), dev_url.map(Value::String).unwrap_or(Value::Null));
+        }
+        if allow_missing_context {
+            obj.insert("contextMissing".into(), json!(missing));
+            obj.insert("contextNote".into(), context_note);
+        }
+    }
     println(io, &json_pretty(&payload));
     0
 }
