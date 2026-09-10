@@ -49,19 +49,34 @@ static SCOPE_PRELUDE_RE: Lazy<Regex> =
 static VARIANT_PREFIX_RE: Lazy<Regex> =
     Lazy::new(|| Regex::new(r#"^\[data-impeccable-variant\s*=\s*["']?\d+["']?\]"#).unwrap());
 
-/// The variant's root tag, as `#id`, `tag.class.class`, or `.class.class`
-/// when the root is a JSX component (`<PricingGrid>`, `<Card.Root>`) whose
-/// name is no element in the rendered page: the selector every `:scope`
-/// rule is rewritten against. None when neither an id nor a static class
-/// is on the tag (a JSX expression, a bare `<section>`).
+/// The variant's root tag as written in source: `div`, `my-card`,
+/// `PricingGrid`, `Card.Root`.
+pub fn root_tag(restored: &[String]) -> Option<String> {
+    let text = restored.join("\n");
+    ROOT_TAG_RE.captures(&text).map(|c| c[1].to_string())
+}
+
+/// Whether a root tag names an element of the rendered page: a lowercase
+/// name (custom elements included). A component (`PricingGrid`,
+/// `Card.Root`) renders whatever it likes, and its `className` or `id`
+/// prop may never reach that element.
+pub fn is_element_tag(tag: &str) -> bool {
+    tag.chars().next().map(|c| c.is_ascii_lowercase()).unwrap_or(false) && !tag.contains('.')
+}
+
+/// The variant's root element, as `#id` or `tag.class.class`: the selector
+/// every `:scope` rule is rewritten against. None when the root is a
+/// component (what it renders is unknown, so nothing mechanical can anchor
+/// on it) or when neither an id nor a static class is on the tag (a JSX
+/// expression, a bare `<section>`).
 pub fn element_anchor(restored: &[String]) -> Option<String> {
     let text = restored.join("\n");
     let caps = ROOT_TAG_RE.captures(&text)?;
     let raw_tag = &caps[1];
-    // A component renders some element the page decides; only a lowercase
-    // name is an element (custom elements included).
-    let is_element = raw_tag.chars().next().map(|c| c.is_ascii_lowercase()).unwrap_or(false) && !raw_tag.contains('.');
-    let tag = if is_element { raw_tag.to_ascii_lowercase() } else { String::new() };
+    if !is_element_tag(raw_tag) {
+        return None;
+    }
+    let tag = raw_tag.to_ascii_lowercase();
     let attrs = caps.get(2).map(|m| m.as_str()).unwrap_or("");
     let mut id: Option<String> = None;
     let mut classes: Vec<String> = Vec::new();
@@ -371,7 +386,13 @@ pub fn plan(
     if css.contains("var(--p-") || css.contains("data-p-") || css.contains("data-impeccable-params") {
         return Err("the preview CSS is authored against knobs".into());
     }
-    let anchor = element_anchor(restored).ok_or_else(|| "the variant's root tag has no id or static class to anchor selectors on".to_string())?;
+    let anchor = element_anchor(restored).ok_or_else(|| match root_tag(restored) {
+        Some(tag) if !is_element_tag(&tag) => format!(
+            "the variant's root is the component <{}>; what it renders is unknown, so no selector can anchor on it",
+            tag
+        ),
+        _ => "the variant's root tag has no id or static class to anchor selectors on".to_string(),
+    })?;
     let (rules_css, rules) = extract_variant_css(&css, variant_num, &anchor)?;
     let css_file = if is_jsx {
         Some(find_owning_stylesheet(cwd, &anchor).ok_or_else(|| "no stylesheet under the app root names the element".to_string())?)
@@ -467,12 +488,14 @@ mod tests {
         assert_eq!(element_anchor(&["<section id=\"pricing\" class=\"pricing\">".into()]), Some("#pricing".into()));
         assert_eq!(element_anchor(&["<section className={cls}>".into()]), None);
         assert_eq!(element_anchor(&["  <h1 class='hero-heading'>Hi</h1>".into()]), Some("h1.hero-heading".into()));
-        // A JSX component root is no element in the page: its classes alone anchor the rules.
-        assert_eq!(element_anchor(&["<PricingGrid className=\"pricing-grid wide\">".into()]), Some(".pricing-grid.wide".into()));
-        assert_eq!(element_anchor(&["<Card.Root className=\"card\">".into()]), Some(".card".into()));
-        assert_eq!(element_anchor(&["<PricingGrid id=\"pricing\">".into()]), Some("#pricing".into()));
-        assert_eq!(element_anchor(&["<PricingGrid>".into()]), None);
+        // A component root renders an unknown element: its className or id
+        // prop may never reach it, so nothing anchors on it.
+        assert_eq!(element_anchor(&["<PricingGrid className=\"pricing-grid wide\">".into()]), None);
+        assert_eq!(element_anchor(&["<Card.Root className=\"card\">".into()]), None);
+        assert_eq!(element_anchor(&["<PricingGrid id=\"pricing\">".into()]), None);
         assert_eq!(element_anchor(&["<my-card class=\"card\">".into()]), Some("my-card.card".into()));
+        assert_eq!(root_tag(&["<Card.Root className=\"card\">".into()]), Some("Card.Root".into()));
+        assert!(is_element_tag("my-card") && !is_element_tag("PricingGrid") && !is_element_tag("Card.Root"));
     }
 
     #[test]
@@ -533,6 +556,11 @@ mod tests {
         let plumbing = vec!["<div className=\"pricing-grid\" data-impeccable-x=\"1\">".to_string()];
         let err = plan("/nonexistent", "src/App.jsx", true, "1", Some(&css), &plumbing, None, "").unwrap_err();
         assert!(err.contains("plumbing"), "{err}");
+        // A component root: its className prop may never reach the rendered element.
+        let plain = vec!["@scope ([data-impeccable-variant=\"1\"]) { :scope { gap: 8px; } }".to_string()];
+        let component = vec!["<PricingGrid className=\"pricing-grid\">".to_string(), "</PricingGrid>".to_string()];
+        let err = plan("/nonexistent", "src/App.jsx", true, "1", Some(&plain), &component, None, "").unwrap_err();
+        assert!(err.contains("component <PricingGrid>"), "{err}");
     }
 
     #[test]
