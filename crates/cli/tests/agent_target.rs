@@ -779,6 +779,10 @@ fn live_generate_collects_its_own_generate_event_and_reply_then_poll_returns_the
     assert!(event["_instructions"].as_str().unwrap().contains("steer_done"), "{event}");
 }
 
+/// Unix only: the boot spawns the helper detached, and on Windows that
+/// grandchild inherits this test's stdout pipe, so `output()` never returns;
+/// the stand-in browser is also a `sh` script.
+#[cfg(unix)]
 #[test]
 fn live_generate_boot_and_open_run_the_lane_from_a_cold_project() {
     // No helper running: --boot starts one (the lane's flags), --open hands the
@@ -892,7 +896,10 @@ fn live_generate_asks_the_harness_to_open_the_page_instead_of_a_second_browser()
     assert_eq!(none["error"], serde_json::json!("no_dev_server"), "{none}");
     assert!(none["_instructions"].as_str().unwrap().contains("preview_start"), "{none}");
     // `--open` on a harness with its own browser launches nothing: BROWSER
-    // names a script that would record the launch, and it never runs.
+    // names a script that would record the launch, and it never runs. The
+    // stand-in opener is a `sh` script, so this part is unix only.
+    #[cfg(unix)]
+    {
     let opener = s.dir.join("opener-guard.sh");
     std::fs::write(&opener, format!("#!/bin/sh\necho \"$1\" > {}\n", s.dir.join("guard-opened.txt").display())).unwrap();
     #[cfg(unix)]
@@ -928,6 +935,7 @@ fn live_generate_asks_the_harness_to_open_the_page_instead_of_a_second_browser()
     let explicit: serde_json::Value = serde_json::from_str(String::from_utf8_lossy(&out.stdout).trim()).unwrap();
     assert_eq!(explicit["opened"]["url"], serde_json::json!(hint), "{explicit}");
     assert_eq!(std::fs::read_to_string(s.dir.join("guard-opened.txt")).unwrap().trim(), hint);
+    }
     // A wait budget means the caller is opening the page in parallel: the
     // verb waits instead of handing the URL back.
     let waited = run("cursor", &["--dev-url", &hint, "--wait-for-browser", "700"]);
