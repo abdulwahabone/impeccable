@@ -70,6 +70,10 @@ pub struct AgentTargetPending {
     pub payload: Value,
     pub owner: Option<String>,
     pub claimed_until: i64,
+    /// The overlay most recently granted the lease, kept when the lease
+    /// lapses or its page goes away: its Go may still land late, and it is
+    /// the only page besides the current holder allowed to open the session.
+    pub last_holder: Option<String>,
     pub reports: Vec<AgentTargetReport>,
     pub timer_gen: u64,
     /// While every report says `no_match`, the roll call stays open until
@@ -803,6 +807,7 @@ impl ServerState {
                 payload: payload.clone(),
                 owner: None,
                 claimed_until: 0,
+                last_holder: None,
                 reports: Vec::new(),
                 timer_gen,
                 resolve_grace_until: None,
@@ -889,13 +894,14 @@ impl ServerState {
 
     /// Why a generate event naming `envelope.targetId`, sent by
     /// `envelope.clientId` under `session_id`, must not open a session:
-    /// the target is still pending but another page holds a live lease on
-    /// it (this page's lease lapsed while it was capturing); the request
-    /// was already answered, with a different session or with none (a
-    /// timeout or a failure verdict the CLI has already reported); or the
+    /// the target is still pending and this page is not its holder (another
+    /// page holds the lease, or held it last, or nobody claimed it); the
+    /// request was already answered, with a different session or with none
+    /// (a timeout or a failure verdict the CLI has already reported); or the
     /// helper neither holds nor remembers the target (never issued here, or
     /// long since evicted from the bounded record). None only when the
-    /// event is welcome: a pending target without a rival, or the
+    /// event is welcome: the holder's own Go (its lease may have lapsed, or
+    /// its page gone away, as long as no rescuer claimed since), or the
     /// answering session's own event.
     pub fn agent_target_refusal(
         &self,
@@ -912,12 +918,13 @@ impl ServerState {
             .iter()
             .find(|(k, _)| k == target_id)
         {
-            return match &pending.owner {
-                Some(owner) if owner != client_id && pending.claimed_until > now_i64() => {
-                    Some(AgentTargetRefusal { session_id: None })
-                }
-                _ => None,
+            let is_holder = match &pending.owner {
+                Some(owner) => owner == client_id,
+                // Lease handed back or the page gone: only the page that
+                // held it last may still land its Go.
+                None => pending.last_holder.as_deref() == Some(client_id) && !client_id.is_empty(),
             };
+            return if is_holder { None } else { Some(AgentTargetRefusal { session_id: None }) };
         }
         let Some((_, answered_by)) = self
             .resolved_agent_targets
@@ -1086,6 +1093,7 @@ impl ServerState {
             || pending.claimed_until <= now;
         if granted {
             pending.owner = Some(client_id.to_string());
+            pending.last_holder = Some(client_id.to_string());
             pending.claimed_until = now + lease_ms;
         }
         json!({ "ok": true, "granted": granted, "pending": true })

@@ -27,27 +27,35 @@ Three parts, all from the user's sentence:
   - **motion words**: `animate`
   - **playful words**: `delight`
   - **rule-breaking words**: `overdrive`
-  - **Nothing fits**: `impeccable`, with the user's wording passed as the prompt.
+  - **Wording that carries intent but no vocabulary word** ("make it feel like a bank", "warmer", "more premium"): `impeccable`, with the user's wording passed as the prompt.
   - **An action fits AND extra intent rides along** ("bolder, but keep it monochrome"): that action, with the rest as the prompt.
+  - **The wording names no direction at all** ("better", "improve", "nicer", "different", "fresh", "new", "redesign", "fix", "some options", "ideas", "alternatives", or just "variants" with nothing else): {{ask_instruction}} Ask one question, offering the vocabulary: *"Which direction should the variants take? bolder, quieter, simpler (distill), polished, typography (typeset), color (colorize), layout, motion (animate), playful (delight), or rule-breaking (overdrive)."* Map the answer with this list; an answer that is still open ("surprise me", "you pick") is `impeccable` with the user's original wording as the prompt, and Step 2 starts on that answer.
 - **The element description** ("the pricing cards", "the hero heading"): Step 3 resolves it to a selector.
 
-Done when you hold an action from the vocabulary, a count from 1 to 8, and the element description.
+Done when you hold an action from the vocabulary (asked for, when the request named no direction), a count from 1 to 8, and the element description.
 
 ## Step 2: Boot live mode and open the page
 
-Run the boot exactly as [live.md](live.md)'s Start section describes:
+**Reuse** the dev server already running and the tab your harness already shows it in; a second server or a second browser window is the failure this step prevents. Find the dev server cheapest-first and stop at the first hit: the user's message, a browser tab already on the app (Claude Code: an origin in `tabs_context`), a server your harness started (Claude Code: `preview_list`), a terminal that printed its URL. Nothing found is fine: the boot probes for it.
+
+Run the boot exactly as [live.md](live.md)'s Start section describes, with the lane's two flags:
 
 ```bash
-{{scripts_path}}/impeccable live
+{{scripts_path}}/impeccable live --dev-url --no-live-bar
 ```
+
+- `--dev-url`: the boot reports `devUrl`, the origin whose page already carries the injected script (`null` when nothing serves the app).
+- `--no-live-bar`: the helper keeps its bottom bar out of the page for its lifetime; the floating variant bar is all this command needs the user to see.
 
 **`config_missing` / `config_invalid`**: follow [live-setup.md](live-setup.md) first.
 
-Then open the app URL that serves a `pageFiles` entry (never `serverPort`; that is the helper, not the app):
+Then open the page that renders the element in **your harness's own browser**: `devUrl` when the boot found one, else the app URL that serves a `pageFiles` entry (never `serverPort`; that is the helper, not the app). The route the request names, else the one the target file serves.
 
 - **Cursor**: `browser_navigate` to the URL now; do not skip it.
+- **Claude Code**: `navigate` in the Browser pane (it opens the pane when it is closed, and takes the `tabId` from `tabs_context` when a tab is already on that origin).
 - **Any other harness with a browser tool**: open the URL with that tool.
 - **No browser tool exists in this harness**: tell the user the exact URL to open, and pass `--wait-for-browser 120000` in Step 3 so the command fires the moment their page connects.
+- **`devUrl` is `null` and no server is running**: start the dev script the way your harness runs a long process (Claude Code: `preview_start`; Cursor: a background terminal; Codex: an exec you yield from), wait for its URL, then open it.
 
 Done when the boot printed `"ok": true` and a page with the overlay is connected, which Step 3 proves by answering anything other than `no_browser_connected`.
 
@@ -71,6 +79,14 @@ Done when the verdict is `ok: true` with a `sessionId`: the browser has scrolled
 ## Step 4: Generate
 
 Start the poll loop per your harness policy in [live.md](live.md). The queued event for the returned `sessionId` is a standard `generate` event with the picked element's context and a preflighted scaffold; handle it exactly per live.md's Handle generate, which owns everything from planning to the done reply.
+
+When the boot printed a DESIGN.md, it is a boundary, not a mood board: its tokens and named rules hold in every variant. Amplify inside them (a system that forbids fills, shadows, tints, or unequal columns gets its boldest allowed move on that axis, not the forbidden one), and leave the tokens an axis does not need exactly as written. Leaving the system is the user's decision to make afterwards, never a variant's.
+
+**Reply and wait in one call.** In one-shot polling, the done reply takes `--then-poll`, so the reply and the wait for the user's choice are the same command; run it the way your harness runs a long poll (**Cursor** in a background terminal with notify on `"type":"(accept|discard|variant_mount_failed|exit)"`, **Claude Code** as a background task, **Codex** in a yielded foreground exec), and never pass a short `--timeout=`. The next event arrives as that call's output, with the reply's ack folded in as `_replyAck`. In stream mode, reply as live.md says.
+
+```bash
+{{scripts_path}}/impeccable live-poll --reply EVENT_ID done --file src/App.jsx --then-poll
+```
 
 Then tell the user, in one line, where their variants are: *"Three [bolder] variants are live on [the pricing cards]: cycle with the floating bar's arrows, adjust the Tune knobs, and Accept the keeper."*
 

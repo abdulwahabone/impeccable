@@ -663,9 +663,9 @@ fn handle_connection(shared: Shared, mut stream: TcpStream, mut ticket: Ticket) 
                 );
                 return;
             }
-            let (cwd, env, port, roots) = {
+            let (cwd, env, port, roots, live_bar_hidden) = {
                 let st = lock(&shared);
-                (st.cwd.clone(), st.env.clone(), st.port, st.roots.clone())
+                (st.cwd.clone(), st.env.clone(), st.port, st.roots.clone(), st.hide_live_bar)
             };
             let parts = match read_live_browser_script_parts(scripts_dir(&env, &cwd).as_deref()) {
                 Ok(p) => p,
@@ -692,7 +692,7 @@ fn handle_connection(shared: Shared, mut stream: TcpStream, mut ticket: Ticket) 
                 roots.as_ref().and_then(|r| r.context_root.as_deref()),
                 roots.as_ref().map(|r| r.repo_root.as_str()),
             );
-            let body = assemble_live_browser_script(&token_now, port, &prefix, &cwd, &parts, &project_ignores);
+            let body = assemble_live_browser_script(&token_now, port, &prefix, &cwd, &parts, &project_ignores, live_bar_hidden);
             respond(
                 &mut stream,
                 &cors,

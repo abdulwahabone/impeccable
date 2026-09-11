@@ -547,6 +547,35 @@ fn agent_target_refuses_a_generate_event_from_a_superseded_claimant() {
 }
 
 #[test]
+fn agent_target_refuses_a_generate_event_from_a_page_that_never_held_the_lease() {
+    let s = Server::start("stranger");
+    let mut a = Overlay::connect(s.port, &s.token, "tab-a");
+    let mut b = Overlay::connect(s.port, &s.token, "tab-b");
+    a.next(|m| m["type"] == "connected");
+    b.next(|m| m["type"] == "connected");
+    let held = s.hold(serde_json::json!({}));
+    let target_id = a.next(|m| m["type"] == "agent_target")["targetId"].as_str().unwrap().to_string();
+    // Before any claim, no page may open the session from an event.
+    let (status, body) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "cccccc01", "tab-b"));
+    assert_eq!(status, 409, "{body}");
+    assert!(!s.dir.join(".impeccable/live/sessions/cccccc01.jsonl").exists());
+    // A holds the lease; it lapses (250ms) with no rescuer. A stranger's
+    // event is still refused: a lapsed lease belongs to A until a rescuer
+    // claims.
+    assert_eq!(s.claim(&target_id, "tab-a", true)["granted"], serde_json::json!(true));
+    std::thread::sleep(Duration::from_millis(300));
+    let (status, body) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "cccccc02", "tab-b"));
+    assert_eq!(status, 409, "{body}");
+    assert!(!s.dir.join(".impeccable/live/sessions/cccccc02.jsonl").exists());
+    // A's own late Go is welcome and answers the request.
+    let (status, body) = post_json(s.port, "/events", generate_event_for(&s, &target_id, "cccccc03", "tab-a"));
+    assert_eq!(status, 200, "{body}");
+    let (_, verdict) = held.join().unwrap();
+    assert_eq!(verdict["sessionId"], serde_json::json!("cccccc03"), "{verdict}");
+    let _ = &mut b;
+}
+
+#[test]
 fn agent_target_welcomes_the_generate_event_of_the_session_that_answered() {
     let s = Server::start("welcome");
     let mut a = Overlay::connect(s.port, &s.token, "tab-a");

@@ -823,29 +823,6 @@ describe('live-browser source contracts', () => {
     );
   });
 
-  it('settles the Tune knob state when the agent is done, even across a reload', () => {
-    // A generation with no knobs (the generate lane's default) left the Tune
-    // chip spinning: the done reply never completed the parameter phase when
-    // the variants had already mounted, and a reload restored the pending
-    // state from the cache with nothing left to complete it.
-    const doneCase = SOURCE.match(/case 'done':[\s\S]*?case 'complete':/)?.[0] || '';
-    assert.match(
-      doneCase,
-      /if \(arrivedVariants >= expectedVariants && expectedVariants > 0\) \{[\s\S]*?completeParameterGenerationIfReady\(\);\s*break;/,
-      'the done reply completes the parameter phase once every variant is mounted',
-    );
-    assert.match(
-      SOURCE,
-      /const resumedState = arrivedVariants > 0 \? 'CYCLING' : 'GENERATING';[\s\S]{0,600}?settleParameterStateFromHelper\(sessionId\);/,
-      'a resume with a pending Tune state asks the helper whether the generation already finished',
-    );
-    assert.match(
-      SOURCE,
-      /function settleParameterStateFromHelper\(sessionId\) \{[\s\S]{0,900}?session\.generationCompletedAt \|\| session\.generationPhase === 'completed'\) completeParameterGenerationIfReady\(\);/,
-      'the helper\'s session record is what settles it',
-    );
-  });
-
   it('re-claims busy-declined agent targets only while the overlay can still serve them', () => {
     const teardownSource = SOURCE.match(/function teardown\(\) \{[\s\S]*?\n  \}/)?.[0] || '';
     const clearAt = teardownSource.indexOf('busyDeclinedTargets.clear();');

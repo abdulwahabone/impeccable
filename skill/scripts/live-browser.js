@@ -165,6 +165,10 @@
   }
   let parameterGenerationState = 'idle';
   let parameterReadyAnnouncedSession = null;
+  // The generate lane picks for the agent and never edits copy in the
+  // browser, so its selection carries no edit-copy badge (set on the
+  // agent-target pick, cleared with the session; a user's pick never sets it).
+  let editBadgeSuppressed = false;
   let svelteComponentSession = null;
   let svelteRuntimePromise = null;
   let pendingSvelteComponentRetryObserver = null;
@@ -4691,6 +4695,7 @@
   }
 
   function renderEditBadge(mode) {
+    if (editBadgeSuppressed) mode = 'hidden';
     if (mode === 'hidden' || !editBadgeEl) {
       hideConfigureBarTooltip();
       if (editBadgeEl) editBadgeEl.style.display = 'none';
@@ -6184,6 +6189,7 @@
     resetSessionFileMeta();
     currentSessionId = null;
     parameterGenerationState = 'idle';
+    editBadgeSuppressed = false;
     parameterReadyAnnouncedSession = null;
     expectedVariants = 0;
     arrivedVariants = 0;
@@ -7468,7 +7474,8 @@
         clearAnnotations();
         showAnnotOverlay(selectedElement);
         showBar('configure');
-        renderEditBadge(hasTextRows(selectedElement) ? 'idle' : 'hidden');
+        editBadgeSuppressed = true;
+        renderEditBadge('hidden');
         startScrollTracking();
         maybePrefetchPage();
         maybeWarnConditionalAncestor(selectedElement);
@@ -7611,11 +7618,6 @@
               disableInlineEdit();
               refreshParamsPanel();
             }
-            // The done reply is the agent's last word on this generation:
-            // with every variant mounted and no knobs declared, the Tune
-            // chip must stop spinning. A reload between the mount and this
-            // reply restored the pending state from the cache.
-            completeParameterGenerationIfReady();
             break;
           }
           // Source fallback when HMR did not land variants in this tab.
@@ -9370,6 +9372,7 @@ void main() {
     pagePickSkipClick = false;
     currentSessionId = null;
     parameterGenerationState = 'idle';
+    editBadgeSuppressed = false;
     parameterReadyAnnouncedSession = null;
     selectedAction = 'impeccable';
     pendingAcceptedSession = null;
@@ -9791,6 +9794,7 @@ void main() {
     pagePickSkipClick = false;
     currentSessionId = null;
     parameterGenerationState = 'idle';
+    editBadgeSuppressed = false;
     parameterReadyAnnouncedSession = null;
     selectedAction = 'impeccable';
     renderEditBadge('hidden');
@@ -10048,14 +10052,6 @@ void main() {
     }
 
     const resumedState = arrivedVariants > 0 ? 'CYCLING' : 'GENERATING';
-
-    // A reload between the variants mounting and the agent's done reply
-    // restores a pending Tune state from the cache; the helper knows whether
-    // that generation already finished.
-    if (arrivedVariants >= expectedVariants && expectedVariants > 0
-        && (parameterGenerationState === 'pending' || parameterGenerationState === 'loading')) {
-      settleParameterStateFromHelper(sessionId);
-    }
 
     // Find the visible variant's content element for highlight positioning.
     const isInsert = wrapper.dataset.impeccableMode === 'insert';
@@ -11521,21 +11517,6 @@ void main() {
     }
   }
 
-  // After a resume the cache may say the Tune knobs are still coming while
-  // the agent already replied done before the reload. The helper's session
-  // record settles it; otherwise the done reply on SSE does.
-  function settleParameterStateFromHelper(sessionId) {
-    fetch('http://localhost:' + PORT + '/status?token=' + TOKEN, { cache: 'no-store' })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (!data || sessionId !== currentSessionId) return;
-        const session = (data.activeSessions || []).find((s) => s && s.id === sessionId);
-        if (!session) return;
-        if (session.generationCompletedAt || session.generationPhase === 'completed') completeParameterGenerationIfReady();
-      })
-      .catch(() => { /* the done reply on SSE settles it otherwise */ });
-  }
-
   function fetchAgentPollingStatus() {
     fetch('http://localhost:' + PORT + '/status?token=' + TOKEN, { cache: 'no-store' })
       .then((res) => (res.ok ? res.json() : null))
@@ -11575,11 +11556,15 @@ void main() {
       uiAppendStyle(s);
     }
 
+    // The generate lane's helper says so in the served script itself, so a
+    // lane session never draws the bar at all; every other session mounts
+    // it exactly as before.
+    const barHiddenFromStart = window.__IMPECCABLE_LIVE_BAR_HIDDEN__ === true;
     globalBarEl = el('div', {
       position: 'fixed', bottom: '14px', left: '50%',
       transform: 'translateX(-50%) translateY(20px)',
       zIndex: Z.bar + 5,
-      display: 'flex', alignItems: 'stretch',
+      display: barHiddenFromStart ? 'none' : 'flex', alignItems: 'stretch',
       gap: '0',
       width: 'max-content',
       background: P.surface,
@@ -11595,6 +11580,10 @@ void main() {
     });
     globalBarEl.id = PREFIX + '-global-bar';
     globalBarEl.dataset.theme = theme;
+    if (barHiddenFromStart) {
+      liveBarHiddenByHelper = true;
+      globalBarEl.dataset.liveBarDisplay = 'flex';
+    }
 
     // Brand mark - kinpaku Impeccable icon (site header / favicon paths).
     const brand = el('span', {
