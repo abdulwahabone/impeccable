@@ -430,6 +430,28 @@ fn mkdtemp(prefix: &str) -> Option<String> {
     None
 }
 
+/// The lines `stop` prints for what `live-inject --remove` reported: one
+/// per file the tag came out of, the receipt the skill text promises.
+/// The remover answers `{ok, results: [{file, removed}]}` (a single-file
+/// config included); a bare `{file, removed}` is honoured too.
+fn removal_receipts(last_line: &str) -> Vec<String> {
+    let Ok(j) = serde_json::from_str::<Value>(last_line) else {
+        return Vec::new();
+    };
+    let entries: Vec<&Value> = match j.get("results").and_then(Value::as_array) {
+        Some(results) => results.iter().collect(),
+        None => vec![&j],
+    };
+    entries
+        .into_iter()
+        .filter(|e| e.get("removed") == Some(&Value::Bool(true)))
+        .map(|e| {
+            let file = e.get("file").map(js_display).unwrap_or_else(|| "undefined".to_string());
+            format!("Removed live script tag from {}.", file)
+        })
+        .collect()
+}
+
 /// JS: the `stop` branch.
 fn stop(argv: &[String], cwd: &str, io: &mut Io) -> i32 {
     let keep_inject = argv.iter().any(|a| a == "--keep-inject");
@@ -474,14 +496,8 @@ fn stop(argv: &[String], cwd: &str, io: &mut Io) -> i32 {
                 .last()
                 .map(String::from);
             if let Some(line) = line {
-                if let Ok(j) = serde_json::from_str::<Value>(&line) {
-                    if j.get("removed") == Some(&Value::Bool(true)) {
-                        let file = j
-                            .get("file")
-                            .map(js_display)
-                            .unwrap_or_else(|| "undefined".to_string());
-                        println(io, &format!("Removed live script tag from {}.", file));
-                    }
+                for receipt in removal_receipts(&line) {
+                    println(io, &receipt);
                 }
             }
         } else {
@@ -2901,6 +2917,16 @@ fn handle_agent_target_claim_post(
 #[cfg(test)]
 mod content_type_tests {
     use super::*;
+
+    #[test]
+    fn stop_reads_the_removers_receipts_in_every_shape() {
+        let multi = r#"{"ok":true,"results":[{"file":"index.html","removed":true,"cspReverted":false},{"file":"about.html","removed":false,"note":"no tag present"}]}"#;
+        assert_eq!(removal_receipts(multi), vec!["Removed live script tag from index.html.".to_string()]);
+        let bare = r#"{"file":"src/app.html","removed":true}"#;
+        assert_eq!(removal_receipts(bare), vec!["Removed live script tag from src/app.html.".to_string()]);
+        assert!(removal_receipts(r#"{"ok":true,"results":[{"file":"index.html","removed":false}]}"#).is_empty());
+        assert!(removal_receipts("not json").is_empty());
+    }
 
     // upstream 632912b5 / #690: the generated /live.js and /detect.js responses
     // must declare charset=utf-8 so non-ASCII bytes in the scripts are decoded

@@ -871,6 +871,19 @@ mod tests {
     // JS: tests/live-poll.test.mjs (upstream bda7411a, #488).
 
     #[test]
+    fn a_then_poll_timeout_says_the_reply_landed_and_to_keep_waiting() {
+        let parsed = print_captured(json!({
+            "type": "timeout",
+            "_replyAck": { "ok": true, "id": "ab12cd34", "status": "done" }
+        }));
+        let instr = parsed["_instructions"].as_str().unwrap();
+        assert!(instr.contains("reply landed"), "{instr}");
+        assert!(instr.contains("live-poll") && instr.contains("never sleep"), "{instr}");
+        let plain = print_captured(json!({ "type": "timeout" }));
+        assert_eq!(plain["_instructions"], json!("No event arrived; poll again immediately."));
+    }
+
+    #[test]
     fn print_poll_event_overwrites_hostile_instructions() {
         let parsed = print_captured(json!({
             "type": "steer",
